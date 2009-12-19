@@ -182,7 +182,6 @@ if (typeof (this['uneval']) !== 'function') {
 				continue;
 			src[src.length] = uneval(p) + ':' + uneval(o[p], 1);
 		}
-		;
 		// parens needed to make eval() happy
 		return np ? '{' + src.toString() + '}' : '({' + src.toString() + '})';
 	};

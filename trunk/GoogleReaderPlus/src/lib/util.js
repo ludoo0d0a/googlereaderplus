@@ -111,3 +111,24 @@ function initKey(keys) {
 		}
 	}, false);
 }
+function isObjectEmpty(o){
+	if (!o){
+		return true;
+	}
+	for ( var p in o) {
+		if (!hasOwnProperty.call(o, p))
+			continue;
+		return false;
+	}
+	return true;
+}
+function find(o, key, value){
+	for ( var p in o) {
+		if (!hasOwnProperty.call(o, p))
+			continue;
+		if (o[p][key] === value){
+			return o[p];
+		}
+	}
+	return false;
+}
