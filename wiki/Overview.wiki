@@ -27,6 +27,12 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
   * Mark Until Current As Read 
   * Add top/bottom links
 
+= Fixes =
+
+  * Google Aero Toolbar 
+  * Mac OS X Snow Leopard Fixes Skin 
+  * Another Mac OS X fixer
+
 = Skins =
 
   * Theme
