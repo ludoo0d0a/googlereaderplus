@@ -1,0 +1,236 @@
+//GreaseKit
+//http://groups.google.com/group/greasekit-users/browse_thread/thread/d0ed6e8919bb6b42
+if (typeof GM_getValue === "undefined") {
+	GM_getValue = function(name, def) {
+		var value = localStorage.getItem(name);
+		if (value === null && def !== null) {
+			value = def;
+		}
+		return value;
+	};
+}
+if (typeof GM_getCookieValue === "undefined") {
+	GM_getCookieValue = function(name, def) {
+		var value;
+		var nameEQ = escape("_greasekit" + name) + "=", ca = document.cookie
+				.split(';');
+		for ( var i = 0, c; i < ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ')
+				c = c.substring(1, c.length);
+			if (c.indexOf(nameEQ) == 0) {
+				value = unescape(c.substring(nameEQ.length, c.length));
+				break;
+			}
+		}
+		if (value === null && def !== null) {
+			value = def;
+		}
+		return value;
+	};
+}
+if (typeof GM_setValue === "undefined") {
+	GM_setValue = function(name, value, options) {
+		try{
+			localStorage.setItem(name, value);
+		}catch(e){
+			console.log('error on GM_setValue['+name+']='+value);
+		}
+	};
+}
+if (typeof GM_setCookieValue === "undefined") {
+	GM_setCookieValue = function(name, value, options) {
+		options = (options || {});
+		if (options.expiresInOneYear) {
+			var today = new Date();
+			today.setFullYear(today.getFullYear() + 1, today.getMonth, today
+					.getDay());
+			options.expires = today;
+		}
+		var curCookie = escape("_greasekit" + name)
+				+ "="
+				+ escape(value)
+				+ ((options.expires) ? "; expires="
+						+ options.expires.toGMTString() : "")
+				+ ((options.path) ? "; path=" + options.path : "")
+				+ ((options.domain) ? "; domain=" + options.domain : "")
+				+ ((options.secure) ? "; secure" : "");
+		document.cookie = curCookie;
+	};
+}
+//TODO
+function accessSecure(message, o, callback){
+	var myport = chrome.extension.connect({
+      name: "googlereaderplus"
+   });
+	myport.onMessage.addListener(callback);
+	o.message = message;
+	myport.postMessage(o);
+}
+
+if (typeof GM_xmlhttpRequest === "undefined") {
+	GM_xmlhttpRequest = function(/* object */o) {
+		o.method = o.method.toUpperCase() || "GET";
+		if (!o.url) {
+			throw ("GM_xmlhttpRequest requires an URL.");
+			return;
+		}
+		accessSecure("request", o, function(a){
+			if (a.message===(o.callback||"requestdone")){
+				//xhr done ; callback
+				if (typeof o.onload === "function") {
+					o.onload(a);
+				}
+			}
+		});
+	};
+}
+
+if (typeof GM_addStyle === "undefined") {
+	function GM_addStyle(/* String */styles) {
+		var oStyle = document.createElement("style");
+		oStyle.setAttribute("type", "text\/css");
+		oStyle.appendChild(document.createTextNode(styles));
+		document.getElementsByTagName("head")[0].appendChild(oStyle);
+	}
+}
+
+if (typeof GM_log === "undefined") {
+	function GM_log(log) {
+		console.log(log);
+	}
+}
+
+if (typeof GM_registerMenuCommand === "undefined") {
+	function GM_registerMenuCommand(a, b) {
+		//
+	}
+}
+
+if (typeof GM_openInTab === "undefined") {
+	GM_openInTab = function(url, name) {
+		//send request port to bg
+		var data = {url:url, name:name};
+		accessSecure("prefs", data, function(a){
+			if (a.message===(data.callback||"requestdone")){
+				//xhr done ; callback
+				if (typeof data.callback === "function") {
+					data.callback.call(me);
+				}
+			}
+		});
+		
+		accessSecure(function(data){
+			chrome.tabs.create(data);
+		}, data);
+	};
+}
+
+if (typeof unsafeWindow === "undefined") {
+	unsafeWindow = window;
+}
+/*
+ * if(typeof uneval === "undefined") { uneval=function(value){ return
+ * value.toString(); }; }
+ */
+
+
+
+if (typeof (this['uneval']) !== 'function') {
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
+	var protos = [];
+	var char2esc = {
+		'\t' : 't',
+		'\n' : 'n',
+		'\v' : 'v',
+		'\f' : 'f',
+		'\r' : '\r',
+		'\'' : '\'',
+		'\"' : '\"',
+		'\\' : '\\'
+	};
+	var escapeChar = function(c) {
+		if (c in char2esc)
+			return '\\' + char2esc[c];
+		var ord = c.charCodeAt(0);
+		return ord < 0x20 ? '\\x0' + ord.toString(16) : ord < 0x7F ? '\\' + c
+				: ord < 0x100 ? '\\x' + ord.toString(16)
+						: ord < 0x1000 ? '\\u0' + ord.toString(16)
+								: '\\u' + ord.toString(16);
+	};
+	var uneval_asis = function(o) {
+		return o.toString();
+	};
+	/* predefine objects where typeof(o) != 'object' */
+	var name2uneval = {
+		'boolean' : uneval_asis,
+		'number' : uneval_asis,
+		'string' : function(o) {
+			return '\'' + o.toString().replace(
+					/[\x00-\x1F\'\"\\\u007F-\uFFFF]/g, escapeChar) + '\'';
+		},
+		'undefined' : function(o) {
+			return 'undefined';
+		},
+		'function' : uneval_asis
+	};
+
+	var uneval_default = function(o, np) {
+		var src = []; // a-ha!
+		for ( var p in o) {
+			if (!hasOwnProperty.call(o, p))
+				continue;
+			src[src.length] = uneval(p) + ':' + uneval(o[p], 1);
+		}
+		;
+		// parens needed to make eval() happy
+		return np ? '{' + src.toString() + '}' : '({' + src.toString() + '})';
+	};
+
+	uneval_set = function(proto, name, func) {
+		protos[protos.length] = [ proto, name ];
+		name2uneval[name] = func || uneval_default;
+	};
+
+	uneval_set(Array, 'array', function(o) {
+		var src = [];
+		for ( var i = 0, l = o.length; i < l; i++)
+			src[i] = uneval(o[i]);
+		return '[' + src.toString() + ']';
+	});
+	uneval_set(RegExp, 'regexp', uneval_asis);
+	uneval_set(Date, 'date', function(o) {
+		return '(new Date(' + o.valueOf() + '))';
+	});
+
+	var typeName = function(o) {
+		// if (o === null) return 'null';
+		var t = typeof o;
+		if (t != 'object')
+			return t;
+		// we have to lenear-search. sigh.
+		for ( var i = 0, l = protos.length; i < l; i++) {
+			if (o instanceof protos[i][0])
+				return protos[i][1];
+		}
+		return 'object';
+	};
+
+	uneval = function(o, np) {
+		// if (o.toSource) return o.toSource();
+		if (o === null)
+			return 'null';
+		var func = name2uneval[typeName(o)] || uneval_default;
+		return func(o, np);
+	};
+}
+
+if (typeof (this['clone']) !== 'function') {
+	clone = function(o) {
+		try {
+			return eval(uneval(o));
+		} catch (e) {
+			throw (e);
+		}
+	};
+}
