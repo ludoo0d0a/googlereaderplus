@@ -63,23 +63,44 @@ function accessSecure(message, o, callback){
 	var myport = chrome.extension.connect({
       name: "googlereaderplus"
    });
-	myport.onMessage.addListener(callback);
-	o.message = message;
-	myport.postMessage(o);
+	if (callback){
+		myport.onMessage.addListener(callback);
+	}
+	var a = clone(o) || {};
+	a.message = message;
+	var fns = ['onload', 'onreadystatechange', 'onerror'];
+	for (var i = 0, len = fns.length; i < len; i++) {
+      var f = fns[i];
+      if (o[f]){
+      	a[f] = true;
+      }
+	}
+	myport.postMessage(a);
 }
 
 if (typeof GM_xmlhttpRequest === "undefined") {
-	GM_xmlhttpRequest = function(/* object */o) {
+	GM_xmlhttpRequest = function(o) {
 		o.method = o.method.toUpperCase() || "GET";
 		if (!o.url) {
 			throw ("GM_xmlhttpRequest requires an URL.");
 			return;
 		}
+		var om = o;
 		accessSecure("request", o, function(a){
-			if (a.message===(o.callback||"requestdone")){
-				//xhr done ; callback
-				if (typeof o.onload === "function") {
-					o.onload(a);
+			if (a.message===(om.callback||"requestdone")){
+				if (a.action==="onload"){
+					if (typeof om.onload == "function"){
+						om.onload(a);
+					}
+				} else if (a.action==="onreadystatechange"){
+					if (typeof om.onreadystatechange == "function"){
+						om.onreadystatechange(a);
+					}
+				} else if (a.action==="onerror"){
+					GM_log('error: '+a.responseText);
+					if (typeof om.onerror == "function"){
+						om.onerror(a);
+					}
 				}
 			}
 		});
@@ -111,7 +132,7 @@ if (typeof GM_openInTab === "undefined") {
 	GM_openInTab = function(url, name) {
 		//send request port to bg
 		var data = {url:url, name:name};
-		accessSecure("prefs", data, function(a){
+		/*accessSecure("prefs", data, function(a){
 			if (a.message===(data.callback||"requestdone")){
 				//xhr done ; callback
 				if (typeof data.callback === "function") {
@@ -119,10 +140,9 @@ if (typeof GM_openInTab === "undefined") {
 				}
 			}
 		});
+		*/
 		
-		accessSecure(function(data){
-			chrome.tabs.create(data);
-		}, data);
+		accessSecure("opentab", data);
 	};
 }
 

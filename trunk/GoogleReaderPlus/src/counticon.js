@@ -96,7 +96,7 @@ var grp_counticon = function(prefs) {
 			var count = unread.length;
 
 			if (count > 3) {
-				unread = "1k+";
+				unread = unread.substring(0,1)+"k+";
 				count = unread.length;
 			}
 

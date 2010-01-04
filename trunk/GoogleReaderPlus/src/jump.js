@@ -38,6 +38,6 @@ var grp_jump = function(prefs) {
 	GM_addStyle(css);
 
 	initCatchEntries(addJumpButtons, 'ejump');
-	initKey({key:84, shift:true, fn:gototop});//Shift+T = top
-	initKey({key:66, shift:true, fn:gotobottom});//Shift+B = bottom
+	initKey([{key:84, shift:true, fn:gototop},/*Shift+T = top*/
+				{key:66, shift:true, fn:gotobottom}]);/*Shift+B = bottom*/
 };
