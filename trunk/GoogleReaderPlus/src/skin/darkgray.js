@@ -38,8 +38,9 @@ var grp_darkgray = function() {
 	GM_addStyle('#viewer-page-container {background-color: #333333 !important;}');
 	GM_addStyle('#chrome-lhn-toggle-icon {border-color:#888888 #333333 #888888 #888888 !important;}');
 			
-	GM_addStyle('.friend-interruption  {	background-color: #888888 !important; border-color: #333333 !important;');
+	GM_addStyle('.friend-interruption {background-color:#888888 !important; border-color:#333333 !important;}');
 	
 	GM_addStyle('#viewer-container, #entries .entry, .entry-likers, .lhn-section, .scroll-tree li, .card-common, .card-common .card-actions {background-color: transparent !important;}');
 	GM_addStyle('.lhn-section {background: no-repeat scroll 0 0 transparent !important;}');
+	fireResize();
 };

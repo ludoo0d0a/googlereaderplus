@@ -13,6 +13,7 @@ var grp_minimal = function() {
 			"global-info", "gbar", "viewer-footer" ];
 
 	function toggle_gr() {
+		var logo;
 		var length = ids.length;
 		var is_visible = document.getElementById(ids[0]).style.display != "none";
 
@@ -33,24 +34,25 @@ var grp_minimal = function() {
 		GM_addStyle(".entry .entry-body {padding-top: 0;}");
 		GM_addStyle(".entry .entry-actions {padding: 2px;}");
 		if (is_visible) {
-			var logo = document.getElementById('main');
+			logo = document.getElementById('main');
 			logo.style.top = '0';
 
-			var logo = document.getElementById('chrome');
+			logo = document.getElementById('chrome');
 			logo.style.paddingTop = '0';
 
-			var logo = document.getElementById('nav');
+			logo = document.getElementById('nav');
 			logo.style.paddingTop = '0';
 		} else {
-			var logo = document.getElementById('main');
+			logo = document.getElementById('main');
 			logo.style.top = '65px';
 
-			var logo = document.getElementById('chrome');
+			logo = document.getElementById('chrome');
 			logo.style.paddingTop = '0';
 
-			var logo = document.getElementById('nav');
+			logo = document.getElementById('nav');
 			logo.style.paddingTop = '0';
 		}
+		fireResize();
 	}
 
 	function GRT_key(event) {
@@ -61,8 +63,9 @@ var grp_minimal = function() {
 		} else {
 			typing = (elementName == "textarea");
 		}
-		if (typing)
+		if (typing) {
 			return true;
+		}
 		if (String.fromCharCode(event.which) == "W" && !event.ctrlKey
 				&& !event.altKey && !event.metaKey) {
 			toggle_gr();

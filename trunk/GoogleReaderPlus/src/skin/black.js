@@ -32,10 +32,11 @@ var grp_black = function() {
 	var scriptHomepageURL = "http://userscripts.org/scripts/show/12917";
 	
 	
-	var googleEnhancedBLACK; function enhanceGoogle() {googleEnhancedBLACK =
+	var googleEnhancedBLACK; 
 	
-	
-	// General Google Page enhancements
+	function enhanceGoogle() {
+	// General Google Page enhancements	
+		googleEnhancedBLACK =
 		/* Global font override */	"*   {font-family:Trebuchet MS, Verdna;}" +
 		/* page bg */			"BODY   {background:#000 none !important; color:#fff;}" +
 		/* link color */		"A, #gbar A.gb1, #gbar A.gb2, #gbar A.gb3, #guser A.gb3, #guser A.gb4, SPAN.i, .linkon, #codesiteContent A, TABLE.mmhdr TBODY TR TD.mmttlinactive SPAN, TABLE TBODY TR TD TABLE TBODY TR TD A, .lk, BODY > DIV.g-doc > DIV#body-wrapper > DIV.g-section DIV#related TABLE.gf-table TH.sortable, SPAN.linkbtn, DIV#ss-status A.gb3, SPAN#rptgl SPAN, A SPAN.b, .mmttl SPAN, A > SPAN.navlink, SPAN > SPAN.link, DIV#rptgl > SPAN, DIV#tbt-expander DIV, #guser SPAN > SPAN, DIV#ss-bar DIV#ss-box > A, DIV#rpsp.rpop DIV.tl B, SPAN#zippyspan, .actbar-btn   {color:#6495ed !important;}" +
@@ -1417,7 +1418,11 @@ var grp_black = function() {
 	
 	GM_addStyle(googleEnhancedBLACK);
 	
-	}; var googleLogoBLACK = "data:image/gif;base64," +
+	fireResize();
+	
+	}; 
+	
+	var googleLogoBLACK = "data:image/gif;base64," +
 		"R0lGODlhlgBBAOZJAAoQHi4JBAsbPAgMFxI1gRhJtE0MAxdEqKQXA7YZAxoGAwJjBxAubhQ8kG4QAxlNvsYcBIsTAwsWLQ4lWANEBgSSDBtSyQ0gSBVAnQQmBh" +
 		"wXAyojBAa1D+YhBtceBQcKEZB0Ax1X1QoDAUE1A6SEA7CNAhAOAidm6R5b4PcoCuq+BeC1BHpjA1hIBAMUBCNg3yBa1mxYAwUHDfjMBdetBLyWA86mBP7qDCps" +
 		"7wcHB8WeBCdgui515iFSqClm06mcCzB59jo5OhxRvi9z9kdHSDJ+8MG4Dx9OmAMDBgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
@@ -1478,7 +1483,9 @@ var grp_black = function() {
 		}
 		if (props) {
 			for (var prop in props) {
-				if (prop in node) node[prop] = props[prop];
+				if (prop in node) {
+					node[prop] = props[prop];
+				}
 			}
 		}
 		return node;
