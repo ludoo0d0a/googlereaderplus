@@ -15,7 +15,7 @@
  * http://buzypi.in/
  */
 
-var grp_mark = function() {
+var grp_mark = function(prefs) {
 	function simulateClick(node) {
 		var event = node.ownerDocument.createEvent("MouseEvents");
 

@@ -6,7 +6,7 @@
 // @include        htt*://www.google.*/reader/view*
 // ==/UserScript==
 
-var grp_fixenclosures = function() {
+var grp_fixenclosures = function(prefs) {
 
 	function checkImage(root, href) {
 		var links = getElements(".//img[@src='" + href + "']", root);

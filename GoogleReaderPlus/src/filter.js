@@ -12,7 +12,7 @@
 // ==/UserScript==
 //http://userscripts.org/scripts/show/23671
 
-var grp_filter = function() {
+var grp_filter = function(prefs) {
 	
 	function findPosition(element) {
 		var point = {

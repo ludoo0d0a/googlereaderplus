@@ -1,5 +1,5 @@
 //remove ads
-var grp_removeads = function() {
+var grp_removeads = function(prefs) {
 	function removeAds() {
 		var i;
 

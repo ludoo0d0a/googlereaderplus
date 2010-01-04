@@ -22,7 +22,7 @@ if (!JSON) {
 		}
 	};
 }
-var grp_favicons = function() {
+var grp_favicons = function(prefs) {
 
 	var GOOGLE_READER_INFO = JSON.parse(GM_getValue('googleReaderInformation', '{}'));
 	var FAVICON = GOOGLE_READER_INFO.icon || (GOOGLE_READER_INFO.icon = {});

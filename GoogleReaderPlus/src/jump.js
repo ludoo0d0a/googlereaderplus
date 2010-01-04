@@ -1,4 +1,4 @@
-var grp_jump = function() {
+var grp_jump = function(prefs) {
 	function addJumpButtons(el, entry, mode) {
 		var title = getFirstElementMatchingClassName(entry, 'h2', 'entry-title');
 		if (title) {

@@ -13,7 +13,7 @@
  removed jquery 1.2.3 and Sizzle CSS Selector Engine - v0.9.3
  */
 
-var grp_readbymouse = function() {
+var grp_readbymouse = function(prefs) {
 	var systemStatus = GM_getValue('rbmStatus', 'Off');
 	var ua = navigator.userAgent.toLowerCase();
 	var isWindows = /windows|win32/.test(ua);

@@ -43,9 +43,9 @@ function getFirstElementMatchingClassName(root, tag, clazz) {
  * elements.length; i++) { if (elements[i].className.indexOf(class) > -1) {
  * results.push(elements[i]); } } return (results); }
  */
-function getElementsByClazzName(clazz, tag, elm) {
-	var tag = tag || "*";
-	var elm = elm || document;
+function getElementsByClazzName(clazz, itag, ielm) {
+	var tag = itag || "*";
+	var elm = ielm || document;
 	var elements = (tag == "*" && elm.all) ? elm.all : elm.getElementsByTagName(tag);
 	var returnElements = [];
 	var current;
@@ -116,19 +116,27 @@ function isObjectEmpty(o){
 		return true;
 	}
 	for ( var p in o) {
-		if (!hasOwnProperty.call(o, p))
+		if (!hasOwnProperty.call(o, p)) {
 			continue;
+		}
 		return false;
 	}
 	return true;
 }
 function find(o, key, value){
-	for ( var p in o) {
-		if (!hasOwnProperty.call(o, p))
+	for (var p in o) {
+		if (!hasOwnProperty.call(o, p)) {
 			continue;
+		}
 		if (o[p][key] === value){
 			return o[p];
 		}
 	}
 	return false;
+}
+function removeClass(el, classname){
+	el.className = el.className.replace(classname, '').trim();
+}
+function toggleClass(el, classFrom, classTo){
+	el.className = el.className.replace(classFrom, '').trim()+' '+classTo;
 }

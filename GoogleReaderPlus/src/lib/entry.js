@@ -70,3 +70,14 @@ function jump(entry, dirtop) {
 		entries.scrollTop = top;
 	}
 }
+function getHeightEntries(){
+	var entries = document.getElementById('entries');
+	return entries?(entries.style.height-110):500;
+}
+function initResize(fn){
+	document.body.addEventListener('resize', function(e){
+		if (typeof fn === "function") {
+			fn.call(this);
+		}
+	}, false);
+}

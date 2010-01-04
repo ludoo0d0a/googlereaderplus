@@ -6,6 +6,7 @@
             var EXCEPTIONS = {};
             //TODO : 'prefetch'
             var scripts = ['favicons', 'fixenclosures', 'fixwidth', 'removeads', 'preview', 'mark', 'colorful', 'filter', 'count', 'readbymouse', 'counticon', 'column', 'jump', 'manual', 'aero', 'osxfix', 'osxfix2', 'unreadcount', 'facebook', 'twitter'];
+			var options = ['manual', 'domains', 'skin', 'column_count','column_locked','preview_locked'];
             
             chrome.extension.onConnect.addListener(onPortConnect);
             chrome.extension.onRequest.addListener(onPortRequest);
@@ -49,14 +50,28 @@
             }
             
             function getPreferences(a){
-               var r = {
-                  message: "prefs",
-                  scripts: scripts,
-                  prefs: {
+			    var prefs = {};
+				for (var io = 0, olen = options.length; io < olen; io++) {
+					var option = options[io];
+					prefs[option]=localStorage.getItem(option);
+					if (typeof prefs[option]=== "string"){
+						if (prefs[option]==="true"){
+							prefs[option]=true;
+						}else if (prefs[option]==="false"){
+							prefs[option]=false;
+						}
+					}
+
+				}
+			   /*var prefs = {
                      manual: (localStorage.getItem('manual') === "true"),
                      domains: localStorage.getItem('domains'),
                      skin: localStorage.getItem('skin')
-                  }
+               };*/
+			   var r = {
+                  message: "prefs",
+                  scripts: scripts,
+                  prefs: prefs
                };
                for (var i = 0, len = scripts.length; i < len; i++) {
                   var o = scripts[i];

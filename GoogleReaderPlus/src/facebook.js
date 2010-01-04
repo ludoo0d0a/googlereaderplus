@@ -16,7 +16,7 @@
 //Update of the script Facebook Sharer + Google Reader By Thadk 
 //http://userscripts.org/scripts/show/9594
 
-var grp_facebook = function() {
+var grp_facebook = function(prefs) {
 
 	function addFacebookButton(el, entry, mode) {
 		var span = document.createElement('span');
