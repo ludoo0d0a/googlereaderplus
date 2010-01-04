@@ -19,7 +19,7 @@ var grp_count = function(prefs){
     
     // Wait for the dom ready
     function waitForReady(){
-        var unreadCountElement = document.getElementById('reading-list-unread-count');
+        unreadCountElement = document.getElementById('reading-list-unread-count');
         if (unreadCountElement) {
             window.setInterval(calcUnread, 3000);
             calcUnread();
