@@ -53,13 +53,26 @@ var grp_preview = function(prefs) {
 	function previewMouseClick(e) {
 		var el = e.target;
 		var entry = findParentNode(el, 'div', 'entry');
-		var index = calcEntryIndex(entry);
-		preview(entry, index);
+
+		if (e.ctrlKey) {
+			//Ctrl+click : open in a new tab
+			openInNewTab(entry);
+		} else {
+			var index = calcEntryIndex(entry);
+			preview(entry, index);
+		}
 		e.preventDefault();
 	}
 
 	function previewShortcut() {
-		preview(document.getElementById('current-entry'));
+		preview(getCurrentEntry());
+	}
+
+	function openInNewTab(ent) {
+		var entry = ent || getCurrentEntry();
+		var link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
+		var url = link.href;
+		GM_openInTab(url);
 	}
 	function checkAction(entry, visible){
 		var itm = getFirstElementMatchingClassName(entry, 'span', 'item-preview');
@@ -209,6 +222,7 @@ var grp_preview = function(prefs) {
 			i++;
 		}
 	}
+
 	
 	//column_locked
 	locked=false;

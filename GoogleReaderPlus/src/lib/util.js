@@ -101,9 +101,9 @@ function initKey(keys) {
 			}
 			keys.forEach(function(k) {
 				if (k.key == e.keyCode 
-						&& (!k.shift || (k.shift && e.shiftKey)) 
-						&& (!k.ctrl || (k.ctrl && e.ctrlKey))
-						&& (!k.alt || (k.alt && e.altKey))) {
+						&& ((k.shift && e.shiftKey) || (!k.shift && !e.shiftKey)) 
+						&& ((k.ctrl && e.ctrlKey) || (!k.ctrl && !e.ctrlKey))
+						&& ((k.alt && e.altKey) || (!k.alt && !e.altKey))) {
 					k.fn(e);
 					e.preventDefault();
 				}

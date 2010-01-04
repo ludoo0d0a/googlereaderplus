@@ -90,34 +90,36 @@ var grp_twitter = function(prefs) {
 	var mode;
 
 	function addTwitterButton(el, entry, mode) {
-			var btn = document.createElement("span");
-			btn.className = "btn-twitter item-star star link";
-			btn.innerHTML = "Twitter";
-			btn.title = "Share this news on Twitter [d]";
-			btn.addEventListener("click", postBookmark, false);
-			el.appendChild(btn);
+		var btn = document.createElement("span");
+		btn.className = "btn-twitter item-star star link";
+		btn.innerHTML = "Twitter";
+		btn.title = "Share this news on Twitter [d]";
+		btn.addEventListener("click", postBookmark, false);
+		el.appendChild(btn);
 	}
-	function postBookmarkKey(e){
+	function postBookmarkKey(e) {
 		var entry = getCurrentEntry();
 		var el = getFirstElementMatchingClassName(entry, 'span', 'btn-twitter');
-		postBookmark({target:el});
-		//TODO : optimize entry
+		postBookmark( {
+			target : el
+		});
+		// TODO : optimize entry
 	}
-	
-	function postBookmark(el){
+
+	function postBookmark(el) {
 		bookmarkStar = event.target;
 		var parent = findParentNode(bookmarkStar, 'div', 'entry');
 		var header;
 		if (mode == "expanded") {
-			//parent = bookmarkStar.parentNode.parentNode.parentNode;
+			// parent = bookmarkStar.parentNode.parentNode.parentNode;
 			bookmarkStar.parentNode.parentNode.className = "card-actions";
 		} else {
-			//parent = bookmarkStar.parentNode.parentNode;
+			// parent = bookmarkStar.parentNode.parentNode;
 			parent.className = "entry read expanded action-area-visible";
 		}
 		bookmarkStar.className = "item-star star link email-active";
 		var l = getFirstElementMatchingClassName(parent, 'a', 'entry-title-link');
-		url = l.href; //getAttribute('href');
+		url = l.href; // getAttribute('href');
 		var title = l.firstChild.nodeValue;
 		var pos = findPos(bookmarkStar);
 		var addbkmk = getBookmarkField();
@@ -184,7 +186,7 @@ var grp_twitter = function(prefs) {
 		if (!bookmarkField) {
 			bookmarkField = document.createElement("div");
 			bookmarkField.setAttribute("id", "twitterField");
-			bookmarkField.innerHTML = "<div class='email-this-area'> <table class='email-entry-table'> <tbody> <tr> <td class='field-name'>Title:</td> <td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='titleinput'></td> </tr> <tr> <td class='field-name'>Tag:</td> <td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='lblinput'></td> </tr> <tr> <td class='field-name'>URL:</td> <td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='urlinput'></td> </tr> <tr> <td colspan='2'><div id='notesdesc'><b>Note to go along with the item:</b> (Optional, no more than 140 characters)</div><br> <textarea class='email-this-comment' rows='6' id='notesinput'></textarea> <div class='email-this-buttons' tabindex='-1'> <div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-send' id='btnSend'> <div class='goog-button-base-outer-box goog-inline-block'> <div class='goog-button-base-inner-box goog-inline-block'> <div class='goog-button-base-pos'> <div class='goog-button-base-top-shadow'>&nbsp;</div> <div class='goog-button-base-content'> <div class='goog-button-body'>Send</div> </div></div></div></div></div> <div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnTinyURL'> <div class='goog-button-base-outer-box goog-inline-block'> <div class='goog-button-base-inner-box goog-inline-block'> <div class='goog-button-base-pos'> <div class='goog-button-base-top-shadow'>&nbsp;</div> <div class='goog-button-base-content'> <div class='goog-button-body'>TinyURL</div> </div></div></div></div></div> <div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnCount'> <div class='goog-button-base-outer-box goog-inline-block'> <div class='goog-button-base-inner-box goog-inline-block'> <div class='goog-button-base-pos'> <div class='goog-button-base-top-shadow'>&nbsp;</div> <div class='goog-button-base-content'> <div class='goog-button-body'>Count</div> </div></div></div></div></div> <div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnCancel'> <div class='goog-button-base-outer-box goog-inline-block'> <div class='goog-button-base-inner-box goog-inline-block'> <div class='goog-button-base-pos'> <div class='goog-button-base-top-shadow'>&nbsp;</div> <div class='goog-button-base-content'> <div class='goog-button-body'>Cancel</div> </div></div></div></div></div> </div></td></tr></tbody></table> </div>";
+			bookmarkField.innerHTML = "<div class='email-this-area'> <iframe id='iftwitter' src='https://twitter.com/statuses/update.xml' width='0' height='0' style='display:block;'></iframe><table class='email-entry-table'> <tbody> <tr> <td class='field-name'>Title:</td> <td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='titleinput'></td> </tr> <tr> <td class='field-name'>Tag:</td> <td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='lblinput'></td> </tr> <tr> <td class='field-name'>URL:</td> <td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='urlinput'></td> </tr> <tr> <td colspan='2'><div id='notesdesc'><b>Note to go along with the item:</b> (Optional, no more than 140 characters)</div><br> <textarea class='email-this-comment' rows='6' id='notesinput'></textarea> <div class='email-this-buttons' tabindex='-1'> <div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-send' id='btnSend'> <div class='goog-button-base-outer-box goog-inline-block'> <div class='goog-button-base-inner-box goog-inline-block'> <div class='goog-button-base-pos'> <div class='goog-button-base-top-shadow'>&nbsp;</div> <div class='goog-button-base-content'> <div class='goog-button-body'>Send</div> </div></div></div></div></div> <div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnTinyURL'> <div class='goog-button-base-outer-box goog-inline-block'> <div class='goog-button-base-inner-box goog-inline-block'> <div class='goog-button-base-pos'> <div class='goog-button-base-top-shadow'>&nbsp;</div> <div class='goog-button-base-content'> <div class='goog-button-body'>TinyURL</div> </div></div></div></div></div> <div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnCount'> <div class='goog-button-base-outer-box goog-inline-block'> <div class='goog-button-base-inner-box goog-inline-block'> <div class='goog-button-base-pos'> <div class='goog-button-base-top-shadow'>&nbsp;</div> <div class='goog-button-base-content'> <div class='goog-button-body'>Count</div> </div></div></div></div></div> <div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnCancel'> <div class='goog-button-base-outer-box goog-inline-block'> <div class='goog-button-base-inner-box goog-inline-block'> <div class='goog-button-base-pos'> <div class='goog-button-base-top-shadow'>&nbsp;</div> <div class='goog-button-base-content'> <div class='goog-button-body'>Cancel</div> </div></div></div></div></div> </div></td></tr></tbody></table> </div>";
 		}
 		return bookmarkField;
 	}
@@ -244,14 +246,29 @@ var grp_twitter = function(prefs) {
 			headers : {
 				'Content-type' : 'application/x-www-form-urlencoded'
 			},
-			data : 'source=GRSharing&status=' + formatSendMsg(labels, title, notes, encodeURIComponent(urlinput.value))
-		// onload: function(responseDetails) {
-		// alert('returned status:' + responseDetails.status +
-		// ',statusText:' + responseDetails.statusText + '\n' +
-		// ',responseHeaders:' + responseDetails.responseHeaders + '\n' +
-		// 'responseText:\n' + responseDetails.responseText);
-		// }
+			data : 'source=GRSharing&status=' + formatSendMsg(labels, title, notes, encodeURIComponent(urlinput.value)),
+			onload : function(r) {
+				GM_log('onload returned status:' + r.status + ',statusText:' + r.statusText + '\n' + ',responseHeaders:'
+						+ r.responseHeaders + '\n' + 'responseText:\n' + r.responseText);
+				var v = false;
+				if (authenticated){
+					activeStar();
+				}else{
+					
+				}
+			},
+			onerror: function(r){
+				GM_log('onerror'+ r.responseText);
+				alert('Please login to Twitter');
+				var iframe = document.getElementById('iftwitter');
+				//iframe.src=iframe.src;
+				iframe.location.reload(true);
+				//update iframe to fire popup login
+			}
 		});
+		
+	}
+	function activeStar() {
 		if (mode == "expanded") {
 			getElementsByClazzName("card-actions", "div", bookmarkField.parentNode)[0].className = "card-actions card-bottom";
 		} else {
@@ -285,8 +302,11 @@ var grp_twitter = function(prefs) {
 		}
 		return len;
 	}
-	
+
 	initCatchEntries(addTwitterButton, 'etwitter');
-	initKey({key:68, fn:postBookmarkKey});//d
+	initKey( {
+		key : 68,
+		fn : postBookmarkKey
+	});// d
 
 };

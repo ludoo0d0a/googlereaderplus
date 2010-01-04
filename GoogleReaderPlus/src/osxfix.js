@@ -8,6 +8,10 @@
 // @match         https://www.google.com/reader/view/*
 // ==/UserScript==
 //http://userscripts.org/scripts/show/63802
+/*
+.lhn-section-footer, .tree-item-action-container{background-color: #D1D7E2;}
+*/
+
 
 var grp_osfix = function(prefs) {
 	// fix the recommended box on the left
