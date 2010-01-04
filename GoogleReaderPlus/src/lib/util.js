@@ -140,3 +140,8 @@ function removeClass(el, classname){
 function toggleClass(el, classFrom, classTo){
 	el.className = el.className.replace(classFrom, '').trim()+' '+classTo;
 }
+function fireResize(){
+	var p = document.createElement("p");
+	document.body.appendChild(p);
+	document.body.removeChild(p);
+}
