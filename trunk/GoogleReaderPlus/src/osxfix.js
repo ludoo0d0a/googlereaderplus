@@ -9,7 +9,7 @@
 // ==/UserScript==
 //http://userscripts.org/scripts/show/63802
 
-var grp_osfix = function() {
+var grp_osfix = function(prefs) {
 	// fix the recommended box on the left
 	var recommended = document.getElementsByClassName("lhn-section-footer");
 	if (recommended) {

@@ -11,7 +11,7 @@
 //Google Reader + Twitter
 //http://userscripts.org/scripts/show/10169
 
-var grp_twitter = function() {
+var grp_twitter = function(prefs) {
 	// Constants
 	// NORMALIZE=false leaves the tags alone
 	// NORMALIZE=true converts tags to proper case and replaces -'s with spaces,

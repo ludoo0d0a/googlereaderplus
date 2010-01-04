@@ -13,7 +13,7 @@
 
 //http://userscripts.org/scripts/show/46615
 
-var grp_counticon = function() {
+var grp_counticon = function(prefs) {
 	var self = this;
 
 	this.construct = function() {

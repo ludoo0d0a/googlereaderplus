@@ -7,8 +7,8 @@
 
 //fix hidden part of enclosure when iframe is shown
 
-var grp_preview = function() {
-	var lastEntry;
+var grp_preview = function(prefs) {
+	var lastEntry, locked = false;
 
 	function addPreviewButton(el, entry, mode) {
 		// Top link
@@ -29,12 +29,16 @@ var grp_preview = function() {
 		ilink.addEventListener('click', previewMouseClick, false);
 
 		// Bottom button
-		var preview = document.createElement('span');
-		// preview.className='item-preview preview link';
-		preview.className = 'item-preview preview link read-state-not-kept-unread read-state';
-		preview.innerHTML = 'Preview';
-		el.appendChild(preview);
-		preview.addEventListener('click', previewMouseClick, false);
+		var prview = document.createElement('span');
+		// prview.className='item-preview preview link';
+		prview.className = 'item-preview preview link read-state-not-kept-unread read-state';
+		prview.innerHTML = 'Preview';
+		el.appendChild(prview);
+		prview.addEventListener('click', previewMouseClick, false);
+		if (locked){
+			//activate it
+			preview(entry, prview, true);
+		}
 	}
 
 	function calcEntryIndex(e) {
@@ -62,27 +66,31 @@ var grp_preview = function() {
 		if (visible) {
 			entry.className = entry.className + ' preview';
 			if (itm){
-				itm.className = itm.className.replace('read-state-not-kept-unread', 'read-state-kept-unread');
+				toggleClass(itm, 'read-state-not-kept-unread', 'read-state-kept-unread');
 			}
 		} else {
-			entry.className = entry.className.replace('preview', '').trim();
+			removeClass(entry, 'preview');
 			if (itm){
-				itm.className = itm.className.replace('read-state-kept-unread', 'read-state-not-kept-unread');
+				toggleClass(itm, 'read-state-kept-unread', 'read-state-not-kept-unread');
 			}
 		}
 	}
-	function preview(entry, el) {
+	function preview(entry, el, locked) {
 		// Update entry with preview mode, need to do it before scrolling,
 		// because scrolling will repaint preview button (list view only)
-		var preview;
-		var itm = getFirstElementMatchingClassName(entry, 'span', 'item-preview');
-		if (itm){
-			preview = (itm.className.indexOf('read-state-kept-unread') == -1);
-		}else{
-			preview = (entry.className.indexOf('preview') == -1);
+		var prview, iframe;
+		if (locked) {
+			prview = locked;
+		} else {
+			var itm = getFirstElementMatchingClassName(entry, 'span', 'item-preview');
+			if (itm) {
+				prview = (itm.className.indexOf('read-state-kept-unread') == -1);
+			} else {
+				prview = (entry.className.indexOf('preview') == -1);
+			}
 		}
 		
-		checkAction(entry, preview);
+		checkAction(entry, prview);
 		if (lastEntry){
 			checkAction(lastEntry, false);
 		}
@@ -97,22 +105,24 @@ var grp_preview = function() {
 			entryBody = getFirstElementMatchingClassName(body, 'div', 'item-body');
 		}
 
-		if (preview) {
+		if (prview) {
 			// classic mode-> preview mode
 
 			// hide rss item
 			entryBody.style.display = 'none';
 
 			// iframe creation/display
-			var iframe = getFirstElementMatchingClassName(entry, 'iframe', 'preview');
+			iframe = getFirstElementMatchingClassName(entry, 'iframe', 'preview');
 			if (iframe) {
 				// iframe already in document, display it
 				iframe.style.display = 'block';
 			} else {
 				// iframe not in document, create it
 				iframe = document.createElement('iframe');
+				iframe.id='grp-preview';
 				iframe.setAttribute('width', '100%');
-				iframe.setAttribute('height', '500px');
+				var h = getHeightEntries();			
+				iframe.setAttribute('height', h+'px');
 				iframe.setAttribute('src', getFirstElementMatchingClassName(entry, 'a', 'entry-title-link'));
 				iframe.className = 'preview';
 				body.appendChild(iframe);
@@ -126,9 +136,10 @@ var grp_preview = function() {
 			// preview mode -> classic mode
 
 			// hide iframe
-			var iframe = getFirstElementMatchingClassName(entry, 'iframe', 'preview');
-			if (iframe)
+			iframe = getFirstElementMatchingClassName(entry, 'iframe', 'preview');
+			if (iframe) {
 				iframe.style.display = 'none';
+			}
 
 			// show rss item
 			entryBody.style.display = 'block';
@@ -139,6 +150,14 @@ var grp_preview = function() {
 			lastEntry = false;
 		}
 	}
+	
+	function onResize(height){
+		var prv = document.getElementById('grp-preview');
+		if (prv){	
+			var h = getHeightEntries();
+			prv.setAttribute('height', h+'px');
+		}
+	} 
 
 	function getEntryDOMObject(index) {
 		// Because of repaint, entry doesn't point to correct DOM object, we
@@ -191,9 +210,16 @@ var grp_preview = function() {
 		}
 	}
 	
+	//column_locked
+	locked=false;
+	if (prefs && prefs.preview_locked) {
+		locked = prefs.preview_locked;
+	}
+	
 	var css = ".entry-title-maximize {margin-left: 4px;padding-left:16px;width:14px;height:14px;background-repeat:no-repeat;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEAMIAzwDxOt8TMwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9kMERYGFfecphMAAAIYSURBVDjLjVK/a1NRGD3fffcleUlaSRpjiylBCTV0FTc3cXXRDkVB0bGDUnRxqCB2VKE4qCDSwcGt/4G66GBBpEOt1RolsTHBJLT58X7ez6H58fLU6lk+Lufe75zvfJewD0zbm9nYtuYsmzUiH8EACBg1hEP4B9qme3t1vTUPIBbkdEmr0rS8Ez9qzknFTK6rmIgAIijFGDugy2hELhQrZn6rZJ3b0x2AAMhPRXOxtuOeZuYBQQRB+JrLGHd2Wu7jdx9bM3+zKk1bxSZS+kouYywFFGqVhnPmw5fOeSKAAaaAAwCQABDWRZ2IXvQzYhb1pntvo9C56rNLg/j6FeJPthq77t21zfZlZoAIHOSz4+EVAC0G6LcG1Ya9uPa5fQ3ASHd1PUUAcKePGMuHD4XOHs/Hl0I6WXJY2Xn4frN9YS/Igc0ecpnI/eSofN3sqIXRmLzZtrwrwje3UarYKRBigVkZgJXPGo8mUqGnb9ebt75XbQcAomHtiRhsjjrTR6Oz6YR8TsTE3G9C+ayxfDChzwFIWDZPaVpgC0TQul0cpdR1Zqhq3Z1lwJmajDxIJ0PzXZfw5TFo4KsQQhSV517yPA6lk6HddEK/sd9XlwCgCRoKU2jSVkpdFEK0Avdd9n9ZAJIIXmHbOlat2888xV6PqNQdlH9aQ6+/lc04EY2QbzlyMh1+VShbp7ZKZg7/gbghXo6P6W9651+wUN+npzFYbAAAAABJRU5ErkJggg==);}";
 	GM_addStyle(css);
 	
 	initCatchEntries(addPreviewButton, 'epreview');
+	initResize(onResize);
 	initKey({key:86, shift:true, fn:previewShortcut});//shift+V
 };

@@ -6,7 +6,7 @@
 // @unwrap
 // ==/UserScript==
 //http://userscripts.org/scripts/show/26383
-var grp_prefetch = function() {
+var grp_prefetch = function(prefs) {
 
 	var first = 25; // default is 5
 	var next = 15; // default is 1

@@ -1,11 +1,17 @@
-var grp_column = function() {
+var grp_column = function(prefs) {
+	var locked = false;
+	
 	function addColumnButton(el, entry, mode) {
 		var span = document.createElement('span');
 		span.className = 'btn-column read-state-not-kept-unread read-state link unselectable';
 		span.innerHTML = 'Column';
-		span.title = 'Display as 3 columns layout [c]';
+		span.title = 'Display as multi columns layout [c]';
 		el.appendChild(span);
 		span.addEventListener('click', columnizeClick, false);
+		if (locked){
+			//activate it
+			columnize(span, entry, true);
+		}
 	}
 	function columnizeClick(e) {
 		var el = e.target;
@@ -18,15 +24,15 @@ var grp_column = function() {
 		columnize(el, entry);
 	}
 
-	function columnize(el, entry) {
+	function columnize(el, entry, locked) {
 		var columnized = false;
-		if (entry.className.indexOf('columnize') == -1) {
+		if (locked || entry.className.indexOf('columnize') == -1) {
 			entry.className = entry.className + ' columnize';
-			el.className = el.className.replace('read-state-not-kept-unread', 'read-state-kept-unread');
+			toggleClass(el, 'read-state-not-kept-unread', 'read-state-kept-unread');
 			columnized = true;
 		} else {
-			entry.className = entry.className.replace('columnize', '');
-			el.className = el.className.replace('read-state-kept-unread', 'read-state-not-kept-unread');
+			removeClass(entry, 'columnize');
+			toggleClass(el, 'read-state-kept-unread', 'read-state-not-kept-unread');
 			columnized = false;
 		}
 
@@ -82,10 +88,24 @@ var grp_column = function() {
 		divwrap.style.display = (columnized)?"":"none";
 		
 		jump(entry, false);
-
+	}
+	
+	//column_count
+	var cols = 3; 
+	if (prefs && prefs.column_count) {
+		var c = parseInt(prefs.column_count, 10);
+		if (c>0){
+			cols = c;
+		}
+	}
+	
+	//column_locked
+	locked=false;
+	if (prefs && prefs.column_locked) {
+		locked = prefs.column_locked;
 	}
 
-	var css = ".column-wrapped{ text-align: justify; -webkit-column-count: 3; -webkit-column-gap: 1.5em; -webkit-column-rule: 1px solid #dedede;overflow:visible;}";
+	var css = ".column-wrapped{ text-align: justify; -webkit-column-count: "+cols+"; -webkit-column-gap: 1.5em; -webkit-column-rule: 1px solid #dedede;overflow:visible;}";
 	GM_addStyle(css);
 	
 	// copy of fixwidth

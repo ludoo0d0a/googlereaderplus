@@ -3,7 +3,7 @@
 // @version        20091122
 // @jsversion      1.6
 
-var grp_colorful = function(stop) {
+var grp_colorful = function(prefs) {
 
 	// CSS to allow items to be colored
 	const	BASE_CSS = "#entries.list .entry-likers,#entries.list .collapsed .entry-source-title,#entries.list .collapsed .entry-secondary,#entries.list .collapsed .entry-title{background-color:transparent!important}.gm-color-lv .collapsed /* list view headers */{border-color:transparent!important}#entries.list.gm-color-lv #current-entry .collapsed{border:2px solid #8181DC!important}#entries.list.gm-color-lv #current-entry.expanded .collapsed{border-bottom-color:transparent!important;border-width:2px 0!important}#entries .entry{padding:5px 0}#entries.list .collapsed{line-height:2.4ex!important}";
@@ -301,7 +301,7 @@ var grp_colorful = function(stop) {
 			});
 	}
 
-	function watchLoading(chrome, stop) {
+	function watchLoading(chrome) {
 		// pull this out here out of unsafeWindow context
 		var prefs = settings.getColorPrefs();
 
@@ -315,18 +315,18 @@ var grp_colorful = function(stop) {
 				entries.addEventListener("DOMNodeInserted", setColor, false);
 			}
 		}
-		if (stop) {
+		/*if (stop) {
 			chrome.removeEventListener("DOMNodeInserted", setup, false);
 			var entries = get_id("entries");
 			entries.removeEventListener("DOMNodeInserted", setColor, false);
-		} else {
+		} else {*/
 			chrome.addEventListener("DOMNodeInserted", setup, false);
-		}
+		//}
 	}
 	var chrome = get_id("chrome");
 	storage.init();
 	if (chrome)
-		watchLoading(chrome, stop); // watch for the loading of rss entries
+		watchLoading(chrome); // watch for the loading of rss entries
 	else { // settings and script meta info page have no "chrome" element
 		settings.init();
 	}
