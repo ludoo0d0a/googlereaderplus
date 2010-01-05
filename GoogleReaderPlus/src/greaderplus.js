@@ -11,7 +11,10 @@
  *   -can lock preview and column option 
  * 
  */
-//id: njidamgjohnfbkeagfbnkllfkdnlpjhi
+
+//home : njidamgjohnfbkeagfbnkllfkdnlpjhi
+//remote : hhcknjkmaaeinhdjgimjnophgpbdgfmg
+
 (function() {
 
 	var googleReaderPlus = {
