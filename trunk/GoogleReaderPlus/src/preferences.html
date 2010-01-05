@@ -3,7 +3,7 @@
         <title>Google Reader Plus - Preferences</title>
         <style type="text/css">
             body {
-                background: #232323;
+                background: #898989;
             }
             
             #colors_cc, #colors_ct {
@@ -30,15 +30,35 @@
                 cursor: pointer;
             }
             
-            .menu {
-                width: 800px;
-                background: #AFAFAF;
+            #main {
+                width: 1100px;
                 margin-left: auto;
                 margin-right: auto;
+            }
+            
+            .nav {
+                width: 200px;
+                height: 500px;
+                float: left;
+            }
+            
+            .panel {
+                width: 800px;
+                min-height: 500px;
+                float: left;
+            }
+            
+            .menu {
+                background: #AFAFAF;
                 -webkit-border-radius: 7px;
                 -webkit-box-shadow: 0px 0px 5px #000000;
                 padding: 0px 7px 7px 7px;
-                margin-bottom: 7px;
+                margin: 7px;
+            }
+            
+            .detail {
+                color: blue;
+                text-decoration: none;
             }
             
             .logo {
@@ -138,7 +158,11 @@
                 list-style: none;
             }
             
-            #skins li {
+            #skinsbox {
+                margin:20px;
+            }
+			
+            #skinsbox li {
                 width: 310px;
             }
             
@@ -155,7 +179,7 @@
                 padding: 4px;
             }
             
-            #skins img {
+            #skinsbox img {
                 border: 1px solid #fff;
                 padding: 5px;
                 margin: 8px;
@@ -175,25 +199,174 @@
         <script type="application/javascript">
             var prefs, scripts, myport;
             
+            var scriptlist = [
+            {
+                id: "skins",
+                name: "Theme",
+                desc: "Change the look of GoogleReader"
+            }, 
+            {
+                id: "favicons",
+                name: "Favicons",
+                desc: "Display favicons for every feed"
+            }, 
+            {
+                id: "fixenclosures",
+                name: "Fix missing enclosures",
+                desc: "Show non displaying pictures in enclosures links"
+            }, 
+            {
+                id: "unreadcount",
+                name: "Show all unread count",
+                desc: "Show all feeds unread count"
+            }, 
+            {
+                id: "fixwidth",
+                name: "Fix width of text entry",
+                desc: "Display text using full width"
+            }, 
+            {
+                id: "count",
+                name: "Fix counter (1000+)",
+                desc: "Display real unread count"
+            }, 
+            {
+                id: "counticon",
+                name: "Counter as image in icon",
+                desc: "Dislay unread count in the Google Reader favicon"
+            }, 
+            {
+                id: "removeads",
+                name: "Remove ads",
+                desc: "Simple advertising blocker"
+            }, 
+            {
+                id: "column",
+                name: "Text multi columns",
+                desc: "Add abutton to display news as a newspaper in multi columns",
+                shortcut: "c"
+            }, 
+            {
+                id: "preview",
+                name: "Integrated preview",
+                desc: "Add a button to show entire original page instead the entry",
+                shortcut: "Shift+V"
+            }, 
+            {
+                id: "colorful",
+                name: "Colorful listview",
+                desc: "Use a background color for a same feed"
+            }, 
+            {
+                id: "filter",
+                name: "Filter entries",
+                desc: "Filter entries by removing or highligting items based on user terms"
+            }, 
+            {
+                id: "readbymouse",
+                name: "Read by mouse",
+                desc: "Middle click not available on Windows",
+                desc: "Next/previous item using right/left mouse click"
+            }, 
+            {
+                id: "facebook",
+                name: "Facebook integration",
+                desc: "Add a button to share news using Facebook",
+                shortcut: "b"
+            }, 
+            {
+                id: "twitter",
+                name: "Twitter integration",
+                desc: "Add a button to share news using Twitter",
+                shortcut: "d"
+            }, 
+            {
+                id: "mark",
+                name: "Mark Until Current As Read",
+                desc: "Mark items before/after current as read",
+                shortcut: "before: w ; after: x"
+            }, 
+            {
+                id: "jump",
+                name: "Add top/bottom links",
+                desc: "Add a 'goto bottom' icon on top entry and a 'goto top' on bottom entry",
+                shortcut: "Shift+T: goto top ; Shift+B : goto bottom"
+            }, 
+            {
+                id: "aero",
+                name: "Google Aero Toolbar",
+                desc: "Toolbar using Aero theme"
+            }];
+            
+            var skinlist = [
+            {
+                id: "none",
+                name: "None"
+            }, 
+            {
+                id: "air",
+                name: "Air Skin"
+            }, 
+            {
+                id: "aircomic",
+                name: "Air Skin Comic Sans"
+            }, 
+            {
+                id: "black",
+                name: "Google Enhanced Black"
+            }, 
+            {
+                id: "dark",
+                name: "Dark Skin"
+            }, 
+            {
+                id: "darkgray",
+                name: "Dark Gray Skin"
+            }, 
+            {
+                id: "helvetireader",
+                name: "Helvetireader Skin"
+            }, 
+            {
+                id: "minimal",
+                name: "Minimalistic Skin"
+            }, 
+            {
+                id: "optimized",
+                name: "Optimized Skin"
+            }, 
+            {
+                id: "osxblue",
+                name: "Mac OS X Snow Leopard - Blue"
+            }, 
+            {
+                id: 'osxblack',
+                name: "Mac OS X Snow Leopard - Black"
+            }];
+            
             function init(){
+                createscripts();
                 createskins();
+                showPanel('skins');
                 
-                myport = chrome.extension.connect(
-                {
-                    name: "googlereaderplus"
-                });
-                var me = this;
-                myport.onMessage.addListener(function(a){
-                    if (a.message === "prefs") {
-                        scripts = a.scripts;
-                        prefs = a.prefs;
-                        me.set.call(me);
-                    }
-                });
-                myport.postMessage(
-                {
-                    message: "getprefs"
-                });
+                if (typeof chrome !== "undefined" && chrome.extension) {
+                    myport = chrome.extension.connect(
+                    {
+                        name: "googlereaderplus"
+                    });
+                    var me = this;
+                    myport.onMessage.addListener(function(a){
+                        if (a.message === "prefs") {
+                            scripts = a.scripts;
+                            prefs = a.prefs;
+                            me.set.call(me);
+                        }
+                    });
+                    myport.postMessage(
+                    {
+                        message: "getprefs"
+                    });
+                }
             }
             
             function info(msg){
@@ -210,32 +383,30 @@
                 var r = 
                 {
                     message: "setprefs",
-                    prefs:  {
-						skin:''
-					}
+                    prefs: 
+                    {
+                        skin: ''
+                    }
                 };
-				/*domains: form.domains.value,
-                manual: form.manual.checked || false,
-                skin: form.skin.value*/
-				if (prefs) {
-					for (var o in prefs) {
-						var pref = prefs[o];
-						if (form[o].type === "checkbox") {
-							r.prefs[o] = form[o].checked || false;
-						} else {
-							r.prefs[o] = form[o].value;
-						}
-					}
-				}
-								
+                if (prefs) {
+                    for (var o in prefs) {
+                        var pref = prefs[o];
+                        if (form[o].type === "checkbox") {
+                            r.prefs[o] = form[o].checked || false;
+                        } else {
+                            r.prefs[o] = form[o].value;
+                        }
+                    }
+                }
+                
                 if (r.prefs.skin === "none") {
                     r.prefs.skin = '';
                 }
                 //TODO: save all form.elements
                 for (var i = 0, len = scripts.length; i < len; i++) {
-                    var o = scripts[i];
-                    if (form[o]) {
-                        r.prefs[o] = form[o].checked || false;
+                    var script = scripts[i];
+                    if (form[script]) {
+                        r.prefs[script] = form[script].checked || false;
                     }
                 }
                 myport.postMessage(r);
@@ -276,57 +447,50 @@
                 }
             }
             
+            var lastPanel;
+            function showPanel(id){
+                var panel = document.getElementById('panel_' + id);
+                if (lastPanel) {
+                    lastPanel.style.display = "none";
+                }
+                if (panel) {
+                    panel.style.display = "inline";
+                    lastPanel = panel;
+                }
+            }
+            
+            function createscripts(){
+                var list = document.getElementById('scriptlist');
+                list.innerHTML = '';
+                var tpl = '<input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{desc}{shortcut}">{name}</label>';
+                for (var i = 0, len = scriptlist.length; i < len; i++) {
+                    var script = scriptlist[i];
+                    var t = tpl;
+                    list.innerHTML += t.replace(/{id}/g, script.id || '').replace(/{name}/g, script.name || '').replace(/{desc}/g, script.desc || '').replace(/{shortcut}/g, script.shortcut ? (' [' + script.shortcut + ']') : '');
+                    var panel = document.getElementById('panel_' + script.id);
+                    if (panel) {
+                        var a = document.createElement('a');
+                        a.className = 'detail';
+                        a.href = "javascript:showPanel('" + script.id + "')";
+                        a.title = 'Options for ' + script.name;
+                        a.innerHTML = ' [+]';
+                        list.appendChild(a);
+                    }
+                    list.innerHTML += '<br>';
+                }
+                
+                var link = document.getElementById('lthanks');
+                link.onclick = function(){
+                    showPanel('thanks');
+                };
+            }
+            
             function createskins(){
-                var skins = [
-                {
-                    id: "none",
-                    name: "None"
-                }, 
-                {
-                    id: "air",
-                    name: "Air Skin"
-                }, 
-                {
-                    id: "aircomic",
-                    name: "Air Skin Comic Sans"
-                }, 
-                {
-                    id: "black",
-                    name: "Google Enhanced Black"
-                }, 
-                {
-                    id: "dark",
-                    name: "Dark Skin"
-                }, 
-                {
-                    id: "darkgray",
-                    name: "Dark Gray Skin"
-                }, 
-                {
-                    id: "helvetireader",
-                    name: "Helvetireader Skin"
-                }, 
-                {
-                    id: "minimal",
-                    name: "Minimalistic Skin"
-                }, 
-                {
-                    id: "optimized",
-                    name: "Optimized Skin"
-                }, 
-                {
-                    id: "osxblue",
-                    name: "Mac OS X Snow Leopard - Blue"
-                }, 
-                {
-                    id: 'osxblack',
-                    name: "Mac OS X Snow Leopard - Black"
-                }];
                 var last;
                 var list = document.getElementById('skinlist');
                 list.innerHTML = '';
-                for (var i = 0, len = skins.length; i < len; i++) {
-                    var o = skins[i];
+                for (var i = 0, len = skinlist.length; i < len; i++) {
+                    var o = skinlist[i];
                     var li = document.createElement('li');
                     var a = document.createElement('a');
                     li.id = 'skin_' + o.id;
@@ -350,7 +514,6 @@
                             input.value = id;
                             thumb.className = "";
                             thumb.src = "skin/img/" + id + ".png";
-                            //var img = chrome.extension.getURL("skin/img/" + o.id + ".png");
                         }
                         last = c;
                     };
@@ -388,278 +551,166 @@
         <div class="menu hidden" id="status">
         </div>
         <form name="preferences">
-            <div class="menu">
-                <div class="title">
-                    <h2>Preferences</h2>
+            <div id="main">
+                <div class="menu nav">
+                    <div class="title">
+                        <h2>Preferences</h2>
+                    </div>
+                    <div id="scriptlist">
+                    </div>
+                    <a id="lthanks" href="#">Thanks</a>
+                    <div class="tar">
+                        <input type="button" name="Submit" value="Apply" onClick="save(this.form);">
+                    </div>
                 </div>
-                <div class="fl">
-                    <input id="favicons" name="favicons" type="checkbox" />
-                    <label for="favicons" title="Display favicons for every feed">
-                        Favicons
-                    </label>
-                    <br>
-                    <input id="fixenclosures" name="fixenclosures" type="checkbox" />
-                    <label for="fixenclosures" title="Show non displaying pictures in enclosure's links">
-                        Fix missing enclosures
-                    </label>
-                    <br>
-                    <input id="unreadcount" name="unreadcount" type="checkbox" />
-                    <label for="unreadcount" title="Show all feeds' unread count">
-                        Show all unread count
-                    </label>
-                    <br>
-                    <input id="fixwidth" name="fixwidth" type="checkbox" />
-                    <label for="fixwidth" title="Display text using full width">
-                        Fix width of text entry
-                    </label>
-                    <br>
-                    <input id="count" name="count" type="checkbox" />
-                    <label for="count" title="Display real unread count">
-                        Fix counter (1000+)
-                    </label>
-                    <br>
-                    <input id="counticon" name="counticon" type="checkbox" />
-                    <label for="counticon" title="Dislay unread count in the Google Reader favicon">
-                        Counter as image in icon
-                    </label>
-                    <br>
-                    <input id="removeads" name="removeads" type="checkbox"/>
-                    <label for="removeads" title="Simple advertising blocker">
-                        Remove ads
-                    </label>
-                    <br>
-                    <input id="column" name="column" type="checkbox"/>
-                    <label for="column" title="Add abutton to display news as a newspaper in multi columns       - Shortcut : c">
-                        Text multi columns
-                    </label>
-                    <!--<br>
-                    <input id="prefetch" name="prefetch" type="checkbox" /><label for="prefetch">Prefetch entries</label>
-                    -->
-                </div>
-                <div class="fl">
-                    <input id="preview" name="preview" type="checkbox" />
-                    <label for="preview" title="Add a button to show entire original page instead the entry       - Shortcut : Shift+V">
-                        Integrated preview
-                    </label>
-                    <br>
-                    <input id="colorful" name="colorful" type="checkbox" />
-                    <label for="colorful" title="Use a background color for a same feed">
-                        Colorful listview
-                    </label>
-                    <br>
-                    <input id="filter" name="filter" type="checkbox" />
-                    <label for="filter" title="Filter entries by removing or highligting items based on user terms">
-                        Filter entries
-                    </label>
-                    <br>
-                    <input id="readbymouse" name="readbymouse" type="checkbox" title="Middle click not available on Windows" />
-                    <label for="readbymouse" title="Next/previous item using right/left mouse click">
-                        Read by mouse
-                    </label>
-                    <!-- ( due to <a href="http://code.google.com/p/chromium/issues/detail?id=17234" target="_blank">Chrome bug</a> -->
-                    <br>
-                    <input id="facebook" name="facebook" type="checkbox" />
-                    <label for="facebook" title="Add a button to share news using Facebook [b]">
-                        Facebook integration
-                    </label>
-                    <br>
-                    <input id="twitter" name="twitter" type="checkbox" />
-                    <label for="twitter" title="Add a button to share news using Twitter [d]">
-                        Twitter integration
-                    </label>
-                    <br>
-                    <input id="mark" name="mark" type="checkbox"/>
-                    <label for="mark" title="Mark items before/after current as read       - Shortcuts : before: w ; after: x">
-                        Mark Until Current As Read
-                    </label>
-                    <br>
-                    <input id="jump" name="jump" type="checkbox"/>
-                    <label for="jump" title="Add a 'goto bottom' icon on top entry and a 'goto top' on bottom entry       - Shortcuts : Shift+T: goto top ; Shift+B : goto bottom">
-                        Add top/bottom links
-                    </label>
-                </div>
-                <div class="tar">
-                    <input type="button" name="Submit" value="Apply" onClick="save(this.form);">
-                </div>
-            </div>
-            <div class="menu">
-                <div class="title">
-                    <h2>Themes and skins</h2>
-                </div>
-                <div class="flx" id="skins">
-                    <fieldset>
-                        <legend>
-                            Theme
-                        </legend>
-                        <input id="skin" name="skin" type="hidden" value=""/>
-                        <div id="skinc">
-                            <ul id="skinlist">
-                            </ul>
+                <div class="menu panel">
+                    <div id="panel_skins">
+                        <div class="title">
+                            <h2>Themes/skins</h2>
                         </div>
-                        <div id="thumbc">
-                            <img alt="thumb" id="thumb" src="" width="400" height="243"/>
+                        <div id="skinsbox">
+                            <input id="skin" name="skin" type="hidden" value=""/>
+                            <div id="skinc">
+                                <ul id="skinlist">
+                                </ul>
+                            </div>
+                            <div id="thumbc">
+                                <img alt="thumb" id="thumb" src="" width="400" height="243" class="hidden"/>
+                            </div>
                         </div>
-                    </fieldset>
-                </div>
-                <div class="flx">
-                    <fieldset>
-                        <legend>
-                            Fixes
-                        </legend>
-                        <p>
-                            Several fixes can be choosed but some can cause conflicts used with another feature.
-                        </p>
-                        <input id="aero" name="aero" type="checkbox" />
-                        <label for="aero" title="Toolbar using Aero theme">
-                            Google Aero Toolbar
+                    </div>
+                    <div id="panel_column" style="display:none;">
+                        <div class="title">
+                            <h2>Column</h2>
+                        </div>
+                        Columns number : <input id="column_count" name="column_count" type="text" value="3" size="2"/>
+						<br>
+						<input id="column_locked" name="column_locked" type="checkbox" />
+                        <label for="column_locked">
+                            Feature 'Column' always actived by default
+                        </label>
+                    </div>
+                    <div id="panel_preview" style="display:none;">
+                        <div class="title">
+                            <h2>Preview</h2>
+                        </div>
+                        <input id="preview_locked" name="preview_locked" type="checkbox" />
+                        <label for="preview_locked">
+                            Feature 'Preview' always actived by default
+                        </label>
+                    </div>
+                    <div id="panel_favicons" style="display:none;">
+                        <div class="title">
+                            <h2>Favicons</h2>
+                        </div>
+                        <input id="manual" name="manual" type="checkbox" />
+                        <label for="manual">
+                            Manual search for all sites (not recommended ; slower)
                         </label>
                         <br>
-                        <input id="osxfix" name="osxfix" type="checkbox" />
-                        <label for="osxfix" title="Mac OS X fixer">
-                            Mac OS X Snow Leopard Fixes Skin
-                        </label>
+                        Extract favicon for following sites (comma separated): 
+                        <center>
+                            <textarea name="domains" cols="90" rows="8">
+                            </textarea>
+                        </center>
                         <br>
-                        <input id="osxfix2" name="osxfix2" type="checkbox" />
-                        <label for="osxfix2" title="Mac OS X fixer">
-                            Another Mac OS X fixer
-                        </label>
-                    </fieldset>
+                        You could add too a site using the contextual menu of the side bar ("Manual favicon")
+                        <div class="tar">
+                            <input type="button" name="Submit" value="Apply" onClick="save(this.form);">
+                        </div>
+                    </div>
+                    <div id="panel_thanks" style="display:none;">
+                        <div class="title">
+                            <h2>Thanks</h2>
+                        </div>
+                        Thanks to authors of original scripts and skins (Greasemonkey and Stylish):
+                        <ul>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/56756">Google Reader Plus (aka me LudoO :)</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/40120">Google Reader Favicon ++</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/12197">Google Reader Minimalistic</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/8782">Google Reader - Colorful List View</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/12352">Google Reader Preview Enhanced (patched by bryantsai)</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/23671">Google Reader Filter</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/6415">Google Reader for wider screens</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/12601">Google Reader Unread Count</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/46615">GReader Favicon Alerts</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/8843">Google Reader - Read by Mouse</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/9594">Facebook Sharer + Google Reader</a>
+                                and my update : <a href="http://userscripts.org/scripts/show/63997">Share with Facebook in Google Reader</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/10169">Google Reader + Twitter</a>
+                            </li>
+                            <!-- <li>
+                            <a href="http://userscripts.org/scripts/show/49958">Grittr = Google Reader + Twitter</a>
+                            </li>
+                            <li>
+                            <a href="http://userscripts.org/scripts/show/26383">Google Reader Prefetch More</a>
+                            </li>-->
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/63802">Google Reader: Mac OS X Snow Leopard Fixes</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/10573">Google Reader Air Skin</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/9692">Google Air Skin Comic Sans</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/12917">google Enhanced BLACK</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/24736">Black Skin</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/5133">Another Dark Google Reader Style</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/38251">Helvetireader style for Google Reader</a>
+                            </li>
+                            <li>
+                                <a href="http://userstyles.org/styles/12859">OS X Style for New Google Reader</a>
+                                <a href="http://userstyles.org/styles/2336">OS X Spinner for Google Reader</a>
+                            </li>
+                            <li>
+                                <a href="http://userstyles.org/styles/16900">Google Reader: Mac OS X Snow Leopard</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/63802">Google Reader: Mac OS X Snow Leopard Fixes</a>
+                            </li>
+                            <li>
+                                <a href="http://www.hicksdesign.co.uk/journal/google-reader-theme">OS X fixer</a>
+                            </li>
+                            <li>
+                                <a href="http://userstyles.org/styles/4096">Google Aero</a>
+                            </li>
+                            <li>
+                                <a href="http://userscripts.org/scripts/show/24955">Google Reader - Mark Until Current As Read</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="tar">
-                    <input type="button" name="Submit" value="Apply" onClick="save(this.form);">
-                </div>
-            </div>
-            <div class="menu">
-                <div class="title">
-                    <h2>Column</h2>
-                </div>
-                Columns number : <input id="column_count" name="column_count" type="text" value="3" size="2"/><input id="column_locked" name="column_locked" type="checkbox" />
-                <label for="column_locked">
-                    Feature 'column' always actived by default
-                </label>
-            </div>
-            <div class="menu">
-                <div class="title">
-                    <h2>Preview</h2>
-                </div>
-                <input id="preview_locked" name="preview_locked" type="checkbox" />
-                <label for="preview_locked">
-                    Feature 'Preview' always actived by default
-                </label>
-            </div>
-            <div class="menu">
-                <div class="title">
-                    <h2>Favicons</h2>
-                </div>
-                <input id="manual" name="manual" type="checkbox" />
-                <label for="manual">
-                    Manual search for all sites (not recommended ; slower)
-                </label>
-                <br>
-                Extract favicon for following sites (comma separated): 
-                <center>
-                    <textarea name="domains" cols="90" rows="8">
-                    </textarea>
-                </center>
-                <br>
-                You could add too a site using the contextual menu of the side bar ("Manual favicon")
-                <div class="tar">
-                    <input type="button" name="Submit" value="Apply" onClick="save(this.form);">
-                </div>
-            </div>
-            <div class="menu">
-                <div class="title">
-                    <h2>Thanks</h2>
-                </div>
-                Thanks to authors of Greasemonkey original scripts:
-                <ul>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/56756">Google Reader Plus (aka me LudoO :)</a>
-                    </li>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/40120">Google Reader Favicon ++</a>
-                    </li>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/12197">Google Reader Minimalistic</a>
-                    </li>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/8782">Google Reader - Colorful List View</a>
-                    </li>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/12352">Google Reader Preview Enhanced (patched by bryantsai)</a>
-                    </li>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/23671">Google Reader Filter</a>
-                    </li>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/6415">Google Reader for wider screens</a>
-                    </li>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/12601">Google Reader Unread Count</a>
-                    </li>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/46615">GReader Favicon Alerts</a>
-                    </li>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/8843">Google Reader - Read by Mouse</a>
-                    </li>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/9594">Facebook Sharer + Google Reader</a>
-                        and my update : <a href="http://userscripts.org/scripts/show/63997">Share with Facebook in Google Reader</a>
-                    </li>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/10169">Google Reader + Twitter</a>
-                    </li>
-                    <!-- <li>
-                    <a href="http://userscripts.org/scripts/show/49958">Grittr = Google Reader + Twitter</a>
-                    </li>
-                    <li>
-                    <a href="http://userscripts.org/scripts/show/26383">Google Reader Prefetch More</a>
-                    </li>-->
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/63802">Google Reader: Mac OS X Snow Leopard Fixes</a>
-                    </li>
-                </ul>
-                and skins :
-                <ul>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/10573">Google Reader Air Skin</a>
-                    </li>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/9692">Google Air Skin Comic Sans</a>
-                    </li>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/12917">google Enhanced BLACK</a>
-                    </li>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/24736">Black Skin</a>
-                    </li>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/5133">Another Dark Google Reader Style</a>
-                    </li>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/38251">Helvetireader style for Google Reader</a>
-                    </li>
-                    <li>
-                        <a href="http://userstyles.org/styles/12859">OS X Style for New Google Reader</a>
-                        <a href="http://userstyles.org/styles/2336">OS X Spinner for Google Reader</a>
-                    </li>
-                    <li>
-                        <a href="http://userstyles.org/styles/16900">Google Reader: Mac OS X Snow Leopard</a>
-                    </li>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/63802">Google Reader: Mac OS X Snow Leopard Fixes</a>
-                    </li>
-                    <li>
-                        <a href="http://www.hicksdesign.co.uk/journal/google-reader-theme">OS X fixer</a>
-                    </li>
-                    <li>
-                        <a href="http://userstyles.org/styles/4096">Google Aero</a>
-                    </li>
-                    <li>
-                        <a href="http://userscripts.org/scripts/show/24955">Google Reader - Mark Until Current As Read</a>
-                    </li>
-                </ul>
             </div>
         </form>
     </body>
