@@ -72,7 +72,7 @@ function jump(entry, dirtop) {
 }
 function getHeightEntries(){
 	var entries = document.getElementById('entries');
-	return entries?(entries.style.height-110):500;
+	return entries?(parseInt(entries.style.height.replace('px',''), 10)-110):500;
 }
 function initResize(fn){
 	document.body.addEventListener('resize', function(e){
