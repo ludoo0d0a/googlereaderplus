@@ -1,6 +1,6 @@
 {
   "name": "Google Reader Plus",
-  "version": "2.5.3",
+  "version": "2.5.4",
   "description": "Enhance Google Reader by adding missing favicons and a collection of others features",
   "icons": { 
      "16": "16.png",

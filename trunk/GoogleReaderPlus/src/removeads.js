@@ -16,7 +16,7 @@ var grp_removeads = function(prefs) {
 		var links = document.getElementsByTagName("a");
 		// var links = document.querySelector("a,img");
 		if (links && prefs.removeads_links) {
-			re = new RegEx(prefs.removeads_links);
+			re = new RegExp(prefs.removeads_links);
 			//var re = /da\.feedsportal\.com|res\.feedsportal\.com|doubleclick\.net|\/ads/;
 			for (i = 0; i < links.length; i++) {
 				link = links[i];
@@ -32,7 +32,7 @@ var grp_removeads = function(prefs) {
 
 		links = document.getElementsByTagName("img");
 		if (links && prefs.removeads_images) {
-			re = new RegEx(prefs.removeads_images);
+			re = new RegExp(prefs.removeads_images);
 			//var re = /feedsportal\.com|feedburner\.com|doubleclick\.net|\/ads/;
 			for (i = 0; i < links.length; i++) {
 				link = links[i];
@@ -46,7 +46,7 @@ var grp_removeads = function(prefs) {
 		// Remove Right-side Ads
 		var iframe = document.getElementsByTagName("iframe");
 		if (iframe && prefs.removeads_iframes) {
-			re = new RegEx(prefs.removeads_iframes);
+			re = new RegExp(prefs.removeads_iframes);
 			//var re = /feedsportal\.com|doubleclick\.net|googlesyndication.com\/pagead\/ads/;
 			for (i = 0; i < iframe.length; i++) {
 				var s = iframe[i].src;
