@@ -28,6 +28,5 @@
     "tabs",
 	 "http://*/",
     "https://*/"
-  ],
-  "update_url": "http://www.pitaso.com/sites/default/files/update_grp.xml"
+  ]
 }

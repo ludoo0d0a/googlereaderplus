@@ -58,8 +58,8 @@ var grp_favicons = function(prefs) {
 				name : "googlereaderplus"
 			});
 			this.prefs = {
-				domains : '',
-				manual : false
+				favicons_domains : '',
+				favicons_manual : false
 			};
 			var me = this;
 			function onMessageReceived(a) {
@@ -92,7 +92,7 @@ var grp_favicons = function(prefs) {
 				method : 'get',
 				url : protocol + '//www.google.com/reader/subscriptions/export',
 				FAVICON_URL : FAVICON_URL,
-				domains : this.prefs.domains
+				domains : this.prefs.favicons_domains
 			});
 		},
 		updateFavicon : function(url, title, icon) {

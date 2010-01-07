@@ -2,11 +2,12 @@
     <head>
         <title>GoogleReaderPlus Background</title>
         <script type="application/javascript">
-            var myport;
+            var VERSION = "2.5.2";
+			var myport;
             var EXCEPTIONS = {};
             //TODO : 'prefetch'
-            var scripts = ['favicons', 'fixenclosures', 'fixwidth', 'removeads', 'preview', 'mark', 'colorful', 'filter', 'count', 'readbymouse', 'counticon', 'column', 'jump', 'manual', 'aero', 'osxfix', 'osxfix2', 'unreadcount', 'facebook', 'twitter'];
-			var options = ['manual', 'domains', 'skin', 'column_count','column_locked','preview_locked'];
+            var scripts = ['favicons', 'fixenclosures', 'fixwidth', 'removeads', 'preview', 'mark', 'colorful', 'filter', 'count', 'readbymouse', 'counticon', 'column', 'jump', 'aero', 'unreadcount', 'facebook', 'twitter'];
+			var options = ['favicons_manual', 'favicons_domains', 'skin', 'column_count','column_locked','preview_locked', 'removeads_links', 'removeads_images', 'removeads_iframes'];
             
             chrome.extension.onConnect.addListener(onPortConnect);
             chrome.extension.onRequest.addListener(onPortRequest);
@@ -63,11 +64,7 @@
 					}
 
 				}
-			   /*var prefs = {
-                     manual: (localStorage.getItem('manual') === "true"),
-                     domains: localStorage.getItem('domains'),
-                     skin: localStorage.getItem('skin')
-               };*/
+
 			   var r = {
                   message: "prefs",
                   scripts: scripts,
@@ -91,12 +88,12 @@
                } else if (a.message == "getprefs") {
                   getPreferences(a);
                } else if (a.message == "domain") {
-                  var domains = "" + localStorage.getItem("domains");
+                  var domains = "" + localStorage.getItem("favicons_domains");
                   if (domains.indexOf(a.domain) < 0) {
                      var ds = domains.split(",");
                      ds.push(a.domain);
                      domains = ds.join(",").replace(/^,+/, '').replace(/,+/g, ',');
-                     localStorage.setItem("domains", domains);
+                     localStorage.setItem("favicons_domains", domains);
                      //go update single icon
                      extractFavicon({
                         url: 'http://' + domain,
@@ -117,7 +114,7 @@
             
             function parseXml(xml, FAVICON_URL){
                var FAVICON = {};
-               var manual = localStorage.getItem("manual") === "true";
+               var manual = localStorage.getItem("favicons_manual") === "true";
                Array.forEach(xml.getElementsByTagName('outline'), function(outline){
                   if (!outline.hasAttribute('htmlUrl')) {
                      return;
@@ -154,7 +151,7 @@
             
             function loadIcons(a){
                var FAVICON_URL = a.FAVICON_URL;
-               var domains = localStorage.getItem("domains");
+               var domains = localStorage.getItem("favicons_domains");
                if (domains && domains.length > 0) {
                   var doms = domains.split(',');
                   EXCEPTIONS = {};
@@ -267,8 +264,29 @@
                   url: "preferences.html"
                });
             }
+
+			function init(){
+				var DEFAULT = {
+					removeads_links: "da.feedsportal.com|res.feedsportal.com|doubleclick.net|/ads",
+					removeads_images: "feedsportal.com|doubleclick.net|/ads",
+					removeads_iframes: "feedsportal.com|doubleclick.net|googlesyndication.com/pagead/ads"
+				};
+				for (var o in DEFAULT) {
+					if (localStorage.getItem(o) === null) {
+						//if (localStorage[o] === null) {
+						//localStorage[o] = DEFAULT[o];
+						localStorage.setItem(o, DEFAULT[o]);
+					}
+				}
+				var v = localStorage.getItem('grp_version');
+				if (v === null || v !== VERSION) {
+					localStorage.setItem('grp_version', VERSION);
+					opentab({url: "about.html"});
+				}
+				
+			}
         </script>
     </head>
-    <body>
+    <body onload="init();">
     </body>
 </html>
