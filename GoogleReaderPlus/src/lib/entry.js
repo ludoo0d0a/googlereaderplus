@@ -81,3 +81,34 @@ function initResize(fn){
 		}
 	}, false);
 }
+function addButton(reference, text, title,  fn, position){
+	position = position || 0;
+	var div = document.createElement('div');
+	div.style.marginLeft = '0.5em';
+	div.className = 'goog-button goog-button-base unselectable goog-inline-block goog-button-float-left goog-button-tight';
+	div.setAttribute('tabindex', '0');
+	if (title) {
+		div.setAttribute('title', title);
+	}
+	div.setAttribute('role', 'wairole:button');
+	div.innerHTML = '<div class="goog-button-base-outer-box goog-inline-block"><div class="goog-button-base-inner-box goog-inline-block"><div class="goog-button-base-pos"><div class="goog-button-base-top-shadow">&nbsp;</div><div class="goog-button-base-content"><div class="goog-button-body">' + text + '</div></div></div></div></div>';
+	if (position ==1 ) {
+		//after
+		if (reference.nextSibling) {
+			reference.parentNode.insertBefore(div, reference.nextSibling);
+		}else{
+			//last item
+			reference.parentNode.appendChild(div);
+		}
+	}else if (position == 2) {
+		//before
+		reference.parentNode.insertBefore(div, reference);
+	} else{
+		//append
+		reference.appendChild(div);
+	}
+	var me = this;
+	div.addEventListener('click', function(e) {
+		fn.call(me);
+	}, false);
+}

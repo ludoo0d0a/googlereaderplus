@@ -37,6 +37,18 @@ function getFirstElementMatchingClassName(root, tag, clazz) {
 	return ((!elements[i]) ? null : (elements[i]));
 }
 
+function getLastElementMatchingClassName(root, tag, clazz) {
+	var elements = root.getElementsByTagName(tag);
+	var i=0, j=0;
+	while (elements[i]) {
+		if (hasClass(elements[i], clazz)){
+			j = i;
+		}
+		i++;
+	}
+	return ((!elements[j]) ? null : (elements[j]));
+}
+
 /*
  * function getElementsByClassName(root, tag, class) { var elements =
  * root.getElementsByTagName(tag); var results = new Array(); for ( var i = 0; i <

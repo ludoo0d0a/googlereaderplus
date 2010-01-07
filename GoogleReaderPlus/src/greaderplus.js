@@ -54,7 +54,11 @@
 			if (o && o!=="false") {
 				if (window["grp_" + o]) {
 					console.log("**** run " + o);
-					window["grp_" + o].call(window, this.prefs);
+					try {
+						window["grp_" + o].call(window, this.prefs);
+					}catch(e){
+						console.error(e);
+					}
 				} else {
 					console.log("ERROR: can't run " + o);
 				}

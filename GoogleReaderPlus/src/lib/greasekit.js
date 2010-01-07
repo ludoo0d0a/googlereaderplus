@@ -92,11 +92,11 @@ if (typeof GM_xmlhttpRequest === "undefined") {
 					if (typeof om.onload == "function"){
 						om.onload(a);
 					}
-				} else if (a.action==="onreadystatechange"){
+				} else if (a.action==="readystatechange"){
 					if (typeof om.onreadystatechange == "function"){
 						om.onreadystatechange(a);
 					}
-				} else if (a.action==="onerror"){
+				} else if (a.action==="error"){
 					GM_log('error: '+a.responseText);
 					if (typeof om.onerror == "function"){
 						om.onerror(a);
