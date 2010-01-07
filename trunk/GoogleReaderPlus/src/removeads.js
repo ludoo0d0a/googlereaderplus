@@ -1,7 +1,7 @@
 //remove ads
 var grp_removeads = function(prefs) {
 	function removeAds() {
-		var i;
+		var i,re, link;
 
 		// DIV#tads
 		var ads = document.getElementById("tads");
@@ -15,23 +15,29 @@ var grp_removeads = function(prefs) {
 		// Remove Search-Tracking
 		var links = document.getElementsByTagName("a");
 		// var links = document.querySelector("a,img");
-		if (links) {
+		if (links && prefs.removeads_links) {
+			re = new RegEx(prefs.removeads_links);
+			//var re = /da\.feedsportal\.com|res\.feedsportal\.com|doubleclick\.net|\/ads/;
 			for (i = 0; i < links.length; i++) {
-				var link = links[i];
+				link = links[i];
 				if (link.className == "l") {
 					link.removeAttribute("onmousedown");
 				}
-				if (/da\.feedsportal\.com|res\.feedsportal\.com|feedburner\.com|doubleclick\.net|\/ads/.test(link.href)) {
+				if (re.test(link.href)) {
+					//console.log("REMOVE AD a : "+link.href);
 					link.parentNode.removeChild(link);
 				}
 			}
 		}
 
 		links = document.getElementsByTagName("img");
-		if (links) {
+		if (links && prefs.removeads_images) {
+			re = new RegEx(prefs.removeads_images);
+			//var re = /feedsportal\.com|feedburner\.com|doubleclick\.net|\/ads/;
 			for (i = 0; i < links.length; i++) {
-				var link = links[i];
-				if (/feedsportal\.com|feedburner\.com|doubleclick\.net|\/ads/.test(link.src)) {
+				link = links[i];
+				if (re.test(link.src)) {
+					//console.log("REMOVE AD img : "+link.src);
 					link.parentNode.removeChild(link);
 				}
 			}
@@ -39,10 +45,13 @@ var grp_removeads = function(prefs) {
 
 		// Remove Right-side Ads
 		var iframe = document.getElementsByTagName("iframe");
-		if (iframe) {
+		if (iframe && prefs.removeads_iframes) {
+			re = new RegEx(prefs.removeads_iframes);
+			//var re = /feedsportal\.com|doubleclick\.net|googlesyndication.com\/pagead\/ads/;
 			for (i = 0; i < iframe.length; i++) {
 				var s = iframe[i].src;
-				if (/feedsportal\.com|doubleclick\.net|googlesyndication.com\/pagead\/ads/.test(s)) {
+				if (re.test(s)) {
+					//console.log("REMOVE AD iframe : "+s);
 					iframe[i].height = 0;
 					iframe[i].width = 0;
 					iframe[i].src = '';
@@ -52,13 +61,9 @@ var grp_removeads = function(prefs) {
 		}
 	}
 
-	var e = document.getElementById('entries');
-	if (e) {
-		e.addEventListener('DOMNodeInserted', function() {
-			removeAds();
-		}, false);
-	}
-	// document.addEventListener('load', removeAds, false);
+	document.body.addEventListener('DOMNodeInserted', function(e){
+		removeAds();
+	}, false);
 	removeAds();
 
 };

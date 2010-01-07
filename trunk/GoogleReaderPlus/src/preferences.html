@@ -41,6 +41,11 @@
                 height: 500px;
                 float: left;
             }
+			
+			.nav a.item{
+                margin-left: 20px;
+				text-decoration: none;
+            }
             
             .panel {
                 width: 800px;
@@ -391,11 +396,15 @@
                 if (prefs) {
                     for (var o in prefs) {
                         var pref = prefs[o];
-                        if (form[o].type === "checkbox") {
-                            r.prefs[o] = form[o].checked || false;
-                        } else {
-                            r.prefs[o] = form[o].value;
-                        }
+                        if (form[o]) {
+							if (form[o].type === "checkbox") {
+								r.prefs[o] = form[o].checked || false;
+							} else {
+								r.prefs[o] = form[o].value;
+							}
+						}else{
+							console.log("Pref not found in form : "+o);
+						}
                     }
                 }
                 
@@ -519,13 +528,10 @@
                     };
                 }
             }
-            
-            window.onload = function(){
-                init();
-            };
+
         </script>
     </head>
-    <body>
+    <body onload="init();">
         <div class="flc">
             <div class="fli logo">
                 <img alt="logo" src="128.png" id="logo"/>
@@ -535,30 +541,32 @@
                     Google Reader Plus
                 </div>
                 <a href="http://www.pitaso.com/chrome" target="_blank">Website</a>
-                <br>
+                &nbsp;|&nbsp;
                 <a href="http://twitter.com/ludoo0d0a" target="_blank">Follow me on Twitter</a>
-                <!-- <br>
-                <a href="http://www.chromeextensions.org/social-communications/googlereaderplus/" target="_blank">Check updates on chromexteExtensions.org</a>
-                -->
-                <br>
+                &nbsp;|&nbsp;
+                <a href="http://code.google.com/p/googlereaderplus/issues/entry">Report issue</a>
+				<br>
                 <a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg/" target="_blank">Extension page</a>
                 <br>
-                <a href="http://code.google.com/p/googlereaderplus/issues/entry">Report issue</a>
-                <br>
                 <a href="http://www.google.com/reader" target="_blank">Go to Google Reader</a>
+				<br>
+                <a href="about.html" target="_blank">About</a>
             </div>
-        </div>
-        <div class="menu hidden" id="status">
         </div>
         <form name="preferences">
             <div id="main">
-                <div class="menu nav">
+                <div class="menu hidden" id="status">
+        </div>
+		<div class="menu" id="status">
+			test test test
+        </div>
+				<div class="menu nav">
                     <div class="title">
                         <h2>Preferences</h2>
                     </div>
                     <div id="scriptlist">
                     </div>
-                    <a id="lthanks" href="#">Thanks</a>
+                    <a id="lthanks" class="item" href="#">Thanks</a>
                     <div class="tar">
                         <input type="button" name="Submit" value="Apply" onClick="save(this.form);">
                     </div>
@@ -590,6 +598,16 @@
                             Feature 'Column' always actived by default
                         </label>
                     </div>
+					<div id="panel_removeads" style="display:none;">
+                        <div class="title">
+                            <h2>Remove Ads</h2>
+                        </div>
+                        Link filter : <textarea name="removeads_links" cols="90" rows="3"></textarea>
+						<br>
+						Image filter : <textarea name="removeads_images" cols="90" rows="3"></textarea>
+						<br>
+						iframe filter : <textarea name="removeads_iframes" cols="90" rows="3"></textarea>
+                    </div>
                     <div id="panel_preview" style="display:none;">
                         <div class="title">
                             <h2>Preview</h2>
@@ -603,16 +621,13 @@
                         <div class="title">
                             <h2>Favicons</h2>
                         </div>
-                        <input id="manual" name="manual" type="checkbox" />
-                        <label for="manual">
+                        <input id="favicons_manual" name="favicons_manual" type="checkbox" />
+                        <label for="favicons_manual">
                             Manual search for all sites (not recommended ; slower)
                         </label>
                         <br>
                         Extract favicon for following sites (comma separated): 
-                        <center>
-                            <textarea name="domains" cols="90" rows="8">
-                            </textarea>
-                        </center>
+                        <textarea name="favicons_domains" cols="90" rows="8"></textarea>
                         <br>
                         You could add too a site using the contextual menu of the side bar ("Manual favicon")
                         <div class="tar">
