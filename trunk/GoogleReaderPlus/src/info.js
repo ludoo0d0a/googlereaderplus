@@ -5,6 +5,7 @@ var grp_info = function(prefs){
 
 	function init(){
 		var sysinfo = function(e){
+			infoNavigator();
 			infoExtensions();
 			infoVersion();
 		};
@@ -16,6 +17,17 @@ var grp_info = function(prefs){
 		var header = document.getElementById('viewer-top-controls');
 		var buttonh = getLastElementMatchingClassName(header, 'div', 'goog-button');
 		addButton(buttonh, 'info', 'Get system information', sysinfo, 1);
+	}
+	
+	function infoNavigator(){
+		var n = window.navigator;
+		var w = {};
+		for(var p in n) {
+			if (typeof n[p] === "string" || typeof n[p] === "boolean"){
+				w[p]=n[p];
+			}
+		}
+		console.log(w);
 	}
 		
     function infoExtensions(){
