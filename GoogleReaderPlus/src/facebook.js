@@ -24,7 +24,7 @@ var grp_facebook = function(prefs) {
 		span.innerHTML = 'Facebook';
 		span.title = "Share this news on Facebook [b]";
 		el.appendChild(span);
-		span.addEventListener('click', facebookSharer, false);
+		span.addEventListener('click', facebookShare, false);
 	}
 
 	function calcEntryIndex(e) {
@@ -36,13 +36,13 @@ var grp_facebook = function(prefs) {
 		return index;
 	}
 	
-	function facebookSharerKey(e){
+	function facebookShareKey(e){
 		var entry = getCurrentEntry();
 		var el = getFirstElementMatchingClassName(entry, 'span', 'btn-twitter');
-		facebookSharer({target:el});
+		facebookShare({target:el});
 	}
 
-	function facebookSharer(e) {
+	function facebookShare(e) {
 		var el = e.target;
 		var entry = findParentNode(el, 'div', 'entry');
 		var index = calcEntryIndex(entry);
@@ -128,5 +128,5 @@ var grp_facebook = function(prefs) {
 	};
 
 	initCatchEntries(addFacebookButton, 'efacebook');
-	initKey({key:66, fn:facebookSharerKey});//b
+	initKey({key:66, fn:facebookShareKey});//b
 };

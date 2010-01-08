@@ -16,12 +16,6 @@
  */
 
 var grp_mark = function(prefs) {
-	function simulateClick(node) {
-		var event = node.ownerDocument.createEvent("MouseEvents");
-
-		event.initMouseEvent("click", true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
-		node.dispatchEvent(event);
-	}
 
 	function markUntilCurrentAsRead() {
 		var currentElement = document.getElementById('current-entry');
@@ -54,19 +48,20 @@ var grp_mark = function(prefs) {
 	function getEntryIconDiv(entry) {
 		var divs = entry.getElementsByTagName('div');
 		for ( var i = 0; i < divs.length; i++) {
-			if (typeof (divs[i].className) != 'undefined' && divs[i].className == 'entry-icons')
+			if (typeof(divs[i].className) != 'undefined' && divs[i].className == 'entry-icons') {
 				return divs[i];
+			}
 		}
 		return null;
 	}
 
 	function getAllEntries() {
 		var allDivs = document.getElementsByTagName('div');
-		var allEntries = new Array();
+		var allEntries = [];
 		for ( var i = 0; i < allDivs.length; i++) {
-			if (typeof (allDivs[i].className) != 'undefined'
-					&& (allDivs[i].className.match('entry ') != null && allDivs[i].className.match("read") == null)
-					|| allDivs[i].id == 'current-entry') {
+			if (typeof (allDivs[i].className) !== 'undefined'
+					&& (allDivs[i].className.match('entry ') !== null && allDivs[i].className.match("read") === null)
+					|| allDivs[i].id === 'current-entry') {
 
 				allEntries.push(allDivs[i]);
 			}
