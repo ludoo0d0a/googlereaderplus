@@ -1,0 +1,745 @@
+<html>
+    <head>
+        <title>Google Reader Plus - Preferences</title>
+        <style type="text/css">
+            
+            body {
+                background: #898989;
+            }
+            
+            #colors_cc, #colors_ct {
+                height: 115px;
+                width: 108px;
+                -webkit-border-radius: 7px;
+                -webkit-box-shadow: 0px 0px 5px #729FCF;
+                padding: 7px 7px 7px 7px;
+                z-index: 9999;
+                font-family: Lucida grande, arial, sans-serif;
+                font-size: 13px;
+                font-style: normal;
+                font-variant: normal;
+                font-weight: normal;
+                background: #FFFFFF;
+            }
+            
+            div.color_cc, div.color_ct {
+                height: 12px;
+                width: 12px;
+                border: 1px solid #000;
+                margin: 2px;
+                float: left;
+                cursor: pointer;
+            }
+            
+            #main {
+                width: 1100px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .nav {
+                width: 200px;
+                height: 570px;
+                float: left;
+            }
+            
+            .nav a.item {
+                margin-left: 20px;
+                text-decoration: none;
+            }
+            
+            .panel {
+                width: 800px;
+                min-height: 570px;
+                float: left;
+            }
+            
+            .menu {
+                background: #AFAFAF;
+                -webkit-border-radius: 7px;
+                -webkit-box-shadow: 0px 0px 5px #000000;
+                padding: 0px 7px 7px 7px;
+                margin: 7px;
+            }
+            
+            .detail {
+                color: blue;
+                text-decoration: none;
+            }
+            
+            .logo {
+                margin-left: auto;
+                margin-right: auto;
+                font-family: Lucida grande, arial, sans-serif;
+                font-size: 14px;
+                font-style: normal;
+                font-variant: normal;
+                font-weight: normal;
+                color: #FFFFFF;
+            }
+            
+            .title {
+                margin-bottom: 8px;
+            }
+            
+            h1 {
+                font-family: arial, sans-serif;
+                font-size: 2em;
+                font-weight: bold;
+                color: #FFFFFF;
+                margin: 0;
+            }
+            
+            h2, p {
+                margin: 0;
+            }
+            
+            img {
+                vertical-align: middle;
+            }
+            
+            .menu:hover {
+                background: #BFBFBF;
+            }
+            
+            .flc {
+                height: 130px;
+            }
+            
+            .fli {
+                height: 130px;
+                margin-left: 500px;
+                float: left;
+            }
+            
+            .flt {
+                float: left;
+                width: 400px;
+                margin-left: 50px;
+            }
+            
+            .fc {
+                height: 280px;
+            }
+            
+            .fl {
+                float: left;
+                width: 400px;
+            }
+            
+            .tar {
+                text-align: right;
+            }
+            
+            .tac {
+                text-align: center;
+            }
+            
+            #status {
+                text-align: center;
+                color: #EFEFEF;
+                background-color: #1A8F2A;
+                height: 16px;
+                margin-top: 5px;
+            }
+            
+            input {
+                margin: 5px;
+            }
+            
+            .hidden {
+                display: none;
+            }
+            
+            /* skins chooser */
+            #skinc {
+                float: left;
+                width: 340px;
+            }
+            
+            #thumbc {
+                float: left;
+                width: 400px;
+                text-align: center;
+            }
+            
+            ul {
+                list-style: none;
+            }
+            
+            #skinsbox {
+                margin: 20px;
+            }
+            
+            #skinsbox li {
+                width: 310px;
+            }
+            
+            ul#skinlist {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            
+            ul#skinlist li {
+                float: left;
+                border: 1px solid #888888;
+                margin-right: 10px;
+                padding: 4px;
+            }
+            
+            #skinsbox img {
+                border: 1px solid #fff;
+                padding: 5px;
+                margin: 8px;
+            }
+            
+            ul#skinlist li:hover {
+                border-color: #333333;
+                background-color: #bbbbbb;
+                cursor: pointer;
+            }
+            
+            ul#skinlist li.on {
+                border-color: #dddddd;
+                background-color: #cccccc;
+            }
+        </style>
+        <script type="application/javascript">
+            var prefs, scripts, myport;
+            
+            var scriptlist = [{
+               id: "skins",
+               name: "Theme",
+               desc: "Change the look of GoogleReader"
+            }, {
+               id: "favicons",
+               name: "Favicons",
+               desc: "Display favicons for every feed"
+            }, {
+               id: "fixenclosures",
+               name: "Fix missing enclosures",
+               desc: "Show non displaying pictures in enclosures links"
+            }, {
+               id: "unreadcount",
+               name: "Show all unread count",
+               desc: "Show all feeds unread count"
+            }, {
+               id: "fixwidth",
+               name: "Fix width of text entry",
+               desc: "Display text using full width"
+            }, {
+               id: "count",
+               name: "Fix counter (1000+)",
+               desc: "Display real unread count"
+            }, {
+               id: "counticon",
+               name: "Counter as image in icon",
+               desc: "Dislay unread count in the Google Reader favicon"
+            }, {
+               id: "removeads",
+               name: "Remove ads",
+               desc: "Simple advertising blocker"
+            }, {
+               id: "column",
+               name: "Text multi columns",
+               desc: "Add abutton to display news as a newspaper in multi columns",
+               shortcut: "c"
+            }, {
+               id: "preview",
+               name: "Integrated preview",
+               desc: "Add a button to show entire original page instead the entry",
+               shortcut: "Shift+V"
+            }, {
+               id: "colorful",
+               name: "Colorful listview",
+               desc: "Use a background color for a same feed"
+            }, {
+               id: "filter",
+               name: "Filter entries",
+               desc: "Filter entries by removing or highligting items based on user terms"
+            }, {
+               id: "readbymouse",
+               name: "Read by mouse",
+               desc: "Middle click not available on Windows",
+               desc: "Next/previous item using right/left mouse click"
+            }, {
+               id: "facebook",
+               name: "Facebook integration",
+               desc: "Add a button to share news using Facebook",
+               shortcut: "b"
+            }, {
+               id: "twitter",
+               name: "Twitter integration",
+               desc: "Add a button to share news using Twitter",
+               shortcut: "d"
+            }, {
+               id: "mark",
+               name: "Mark Until Current As Read",
+               desc: "Mark items before/after current as read",
+               shortcut: "before: w ; after: x"
+            }, {
+               id: "jump",
+               name: "Add top/bottom links",
+               desc: "Add a 'goto bottom' icon on top entry and a 'goto top' on bottom entry",
+               shortcut: "Shift+T: goto top ; Shift+B : goto bottom"
+            }, {
+               id: "closeentry",
+               name: "Close entry",
+               desc: "Add a 'close' button on each entry to remove it",
+               shortcut: "x"
+            }, {
+               id: "aero",
+               name: "Google Aero Toolbar",
+               desc: "Toolbar using Aero theme"
+            }, {
+               id: "info",
+               name: "System information",
+               desc: "Report information about system",
+               link: true
+            }, {
+               id: "thanks",
+               name: "Thanks",
+               desc: "Thanks to contributors",
+               link: true
+            
+            }, {
+               id: "about",
+               name: "About",
+               desc: "About GoogleReaderPlus",
+               link: true
+            
+            }];
+            
+            var skinlist = [{
+               id: "none",
+               name: "None"
+            }, {
+               id: "air",
+               name: "Air Skin"
+            }, {
+               id: "aircomic",
+               name: "Air Skin Comic Sans"
+            }, {
+               id: "black",
+               name: "Google Enhanced Black"
+            }, {
+               id: "dark",
+               name: "Dark Skin"
+            }, {
+               id: "darkgray",
+               name: "Dark Gray Skin"
+            }, {
+               id: "helvetireader",
+               name: "Helvetireader Skin"
+            }, {
+               id: "minimal",
+               name: "Minimalistic Skin"
+            }, {
+               id: "optimized",
+               name: "Optimized Skin"
+            }, {
+               id: "osxblue",
+               name: "Mac OS X Snow Leopard - Blue"
+            }, {
+               id: 'osxblack',
+               name: "Mac OS X Snow Leopard - Black"
+            }];
+            
+            function init(){
+               createscripts();
+               createskins();
+               createInfo();
+               
+               showPanel('skins');
+               
+               if (typeof chrome !== "undefined" && chrome.extension) {
+                  myport = chrome.extension.connect({
+                     name: "googlereaderplus"
+                  });
+                  var me = this;
+                  myport.onMessage.addListener(function(a){
+                     if (a.message === "prefs") {
+                        scripts = a.scripts;
+                        prefs = a.prefs;
+                        me.set.call(me);
+                     } else if (a.message === "info") {
+                        createReport(a.report);
+                     }
+                  });
+                  myport.postMessage({
+                     message: "getprefs"
+                  });
+                  
+               }
+            }
+            
+            function info(msg){
+               var status = document.getElementById('status');
+               status.innerHTML = msg;
+               status.className = "menu";
+               window.setTimeout(function(){
+                  status.innerHTML = "";
+                  status.className = "menu hidden";
+               }, 3000);
+            }
+            
+            function save(form){
+               var r = {
+                  message: "setprefs",
+                  prefs: {
+                     skin: ''
+                  }
+               };
+               if (prefs) {
+                  for (var o in prefs) {
+                     var pref = prefs[o];
+                     if (form[o]) {
+                        if (form[o].type === "checkbox") {
+                           r.prefs[o] = form[o].checked || false;
+                        } else {
+                           r.prefs[o] = form[o].value;
+                        }
+                     } else {
+                        console.log("Pref not found in form : " + o);
+                     }
+                  }
+               }
+               
+               if (r.prefs.skin === "none") {
+                  r.prefs.skin = '';
+               }
+               //TODO: save all form.elements
+               for (var i = 0, len = scripts.length; i < len; i++) {
+                  var script = scripts[i];
+                  if (form[script]) {
+                     r.prefs[script] = form[script].checked || false;
+                  }
+               }
+               myport.postMessage(r);
+               
+               info("Preferences saved");
+            }
+            
+            function set(){
+               if (prefs) {
+                  for (var o in prefs) {
+                     if (document.preferences[o] && prefs[o]) {
+                        var ctrl = document.preferences[o];
+                        if (ctrl.tagName === "INPUT") {
+                           if (ctrl.type === "checkbox") {
+                              ctrl.checked = (prefs[o] === true);
+                           } else if (ctrl.type === "text") {
+                              ctrl.value = prefs[o];
+                           } else if (ctrl.type === "hidden") {
+                              ctrl.value = prefs[o];
+                           }
+                        } else if (ctrl.nodeName === "TEXTAREA") {
+                           ctrl.value = prefs[o];
+                        }
+                     }
+                  }
+                  selectSkin();
+               }
+            }
+            
+            function selectSkin(){
+               var input = document.getElementById("skin");
+               var li = document.getElementById('skin_' + input.value);
+               if (!li) {
+                  li = document.getElementById('skin_none');
+               }
+               if (li) {
+                  li.onclick();
+               }
+            }
+            
+            var lastPanel;
+            function showPanel(id){
+               var panel = document.getElementById('panel_' + id);
+               if (lastPanel) {
+                  lastPanel.style.display = "none";
+               }
+               if (panel) {
+                  panel.style.display = "inline";
+                  lastPanel = panel;
+               }
+            }
+            
+            function createscripts(){
+               var list = document.getElementById('scriptlist');
+               list.innerHTML = '';
+               var tplCheckbox = '<input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{desc}{shortcut}">{name}</label>';
+               var tplLink = '<a id="{id}" title="{desc}" class="item" href="javascript:showPanel(\'{id}\');">{name}</a>';
+               for (var i = 0, len = scriptlist.length; i < len; i++) {
+                  var script = scriptlist[i];
+                  var t = (script.link) ? tplLink : tplCheckbox;
+                  list.innerHTML += t.replace(/{id}/g, script.id || '').replace(/{name}/g, script.name || '').replace(/{desc}/g, script.desc || '').replace(/{shortcut}/g, script.shortcut ? (' [' + script.shortcut + ']') : '');
+                  var panel = document.getElementById('panel_' + script.id);
+                  if (panel && !script.link) {
+                     //[+]
+                     var a = document.createElement('a');
+                     a.className = 'detail';
+                     a.href = "javascript:showPanel('" + script.id + "')";
+                     a.title = 'Options for ' + script.name;
+                     a.innerHTML = ' [+]';
+                     list.appendChild(a);
+                  }
+                  list.innerHTML += '<br>';
+               }
+            }
+            
+            function createskins(){
+               var last;
+               var list = document.getElementById('skinlist');
+               list.innerHTML = '';
+               for (var i = 0, len = skinlist.length; i < len; i++) {
+                  var o = skinlist[i];
+                  var li = document.createElement('li');
+                  var a = document.createElement('a');
+                  li.id = 'skin_' + o.id;
+                  a.innerHTML = o.name;
+                  li.appendChild(a);
+                  list.appendChild(li);
+                  var id = o.id;
+                  li.onclick = function(){
+                     var c = this;
+                     if (last) {
+                        last.className = "";
+                     }
+                     c.className = "on";
+                     var thumb = document.getElementById("thumb");
+                     var id = c.id.replace('skin_', '');
+                     var input = document.getElementById("skin");
+                     if (id === "none") {
+                        input.value = "";
+                        thumb.className = "hidden";
+                     } else {
+                        input.value = id;
+                        thumb.className = "";
+                        thumb.src = "skin/img/" + id + ".png";
+                     }
+                     last = c;
+                  };
+               }
+            }
+            
+            function createInfo(){
+               infoNavigator();
+            }
+            
+            function createReport(report){
+               var list = document.getElementById('sysinfo');
+               list.innerHTML = '';
+               recurseList(list, report);
+            }
+            
+            function recurseList(root, list){
+               var ul = document.createElement('ul');
+               for (var o in list) {
+                  var li = document.createElement('li');
+                  if (typeof list[o] === "object") {
+                     ul.innerHTML += "<span class='info-title'>" + o + "</span>";
+                     recurseList(ul, list[o]);
+                  } else {
+                     li.innerHTML = o + " : " + list[o];
+                     ul.appendChild(li);
+                  }
+               }
+               root.appendChild(ul);
+            }
+            
+            //Duplicate from info.js
+            function infoNavigator(){
+               var n = window.navigator;
+               var w = {};
+               for (var p in n) {
+                  if (typeof n[p] === "string" || typeof n[p] === "boolean") {
+                     w[p] = n[p];
+                  }
+               }
+               var chromeVersion = extract('Chrome', n.appVersion);
+               var webkitVersion = extract('AppleWebKit', n.appVersion);
+               
+               var o = {
+                  version: chromeVersion,
+                  webkit: webkitVersion,
+                  os: n.platform,
+                  lang: n.language,
+                  resolution: screen.width + 'x' + screen.height
+               };
+               createReport({
+                  info: o,
+                  navigator: w,
+                  screen: screen
+               });
+            }
+            
+            function extract(name, text){
+               try {
+                  var re = new RegExp(name + '/[\\d\\.]+');
+                  var r = re.exec(text);
+                  return r[0].replace(name + '/', '');
+               } 
+               catch (e) {
+                  return '?';
+               }
+            }
+        </script>
+    </head>
+    <body onload="init();">
+        <div class="flc">
+            <div class="fli logo">
+                <img alt="logo" src="128.png" id="logo"/>
+            </div>
+            <div class="flt">
+                <div class="logotitle">
+                    <h1>Google Reader Plus</h1>
+                </div>
+                <a href="http://www.pitaso.com/chrome" target="_blank">Website</a>
+                &nbsp;|&nbsp;<a href="http://code.google.com/p/googlereaderplus/issues/entry">Report issue</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.twitter.com/ludoo0d0a"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow ludoo0d0a on Twitter"/></a>
+					 <br>
+                <a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg/" target="_blank">Extension page</a>
+                <br>
+                <a href="http://www.google.com/reader" target="_blank">Go to Google Reader</a>
+                <br>
+                <a href="about.html" target="_blank">About</a>
+            </div>
+        </div>
+        <form name="preferences">
+            <div id="main">
+                <div class="menu hidden" id="status">
+                </div>
+                <div class="menu nav">
+                    <div class="title">
+                        <h2>Preferences</h2>
+                    </div>
+                    <div id="scriptlist">
+                    </div>
+                    <div class="tar">
+                        <input type="button" name="Submit" value="Apply" onClick="save(this.form);">
+                    </div>
+                </div>
+                <div class="menu panel">
+                    <div id="panel_skins">
+                        <div class="title">
+                            <h2>Themes/skins</h2>
+                        </div>
+                        <div id="skinsbox">
+                            <input id="skin" name="skin" type="hidden" value=""/>
+                            <div id="skinc">
+                                <ul id="skinlist">
+                                </ul>
+                            </div>
+                            <div id="thumbc">
+                                <img alt="thumb" id="thumb" src="" width="400" height="243" class="hidden"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="panel_column" style="display:none;">
+                        <div class="title">
+                            <h2>Column</h2>
+                        </div>
+                        Columns number : <input id="column_count" name="column_count" type="text" value="3" size="2"/>
+                        <br>
+                        <input id="column_locked" name="column_locked" type="checkbox" /><label for="column_locked">Feature 'Column' always actived by default</label>
+                    </div>
+                    <div id="panel_removeads" style="display:none;">
+                        <div class="title">
+                            <h2>Remove Ads</h2>
+                        </div>
+                        Link filter : 
+                        <textarea name="removeads_links" cols="90" rows="3">
+                        </textarea>
+                        <br>
+                        Image filter : 
+                        <textarea name="removeads_images" cols="90" rows="3">
+                        </textarea>
+                        <br>
+                        iframe filter : 
+                        <textarea name="removeads_iframes" cols="90" rows="3">
+                        </textarea>
+                    </div>
+                    <div id="panel_preview" style="display:none;">
+                        <div class="title">
+                            <h2>Preview</h2>
+                        </div>
+                        <input id="preview_locked" name="preview_locked" type="checkbox" /><label for="preview_locked">Feature 'Preview' always actived by default</label>
+                    </div>
+                    <div id="panel_favicons" style="display:none;">
+                        <div class="title">
+                            <h2>Favicons</h2>
+                        </div>
+                        <input id="favicons_manual" name="favicons_manual" type="checkbox" /><label for="favicons_manual">Manual search for all sites (not recommended ; slower)</label>
+                        <br>
+                        Extract favicon for following sites (comma separated): 
+                        <textarea name="favicons_domains" cols="90" rows="8">
+                        </textarea>
+                        <br>
+                        You could add too a site using the contextual menu of the side bar ("Manual favicon")
+                        <div class="tar">
+                            <input type="button" name="Submit" value="Apply" onClick="save(this.form);">
+                        </div>
+                    </div>
+                    <div id="panel_info" style="display:none;">
+                        <div class="title">
+                            <h2>System information</h2>
+                        </div>
+                        <!--
+                        <div id="header_info">
+                        <a id="gen_info" href="javascript:createInfo();">Generate report</a>
+                        </div>
+                        -->
+                        <div id="sysinfo">
+                        </div>
+                    </div>
+                    <div id="panel_thanks" style="display:none;">
+                        <div class="title">
+                            <h2>Thanks</h2>
+                        </div>
+                        Thanks to authors of original scripts and skins (Greasemonkey and Stylish):
+                        <ul>
+                            <li><a href="http://userscripts.org/scripts/show/56756">Google Reader Plus (aka me LudoO :)</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/40120">Google Reader Favicon ++</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/12197">Google Reader Minimalistic</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/8782">Google Reader - Colorful List View</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/12352">Google Reader Preview Enhanced (patched by bryantsai)</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/23671">Google Reader Filter</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/6415">Google Reader for wider screens</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/12601">Google Reader Unread Count</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/46615">GReader Favicon Alerts</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/8843">Google Reader - Read by Mouse</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/9594">Facebook Sharer + Google Reader</a> and my update : <a href="http://userscripts.org/scripts/show/63997">Share with Facebook in Google Reader</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/10169">Google Reader + Twitter</a></li>
+                            <!-- <li>
+                            <a href="http://userscripts.org/scripts/show/49958">Grittr = Google Reader + Twitter</a>
+                            </li>
+                            <li>
+                            <a href="http://userscripts.org/scripts/show/26383">Google Reader Prefetch More</a>
+                            </li>--><li><a href="http://userscripts.org/scripts/show/63802">Google Reader: Mac OS X Snow Leopard Fixes</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/10573">Google Reader Air Skin</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/9692">Google Air Skin Comic Sans</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/12917">google Enhanced BLACK</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/24736">Black Skin</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/5133">Another Dark Google Reader Style</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/38251">Helvetireader style for Google Reader</a></li>
+                            <li><a href="http://userstyles.org/styles/12859">OS X Style for New Google Reader</a><a href="http://userstyles.org/styles/2336">OS X Spinner for Google Reader</a></li>
+                            <li><a href="http://userstyles.org/styles/16900">Google Reader: Mac OS X Snow Leopard</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/63802">Google Reader: Mac OS X Snow Leopard Fixes</a></li>
+                            <li><a href="http://www.hicksdesign.co.uk/journal/google-reader-theme">OS X fixer</a></li>
+                            <li><a href="http://userstyles.org/styles/4096">Google Aero</a></li>
+                            <li><a href="http://userscripts.org/scripts/show/24955">Google Reader - Mark Until Current As Read</a></li>
+                        </ul>
+                    </div>
+						  <div id="panel_about" style="display:none;">
+                        <div class="title">
+                            <h2>About</h2>
+                        </div>
+                        <iframe src="about.html" width="780" height="500"></iframe>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>
