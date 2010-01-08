@@ -2,21 +2,40 @@
  * @author Valente
  */
 var grp_info = function(prefs){
-
+	
+	var myport, status, report = {};
+	
 	function init(){
-		var sysinfo = function(e){
-			infoNavigator();
-			infoExtensions();
-			infoVersion();
-		};
-		
-		var footer = document.getElementById('viewer-footer');
+		/*var footer = document.getElementById('viewer-footer');
 		var buttonf = getLastElementMatchingClassName(footer, 'div', 'goog-button');
 		addButton(buttonf, 'info', 'Get system information', sysinfo, 1);
 		
 		var header = document.getElementById('viewer-top-controls');
 		var buttonh = getLastElementMatchingClassName(header, 'div', 'goog-button');
 		addButton(buttonh, 'info', 'Get system information', sysinfo, 1);
+		*/
+		
+		myport = chrome.extension.connect( {
+			name : "googlereaderplus"
+		});
+	}
+	
+	function sendreport(){
+		if (status == 3) {
+			//status ==3 -> report complete
+			myport.postMessage(
+			{
+				message: "info",
+				report: report
+			});
+		}
+	}
+	
+ 	function sysinfo(){
+		status=0;
+		infoNavigator();
+		infoExtensions();
+		infoVersion();
 	}
 	
 	function infoNavigator(){
@@ -28,6 +47,8 @@ var grp_info = function(prefs){
 			}
 		}
 		console.log(w);
+		report.navigator = w;
+		sendreport(++status);
 	}
 		
     function infoExtensions(){
@@ -38,15 +59,13 @@ var grp_info = function(prefs){
             onload: function(res){
                 var extensions = parseExtensions(xhr.responseXML);
 				console.log(extensions);
-                /*myport.postMessage(
-                {
-                    message: "infoextensions",
-                    extensions: extensions
-                });*/
+				report.extensions = extensions;
+				sendreport(++status);
             },
 			onerror: function(res){
 				console.log(res);
-				alert('error on getting extensions information');
+				report.extensions = {};
+				sendreport(++status);
 			}
         });
     }
@@ -59,16 +78,13 @@ var grp_info = function(prefs){
             onload: function(res){
                 var version = parseVersion(xhr.responseXML);
 				console.log(version);
-                /*myport.postMessage(
-                {
-                    message: "infoversion",
-                    version: version
-                });*/
-				
+				report.version = version;
+				sendreport(++status);
             },
 			onerror: function(res){
 				console.log(res);
-				alert('error on getting version information');
+				report.version = {};
+				sendreport(++status);
 			}
         });
     }

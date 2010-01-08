@@ -162,3 +162,8 @@ function fireResize(){
 	document.body.appendChild(p);
 	document.body.removeChild(p);
 }
+function simulateClick(node) {
+	var event = node.ownerDocument.createEvent("MouseEvents");
+	event.initMouseEvent("click", true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
+	node.dispatchEvent(event);
+}
