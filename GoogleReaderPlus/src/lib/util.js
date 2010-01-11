@@ -2,7 +2,7 @@
 // Global util functions
 //
 function hasClass(el, clazz) {
-	if (!el.className) {
+	if (!el || !el.className) {
 		return false;
 	}
 	var reClassname = new RegExp("(^|\\s)" + clazz + "(\\s|$)");
@@ -157,10 +157,19 @@ function find(o, key, value){
 	return false;
 }
 function removeClass(el, classname){
-	el.className = el.className.replace(classname, '').trim();
+	//todo: use regex word boundary
+	var s = (el.className||'').split(' ');
+	for ( var i = 0, len = s.length; i < len; i++) {
+		if (s[i]==classname){
+			s[i]='';
+		}
+	}
+	el.className = s.join(' ');
+	//el.className = el.className.replace(classname, '').trim();
 }
-function toggleClass(el, classFrom, classTo){
-	el.className = el.className.replace(classFrom, '').trim()+' '+classTo;
+function toggleClass(el, classDelete, classAdd){
+	removeClass(el, classDelete);
+	addClass(el, classAdd);
 }
 function fireResizeDefer(){
 	window.setTimeout(fireResize, 500);

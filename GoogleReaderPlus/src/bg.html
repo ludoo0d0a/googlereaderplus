@@ -2,11 +2,11 @@
     <head>
         <title>GoogleReaderPlus Background</title>
         <script type="application/javascript">
-            var VERSION = "2.5.6";
+            var VERSION = "2.7.0";
 			var myport;
             var EXCEPTIONS = {};
             //TODO : 'prefetch','info'
-            var scripts = [ 'closeentry', 'favicons', 'fixenclosures', 'fixwidth', 'removeads', 'preview', 'mark', 'colorful', 'filter', 'count', 'readbymouse', 'counticon', 'column', 'jump', 'aero', 'unreadcount', 'facebook', 'twitter'];
+            var scripts = [ 'fitheight','closeentry', 'favicons', 'fixenclosures', 'fixwidth', 'removeads', 'preview', 'mark', 'colorful', 'filter', 'count', 'readbymouse', 'counticon', 'column', 'jump', 'aero', 'unreadcount', 'facebook', 'twitter'];
 			var options = ['favicons_manual', 'favicons_domains', 'skin', 'column_count','column_locked','preview_locked', 'removeads_links', 'removeads_images', 'removeads_iframes'];
             
             chrome.extension.onConnect.addListener(onPortConnect);
@@ -294,9 +294,9 @@
 
 			function init(){
 				var DEFAULT = {
-					removeads_links: "da.feedsportal.com|res.feedsportal.com|doubleclick.net|/ads",
-					removeads_images: "feedsportal.com|doubleclick.net|/ads",
-					removeads_iframes: "feedsportal.com|doubleclick.net|googlesyndication.com/pagead/ads"
+					removeads_links: "da\.feedsportal\.com|res\.feedsportal\.com|doubleclick\.net|/ads",
+					removeads_images: "feedsportal\.com|doubleclick\.net|/ads",
+					removeads_iframes: "feedsportal\.com|doubleclick\.net|googlesyndication\.com/pagead/ads"
 				};
 				for (var o in DEFAULT) {
 					if (localStorage.getItem(o) === null) {

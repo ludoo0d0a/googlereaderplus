@@ -58,7 +58,7 @@ var grp_column = function(prefs) {
 		divoriginal.style.display = (active)?"none":"";
 		divwrap.style.display = (active)?"":"none";
 		
-		jump(entry, false);
+		jump(entry, true);
 	}
 	
 	//column_count
@@ -84,13 +84,13 @@ var grp_column = function(prefs) {
 		var cwh = Math.max(Math.round(cw.clientWidth / cols), 50);
 	}
 	
+	// copy of fixwidth
+	GM_addStyle(".entry .entry-body, .entry .entry-title{ display: inline !important; max-width: 100% !important; }");
+
 	var css = ".column-wrapped{ text-align: justify; -webkit-column-count: "+cols+"; -webkit-column-gap: 1.5em; -webkit-column-rule: 1px solid #dedede;overflow:visible;} ";
 	css += '.column-wrapped img{max-width:'+cwh+'px !important;height: auto !important;}';
 	GM_addStyle(css);
 	
-	// copy of fixwidth
-	//GM_addStyle(".entry .entry-body, .entry .entry-title{ display: inline !important; max-width: 100% !important; }");
-	GM_addStyle(".entry .entry-title{ display: inline !important; max-width: 100% !important; }");
 
 	initCatchEntries(addButton, 'ecolumn');
 	initKey({key:67, fn:addKey});//c

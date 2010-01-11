@@ -29,18 +29,7 @@ var grp_preview = function(prefs) {
 		ilink.addEventListener('click', previewMouseClick, false);
 
 		// Bottom button
-		addBottomLink(el,'Preview', 'Integrated preview of the news', 'item-preview preview', true, preview, locked);
-		/*
-		var prview = document.createElement('span');
-		// prview.className='item-preview preview link';
-		prview.className = 'item-preview preview link read-state-not-kept-unread read-state';
-		prview.innerHTML = 'Preview';
-		el.appendChild(prview);
-		prview.addEventListener('click', previewMouseClick, false);
-		if (locked){
-			//activate it
-			preview(entry, prview, true);
-		}*/
+		addBottomLink(el,'Preview', 'Integrated preview of the news [Shift+V]', 'item-preview preview', true, preview, locked);
 	}
 
 	function calcEntryIndex(e) {
@@ -62,20 +51,6 @@ var grp_preview = function(prefs) {
 		}
 		e.preventDefault();
 	}
-		/*
-	function previewMouseClick(e) {
-		var el = e.target;
-		var entry = findParentNode(el, 'div', 'entry');
-
-		if (e.ctrlKey) {
-			//Ctrl+click : open in a new tab
-			openInNewTab(entry);
-		} else {
-			var index = calcEntryIndex(entry);
-			preview(entry, index);
-		}
-		e.preventDefault();
-	}*/
 
 	function previewShortcut() {
 		preview(getCurrentEntry());
