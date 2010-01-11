@@ -102,12 +102,12 @@ var grp_preview = function(prefs) {
 			}
 		}
 	}
-	function preview(el, entry, active, locked, e) {
+	function preview(btn, entry, locked, e) {
 		// Update entry with preview mode, need to do it before scrolling,
 		// because scrolling will repaint preview button (list view only)
 		var iframe;
 		
-		var active = isActive(entry, 'preview');
+		var active = isActive(btn, entry, 'preview');
 		if (active)
 		
 		/*

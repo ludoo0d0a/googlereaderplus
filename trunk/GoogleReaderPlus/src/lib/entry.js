@@ -75,6 +75,7 @@ function jump(entry, dirtop) {
 }
 function getHeightEntries(){
 	var entries = document.getElementById('entries');
+	//TODO: better computation if minimalistic skin (110??)
 	return entries?(parseInt(entries.style.height.replace('px',''), 10)-110):500;
 }
 function getBody(entry){
@@ -132,15 +133,15 @@ function onKey(cls, fn) {
 
 function addBottomLink(el, text, title, cls, button, callback, locked){
 	var span = document.createElement('span');
-	span.className = cls+(button?'read-state-not-kept-unread read-state ':'')+' link unselectable';
+	span.className = cls+(button?' read-state-not-kept-unread read-state':'')+' link unselectable';
 	span.innerHTML = text;
 	span.title = title;
 	el.appendChild(span);
 	var lcked = locked;
 	function onClick(e) {
-		var el = e.target;
+		var btn = e.target;
 		var entry = findParentNode(el, 'div', 'entry');
-		callback(el, entry, lcked, e);
+		callback(btn, entry, lcked, e);
 	}
 	span.addEventListener('click', onClick, false);
 	if (locked){
@@ -148,15 +149,15 @@ function addBottomLink(el, text, title, cls, button, callback, locked){
 		columnize(span, entry, true);
 	}
 }
-function isActive(entry, cls, locked){
+function isActive(btn, entry, cls, locked){
 	var active = false;
 	if (locked || entry.className.indexOf(cls) == -1) {
 		entry.className = entry.className + ' '+cls;
-		toggleClass(el, 'read-state-not-kept-unread', 'read-state-kept-unread');
+		toggleClass(btn, 'read-state-not-kept-unread', 'read-state-kept-unread');
 		active = true;
 	} else {
 		removeClass(entry, cls);
-		toggleClass(el, 'read-state-kept-unread', 'read-state-not-kept-unread');
+		toggleClass(btn, 'read-state-kept-unread', 'read-state-not-kept-unread');
 		active = false;
 	}
 	return active;

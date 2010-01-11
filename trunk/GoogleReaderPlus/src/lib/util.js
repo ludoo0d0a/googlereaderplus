@@ -11,6 +11,13 @@ function hasClass(el, clazz) {
 function addClass(el, clazz) {
 	el.className = (el.className||'')+ ' '+clazz;
 }
+function addClassIf(el, cls, status) {
+	if (status){
+		addClass(el, cls);
+	}else{
+		removeClass(el, cls);
+	}
+}
 function findParentNode(eel, etag, clazz) {
 	var tag = etag.toUpperCase();
 	var el = eel.parentNode;

@@ -3,34 +3,14 @@ var grp_column = function(prefs) {
 	
 	function addButton(el, entry, mode) {
 		addBottomLink(el,'Column', 'Display as multi columns layout [c]', 'btn-column', true, columnize, locked);
-/*		
-		var span = document.createElement('span');
-		span.className = 'btn-column read-state-not-kept-unread read-state link unselectable';
-		span.innerHTML = 'Column';
-		span.title = 'Display as multi columns layout [c]';
-		el.appendChild(span);
-		span.addEventListener('click', columnizeClick, false);
-		if (locked){
-			//activate it
-			columnize(span, entry, true);
-		}
-		*/
-	}
-	/*
-	function columnizeClick(e) {
-		var el = e.target;
-		var entry = findParentNode(el, 'div', 'entry');
-		columnize(el, entry);
-	}*/
-	function addKey() {
-		onKey('btn-column', columnize);
-		/*var entry = getCurrentEntry()'btn-column');
-		var el = getFirstElementMatchingClassName(entry, 'span', 'btn-column');
-		columnize(el, entry);*/
 	}
 
-	function columnize(el, entry, locked) {
-		var active = isActive(entry, 'columnize', locked);
+	function addKey() {
+		onKey('btn-column', columnize);
+	}
+
+	function columnize(btn, entry, locked) {
+		var active = isActive(btn, entry, 'columnize', locked);
 
 		var body = getBody(entry);
 		
@@ -97,14 +77,20 @@ var grp_column = function(prefs) {
 	}
 
 	var cw = getFirstElementMatchingClassName(document, 'div', 'entry-main');
-	var cwh = Math.max(Math.round(cw.clientWidth/cols), 50); 
+	if (!cw) {
+		cw = get_id('entries');
+	}
+	if (cw) {
+		var cwh = Math.max(Math.round(cw.clientWidth / cols), 50);
+	}
 	
 	var css = ".column-wrapped{ text-align: justify; -webkit-column-count: "+cols+"; -webkit-column-gap: 1.5em; -webkit-column-rule: 1px solid #dedede;overflow:visible;} ";
-	css += '.column-wrapped img{width:'+cwh+'px !important;height: auto !important;}';
+	css += '.column-wrapped img{max-width:'+cwh+'px !important;height: auto !important;}';
 	GM_addStyle(css);
 	
 	// copy of fixwidth
-	GM_addStyle(".entry .entry-body, .entry .entry-title{ display: inline !important; max-width: 100% !important; }");
+	//GM_addStyle(".entry .entry-body, .entry .entry-title{ display: inline !important; max-width: 100% !important; }");
+	GM_addStyle(".entry .entry-title{ display: inline !important; max-width: 100% !important; }");
 
 	initCatchEntries(addButton, 'ecolumn');
 	initKey({key:67, fn:addKey});//c
