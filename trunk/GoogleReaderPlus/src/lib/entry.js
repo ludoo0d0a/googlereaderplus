@@ -61,6 +61,9 @@ function getEntry(e){
 }
 
 function jump(entry, dirtop) {
+	if (!entry){
+		return false;
+	}
 	var entries = document.getElementById('entries');
 	var height = parseInt(entries.style.height.replace('px', ''), 10);
 	var top = 0;
@@ -127,8 +130,8 @@ function addButton(reference, text, title,  fn, position){
 }
 function onKey(cls, fn) {
 	var entry = getCurrentEntry();
-	var el = getFirstElementMatchingClassName(entry, 'span', cls);
-	fn.call(this,el, entry);
+	var btn = getFirstElementMatchingClassName(entry, 'span', cls);
+	fn.call(this, btn, entry);
 }
 
 function addBottomLink(el, text, title, cls, button, callback, locked){
@@ -151,8 +154,9 @@ function addBottomLink(el, text, title, cls, button, callback, locked){
 }
 function isActive(btn, entry, cls, locked){
 	var active = false;
-	if (locked || entry.className.indexOf(cls) == -1) {
-		entry.className = entry.className + ' '+cls;
+	//if (locked || entry.className.indexOf(cls) == -1) {
+	if (locked || !hasClass(btn,'read-state-kept-unread')) {
+		addClass(entry,cls);
 		toggleClass(btn, 'read-state-not-kept-unread', 'read-state-kept-unread');
 		active = true;
 	} else {

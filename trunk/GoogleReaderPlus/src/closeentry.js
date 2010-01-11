@@ -19,7 +19,7 @@ var grp_closeentry = function(prefs) {
 		closeEntry(entry);
 	}
 	
-	function closeEntry(entry){
+	function closeEntry(btn, entry, locked, e){
 		var nextEntry = entry.nextSibling;
 		entry.parentNode.removeChild(entry);
 		
