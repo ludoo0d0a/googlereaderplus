@@ -16,9 +16,20 @@
  */
 
 var grp_mark = function(prefs) {
+	var currentElement, modeList=false;
 
+	function setConfig(){
+		currentElement = getCurrentEntry();
+		modeList=getMode(currentElement)=='list';
+	}
 	function markUntilCurrentAsRead() {
-		var currentElement = document.getElementById('current-entry');
+		setConfig();
+		var nextElement=currentElement.previousSibling;
+		while(nextElement){
+			simulateClick((modeList)?nextElement.firstChild:nextElement);
+			nextElement=currentElement.previousSibling;
+		}
+		/*
 		var allEntries = getAllEntries();
 
 		for ( var i = 0; i < allEntries.length; i++) {
@@ -27,12 +38,19 @@ var grp_mark = function(prefs) {
 				break;
 			}
 			simulateClick(entryIcon);
-		}
+		}*/
+		
 		simulateClick(currentElement.childNodes[0]);
 	}
 
 	function markAfterCurrentAsRead() {
-		var currentElement = document.getElementById('current-entry');
+		setConfig();
+		var nextElement=currentElement.nextSibling;
+		while(nextElement){
+			simulateClick((modeList)?nextElement.firstChild:nextElement);
+			nextElement=currentElement.nextSibling;
+		}
+		/*
 		var allEntries = getAllEntries();
 
 		for ( var i = allEntries.length - 1; i >= 0; i--) {
@@ -41,7 +59,7 @@ var grp_mark = function(prefs) {
 				break;
 			}
 			simulateClick(entryIcon);
-		}
+		}*/
 		simulateClick(currentElement.childNodes[0]);
 	}
 
@@ -68,7 +86,7 @@ var grp_mark = function(prefs) {
 		}
 		return allEntries;
 	}
-
+/*
 	function keyPressEvent(event) {
 		if (event.target.nodeName.toLowerCase() === 'input'){
 			return;
@@ -90,4 +108,7 @@ var grp_mark = function(prefs) {
 	}
 
 	document.addEventListener("keypress", keyPressEvent, true);
+	*/
+	//w, k
+	initKey([{key:87, fn:markUntilCurrentAsRead}, {key:75, fn:markAfterCurrentAsRead}]);
 };

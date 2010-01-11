@@ -8,6 +8,9 @@ function hasClass(el, clazz) {
 	var reClassname = new RegExp("(^|\\s)" + clazz + "(\\s|$)");
 	return (reClassname.test(el.className));
 }
+function addClass(el, clazz) {
+	el.className = (el.className||'')+ ' '+clazz;
+}
 function findParentNode(eel, etag, clazz) {
 	var tag = etag.toUpperCase();
 	var el = eel.parentNode;

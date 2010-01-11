@@ -40,7 +40,7 @@
 			});
 		},
 		runExtra : function() {
-			if (this.prefs.skin) {
+			if (this.prefs.skins && this.prefs.skin) {
 				this.run(this.prefs.skin);
 			}
 			for ( var i = 0, len = this.scripts.length; i < len; i++) {
