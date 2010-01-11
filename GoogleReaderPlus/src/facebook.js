@@ -42,8 +42,8 @@ var grp_facebook = function(prefs) {
 		facebookShare(el, entry, active);
 	}*/
 
-	function facebookShare(el, entry, locked) {
-		var active = isActive(entry, 'facebook', locked);
+	function facebookShare(btn, entry, locked) {
+		var active = isActive(btn, entry, 'facebook', locked);
 		//var el = e.target;
 		//var entry = findParentNode(el, 'div', 'entry');
 		
