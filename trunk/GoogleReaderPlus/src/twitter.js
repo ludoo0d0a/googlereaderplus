@@ -203,8 +203,9 @@ var grp_twitter = function(prefs) {
 					return $1.toUpperCase();
 				});
 			}
-			if (i > 0)
+			if (i > 0) {
 				lbls += ", ";
+			}
 			lbls += lbl;
 		}
 		if (DEFAULT_LABEL.length > 0) {
@@ -218,7 +219,7 @@ var grp_twitter = function(prefs) {
 	}
 
 	function findPos(obj) {
-		var curleft = curtop = 0;
+		var curleft = 0, curtop = 0;
 		if (obj.offsetParent) {
 			curleft = obj.offsetLeft + obj.offsetParent.offsetLeft;
 			curtop = obj.offsetTop + obj.offsetParent.offsetTop + obj.offsetParent.offsetParent.offsetTop;

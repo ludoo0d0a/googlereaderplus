@@ -29,6 +29,8 @@ var grp_preview = function(prefs) {
 		ilink.addEventListener('click', previewMouseClick, false);
 
 		// Bottom button
+		addBottomLink(el,'Preview', 'Integrated preview of the news', 'item-preview preview', true, preview, locked);
+		/*
 		var prview = document.createElement('span');
 		// prview.className='item-preview preview link';
 		prview.className = 'item-preview preview link read-state-not-kept-unread read-state';
@@ -38,7 +40,7 @@ var grp_preview = function(prefs) {
 		if (locked){
 			//activate it
 			preview(entry, prview, true);
-		}
+		}*/
 	}
 
 	function calcEntryIndex(e) {
@@ -49,7 +51,18 @@ var grp_preview = function(prefs) {
 		}
 		return index;
 	}
-
+	
+	function previewMouseClick(el, entry, active, e){
+		if (e.ctrlKey) {
+			//Ctrl+click : open in a new tab
+			openInNewTab(entry);
+		} else {
+			var index = calcEntryIndex(entry);
+			preview(entry, index);
+		}
+		e.preventDefault();
+	}
+		/*
 	function previewMouseClick(e) {
 		var el = e.target;
 		var entry = findParentNode(el, 'div', 'entry');
@@ -62,7 +75,7 @@ var grp_preview = function(prefs) {
 			preview(entry, index);
 		}
 		e.preventDefault();
-	}
+	}*/
 
 	function previewShortcut() {
 		preview(getCurrentEntry());
@@ -74,6 +87,7 @@ var grp_preview = function(prefs) {
 		var url = link.href;
 		GM_openInTab(url);
 	}
+	//TODO: deprecated
 	function checkAction(entry, visible){
 		var itm = getFirstElementMatchingClassName(entry, 'span', 'item-preview');
 		if (visible) {
@@ -88,22 +102,28 @@ var grp_preview = function(prefs) {
 			}
 		}
 	}
-	function preview(entry, el, locked) {
+	function preview(el, entry, active, locked, e) {
 		// Update entry with preview mode, need to do it before scrolling,
 		// because scrolling will repaint preview button (list view only)
-		var prview, iframe;
+		var iframe;
+		
+		var active = isActive(entry, 'preview');
+		if (active)
+		
+		/*
 		if (locked) {
-			prview = locked;
+			active = locked;
 		} else {
 			var itm = getFirstElementMatchingClassName(entry, 'span', 'item-preview');
 			if (itm) {
-				prview = (itm.className.indexOf('read-state-kept-unread') == -1);
+				active = (itm.className.indexOf('read-state-kept-unread') == -1);
 			} else {
-				prview = (entry.className.indexOf('preview') == -1);
+				active = (entry.className.indexOf('preview') == -1);
 			}
 		}
-		
-		checkAction(entry, prview);
+		checkAction(entry, active);
+		*/
+		//TODO: check this
 		if (lastEntry){
 			checkAction(lastEntry, false);
 		}
@@ -118,7 +138,7 @@ var grp_preview = function(prefs) {
 			entryBody = getFirstElementMatchingClassName(body, 'div', 'item-body');
 		}
 
-		if (prview) {
+		if (active) {
 			// classic mode-> preview mode
 
 			// hide rss item

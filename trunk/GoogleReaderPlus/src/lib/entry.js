@@ -22,6 +22,9 @@ function catchEntryAdded(e, fn, bid) {
 		}
 	}
 }
+function getMode(entry){
+	return hasClass(entry.firstChild, 'collapsed')?'list':'expanded';
+}
 
 function catchAllEntries(fn, bid) {
 	var root = document.getElementById('entries');
@@ -74,6 +77,15 @@ function getHeightEntries(){
 	var entries = document.getElementById('entries');
 	return entries?(parseInt(entries.style.height.replace('px',''), 10)-110):500;
 }
+function getBody(entry){
+	var body = getFirstElementMatchingClassName(entry, 'div', 'item-body');
+	// why a sub body sometimes ??
+	var subbody = getFirstElementMatchingClassName(body, 'div', 'item-body');
+	if (subbody){
+		body = subbody;
+	}
+	return body;
+}
 function initResize(fn){
 	document.body.addEventListener('resize', function(e){
 		if (typeof fn === "function") {
@@ -111,4 +123,41 @@ function addButton(reference, text, title,  fn, position){
 	div.addEventListener('click', function(e) {
 		fn.call(me);
 	}, false);
+}
+function onKey(cls, fn) {
+	var entry = getCurrentEntry();
+	var el = getFirstElementMatchingClassName(entry, 'span', cls);
+	fn.call(this,el, entry);
+}
+
+function addBottomLink(el, text, title, cls, button, callback, locked){
+	var span = document.createElement('span');
+	span.className = cls+(button?'read-state-not-kept-unread read-state ':'')+' link unselectable';
+	span.innerHTML = text;
+	span.title = title;
+	el.appendChild(span);
+	var lcked = locked;
+	function onClick(e) {
+		var el = e.target;
+		var entry = findParentNode(el, 'div', 'entry');
+		callback(el, entry, lcked, e);
+	}
+	span.addEventListener('click', onClick, false);
+	if (locked){
+		//activate it
+		columnize(span, entry, true);
+	}
+}
+function isActive(entry, cls, locked){
+	var active = false;
+	if (locked || entry.className.indexOf(cls) == -1) {
+		entry.className = entry.className + ' '+cls;
+		toggleClass(el, 'read-state-not-kept-unread', 'read-state-kept-unread');
+		active = true;
+	} else {
+		removeClass(entry, cls);
+		toggleClass(el, 'read-state-kept-unread', 'read-state-not-kept-unread');
+		active = false;
+	}
+	return active;
 }

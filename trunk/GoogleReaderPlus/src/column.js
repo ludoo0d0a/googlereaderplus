@@ -1,7 +1,9 @@
 var grp_column = function(prefs) {
 	var locked = false;
 	
-	function addColumnButton(el, entry, mode) {
+	function addButton(el, entry, mode) {
+		addBottomLink(el,'Column', 'Display as multi columns layout [c]', 'btn-column', true, columnize, locked);
+/*		
 		var span = document.createElement('span');
 		span.className = 'btn-column read-state-not-kept-unread read-state link unselectable';
 		span.innerHTML = 'Column';
@@ -12,36 +14,25 @@ var grp_column = function(prefs) {
 			//activate it
 			columnize(span, entry, true);
 		}
+		*/
 	}
+	/*
 	function columnizeClick(e) {
 		var el = e.target;
 		var entry = findParentNode(el, 'div', 'entry');
 		columnize(el, entry);
-	}
-	function columnizeKey() {
-		var entry = getCurrentEntry();
+	}*/
+	function addKey() {
+		onKey('btn-column', columnize);
+		/*var entry = getCurrentEntry()'btn-column');
 		var el = getFirstElementMatchingClassName(entry, 'span', 'btn-column');
-		columnize(el, entry);
+		columnize(el, entry);*/
 	}
 
 	function columnize(el, entry, locked) {
-		var columnized = false;
-		if (locked || entry.className.indexOf('columnize') == -1) {
-			entry.className = entry.className + ' columnize';
-			toggleClass(el, 'read-state-not-kept-unread', 'read-state-kept-unread');
-			columnized = true;
-		} else {
-			removeClass(entry, 'columnize');
-			toggleClass(el, 'read-state-kept-unread', 'read-state-not-kept-unread');
-			columnized = false;
-		}
+		var active = isActive(entry, 'columnize', locked);
 
-		var body = getFirstElementMatchingClassName(entry, 'div', 'item-body');
-		// why a sub body sometimes ??
-		var subbody = getFirstElementMatchingClassName(body, 'div', 'item-body');
-		if (subbody){
-			body = subbody;
-		}
+		var body = getBody(entry);
 		
 		var divoriginal = body.firstChild;
 		var divwrap = getFirstElementMatchingClassName(entry, 'div', 'column-wrapped');
@@ -84,8 +75,8 @@ var grp_column = function(prefs) {
 			body.appendChild(divwrap);
 		}
 		// toggle to correct body
-		divoriginal.style.display = (columnized)?"none":"";
-		divwrap.style.display = (columnized)?"":"none";
+		divoriginal.style.display = (active)?"none":"";
+		divwrap.style.display = (active)?"":"none";
 		
 		jump(entry, false);
 	}
@@ -105,13 +96,17 @@ var grp_column = function(prefs) {
 		locked = prefs.column_locked;
 	}
 
-	var css = ".column-wrapped{ text-align: justify; -webkit-column-count: "+cols+"; -webkit-column-gap: 1.5em; -webkit-column-rule: 1px solid #dedede;overflow:visible;}";
+	var cw = getFirstElementMatchingClassName(document, 'div', 'entry-main');
+	var cwh = Math.max(Math.round(cw.clientWidth/cols), 50); 
+	
+	var css = ".column-wrapped{ text-align: justify; -webkit-column-count: "+cols+"; -webkit-column-gap: 1.5em; -webkit-column-rule: 1px solid #dedede;overflow:visible;} ";
+	css += '.column-wrapped img{width:'+cwh+'px !important;height: auto !important;}';
 	GM_addStyle(css);
 	
 	// copy of fixwidth
 	GM_addStyle(".entry .entry-body, .entry .entry-title{ display: inline !important; max-width: 100% !important; }");
 
-	initCatchEntries(addColumnButton, 'ecolumn');
-	initKey({key:67, fn:columnizeKey});//c
+	initCatchEntries(addButton, 'ecolumn');
+	initKey({key:67, fn:addKey});//c
 	
 };
