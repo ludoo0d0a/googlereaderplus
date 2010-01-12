@@ -23,7 +23,7 @@ var grp_preview = function(prefs) {
 		var ilink = document.createElement('a');
 		ilink.className = 'ilink';
 		ilink.href = '#';
-		ilink.title = 'Open as preview [Shift+V]';
+		ilink.title = 'Open as preview [Shift+R]';
 		ilink.innerText = ' ' + text;
 		title.insertBefore(ilink, link);
 		ilink.addEventListener('click', previewMouseClick, false);
@@ -44,7 +44,7 @@ var grp_preview = function(prefs) {
 	function previewMouseClick(el, entry, active, e){
 		if (e.ctrlKey) {
 			//Ctrl+click : open in a new tab
-			openInNewTab(entry);
+			openEntryInNewTab(entry);
 		} else {
 			var index = calcEntryIndex(entry);
 			preview(entry, index);
@@ -54,13 +54,6 @@ var grp_preview = function(prefs) {
 
 	function previewShortcut() {
 		preview(getCurrentEntry());
-	}
-
-	function openInNewTab(ent) {
-		var entry = ent || getCurrentEntry();
-		var link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
-		var url = link.href;
-		GM_openInTab(url);
 	}
 	//TODO: deprecated
 	function checkAction(entry, visible){
@@ -230,5 +223,5 @@ var grp_preview = function(prefs) {
 	
 	initCatchEntries(addPreviewButton, 'epreview');
 	initResize(onResize);
-	initKey({key:86, shift:true, fn:previewShortcut});//shift+V
+	initKey({key:81, shift:true, fn:previewShortcut});//shift+R
 };
