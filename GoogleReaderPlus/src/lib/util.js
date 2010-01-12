@@ -37,7 +37,16 @@ function findParentNode(eel, etag, clazz) {
 	}
 	return ((el && el.tagName !== 'BODY') ? el : false);
 }
-
+function getFirstNode(el) {
+	var o = el.firstChild;
+	if (typeof o == "HTMLDivElement"){
+		return o;
+	}
+	while(typeof o !== "undefined" && typeof o !== "HTMLDivElement"){
+		o=o.nextSibling;
+	}
+	return o;
+}
 function getFirstElementMatchingClassName(root, tag, clazz) {
 	var elements = root.getElementsByTagName(tag);
 	var i = 0;

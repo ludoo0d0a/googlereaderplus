@@ -39,7 +39,7 @@
             
             .nav {
                 width: 220px;
-                height: 570px;
+                height: 650px;
                 float: left;
             }
             
@@ -50,7 +50,7 @@
             
             .panel {
                 width: 800px;
-                min-height: 570px;
+                min-height: 650px;
                 float: left;
             }
             
@@ -253,13 +253,21 @@
                 id: "column",
                 name: "Text multi columns",
                 desc: "Add abutton to display news as a newspaper in multi columns",
-                shortcut: "c"
+                //shortcut: "c",
+				shortcuts: [{
+					title:'Multi columns',
+					key:{keyCode:67}
+				}]
             }, 
             {
                 id: "preview",
                 name: "Integrated preview",
                 desc: "Add a button to show entire original page instead the entry",
-                shortcut: "Shift+V"
+                //shortcut: "Shift+R",
+				shortcuts: [{
+					title:'Entry preview',
+					key:{keyCode:81}
+				}]
             }, 
             {
                 id: "colorful",
@@ -281,43 +289,78 @@
                 id: "facebook",
                 name: "Facebook integration",
                 desc: "Add a button to share news using Facebook",
-                shortcut: "b"
+                //shortcut: "b",
+				shortcuts: [{
+					title:'Post on Facebook',
+					key:{keyCode:66}
+				}]
             }, 
             {
                 id: "twitter",
                 name: "Twitter integration",
                 desc: "Add a button to share news using Twitter",
-                shortcut: "d"
+                //shortcut: "d",
+				shortcuts: [{
+					title:'Post on Twitter',
+					key:{keyCode:68}
+				}]
             }, 
             {
                 id: "mark",
                 name: "Mark Until Current As Read",
                 desc: "Mark items before/after current as read",
-                shortcut: "before: w ; after: x"
+                //shortcut: "before: w ; after: x",
+				shortcuts: [{
+					title:'Mark items before As Read',
+					key:{keyCode:87}
+				},{
+					title:'Mark items after As Read',
+					key:{keyCode:75}
+				}]
             }, 
             {
                 id: "jump",
                 name: "Add top/bottom links",
                 desc: "Add a 'goto bottom' icon on top entry and a 'goto top' on bottom entry",
-                shortcut: "Shift+T: goto top ; Shift+B : goto bottom"
+                //shortcut: "Shift+T: goto top ; Shift+B : goto bottom",
+				shortcuts: [{
+					title:'Goto top',
+					key:{keyCode:84}
+				},{
+					title:'Goto bottom',
+					key:{keyCode:66}
+				}]
             }, 
             {
                 id: "fitheight",
                 name: "Fit height",
                 desc: "Fit height of the current news to the screen height (for long articles)",
-                shortcut: "f : fit height"
+                //shortcut: "f : fit height",
+				shortcuts: [{
+					title:'Fit height',
+					key:{keyCode:70}
+				}]
             }, 
             {
                 id: "closeentry",
                 name: "Close entry",
                 desc: "Add a 'close' button on each entry to remove it",
-                shortcut: "x"
+                //shortcut: "x",
+				shortcuts: [{
+					title:'Close entry',
+					key:{keyCode:88}
+				}]
+				
             }, 
 			{
                 id: "openbackground",
                 name: "Open in background",
                 desc: "Add a 'open in background' button on each entry",
-                shortcut: "Shift + V : open in background tab"
+                //shortcut: "Shift + V : open in background tab",
+				shortcuts: [{
+					title:'Open in background tab',
+					key:{shiftKey:true, keyCode:86}
+				}]
             }, 
             {
                 id: "aero",
@@ -336,11 +379,23 @@
                 desc: "Thanks to contributors",
                 link: true
             
-            }, 
+            }, {
+                id: "readershortcuts",
+                name: "Keyboard shortcuts",
+                desc: "Original keyboard shortcuts",
+				url: 'http://www.google.com/support/reader/bin/answer.py?hl=en&answer=69973',
+                link: true
+            }, {
+                id: "extshortcuts",
+                name: "Extension shortcuts",
+                desc: "Extension keyboard shortcuts",
+                link: true
+            },
             {
                 id: "about",
                 name: "About",
                 desc: "About GoogleReaderPlus",
+				url: 'about.html',
                 link: true
             
             }];
@@ -430,7 +485,15 @@
                     status.className = "menu hidden";
                 }, 3000);
             }
-            
+			            
+			function getFirstNode(el) {
+				var o = el.firstChild;
+				while(o && o.nodeType !== 1){
+					o=o.nextSibling;
+				}
+				return o;
+			}
+
             function save(form){
                 var r = 
                 {
@@ -505,7 +568,11 @@
             
             var lastPanel;
             function showPanel(id){
-                var panel = document.getElementById('panel_' + id);
+                if (typeof window['run_'+id] == "function"){
+					window['run_'+id].call(this, id);
+				}
+				
+				var panel = document.getElementById('panel_' + id);
                 if (lastPanel) {
                     lastPanel.style.display = "none";
                 }
@@ -516,38 +583,52 @@
             }
             
             function fillTpl(tpl, script){
-                return tpl.replace(/{id}/g, script.id || '').replace(/{name}/g, script.name || '').replace(/{desc}/g, script.desc || '').replace(/{shortcut}/g, script.shortcut ? (' [' + script.shortcut + ']') : '');
+                return tpl.replace(/{id}/g, script.id || '')
+				.replace(/{name}/g, script.name || '')
+				.replace(/{desc}/g, script.desc || '')
+				.replace(/{shortcut}/g, script.shortcut ? (' [' + script.shortcut + ']') : '')
+				.replace(/{url}/g, script.url || '');
             }
-            
+
             function createscripts(){
                 var list = document.getElementById('scriptlist');
                 var panels = document.getElementById('panels');
                 list.innerHTML = '';
-                var tplCheckbox = '<input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{desc}{shortcut}">{name}</label>';
+                var tplCheckbox = '<input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{desc}">{name}</label>';
                 var tplLink = '<a id="{id}" title="{desc}" class="item" href="javascript:showPanel(\'{id}\');">{name}</a>';
-                var tplPanelTitle = '<div class="title"><h2>{name}</h2><div id="paneldesc_{id}" class="desc">{desc}</div><div class="shortcut" id="shortcut_{id}">Shortcut: {shortcut}</div></div>';
+                var tplPanelTitle = '<div class="title"><h2>{name}</h2><div id="paneldesc_{id}" class="desc">{desc}</div></div>';
+				var tplPanelIframe = '<div class="title"><h2>{name}</h2><iframe src="{url}" width="780" height="620"></iframe></div>';
                 for (var i = 0, len = scriptlist.length; i < len; i++) {
                     var script = scriptlist[i];
                     var t = (script.link) ? tplLink : tplCheckbox;
                     list.innerHTML += fillTpl(t, script);
                     var panel = document.getElementById('panel_' + script.id);
-                    if (!script.link) {
+                   // if (!script.link) {
                         var dlink = '[+]';
+						var tpl = (script.url)?tplPanelIframe:tplPanelTitle;
+						if (script.url){
+							script.url=script.url;
+						}
                         if (!panel) {
                             //create panels for descritpion
                             panel = document.createElement('div');
                             panel.id = "panel_" + script.id;
                             panel.style.display = "none";
                             script.shortcut = script.shortcut || '-';
-							panel.innerHTML = fillTpl(tplPanelTitle, script);
+							panel.innerHTML = fillTpl(tpl, script);
                             panels.appendChild(panel);
                             dlink = '>';
                        }else{
 							var container = document.createElement('div');
 							container.className='container';
 							container.innerHTML = fillTpl(tplPanelTitle, script);
-							panel.firstChild.insertBefore(container);
+							var pe = getFirstNode(panel);
+							pe.insertBefore(container);
 						}
+						//script.shortcut = (script.shortcuts)?(formatKey(script.shortcuts.keyCode)+script.shortcuts.title):(script.shortcut);
+						//shortcut
+						addShortcuts(panel, script.shortcuts);
+						
                         //[+]
                         var a = document.createElement('a');
                         a.className = 'detail';
@@ -555,7 +636,7 @@
                         a.title = 'Options for ' + script.name;
                         a.innerHTML = ' ' + dlink;
                         list.appendChild(a);
-                    }
+                    //}
                     list.innerHTML += '<br/>';
                 }
             }
@@ -594,6 +675,31 @@
                     };
                 }
             }
+			
+			function fillTplShortcut(tpl, shortcut){
+                return tpl.replace(/{script}/g, shortcut.script || '')
+				.replace(/{text}/g, shortcut.text || '')
+				.replace(/{title}/g, shortcut.title || '');
+            }
+			
+			function run_extshortcuts(id){
+				//update all Keyboard shortcuts
+				var tplShorcut = '<div class="shortcut"><span>{script}</span> - <span>{title}</span> : <span>{text}</span></div>';
+				var panel = document.getElementById('panel_' + id);
+				for (var i = 0, len = scriptlist.length; i < len; i++) {
+                    var script = scriptlist[i];
+					if (script.shortcuts) {
+						for (var j = 0, lenj = script.shortcuts.length; j < lenj; j++) {
+							var shortcut = script.shortcuts[j];
+							shortcut.script = script.name;
+							shortcut.text = formatKey(shortcut.key);
+							var div = document.createElement('div');
+							div.innerHTML = fillTplShortcut(tplShorcut, shortcut);
+							panel.appendChild(div);
+						}
+					}
+				}
+			}
             
             function createInfo(){
                 infoNavigator();
@@ -658,26 +764,39 @@
                     return '?';
                 }
             }
-            
-            function addShortcut(el){
-                var input = document.createElement('input');
+			
+            function addShortcuts(el, shortcuts){
+				if (shortcuts) {
+					for (var i = 0, len = shortcuts.length; i < len; i++) {
+						var shortcut = shortcuts[i];
+						addShortcut(el, shortcut.title, shortcut.key);
+					}
+				}
+			}
+            function addShortcut(el, title, key){
+                var label = document.createElement('span');
+			    label.innerHTML = title+' : ';
+			    el.appendChild(label);
+			    var input = document.createElement('input');
                 input.type = 'text';
-                input.size = 6;
-                el.appendChild(input);
-                var span = document.createElement('span');
-                el.appendChild(span);
+				input.value = formatKey(key);
+                input.size = 15;
                 el.onkeydown = function(e){
-                    var keycode;
-                    if (window.event) {
-                        keycode = window.event.keyCode;
-                    } else if (e) {
-                        keycode = e.which;
-                    }
-                    var keyLetter = String.fromCharCode(keycode);
-                    var text = ((e.ctrlKey) ? 'Ctrl + ' : '') + ((e.altKey) ? 'Alt + ' : '') + ((e.shiftKey) ? 'Shift + ' : '') + keyLetter;
-                    span.innerHTML = text;
-                }
+                    e.preventDefault();
+					e.stopPropagation();
+				    input.value = formatKey(e);
+					
+                };
+				el.appendChild(input);
+				var br = document.createElement('br');
+				el.appendChild(br);
             }
+			function formatKey(e){
+				var keyLetter = String.fromCharCode(e.keyCode);
+				return((e.ctrlKey) ? 'Ctrl + ' : '') + ((e.altKey) ? 'Alt + ' : '') + ((e.shiftKey) ? 'Shift + ' : '') + keyLetter;
+				
+			}
+			
         </script>
     </head>
     <body onload="init();">
@@ -885,12 +1004,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div id="panel_about" style="display:none;">
-                        <div class="body">
-                            <iframe src="about.html" width="780" height="500">
-                            </iframe>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </form>
