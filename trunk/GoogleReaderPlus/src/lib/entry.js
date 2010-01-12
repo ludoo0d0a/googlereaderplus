@@ -43,7 +43,12 @@ function catchEntry(el, mode, fn, bid) {
 		fn.call(this, el, entry, mode);
 	}
 }
-
+function openEntryInNewTab(ent, selected) {
+	var entry = ent || getCurrentEntry();
+	var link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
+	var url = link.href;
+	GM_openInTab(url, (selected||true));
+}
 function getCurrentEntry(){
 	return document.getElementById('current-entry');
 }

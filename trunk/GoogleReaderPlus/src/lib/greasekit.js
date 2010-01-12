@@ -129,19 +129,9 @@ if (typeof GM_registerMenuCommand === "undefined") {
 }
 
 if (typeof GM_openInTab === "undefined") {
-	GM_openInTab = function(url, name) {
+	GM_openInTab = function(url, selected, index, windowId) {
 		//send request port to bg
-		var data = {url:url, name:name};
-		/*accessSecure("prefs", data, function(a){
-			if (a.message===(data.callback||"requestdone")){
-				//xhr done ; callback
-				if (typeof data.callback === "function") {
-					data.callback.call(me);
-				}
-			}
-		});
-		*/
-		
+		var data = {url:url, selected:(selected||true), index:index, windowId:windowId};
 		accessSecure("opentab", data);
 	};
 }
