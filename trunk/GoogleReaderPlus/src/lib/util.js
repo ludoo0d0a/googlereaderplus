@@ -115,8 +115,17 @@ if (typeof Array.forEach === "undefined") {
 function isArray(obj) {
     return obj.constructor == Array;
 }
-
-
+function insertAfter(el, ref){
+	var next = ref.nextSibling;
+	if (next){
+		insertBefore(el, next);
+	}else{
+		ref.parentNode.appendChild(el);
+	}
+}
+function insertBefore(el, ref){
+	ref.parentNode.insertBefore(el, ref);
+}
 /**
  * 
  * @param fn
