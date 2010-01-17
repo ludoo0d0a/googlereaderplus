@@ -84,6 +84,7 @@ function jump(entry, dirtop) {
 function getHeightEntries(){
 	var entries = document.getElementById('entries');
 	//TODO: better computation if minimalistic skin (110??)
+	//todo : wrong if 'xx persons like this' is displayed
 	return entries?(parseInt(entries.style.height.replace('px',''), 10)-110):500;
 }
 function getBody(entry){
