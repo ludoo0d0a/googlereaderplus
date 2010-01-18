@@ -7,6 +7,21 @@
                 background: #898989;
             }
             
+            input {
+                margin: 5px;
+            }
+            
+            .hidden {
+                display: none;
+            }
+            
+            img {
+                border: 0;
+            }
+            
+            /**
+             * Rounded corners
+             */
             #colors_cc, #colors_ct {
                 height: 115px;
                 width: 108px;
@@ -31,16 +46,29 @@
                 cursor: pointer;
             }
             
+            /**
+             * Skeleton
+             */
             #main {
-                width: 1100px;
+                width: 1300px;
                 margin-left: auto;
                 margin-right: auto;
             }
             
+            .fixednav {
+                float: left;
+                width: 180px;
+                height: 500px;
+            }
+            
+            .fixednav .large {
+                margin-top: 5px;
+            }
+            
             .nav {
+                float: left;
                 width: 220px;
                 height: 650px;
-                float: left;
             }
             
             .nav a.item {
@@ -49,17 +77,69 @@
             }
             
             .panel {
+                float: left;
                 width: 800px;
                 min-height: 650px;
-                float: left;
             }
             
-            .menu {
+            /**
+             * Left Nav menu
+             */
+            ul#menu, #menu li, ul.menu, ul#skinlist {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            
+            #menu li {
+                background-color: #272522;
+                padding-top: 1px;
+                border-bottom: 1px dotted #000000;
+            }
+            
+            li#first {
+                margin-top: 5px;
+            }
+            
+            #menu span {
+                color: #FFF;
+                font-size: 167%;
+                font-family: georgia, times new roman, times, serif;
+                display: block;
+                text-shadow: 0 0 0 #3E3A37;
+            }
+            
+            #menu li a {
+                display: block;
+                text-decoration: none;
+                color: #b8b4a5;
+                padding: .7em 0 .7em 20px;
+                font-size: 85%;
+                font-family: 'trebuchet ms', Verdana, Arial, Helvetica, sans-serif;
+            }
+            
+            #menu li a:hover {
+                background: #333333;
+            }
+            
+            #menu li.button a {
+                padding-left: 0 !important;
+                text-align: center;
+            }
+            
+            /**
+             * Panels
+             */
+            .menupanel {
                 background: #AFAFAF;
                 -webkit-border-radius: 7px;
                 -webkit-box-shadow: 0px 0px 5px #000000;
                 padding: 0px 7px 7px 7px;
                 margin: 7px;
+            }
+            
+            .menupanel:hover {
+                background: #BFBFBF;
             }
             
             .detail {
@@ -70,19 +150,10 @@
             .logo {
                 margin-left: auto;
                 margin-right: auto;
-                font-family: Lucida grande, arial, sans-serif;
-                font-size: 14px;
-                font-style: normal;
-                font-variant: normal;
-                font-weight: normal;
-                color: #FFFFFF;
+                width: 500px;
             }
             
-            .title {
-                margin-bottom: 8px;
-            }
-            
-            h1 {
+            .logo .txt {
                 font-family: arial, sans-serif;
                 font-size: 2em;
                 font-weight: bold;
@@ -90,49 +161,15 @@
                 margin: 0;
             }
             
-            h2, p {
-                margin: 0;
+            .title {
+                margin-bottom: 8px;
             }
             
-            img {
-                vertical-align: middle;
-            }
-            
-            .menu:hover {
-                background: #BFBFBF;
-            }
-            
-            .flc {
-                height: 130px;
-            }
-            
-            .fli {
-                height: 130px;
-                margin-left: 500px;
-                float: left;
-            }
-            
-            .flt {
-                float: left;
-                width: 500px;
-                margin-left: 50px;
-            }
-            
-            .fc {
-                height: 280px;
-            }
-            
-            .fl {
-                float: left;
-                width: 400px;
-            }
-            
-            .tar {
+            /**
+             * Centering items
+             */
+            .save {
                 text-align: right;
-            }
-            
-            .tac {
-                text-align: center;
             }
             
             #status {
@@ -143,42 +180,27 @@
                 margin-top: 5px;
             }
             
-            input {
-                margin: 5px;
-            }
-            
-            .hidden {
-                display: none;
-            }
-            
             /* skins chooser */
             #skinc {
                 float: left;
-                width: 340px;
+                width: 250px;
             }
             
             #thumbc {
                 float: left;
-                width: 400px;
+                width: 500px;
                 text-align: center;
             }
             
-            ul {
-                list-style: none;
-            }
-            
+            /**
+             * Skins
+             */
             #skinsbox {
                 margin: 20px;
             }
             
             #skinsbox li {
-                width: 310px;
-            }
-            
-            ul#skinlist {
-                list-style: none;
-                padding: 0;
-                margin: 0;
+                width: 230px;
             }
             
             ul#skinlist li {
@@ -246,8 +268,8 @@
                desc: "Add abutton to display news as a newspaper in multi columns",
                //shortcut: "c",
                shortcuts: [{
-                  id:'multicolumn',
-						title: 'Multi columns',
+                  id: 'multicolumn',
+                  title: 'Multi columns',
                   key: {
                      keyCode: 67
                   }
@@ -258,8 +280,8 @@
                desc: "Add a button to show entire original page instead the entry",
                //shortcut: "Shift+R",
                shortcuts: [{
-                  id:'preview',
-						title: 'Entry preview',
+                  id: 'preview',
+                  title: 'Entry preview',
                   key: {
                      keyCode: 81
                   }
@@ -283,8 +305,8 @@
                desc: "Add a button to share news using Facebook",
                //shortcut: "b",
                shortcuts: [{
-                  id:'facebook',
-						title: 'Post on Facebook',
+                  id: 'facebook',
+                  title: 'Post on Facebook',
                   key: {
                      keyCode: 66
                   }
@@ -295,8 +317,8 @@
                desc: "Add a button to share news using Twitter",
                //shortcut: "d",
                shortcuts: [{
-                  id:'twitter',
-						title: 'Post on Twitter',
+                  id: 'twitter',
+                  title: 'Post on Twitter',
                   key: {
                      keyCode: 68
                   }
@@ -307,14 +329,14 @@
                desc: "Mark items before/after current as read",
                //shortcut: "before: w ; after: x",
                shortcuts: [{
-                  id:'markbefore',
-						title: 'Mark items before As Read',
+                  id: 'markbefore',
+                  title: 'Mark items before As Read',
                   key: {
                      keyCode: 87
                   }
                }, {
-                  id:'markafter',
-						title: 'Mark items after As Read',
+                  id: 'markafter',
+                  title: 'Mark items after As Read',
                   key: {
                      keyCode: 75
                   }
@@ -325,14 +347,14 @@
                desc: "Add a 'goto bottom' icon on top entry and a 'goto top' on bottom entry",
                //shortcut: "Shift+T: goto top ; Shift+B : goto bottom",
                shortcuts: [{
-                  id:'gototop',
-						title: 'Goto top',
+                  id: 'gototop',
+                  title: 'Goto top',
                   key: {
                      keyCode: 84
                   }
                }, {
-                  id:'gotobottom',
-						title: 'Goto bottom',
+                  id: 'gotobottom',
+                  title: 'Goto bottom',
                   key: {
                      keyCode: 66
                   }
@@ -343,8 +365,8 @@
                desc: "Fit height of the current news to the screen height (for long articles)",
                //shortcut: "f : fit height",
                shortcuts: [{
-                  id:'fitheight',
-						title: 'Fit height',
+                  id: 'fitheight',
+                  title: 'Fit height',
                   key: {
                      keyCode: 70
                   }
@@ -355,8 +377,8 @@
                desc: "Add a 'close' button on each entry to remove it",
                //shortcut: "x",
                shortcuts: [{
-                  id:'close',
-						title: 'Close entry',
+                  id: 'close',
+                  title: 'Close entry',
                   key: {
                      keyCode: 88
                   }
@@ -368,8 +390,8 @@
                desc: "Add a 'open in background' button on each entry",
                //shortcut: "Shift + V : open in background tab",
                shortcuts: [{
-                  id:'openbackground',
-						title: 'Open in background tab',
+                  id: 'openbackground',
+                  title: 'Open in background tab',
                   key: {
                      shiftKey: true,
                      keyCode: 86
@@ -476,10 +498,10 @@
             function info(msg){
                var status = document.getElementById('status');
                status.innerHTML = msg;
-               status.className = "menu";
+               status.className = "menupanel";
                window.setTimeout(function(){
                   status.innerHTML = "";
-                  status.className = "menu hidden";
+                  status.className = "menupanel hidden";
                }, 3000);
             }
             
@@ -503,12 +525,12 @@
                      var pref = prefs[o];
                      if (form[o]) {
                         //if ((form[o].className || '').indexOf("ignore") < 0) {
-									if (form[o].type === "checkbox") {
-										r.prefs[o] = form[o].checked || false;
-									} else {
-										r.prefs[o] = form[o].value;
-									}
-								//}
+                        if (form[o].type === "checkbox") {
+                           r.prefs[o] = form[o].checked || false;
+                        } else {
+                           r.prefs[o] = form[o].value;
+                        }
+                        //}
                      } else {
                         console.log("Pref not found in form : " + o);
                      }
@@ -542,8 +564,8 @@
                               ctrl.value = prefs[o];
                            } else if (ctrl.type === "hidden") {
                               ctrl.value = prefs[o];
-										//try update textbox for shortcut
-										
+                              //try update textbox for shortcut
+                           
                            }
                         } else if (ctrl.nodeName === "TEXTAREA") {
                            ctrl.value = prefs[o];
@@ -773,14 +795,14 @@
                input.type = 'text';
                input.value = formatKey(shortcut.key);
                input.size = 15;
-					input.id = script.id+'-keytext-'+shortcut.id;
-					var hidden = document.createElement('input');
+               input.id = script.id + '-keytext-' + shortcut.id;
+               var hidden = document.createElement('input');
                hidden.type = 'hidden';
-					hidden.id = script.id+'-key-'+shortcut.id;
-					var sc = script;
-					var sh = shortcut;
-					var inp = input;
-					setShortcut(shortcut.key, sc, sh, input, hidden);
+               hidden.id = script.id + '-key-' + shortcut.id;
+               var sc = script;
+               var sh = shortcut;
+               var inp = input;
+               setShortcut(shortcut.key, sc, sh, input, hidden);
                el.onkeydown = function(e){
                   e.preventDefault();
                   e.stopPropagation();
@@ -795,49 +817,47 @@
                var keyLetter = String.fromCharCode(e.keyCode);
                return ((e.ctrlKey) ? 'Ctrl + ' : '') + ((e.altKey) ? 'Alt + ' : '') + ((e.shiftKey) ? 'Shift + ' : '') + keyLetter;
             }
-				function setShortcut(e, script, shortcut, input, hidden){
-               var s =  ((e.ctrlKey) ? 'c':'') + ((e.altKey) ? 'a' : '') + ((e.shiftKey) ? 's' : '') + e.keyCode;
-					if (hidden) {
-						hidden.value = s;
-						input.value=formatKey(e);
-					}
+            
+            function setShortcut(e, script, shortcut, input, hidden){
+               var s = ((e.ctrlKey) ? 'c' : '') + ((e.altKey) ? 'a' : '') + ((e.shiftKey) ? 's' : '') + e.keyCode;
+               if (hidden) {
+                  hidden.value = s;
+                  input.value = formatKey(e);
+               }
             }
         </script>
     </head>
     <body onload="init();">
-        <div class="flc">
-            <div class="fli logo">
-                <img alt="logo" src="128.png" id="logo"/>
-            </div>
-            <div class="flt">
-                <div class="logotitle">
-                    <h1>Google Reader Plus</h1>
-                </div>
-                <a href="http://www.pitaso.com/chrome" target="_blank">Website</a>
-                &nbsp;|&nbsp;<a href="http://code.google.com/p/googlereaderplus/issues/entry">Report issue</a>
-                &nbsp;&nbsp;<a href="http://www.twitter.com/ludoo0d0a"><img width="160" height="27" src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow ludoo0d0a on Twitter"/></a> &nbsp;&nbsp;<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></a>
-                <br/>
-                <a href="http://www.google.com/reader" target="_blank">Google Reader</a>
-                <br/>
-                <a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg/" target="_blank">Google Extension page</a>
-                &nbsp;|&nbsp;<a href="about.html" target="_blank">About</a>
+        <div class="header">
+            <div class="logo">
+                <span class="pic"><img alt="logo" src="48.png" id="logo"/></span><span class="txt">Google Reader Plus</span>
             </div>
         </div>
         <form name="preferences">
             <div id="main">
-                <div class="menu hidden" id="status">
+                <div class="menupanel hidden" id="status">
                 </div>
-                <div class="menu nav">
+                <div class="menupanel fixednav">
+                    <ul id="menu">
+                        <li id="first" class="item"><a href="http://www.google.com/reader" target="_blank"><span>Google Reader</span>Your RSS reader</a></li>
+                        <li class="item"><a href="http://code.google.com/p/googlereaderplus/issues/entry"><span>Report issue</span>Found a bug or a suggestion ?</a></li>
+                        <li class="item"><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg/" target="_blank"><span>Google Extension</span>The place to download</a></li>
+                        <li class="item"><a href="about.html" target="_blank"><span>About</span>About, thanks,...</a></li>
+                        <li class="item"><a href="http://www.pitaso.com/chrome" target="_blank"><span>Website</span>My personal website</a></li>
+                        <li class="button"><a href="http://www.twitter.com/ludoo0d0a"><span><img width="160" height="27" src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow ludoo0d0a on Twitter"/></span>Follow me on Twitter</a></li><li class="button"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></span>Offer me a coffee!</a></li>
+                    </ul></li>
+                </div>
+                <div class="menupanel nav">
                     <div class="title">
                         <h2>Preferences</h2>
                     </div>
                     <div id="scriptlist">
                     </div>
-                    <div class="tar">
-                        <input type="button" name="Submit" value="Apply" onClick="save(this.form);">
+                    <div class="save">
+                        <input type="button" name="Submit" value="Save" onClick="save(this.form);">
                     </div>
                 </div>
-                <div id="panels" class="menu panel">
+                <div id="panels" class="menupanel panel">
                     <div id="panel_skins">
                         <div class="body">
                             <div id="skinsbox">
