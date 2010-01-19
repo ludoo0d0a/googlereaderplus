@@ -1,8 +1,8 @@
 var grp_openbackground = function(prefs) {
-	var selectTab = prefs.openbackground_selectTab;
+	var selectTab = prefs.openbackground_selectTab||false;
 	
 	function addButtons(el, entry, mode) {
-		addBottomLink(el, 'Open in background', 'Open in background [Shift+V]', 'item-open-background', false, openbackground);
+		addBottomLink(el, 'Open', 'Open in background [Shift+V]', 'item-open-background', false, openbackground);
 	}
 
 	function openbackground(e) {

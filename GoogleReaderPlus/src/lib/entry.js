@@ -47,14 +47,14 @@ function openEntryInNewTab(ent, selected) {
 	var entry = ent || getCurrentEntry();
 	var link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
 	var url = link.href;
-	GM_openInTab(url, (selected||true));
+	GM_openInTab(url, selected);
 }
 function getCurrentEntry(){
 	return document.getElementById('current-entry');
 }
 
 function getEntry(e){
-	var el = e.target;
+	var el = (e && e.target)?e.target:(e.localName?e:null);
 	var entry;
 	if (el){
 		entry = findParentNode(el, 'div', 'entry');
