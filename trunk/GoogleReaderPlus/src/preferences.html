@@ -11,6 +11,10 @@
                 margin: 5px;
             }
             
+            h2 {
+                margin: 0;
+            }
+            
             .hidden {
                 display: none;
             }
@@ -57,8 +61,8 @@
             
             .fixednav {
                 float: left;
-                width: 180px;
                 height: 500px;
+                width: 240px;
             }
             
             .fixednav .large {
@@ -68,7 +72,7 @@
             .nav {
                 float: left;
                 width: 220px;
-                height: 720px;
+                height: 650px;
             }
             
             .nav a.item {
@@ -78,14 +82,14 @@
             
             .panel {
                 float: left;
-                width: 800px;
-				 min-height: 720px;
+                width: 750px;
+                min-height: 650px;
             }
             
             /**
              * Left Nav menu
              */
-            ul.mnu, .mnu li, ul.menu, ul#skinlist {
+            ul.mnu, .mnu li {
                 list-style: none;
                 margin: 0;
                 padding: 0;
@@ -96,21 +100,26 @@
                 padding-top: 1px;
                 border-bottom: 1px dotted #000000;
             }
-
+            
             .mnu span {
                 color: #FFF;
                 font-family: georgia, times new roman, times, serif;
                 text-shadow: 0 0 0 #3E3A37;
             }
-			
-			.mnu.nav1 span {
-				display: block;
-				font-size: 167%;
+            
+            .mnu.nav1 span {
+                display: block;
+                font-size: 167%;
             }
-			.mnu.nav2 span.link2 {
-				display: block;
+            
+            .mnu.nav2 span.linkblock {
+                display: block;
             }
-			
+            
+            li a.link {
+                padding: 2px;
+            }
+            
             .mnu li a {
                 display: block;
                 text-decoration: none;
@@ -118,29 +127,48 @@
                 font-size: 85%;
                 font-family: 'trebuchet ms', Verdana, Arial, Helvetica, sans-serif;
             }
-			.mnu.nav1 li a{
-				padding: .7em 0 .7em 20px;
-			}
-			.mnu.nav2 li a{
-				padding-left: .7em;
-			}
-			.open{
-				float: right;
-				font-family: Comic Sans MS, Verdana, Arial, sans-serif;
-				font-weight:bold;
-				font-size:150%;
-				padding-right:5px;
-				position:relative;
-				top:-5px;
-			}
+            
+            .mnu.nav1 li a {
+                padding: .7em 0 .7em 20px;
+            }
+            
+            .mnu.nav2 li a {
+                padding-left: .7em;
+            }
+            
+            .mnu.navskin li a {
+                padding: .2em;
+            }
+            
+            .mnu li.on {
+                border-color: #dddddd;
+                background-color: #333333;
+            }
             
             .mnu li a:hover {
-                background: #333333;
+                background: #555555;
             }
             
             .mnu li.button a {
                 padding-left: 0 !important;
                 text-align: center;
+            }
+            
+            /**
+             * Open panel logo
+             */
+            .open {
+                float: right;
+                font-family: Comic Sans MS, Verdana, Arial, sans-serif;
+                font-weight: bold;
+                font-size: 130%;
+                padding-right: 5px;
+                position: relative;
+                top: -5px;
+            }
+            
+            span.olink {
+                top: -20px;
             }
             
             /**
@@ -164,16 +192,14 @@
             }
             
             .logo {
-                margin-left: auto;
-                margin-right: auto;
-                width: 500px;
+                text-align: center;
             }
             
             .logo .txt {
                 font-family: arial, sans-serif;
-                font-size: 2em;
+                font-size: 1.1em;
                 font-weight: bold;
-                color: #FFFFFF;
+                color: #dddddd;
                 margin: 0;
             }
             
@@ -186,6 +212,7 @@
              */
             .save {
                 text-align: right;
+                margin-top: 550px;
             }
             
             #status {
@@ -204,7 +231,7 @@
             
             #thumbc {
                 float: left;
-                width: 500px;
+                padding: 10px;
                 text-align: center;
             }
             
@@ -219,28 +246,10 @@
                 width: 230px;
             }
             
-            ul#skinlist li {
-                float: left;
-                border: 1px solid #888888;
-                margin-right: 10px;
-                padding: 4px;
-            }
-            
             #skinsbox img {
                 border: 1px solid #fff;
                 padding: 5px;
                 margin: 8px;
-            }
-            
-            ul#skinlist li:hover {
-                border-color: #333333;
-                background-color: #bbbbbb;
-                cursor: pointer;
-            }
-            
-            ul#skinlist li.on {
-                border-color: #dddddd;
-                background-color: #cccccc;
             }
         </style>
         <script type="application/javascript">
@@ -603,10 +612,19 @@
                }
             }
             
-            var lastPanel;
+            var lastPanel, lastLink;
             function showPanel(id){
                if (typeof window['run_' + id] == "function") {
                   window['run_' + id].call(this, id);
+               }
+               
+               var link = document.getElementById('l_' + id);
+               if (lastLink) {
+                  lastLink.className = "";
+               }
+               if (link) {
+                  link.className = "on";
+                  lastLink = link;
                }
                
                var panel = document.getElementById('panel_' + id);
@@ -626,18 +644,17 @@
             function createscripts(){
                var list = document.getElementById('scriptlist');
                var panels = document.getElementById('panels');
-               list.innerHTML = '';
-               //var tplCheckbox = '<input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{desc}">{name}</label>';
-			   var tplCheckbox = '<li><a href="javascript:showPanel(\'{id}\')"><input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{desc}">{name}</label><span class="open">{dlink}</span></a></li>';
-               //var tplLink = '<a id="{id}" title="{desc}" class="item" href="javascript:showPanel(\'{id}\');">{name}</a>';
-			   var tplLink = '<li><a href="javascript:showPanel(\'{id}\')"><span class="link2">{name}</span><span class="open">{dlink}</span>{desc}</a></li>';
+               list.innerHTML = 'In progress...';
+					var html = '';
+               var tplCheckbox = '<li id="l_{id}"><a href="javascript:showPanel(\'{id}\')"><input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{desc}">{name}</label><span class="open">{dlink}</span></a></li>';
+               var tplLink = '<li id="l_{id}"><a class="link" href="javascript:showPanel(\'{id}\')"><span class="linkblock">{name}</span><span class="open olink">{dlink}</span></a></li>';
                var tplPanelTitle = '<div class="title"><h2>{name}</h2><div id="paneldesc_{id}" class="desc">{desc}</div></div>';
                var tplPanelIframe = '<div class="title"><h2>{name}</h2><iframe src="{url}" width="780" height="620"></iframe></div>';
                for (var i = 0, len = scriptlist.length; i < len; i++) {
                   var script = scriptlist[i];
-				  script.dlink = '+';
+                  script.dlink = '>';
                   var t = (script.link) ? tplLink : tplCheckbox;
-                  list.innerHTML += fillTpl(t, script);
+						html += fillTpl(t, script);
                   var panel = document.getElementById('panel_' + script.id);
                   var tpl = (script.url) ? tplPanelIframe : tplPanelTitle;
                   if (script.url) {
@@ -662,18 +679,8 @@
                   //script.shortcut = (script.shortcuts)?(formatKey(script.shortcuts.keyCode)+script.shortcuts.title):(script.shortcut);
                   //shortcut
                   addShortcuts(panel, script, script.shortcuts);
-                  
-                  //[+]
-				  /*
-                  var a = document.createElement('a');
-                  a.className = 'detail';
-                  a.href = "javascript:showPanel('" + script.id + "')";
-                  a.title = 'Options for ' + script.name;
-                  a.innerHTML = ' ' + dlink;
-                  list.appendChild(a);*/
-                  //}
-                  //list.innerHTML += '<br/>';
                }
+					list.innerHTML = html;
             }
             
             function createskins(){
@@ -686,6 +693,7 @@
                   var a = document.createElement('a');
                   li.id = 'skin_' + o.id;
                   a.innerHTML = o.name;
+                  a.href = '#';
                   li.appendChild(a);
                   list.appendChild(li);
                   var id = o.id;
@@ -789,7 +797,7 @@
                try {
                   var re = new RegExp(name + '/[\\d\\.]+');
                   var r = re.exec(text);
-				  return (r)?(r[0].replace(name + '/', '')):'?';
+                  return (r) ? (r[0].replace(name + '/', '')) : '?';
                } 
                catch (e) {
                   return '?';
@@ -846,142 +854,147 @@
         </script>
     </head>
     <body onload="init();">
-        <div class="header">
-            <div class="logo">
-                <span class="pic"><img alt="logo" src="48.png" id="logo"/></span><span class="txt">Google Reader Plus</span>
-            </div>
-        </div>
         <form name="preferences">
             <div id="main">
                 <div class="menupanel hidden" id="status">
                 </div>
-                <div class="menupanel fixednav">
-                    <ul class="mnu nav1">
-                        <li class="item"><a href="http://www.google.com/reader" target="_blank"><span>Google Reader</span>Your RSS reader</a></li>
-                        <li class="item"><a href="http://code.google.com/p/googlereaderplus/issues/entry"><span>Report issue</span>Found a bug or a suggestion ?</a></li>
-                        <li class="item"><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg/" target="_blank"><span>Google Extension</span>The place to download</a></li>
-                        <li class="item"><a href="about.html" target="_blank"><span>About</span>About, thanks,...</a></li>
-                        <li class="item"><a href="http://www.pitaso.com/chrome" target="_blank"><span>Website</span>My personal website</a></li>
-                        <li class="button"><a href="http://www.twitter.com/ludoo0d0a"><span><img width="160" height="27" src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow ludoo0d0a on Twitter"/></span>Follow me on Twitter</a></li><li class="button"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></span>Offer me a coffee!</a></li>
-                    </ul></li>
+                <div class="fixednav">
+                    <div class="logo">
+                        <span class="pic"><img alt="logo" src="48.png" id="logo"/></span>
+                        <br/>
+                        <span class="txt">Google Reader Plus</span>
+                    </div>
+                    <div class="menupanel">
+                        <ul class="mnu nav1">
+                            <li class="item"><a href="http://www.google.com/reader" target="_blank"><span>Google Reader</span>Your RSS reader</a></li>
+                            <li class="item"><a href="http://code.google.com/p/googlereaderplus/issues/entry"><span>Report issue</span>Found a bug or suggestion ?</a></li>
+                            <li class="item"><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg/" target="_blank"><span>Google Extension</span>The place to download</a></li>
+                            <li class="item"><a href="about.html" target="_blank"><span>About</span>About, thanks,...</a></li>
+                            <li class="item"><a href="http://www.pitaso.com/chrome" target="_blank"><span>Website</span>My personal website</a></li>
+                            <li class="button"><a href="http://www.twitter.com/ludoo0d0a"><span><img width="160" height="27" src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow ludoo0d0a on Twitter"/></span>Follow news and updates</a></li><li class="button"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></span>Offer me a coffee!</a></li>
+                        </ul></li>
+                    </div>
                 </div>
                 <div class="menupanel nav">
-                   <!-- <div class="title">
-                        <h2>Preferences</h2>
-                    </div>-->
                     <div id="scriptlist0">
-                    	<ul id="scriptlist" class="mnu nav2"></ul>
+                        <ul id="scriptlist" class="mnu nav2">
+                        </ul>
+                    </div>
+                    <!--<div class="save">
+                    <input type="button" name="Submit" value="Save" onClick="save(this.form);">
+                    </div>-->
+                </div>
+                <div class="menupanel panel">
+                    <div id="panels">
+                        <div id="panel_skins">
+                            <div class="body">
+                                <div id="skinsbox">
+                                    <input id="skin" name="skin" type="hidden" value=""/>
+                                    <div id="skinc">
+                                        <ul class="mnu navskin" id="skinlist">
+                                        </ul>
+                                    </div>
+                                    <div id="thumbc">
+                                        <img alt="thumb" id="thumb" src="" width="400" height="243" class="hidden"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="panel_column" style="display:none;">
+                            <div class="body">
+                                Columns number : <input id="column_count" name="column_count" type="text" value="3" size="2"/>
+                                <br/>
+                                <input id="column_locked" name="column_locked" type="checkbox" /><label for="column_locked">Feature 'Column' always actived by default</label>
+                            </div>
+                        </div>
+                        <div id="panel_removeads" style="display:none;">
+                            <div class="body">
+                                Link filter : 
+                                <textarea name="removeads_links" cols="90" rows="3">
+                                </textarea>
+                                <br/>
+                                Image filter : 
+                                <textarea name="removeads_images" cols="90" rows="3">
+                                </textarea>
+                                <br/>
+                                iframe filter : 
+                                <textarea name="removeads_iframes" cols="90" rows="3">
+                                </textarea>
+                            </div>
+                        </div>
+                        <div id="panel_preview" style="display:none;">
+                            <div class="body">
+                                <input id="preview_locked" name="preview_locked" type="checkbox" /><label for="preview_locked">Feature 'Preview' always actived by default</label>
+                            </div>
+                        </div>
+                        <div id="panel_fitheight" style="display:none;">
+                            <div class="body">
+                                <br/>
+                                <input id="fitheight_locked" name="fitheight_locked" type="checkbox" /><label for="fitheight_locked">Feature 'Fit height' always actived by default</label>
+                            </div>
+                        </div>
+                        <div id="panel_favicons" style="display:none;">
+                            <div class="body">
+                                <input id="favicons_manual" name="favicons_manual" type="checkbox" /><label for="favicons_manual">Manual search for all sites (not recommended ; slower)</label>
+                                <br/>
+                                Extract favicon for following sites (comma separated): 
+                                <textarea name="favicons_domains" cols="90" rows="8">
+                                </textarea>
+                                <br/>
+                                You could add too a site using the contextual menu of the side bar ("Manual favicon")
+                            </div>
+                        </div>
+                        <div id="panel_info" style="display:none;">
+                            <div class="body">
+                                <!--
+                                <div id="header_info">
+                                <a id="gen_info" href="javascript:createInfo();">Generate report</a>
+                                </div>
+                                -->
+                                <div id="sysinfo">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="panel_thanks" style="display:none;">
+                            <div class="body">
+                                Thanks to authors of original scripts and skins (Greasemonkey and Stylish):
+                                <ul>
+                                    <li><a href="http://userscripts.org/scripts/show/56756">Google Reader Plus (aka me LudoO :)</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/40120">Google Reader Favicon ++</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/12197">Google Reader Minimalistic</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/8782">Google Reader - Colorful List View</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/12352">Google Reader Preview Enhanced (patched by bryantsai)</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/23671">Google Reader Filter</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/6415">Google Reader for wider screens</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/12601">Google Reader Unread Count</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/46615">GReader Favicon Alerts</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/8843">Google Reader - Read by Mouse</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/9594">Facebook Sharer + Google Reader</a> and my update : <a href="http://userscripts.org/scripts/show/63997">Share with Facebook in Google Reader</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/10169">Google Reader + Twitter</a></li>
+                                    <!-- <li>
+                                    <a href="http://userscripts.org/scripts/show/49958">Grittr = Google Reader + Twitter</a>
+                                    </li>
+                                    <li>
+                                    <a href="http://userscripts.org/scripts/show/26383">Google Reader Prefetch More</a>
+                                    </li>--><li><a href="http://userscripts.org/scripts/show/63802">Google Reader: Mac OS X Snow Leopard Fixes</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/10573">Google Reader Air Skin</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/9692">Google Air Skin Comic Sans</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/12917">google Enhanced BLACK</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/24736">Black Skin</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/5133">Another Dark Google Reader Style</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/38251">Helvetireader style for Google Reader</a></li>
+                                    <li><a href="http://userstyles.org/styles/12859">OS X Style for New Google Reader</a><a href="http://userstyles.org/styles/2336">OS X Spinner for Google Reader</a></li>
+                                    <li><a href="http://userstyles.org/styles/16900">Google Reader: Mac OS X Snow Leopard</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/63802">Google Reader: Mac OS X Snow Leopard Fixes</a></li>
+                                    <li><a href="http://www.hicksdesign.co.uk/journal/google-reader-theme">OS X fixer</a></li>
+                                    <li><a href="http://userstyles.org/styles/4096">Google Aero</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/24955">Google Reader - Mark Until Current As Read</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <div class="save">
                         <input type="button" name="Submit" value="Save" onClick="save(this.form);">
-                    </div>
-                </div>
-                <div id="panels" class="menupanel panel">
-                    <div id="panel_skins">
-                        <div class="body">
-                            <div id="skinsbox">
-                                <input id="skin" name="skin" type="hidden" value=""/>
-                                <div id="skinc">
-                                    <ul id="skinlist">
-                                    </ul>
-                                </div>
-                                <div id="thumbc">
-                                    <img alt="thumb" id="thumb" src="" width="400" height="243" class="hidden"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="panel_column" style="display:none;">
-                        <div class="body">
-                            Columns number : <input id="column_count" name="column_count" type="text" value="3" size="2"/>
-                            <br/>
-                            <input id="column_locked" name="column_locked" type="checkbox" /><label for="column_locked">Feature 'Column' always actived by default</label>
-                        </div>
-                    </div>
-                    <div id="panel_removeads" style="display:none;">
-                        <div class="body">
-                            Link filter : 
-                            <textarea name="removeads_links" cols="90" rows="3">
-                            </textarea>
-                            <br/>
-                            Image filter : 
-                            <textarea name="removeads_images" cols="90" rows="3">
-                            </textarea>
-                            <br/>
-                            iframe filter : 
-                            <textarea name="removeads_iframes" cols="90" rows="3">
-                            </textarea>
-                        </div>
-                    </div>
-                    <div id="panel_preview" style="display:none;">
-                        <div class="body">
-                            <input id="preview_locked" name="preview_locked" type="checkbox" /><label for="preview_locked">Feature 'Preview' always actived by default</label>
-                        </div>
-                    </div>
-                    <div id="panel_fitheight" style="display:none;">
-                        <div class="body">
-                            <br/>
-                            <input id="fitheight_locked" name="fitheight_locked" type="checkbox" /><label for="fitheight_locked">Feature 'Fit height' always actived by default</label>
-                        </div>
-                    </div>
-                    <div id="panel_favicons" style="display:none;">
-                        <div class="body">
-                            <input id="favicons_manual" name="favicons_manual" type="checkbox" /><label for="favicons_manual">Manual search for all sites (not recommended ; slower)</label>
-                            <br/>
-                            Extract favicon for following sites (comma separated): 
-                            <textarea name="favicons_domains" cols="90" rows="8">
-                            </textarea>
-                            <br/>
-                            You could add too a site using the contextual menu of the side bar ("Manual favicon")
-                        </div>
-                    </div>
-                    <div id="panel_info" style="display:none;">
-                        <div class="body">
-                            <!--
-                            <div id="header_info">
-                            <a id="gen_info" href="javascript:createInfo();">Generate report</a>
-                            </div>
-                            -->
-                            <div id="sysinfo">
-                            </div>
-                        </div>
-                    </div>
-                    <div id="panel_thanks" style="display:none;">
-                        <div class="body">
-                            Thanks to authors of original scripts and skins (Greasemonkey and Stylish):
-                            <ul>
-                                <li><a href="http://userscripts.org/scripts/show/56756">Google Reader Plus (aka me LudoO :)</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/40120">Google Reader Favicon ++</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/12197">Google Reader Minimalistic</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/8782">Google Reader - Colorful List View</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/12352">Google Reader Preview Enhanced (patched by bryantsai)</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/23671">Google Reader Filter</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/6415">Google Reader for wider screens</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/12601">Google Reader Unread Count</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/46615">GReader Favicon Alerts</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/8843">Google Reader - Read by Mouse</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/9594">Facebook Sharer + Google Reader</a> and my update : <a href="http://userscripts.org/scripts/show/63997">Share with Facebook in Google Reader</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/10169">Google Reader + Twitter</a></li>
-                                <!-- <li>
-                                <a href="http://userscripts.org/scripts/show/49958">Grittr = Google Reader + Twitter</a>
-                                </li>
-                                <li>
-                                <a href="http://userscripts.org/scripts/show/26383">Google Reader Prefetch More</a>
-                                </li>--><li><a href="http://userscripts.org/scripts/show/63802">Google Reader: Mac OS X Snow Leopard Fixes</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/10573">Google Reader Air Skin</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/9692">Google Air Skin Comic Sans</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/12917">google Enhanced BLACK</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/24736">Black Skin</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/5133">Another Dark Google Reader Style</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/38251">Helvetireader style for Google Reader</a></li>
-                                <li><a href="http://userstyles.org/styles/12859">OS X Style for New Google Reader</a><a href="http://userstyles.org/styles/2336">OS X Spinner for Google Reader</a></li>
-                                <li><a href="http://userstyles.org/styles/16900">Google Reader: Mac OS X Snow Leopard</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/63802">Google Reader: Mac OS X Snow Leopard Fixes</a></li>
-                                <li><a href="http://www.hicksdesign.co.uk/journal/google-reader-theme">OS X fixer</a></li>
-                                <li><a href="http://userstyles.org/styles/4096">Google Aero</a></li>
-                                <li><a href="http://userscripts.org/scripts/show/24955">Google Reader - Mark Until Current As Read</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>
