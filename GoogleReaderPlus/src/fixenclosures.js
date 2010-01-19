@@ -41,6 +41,9 @@ var grp_fixenclosures = function(prefs) {
 			}
 		});
 	}
+	
+	var css = ".item-body img {max-width:100% !important;}";
+	GM_addStyle(css);
 
 	var e = document.getElementById('entries');
 	if (e) {
