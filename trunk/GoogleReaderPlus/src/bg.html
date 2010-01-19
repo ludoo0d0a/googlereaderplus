@@ -283,7 +283,13 @@
             }
             
             function opentab(a){
-               chrome.tabs.create(a);
+               var o = {
+				   	url:a.url,
+					selected:a.selected,
+					windowId:a.windowId,
+					index:a.index
+				};
+			   chrome.tabs.create(o);
             }
             
             function open_preferences(){
