@@ -68,7 +68,7 @@
             .nav {
                 float: left;
                 width: 220px;
-                height: 650px;
+                height: 720px;
             }
             
             .nav a.item {
@@ -79,50 +79,66 @@
             .panel {
                 float: left;
                 width: 800px;
-                min-height: 650px;
+				 min-height: 720px;
             }
             
             /**
              * Left Nav menu
              */
-            ul#menu, #menu li, ul.menu, ul#skinlist {
+            ul.mnu, .mnu li, ul.menu, ul#skinlist {
                 list-style: none;
                 margin: 0;
                 padding: 0;
             }
             
-            #menu li {
+            .mnu li {
                 background-color: #272522;
                 padding-top: 1px;
                 border-bottom: 1px dotted #000000;
             }
-            
-            li#first {
-                margin-top: 5px;
-            }
-            
-            #menu span {
+
+            .mnu span {
                 color: #FFF;
-                font-size: 167%;
                 font-family: georgia, times new roman, times, serif;
-                display: block;
                 text-shadow: 0 0 0 #3E3A37;
             }
-            
-            #menu li a {
+			
+			.mnu.nav1 span {
+				display: block;
+				font-size: 167%;
+            }
+			.mnu.nav2 span.link2 {
+				display: block;
+            }
+			
+            .mnu li a {
                 display: block;
                 text-decoration: none;
                 color: #b8b4a5;
-                padding: .7em 0 .7em 20px;
                 font-size: 85%;
                 font-family: 'trebuchet ms', Verdana, Arial, Helvetica, sans-serif;
             }
+			.mnu.nav1 li a{
+				padding: .7em 0 .7em 20px;
+			}
+			.mnu.nav2 li a{
+				padding-left: .7em;
+			}
+			.open{
+				float: right;
+				font-family: Comic Sans MS, Verdana, Arial, sans-serif;
+				font-weight:bold;
+				font-size:150%;
+				padding-right:5px;
+				position:relative;
+				top:-5px;
+			}
             
-            #menu li a:hover {
+            .mnu li a:hover {
                 background: #333333;
             }
             
-            #menu li.button a {
+            .mnu li.button a {
                 padding-left: 0 !important;
                 text-align: center;
             }
@@ -134,7 +150,7 @@
                 background: #AFAFAF;
                 -webkit-border-radius: 7px;
                 -webkit-box-shadow: 0px 0px 5px #000000;
-                padding: 0px 7px 7px 7px;
+                padding: 7px;
                 margin: 7px;
             }
             
@@ -256,7 +272,7 @@
                desc: "Display real unread count"
             }, {
                id: "counticon",
-               name: "Counter as image in icon",
+               name: "Icon counter",
                desc: "Dislay unread count in the Google Reader favicon"
             }, {
                id: "removeads",
@@ -325,7 +341,7 @@
                }]
             }, {
                id: "mark",
-               name: "Mark Until Current As Read",
+               name: "Mark As Read",
                desc: "Mark items before/after current as read",
                //shortcut: "before: w ; after: x",
                shortcuts: [{
@@ -403,8 +419,8 @@
                desc: "Toolbar using Aero theme"
             }, {
                id: "info",
-               name: "System information",
-               desc: "Report information about system",
+               name: "SysInfo",
+               desc: "System information",
                link: true
             }, {
                id: "thanks",
@@ -604,24 +620,25 @@
             }
             
             function fillTpl(tpl, script){
-               return tpl.replace(/{id}/g, script.id || '').replace(/{name}/g, script.name || '').replace(/{desc}/g, script.desc || '').replace(/{shortcut}/g, script.shortcut ? (' [' + script.shortcut + ']') : '').replace(/{url}/g, script.url || '');
+               return tpl.replace(/{id}/g, script.id || '').replace(/{name}/g, script.name || '').replace(/{desc}/g, script.desc || '').replace(/{shortcut}/g, script.shortcut ? (' [' + script.shortcut + ']') : '').replace(/{url}/g, script.url || '').replace(/{dlink}/g, script.dlink || '');
             }
             
             function createscripts(){
                var list = document.getElementById('scriptlist');
                var panels = document.getElementById('panels');
                list.innerHTML = '';
-               var tplCheckbox = '<input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{desc}">{name}</label>';
-               var tplLink = '<a id="{id}" title="{desc}" class="item" href="javascript:showPanel(\'{id}\');">{name}</a>';
+               //var tplCheckbox = '<input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{desc}">{name}</label>';
+			   var tplCheckbox = '<li><a href="javascript:showPanel(\'{id}\')"><input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{desc}">{name}</label><span class="open">{dlink}</span></a></li>';
+               //var tplLink = '<a id="{id}" title="{desc}" class="item" href="javascript:showPanel(\'{id}\');">{name}</a>';
+			   var tplLink = '<li><a href="javascript:showPanel(\'{id}\')"><span class="link2">{name}</span><span class="open">{dlink}</span>{desc}</a></li>';
                var tplPanelTitle = '<div class="title"><h2>{name}</h2><div id="paneldesc_{id}" class="desc">{desc}</div></div>';
                var tplPanelIframe = '<div class="title"><h2>{name}</h2><iframe src="{url}" width="780" height="620"></iframe></div>';
                for (var i = 0, len = scriptlist.length; i < len; i++) {
                   var script = scriptlist[i];
+				  script.dlink = '+';
                   var t = (script.link) ? tplLink : tplCheckbox;
                   list.innerHTML += fillTpl(t, script);
                   var panel = document.getElementById('panel_' + script.id);
-                  // if (!script.link) {
-                  var dlink = '[+]';
                   var tpl = (script.url) ? tplPanelIframe : tplPanelTitle;
                   if (script.url) {
                      script.url = script.url;
@@ -634,27 +651,28 @@
                      script.shortcut = script.shortcut || '-';
                      panel.innerHTML = fillTpl(tpl, script);
                      panels.appendChild(panel);
-                     dlink = '>';
+                     script.dlink = '&gt;';
                   } else {
                      var container = document.createElement('div');
                      container.className = 'container';
                      container.innerHTML = fillTpl(tplPanelTitle, script);
                      var body = getFirstNode(panel);
-                     panel.insertBefore(body);
+                     panel.insertBefore(container, body);
                   }
                   //script.shortcut = (script.shortcuts)?(formatKey(script.shortcuts.keyCode)+script.shortcuts.title):(script.shortcut);
                   //shortcut
                   addShortcuts(panel, script, script.shortcuts);
                   
                   //[+]
+				  /*
                   var a = document.createElement('a');
                   a.className = 'detail';
                   a.href = "javascript:showPanel('" + script.id + "')";
                   a.title = 'Options for ' + script.name;
                   a.innerHTML = ' ' + dlink;
-                  list.appendChild(a);
+                  list.appendChild(a);*/
                   //}
-                  list.innerHTML += '<br/>';
+                  //list.innerHTML += '<br/>';
                }
             }
             
@@ -771,7 +789,7 @@
                try {
                   var re = new RegExp(name + '/[\\d\\.]+');
                   var r = re.exec(text);
-                  return r[0].replace(name + '/', '');
+				  return (r)?(r[0].replace(name + '/', '')):'?';
                } 
                catch (e) {
                   return '?';
@@ -838,8 +856,8 @@
                 <div class="menupanel hidden" id="status">
                 </div>
                 <div class="menupanel fixednav">
-                    <ul id="menu">
-                        <li id="first" class="item"><a href="http://www.google.com/reader" target="_blank"><span>Google Reader</span>Your RSS reader</a></li>
+                    <ul class="mnu nav1">
+                        <li class="item"><a href="http://www.google.com/reader" target="_blank"><span>Google Reader</span>Your RSS reader</a></li>
                         <li class="item"><a href="http://code.google.com/p/googlereaderplus/issues/entry"><span>Report issue</span>Found a bug or a suggestion ?</a></li>
                         <li class="item"><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg/" target="_blank"><span>Google Extension</span>The place to download</a></li>
                         <li class="item"><a href="about.html" target="_blank"><span>About</span>About, thanks,...</a></li>
@@ -848,10 +866,11 @@
                     </ul></li>
                 </div>
                 <div class="menupanel nav">
-                    <div class="title">
+                   <!-- <div class="title">
                         <h2>Preferences</h2>
-                    </div>
-                    <div id="scriptlist">
+                    </div>-->
+                    <div id="scriptlist0">
+                    	<ul id="scriptlist" class="mnu nav2"></ul>
                     </div>
                     <div class="save">
                         <input type="button" name="Submit" value="Save" onClick="save(this.form);">
