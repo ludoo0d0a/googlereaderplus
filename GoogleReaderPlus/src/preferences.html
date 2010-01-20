@@ -82,8 +82,13 @@
             
             .panel {
                 float: left;
-                width: 750px;
                 min-height: 650px;
+				min-width: 350px;
+            }
+			
+            .savetop {
+                text-align: right;
+				float:right;
             }
             
             /**
@@ -136,6 +141,9 @@
                 padding-left: .7em;
             }
             
+			.mnu.navskin{
+				margin-left:100px;
+			}
             .mnu.navskin li a {
                 padding: .2em;
             }
@@ -209,12 +217,7 @@
             
             /**
              * Centering items
-             */
-            .save {
-                text-align: right;
-                margin-top: 550px;
-            }
-            
+             */            
             #status {
                 text-align: center;
                 color: #EFEFEF;
@@ -222,24 +225,14 @@
                 height: 16px;
                 margin-top: 5px;
             }
-            
-            /* skins chooser */
-            #skinc {
-                float: left;
-                width: 250px;
-            }
-            
-            #thumbc {
-                float: left;
-                padding: 10px;
-                text-align: center;
-            }
-            
+                        
             /**
              * Skins
              */
             #skinsbox {
                 margin: 20px;
+				width:430px;
+				text-align: center;
             }
             
             #skinsbox li {
@@ -249,7 +242,7 @@
             #skinsbox img {
                 border: 1px solid #fff;
                 padding: 5px;
-                margin: 8px;
+                margin: 30px 8px 8px 8px;
             }
         </style>
         <script type="application/javascript">
@@ -880,23 +873,19 @@
                         <ul id="scriptlist" class="mnu nav2">
                         </ul>
                     </div>
-                    <!--<div class="save">
-                    <input type="button" name="Submit" value="Save" onClick="save(this.form);">
-                    </div>-->
                 </div>
                 <div class="menupanel panel">
-                    <div id="panels">
+                    <div class="savetop">
+                        <input type="button" name="Submit" value="Save" onClick="save(this.form);">
+                    </div>
+<div id="panels">
                         <div id="panel_skins">
                             <div class="body">
                                 <div id="skinsbox">
                                     <input id="skin" name="skin" type="hidden" value=""/>
-                                    <div id="skinc">
-                                        <ul class="mnu navskin" id="skinlist">
-                                        </ul>
-                                    </div>
-                                    <div id="thumbc">
-                                        <img alt="thumb" id="thumb" src="" width="400" height="243" class="hidden"/>
-                                    </div>
+	                                <ul class="mnu navskin" id="skinlist">
+	                                </ul>
+	                                <img alt="thumb" id="thumb" src="" width="400" height="243" class="hidden"/>
                                 </div>
                             </div>
                         </div>
@@ -910,15 +899,15 @@
                         <div id="panel_removeads" style="display:none;">
                             <div class="body">
                                 Link filter : 
-                                <textarea name="removeads_links" cols="90" rows="3">
+                                <textarea name="removeads_links" cols="70" rows="4">
                                 </textarea>
                                 <br/>
                                 Image filter : 
-                                <textarea name="removeads_images" cols="90" rows="3">
+                                <textarea name="removeads_images" cols="70" rows="4">
                                 </textarea>
                                 <br/>
                                 iframe filter : 
-                                <textarea name="removeads_iframes" cols="90" rows="3">
+                                <textarea name="removeads_iframes" cols="70" rows="4">
                                 </textarea>
                             </div>
                         </div>
@@ -936,12 +925,9 @@
                         <div id="panel_favicons" style="display:none;">
                             <div class="body">
                                 <input id="favicons_manual" name="favicons_manual" type="checkbox" /><label for="favicons_manual">Manual search for all sites (not recommended ; slower)</label>
-                                <br/>
-                                Extract favicon for following sites (comma separated): 
-                                <textarea name="favicons_domains" cols="90" rows="8">
-                                </textarea>
-                                <br/>
-                                You could add too a site using the contextual menu of the side bar ("Manual favicon")
+                                <p>Extract favicon for following sites (comma separated):</p> 
+                                <textarea name="favicons_domains" cols="70" rows="8"></textarea>
+								<p>You could add too a site using the contextual menu of the side bar ("Manual favicon")</p>
                             </div>
                         </div>
                         <div id="panel_info" style="display:none;">
@@ -992,9 +978,6 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                    <div class="save">
-                        <input type="button" name="Submit" value="Save" onClick="save(this.form);">
                     </div>
                 </div>
             </div>
