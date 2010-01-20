@@ -235,7 +235,7 @@ var grp_colorful = function(prefs) {
 
 	function getColorCss(title) {
 		var hue = getHue(title);
-		return getLvCss(title, hue) + getEvCss(title, hue) + getEfCss(title, hue);
+		return getLvCss(title, hue) + getEvCss(title, hue) + getEfCss(title, hue)+ getTreeCss(title, hue);
 	}
 
 	function getLvCss(ttl, hue) { // css for coloring items in list view
@@ -248,6 +248,13 @@ var grp_colorful = function(prefs) {
 				+ lvRi + ttl + "' ].read .collapsed {background-color: hsl(" + hue + ", 50%, 90% ) !important;}" + lvRi
 				+ ttl + "' ].read:hover .collapsed { background-color: hsl(" + hue + ", 70%, 95% ) !important; }";
 	}
+	
+	function getTreeCss(ttl, hue) { // css for coloring items in list view
+		var tvUi = "#sub-tree li[ colored='";
+		return "" + tvUi + ttl + "' ] {background-color:hsl(" + hue + ", 70%, 80% ) !important;}" 
+				+ tvUi + ttl + "' ]:hover { background-color:hsl(" + hue + ", 90%, 85% ) !important;}";
+	}
+	
 
 	function getEvCss(ttl, hue) { // css for coloring expanded view item
 		// bodies
@@ -276,29 +283,40 @@ var grp_colorful = function(prefs) {
 				+ hue + ", 50%, 90% ) !important;}" + efRi + ttl + "' ].read:hover {background: hsl(" + hue
 				+ ", 70%, 95% ) !important;}";
 	}
-
+	
 	// inject color css into the page
 	function setColor() {
 		// pick up all uncolored entries, including ones missed previously
-		var nocolor = getElements("id( 'entries' )/div[ contains( @class, 'entry' ) ]" + "[ not( @colored ) ]");
+		var nocolor = getElements("id( 'entries' )/div[ contains( @class, 'entry' ) ][ not( @colored ) ]");
 
 		if (!nocolor.length)
 			return;
 
 		nocolor.forEach(function(nc) {
-
-			// source in header is an "<a>" for expanded view, "<span>" for list
-				// view
-				// if "Shared by [xxx]" is there this will grab that
-				// search for a node that has 'entry-source-title' class name
-				var src = getElementValue(".//*[ contains(" + "concat( ' ', normalize-space( @class ), ' '),"
-						+ "' entry-source-title ' ) ]", nc);
+				var src = getElementValue(".//*[ contains(concat(' ', normalize-space( @class ), ' '),' entry-source-title ')]", nc);
 				src = src.textContent.replace(/\W/g, "-");
-
 				nc.setAttribute("colored", src);
 				if (colors[src] == undefined)
 					GM_addStyle(getColorCss(src));
-			});
+		});
+	}
+	
+	// inject color css into the page
+	function setTreeColor() {
+		// pick up all uncolored entries, including ones missed previously
+		var tree = get_id("sub-tree");
+		var nocolor = getElements(".//li[contains(@class, 'sub ')][contains(@class, 'unread')][not(@colored)]", tree);
+		
+		if (!nocolor.length)
+			return;
+
+		nocolor.forEach(function(nc) {
+			var src = getElementValue(".//span[contains(@class,'name')]/@title", nc);
+			src = src.textContent.trim().replace(/\W\(\d+\)$/g, "").replace(/\W/g, "-");
+			nc.setAttribute("colored", src);
+			if (colors[src] == undefined)
+				GM_addStyle(getColorCss(src));
+		});
 	}
 
 	function watchLoading(chrome) {
@@ -313,6 +331,7 @@ var grp_colorful = function(prefs) {
 				// initial setup and toggling of settings
 				entries.className = prefs + entries.className;
 				entries.addEventListener("DOMNodeInserted", setColor, false);
+				//setTreeColor();
 			}
 		}
 		/*if (stop) {
