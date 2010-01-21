@@ -2,7 +2,8 @@ var grp_column = function(prefs) {
 	var locked = false;
 	
 	function addButton(el, entry, mode) {
-		addBottomLink(el,'Column', 'Display as multi columns layout [c]', 'btn-column', true, columnize, locked);
+		var text = 'Display as multi columns layout' + formatShortcut('column', 'columns', prefs); //[c]
+		addBottomLink(el,'Column', text, 'btn-column', true, columnize, locked, entry);
 	}
 
 	function addKey() {

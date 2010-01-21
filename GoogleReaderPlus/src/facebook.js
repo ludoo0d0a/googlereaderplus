@@ -19,60 +19,24 @@
 var grp_facebook = function(prefs) {
 
 	function addButton(el, entry, mode) {
-		addBottomLink(el,'Facebook', 'Share this news on Facebook [b]', 'facebook', false, facebookShare);
-		/*
-		var span = document.createElement('span');
-		span.className = 'read-state-not-kept-unread read-state link unselectable';
-		span.innerHTML = 'Facebook';
-		span.title = "Share this news on Facebook [b]";
-		el.appendChild(span);
-		span.addEventListener('click', facebookShare, false);
-		*/
+		var text = 'Share this news on Facebook' + formatShortcut('facebook', 'gofacebook', prefs); //[b]
+		addBottomLink(el,'Facebook', text, 'facebook', false, facebookShare, false, entry);
 	}
 
 	function addKey() {
 		onKey('btn-facebook', facebookShare);
 	}
-	/*
-	function facebookShareKey(e){
-		var entry = getCurrentEntry();
-		var el = getFirstElementMatchingClassName(entry, 'span', 'btn-facebook');
-		//facebookShare({target:el});
-		var active = isActive(entry, cls);
-		facebookShare(el, entry, active);
-	}*/
 
 	function facebookShare(btn, entry, locked) {
 		var active = isActive(btn, entry, 'facebook', locked);
-		//var el = e.target;
-		//var entry = findParentNode(el, 'div', 'entry');
 		
-		var facebookSharer;
-
-		// Update entry with preview mode, need to do it before scrolling, because
-		// scrolling will repaint preview button (list view only)
-		/*if (entry.className.indexOf('facebookSharer') == -1) {
-			entry.className = entry.className + ' facebookSharer';
-			el.className = el.className.replace('read-state-not-kept-unread', 'read-state-kept-unread');
-			facebookSharer = true;
-		} else {
-			entry.className = entry.className.replace('facebookSharer', '');
-			el.className = el.className.replace('read-state-kept-unread', 'read-state-not-kept-unread');
-			facebookSharer = false;
-		}*/
-		//var active = isActive(entry, 'facebookSharer');
-
-		//var index = calcEntryIndex(entry);
-		// Need to scroll before changing entry-body, because scrolling repaints
-		// article from scratch (list view only)
-		// scrollTo(index);
-		//root = getEntryDOMObject(index);
+		var iframe, facebookSharer;
 		
 		var body = getFirstElementMatchingClassName(entry, 'div', 'entry-body');
 
 		if (active) {
 			// iframe creation/display
-			var iframe = getFirstElementMatchingClassName(entry, 'iframe', 'facebookSharer');
+			iframe = getFirstElementMatchingClassName(entry, 'iframe', 'facebookSharer');
 			if (iframe) {
 				// iframe already in document, display it
 				iframe.style.display = 'block';
@@ -96,7 +60,7 @@ var grp_facebook = function(prefs) {
 			body.setAttribute('style', gpeStyles.entryBody);
 		} else {
 			// hide iframe
-			var iframe = getFirstElementMatchingClassName(entry, 'iframe', 'facebookSharer');
+			iframe = getFirstElementMatchingClassName(entry, 'iframe', 'facebookSharer');
 			iframe.style.display = 'none';
 
 			// Go back to initial width
@@ -104,29 +68,6 @@ var grp_facebook = function(prefs) {
 		}
 		scrollTo(150, active);
 	}
-/*
-	function getEntryDOMObject(index) {
-		// Because of repaint, entry doesn't point to correct DOM object, we need
-		// to
-		// find entry using index
-		var entries = document.getElementById('entries');
-		var i = 0;
-		entry = entries.firstChild;
-		while ((i++) < index) {
-			entry = entry.nextSibling;
-		}
-		return entry;
-	}
-	function calcEntryIndex(e) {
-		var index = 0;
-		while (e.previousSibling) {
-			index++;
-			e = e.previousSibling;
-		}
-		return index;
-	}
-*/
-	
 
 	function scrollTo(offset, dir) {
 		var view = document.getElementById('viewer-container');

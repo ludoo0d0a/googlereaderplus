@@ -5,16 +5,7 @@ var grp_info = function(prefs){
 	
 	var myport, status, report = {};
 	
-	function init(){
-		/*var footer = document.getElementById('viewer-footer');
-		var buttonf = getLastElementMatchingClassName(footer, 'div', 'goog-button');
-		addButton(buttonf, 'info', 'Get system information', sysinfo, 1);
-		
-		var header = document.getElementById('viewer-top-controls');
-		var buttonh = getLastElementMatchingClassName(header, 'div', 'goog-button');
-		addButton(buttonh, 'info', 'Get system information', sysinfo, 1);
-		*/
-		
+	function init(){		
 		myport = chrome.extension.connect( {
 			name : "googlereaderplus"
 		});

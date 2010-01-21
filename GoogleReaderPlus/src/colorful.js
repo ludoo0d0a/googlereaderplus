@@ -3,12 +3,12 @@
 // @version        20091122
 // @jsversion      1.6
 
-var grp_colorful = function(prefs) {
+var grp_colorful = function(prefs){
 
 	// CSS to allow items to be colored
 	const	BASE_CSS = "#entries.list .entry-likers,#entries.list .collapsed .entry-source-title,#entries.list .collapsed .entry-secondary,#entries.list .collapsed .entry-title{background-color:transparent!important}.gm-color-lv .collapsed /* list view headers */{border-color:transparent!important}#entries.list.gm-color-lv #current-entry .collapsed{border:2px solid #8181DC!important}#entries.list.gm-color-lv #current-entry.expanded .collapsed{border-bottom-color:transparent!important;border-width:2px 0!important}#entries .entry{padding:5px 0}#entries.list .collapsed{line-height:2.4ex!important}";
 
-	const	STRINGS = {
+	const	STRINGS ={
 		// pref labels
 		color : "Color these items:",
 		list : "List view headers.",
@@ -37,16 +37,16 @@ var grp_colorful = function(prefs) {
 	};
 
 	// user interface for script settings added on settings page
-	var settings = {
+	var settings ={
 		timeoutID : 0,
 		entries : null,
 
-		init : function() { // insert page color options into the settings page
+		init : function(){// insert page color options into the settings page
 			// ascend out of iframe
 			this.entries = frameElement.ownerDocument.getElementById("entries");
 		},
 
-		addPrefs : function() {
+		addPrefs : function(){
 			var sect = document.createElement("div");
 			sect.className = "extra";
 
@@ -60,7 +60,7 @@ var grp_colorful = function(prefs) {
 			var lists = sect.getElementsByTagName("ul");
 
 			var me = this;
-			function tc(event) {
+			function tc(event){
 				me.toggleColors(event.target.id, event.target.checked);
 			}
 			this.addColorPref(lists[0], "gm-color-ri", STRINGS.read, tc);
@@ -73,7 +73,7 @@ var grp_colorful = function(prefs) {
 			return sect;
 		},
 
-		addColorPref : function(list, id, text, handler, def) {
+		addColorPref : function(list, id, text, handler, def){
 			var pref = document.createElement("li");
 			var selected = storage.getItem(id, (def == undefined) ? 1 : def);
 			pref.innerHTML = "<label><input id=\"" + id + "\" type=\"checkbox\" " + ((selected) ? "checked=\"on\"" : "")
@@ -84,13 +84,13 @@ var grp_colorful = function(prefs) {
 			label.addEventListener("change", handler, false);
 		},
 
-		toggleColors : function(id, curr) {
+		toggleColors : function(id, curr){
 			var msg, newPref = "", cName = "";
-			if (curr) {
+			if (curr){
 				newPref = id;
 				cName = id + " ";
 				msg = "<em>" + STRINGS.msgWill + "</em>";
-			} else {
+			} else{
 				msg = "<em>" + STRINGS.msgWillNot + "</em>";
 			}
 
@@ -100,17 +100,17 @@ var grp_colorful = function(prefs) {
 			this.setMessage(id, msg);
 		},
 
-		togglePref : function(event) {
-			if (this.value == STRINGS.custom) {
+		togglePref : function(event){
+			if (this.value == STRINGS.custom){
 				this.style.fontStyle = "italic";
 				addButton.removeAttribute("disabled");
-			} else {
+			} else{
 				this.style.fontStyle = "";
 				addButton.setAttribute("disabled", "true");
 			}
 		},
 
-		setMessage : function(id, msg) {
+		setMessage : function(id, msg){
 			clearTimeout(this.timeoutID);
 			var inner = getElementValue("id( 'message-area-inner' )");
 			var outer = getElementValue("id( 'message-area-outer' )");
@@ -128,7 +128,7 @@ var grp_colorful = function(prefs) {
 				+ "px;" + "width:" + (inner.offsetWidth + 10) + "px;");
 		outer.className = "message-area info-message";
 
-		this.timeoutID = setTimeout(function() {
+		this.timeoutID = setTimeout(function(){
 			outer.style.display = "";
 
 			// test if the same message is still showing.
@@ -140,7 +140,7 @@ var grp_colorful = function(prefs) {
 			}, 7 * 1000);
 	},
 
-	getColorPrefs : function() {
+	getColorPrefs : function(){
 		var prefs = "";
 
 		prefs += storage.getItem("gm-color-lv", "gm-color-lv") + " ";
@@ -154,14 +154,14 @@ var grp_colorful = function(prefs) {
 	};
 
 	// provide local data storage
-	var storage = {
-		cookie : {},
+	var storage ={
+		cookie :{},
 
-		init : function() { // initialize methods for data storage access
+		init : function(){// initialize methods for data storage access
 			// Google Chrome dev channel stubs GM_ functions with error messages
 		// test it's the real deal by looking for "arguments" in stingified
 		// version
-		if (typeof GM_getValue != "undefined" && /arguments/.test(GM_getValue.toString())) {
+		if (typeof GM_getValue != "undefined" && /arguments/.test(GM_getValue.toString())){
 			this.getItem = GM_getValue;
 			this.setItem = GM_setValue;
 			return;
@@ -171,24 +171,24 @@ var grp_colorful = function(prefs) {
 		// switch,
 		// Opera gives undefined
 		// http://www.w3.org/TR/webstorage/#the-storage-interface
-		if (typeof localStorage != "undefined" && localStorage != null) {
+		if (typeof localStorage != "undefined" && localStorage != null){
 
-			this.getItem = function(key, def) {
+			this.getItem = function(key, def){
 				var value = localStorage.getItem(key);
 				return (value == null) ? def : value;
 			};
 
-			this.setItem = function(key, value) {
+			this.setItem = function(key, value){
 				localStorage.setItem(key, value);
 			};
 			return;
 		}
 
-		var pairs = {};
-		if (/gm-color=([^;]*)/.test(unescape(document.cookie))) {
+		var pairs ={};
+		if (/gm-color=([^;]*)/.test(unescape(document.cookie))){
 			var cookie = RegExp.$1;
 
-			cookie.split("/").forEach(function(pair) {
+			cookie.split("/").forEach(function(pair){
 				var set = pair.split(":");
 				pairs[set[0]] = set[1];
 			});
@@ -197,12 +197,12 @@ var grp_colorful = function(prefs) {
 		this.cookie = pairs;
 	},
 
-	getItem : function(name, def) {
+	getItem : function(name, def){
 		var cookieVal = this.cookie[name];
 		return (typeof cookieVal == "undefined") ? def : cookieVal;
 	},
 
-	setItem : function(name, value) {
+	setItem : function(name, value){
 		this.cookie[name] = value;
 		var strCookie = "gm-color=";
 
@@ -217,12 +217,12 @@ var grp_colorful = function(prefs) {
 	};
 
 	// used to keep track of all the calculated colors
-	var colors = {};
+	var colors ={};
 
 	// =============================================================================
 
 	// calculate item hue
-	function getHue(title) {
+	function getHue(title){
 		var hue = 0;
 
 		for ( var i = 0, ch; ch = title[i]; i++)
@@ -233,66 +233,65 @@ var grp_colorful = function(prefs) {
 		return hue;
 	}
 
-	function getColorCss(title) {
+	function getColorCss(title){
 		var hue = getHue(title);
-		return getLvCss(title, hue) + getEvCss(title, hue) + getEfCss(title, hue)+ getTreeCss(title, hue);
+		return getTreeCss(title, hue)+getLvCss(title, hue) + getEvCss(title, hue) + getEfCss(title, hue);
 	}
 
-	function getLvCss(ttl, hue) { // css for coloring items in list view
+	function getLvCss(ttl,hue){// css for coloring items in list view
 		// this selector should be take priority over any other selector
-		var lvUi = "#entries.gm-color-lv.gm-color-ui div[ colored='";
-		var lvRi = "#entries.gm-color-lv.gm-color-ri div[ colored='";
-		return "" + lvUi + ttl + "' ] .collapsed {background-color: hsl(" + hue + ", 70%, 80% ) !important;}" + lvUi
-				+ ttl + "' ]:hover .collapsed { background-color: hsl(" + hue + ", 90%, 85% ) !important;}" + lvUi + ttl
-				+ "' ].read .collapsed," + lvUi + ttl + "' ].read:hover .collapsed {background-color: white !important; }"
-				+ lvRi + ttl + "' ].read .collapsed {background-color: hsl(" + hue + ", 50%, 90% ) !important;}" + lvRi
-				+ ttl + "' ].read:hover .collapsed { background-color: hsl(" + hue + ", 70%, 95% ) !important; }";
+		var lvUi = "#entries.gm-color-lv.gm-color-ui div[colored='";
+		var lvRi = "#entries.gm-color-lv.gm-color-ri div[colored='";
+		return "" + lvUi + ttl + "'] .collapsed{background-color: hsl(" + hue + ",70%,80% ) !important;}" + lvUi
+				+ ttl + "']:hover .collapsed{background-color: hsl(" + hue + ",90%,85% ) !important;}" + lvUi + ttl
+				+ "'].read .collapsed," + lvUi + ttl + "'].read:hover .collapsed{background-color: white!important;}"
+				+ lvRi + ttl + "'].read .collapsed{background-color: hsl(" + hue + ",50%,90% ) !important;}" + lvRi
+				+ ttl + "'].read:hover .collapsed{background-color: hsl(" + hue + ",70%,95% )!important;}";
 	}
 	
-	function getTreeCss(ttl, hue) { // css for coloring items in list view
-		var tvUi = "#sub-tree li[ colored='";
-		return "" + tvUi + ttl + "' ] {background-color:hsl(" + hue + ", 70%, 80% ) !important;}" 
-				+ tvUi + ttl + "' ]:hover { background-color:hsl(" + hue + ", 90%, 85% ) !important;}";
+	function getTreeCss(ttl,hue){// css for coloring items in list view
+		var tvUi = "#sub-tree li[colored='";
+		return "" + tvUi + ttl + "']{background-color:hsl(" + hue + ",70%,80%)!important;}" 
+				+ tvUi + ttl + "']:hover{background-color:hsl(" + hue + ",90%,85%)!important;}";
 	}
-	
 
-	function getEvCss(ttl, hue) { // css for coloring expanded view item
+	function getEvCss(ttl,hue){// css for coloring expanded view item
 		// bodies
-		var evUi = "#entries.gm-color-ev.gm-color-ui div[ colored='";
-		var evRi = "#entries.gm-color-ev.gm-color-ri div[ colored='";
-		return "" + evUi + ttl + "' ] .card," + evUi + ttl + "' ] .ccard," + evUi + ttl + "' ] .t2," + evUi + ttl
-				+ "' ] .t3 {background-color: hsl(" + hue + ", 70%, 80% ) !important; }" + evUi + ttl + "' ]:hover .card,"
-				+ evUi + ttl + "' ]:hover .ccard," + evUi + ttl + "' ]:hover .t2," + evUi + ttl
-				+ "' ]:hover .t3 { background-color: hsl(" + hue + ", 90%, 85% ) !important; }" + evUi + ttl
-				+ "' ].read .card," + evUi + ttl + "' ].read .ccard," + evUi + ttl + "' ].read .t2," + evUi + ttl
-				+ "' ].read .t3," + evUi + ttl + "' ].read:hover .card," + evUi + ttl + "' ].read:hover .ccard," + evUi
-				+ ttl + "' ].read:hover .t2," + evUi + ttl + "' ].read:hover .t3 { background-color: white !important;  }"
-				+ evRi + ttl + "' ].read .card," + evRi + ttl + "' ].read .ccard," + evRi + ttl + "' ].read .t2," + evRi
-				+ ttl + "' ].read .t3 { background-color: hsl(" + hue + ", 50%, 90% ) !important;}" + evRi + ttl
-				+ "' ].read:hover .card," + evRi + ttl + "' ].read:hover .ccard," + evRi + ttl + "' ].read:hover .t2,"
-				+ evRi + ttl + "' ].read:hover .t3 { background-color: hsl(" + hue + ", 70%, 95% ) !important; }";
+		var evUi = "#entries.gm-color-ev.gm-color-ui div[colored='";
+		var evRi = "#entries.gm-color-ev.gm-color-ri div[colored='";
+		return "" + evUi + ttl + "'] .card," + evUi + ttl + "'] .ccard," + evUi + ttl + "'] .t2," + evUi + ttl
+				+ "'] .t3{background-color: hsl(" + hue + ",70%,80% )!important;}" + evUi + ttl + "']:hover .card,"
+				+ evUi + ttl + "']:hover .ccard," + evUi + ttl + "']:hover .t2," + evUi + ttl
+				+ "']:hover .t3{background-color: hsl(" + hue + ",90%,85% )!important;}" + evUi + ttl
+				+ "'].read .card," + evUi + ttl + "'].read .ccard," + evUi + ttl + "'].read .t2," + evUi + ttl
+				+ "'].read .t3," + evUi + ttl + "'].read:hover .card," + evUi + ttl + "'].read:hover .ccard," + evUi
+				+ ttl + "'].read:hover .t2," + evUi + ttl + "'].read:hover .t3{background-color: white!important; }"
+				+ evRi + ttl + "'].read .card," + evRi + ttl + "'].read .ccard," + evRi + ttl + "'].read .t2," + evRi
+				+ ttl + "'].read .t3{background-color: hsl(" + hue + ",50%,90% ) !important;}" + evRi + ttl
+				+ "'].read:hover .card," + evRi + ttl + "'].read:hover .ccard," + evRi + ttl + "'].read:hover .t2,"
+				+ evRi + ttl + "'].read:hover .t3{background-color: hsl(" + hue + ",70%,95% )!important;}";
 	}
 
-	function getEfCss(ttl, hue) { // css for coloring expanded view item
+	function getEfCss(ttl,hue){// css for coloring expanded view item
 		// frames
-		var efUi = "#entries.gm-color-ef.gm-color-ui div[ colored='";
-		var efRi = "#entries.gm-color-ef.gm-color-ri div[ colored='";
-		return "" + efUi + ttl + "' ] { background: hsl(" + hue + ", 70%, 80% ) !important;}" + efUi + ttl
-				+ "' ]:hover { background: hsl(" + hue + ", 90%, 85% ) !important;}" + efUi + ttl + "' ].read," + efUi
-				+ ttl + "' ].read:hover { background: #F3F5FC !important; " + efRi + ttl + "' ].read { background: hsl("
-				+ hue + ", 50%, 90% ) !important;}" + efRi + ttl + "' ].read:hover {background: hsl(" + hue
-				+ ", 70%, 95% ) !important;}";
+		var efUi = "#entries.gm-color-ef.gm-color-ui div[colored='";
+		var efRi = "#entries.gm-color-ef.gm-color-ri div[colored='";
+		return "" + efUi + ttl + "']{background: hsl(" + hue + ",70%,80% ) !important;}" 
+				+ efUi + ttl
+				+ "']:hover{background: hsl(" + hue + ",90%,85% ) !important;}" 
+				+ efUi + ttl + "'].read," + 
+				efUi				+ ttl + "'].read:hover{background: #F3F5FC !important;} " 
+				+ efRi + ttl + "'].read{background: hsl("				+ hue + ",50%,90% ) !important;}" 
+				+ efRi + ttl + "'].read:hover{background: hsl(" + hue				+ ",70%,95% ) !important;}";
 	}
 	
 	// inject color css into the page
-	function setColor() {
+	function setColor(){
 		// pick up all uncolored entries, including ones missed previously
 		var nocolor = getElements("id( 'entries' )/div[ contains( @class, 'entry' ) ][ not( @colored ) ]");
-
 		if (!nocolor.length)
 			return;
-
-		nocolor.forEach(function(nc) {
+		nocolor.forEach(function(nc){
 				var src = getElementValue(".//*[ contains(concat(' ', normalize-space( @class ), ' '),' entry-source-title ')]", nc);
 				src = src.textContent.replace(/\W/g, "-");
 				nc.setAttribute("colored", src);
@@ -302,15 +301,13 @@ var grp_colorful = function(prefs) {
 	}
 	
 	// inject color css into the page
-	function setTreeColor() {
+	function setTreeColor(){
 		// pick up all uncolored entries, including ones missed previously
 		var tree = get_id("sub-tree");
 		var nocolor = getElements(".//li[contains(@class, 'sub ')][contains(@class, 'unread')][not(@colored)]", tree);
-		
 		if (!nocolor.length)
 			return;
-
-		nocolor.forEach(function(nc) {
+		nocolor.forEach(function(nc){
 			var src = getElementValue(".//span[contains(@class,'name')]/@title", nc);
 			src = src.textContent.trim().replace(/\W\(\d+\)$/g, "").replace(/\W/g, "-");
 			nc.setAttribute("colored", src);
@@ -318,27 +315,32 @@ var grp_colorful = function(prefs) {
 				GM_addStyle(getColorCss(src));
 		});
 	}
+	
+	function setColors(){
+		setColor();
+		setTreeColor();
+	}
 
-	function watchLoading(chrome) {
+	function watchLoading(chrome){
 		// pull this out here out of unsafeWindow context
 		var prefs = settings.getColorPrefs();
 
-		function setup(event) {
+		function setup(event){
 			var entries = get_id("entries");
-			if (entries) {
+			if (entries){
 				chrome.removeEventListener("DOMNodeInserted", setup, false);
 
 				// initial setup and toggling of settings
 				entries.className = prefs + entries.className;
-				entries.addEventListener("DOMNodeInserted", setColor, false);
-				//setTreeColor();
+				entries.addEventListener("DOMNodeInserted", setColors, false);
+				setTreeColor();
 			}
 		}
-		/*if (stop) {
+		/*if (stop){
 			chrome.removeEventListener("DOMNodeInserted", setup, false);
 			var entries = get_id("entries");
 			entries.removeEventListener("DOMNodeInserted", setColor, false);
-		} else {*/
+		} else{*/
 			chrome.addEventListener("DOMNodeInserted", setup, false);
 		//}
 	}
@@ -346,7 +348,7 @@ var grp_colorful = function(prefs) {
 	storage.init();
 	if (chrome)
 		watchLoading(chrome); // watch for the loading of rss entries
-	else { // settings and script meta info page have no "chrome" element
+	else{// settings and script meta info page have no "chrome" element
 		settings.init();
 	}
 	GM_addStyle(BASE_CSS);

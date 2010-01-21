@@ -11,7 +11,8 @@ var grp_fitheight = function(prefs) {
 	}	
 	
 	function addButton(el, entry, mode) {
-		addBottomLink(el,'Fit height', 'Fit height [f]', 'btn-fitheight', true, fitHeight);
+		var text = 'Fit height' + formatShortcut('fitheight', 'fit', prefs); //[f]
+		addBottomLink(el,'Fit height', text, 'btn-fitheight', true, fitHeight, false, entry);
 		if (locked){
 			fitHeight(el, entry, true);
 		}

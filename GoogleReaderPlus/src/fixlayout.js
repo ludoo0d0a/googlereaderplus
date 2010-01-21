@@ -1,12 +1,8 @@
-// ==UserScript==
-// @name           Google Reader: Fixer
-// @description    Fix all missing images in enclosures.
-// @author henrah / LudoO(xeoos.fr) 
-// @namespace      http://www.pitaso.com
-// @include        htt*://www.google.*/reader/view*
-// ==/UserScript==
-
-var grp_fixenclosures = function(prefs) {
+/**
+ * fixlayout
+ * @param {Object} prefs
+ */
+var grp_fixlayout = function(prefs) {
 
 	function checkImage(root, href) {
 		var links = getElements(".//img[@src='" + href + "']", root);
@@ -42,8 +38,12 @@ var grp_fixenclosures = function(prefs) {
 		});
 	}
 	
+	//fix image width
 	var css = ".item-body img {max-width:100% !important;}";
 	GM_addStyle(css);
+	
+	//fix width of entry
+	GM_addStyle(".entry .entry-body, .entry .entry-title{ display: inline !important; max-width: 100% !important; }");
 
 	var e = document.getElementById('entries');
 	if (e) {

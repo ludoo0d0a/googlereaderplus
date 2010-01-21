@@ -7,14 +7,15 @@ var grp_jump = function(prefs) {
 
 			var a = document.createElement('a');
 			a.href = "#";
-			a.title = "Jump to bottom [Shift+B]";
+			a.title = 'Jump to bottom'+ formatShortcut('jump', 'godown', prefs);// [Shift+B] 
 			a.appendChild(div);
 
 			title.appendChild(a);
 			div.addEventListener('click', gotobottom, false);
 		}
 
-		addBottomLink(el, 'Top', 'Jump to top [Shift+T]', 'item-go-to-top', false, gototop);
+		var text = 'Jump to top' + formatShortcut('jump', 'goup', prefs); //[Shift+T]
+		addBottomLink(el, 'Top', text, 'item-go-to-top', false, gototop, false, entry);
 	}
 
 	function gototop(e) {

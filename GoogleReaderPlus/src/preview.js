@@ -27,7 +27,7 @@ var grp_preview = function(prefs){
       var ilink = document.createElement('a');
       ilink.className = 'ilink entry-title-link';
       ilink.href = '#';
-      ilink.title = 'Open as preview [Shift+R]';
+      ilink.title = 'Open as preview' + formatShortcut('preview', 'prview', prefs); //[Shift+R]
       ilink.innerText = ' ' + text;
       link.parentNode.insertBefore(ilink, link);
       ilink.addEventListener('click', previewTitleClick, false);
@@ -43,7 +43,7 @@ var grp_preview = function(prefs){
        link.onclick = previewTitleClick;//with preventdefault on first
        */
       // Bottom button
-      addBottomLink(el, 'Preview', 'Integrated preview of the news [Shift+V]', 'btn-preview', true, previewize, locked);
+      addBottomLink(el, 'Preview', 'Integrated preview of the news [Shift+V]', 'btn-preview', true, previewize, locked, entry);
    }
    
    

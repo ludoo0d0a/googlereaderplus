@@ -4,14 +4,8 @@
 
 var grp_closeentry = function(prefs) {
 	function addLink(el, entry, mode) {
-		addBottomLink(el, 'Close', 'Close this entry [x]', 'item-close-me', false, closeEntry);
-		/*
-		var span = document.createElement('span');
-		span.className = 'item-close-me link unselectable';
-		span.innerHTML = 'Close ';
-		span.title = "Close this entry [x]";
-		el.appendChild(span);
-		span.addEventListener('click', closeEntryKey, false);*/
+		var text = 'Close this entry' + formatShortcut('closeentry', 'close', prefs); //[x]
+		addBottomLink(el, 'Close', text, 'item-close-me', false, closeEntry, false, entry);
 	}
 	
 	function addKey(e) {

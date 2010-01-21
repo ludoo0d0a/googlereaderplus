@@ -93,7 +93,8 @@ var grp_twitter = function(prefs) {
 		var btn = document.createElement("span");
 		btn.className = "btn-twitter item-star star link";
 		btn.innerHTML = "Twitter";
-		btn.title = "Share this news on Twitter [d]";
+		var text = 'Share this news on Twitter' + formatShortcut('twitter', 'tweet', prefs); //[d]
+		btn.title = text; //"Share this news on Twitter [d]";
 		btn.addEventListener("click", postBookmark, false);
 		el.appendChild(btn);
 	}
