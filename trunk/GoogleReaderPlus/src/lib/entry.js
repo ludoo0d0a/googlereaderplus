@@ -140,7 +140,7 @@ function onKey(cls, fn) {
 	fn.call(this, btn, entry);
 }
 
-function addBottomLink(el, text, title, cls, button, callback, locked){
+function addBottomLink(el, text, title, cls, button, callback, locked, entry){
 	var span = document.createElement('span');
 	span.className = cls+(button?' read-state-not-kept-unread read-state':'')+' link unselectable';
 	span.innerHTML = text;
@@ -155,7 +155,7 @@ function addBottomLink(el, text, title, cls, button, callback, locked){
 	span.addEventListener('click', onClick, false);
 	if (locked){
 		//activate it
-		columnize(span, entry, true);
+		callback(span, entry, true);
 	}
 }
 function isActive(btn, entry, cls, locked){

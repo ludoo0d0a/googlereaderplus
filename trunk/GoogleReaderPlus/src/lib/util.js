@@ -39,10 +39,13 @@ function findParentNode(eel, etag, clazz) {
 }
 function getFirstNode(el) {
 	var o = el.firstChild;
-	if (typeof o == "HTMLDivElement"){
+	//if (typeof o == "HTMLDivElement"){
+	if (o && o.nodeType == 1){
 		return o;
 	}
-	while(typeof o !== "undefined" && typeof o !== "HTMLDivElement"){
+	//
+	//while(typeof o !== "undefined" && typeof o !== "HTMLDivElement"){
+	while(typeof o !== "undefined" && o.nodeType !== 1){
 		o=o.nextSibling;
 	}
 	return o;
@@ -203,4 +206,42 @@ function simulateClick(node) {
 	var event = node.ownerDocument.createEvent("MouseEvents");
 	event.initMouseEvent("click", true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
 	node.dispatchEvent(event);
+}
+
+/**
+ * Shortcuts
+ * @param {Object} e
+ */
+function formatKey(e){
+    var keyLetter = String.fromCharCode(e.keyCode);
+    return ((e.ctrlKey) ? 'Ctrl+' : '') + ((e.altKey) ? 'Alt+' : '') + ((e.shiftKey) ? 'Shift+' : '') + keyLetter;
+}
+function formatShortcut(script, shortcut, prefs){
+	var t='';
+	if (prefs){
+		var key = prefs[script+'-key-'+shortcut];
+		if (key) {
+			t = formatKey(key);
+			if (t) {
+				t = ' [' + t + ']';
+			}
+		}
+	}
+	return t;
+}
+
+/**
+ * Templates
+ */
+function fillTpl(tpl, o){
+    var re, txt=''+tpl; 
+	for(var k in o){
+		if (o.hasOwnProperty(k)){
+			if (typeof o[k] === "string"){
+				re = new RegExp('{'+k+'}', 'g');
+				txt=txt.replace(re, o[k] || '');
+			}
+		}
+	}
+	return txt;
 }

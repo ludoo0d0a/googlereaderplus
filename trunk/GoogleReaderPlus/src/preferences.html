@@ -1,566 +1,21 @@
 <html>
     <head>
         <title>Google Reader Plus - Preferences</title>
-        <style type="text/css">
-            
-            body {
-                background: #898989;
-            }
-            
-            input {
-                margin: 5px;
-            }
-            
-            h2 {
-                margin: 0;
-            }
-            
-            .hidden {
-                display: none;
-            }
-            
-            img {
-                border: 0;
-            }
-            
-            /**
-             * Rounded corners
-             */
-            #colors_cc, #colors_ct {
-                height: 115px;
-                width: 108px;
-                -webkit-border-radius: 7px;
-                -webkit-box-shadow: 0px 0px 5px #729FCF;
-                padding: 7px 7px 7px 7px;
-                z-index: 9999;
-                font-family: Lucida grande, arial, sans-serif;
-                font-size: 13px;
-                font-style: normal;
-                font-variant: normal;
-                font-weight: normal;
-                background: #FFFFFF;
-            }
-            
-            div.color_cc, div.color_ct {
-                height: 12px;
-                width: 12px;
-                border: 1px solid #000;
-                margin: 2px;
-                float: left;
-                cursor: pointer;
-            }
-            
-            /**
-             * Skeleton
-             */
-            #main {
-                width: 1300px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            
-            .fixednav {
-                float: left;
-                height: 500px;
-                width: 240px;
-            }
-            
-            .fixednav .large {
-                margin-top: 5px;
-            }
-            
-            .nav {
-                float: left;
-                width: 220px;
-                height: 650px;
-            }
-            
-            .nav a.item {
-                margin-left: 20px;
-                text-decoration: none;
-            }
-            
-            .panel {
-                float: left;
-                min-height: 650px;
-                min-width: 500px;
-            }
-            
-            .savetop {
-                text-align: right;
-                float: right;
-            }
-			
-			#sysinfo{
-				max-width: 600px;
-			}
-            
-            /**
-             * Left Nav menu
-             */
-            ul.mnu, .mnu li {
-                list-style: none;
-                margin: 0;
-                padding: 0;
-            }
-            
-            .mnu li {
-                background-color: #272522;
-                padding-top: 1px;
-                border-bottom: 1px dotted #000000;
-            }
-            
-            .mnu span {
-                color: #FFF;
-                font-family: georgia, times new roman, times, serif;
-                text-shadow: 0 0 0 #3E3A37;
-            }
-            
-            .mnu.nav1 span {
-                display: block;
-                font-size: 167%;
-            }
-            
-            .mnu.nav2 span.linkblock, .mnu.gsh span {
-                display: block;
-            }
-            
-            li a.link {
-                padding: 2px;
-            }
-            
-            .mnu li a, .mnu.gsh li{
-                display: block;
-                text-decoration: none;
-                color: #b8b4a5;
-                font-size: 85%;
-                font-family: 'trebuchet ms', Verdana, Arial, Helvetica, sans-serif;
-            }
-            
-            .mnu.nav1 li a {
-                padding: .7em 0 .7em 20px;
-            }
-            
-            .mnu.nav2 li a {
-                padding-left: .7em;
-            }
-            
-            .mnu.navskin {
-                margin-left: 100px;
-            }
-            
-            .mnu.navskin li a {
-                padding: .2em;
-            }
-            
-            .mnu li.on {
-                border-color: #dddddd;
-                background-color: #333333;
-            }
-            
-            .mnu li a:hover {
-                background: #555555;
-            }
-            
-            .mnu li.button a {
-                padding-left: 0 !important;
-                text-align: center;
-            }
-            
-            /**
-             * Open panel logo
-             */
-            .open {
-                float: right;
-                font-family: Comic Sans MS, Verdana, Arial, sans-serif;
-                font-weight: bold;
-                font-size: 130%;
-                padding-right: 5px;
-                position: relative;
-                top: -5px;
-            }
-            
-            span.olink {
-                top: -20px;
-            }
-            
-            /**
-             * Panels
-             */
-            .menupanel {
-                background: #AFAFAF;
-                -webkit-border-radius: 7px;
-                -webkit-box-shadow: 0px 0px 5px #000000;
-                padding: 7px;
-                margin: 7px;
-            }
-            
-            .menupanel:hover {
-                background: #BFBFBF;
-            }
-            
-            .detail {
-                color: blue;
-                text-decoration: none;
-            }
-            
-            .logo {
-                text-align: center;
-            }
-            
-            .logo .txt {
-                font-family: arial, sans-serif;
-                font-size: 1.1em;
-                font-weight: bold;
-                color: #dddddd;
-                margin: 0;
-            }
-            
-            .title {
-                margin-bottom: 8px;
-            }
-            
-            /**
-             * Centering items
-             */
-            #status {
-                text-align: center;
-                color: #EFEFEF;
-                background-color: #1A8F2A;
-                height: 16px;
-                margin-top: 5px;
-            }
-            
-            /**
-             * Skins
-             */
-            #skinsbox {
-                margin: 20px;
-                width: 430px;
-                text-align: center;
-            }
-            
-            #skinsbox li {
-                width: 230px;
-            }
-            
-            #skinsbox img {
-                border: 1px solid #fff;
-                padding: 5px;
-                margin: 30px 8px 8px 8px;
-            }
-			
-			/**
-			 * Shortcuts
-			 */
-			#googleshortcuts{
-				overflow:auto;
-				height:250px;
-			}
-        </style>
+        <link href="css/prefs.css" type="text/css" rel="stylesheet">
+        <script type="application/javascript" src="features.js">
+        </script>
+		<script type="application/javascript" src="lib/util.js">
+        </script>
+		<script type="application/javascript" src="version.js">
+        </script>
         <script type="application/javascript">
-            var prefs, scripts, myport;
-            
-            var scriptlist = [
-            {
-                id: "skins",
-                name: "Theme",
-                desc: "Change the look of GoogleReader"
-            }, 
-            {
-                id: "favicons",
-                name: "Favicons",
-                desc: "Display favicons for every feed"
-            }, 
-            {
-                id: "fixenclosures",
-                name: "Fix missing enclosures",
-                desc: "Show non displaying pictures in enclosures links"
-            }, 
-            {
-                id: "unreadcount",
-                name: "Show all unread count",
-                desc: "Show all feeds unread count"
-            }, 
-            {
-                id: "fixwidth",
-                name: "Fix width of text entry",
-                desc: "Display text using full width"
-            }, 
-            {
-                id: "count",
-                name: "Fix counter (1000+)",
-                desc: "Display real unread count"
-            }, 
-            {
-                id: "counticon",
-                name: "Icon counter",
-                desc: "Dislay unread count in the Google Reader favicon"
-            }, 
-            {
-                id: "removeads",
-                name: "Remove ads",
-                desc: "Simple advertising blocker"
-            }, 
-            {
-                id: "column",
-                name: "Text multi columns",
-                desc: "Add abutton to display news as a newspaper in multi columns",
-                //shortcut: "c",
-                shortcuts: [
-                {
-                    id: 'multicolumn',
-                    title: 'Multi columns',
-                    key: 
-                    {
-                        keyCode: 67
-                    }
-                }]
-            }, 
-            {
-                id: "preview",
-                name: "Integrated preview",
-                desc: "Add a button to show entire original page instead the entry",
-                //shortcut: "Shift+R",
-                shortcuts: [
-                {
-                    id: 'preview',
-                    title: 'Entry preview',
-                    key: 
-                    {
-                        keyCode: 81
-                    }
-                }]
-            }, 
-            {
-                id: "colorful",
-                name: "Colorful listview",
-                desc: "Use a background color for a same feed"
-            }, 
-            {
-                id: "filter",
-                name: "Filter entries",
-                desc: "Filter entries by removing or highligting items based on user terms"
-            }, 
-            {
-                id: "readbymouse",
-                name: "Read by mouse",
-                desc: "Middle click not available on Windows",
-                desc: "Next/previous item using right/left mouse click"
-            }, 
-            {
-                id: "facebook",
-                name: "Facebook integration",
-                desc: "Add a button to share news using Facebook",
-                //shortcut: "b",
-                shortcuts: [
-                {
-                    id: 'facebook',
-                    title: 'Post on Facebook',
-                    key: 
-                    {
-                        keyCode: 66
-                    }
-                }]
-            }, 
-            {
-                id: "twitter",
-                name: "Twitter integration",
-                desc: "Add a button to share news using Twitter",
-                //shortcut: "d",
-                shortcuts: [
-                {
-                    id: 'twitter',
-                    title: 'Post on Twitter',
-                    key: 
-                    {
-                        keyCode: 68
-                    }
-                }]
-            }, 
-            {
-                id: "mark",
-                name: "Mark As Read",
-                desc: "Mark items before/after current as read",
-                //shortcut: "before: w ; after: x",
-                shortcuts: [
-                {
-                    id: 'markbefore',
-                    title: 'Mark items before As Read',
-                    key: 
-                    {
-                        keyCode: 87
-                    }
-                }, 
-                {
-                    id: 'markafter',
-                    title: 'Mark items after As Read',
-                    key: 
-                    {
-                        keyCode: 75
-                    }
-                }]
-            }, 
-            {
-                id: "jump",
-                name: "Add top/bottom links",
-                desc: "Add a 'goto bottom' icon on top entry and a 'goto top' on bottom entry",
-                //shortcut: "Shift+T: goto top ; Shift+B : goto bottom",
-                shortcuts: [
-                {
-                    id: 'gototop',
-                    title: 'Goto top',
-                    key: 
-                    {
-                        keyCode: 84
-                    }
-                }, 
-                {
-                    id: 'gotobottom',
-                    title: 'Goto bottom',
-                    key: 
-                    {
-                        keyCode: 66
-                    }
-                }]
-            }, 
-            {
-                id: "fitheight",
-                name: "Fit height",
-                desc: "Fit height of the current news to the screen height (for long articles)",
-                //shortcut: "f : fit height",
-                shortcuts: [
-                {
-                    id: 'fitheight',
-                    title: 'Fit height',
-                    key: 
-                    {
-                        keyCode: 70
-                    }
-                }]
-            }, 
-            {
-                id: "closeentry",
-                name: "Close entry",
-                desc: "Add a 'close' button on each entry to remove it",
-                //shortcut: "x",
-                shortcuts: [
-                {
-                    id: 'close',
-                    title: 'Close entry',
-                    key: 
-                    {
-                        keyCode: 88
-                    }
-                }]
-            
-            }, 
-            {
-                id: "openbackground",
-                name: "Open in background",
-                desc: "Add a 'open in background' button on each entry",
-                //shortcut: "Shift + V : open in background tab",
-                shortcuts: [
-                {
-                    id: 'openbackground',
-                    title: 'Open in background tab',
-                    key: 
-                    {
-                        shiftKey: true,
-                        keyCode: 86
-                    }
-                }]
-            }, 
-            {
-                id: "aero",
-                name: "Google Aero Toolbar",
-                desc: "Toolbar using Aero theme"
-            }, 
-            {
-                id: "info",
-                name: "SysInfo",
-                desc: "System information",
-                link: true
-            }, 
-            {
-                id: "thanks",
-                name: "Thanks",
-                desc: "",
-                link: true
-            
-            }, 
-            /*{
-                id: "readershortcuts",
-                name: "Keyboard shortcuts",
-                desc: "Original keyboard shortcuts",
-                url: 'http://www.google.com/support/reader/bin/answer.py?hl=en&answer=69973',
-                link: true
-            }, */
-            {
-                id: "extshortcuts",
-                name: "Extension shortcuts",
-                desc: "Extension keyboard shortcuts",
-                link: true
-            }, 
-            {
-                id: "about",
-                name: "About",
-                desc: "About GoogleReaderPlus",
-                url: 'about.html',
-                link: true
-            
-            }];
-            
-            var skinlist = [
-            {
-                id: "none",
-                name: "None"
-            }, 
-            {
-                id: "air",
-                name: "Air Skin"
-            }, 
-            {
-                id: "aircomic",
-                name: "Air Skin Comic Sans"
-            }, 
-            {
-                id: "black",
-                name: "Google Enhanced Black"
-            }, 
-            {
-                id: "dark",
-                name: "Dark Skin"
-            }, 
-            {
-                id: "darkgray",
-                name: "Dark Gray Skin"
-            }, 
-            {
-                id: "helvetireader",
-                name: "Helvetireader Skin"
-            }, 
-            {
-                id: "minimal",
-                name: "Minimalistic Skin"
-            }, 
-            {
-                id: "optimized",
-                name: "Optimized Skin"
-            }, 
-            {
-                id: "osxblue",
-                name: "Mac OS X Snow Leopard - Blue"
-            }, 
-            {
-                id: 'osxblack',
-                name: "Mac OS X Snow Leopard - Black"
-            }];
-            
+            var prefs, scripts, shortcuts, myport;
             function init(){
-                createscripts();
+ 				setVersion();
+				createscripts();
                 createskins();
-                createInfo();
+                infoNavigator();
+				initGoogleShortcuts();
                 
                 showPanel('skins');
                 
@@ -574,7 +29,7 @@
                         if (a.message === "prefs") {
                             scripts = a.scripts;
                             prefs = a.prefs;
-                            me.set.call(me);
+                            me.load.call(me);
                         } else if (a.message === "info") {
                             createReport(a.report);
                         }
@@ -595,14 +50,6 @@
                     status.innerHTML = "";
                     status.className = "menupanel hidden";
                 }, 3000);
-            }
-            
-            function getFirstNode(el){
-                var o = el.firstChild;
-                while (o && o.nodeType !== 1) {
-                    o = o.nextSibling;
-                }
-                return o;
             }
             
             function save(form){
@@ -642,34 +89,37 @@
                     }
                 }
                 myport.postMessage(r);
-                
+                prefs = r.prefs;
+                run_extshortcuts();
                 info("Preferences saved");
             }
             
-            function set(){
+            function load(){
                 if (prefs) {
                     for (var o in prefs) {
                         if (document.preferences[o] && prefs[o]) {
                             var ctrl = document.preferences[o];
-                            if (ctrl.tagName === "INPUT") {
-                                if (ctrl.type === "checkbox") {
-                                    ctrl.checked = (prefs[o] === true);
-                                } else if (ctrl.type === "text") {
+                            if (!hasClass(ctrl, 'nopref')) {
+                                if (ctrl.tagName === "INPUT") {
+                                    if (ctrl.type === "checkbox") {
+                                        ctrl.checked = (prefs[o] === true);
+                                    } else if (ctrl.type === "text") {
+                                        ctrl.value = prefs[o];
+                                    } else if (ctrl.type === "hidden") {
+                                        ctrl.value = prefs[o];
+                                        //try update textbox for shortcut
+                                    }
+                                } else if (ctrl.nodeName === "TEXTAREA") {
                                     ctrl.value = prefs[o];
-                                } else if (ctrl.type === "hidden") {
-                                    ctrl.value = prefs[o];
-                                    //try update textbox for shortcut
-                                
                                 }
-                            } else if (ctrl.nodeName === "TEXTAREA") {
-                                ctrl.value = prefs[o];
                             }
                         }
                     }
                     selectSkin();
+					updatePrefs();
                 }
-            }
-            
+            }		
+			
             function selectSkin(){
                 var input = document.getElementById("skin");
                 var li = document.getElementById('skin_' + input.value);
@@ -706,10 +156,6 @@
                 }
             }
             
-            function fillTpl(tpl, script){
-                return tpl.replace(/{id}/g, script.id || '').replace(/{name}/g, script.name || '').replace(/{desc}/g, script.desc || '').replace(/{shortcut}/g, script.shortcut ? (' [' + script.shortcut + ']') : '').replace(/{url}/g, script.url || '').replace(/{dlink}/g, script.dlink || '');
-            }
-            
             function createscripts(){
                 var list = document.getElementById('scriptlist');
                 var panels = document.getElementById('panels');
@@ -719,8 +165,8 @@
                 var tplLink = '<li id="l_{id}"><a class="link" href="javascript:showPanel(\'{id}\')"><span class="linkblock">{name}</span><span class="open olink">{dlink}</span></a></li>';
                 var tplPanelTitle = '<div class="title"><h2>{name}</h2><div id="paneldesc_{id}" class="desc">{desc}</div></div>';
                 var tplPanelIframe = '<div class="title"><h2>{name}</h2><iframe src="{url}" width="700" height="620"></iframe></div>';
-                for (var i = 0, len = scriptlist.length; i < len; i++) {
-                    var script = scriptlist[i];
+                for (var i = 0, len = igrp.scripts.length; i < len; i++) {
+                    var script = igrp.scripts[i];
                     script.dlink = '>';
                     var t = (script.link) ? tplLink : tplCheckbox;
                     html += fillTpl(t, script);
@@ -756,8 +202,8 @@
                 var last;
                 var list = document.getElementById('skinlist');
                 list.innerHTML = '';
-                for (var i = 0, len = skinlist.length; i < len; i++) {
-                    var o = skinlist[i];
+                for (var i = 0, len = igrp.skins.length; i < len; i++) {
+                    var o = igrp.skins[i];
                     var li = document.createElement('li');
                     var a = document.createElement('a');
                     li.id = 'skin_' + o.id;
@@ -787,34 +233,7 @@
                     };
                 }
             }
-            
-            function fillTplShortcut(tpl, shortcut){
-                return tpl.replace(/{script}/g, shortcut.script || '').replace(/{text}/g, shortcut.text || '').replace(/{title}/g, shortcut.title || '');
-            }
-            
-            function run_extshortcuts(id){
-                //update all Keyboard shortcuts
-                var tplShorcut = '<div class="shortcut"><span>{script}</span> - <span>{title}</span> : <span>{text}</span></div>';
-                var grpshortcuts = document.getElementById('grpshortcuts');
-                for (var i = 0, len = scriptlist.length; i < len; i++) {
-                    var script = scriptlist[i];
-                    if (script.shortcuts) {
-                        for (var j = 0, lenj = script.shortcuts.length; j < lenj; j++) {
-                            var shortcut = script.shortcuts[j];
-                            shortcut.script = script.name;
-                            shortcut.text = formatKey(shortcut.key);
-                            var div = document.createElement('div');
-                            div.innerHTML = fillTplShortcut(tplShorcut, shortcut);
-                            grpshortcuts.appendChild(div);
-                        }
-                    }
-                }
-            }
-            
-            function createInfo(){
-                infoNavigator();
-            }
-            
+
             function createReport(report){
                 var list = document.getElementById('sysinfo');
                 list.innerHTML = '';
@@ -875,6 +294,28 @@
                 }
             }
             
+            function run_extshortcuts(){
+                //update all Keyboard shortcuts
+                var tplShorcut = '<span>{script}</span> - <span>{title}</span> : <span>{text}</span>';
+                var grpshortcuts = document.getElementById('grpshortcuts');
+                grpshortcuts.innerHTML = '';
+                for (var i = 0, len = igrp.scripts.length; i < len; i++) {
+                    var script = igrp.scripts[i];
+                    if (script.shortcuts) {
+                        for (var j = 0, lenj = script.shortcuts.length; j < lenj; j++) {
+                            var shortcut = script.shortcuts[j];
+                            shortcut.script = script.name;
+                            var key = prefs[script.id + '-key-' + shortcut.id] || shortcut.key;
+                            shortcut.text = formatKey(key);
+                            var div = document.createElement('div');
+                            div.className = "shortcut";
+                            div.innerHTML = fillTpl(tplShorcut, shortcut);
+                            grpshortcuts.appendChild(div);
+                        }
+                    }
+                }
+            }
+			
             function addShortcuts(el, script, shortcuts){
                 if (shortcuts) {
                     for (var i = 0, len = shortcuts.length; i < len; i++) {
@@ -892,36 +333,117 @@
                 input.type = 'text';
                 input.value = formatKey(shortcut.key);
                 input.size = 15;
-                input.id = script.id + '-keytext-' + shortcut.id;
-                var hidden = document.createElement('input');
-                hidden.type = 'hidden';
-                hidden.id = script.id + '-key-' + shortcut.id;
-                var sc = script;
-                var sh = shortcut;
-                var inp = input;
-                setShortcut(shortcut.key, sc, sh, input, hidden);
+                input.className = "nopref";
+                input.id = script.id + '-key-' + shortcut.id;
+                var scriptId = script.id;
+                var shortcutId = shortcut.id;
+				fixShortcut(shortcut.key, input);
                 el.onkeydown = function(e){
                     e.preventDefault();
                     e.stopPropagation();
-                    setShortcut(e, sc, sh, inp, hidden);
+                    fixShortcut(e, e.target);
                 };
                 el.appendChild(input);
+                
                 var br = document.createElement('br');
                 el.appendChild(br);
             }
             
-            function formatKey(e){
-                var keyLetter = String.fromCharCode(e.keyCode);
-                return ((e.ctrlKey) ? 'Ctrl + ' : '') + ((e.altKey) ? 'Alt + ' : '') + ((e.shiftKey) ? 'Shift + ' : '') + keyLetter;
-            }
-            
-            function setShortcut(e, script, shortcut, input, hidden){
-                var s = ((e.ctrlKey) ? 'c' : '') + ((e.altKey) ? 'a' : '') + ((e.shiftKey) ? 's' : '') + e.keyCode;
-                if (hidden) {
-                    hidden.value = s;
-                    input.value = formatKey(e);
+			function isShortcutFree(e){
+				var text = formatKey(e);
+				
+				//custom in prefs
+				if (shortcuts && shortcuts[text]){
+					return 'in your preferences';
+				}
+				
+				//google
+				if (googleshortcuts && googleshortcuts[text]){
+					return 'by Google ('+googleshortcuts[text]+')';
+				}
+				
+				return true;
+			}
+						
+            //function fixShortcut(e, hidden, input){
+			function fixShortcut(e, input){
+                if (input) {
+                    var text = formatKey(e);
+					var free = isShortcutFree(e);
+					if (free===true) {
+						//hidden.value = text;
+						input.value = text;
+					} else {
+						//Already set
+						input.value = text;
+						var warn = document.createElement('span');
+						warn.className='warning';
+						input.className='warning';
+						warn.innerHTML='Already used '+free+' !';
+						insertAfter(warn, input);
+		                window.setTimeout(function(){
+		                    warn.parentNode.removeChild(warn);
+							input.className='';
+		                }, 3000);
+					}
                 }
             }
+			
+			
+			function updatePrefs(){
+				//Add default shortcuts
+				var form = document.preferences;
+				shortcuts=shortcuts||{};
+				for (var ctrl in form) {
+					if (ctrl.tagName === "INPUT" && ctrl.type === "hidden") {
+						if (ctrl.id.indexOf('-key-')){
+							saveShortcut(ctrl.id, ctrl.value);
+						}
+					}
+				}	
+			}
+			
+			function saveShortcut(id, value){
+				shortcuts[value]=id;
+				prefs[id]=value;
+			}
+			
+			function initGoogleShortcuts(){
+				googleshortcuts={
+					'j': 'item down',
+					'k': 'item up',
+					'space': 'page down',
+					'shift+space': 'page up',
+					'n': 'scan down',
+					'p': 'scan up',
+					'shift+n': 'navigation down',
+					'shift+p': 'navigation up',
+					'shift+x': 'navigation expand/collapse',
+                    'o': 'open/close item',                 
+					'enter': 'open/close item',
+					'shift+o': 'navigation open subscription',
+                    '-': 'zoom out',  
+					'=': 'zoom in',    
+					's': 'toggle star',  
+					'shift+s': 'toggle share',
+					'shift+d': 'share with note',   
+					'v': 'view original',
+					't': 'tag an item',
+					'm': 'mark as read/unread',
+					'shift+a': 'mark all as read',
+					'e': 'email item',
+					'g': 'go to...',
+					'r': 'refresh',
+                    'u': 'toggle full screen mode',
+                    '1': 'expanded view',
+                    '2': 'list view',
+                    '/': 'search',
+                    'a': 'add a subscription',
+                    '?': 'help'
+				};
+				
+				
+			}
         </script>
     </head>
     <body onload="init();">
@@ -956,10 +478,10 @@
                                 <a href="http://www.twitter.com/ludoo0d0a"><span><img width="160" height="27" src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow ludoo0d0a on Twitter"/></span>Follow news and updates</a>
                             </li>
                             <li class="button">
-                                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></span>Offer me a coffee!</a>
+                                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=US&amp;item_name=GoogleReaderPlus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></span>Offer me a coffee!</a>
                             </li>
                         </ul>
-                        </li>
+						<div id="version"></div>
                     </div>
                 </div>
                 <div class="menupanel nav">
@@ -1045,68 +567,139 @@
                             <div class="body">
                                 <!--
                                 <div id="header_info">
-                                <a id="gen_info" href="javascript:createInfo();">Generate report</a>
+                                <a id="gen_info" href="javascript:infoNavigator();">Generate report</a>
                                 </div>
                                 -->
                                 <div id="sysinfo">
                                 </div>
                             </div>
                         </div>
-						<div id="panel_extshortcuts" style="display:none;">
+                        <div id="panel_extshortcuts" style="display:none;">
                             <div class="body">
                                 <h2>Your custom Shortcuts</h2>
-								<div id="grpshortcuts">
-								</div>
-								<h2>Google Reader <a href="http://www.google.com/support/reader/bin/answer.py?hl=en&answer=69973" target="_blank">official shortcuts</a></h2>
-								<div id="googleshortcuts">
-									<ul class="mnu gsh">
-<li><span>j/k</span>item down/up : selects the next/previous item in the list</li>
-<li><span>space/shift-space</span>page down/up : moves the page down/up</li>
-<li><span>n/p</span>scan down/up : in list view, selects the next item without opening it</li>
-<li><span>shift-n/p</span>navigation down/up : selects the next/previous subscription or folder in the navigation</li>
-<li><span>shift-x</span>navigation expand/collapse : expands or collapses a folder selected in the navigation</li>
-<li><span>o</span>open/close item : in list view, expands or collapses the selected item</li>
-<li><span>enter</span>open/close item : in list view, expands or collapses the selected item</li>
-<li><span>shift-o</span>navigation open subscription : opens the subscription or folder currently selected in the navigation</li>
-<li><span>-</span>zoom out : decreases the font size of the current item</li>
-<li><span>=</span>zoom in : increases the font size of the current item</li>
-<li><span>s</span>toggle star : stars or un-stars the selected item</li>
-<li><span>shift-s</span>toggle share : shares or un-shares the selected item</li>
-<li><span>shift-d</span>share with note : shares the selected item with a note</li>
-<li><span>v</span>view original : opens the original source for this article in a new window</li>
-<li><span>t</span>tag an item : opens the tagging field for the selected item</li>
-<li><span>m</span>mark as read/unread : switches the read status of the selected item</li>
-<li><span>shift-a</span>mark all as read : marks all items in the current view as read</li>
-<li><span>e</span>email item : opens the email form to send an item to a friend</li>
-<li><span>g then h</span>go to home : goes to the Google Reader homepage</li>
-<li><span>g then a</span>go to all items : goes to the "All items" view</li>
-<li><span>g then s</span>go to starred items : goes to the "Starred items" view</li>
-<li><span>g then shift-s</span>go to shared items : goes to the "Your shared items" view</li>
-<li><span>g then u</span>go to subscription : allows you to navigate to a subscription by entering the subscription name</li>
-<li><span>g then t</span>go to tag : allows you to navigate to a tag by entering the tag name</li>
-<li><span>g then f</span>go to friend : allows you to navigate to a friend's shared items by entering the friend's name</li>
-<li><span>g then shift-f</span>go to all friends' shared items : shows all of your friends' shared items</li>
-<li><span>g then shift-t</span>go to trends : goes to the "Trends" view</li>
-<li><span>g then d</span>go to feed discovery : shows the recommendations page, or the browse page if there are no recommendations</li>
-<li><span>r</span>refresh : refreshes the unread counts in the navigation</li>
-<li><span>u</span>toggle full screen mode : hides or shows the list of subscriptions</li>
-<li><span>1</span>expanded view : displays the subscription as expanded items</li>
-<li><span>2</span>list view : displays the subscription as a list of headlines</li>
-<li><span>/</span>search : moves your cursor to the search box</li>
-<li><span>a</span>add a subscription : opens the "Add a subscription" box in the sidebar</li>
-<li><span>?</span>keyboard shortcuts help : displays a quick guide to all of Reader's shortcuts</li>
-</ul>
+                                <div id="grpshortcuts">
+                                </div>
+                                <h2>Google Reader <a href="http://www.google.com/support/reader/bin/answer.py?hl=en&amp;answer=69973" target="_blank">official shortcuts</a></h2>
+                                <div id="googleshortcuts">
+                                    <ul class="mnu gsh">
+                                        <li>
+                                            <span>j/k</span>item down/up : selects the next/previous item in the list
+                                        </li>
+                                        <li>
+                                            <span>space/shift-space</span>page down/up : moves the page down/up
+                                        </li>
+                                        <li>
+                                            <span>n/p</span>scan down/up : in list view, selects the next item without opening it
+                                        </li>
+                                        <li>
+                                            <span>shift-n/p</span>navigation down/up : selects the next/previous subscription or folder in the navigation
+                                        </li>
+                                        <li>
+                                            <span>shift-x</span>navigation expand/collapse : expands or collapses a folder selected in the navigation
+                                        </li>
+                                        <li>
+                                            <span>o</span>open/close item : in list view, expands or collapses the selected item
+                                        </li>
+                                        <li>
+                                            <span>enter</span>open/close item : in list view, expands or collapses the selected item
+                                        </li>
+                                        <li>
+                                            <span>shift-o</span>navigation open subscription : opens the subscription or folder currently selected in the navigation
+                                        </li>
+                                        <li>
+                                            <span>-</span>zoom out : decreases the font size of the current item
+                                        </li>
+                                        <li>
+                                            <span>=</span>zoom in : increases the font size of the current item
+                                        </li>
+                                        <li>
+                                            <span>s</span>toggle star : stars or un-stars the selected item
+                                        </li>
+                                        <li>
+                                            <span>shift-s</span>toggle share : shares or un-shares the selected item
+                                        </li>
+                                        <li>
+                                            <span>shift-d</span>share with note : shares the selected item with a note
+                                        </li>
+                                        <li>
+                                            <span>v</span>view original : opens the original source for this article in a new window
+                                        </li>
+                                        <li>
+                                            <span>t</span>tag an item : opens the tagging field for the selected item
+                                        </li>
+                                        <li>
+                                            <span>m</span>mark as read/unread : switches the read status of the selected item
+                                        </li>
+                                        <li>
+                                            <span>shift-a</span>mark all as read : marks all items in the current view as read
+                                        </li>
+                                        <li>
+                                            <span>e</span>email item : opens the email form to send an item to a friend
+                                        </li>
+                                        <li>
+                                            <span>g then h</span>go to home : goes to the Google Reader homepage
+                                        </li>
+                                        <li>
+                                            <span>g then a</span>go to all items : goes to the "All items" view
+                                        </li>
+                                        <li>
+                                            <span>g then s</span>go to starred items : goes to the "Starred items" view
+                                        </li>
+                                        <li>
+                                            <span>g then shift-s</span>go to shared items : goes to the "Your shared items" view
+                                        </li>
+                                        <li>
+                                            <span>g then u</span>go to subscription : allows you to navigate to a subscription by entering the subscription name
+                                        </li>
+                                        <li>
+                                            <span>g then t</span>go to tag : allows you to navigate to a tag by entering the tag name
+                                        </li>
+                                        <li>
+                                            <span>g then f</span>go to friend : allows you to navigate to a friend's shared items by entering the friend's name
+                                        </li>
+                                        <li>
+                                            <span>g then shift-f</span>go to all friends' shared items : shows all of your friends' shared items
+                                        </li>
+                                        <li>
+                                            <span>g then shift-t</span>go to trends : goes to the "Trends" view
+                                        </li>
+                                        <li>
+                                            <span>g then d</span>go to feed discovery : shows the recommendations page, or the browse page if there are no recommendations
+                                        </li>
+                                        <li>
+                                            <span>r</span>refresh : refreshes the unread counts in the navigation
+                                        </li>
+                                        <li>
+                                            <span>u</span>toggle full screen mode : hides or shows the list of subscriptions
+                                        </li>
+                                        <li>
+                                            <span>1</span>expanded view : displays the subscription as expanded items
+                                        </li>
+                                        <li>
+                                            <span>2</span>list view : displays the subscription as a list of headlines
+                                        </li>
+                                        <li>
+                                            <span>/</span>search : moves your cursor to the search box
+                                        </li>
+                                        <li>
+                                            <span>a</span>add a subscription : opens the "Add a subscription" box in the sidebar
+                                        </li>
+                                        <li>
+                                            <span>?</span>keyboard shortcuts help : displays a quick guide to all of Reader's shortcuts
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                         <div id="panel_thanks" style="display:none;">
                             <div class="body">
                                 Thanks to donators to contribute to this project:
-								<ul>
-                                    <li>Ian Chipman</li>
-								</ul>
-								
-								Thanks to authors of original scripts and skins (Greasemonkey and Stylish):
+                                <ul>
+                                    <li>
+                                        Ian Chipman
+                                    </li>
+                                </ul>
+                                Thanks to authors of original scripts and skins (Greasemonkey and Stylish):
                                 <ul>
                                     <li>
                                         <a href="http://userscripts.org/scripts/show/56756">Google Reader Plus (aka me LudoO :)</a>
