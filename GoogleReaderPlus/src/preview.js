@@ -1,13 +1,20 @@
-// Google Reader Preview Enhanced
-// version 1.07g-bryantsai
-// 2009-01-16
-// Copyright (c) 2009, Bryan Tsai
-// @namespace       http://userscripts.org/scripts/show/12352
-// @description     Derived from http://userscripts.org/scripts/show/9455, fixed the short-cut key problem and also changed the short-cut key to be 'f'. Also, modified the title click behavior. Now if you press Ctrl while clicking the title, the original Google Reader behavior would be carried out instead of this preview action (normal clicking would still toggle preview).
+/**
+ * Google Reader Preview Enhanced
+ * @version  1.0.7g
+ * @date 2009-01-16
+ *
+ * Adds a "Preview button" to Google Reader that allows you to view actual article in a frame. 
+ * Clicking again on that button goes back to RSS view. 
+ * Does work both in List view and expanded view. 
+ *
+ * Original author :
+ * Bryan Tsai 
+ * Julien Carosi
+ * http://userscripts.org/scripts/show/12352
+ * http://userscripts.org/scripts/show/9455
+ */
 
-//fix hidden part of enclosure when iframe is shown
-
-var grp_preview = function(prefs){
+GRP.preview = function(prefs){
    var locked = false;
    
    function addPreviewButton(el, entry, mode){
@@ -153,9 +160,8 @@ var grp_preview = function(prefs){
    
    initCatchEntries(addPreviewButton, 'epreview');
    initResize(onResize);
-   initKey({
-      key: 81,
-      shift: true,
-      fn: previewShortcut
-   });//shift+R
+   
+	var keycode = getShortcutKey('preview', 'prview', prefs); //81 Shift+R
+	keycode.fn = previewShortcut;
+	initKey(keycode);
 };

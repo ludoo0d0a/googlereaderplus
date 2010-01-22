@@ -1,4 +1,13 @@
-var grp_fitheight = function(prefs) {
+/**
+ * FitHeight 
+ * @version  0.1
+ * @date 2009
+ * @author LudoO
+ *
+ * Fit entry height
+ *
+ */
+GRP.fitheight = function(prefs) {
 	var locked=false;
 	if (prefs && prefs.fitheight_locked) {
 		locked = prefs.fitheight_locked;
@@ -30,6 +39,7 @@ var grp_fitheight = function(prefs) {
 	GM_addStyle(css);
 	
 	initCatchEntries(addButton, 'efitheight');
-	/*f = fitHeight*/
-	initKey({key:70, fn:fitHeightKey});
+	var keycode = getShortcutKey('fitHeight', 'fit', prefs); //70;//f
+	keycode.fn = fitHeightKey;
+	initKey(keycode);
 };

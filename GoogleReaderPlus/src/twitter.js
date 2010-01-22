@@ -1,17 +1,16 @@
-// ==UserScript==
-// @name                Google Reader + Twitter
-// @namespace      	   http://google.com/reader/userscript
-// @description       	Adds reader posts to twitter when clicked
-// @include             http://google.com/reader/*
-// @include             http://*.google.com/reader/*
-// @include             https://google.com/reader/*
-// @include             https://*.google.com/reader/*
-// ==/UserScript==
+/**
+ * Google Reader + Twitter
+ * @version  0.6
+ * @date 2009-07-23
+ *
+ * Adds reader posts to twitter when clicked
+ *
+ * Original author :
+ * terababy
+ * http://userscripts.org/scripts/show/10169
+ */
 
-//Google Reader + Twitter
-//http://userscripts.org/scripts/show/10169
-
-var grp_twitter = function(prefs) {
+GRP.twitter = function(prefs) {
 	// Constants
 	// NORMALIZE=false leaves the tags alone
 	// NORMALIZE=true converts tags to proper case and replaces -'s with spaces,
@@ -306,9 +305,8 @@ var grp_twitter = function(prefs) {
 	}
 
 	initCatchEntries(addTwitterButton, 'etwitter');
-	initKey( {
-		key : 68,
-		fn : postBookmarkKey
-	});// d
-
+	
+	var keycode = getShortcutKey('twitter', 'tweet', prefs); //68 d
+	keycode.fn = postBookmarkKey;
+	initKey(keycode);
 };

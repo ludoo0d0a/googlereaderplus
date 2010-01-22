@@ -2,22 +2,22 @@
     <head>
         <title>Google Reader Plus - Preferences</title>
         <link href="css/prefs.css" type="text/css" rel="stylesheet">
+        <script type="application/javascript" src="version.js">
+        </script>
         <script type="application/javascript" src="features.js">
         </script>
-		<script type="application/javascript" src="lib/util.js">
-        </script>
-		<script type="application/javascript" src="version.js">
+        <script type="application/javascript" src="lib/util.js">
         </script>
         <script type="application/javascript">
-            var prefs, scripts, shortcuts, myport;
+            //(function(){
+            var prefs = {}, gshortcuts = {}, myport;
             function init(){
- 				setVersion();
-				createscripts();
+                GRP.setVersion("Version: ");
+                createscripts();
                 createskins();
                 infoNavigator();
-				initGoogleShortcuts();
                 
-                showPanel('skins');
+                showPanel('theme');
                 
                 if (typeof chrome !== "undefined" && chrome.extension) {
                     myport = chrome.extension.connect(
@@ -27,9 +27,9 @@
                     var me = this;
                     myport.onMessage.addListener(function(a){
                         if (a.message === "prefs") {
-                            scripts = a.scripts;
+                            //scripts = a.scripts;
                             prefs = a.prefs;
-                            me.load.call(me);
+                            me.loadprefs.call(me);
                         } else if (a.message === "info") {
                             createReport(a.report);
                         }
@@ -52,62 +52,61 @@
                 }, 3000);
             }
             
-            function save(form){
-                var r = 
-                {
-                    message: "setprefs",
-                    prefs: 
-                    {
-                        skin: ''
-                    }
-                };
+            function applyprefs(){
                 if (prefs) {
+                    var form = document.frmprefs;
                     for (var o in prefs) {
                         var pref = prefs[o];
                         if (form[o]) {
-                            //if ((form[o].className || '').indexOf("ignore") < 0) {
-                            if (form[o].type === "checkbox") {
-                                r.prefs[o] = form[o].checked || false;
+                            if (form[o].key) {
+                                //shortcut code
+                                prefs[o] = form[o].key;
+                            } else if (form[o].type === "checkbox") {
+                                prefs[o] = form[o].checked || false;
                             } else {
-                                r.prefs[o] = form[o].value;
+                                prefs[o] = form[o].value;
                             }
-                            //}
+                            
                         } else {
                             console.log("Pref not found in form : " + o);
                         }
                     }
                 }
-                
-                if (r.prefs.skin === "none") {
-                    r.prefs.skin = '';
-                }
-                //TODO: save all form.elements
-                for (var i = 0, len = scripts.length; i < len; i++) {
-                    var script = scripts[i];
-                    if (form[script]) {
-                        r.prefs[script] = form[script].checked || false;
-                    }
-                }
-                myport.postMessage(r);
-                prefs = r.prefs;
-                run_extshortcuts();
-                info("Preferences saved");
             }
             
-            function load(){
+            function saveprefs(reload){
+                //TODO: save all form.elements
+                applyprefs();
+                
+                myport.postMessage(
+                {
+                    message: "setprefs",
+                    prefs: prefs
+                });
+                run_extshortcuts();
+                info("Preferences saved");
+                if (reload) {
+                    window.location.reload();
+                }
+            }
+            
+            function loadprefs(){
                 if (prefs) {
                     for (var o in prefs) {
-                        if (document.preferences[o] && prefs[o]) {
-                            var ctrl = document.preferences[o];
+                        var ctrl = document.frmprefs[o];
+                        if (ctrl && (typeof prefs[o] !== 'undefined')) {
                             if (!hasClass(ctrl, 'nopref')) {
                                 if (ctrl.tagName === "INPUT") {
-                                    if (ctrl.type === "checkbox") {
+                                    if (ctrl.key) {
+                                        //shortcut
+                                        var key = unmarshallKeyKey(prefs[o]);
+                                        setShortcut(key, ctrl);
+                                    } else if (ctrl.type === "checkbox") {
                                         ctrl.checked = (prefs[o] === true);
                                     } else if (ctrl.type === "text") {
                                         ctrl.value = prefs[o];
                                     } else if (ctrl.type === "hidden") {
                                         ctrl.value = prefs[o];
-                                        //try update textbox for shortcut
                                     }
                                 } else if (ctrl.nodeName === "TEXTAREA") {
                                     ctrl.value = prefs[o];
@@ -115,17 +114,13 @@
                             }
                         }
                     }
-                    selectSkin();
-					updatePrefs();
+                    loadSkin();
                 }
-            }		
-			
-            function selectSkin(){
-                var input = document.getElementById("skin");
+            }
+            
+            function loadSkin(){
+                var input = document.getElementById("theme");
                 var li = document.getElementById('skin_' + input.value);
-                if (!li) {
-                    li = document.getElementById('skin_none');
-                }
                 if (li) {
                     li.onclick();
                 }
@@ -165,8 +160,8 @@
                 var tplLink = '<li id="l_{id}"><a class="link" href="javascript:showPanel(\'{id}\')"><span class="linkblock">{name}</span><span class="open olink">{dlink}</span></a></li>';
                 var tplPanelTitle = '<div class="title"><h2>{name}</h2><div id="paneldesc_{id}" class="desc">{desc}</div></div>';
                 var tplPanelIframe = '<div class="title"><h2>{name}</h2><iframe src="{url}" width="700" height="620"></iframe></div>';
-                for (var i = 0, len = igrp.scripts.length; i < len; i++) {
-                    var script = igrp.scripts[i];
+                for (var i = 0, len = GRP.scripts.length; i < len; i++) {
+                    var script = GRP.scripts[i];
                     script.dlink = '>';
                     var t = (script.link) ? tplLink : tplCheckbox;
                     html += fillTpl(t, script);
@@ -191,9 +186,7 @@
                         var body = getFirstNode(panel);
                         panel.insertBefore(container, body);
                     }
-                    //script.shortcut = (script.shortcuts)?(formatKey(script.shortcuts.keyCode)+script.shortcuts.title):(script.shortcut);
-                    //shortcut
-                    addShortcuts(panel, script, script.shortcuts);
+                    createShortcuts(panel, script, script.shortcuts);
                 }
                 list.innerHTML = html;
             }
@@ -202,8 +195,8 @@
                 var last;
                 var list = document.getElementById('skinlist');
                 list.innerHTML = '';
-                for (var i = 0, len = igrp.skins.length; i < len; i++) {
-                    var o = igrp.skins[i];
+                for (var i = 0, len = GRP.skins.length; i < len; i++) {
+                    var o = GRP.skins[i];
                     var li = document.createElement('li');
                     var a = document.createElement('a');
                     li.id = 'skin_' + o.id;
@@ -233,7 +226,7 @@
                     };
                 }
             }
-
+            
             function createReport(report){
                 var list = document.getElementById('sysinfo');
                 list.innerHTML = '';
@@ -296,158 +289,164 @@
             
             function run_extshortcuts(){
                 //update all Keyboard shortcuts
-                var tplShorcut = '<span>{script}</span> - <span>{title}</span> : <span>{text}</span>';
+                var key, html = '';
+                var tplShorcut = '<li><span>{keytext}</span>{title}</li>';
                 var grpshortcuts = document.getElementById('grpshortcuts');
                 grpshortcuts.innerHTML = '';
-                for (var i = 0, len = igrp.scripts.length; i < len; i++) {
-                    var script = igrp.scripts[i];
+                for (var i = 0, len = GRP.scripts.length; i < len; i++) {
+                    var script = GRP.scripts[i];
                     if (script.shortcuts) {
                         for (var j = 0, lenj = script.shortcuts.length; j < lenj; j++) {
                             var shortcut = script.shortcuts[j];
-                            shortcut.script = script.name;
-                            var key = prefs[script.id + '-key-' + shortcut.id] || shortcut.key;
-                            shortcut.text = formatKey(key);
-                            var div = document.createElement('div');
-                            div.className = "shortcut";
-                            div.innerHTML = fillTpl(tplShorcut, shortcut);
-                            grpshortcuts.appendChild(div);
+                            if (prefs && prefs[script.id + '_key_' + shortcut.id]) {
+                                key = unmarshallKey(prefs[script.id + '_key_' + shortcut.id]);
+                            } else {
+                                key = shortcut.key;
+                            }
+                            shortcut.keytext = formatKey(key);
+                            html += fillTpl(tplShorcut, shortcut);
                         }
                     }
                 }
+                grpshortcuts.innerHTML = html;
             }
-			
-            function addShortcuts(el, script, shortcuts){
+            
+            function createShortcuts(el, script, shortcuts){
                 if (shortcuts) {
                     for (var i = 0, len = shortcuts.length; i < len; i++) {
                         var shortcut = shortcuts[i];
-                        addShortcut(el, script, shortcut);
+                        createShortcut(el, script, shortcut);
                     }
                 }
             }
             
-            function addShortcut(el, script, shortcut){
+            function createShortcut(el, script, shortcut){
+                var div = document.createElement('div');
+                div.className = 'shortcut';
+                
                 var label = document.createElement('span');
                 label.innerHTML = shortcut.title + ' : ';
-                el.appendChild(label);
+                div.appendChild(label);
                 var input = document.createElement('input');
                 input.type = 'text';
-                input.value = formatKey(shortcut.key);
                 input.size = 15;
-                input.className = "nopref";
-                input.id = script.id + '-key-' + shortcut.id;
+                input.className = 'shortcut';
+                input.id = script.id + '_key_' + shortcut.id;
+                var key = shortcut.key;
+                if (gshortcuts[input.id]) {
+                    key = gshortcuts[input.id];
+                }
+                input.value = formatKey(key);
+                input.key = marshallKey(key);
+                
                 var scriptId = script.id;
                 var shortcutId = shortcut.id;
-				fixShortcut(shortcut.key, input);
-                el.onkeydown = function(e){
+                setShortcut(shortcut.key, input);
+                input.onkeydown = function(e){
                     e.preventDefault();
                     e.stopPropagation();
                     fixShortcut(e, e.target);
                 };
-                el.appendChild(input);
+                div.appendChild(input);
                 
-                var br = document.createElement('br');
-                el.appendChild(br);
+                // var br = document.createElement('br');
+                //div.appendChild(br);
+                
+                el.appendChild(div);
             }
             
-			function isShortcutFree(e){
-				var text = formatKey(e);
-				
-				//custom in prefs
-				if (shortcuts && shortcuts[text]){
-					return 'in your preferences';
-				}
-				
-				//google
-				if (googleshortcuts && googleshortcuts[text]){
-					return 'by Google ('+googleshortcuts[text]+')';
-				}
-				
-				return true;
-			}
-						
+            function isShortcutFree(e){
+                var text = formatKey(e);
+                var key = marshallKey(e);
+                
+                //custom in prefs
+                if (gshortcuts[key]) {
+                    return 'Already used in your preferences !';
+                }
+                
+                //google
+                if (GRP.googleshortcuts && GRP.googleshortcuts[text]) {
+                    return 'Already used by Google!<br/>(' + GRP.googleshortcuts[text] + ')';
+                }
+                
+                return true;
+            }
+            
+            function setShortcut(key, ctrl){
+                //remove old
+                delete gshortcuts[ctrl.key];
+                ctrl.value = formatKey(key);
+                ctrl.key = marshallKey(key);
+                //add new
+                gshortcuts[ctrl.key] = key;
+                prefs[ctrl.id] = ctrl.key;
+            }
+            
             //function fixShortcut(e, hidden, input){
-			function fixShortcut(e, input){
-                if (input) {
-                    var text = formatKey(e);
-					var free = isShortcutFree(e);
-					if (free===true) {
-						//hidden.value = text;
-						input.value = text;
-					} else {
-						//Already set
-						input.value = text;
-						var warn = document.createElement('span');
-						warn.className='warning';
-						input.className='warning';
-						warn.innerHTML='Already used '+free+' !';
-						insertAfter(warn, input);
-		                window.setTimeout(function(){
-		                    warn.parentNode.removeChild(warn);
-							input.className='';
-		                }, 3000);
-					}
+            function fixShortcut(e, input){
+                //himself?
+                var newKey = marshallKey(e);
+                if (input.key == newKey) {
+                    return;
+                }
+                var free = isShortcutFree(e);
+                var warn = input.nextSibling;
+                if (free === true) {
+                    if (warn) {
+                        warn.className = 'warning hidden';
+                    }
+                    input.className = '';
+                    setShortcut(e, input);
+                } else {
+                    //Already set
+                    if (!hasClass(warn, 'warning')) {
+                        warn = document.createElement('div');
+                        warn.className = 'warning';
+                        insertAfter(warn, input);
+                    }
+                    warn.className = 'warning';
+                    input.value = formatKey(e);
+                    input.className = 'warning';
+                    warn.innerHTML = free;
                 }
             }
-			
-			
-			function updatePrefs(){
-				//Add default shortcuts
-				var form = document.preferences;
-				shortcuts=shortcuts||{};
-				for (var ctrl in form) {
-					if (ctrl.tagName === "INPUT" && ctrl.type === "hidden") {
-						if (ctrl.id.indexOf('-key-')){
-							saveShortcut(ctrl.id, ctrl.value);
-						}
-					}
-				}	
-			}
-			
-			function saveShortcut(id, value){
-				shortcuts[value]=id;
-				prefs[id]=value;
-			}
-			
-			function initGoogleShortcuts(){
-				googleshortcuts={
-					'j': 'item down',
-					'k': 'item up',
-					'space': 'page down',
-					'shift+space': 'page up',
-					'n': 'scan down',
-					'p': 'scan up',
-					'shift+n': 'navigation down',
-					'shift+p': 'navigation up',
-					'shift+x': 'navigation expand/collapse',
-                    'o': 'open/close item',                 
-					'enter': 'open/close item',
-					'shift+o': 'navigation open subscription',
-                    '-': 'zoom out',  
-					'=': 'zoom in',    
-					's': 'toggle star',  
-					'shift+s': 'toggle share',
-					'shift+d': 'share with note',   
-					'v': 'view original',
-					't': 'tag an item',
-					'm': 'mark as read/unread',
-					'shift+a': 'mark all as read',
-					'e': 'email item',
-					'g': 'go to...',
-					'r': 'refresh',
-                    'u': 'toggle full screen mode',
-                    '1': 'expanded view',
-                    '2': 'list view',
-                    '/': 'search',
-                    'a': 'add a subscription',
-                    '?': 'help'
-				};
-				
-				
-			}
+            
+            function disableAllScripts(){
+                for (var i = 0, len = GRP.scripts.length; i < len; i++) {
+                    var script = GRP.scripts[i];
+                    prefs[script.id] = false;
+                }
+            }
+            
+            function setpackage(id){
+                disableAllScripts();
+                if (id === "reset") {
+                    prefs = {};
+                    //Refresh page to reload all options for each script
+                    var sure = confirm('This will ERASE and reset all your preferences. Are you sure ?');
+                    if (sure) {
+                        loadprefs();
+                        saveprefs(true);
+                    }
+                    return;
+                } else {
+                    for (var i = 0, len = GRP.packages[id].length; i < len; i++) {
+                        var o = GRP.packages[id][i];
+                        prefs[o] = true;
+                        if (o === 'theme' && !prefs[o + '_skin']) {
+                            prefs[o + '_skin'] = 'osxblack';
+                        }
+                    }
+                }
+                loadprefs();//update
+            }
+            
+            window.onload = init;
+            //}());
         </script>
     </head>
-    <body onload="init();">
-        <form name="preferences">
+    <body>
+        <form id="frmprefs" name="frmprefs">
             <div id="main">
                 <div class="menupanel hidden" id="status">
                 </div>
@@ -459,29 +458,15 @@
                     </div>
                     <div class="menupanel">
                         <ul class="mnu nav1">
-                            <li class="item">
-                                <a href="http://www.google.com/reader" target="_blank"><span>Google Reader</span>Your RSS reader</a>
-                            </li>
-                            <li class="item">
-                                <a href="http://code.google.com/p/googlereaderplus/issues/entry"><span>Report issue</span>Found a bug or suggestion ?</a>
-                            </li>
-                            <li class="item">
-                                <a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg/" target="_blank"><span>Google Extension</span>The place to download</a>
-                            </li>
-                            <li class="item">
-                                <a href="about.html" target="_blank"><span>About</span>About, thanks,...</a>
-                            </li>
-                            <li class="item">
-                                <a href="http://www.pitaso.com/chrome" target="_blank"><span>Website</span>My personal website</a>
-                            </li>
-                            <li class="button">
-                                <a href="http://www.twitter.com/ludoo0d0a"><span><img width="160" height="27" src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow ludoo0d0a on Twitter"/></span>Follow news and updates</a>
-                            </li>
-                            <li class="button">
-                                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=US&amp;item_name=GoogleReaderPlus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></span>Offer me a coffee!</a>
-                            </li>
+                            <li class="item"><a href="http://www.google.com/reader" target="_blank"><span>Google Reader</span>Your RSS reader</a></li>
+                            <li class="item"><a href="http://code.google.com/p/googlereaderplus/issues/entry"><span>Report issue</span>Found a bug or suggestion ?</a></li>
+                            <li class="item"><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg/" target="_blank"><span>Google Extension</span>The place to download</a></li>
+                            <li class="item"><a href="about.html" target="_blank"><span>About</span>About, thanks,...</a></li>
+                            <li class="item"><a href="http://www.pitaso.com/chrome" target="_blank"><span>Website</span>My personal website</a></li>
+                            <li class="button"><a href="http://www.twitter.com/ludoo0d0a"><span><img width="160" height="27" src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow ludoo0d0a on Twitter"/></span>Follow news and updates</a></li><li class="button"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=US&amp;item_name=GoogleReaderPlus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></span>Offer me a coffee!</a></li>
                         </ul>
-						<div id="version"></div>
+                        <div id="version">
+                        </div>
                     </div>
                 </div>
                 <div class="menupanel nav">
@@ -492,13 +477,13 @@
                 </div>
                 <div class="menupanel panel">
                     <div class="savetop">
-                        <input type="button" name="Submit" value="Save" onClick="save(this.form);">
+                        <input type="button" name="Submit" value="Save" onClick="saveprefs();">
                     </div>
                     <div id="panels">
-                        <div id="panel_skins">
+                        <div id="panel_theme">
                             <div class="body">
-                                <div id="skinsbox">
-                                    <input id="skin" name="skin" type="hidden" value=""/>
+                                <div id="themebox">
+                                    <input id="theme_skin" name="theme_skin" type="hidden" value=""/>
                                     <ul class="mnu navskin" id="skinlist">
                                     </ul>
                                     <img alt="thumb" id="thumb" src="" width="400" height="243" class="hidden"/>
@@ -563,6 +548,16 @@
                                 </p>
                             </div>
                         </div>
+                        <div id="panel_pack" style="display:none;">
+                            <div class="body">
+                                <ul class="mnu pack">
+                                    <li><a href="javascript:setpackage('mini');"><span>Package Mini</span>The minimum for best reading</a></li>
+                                    <li><a href="javascript:setpackage('ludoo');"><span>Package LudoO</span>The best features in one click</a></li>
+                                    <li><a href="javascript:setpackage('full');"><span>Package Full</span>All features activated</a></li>
+                                    <li><a href="javascript:setpackage('reset');"><span>Package Reset</span>Reset your configuration</a></li>
+                                </ul>
+                            </div>
+                        </div>
                         <div id="panel_info" style="display:none;">
                             <div class="body">
                                 <!--
@@ -577,213 +572,86 @@
                         <div id="panel_extshortcuts" style="display:none;">
                             <div class="body">
                                 <h2>Your custom Shortcuts</h2>
-                                <div id="grpshortcuts">
-                                </div>
+                                <ul id="grpshortcuts" class="mnu shortcut">
+                                </ul>
                                 <h2>Google Reader <a href="http://www.google.com/support/reader/bin/answer.py?hl=en&amp;answer=69973" target="_blank">official shortcuts</a></h2>
-                                <div id="googleshortcuts">
-                                    <ul class="mnu gsh">
-                                        <li>
-                                            <span>j/k</span>item down/up : selects the next/previous item in the list
-                                        </li>
-                                        <li>
-                                            <span>space/shift-space</span>page down/up : moves the page down/up
-                                        </li>
-                                        <li>
-                                            <span>n/p</span>scan down/up : in list view, selects the next item without opening it
-                                        </li>
-                                        <li>
-                                            <span>shift-n/p</span>navigation down/up : selects the next/previous subscription or folder in the navigation
-                                        </li>
-                                        <li>
-                                            <span>shift-x</span>navigation expand/collapse : expands or collapses a folder selected in the navigation
-                                        </li>
-                                        <li>
-                                            <span>o</span>open/close item : in list view, expands or collapses the selected item
-                                        </li>
-                                        <li>
-                                            <span>enter</span>open/close item : in list view, expands or collapses the selected item
-                                        </li>
-                                        <li>
-                                            <span>shift-o</span>navigation open subscription : opens the subscription or folder currently selected in the navigation
-                                        </li>
-                                        <li>
-                                            <span>-</span>zoom out : decreases the font size of the current item
-                                        </li>
-                                        <li>
-                                            <span>=</span>zoom in : increases the font size of the current item
-                                        </li>
-                                        <li>
-                                            <span>s</span>toggle star : stars or un-stars the selected item
-                                        </li>
-                                        <li>
-                                            <span>shift-s</span>toggle share : shares or un-shares the selected item
-                                        </li>
-                                        <li>
-                                            <span>shift-d</span>share with note : shares the selected item with a note
-                                        </li>
-                                        <li>
-                                            <span>v</span>view original : opens the original source for this article in a new window
-                                        </li>
-                                        <li>
-                                            <span>t</span>tag an item : opens the tagging field for the selected item
-                                        </li>
-                                        <li>
-                                            <span>m</span>mark as read/unread : switches the read status of the selected item
-                                        </li>
-                                        <li>
-                                            <span>shift-a</span>mark all as read : marks all items in the current view as read
-                                        </li>
-                                        <li>
-                                            <span>e</span>email item : opens the email form to send an item to a friend
-                                        </li>
-                                        <li>
-                                            <span>g then h</span>go to home : goes to the Google Reader homepage
-                                        </li>
-                                        <li>
-                                            <span>g then a</span>go to all items : goes to the "All items" view
-                                        </li>
-                                        <li>
-                                            <span>g then s</span>go to starred items : goes to the "Starred items" view
-                                        </li>
-                                        <li>
-                                            <span>g then shift-s</span>go to shared items : goes to the "Your shared items" view
-                                        </li>
-                                        <li>
-                                            <span>g then u</span>go to subscription : allows you to navigate to a subscription by entering the subscription name
-                                        </li>
-                                        <li>
-                                            <span>g then t</span>go to tag : allows you to navigate to a tag by entering the tag name
-                                        </li>
-                                        <li>
-                                            <span>g then f</span>go to friend : allows you to navigate to a friend's shared items by entering the friend's name
-                                        </li>
-                                        <li>
-                                            <span>g then shift-f</span>go to all friends' shared items : shows all of your friends' shared items
-                                        </li>
-                                        <li>
-                                            <span>g then shift-t</span>go to trends : goes to the "Trends" view
-                                        </li>
-                                        <li>
-                                            <span>g then d</span>go to feed discovery : shows the recommendations page, or the browse page if there are no recommendations
-                                        </li>
-                                        <li>
-                                            <span>r</span>refresh : refreshes the unread counts in the navigation
-                                        </li>
-                                        <li>
-                                            <span>u</span>toggle full screen mode : hides or shows the list of subscriptions
-                                        </li>
-                                        <li>
-                                            <span>1</span>expanded view : displays the subscription as expanded items
-                                        </li>
-                                        <li>
-                                            <span>2</span>list view : displays the subscription as a list of headlines
-                                        </li>
-                                        <li>
-                                            <span>/</span>search : moves your cursor to the search box
-                                        </li>
-                                        <li>
-                                            <span>a</span>add a subscription : opens the "Add a subscription" box in the sidebar
-                                        </li>
-                                        <li>
-                                            <span>?</span>keyboard shortcuts help : displays a quick guide to all of Reader's shortcuts
-                                        </li>
-                                    </ul>
-                                </div>
+                                <ul id="googleshortcuts" class="mnu shortcut">
+                                    <li><span>j/k</span>item down/up : selects the next/previous item in the list</li>
+                                    <li><span>space/shift-space</span>page down/up : moves the page down/up</li>
+                                    <li><span>n/p</span>scan down/up : in list view, selects the next item without opening it</li>
+                                    <li><span>shift-n/p</span>navigation down/up : selects the next/previous subscription or folder in the navigation</li>
+                                    <li><span>shift-x</span>navigation expand/collapse : expands or collapses a folder selected in the navigation</li>
+                                    <li><span>o</span>open/close item : in list view, expands or collapses the selected item</li>
+                                    <li><span>enter</span>open/close item : in list view, expands or collapses the selected item</li>
+                                    <li><span>shift-o</span>navigation open subscription : opens the subscription or folder currently selected in the navigation</li>
+                                    <li><span>-</span>zoom out : decreases the font size of the current item</li>
+                                    <li><span>=</span>zoom in : increases the font size of the current item</li>
+                                    <li><span>s</span>toggle star : stars or un-stars the selected item</li>
+                                    <li><span>shift-s</span>toggle share : shares or un-shares the selected item</li>
+                                    <li><span>shift-d</span>share with note : shares the selected item with a note</li>
+                                    <li><span>v</span>view original : opens the original source for this article in a new window</li>
+                                    <li><span>t</span>tag an item : opens the tagging field for the selected item</li>
+                                    <li><span>m</span>mark as read/unread : switches the read status of the selected item</li>
+                                    <li><span>shift-a</span>mark all as read : marks all items in the current view as read</li>
+                                    <li><span>e</span>email item : opens the email form to send an item to a friend</li>
+                                    <li><span>g then h</span>go to home : goes to the Google Reader homepage</li>
+                                    <li><span>g then a</span>go to all items : goes to the "All items" view</li>
+                                    <li><span>g then s</span>go to starred items : goes to the "Starred items" view</li>
+                                    <li><span>g then shift-s</span>go to shared items : goes to the "Your shared items" view</li>
+                                    <li><span>g then u</span>go to subscription : allows you to navigate to a subscription by entering the subscription name</li>
+                                    <li><span>g then t</span>go to tag : allows you to navigate to a tag by entering the tag name</li>
+                                    <li><span>g then f</span>go to friend : allows you to navigate to a friend's shared items by entering the friend's name</li>
+                                    <li><span>g then shift-f</span>go to all friends' shared items : shows all of your friends' shared items</li>
+                                    <li><span>g then shift-t</span>go to trends : goes to the "Trends" view</li>
+                                    <li><span>g then d</span>go to feed discovery : shows the recommendations page, or the browse page if there are no recommendations</li>
+                                    <li><span>r</span>refresh : refreshes the unread counts in the navigation</li>
+                                    <li><span>u</span>toggle full screen mode : hides or shows the list of subscriptions</li>
+                                    <li><span>1</span>expanded view : displays the subscription as expanded items</li>
+                                    <li><span>2</span>list view : displays the subscription as a list of headlines</li>
+                                    <li><span>/</span>search : moves your cursor to the search box</li>
+                                    <li><span>a</span>add a subscription : opens the "Add a subscription" box in the sidebar</li>
+                                    <li><span>?</span>keyboard shortcuts help : displays a quick guide to all of Reader's shortcuts</li>
+                                </ul>
                             </div>
                         </div>
                         <div id="panel_thanks" style="display:none;">
                             <div class="body">
                                 Thanks to donators to contribute to this project:
                                 <ul>
-                                    <li>
-                                        Ian Chipman
-                                    </li>
+                                    <li>Ian Chipman</li>
                                 </ul>
                                 Thanks to authors of original scripts and skins (Greasemonkey and Stylish):
                                 <ul>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/56756">Google Reader Plus (aka me LudoO :)</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/40120">Google Reader Favicon ++</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/12197">Google Reader Minimalistic</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/8782">Google Reader - Colorful List View</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/12352">Google Reader Preview Enhanced (patched by bryantsai)</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/23671">Google Reader Filter</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/6415">Google Reader for wider screens</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/12601">Google Reader Unread Count</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/46615">GReader Favicon Alerts</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/8843">Google Reader - Read by Mouse</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/9594">Facebook Sharer + Google Reader</a>
-                                        and my update : <a href="http://userscripts.org/scripts/show/63997">Share with Facebook in Google Reader</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/10169">Google Reader + Twitter</a>
-                                    </li>
+                                    <li><a href="http://userscripts.org/scripts/show/56756">Google Reader Plus (aka me LudoO :)</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/40120">Google Reader Favicon ++</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/12197">Google Reader Minimalistic</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/8782">Google Reader - Colorful List View</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/12352">Google Reader Preview Enhanced (patched by bryantsai)</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/23671">Google Reader Filter</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/6415">Google Reader for wider screens</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/12601">Google Reader Unread Count</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/46615">GReader Favicon Alerts</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/8843">Google Reader - Read by Mouse</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/9594">Facebook Sharer + Google Reader</a> and my update : <a href="http://userscripts.org/scripts/show/63997">Share with Facebook in Google Reader</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/10169">Google Reader + Twitter</a></li>
                                     <!-- <li>
                                     <a href="http://userscripts.org/scripts/show/49958">Grittr = Google Reader + Twitter</a>
                                     </li>
                                     <li>
                                     <a href="http://userscripts.org/scripts/show/26383">Google Reader Prefetch More</a>
-                                    </li>-->
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/63802">Google Reader: Mac OS X Snow Leopard Fixes</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/10573">Google Reader Air Skin</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/9692">Google Air Skin Comic Sans</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/12917">google Enhanced BLACK</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/24736">Black Skin</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/5133">Another Dark Google Reader Style</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/38251">Helvetireader style for Google Reader</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userstyles.org/styles/12859">OS X Style for New Google Reader</a>
-                                        <a href="http://userstyles.org/styles/2336">OS X Spinner for Google Reader</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userstyles.org/styles/16900">Google Reader: Mac OS X Snow Leopard</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/63802">Google Reader: Mac OS X Snow Leopard Fixes</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://www.hicksdesign.co.uk/journal/google-reader-theme">OS X fixer</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userstyles.org/styles/4096">Google Aero</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://userscripts.org/scripts/show/24955">Google Reader - Mark Until Current As Read</a>
-                                    </li>
+                                    </li>--><li><a href="http://userscripts.org/scripts/show/63802">Google Reader: Mac OS X Snow Leopard Fixes</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/10573">Google Reader Air Skin</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/9692">Google Air Skin Comic Sans</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/12917">google Enhanced BLACK</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/24736">Black Skin</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/5133">Another Dark Google Reader Style</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/38251">Helvetireader style for Google Reader</a></li>
+                                    <li><a href="http://userstyles.org/styles/12859">OS X Style for New Google Reader</a><a href="http://userstyles.org/styles/2336">OS X Spinner for Google Reader</a></li>
+                                    <li><a href="http://userstyles.org/styles/16900">Google Reader: Mac OS X Snow Leopard</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/63802">Google Reader: Mac OS X Snow Leopard Fixes</a></li>
+                                    <li><a href="http://www.hicksdesign.co.uk/journal/google-reader-theme">OS X fixer</a></li>
+                                    <li><a href="http://userstyles.org/styles/4096">Google Aero</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/24955">Google Reader - Mark Until Current As Read</a></li>
                                 </ul>
                             </div>
                         </div>

@@ -1,19 +1,15 @@
-// ==UserScript==
-// @name            Google Reader Unread Count
-// @version         9
-// @namespace       http://ellab.org/
-// @author          angusdev
-// @description     Display actual unread count instead of "1000+" in Google Reader
-// @include         http://www.google.tld/reader/*
-// @include         https://www.google.tld/reader/*
-// ==/UserScript==
-
-/*
- Author: Angus http://angusdev.mysinablog.com/
- http://angusdev.blogspot.com/
- Date:   2009-11-25
+/**
+ * Google Reader Unread Count
+ * @version  9
+ * @date 2009-11-25
+ * 
+ * Display actual unread count instead of "1000+" in Google Reader
+ * 
+ * Original author : 
+ * Angus http://angusdev.mysinablog.com/
  */
-var grp_count = function(prefs){
+
+GRP.count = function(prefs){
 
     var unreadCountElement = null;
     

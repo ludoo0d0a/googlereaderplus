@@ -1,4 +1,13 @@
-var grp_column = function(prefs) {
+/**
+ * Multi column layout
+ * @version  0.1
+ * @date 2010
+ *
+ * Display entry using multi colum layout
+ *
+ */
+
+GRP.column = function(prefs) {
 	var locked = false;
 	
 	function addButton(el, entry, mode) {
@@ -94,6 +103,8 @@ var grp_column = function(prefs) {
 	
 
 	initCatchEntries(addButton, 'ecolumn');
-	initKey({key:67, fn:addKey});//c
+	var keycode = getShortcutKey('column', 'columns', prefs); //67;//c
+	keycode.fn = addKey;
+	initKey(keycode);
 	
 };

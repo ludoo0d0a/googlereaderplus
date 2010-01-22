@@ -172,3 +172,22 @@ function isActive(btn, entry, cls, locked){
 	}
 	return active;
 }
+
+function formatShortcut(script, shortcut, prefs){
+    var t = '';
+    if (prefs) {
+        //var key = prefs[script + '-key-' + shortcut];
+		var key = getShortcutKey(script, shortcut, prefs);
+        if (key) {
+            t = formatKey(key);
+            if (t) {
+                t = ' [' + t + ']';
+            }
+        }
+    }
+    return t;
+}
+function getShortcutKey(script, shortcut, prefs){
+	return prefs[script + '-key-' + shortcut];
+}
+

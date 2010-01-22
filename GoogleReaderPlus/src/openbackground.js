@@ -1,4 +1,14 @@
-var grp_openbackground = function(prefs) {
+/**
+ * Open in background
+ * @version  0.1
+ * @date 2010
+ * @author LudoO
+ *
+ * Open the news in a background tab
+ *
+ */
+
+GRP.openbackground = function(prefs) {
 	var selectTab = prefs.openbackground_selectTab||false;
 	
 	function addButtons(el, entry, mode) {
@@ -15,10 +25,8 @@ var grp_openbackground = function(prefs) {
 	GM_addStyle(css);
 	
 	initCatchEntries(addButtons, 'eopenbackground');
-	/* Shift+V = openbackground */
-	initKey(  {
-		key : 86,
-		shift : true,
-		fn : openbackground
-	});
+	
+	var keycode = getShortcutKey('openbackground', 'openback', prefs); //86 Shift+V
+	keycode.fn = openbackground;
+	initKey(keycode);
 };

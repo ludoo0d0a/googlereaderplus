@@ -1,9 +1,16 @@
-// @name           Google Reader - Colorful List View
-// @description    Colorizes the item headers in Google Reader list view and the entries in expanded view.
-// @version        20091122
-// @jsversion      1.6
+/**
+ * Google Reader - Colorful List View
+ * @version  1.6
+ * @date 2009-11-22
+ *
+ * Colorizes the item headers in Google Reader list view and the entries in expanded view.
+ *
+ * Original author :
+ * kepp
+ * http://userscripts.org/scripts/show/8782
+ */
 
-var grp_colorful = function(prefs){
+GRP.colorful = function(prefs){
 
 	// CSS to allow items to be colored
 	const	BASE_CSS = "#entries.list .entry-likers,#entries.list .collapsed .entry-source-title,#entries.list .collapsed .entry-secondary,#entries.list .collapsed .entry-title{background-color:transparent!important}.gm-color-lv .collapsed /* list view headers */{border-color:transparent!important}#entries.list.gm-color-lv #current-entry .collapsed{border:2px solid #8181DC!important}#entries.list.gm-color-lv #current-entry.expanded .collapsed{border-bottom-color:transparent!important;border-width:2px 0!important}#entries .entry{padding:5px 0}#entries.list .collapsed{line-height:2.4ex!important}";
