@@ -1,7 +1,13 @@
 /**
- * @author Valente
+ * SystemInformation 
+ * @version  0.3
+ * @date 2010-01-22
+ * @author LudoO
+ *
+ * Gives information about system (OS, Chrome...)
+ *
  */
-var grp_info = function(prefs){
+GRP.info = function(prefs){
 	
 	var myport, status, report = {};
 	
@@ -86,7 +92,7 @@ var grp_info = function(prefs){
             var data = 
             {
                 name: getElementValue("./span[@jscontent='name']", e),
-                version: getElementValue("./span[@jscontent='version']", e),
+                version:  getElementValue("./span[@jscontent='version']", e),
                 description: getElementValue("./span[@jscontent='description']", e),
                 id: getElementValue("./span[@jscontent='id']", e)
             };

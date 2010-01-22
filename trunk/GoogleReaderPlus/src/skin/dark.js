@@ -9,7 +9,7 @@
 // ==/UserScript==
 //Another Dark Google Reader Style
 
-var grp_dark = function() {
+GRP.dark = function() {
 	/* most of the credit so far goes to 
 	 * oltra & Ka Yue (oltra homepage: http://www.myradioheart.com, Ka Yue : http://ka-yue.com) 
 	 * Tweaking done my Levi Wallach (http://twelveblackcodemonkeys.com) */

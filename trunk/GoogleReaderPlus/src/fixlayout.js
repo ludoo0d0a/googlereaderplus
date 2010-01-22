@@ -1,9 +1,13 @@
 /**
- * fixlayout
- * @param {Object} prefs
+ * FixLayout 
+ * @version  0.3
+ * @date 2010-01-22
+ * @author LudoO
+ *
+ * Fit entry height
+ *
  */
-var grp_fixlayout = function(prefs) {
-
+GRP.fixlayout = function(prefs) {
 	function checkImage(root, href) {
 		var links = getElements(".//img[@src='" + href + "']", root);
 		return (links && links.length > 0);

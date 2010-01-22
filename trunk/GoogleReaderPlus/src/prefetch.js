@@ -1,12 +1,17 @@
-// ==UserScript==
-// @name           Google Reader Prefetch More
-// @namespace      http://userscripts.org/users/40991
-// @include        http://www.google.tld/reader/*
-// @include        https://www.google.tld/reader/*
-// @unwrap
-// ==/UserScript==
-//http://userscripts.org/scripts/show/26383
-var grp_prefetch = function(prefs) {
+/**
+ * Google Reader Prefetch More
+ * @version  0.3.0 
+ * @date 2009-10-24
+ *
+ * This script will improve the speed experience. 
+ * It boosts the number of articles that prefetched on the Google Reader's expanded view.
+ *
+ * Original author :
+ * ucnv 
+ * http://userscripts.org/scripts/show/26383
+ */
+
+GRP.prefetch = function(prefs) {
 
 	var first = 25; // default is 5
 	var next = 15; // default is 1

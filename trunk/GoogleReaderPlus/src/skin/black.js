@@ -23,7 +23,7 @@
 // Feel free to leave suggestions/criticism on the UserScript Page or via email; THANX! =)
 
 
-var grp_black = function() {
+GRP.black = function() {
 
 	var scriptVersion = 1258854468202;   //alert(Date.now());
 	

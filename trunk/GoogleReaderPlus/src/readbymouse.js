@@ -1,19 +1,20 @@
-// @name           Google Reader - Read by Mouse
-// @namespace      http://userscripts.org/people/26481
-// @description    Adds a button that toggles Google Reader in and out of a "mouse-only" mode that allows for easy and customizable reading via the mouse buttons (next item, previous item, open in tab/star/share/tag).
-// @source         http://userscripts.org/scripts/show/8843
-// @version        1.1
-// @date           2009-02-28
-// @creator        Ryan Williams <ryanbot at gmail>
-
-//http://userscripts.org/scripts/show/8843
-//bug windows middle ckick : http://code.google.com/p/chromium/issues/detail?id=17234
-
-/*
- removed jquery 1.2.3 and Sizzle CSS Selector Engine - v0.9.3
+/**
+ * Google Reader - Read by Mouse
+ * @version  1.1
+ * @date 2009-02-28
+ *
+ * Adds a button that toggles Google Reader in and out of a "mouse-only" mode 
+ * that allows for easy and customizable reading via the mouse buttons 
+ * (next item, previous item, open in tab/star/share/tag).
+ *
+ * bug windows middle ckick : 
+ * http://code.google.com/p/chromium/issues/detail?id=17234
+ * 
+ * Original author :
+ * Ryan Williams <ryanbot at gmail>
+ * http://userscripts.org/scripts/show/8843
  */
-
-var grp_readbymouse = function(prefs) {
+GRP.readbymouse = function(prefs) {
 	var systemStatus = GM_getValue('rbmStatus', 'Off');
 	var ua = navigator.userAgent.toLowerCase();
 	var isWindows = /windows|win32/.test(ua);

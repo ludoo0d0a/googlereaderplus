@@ -1,5 +1,14 @@
-//remove ads
-var grp_removeads = function(prefs) {
+/**
+ * Remove ads
+ * @version  0.1
+ * @date 2010
+ * @author LudoO
+ *
+ * Simple advertising cleaner
+ *
+ */
+
+GRP.removeads = function(prefs) {
 	function removeAds() {
 		var i,re, link;
 

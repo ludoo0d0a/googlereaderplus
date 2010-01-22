@@ -1,18 +1,16 @@
-// Author: Elad Ossadon (http://twitter.com/elado | http://www.devign.co.il | elado7@gmail.com)
-
-// ==UserScript==
-// @name           Google Reader Filter
-// @namespace      devign.co.il
-// @description    Filters duplicated entries and unwanted content or highlight chosen content based on keywords (with regex support).
-// @include        http://reader.google.com/reader/*
-// @include        http://www.google.co.jp/reader/*
-// @include        https://www.google.co.jp/reader/*
-// @include        http://www.google.com/reader/*
-// @include        https://www.google.com/reader/*
-// ==/UserScript==
-//http://userscripts.org/scripts/show/23671
-
-var grp_filter = function(prefs) {
+/**
+ * Google Reader Filter 
+ * @version  0.6
+ * @date 2009-08-14
+ *
+ * Filters duplicated entries and unwanted content or highlight chosen content based on keywords (with regex support).
+ *
+ * Original author :
+ * Elad Ossadon (http://twitter.com/elado | http://www.devign.co.il | elado7@gmail.com)
+ * http://userscripts.org/scripts/show/23671
+ * 
+ */
+GRP.filter = function(prefs) {
 	
 	function findPosition(element) {
 		var point = {

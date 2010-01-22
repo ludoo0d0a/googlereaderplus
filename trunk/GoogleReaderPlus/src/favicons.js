@@ -1,17 +1,17 @@
-// ==UserScript==
-// @name           Google Reader Favicon ++
-// @description    Adds favicons to feeds and entries
-// @author         LudoO
-// @version        1.5.0
-// @namespace      http://www.pitaso.com
-// @include        htt*://www.google.*/reader/view*
-// ==/UserScript==
-/*
- Based on the great script of Yamamaya : 
- Google Reader Favicon ++ v4.0.3
- http://userscripts.org/scripts/show/40120
+/**
+ * Google Reader Favicon ++ 
+ * @version  4.0.3
+ * @date 2007-06-01
+ *
+ * Adds favicons to feeds and entries
+ *
+ * Original author :
+ * Yamamaya
+ * http://userscripts.org/scripts/show/40120
+ * 
+ * +Google Reader Favicon ++ v1.5.0 (LudoO)
  */
-
+/*
 if (!JSON) {
 	JSON = {
 		stringify : function(o) {
@@ -22,7 +22,9 @@ if (!JSON) {
 		}
 	};
 }
-var grp_favicons = function(prefs) {
+*/
+
+GRP.favicons = function(prefs) {
 
 	var GOOGLE_READER_INFO = JSON.parse(GM_getValue('googleReaderInformation', '{}'));
 	var FAVICON = GOOGLE_READER_INFO.icon || (GOOGLE_READER_INFO.icon = {});

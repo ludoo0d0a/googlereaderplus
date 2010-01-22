@@ -8,7 +8,7 @@
 // Scott Cowan http://userscripts.org/users/32932
 //http://userscripts.org/scripts/show/12197
 
-var grp_minimal = function() {
+GRP.minimal = function() {
 	var ids = [ "viewer-header", "logo-container", "search", "chrome-header",
 			"global-info", "gbar", "viewer-footer" ];
 

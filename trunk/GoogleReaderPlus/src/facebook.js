@@ -1,22 +1,19 @@
-// Google Reader Facebook Sharer
-//
-//Places an expandable Facebook Sharer into each Google Reader item so that websites 
-//can be shared with Facebook friends and on a Facebook profile from Reader with a couple clicks (includes image attachment).
-//
-// Based on the Google Reader Preview Enhanced (GPE) by Julien CAROSI
-//
-// ==UserScript==
-// @name           Share with Facebook in Google Reader
-// @description    Adds a "Preview button" that allows you to view actual article in a frame. Clicking again on that button goes back to RSS view. Does work both in List view and expanded view.
-// @namespace      http://userscripts.org/scripts/show/63997
-// @include        https://*.google.com/reader*
-// @include        http://*.google.com/reader*
-// ==/UserScript==
+/**
+ * Facebook Sharer + Google Reader
+ * @version  ?
+ * @date 2007-06-01
+ *
+ * Adds a "Preview button" that allows you to view actual article in a frame. 
+ * Clicking again on that button goes back to RSS view. 
+ * Does work both in List view and expanded view.
+ *
+ * Original author :
+ * Thadk
+ * http://userscripts.org/scripts/show/63997
+ * http://userscripts.org/scripts/show/9594
+ */
 
-//Update of the script Facebook Sharer + Google Reader By Thadk 
-//http://userscripts.org/scripts/show/9594
-
-var grp_facebook = function(prefs) {
+GRP.facebook = function(prefs) {
 
 	function addButton(el, entry, mode) {
 		var text = 'Share this news on Facebook' + formatShortcut('facebook', 'gofacebook', prefs); //[b]
@@ -82,5 +79,7 @@ var grp_facebook = function(prefs) {
 	};
 
 	initCatchEntries(addButton, 'efacebook');
-	initKey({key:66, fn:addKey});//b
+	var keycode = getShortcutKey('facebook', 'gofacebook', prefs); //66;//b
+	keycode.fn = addKey;
+	initKey(keycode);
 };

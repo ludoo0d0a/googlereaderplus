@@ -1,21 +1,16 @@
-// ==UserScript==
-// @name          Google Reader - Mark Until Current As Read v 1.3
-// @namespace     http://buzypi.in/
-// @description   Mark all entries upto the current entry as read
-// @include       http://www.google.com/reader*
-// @include       https://www.google.com/reader*
-// ==/UserScript==
-
-//Google Reader - Mark Until Current As Read v 1.3
-//http://userscripts.org/scripts/show/24955
-
-/* Modifications to this script is permitted provided this comment is retained in its entirety.
- * Copyright: Gautham Pai
- * Author: Gautham Pai
- * http://buzypi.in/
+/**
+ * Google Reader - Mark Until Current As Read
+ * @version  1.3
+ * @date 2007-06-01
+ *
+ * Mark all entries upto the current entry as read
+ *
+ * Original author :
+ * Gautham Pai (http://buzypi.in/)
+ * http://userscripts.org/scripts/show/24955
  */
 
-var grp_mark = function(prefs) {
+GRP.mark = function(prefs) {
 	var currentElement, modeList=false;
 
 	function setConfig(){
@@ -49,6 +44,9 @@ var grp_mark = function(prefs) {
 		simulateClick(currentElement.childNodes[0]);
 	}
 
-	//w, k
-	initKey([{key:87, fn:markUntilCurrentAsRead}, {key:75, fn:markAfterCurrentAsRead}]);
+    var keycodeUp = getShortcutKey('mark', 'markprev', prefs); //87;//w
+    keycodeUp.fn = markUntilCurrentAsRead;
+    var keycodeDown = getShortcutKey('mark', 'marknext', prefs); //75;//k
+    keycodeDown.fn = markAfterCurrentAsRead;
+    initKey([keycodeUp, keycodeDown]);
 };
