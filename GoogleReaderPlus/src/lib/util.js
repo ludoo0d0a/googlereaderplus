@@ -147,8 +147,10 @@ function insertBefore(el, ref){
  * @return
  */
 function initKey(keys){
-    document.addEventListener('keydown', function(e){
-        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+    document.addEventListener('keydown', function(ee){
+   	  var e = ee;
+   	  var tag = e.target.tagName.toLowerCase();
+        if (tag !== "input" && tag !== "select" && tag !== "textarea") {
             if (!isArray(keys)) {
                 keys = [keys];
             }

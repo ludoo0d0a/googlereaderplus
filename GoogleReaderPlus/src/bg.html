@@ -69,6 +69,17 @@
                             }
                         }
                     }
+						  //shortcuts
+						  if (script.shortcuts) {
+                        for (var j = 0, lenj = script.shortcuts.length; j < lenj; j++) {
+                            var shortcut = script.shortcuts[j];
+									 id = script.id + '_key_' + shortcut.id;
+									 var value = localStorage.getItem(id);
+                            if (value){
+									 	prefs[id] =value;
+									} 
+                        }
+                    }
                 }
                 myport.postMessage(
                 {

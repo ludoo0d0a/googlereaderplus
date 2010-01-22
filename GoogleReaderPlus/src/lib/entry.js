@@ -188,6 +188,13 @@ function formatShortcut(script, shortcut, prefs){
     return t;
 }
 function getShortcutKey(script, shortcut, prefs){
-	return prefs[script + '-key-' + shortcut];
+	var key, keyhash = prefs[script + '_key_' + shortcut];
+	if (keyhash){
+		key = unmarshallKey(keyhash);
+	}else{
+		console.err("Failed to get shortcut "+shortcut+" for script "+ script);
+		//key = GRP.shortcuts.;
+	}
+	return key;
 }
 

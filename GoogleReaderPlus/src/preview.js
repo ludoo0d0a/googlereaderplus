@@ -29,12 +29,14 @@ GRP.preview = function(prefs){
       addClass(link, 'title-link-url');
       link.innerHTML = '<div class="entry-title-maximize"></div>';
       
+		var keytext = formatShortcut('preview', 'prview', prefs);
+		
       //create a second link before the previous one to used as preview
       var title = link.parentNode;// h2.entry-title
       var ilink = document.createElement('a');
       ilink.className = 'ilink entry-title-link';
       ilink.href = '#';
-      ilink.title = 'Open as preview' + formatShortcut('preview', 'prview', prefs); //[Shift+R]
+      ilink.title = 'Open as preview' + keytext; //[Shift+V]
       ilink.innerText = ' ' + text;
       link.parentNode.insertBefore(ilink, link);
       ilink.addEventListener('click', previewTitleClick, false);
@@ -50,7 +52,7 @@ GRP.preview = function(prefs){
        link.onclick = previewTitleClick;//with preventdefault on first
        */
       // Bottom button
-      addBottomLink(el, 'Preview', 'Integrated preview of the news [Shift+V]', 'btn-preview', true, previewize, locked, entry);
+      addBottomLink(el, 'Preview', 'Integrated preview of the news '+keytext, 'btn-preview', true, previewize, locked, entry);
    }
    
    

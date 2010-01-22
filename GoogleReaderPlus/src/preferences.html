@@ -99,7 +99,7 @@
                                 if (ctrl.tagName === "INPUT") {
                                     if (ctrl.key) {
                                         //shortcut
-                                        var key = unmarshallKeyKey(prefs[o]);
+                                        var key = unmarshallKey(prefs[o]);
                                         setShortcut(key, ctrl);
                                     } else if (ctrl.type === "checkbox") {
                                         ctrl.checked = (prefs[o] === true);
@@ -348,10 +348,6 @@
                     fixShortcut(e, e.target);
                 };
                 div.appendChild(input);
-                
-                // var br = document.createElement('br');
-                //div.appendChild(br);
-                
                 el.appendChild(div);
             }
             
