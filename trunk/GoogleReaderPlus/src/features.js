@@ -285,10 +285,10 @@ GRP.packages =
 };
 
 GRP.skins = [
-/*{
+{
  id: "none",
  name: "None"
- }, */
+ }, 
 {
     id: "air",
     name: "Air Skin"

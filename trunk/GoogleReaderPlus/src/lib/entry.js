@@ -192,7 +192,7 @@ function getShortcutKey(script, shortcut, prefs){
 	if (keyhash){
 		key = unmarshallKey(keyhash);
 	}else{
-		console.err("Failed to get shortcut "+shortcut+" for script "+ script);
+		console.error("Failed to get shortcut "+shortcut+" for script "+ script);
 		//key = GRP.shortcuts.;
 	}
 	return key;
