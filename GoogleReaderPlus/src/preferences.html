@@ -119,9 +119,12 @@
             }
             
             function loadSkin(){
-                var input = document.getElementById("theme");
+                var input = document.getElementById("theme_skin");
                 var li = document.getElementById('skin_' + input.value);
-                if (li) {
+                if (!li) {
+                    li = document.getElementById('skin_none');
+                }
+					 if (li) {
                     li.onclick();
                 }
             }
@@ -213,7 +216,7 @@
                         c.className = "on";
                         var thumb = document.getElementById("thumb");
                         var id = c.id.replace('skin_', '');
-                        var input = document.getElementById("skin");
+                        var input = document.getElementById("theme_skin");
                         if (id === "none") {
                             input.value = "";
                             thumb.className = "hidden";
@@ -429,9 +432,9 @@
                     for (var i = 0, len = GRP.packages[id].length; i < len; i++) {
                         var o = GRP.packages[id][i];
                         prefs[o] = true;
-                        if (o === 'theme' && !prefs[o + '_skin']) {
+                        //if (o === 'theme' && !prefs[o + '_skin']) {
                             prefs[o + '_skin'] = 'osxblack';
-                        }
+                        //}
                     }
                 }
                 loadprefs();//update

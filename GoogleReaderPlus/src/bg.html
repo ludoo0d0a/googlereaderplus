@@ -45,6 +45,7 @@
             
             function setPreferences(a){
                 localStorage.clear();
+					 localStorage.setItem('grp_version', GRP.VERSION);
                 for (var k in a.prefs) {
                     if (a.prefs.hasOwnProperty(k)) {
                         if (a.prefs[k]) {
@@ -115,7 +116,7 @@
                         //go update single icon
                         extractFavicon(
                         {
-                            url: 'http://' + domain,
+                            url: 'http://' + a.domain,
                             title: a.title,
                             FAVICON: a.FAVICON
                         });
