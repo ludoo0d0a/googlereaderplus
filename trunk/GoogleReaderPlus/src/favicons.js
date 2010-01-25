@@ -103,6 +103,7 @@ GRP.favicons = function(prefs) {
 			getElements(".//img[@title='" + match + "']", tree).forEach(function(img) {
 				img.src = icon;
 			});
+			//update entries too
 		},
 		addFavicon : function() {
 			entryFaviconNoDOMNodeInserted();
@@ -293,7 +294,7 @@ GRP.favicons = function(prefs) {
 			var div = document.createElement('div');
 			div.className = 'goog-menuitem goog-option grf-menuitem';
 			div.style = '-webkit-user-select: none;';
-			div.innerHTML = '<div class="goog-menuitem-content">Manual favicon</div>';
+			div.innerHTML = '<div class="goog-menuitem-content">Get favicon</div>';
 			sep.parentNode.insertBefore(div, sep.nextSibling);// insert after
 
 		// +separator

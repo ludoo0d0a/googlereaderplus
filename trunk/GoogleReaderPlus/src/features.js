@@ -62,15 +62,18 @@ GRP.scripts = [
         count: 0
     },
     //shortcut: "c",
-    shortcuts: [
+    shortcuts: 
     {
-        id: 'columns',
-        title: 'Multi columns',
-        key: 
+        'columns': 
         {
-            keyCode: 67
+            id: 'columns',
+            title: 'Multi columns',
+            key: 
+            {
+                keyCode: 67
+            }
         }
-    }]
+    }
 }, 
 {
     id: "preview",
@@ -81,15 +84,18 @@ GRP.scripts = [
         locked: false
     },
     //shortcut: "shift+R",
-    shortcuts: [
+    shortcuts: 
     {
-        id: 'prview',
-        title: 'Entry preview',
-        key: 
+        'prview': 
         {
-            keyCode: 81
+            id: 'prview',
+            title: 'Entry preview',
+            key: 
+            {
+                keyCode: 81
+            }
         }
-    }]
+    }
 }, 
 {
     id: "colorful",
@@ -112,106 +118,126 @@ GRP.scripts = [
     name: "Facebook integration",
     desc: "Add a button to share news using Facebook",
     //shortcut: "b",
-    shortcuts: [
+    shortcuts: 
     {
-        id: 'gofacebook',
-        title: 'Post on Facebook',
-        key: 
+        'gofacebook': 
         {
-            keyCode: 66
+            id: 'gofacebook',
+            title: 'Post on Facebook',
+            key: 
+            {
+                keyCode: 66
+            }
         }
-    }]
+    }
 }, 
 {
     id: "twitter",
     name: "Twitter integration",
     desc: "Add a button to share news using Twitter",
     //shortcut: "d",
-    shortcuts: [
+    shortcuts: 
     {
-        id: 'tweet',
-        title: 'Post on Twitter',
-        key: 
+        'tweet': 
         {
-            keyCode: 68
+            id: 'tweet',
+            title: 'Post on Twitter',
+            key: 
+            {
+                keyCode: 68
+            }
         }
-    }]
+    }
 }, 
 {
     id: "mark",
     name: "Mark As Read",
     desc: "Mark items before/after current as read",
     //shortcut: "before: w ; after: x",
-    shortcuts: [
+    shortcuts: 
     {
-        id: 'markprev',
-        title: 'Mark items before As Read',
-        key: 
+        'markprev': 
         {
-            keyCode: 87
-        }
-    }, 
-    {
-        id: 'marknext',
-        title: 'Mark items after As Read',
-        key: 
+            id: 'markprev',
+            title: 'Mark items before As Read',
+            key: 
+            {
+                keyCode: 87
+            }
+        },
+        'marknext': 
         {
-            keyCode: 75
+            id: 'marknext',
+            title: 'Mark items after As Read',
+            key: 
+            {
+                keyCode: 75
+            }
         }
-    }]
+    }
 }, 
 {
     id: "jump",
     name: "Add top/bottom links",
     desc: "Add a 'goto bottom' icon on top entry and a 'goto top' on bottom entry",
     //shortcut: "shift+T: goto top ; shift+B : goto bottom",
-    shortcuts: [
+    shortcuts: 
     {
-        id: 'goup',
-        title: 'Goto top',
-        key: 
+        'goup': 
         {
-            keyCode: 84
-        }
-    }, 
-    {
-        id: 'godown',
-        title: 'Goto bottom',
-        key: 
+            id: 'goup',
+            title: 'Goto top',
+            key: 
+            {
+                keyCode: 84
+            }
+        },
+        'godown': 
         {
-            keyCode: 66
+            id: 'godown',
+            title: 'Goto bottom',
+            key: 
+            {
+                keyCode: 66
+            }
         }
-    }]
+    }
 }, 
 {
     id: "fitheight",
     name: "Fit height",
     desc: "Fit height of the current news to the screen height (for long articles)",
     //shortcut: "f : fit height",
-    shortcuts: [
+    shortcuts: 
     {
-        id: 'fit',
-        title: 'Fit height',
-        key: 
+        'fit': 
         {
-            keyCode: 70
+            id: 'fit',
+            title: 'Fit height',
+            key: 
+            {
+                keyCode: 70
+            }
         }
-    }]
+    }
 }, 
 {
     id: "closeentry",
     name: "Close entry",
     desc: "Add a 'close' button on each entry to remove it",
     //shortcut: "x",
-    shortcuts: [
+    shortcuts: 
     {
-        id: 'close',
-        title: 'Close entry',
-        key: 
+        'close': 
         {
-            keyCode: 88
+            id: 'close',
+            title: 'Close entry',
+            key: 
+            {
+                keyCode: 88
+            }
         }
-    }]
+    }
 
 }, 
 {
@@ -219,16 +245,19 @@ GRP.scripts = [
     name: "Open in background",
     desc: "Add a 'open in background' button on each entry",
     //shortcut: "shift + V : open in background tab",
-    shortcuts: [
+    shortcuts: 
     {
-        id: 'openback',
-        title: 'Open in background tab',
-        key: 
+        'openback': 
         {
-            shiftKey: true,
-            keyCode: 86
+            id: 'openback',
+            title: 'Open in background tab',
+            key: 
+            {
+                shiftKey: true,
+                keyCode: 86
+            }
         }
-    }]
+    }
 }, 
 {
     id: "aero",
@@ -286,9 +315,9 @@ GRP.packages =
 
 GRP.skins = [
 {
- id: "none",
- name: "None"
- }, 
+    id: "none",
+    name: "None"
+}, 
 {
     id: "air",
     name: "Air Skin"

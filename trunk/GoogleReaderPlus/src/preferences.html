@@ -299,8 +299,8 @@
                 for (var i = 0, len = GRP.scripts.length; i < len; i++) {
                     var script = GRP.scripts[i];
                     if (script.shortcuts) {
-                        for (var j = 0, lenj = script.shortcuts.length; j < lenj; j++) {
-                            var shortcut = script.shortcuts[j];
+                        for (var sid in script.shortcuts){
+							var shortcut = script.shortcuts[sid];
                             if (prefs && prefs[script.id + '_key_' + shortcut.id]) {
                                 key = unmarshallKey(prefs[script.id + '_key_' + shortcut.id]);
                             } else {
@@ -316,9 +316,11 @@
             
             function createShortcuts(el, script, shortcuts){
                 if (shortcuts) {
-                    for (var i = 0, len = shortcuts.length; i < len; i++) {
-                        var shortcut = shortcuts[i];
-                        createShortcut(el, script, shortcut);
+					for (var sid in  shortcuts) {
+						var shortcut = shortcuts[sid];
+					//for (var i = 0, len = shortcuts.length; i < len; i++) {
+                        //var shortcut = shortcuts[i];
+                        createShortcut(el, script, shortcut, sid);
                     }
                 }
             }
@@ -543,7 +545,7 @@
                                 <textarea name="favicons_domains" cols="70" rows="8">
                                 </textarea>
                                 <p>
-                                    You could add too a site using the contextual menu of the side bar ("Manual favicon")
+                                    You could add too a site using the contextual menu of the side bar ("Get favicon")
                                 </p>
                             </div>
                         </div>
