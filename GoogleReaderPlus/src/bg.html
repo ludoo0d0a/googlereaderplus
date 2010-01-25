@@ -107,20 +107,7 @@
                 } else if (a.message == "getprefs") {
                     getPreferences(a);
                 } else if (a.message == "domain") {
-                    var domains = "" + localStorage.getItem("favicons_domains");
-                    if (domains.indexOf(a.domain) < 0) {
-                        var ds = domains.split(",");
-                        ds.push(a.domain);
-                        domains = ds.join(",").replace(/^,+/, '').replace(/,+/g, ',');
-                        localStorage.setItem("favicons_domains", domains);
-                        //go update single icon
-                        extractFavicon(
-                        {
-                            url: 'http://' + a.domain,
-                            title: a.title,
-                            FAVICON: a.FAVICON
-                        });
-                    }
+                    updateDomain(a);
                 } else if (a.message == "openprefs") {
                     open_preferences();
                 } else if (a.message == "opentab") {
@@ -131,6 +118,27 @@
                     request(a);
                 }
             }
+			/*
+			function saveDomain(title, icon, url){
+				
+			}
+			*/
+			function updateDomain(a){
+				var domains = "" + localStorage.getItem("favicons_domains");
+				if (domains.indexOf(a.domain) < 0) {
+					var ds = domains.split(",");
+					ds.push(a.domain);
+					domains = ds.join(",").replace(/^,+/, '').replace(/,+/g, ',');
+					localStorage.setItem("favicons_domains", domains);
+					//go update single icon
+					extractFavicon(
+					{
+						url: 'http://' + a.domain,
+						title: a.title,
+						FAVICON: a.FAVICON
+					});
+				}
+			}
             
             function parseXml(xml, FAVICON_URL){
                 var FAVICON = {};
@@ -173,7 +181,8 @@
             
             function loadIcons(a){
                 var FAVICON_URL = a.FAVICON_URL;
-                var domains = localStorage.getItem("favicons_domains");
+                //var domains = localStorage.getItem("favicons_domains");
+				var domains = a.domains;
                 if (domains && domains.length > 0) {
                     var doms = domains.split(',');
                     EXCEPTIONS = {};
@@ -212,6 +221,7 @@
                         var html = xhr.responseText; //responseBody
                         var icon = parseFavicon(html, url);
                         setFavicon(title, icon, url, FAVICON);
+						//saveDomain(title, icon, url);
                         myport.postMessage(
                         {
                             message: "iconget",
@@ -238,12 +248,14 @@
                     }
                 }
                 if (!icon) {
-                    icon = url + "/favicon.ico";
-                }
-                var re = new RegExp("^http:", "i");
-                if (!re.test(icon)) {
-                    icon = url + '/' + icon;
-                }
+					icon = url + "/favicon.ico";
+				} else {
+					//Add domain if relative url
+					var re = new RegExp("^http:", "i");
+					if (!re.test(icon)) {
+						icon = url + '/' + icon;
+					}
+				}
                 return icon;
             }
             
