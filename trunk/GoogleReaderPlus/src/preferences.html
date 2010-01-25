@@ -441,6 +441,37 @@
                 }
                 loadprefs();//update
             }
+			
+			var index_favicon=0;
+			function addfavicons(favicons){
+				for (var i=0, len=favicons.length; i<len; i++){
+					var favicon = favicons[i];
+					addfavicon(favicon);
+				}
+			}
+			function addfavicon(favicon){
+				index_favicon++;
+				favicon=favicon||{id:index_favicon, site:'', url:'', icon:''};
+				var tpl = '<tr id="favicon_row_{id}"><td><input type="text" class="ignore" name="favicon_site_{id}" value="{site}" size="40"/></td><td><input type="text" class="ignore" name="favicon_url_{id}" value="{url}" size="40"/></td><td><img alt="favicon" title="Preview of favicon" src="{icon}" width="16" height="16"/></td><td><a href="javascript:removefavicon({id});">Remove</a></td></tr>';
+				var table = document.getElementById('favicon_crud');
+				var row = document.createElement('tr');
+				tr.innerHTML = fillTpl(tpl, favicon);
+				table.append(row);
+			}
+			function removefavicon(id){
+				var row = document.getElementById('favicon_row_'+id);
+				row.parentNode.removeChild(row);
+			}
+			
+			function getfavicons(){
+				var hidden = document.getElementById('favicon_favicons');
+				var favicons = JSON.parse(hidden.value);
+				return favicons;
+			}
+			function setfavicons(){
+				var hidden = document.getElementById('favicon_favicons');
+				hidden.value = JSON.stringify(favicons);
+			}
             
             window.onload = init;
             //}());
@@ -544,6 +575,24 @@
                                 </p>
                                 <textarea name="favicons_domains" cols="70" rows="8">
                                 </textarea>
+								<div id="crud_domains">
+									<input type="hidden" name="favicon_favicons" value=""/>
+									<table summary="crud" class="crud" id="favicon_crud">
+										<tr>
+											<th>Site</th>
+											<th>Icon</th>
+											<th class="preview-title">Preview</th>
+											<th>&nbsp;</th>
+										</tr>
+										<tr>
+											<td><input type="text" name="favicon_site_1" size="40"/></td>
+											<td><input type="text" name="favicon_icon_1" size="40"/></td>
+											<td><img alt="favicon" title="Preview of favicon" src="favicon1.ico" width="16" height="16"/></td>
+											<td><a href="javascript:removefavicon(1);">Remove</a></td>
+										</tr>
+									</table>
+									<a class="add" href="javascript:addfavicon();">Add</a>
+								</div>
                                 <p>
                                     You could add too a site using the contextual menu of the side bar ("Get favicon")
                                 </p>
