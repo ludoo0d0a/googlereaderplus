@@ -268,3 +268,16 @@ div.warning {
 input.warning {
     background-color: #dd2222;
 }
+
+/**
+ * CRUD
+ */
+.crud{
+	border:0;
+}
+.crud th.preview-title{
+	width: 40px;
+}
+.crud .add{
+	text-align:right;
+}
