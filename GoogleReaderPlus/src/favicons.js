@@ -11,24 +11,10 @@
  * 
  * +Google Reader Favicon ++ v1.5.0 (LudoO)
  */
-/*
-if (!JSON) {
-	JSON = {
-		stringify : function(o) {
-			return uneval(o);
-		},
-		parse : function(t) {
-			return eval(t);
-		}
-	};
-}
-*/
-
 GRP.favicons = function(prefs) {
 
 	var GOOGLE_READER_INFO = JSON.parse(GM_getValue('googleReaderInformation', '{}'));
 	var FAVICON = GOOGLE_READER_INFO.icon || (GOOGLE_READER_INFO.icon = {});
-	// var FAVICON_URL = ['http://getfavicon.appspot.com/http://', ''];
 	var protocol = document.location.protocol;
 	var FAVICON_URL = [ protocol + '//s2.googleusercontent.com/s2/favicons?alt=feed&domain=', '' ];
 	var FAVICON_DEFAULT_IMG = protocol + '//s2.googleusercontent.com/s2/favicons?alt=feed';

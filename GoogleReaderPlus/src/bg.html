@@ -221,7 +221,6 @@
                         var html = xhr.responseText; //responseBody
                         var icon = parseFavicon(html, url);
                         setFavicon(title, icon, url, FAVICON);
-						//saveDomain(title, icon, url);
                         myport.postMessage(
                         {
                             message: "iconget",
