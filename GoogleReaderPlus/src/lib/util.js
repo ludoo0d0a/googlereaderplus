@@ -121,11 +121,6 @@ if (typeof Array.forEach === "undefined") {
         Array.prototype.forEach.call(arr, fn);
     };
 }
-
-function isArray(obj){
-    return obj.constructor == Array;
-}
-
 function insertAfter(el, ref){
     var next = ref.nextSibling;
     if (next) {
@@ -138,6 +133,44 @@ function insertAfter(el, ref){
 function insertBefore(el, ref){
     ref.parentNode.insertBefore(el, ref);
 }
+
+/**
+* Strings
+*/   
+function normalizeUrl(url){
+    if (!(/^http(s)?:/i.test(url))) {
+        return 'http://' + url;
+    } else {
+        return url;
+    }
+}
+//without parameter
+function cleanUrl(url){
+    var m = /([^\?]+)\??(.*)/.exec(url);
+	if (m) {
+        return m[1];
+    } else {
+        return url;
+    }
+}
+
+function ellipsis(text) {
+	var match = text;
+	if (match.length > 24) {
+		match = match.substr(0, 21) + '...';
+	}
+	return match;
+}
+
+function isArray(obj){
+    return obj.constructor == Array;
+}
+
+
+/**
+* Shortcuts
+* 
+*/  
 
 /**
  *
@@ -387,3 +420,4 @@ var keycodes =
     221: 'closebraket',
     222: 'singlequote'
 };
+

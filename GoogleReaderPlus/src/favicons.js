@@ -13,16 +13,17 @@
  */
 GRP.favicons = function(prefs) {
 
-	var GOOGLE_READER_INFO = JSON.parse(GM_getValue('googleReaderInformation', '{}'));
-	var FAVICON = GOOGLE_READER_INFO.icon || (GOOGLE_READER_INFO.icon = {});
+	var GRP_INFO = JSON.parse(GM_getValue('grp_favicons', '{}'));
+	var FAVICON = GRP_INFO.icon || (GRP_INFO.icon = {});
 	var protocol = document.location.protocol;
-	var FAVICON_URL = [ protocol + '//s2.googleusercontent.com/s2/favicons?alt=feed&domain=', '' ];
-	var FAVICON_DEFAULT_IMG = protocol + '//s2.googleusercontent.com/s2/favicons?alt=feed';
+	var FAVICON_TPL_URL = protocol + '//s2.googleusercontent.com/s2/favicons?alt=feed&domain=';
+	var FAVICON_TPL_DEF_URL = protocol + '//s2.googleusercontent.com/s2/favicons';
+	var LOADING_IMAGE= "chrome-extension://njidamgjohnfbkeagfbnkllfkdnlpjhi/loading.gif";
 
 	var RSS = getElements('id("sub-tree-item-0-main")/ul/li/ul/li').length;
 	var FOLDER = getElements('id("sub-tree-item-0-main")/ul/li').length;
-	var RSS_NUMBERS = GOOGLE_READER_INFO.rss || null;
-	var FOLDER_NUMBERS = GOOGLE_READER_INFO.dirs || null;
+	var RSS_NUMBERS = GRP_INFO.rss || null;
+	var FOLDER_NUMBERS = GRP_INFO.dirs || null;
 
 	var googleReader = {
 		initFavicons : function() {
@@ -37,35 +38,36 @@ GRP.favicons = function(prefs) {
 			// this.showButton();
 			this.attachMenu();
 
-			GOOGLE_READER_INFO.rss = RSS;
-			GOOGLE_READER_INFO.dirs = FOLDER;
+			GRP_INFO.rss = RSS;
+			GRP_INFO.dirs = FOLDER;
 			setValue();
 		},
 		init : function() {
 			this.myport = chrome.extension.connect( {
 				name : "googlereaderplus"
 			});
-			this.prefs = {
-				favicons_domains : '',
-				favicons_manual : false
-			};
+			this.prefs = {};
 			var me = this;
 			function onMessageReceived(a) {
 				if (a.message == "iconsloaded") {
 					if (a.FAVICON) {
 						FAVICON = a.FAVICON;
 					}
-					googleReader.addFavicon();
+					me.addFavicon();
 					setValue();
 				} else if (a.message == "prefs") {
 					me.prefs = a.prefs;
 					me.initFavicons.call(me);
 				} else if (a.message == "iconget") {
-					if (a.FAVICON) {
-						FAVICON = a.FAVICON;
+					if (a.icon) {
+						if (a.FAVICON) {
+							FAVICON = a.FAVICON;
+						}
+						me.renderFavicons(a.url, a.title, a.icon);
+						setValue();
+					}else{
+						alert('Error: Cannot found favicon for "' + a.title + '"');
 					}
-					googleReader.updateFavicon(a.url, a.title, a.icon);
-					setValue();
 				}
 			}
 			this.myport.onMessage.addListener(onMessageReceived);
@@ -79,19 +81,33 @@ GRP.favicons = function(prefs) {
 				message : "loadicons",
 				method : 'get',
 				url : protocol + '//www.google.com/reader/subscriptions/export',
-				FAVICON_URL : FAVICON_URL,
-				domains : this.prefs.favicons_domains
+				FAVICON_TPL_URL : FAVICON_TPL_URL
 			});
 		},
-		updateFavicon : function(url, title, icon) {
+		renderFavicons : function(url, title, icon) {
 			var match = ellipsis(title);
-			var tree = document.getElementById('sub-tree');
-			getElements(".//img[@title='" + match + "']", tree).forEach(function(img) {
+			//var tree = document.getElementById('sub-tree');
+			//var main = document.getElementById('main');
+			getElements(".//img[@title='" + match + "']").forEach(function(img) {
 				img.src = icon;
 			});
-			//update entries too
+		},
+		//Override with manual favicons
+		updateFavicons : function() {
+			var domains = prefs.favicons_domains;
+			if (!domains || !FAVICON){
+				return;
+			}
+			for(var key in FAVICON){
+				var f = FAVICON[key];
+				var icon = domains[f.url];
+				if (icon){
+					f.icon = icon;
+				}
+			}
 		},
 		addFavicon : function() {
+			this.updateFavicons();
 			entryFaviconNoDOMNodeInserted();
 			this.entryFavicon();
 			this.sideBarFavicon();
@@ -106,12 +122,11 @@ GRP.favicons = function(prefs) {
 							icon.className = 'entry-favicon grf-favicon grf-entry-title';
 							icon.title = match;
 							
-							var t = findFaviconByTitle(FAVICON, match);
-
+							var t = FAVICON[match];
 							if (t){
 								icon.src = t.icon;
 							} else {
-								icon.src = FAVICON_DEFAULT_IMG;
+								icon.src = FAVICON_TPL_DEF_URL;
 							}
 
 							if (title.tagName !== 'SPAN') {
@@ -152,9 +167,9 @@ GRP.favicons = function(prefs) {
 						// ??, ??????
 						point = target.getElementsByClassName('entry-title-link')[0]
 								|| target.getElementsByClassName('comment-entry-title')[0];
-						// var title =
-						// target.getElementsByClassName('entry-source-title')[0];
-						var title = target.getElementsByClassName('entry-title')[0];
+						//titre du site
+						var title =target.getElementsByClassName('entry-source-title')[0];
+						//var title = target.getElementsByClassName('entry-title')[0];
 						if (title) {
 							match = title.textContent;
 						}
@@ -168,20 +183,17 @@ GRP.favicons = function(prefs) {
 					if (target.getAttribute('color') === null) {
 						target.setAttribute('color', match.replace(/"/g, ''));
 					}
-
-					var t = findFaviconByTitle(FAVICON, match);
-					//if (FAVICON.hasOwnProperty(match)) {
+					var t = FAVICON[match];
 					if (t){
-						//icon.src = FAVICON[match].icon;
 						icon.src = t.icon;
 					} else { // popular items | recommended sources
 						var fs = target.getElementsByClassName('entry-original')[0]
 								|| target.getElementsByClassName('entry-title-link')[0];
 						if (fs) {
-							fs = FAVICON_URL.join(getDomain(fs.href));
+							fs = FAVICON_TPL_URL+getDomain(fs.href);
 							icon.src = fs;
 						} else {
-							icon.src = FAVICON_DEFAULT_IMG;
+							icon.src = FAVICON_TPL_DEF_URL;
 						}
 					}
 
@@ -218,11 +230,12 @@ GRP.favicons = function(prefs) {
 				e.parentNode.insertBefore(icon, e);
 				e.parentNode.removeChild(e);
 
-				var t = findFaviconByTitle(FAVICON, match);
+				//var t = findFaviconByTitle(FAVICON, match);
+				var t = FAVICON[match];
 				if (t){
 					icon.src = t.icon;
 				} else {
-					icon.src = FAVICON_DEFAULT_IMG;
+					icon.src = FAVICON_TPL_DEF_URL;
 				}
 				icon.removeEventListener('error', revertFavicon, false);
 				icon.addEventListener('error', revertFavicon, false);
@@ -294,23 +307,21 @@ GRP.favicons = function(prefs) {
 			var node = document.getElementsByClassName('menu-open')[0];
 			var img = node.firstChild;// grf-favicon
 				// grf-sidebar
-				var title;
+				var key;
 				if (img.tagName === "IMG") {
-					title = img.title;
+					key = img.title;
 				} else {
 					// img not there, used 2nd span.name/@title
-					title = img.nextSibling.title;
+					key = img.nextSibling.title;
 				}
-				var f = FAVICON[title];
+				var f = FAVICON[key];
 				if (f) {
+					img.src=LOADING_IMAGE;
 					me.myport.postMessage( {
-						message : "domain",
-						domain : f.url,
-						title : title,
+						message : "geticon",
+						key : key,
 						FAVICON : FAVICON
 					});
-					// googleReader.updateFavicon(f.url, title, f.icon);
-					// alert('Site "' + f.url + '" added');
 					// ->iconget
 				} else {
 					alert('Cannot found favicon for "' + title + '"');
@@ -332,7 +343,7 @@ GRP.favicons = function(prefs) {
 	googleReader.init();
 
 	function revertFavicon(event) {
-		this.src = FAVICON_DEFAULT_IMG;
+		this.src = FAVICON_TPL_DEF_URL;
 	}
 	
 	function getDomain(url){
@@ -344,20 +355,12 @@ GRP.favicons = function(prefs) {
 	}
 
 	function setValue() {
-		// GM_setValue('googleReaderInformation', uneval(GOOGLE_READER_INFO));
-		GOOGLE_READER_INFO.icon = FAVICON;
-		GM_setValue('googleReaderInformation', JSON.stringify(GOOGLE_READER_INFO));
+		GRP_INFO.icon = FAVICON;
+		GM_setValue('grp_favicons', JSON.stringify(GRP_INFO));
 	}
 
 	function clearCache() {
-		GM_setValue('googleReaderInformation', '');
-	}
-	function ellipsis(text) {
-		var match = text;
-		if (match.length > 24) {
-			match = match.substr(0, 21) + '...';
-		}
-		return match;
+		GM_setValue('grp_favicons', '');
 	}
 
 };
