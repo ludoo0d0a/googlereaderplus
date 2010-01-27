@@ -31,7 +31,9 @@
                             me.loadprefs.call(me);
                         } else if (a.message === "info") {
                             createReport(a.report);
-                        }
+                        }else if (a.message === "iconget"){
+							savefavicon(a.url, a.icon, a.title);
+						}
                     });
                     myport.postMessage(
                     {
@@ -53,32 +55,30 @@
             
             function applyprefs(){
                 var form = document.frmprefs;
-                for (var o in prefs) {
-                    var pref = prefs[o];
-                    if (form[o]) {
-                        if (form[o].key) {
-                            //shortcut code
-                            prefs[o] = form[o].key;
-                        } else if (form[o].type === "checkbox") {
-                            prefs[o] = form[o].checked || false;
-                        } else {
-                            prefs[o] = form[o].value;
-                        }
-                        
-                    } else {
-                        console.log("Pref not found in form : " + o);
-                    }
+                for (var i in form) {
+	                var ctrl = form[i];
+					if (ctrl && !hasClass(ctrl, 'ignore')) {
+						var o = ctrl.id;
+						if (typeof ctrl.key !== "undefined") {
+							//shortcut code
+							prefs[o] = ctrl.key;
+						} else if (ctrl.type === "checkbox") {
+							prefs[o] = ctrl.checked || false;
+						} else {
+							prefs[o] = ctrl.value;
+						}
+					}
                 }
             }
 
-            function saveprefs(reload){
-                //TODO: save all form.elements
+            function saveprefs(reload, cleanall){
                 applyprefs();
                 
                 myport.postMessage(
                 {
                     message: "setprefs",
-                    prefs: prefs
+                    prefs: prefs,
+					cleanall:cleanall||false
                 });
                 run_extshortcuts();
                 info("Preferences saved");
@@ -92,7 +92,7 @@
                     for (var o in prefs) {
                         var ctrl = document.frmprefs[o];
                         if (ctrl && (typeof prefs[o] !== 'undefined')) {
-                            if (!hasClass(ctrl, 'nopref')) {
+                            if (!hasClass(ctrl, 'ignore')) {
                                 if (ctrl.tagName === "INPUT") {
                                     if (ctrl.key) {
                                         //shortcut
@@ -420,12 +420,12 @@
             function setpackage(id){
                 disableAllScripts();
                 if (id === "reset") {
-                    prefs = {};
                     //Refresh page to reload all options for each script
                     var sure = confirm('This will ERASE and reset all your preferences. Are you sure ?');
                     if (sure) {
-                        loadprefs();
-                        saveprefs(true);
+                        prefs = {};
+						loadprefs();
+                        saveprefs(true, true);
                     }
                     return;
                 } else {
@@ -440,25 +440,12 @@
                 loadprefs();//update
             }
 			
-			var tplDomain = '<a href="http://{url}" target="_blank"><span><img alt="favicon" class="favicon" title="Preview" src="{icon}" width="16" height="16"/>{url}</span></a><a class="remove" href="javascript:removefavicon(\'{url}\');">remove</a>';
+			var tplDomain = '<a href="http://{url}" target="_blank"><span><img alt="favicon" class="favicon" title="Preview" src="{icon}" width="16" height="16"/>{url}</span></a><a class="action" href="javascript:addfavicon(\'{url}\');">edit</a><a class="action" href="javascript:removefavicon(\'{url}\');">remove</a>';
 			
 			function loadFavicons(){
 				var favicons = prefs.favicons_domains;
 				if (!favicons){
 					return;
-				}
-				if (typeof favicons == "string"){
-					var newfavicons = {};
-					//old format, convert it
-					var sites = favicons.split(',');
-					for (var i=0,  len=sites.length; i<len; i++){
-						var site = sites[i];
-						if (site && site!='null') {
-							newfavicons[site]= '';
-						}
-					}
-					favicons=newfavicons;
-					prefs.favicons_domains=favicons;
 				}
 				var tplDomainLi = '<li id="li_{url}">'+tplDomain+'</li>';
 				var html='';
@@ -469,19 +456,41 @@
 				}
 				ul.innerHTML=html;
 			}
-			function addfavicon(){
-				var url = prompt ("Enter the site?","");
-				if (!url){return;}
-				var icon = prompt ("Enter the icon url:","");
-				if (!icon){return;}
+			function addfavicon(urlin){
+				var url = urlin || '';
+				url = prompt("Enter the site :", url);
+				if (!url) {
+					return;
+				}
+				var icon = prefs.favicons_domains[url] || '';
+				icon = prompt("Enter the icon url :", icon);
+				if (!icon) {
+					return;
+				}
 				
-				var favicon = {url:url, icon:icon};
-				var ul = document.getElementById('favicon_crud');
-				var li = document.createElement('li');
-				li.id='li_'+favicon.url;
-				li.innerHTML= fillTpl(tplDomain, favicon);
-				ul.appendChild(li);
-				prefs.favicons_domains[favicon.url]=favicon.icon;
+				var favicon = 
+				{
+					url: url,
+					icon: icon
+				};
+				if (urlin && url != urlin) {
+					//remove old
+					removefavicon(urlin);
+				}
+				
+				var id = 'li_' + favicon.url;
+				var li = document.getElementById(id);
+				if (!li) {
+					var ul = document.getElementById('favicon_crud');
+					li = document.createElement('li');
+					li.id = 'li_' + favicon.url;
+					ul.appendChild(li);
+				}
+				li.innerHTML = fillTpl(tplDomain, favicon);
+				savefavicon(favicon.url, favicon.icon);
+			}
+			function savefavicon(url,icon, title){
+				prefs.favicons_domains[url]=icon;
 			}
 
 			function removefavicon(url){
@@ -586,24 +595,21 @@
                         <div id="panel_favicons" style="display:none;">
                             <div class="body">
                                 <p>
-                                    Enter your custom favicon :
+                                    Enter your custom favicons :
                                 </p>
-                                <!--
-								<textarea name="favicons_domains" cols="70" rows="8">
-                                </textarea>
-								-->
 								<div id="crud_domains">
 									<ul class="mnu crud" id="favicon_crud">
 									</ul>
 									<a class="add" href="javascript:addfavicon();">Add</a>
 								</div>
                                 <p>
-                                    If icon is not found, you could add it using the contextual menu of the side bar ("Get favicon")
+                                    Tip: You could add it easily using the contextual menu "Get favicon" of the left side bar
                                 </p>
 								<input id="favicons_manual" name="favicons_manual" type="checkbox" />
                                 <label for="favicons_manual">
-                                    Manual search for all sites (not recommended ; slower)
+                                    Manual favicons for all sites (not recommended ; slower)
                                 </label>
+								<p>This will try to detect favicon by parsing each homepage</p>
                             </div>
                         </div>
                         <div id="panel_pack" style="display:none;">

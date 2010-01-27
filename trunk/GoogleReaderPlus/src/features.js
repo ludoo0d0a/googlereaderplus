@@ -18,7 +18,7 @@ GRP.scripts = [
     options: 
     {
         manual: '',
-        domains: ''
+        domains: {}
     }
 }, 
 {

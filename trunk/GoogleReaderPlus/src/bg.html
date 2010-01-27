@@ -3,20 +3,15 @@
         <title>GoogleReaderPlus Background</title>
         <script type="application/javascript" src="version.js">
         </script>
+		<script type="application/javascript" src="lib/util.js">
+        </script>
         <script type="application/javascript" src="features.js">
         </script>
         <script type="application/javascript">
             var myport;
-            var EXCEPTIONS = {};
             
             chrome.extension.onConnect.addListener(onPortConnect);
-            chrome.extension.onRequest.addListener(onPortRequest);
-            
-            if (typeof Array.forEach === "undefined") {
-                Array.forEach = function(arr, fn){
-                    Array.prototype.forEach.call(arr, fn);
-                };
-            }
+            //chrome.extension.onRequest.addListener(onPortRequest);
             
             function onPortConnect(a){
                 if (a.name != "googlereaderplus") {
@@ -26,6 +21,24 @@
                 a.onMessage.addListener(onMessageRecieved);
             }
             
+            function onMessageRecieved(a){
+                if (a.message == "loadicons") {
+                    loadIcons(a);
+                } else if (a.message == "setprefs") {
+                    setPreferences(a);
+                } else if (a.message == "getprefs") {
+                    getPreferences(a);
+                } else if (a.message == "openprefs") {
+                    open_preferences();
+                } else if (a.message == "opentab") {
+                    opentab(a);
+                } else if (a.message == "geticon") {
+                    extractFavicon(a);
+                } else if (a.message == "request") {
+                    request(a);
+                }
+            }
+			/*
             function onPortRequest(request, sender, sendResponse){
                 var prev;
                 chrome.tabs.getSelected(undefined, function(tab){
@@ -41,68 +54,83 @@
                     });
                 });
                 sendResponse({});
+            }*/
+            
+            function setPrefs(prefs, cleanall){
+                localStorage.setItem('grp_prefs', JSON.stringify(prefs));
+				if (cleanall) {
+					localStorage.setItem('grp_favicons', '');
+				}
             }
             
             function setPreferences(a){
                 localStorage.clear();
                 localStorage.setItem('grp_version', GRP.VERSION);
-				localStorage.setItem('prefs', JSON.stringify(a.prefs));
-				/*
-                for (var k in a.prefs) {
-                    if (a.prefs.hasOwnProperty(k)) {
-                        if (a.prefs[k]) {
-							var o = a.prefs[k];
-							if (typeof o === "object"){
-								o = JSON.stringify(o);
-							} 
-							localStorage.setItem(k, o);
-                        }
-                    }
-                }*/
+                setPrefs(a.prefs, a.cleanall);
+            }
+            
+            function getPrefs(a){
+                var id;
+                var textPrefs = localStorage.getItem('grp_prefs');
+                var prefs = JSON.parse(textPrefs);
+                prefs = checkPrefs(prefs);
+                return prefs;
             }
             
             function getPreferences(a){
-                var id;
-				var prefs = localStorage.getItem('prefs');
-				prefs=JSON.parse(prefs);
-				overrideDefaultPrefs();
-				//return
+                var prefs = getPrefs();
                 myport.postMessage(
                 {
                     message: "prefs",
                     prefs: prefs
                 });
-			}
+                
+                return prefs;
+            }
             
-            function overrideDefaultPrefs(){
-				//set default if not
-				for (var i = 0, len = GRP.scripts.length; i < len; i++) {
-					var script = GRP.scripts[i];
-					prefs[script.id] = getTypedValue(localStorage.getItem(script.id));
-					//options
-					if (script.options) {
-						for (var option in script.options) {
-							if (script.options.hasOwnProperty(option)) {
-								id = script.id + '_' + option;
-								if (!prefs[id]) {
-									prefs[id] = getTypedValue(script.options[option]);
-								}
-							}
-						}
-					}
-					//shortcuts
-					if (script.shortcuts) {
-						for (var j = 0, lenj = script.shortcuts.length; j < lenj; j++) {
-							var shortcut = script.shortcuts[j];
-							id = script.id + '_key_' + shortcut.id;
-							if (!prefs[id]) {
-								prefs[id] = localStorage.getItem(id);
-							}
-						}
-					}
-				}
-			}
-
+            function checkPrefs(prefs){
+                //set default if not
+                for (var i = 0, len = GRP.scripts.length; i < len; i++) {
+                    var script = GRP.scripts[i];
+                    //options
+                    if (script.options) {
+                        for (var option in script.options) {
+                            id = script.id + '_' + option;
+                            if (typeof prefs[id] === "undefined") {
+                                prefs[id] = getTypedValue(script.options[option]);
+                            }
+                        }
+                    }
+                    //shortcuts
+                    if (script.shortcuts) {
+                        for (var shortcut in script.shortcuts) {
+                            id = script.id + '_key_' + shortcut;
+                            if (typeof prefs[id] === "undefined") {
+                                prefs[id] = script.shortcuts[shortcut];
+                            }
+                        }
+                    }
+                }
+                
+                //Check domains
+                if (!prefs.favicons_domains) {
+                    prefs.favicons_domains = {};
+                }
+                if (typeof prefs.favicons_domains == "string") {
+                    var favicons = {};
+                    var sites = prefs.favicons_domains.split(',');
+                    for (var j = 0, ln = sites.length; i < ln; i++) {
+                        var site = sites[j];
+                        if (site && site != 'null') {
+                            favicons[site] = '';
+                        }
+                    }
+                    prefs.favicons_domains = favicons;
+                }
+                
+                return prefs;
+            }
+            
             
             function getTypedValue(text){
                 if (text === "true") {
@@ -114,51 +142,11 @@
                 }
             }
             
-            function onMessageRecieved(a){
-                if (a.message == "loadicons") {
-                    loadIcons(a);
-                } else if (a.message == "setprefs") {
-                    setPreferences(a);
-                } else if (a.message == "getprefs") {
-                    getPreferences(a);
-                } else if (a.message == "domain") {
-                    updateDomain(a);
-                } else if (a.message == "openprefs") {
-                    open_preferences();
-                } else if (a.message == "opentab") {
-                    opentab(a);
-                } else if (a.message == "geticon") {
-                    extractFavicon(a);
-                } else if (a.message == "request") {
-                    request(a);
-                }
-            }
-            
-            function updateDomain(a){
-                /*var domains = "" + localStorage.getItem("favicons_domains");
-                if (domains.indexOf(a.domain) < 0) {
-                    var ds = domains.split(",");
-                    ds.push(a.domain);
-                    domains = ds.join(",").replace(/^,+/, '').replace(/,+/g, ',');
-                    localStorage.setItem("favicons_domains", domains);
-                    //go update single icon
-                    extractFavicon(
-                    {
-                        url: 'http://' + a.domain,
-                        title: a.title,
-                        FAVICON: a.FAVICON
-                    });
-                }*/
-                   extractFavicon(
-                    {
-                        url: a.domain,
-                        title: a.title,
-                        FAVICON: a.FAVICON
-                    });
-            }
-            
-            function parseXml(xml, FAVICON_URL){
-                var FAVICON = {};
+            function parseXml(xml, FAVICON_TPL_URL){
+				var prefs = getPrefs();
+                var domains = prefs.favicons_domains;
+				
+				var FAVICON = {};
                 var manual = localStorage.getItem("favicons_manual") === "true";
                 Array.forEach(xml.getElementsByTagName('outline'), function(outline){
                     if (!outline.hasAttribute('htmlUrl')) {
@@ -167,27 +155,43 @@
                     var title = outline.getAttribute('title');
                     var url = outline.getAttribute('htmlUrl');
                     var favicon;
-                    url = url.split(/\/|\?/)[2];
-                    setFavicon(title, FAVICON_URL.join(url), url, FAVICON);
-                    if (manual || EXCEPTIONS[url]) {
+                    var domain = url.split(/\/|\?/)[2];
+					var icon = FAVICON_TPL_URL+domain;
+					
+					setFavicon(title, icon, url, FAVICON);
+/*
+					var icond = domains[url];//domains store site->faviconUrl
+					var manualDomain = (typeof icond !== "undefined"); 
+					if (manualDomain){
+						icon=icond;
+					}
+					//manualmode + (empty or null or not defined)
+					//or EXCEPTION + empty (autofill)
+					if ((manual && !icon) || (!manual && manualDomain && icon==='')) {
                         extractFavicon(
                         {
-                            url: 'http://' + url,
+                            url: url,
                             title: title,
                             FAVICON: FAVICON
                         });
-                    }
+                    }else{
+						setFavicon(title, icon, url, FAVICON);
+					}
+					*/
                 });
                 return FAVICON;
             }
             
+            function saveFavicon(url, icon){
+                var prefs = getPrefs();
+                prefs.favicons_domains[url] = icon;
+                setPrefs(prefs);
+            }
+            
             function setFavicon(title, icon, url, FAVICON){
-                var t = title;
-                if (t.length > 24) {
-                    t = t.substr(0, 21) + '...';
-                }
                 if (FAVICON) {
-                    FAVICON[t] = 
+                     var key = ellipsis(title);
+					 FAVICON[key] = 
                     {
                         icon: icon,
                         url: url,
@@ -197,25 +201,14 @@
             }
             
             function loadIcons(a){
-                var FAVICON_URL = a.FAVICON_URL;
-                //var domains = localStorage.getItem("favicons_domains");
-                var domains = a.domains;
-                if (domains && domains.length > 0) {
-                    var doms = domains.split(',');
-                    EXCEPTIONS = {};
-                    for (var i = 0; i < doms.length; i++) {
-                        if (("" + doms[i]).length > 0) {
-                            EXCEPTIONS[doms[i]] = true;
-                        }
-                    }
-                }
                 var xhr = new XMLHttpRequest();
                 xhr.open(a.method || 'get', a.url, true);
+				var FAVICON_TPL_URL = a.FAVICON_TPL_URL;
                 xhr.onload = function(o){
                     var xhr = o.target;
                     if (xhr) {
                         var xml = xhr.responseXML;
-                        var FAVICON = parseXml(xml, FAVICON_URL);
+                        var FAVICON = parseXml(xml, FAVICON_TPL_URL);
                         myport.postMessage(
                         {
                             message: "iconsloaded",
@@ -228,24 +221,36 @@
             
             function extractFavicon(a){
                 var xhr = new XMLHttpRequest();
-                xhr.open(a.method || 'get', a.url, true);
+				var url, title, key = a.key,FAVICON = a.FAVICON;
+				if (!key){
+					//url+title
+					key = ellipsis(title);
+					url = a.url;
+					title = a.title;
+				}else{
+					//key only
+					var f = FAVICON[key];
+					url = f.url;
+					title = f.title;
+				}	
+				
+                xhr.open(a.method || 'get', normalizeUrl(url), true);
                 xhr.onload = function(o){
-                    var xhr = o.target;
-                    var url = a.url;
-                    var title = a.title;
-                    var FAVICON = a.FAVICON;
+                    var xhr = o.target;			
                     if (xhr) {
                         var html = xhr.responseText; //responseBody
                         var icon = parseFavicon(html, url);
-                        setFavicon(title, icon, url, FAVICON);
-                        //saveDomain(title, icon, url);
+						if (icon) {
+							setFavicon(title, icon, url, FAVICON);
+							saveFavicon(url, icon);
+						}
                         myport.postMessage(
                         {
                             message: "iconget",
                             title: title,
                             icon: icon,
                             url: url,
-                            FAVICON: FAVICON
+							FAVICON: FAVICON
                         });
                     }
                 };
@@ -265,7 +270,7 @@
                     }
                 }
                 if (!icon) {
-                    icon = url + "/favicon.ico";
+                    icon = cleanUrl(url) + "/favicon.ico";
                 } else {
                     //Add domain if relative url
                     var re = new RegExp("^http:", "i");
@@ -273,6 +278,7 @@
                         icon = url + '/' + icon;
                     }
                 }
+				icon = normalizeUrl(icon);
                 return icon;
             }
             

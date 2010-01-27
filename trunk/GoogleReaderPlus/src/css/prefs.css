@@ -177,8 +177,9 @@ li a.link {
 /**
  * favicon
  */
-.remove{
+a.action{
 	float:right;
+	margin-left:4px;
 }
 img.favicon{
 	margin-right:5px;
