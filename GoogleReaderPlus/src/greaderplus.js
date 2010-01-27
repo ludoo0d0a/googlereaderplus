@@ -1,6 +1,6 @@
 /**
  * Google Reader Plus
- * @version  2.7.0
+ * @version  2.7.1
  * @date 2010-01-04
  *
  * Adds favicons to feeds and entries
