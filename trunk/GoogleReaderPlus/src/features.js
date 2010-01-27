@@ -70,7 +70,8 @@ GRP.scripts = [
             title: 'Multi columns',
             key: 
             {
-                keyCode: 67
+                //67 c
+				keyCode: 67
             }
         }
     }
@@ -92,7 +93,8 @@ GRP.scripts = [
             title: 'Entry preview',
             key: 
             {
-                keyCode: 81
+                //81 q
+				keyCode: 81
             }
         }
     }
@@ -126,7 +128,8 @@ GRP.scripts = [
             title: 'Post on Facebook',
             key: 
             {
-                keyCode: 66
+                 //66 b
+				 keyCode: 66
             }
         }
     }
@@ -144,7 +147,8 @@ GRP.scripts = [
             title: 'Post on Twitter',
             key: 
             {
-                keyCode: 68
+                 //68 d
+				 keyCode: 68
             }
         }
     }
@@ -162,7 +166,8 @@ GRP.scripts = [
             title: 'Mark items before As Read',
             key: 
             {
-                keyCode: 87
+                 //87 w
+				 keyCode: 87
             }
         },
         'marknext': 
@@ -171,7 +176,8 @@ GRP.scripts = [
             title: 'Mark items after As Read',
             key: 
             {
-                keyCode: 75
+                //75 x
+				keyCode: 75
             }
         }
     }
@@ -189,7 +195,9 @@ GRP.scripts = [
             title: 'Goto top',
             key: 
             {
-                keyCode: 84
+                //84 Shift+T
+				keyCode: 84,
+				shiftKey:true
             }
         },
         'godown': 
@@ -198,7 +206,9 @@ GRP.scripts = [
             title: 'Goto bottom',
             key: 
             {
-                keyCode: 66
+                //66 Shift+B
+				keyCode: 66,
+				shiftKey:true
             }
         }
     }
@@ -216,7 +226,8 @@ GRP.scripts = [
             title: 'Fit height',
             key: 
             {
-                keyCode: 70
+                //70 f
+				keyCode: 70
             }
         }
     }
@@ -234,7 +245,8 @@ GRP.scripts = [
             title: 'Close entry',
             key: 
             {
-                keyCode: 88
+                //88 x
+				keyCode: 88
             }
         }
     }

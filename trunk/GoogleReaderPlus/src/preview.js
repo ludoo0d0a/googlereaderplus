@@ -164,7 +164,7 @@ GRP.preview = function(prefs){
    initCatchEntries(addPreviewButton, 'epreview');
    initResize(onResize);
    
-	var keycode = getShortcutKey('preview', 'prview', prefs); //81 Shift+R
+	var keycode = getShortcutKey('preview', 'prview', prefs); //81 q
 	keycode.fn = previewShortcut;
 	initKey(keycode);
 };

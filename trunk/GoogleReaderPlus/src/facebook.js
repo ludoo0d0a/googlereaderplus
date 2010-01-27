@@ -79,7 +79,7 @@ GRP.facebook = function(prefs) {
 	};
 
 	initCatchEntries(addButton, 'efacebook');
-	var keycode = getShortcutKey('facebook', 'gofacebook', prefs); //66;//b
+	var keycode = getShortcutKey('facebook', 'gofacebook', prefs); //66 b
 	keycode.fn = addKey;
 	initKey(keycode);
 };
