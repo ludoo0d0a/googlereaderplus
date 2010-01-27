@@ -8,7 +8,7 @@
         <script type="application/javascript">
             var myport;
             var EXCEPTIONS = {};
-
+            
             chrome.extension.onConnect.addListener(onPortConnect);
             chrome.extension.onRequest.addListener(onPortRequest);
             
@@ -45,53 +45,68 @@
             
             function setPreferences(a){
                 localStorage.clear();
-					 localStorage.setItem('grp_version', GRP.VERSION);
+                localStorage.setItem('grp_version', GRP.VERSION);
+				localStorage.setItem('prefs', JSON.stringify(a.prefs));
+				/*
                 for (var k in a.prefs) {
                     if (a.prefs.hasOwnProperty(k)) {
                         if (a.prefs[k]) {
-                            localStorage.setItem(k, a.prefs[k]);
+							var o = a.prefs[k];
+							if (typeof o === "object"){
+								o = JSON.stringify(o);
+							} 
+							localStorage.setItem(k, o);
                         }
                     }
-                }
+                }*/
             }
             
             function getPreferences(a){
-                var id, prefs = {};
-                for (var i = 0, len = GRP.scripts.length; i < len; i++) {
-                    var script = GRP.scripts[i];
-                    prefs[script.id] = getTypedValue(localStorage.getItem(script.id));
-                    //options
-                    if (script.options) {
-                        for (var option in script.options) {
-                            if (script.options.hasOwnProperty(option)) {
-                                //var value = script.options[option];
-                                id = script.id + '_' + option;
-                                prefs[id] = getTypedValue(localStorage.getItem(id));
-                            }
-                        }
-                    }
-						  //shortcuts
-						  if (script.shortcuts) {
-                        for (var j = 0, lenj = script.shortcuts.length; j < lenj; j++) {
-                            var shortcut = script.shortcuts[j];
-									 id = script.id + '_key_' + shortcut.id;
-									 var value = localStorage.getItem(id);
-                            if (value){
-									 	prefs[id] =value;
-									} 
-                        }
-                    }
-                }
+                var id;
+				var prefs = localStorage.getItem('prefs');
+				prefs=JSON.parse(prefs);
+				overrideDefaultPrefs();
+				//return
                 myport.postMessage(
                 {
                     message: "prefs",
                     prefs: prefs
                 });
-            }
+			}
+            
+            function overrideDefaultPrefs(){
+				//set default if not
+				for (var i = 0, len = GRP.scripts.length; i < len; i++) {
+					var script = GRP.scripts[i];
+					prefs[script.id] = getTypedValue(localStorage.getItem(script.id));
+					//options
+					if (script.options) {
+						for (var option in script.options) {
+							if (script.options.hasOwnProperty(option)) {
+								id = script.id + '_' + option;
+								if (!prefs[id]) {
+									prefs[id] = getTypedValue(script.options[option]);
+								}
+							}
+						}
+					}
+					//shortcuts
+					if (script.shortcuts) {
+						for (var j = 0, lenj = script.shortcuts.length; j < lenj; j++) {
+							var shortcut = script.shortcuts[j];
+							id = script.id + '_key_' + shortcut.id;
+							if (!prefs[id]) {
+								prefs[id] = localStorage.getItem(id);
+							}
+						}
+					}
+				}
+			}
+
             
             function getTypedValue(text){
                 if (text === "true") {
-                   return true;
+                    return true;
                 } else if (text === "false") {
                     return false;
                 } else {
@@ -118,27 +133,29 @@
                     request(a);
                 }
             }
-			/*
-			function saveDomain(title, icon, url){
-				
-			}
-			*/
-			function updateDomain(a){
-				var domains = "" + localStorage.getItem("favicons_domains");
-				if (domains.indexOf(a.domain) < 0) {
-					var ds = domains.split(",");
-					ds.push(a.domain);
-					domains = ds.join(",").replace(/^,+/, '').replace(/,+/g, ',');
-					localStorage.setItem("favicons_domains", domains);
-					//go update single icon
-					extractFavicon(
-					{
-						url: 'http://' + a.domain,
-						title: a.title,
-						FAVICON: a.FAVICON
-					});
-				}
-			}
+            
+            function updateDomain(a){
+                /*var domains = "" + localStorage.getItem("favicons_domains");
+                if (domains.indexOf(a.domain) < 0) {
+                    var ds = domains.split(",");
+                    ds.push(a.domain);
+                    domains = ds.join(",").replace(/^,+/, '').replace(/,+/g, ',');
+                    localStorage.setItem("favicons_domains", domains);
+                    //go update single icon
+                    extractFavicon(
+                    {
+                        url: 'http://' + a.domain,
+                        title: a.title,
+                        FAVICON: a.FAVICON
+                    });
+                }*/
+                   extractFavicon(
+                    {
+                        url: a.domain,
+                        title: a.title,
+                        FAVICON: a.FAVICON
+                    });
+            }
             
             function parseXml(xml, FAVICON_URL){
                 var FAVICON = {};
@@ -182,7 +199,7 @@
             function loadIcons(a){
                 var FAVICON_URL = a.FAVICON_URL;
                 //var domains = localStorage.getItem("favicons_domains");
-				var domains = a.domains;
+                var domains = a.domains;
                 if (domains && domains.length > 0) {
                     var doms = domains.split(',');
                     EXCEPTIONS = {};
@@ -221,6 +238,7 @@
                         var html = xhr.responseText; //responseBody
                         var icon = parseFavicon(html, url);
                         setFavicon(title, icon, url, FAVICON);
+                        //saveDomain(title, icon, url);
                         myport.postMessage(
                         {
                             message: "iconget",
@@ -247,14 +265,14 @@
                     }
                 }
                 if (!icon) {
-					icon = url + "/favicon.ico";
-				} else {
-					//Add domain if relative url
-					var re = new RegExp("^http:", "i");
-					if (!re.test(icon)) {
-						icon = url + '/' + icon;
-					}
-				}
+                    icon = url + "/favicon.ico";
+                } else {
+                    //Add domain if relative url
+                    var re = new RegExp("^http:", "i");
+                    if (!re.test(icon)) {
+                        icon = url + '/' + icon;
+                    }
+                }
                 return icon;
             }
             
