@@ -1,0 +1,191 @@
+<html>
+    <head>
+        <title>Google Reader Plus</title>
+        <style type="text/css">
+            
+            body {
+                font-family: arial, sans-serif;
+                font-size: 80%;
+                background: #898989;
+                color: #fff;
+            }
+            
+            body a, body a:visited {
+                color: #fff;
+                text-decoration: none;
+                border-bottom: 1px dotted #fff;
+            }
+            
+            body a:hover {
+                border-bottom: 1px solid #fff;
+            }
+            
+            img {
+                border: 0;
+            }
+            
+            h1 {
+                margin-top: 0;
+            }
+            
+            #optionsBox {
+                margin: 0 auto;
+                margin-top: 30px;
+                text-align: center;
+                width: 500px;
+            }
+            
+            #optionsBox img {
+                vertical-align: text-bottom;
+            }
+            
+            #optionsBox input {
+                margin-top: 5px;
+            }
+            
+            #save {
+                clear: both;
+                float: right;
+                margin: 0;
+                padding: 0;
+                text-align: right;
+                font-size: 70%;
+                font-weight: bold;
+            }
+            
+            span.field {
+                padding-top: 8px;
+                clear: both;
+                float: left;
+                text-align: right;
+                width: 80px;
+            }
+            
+            table {
+                border-width: 5px;
+                border-style: outset;
+                border-color: gray;
+                border-collapse: separate;
+                background-color: #fff;
+                color: #000;
+                font-size: 90%;
+                margin: 0 auto;
+                width: 100%;
+                position: relative;
+            }
+            
+            table a, table a:visited {
+                color: #000;
+                text-decoration: none;
+                border-bottom: 1px dotted #000;
+            }
+            
+            table a:hover {
+                border-bottom: 1px solid #000;
+            }
+            
+            table td {
+                border-width: 1px;
+                padding: 10px;
+                border-style: dashed;
+                border-color: #ccc;
+                background-color: white;
+            }
+            
+            td.left_column {
+                text-align: right;
+                width: 100px;
+            }
+            
+            form {
+                margin: 0 auto;
+                padding: 0;
+            }
+            
+            .top_right {
+                right: 15px;
+                top: 5px;
+                position: absolute;
+            }
+            
+            li, h4 {
+                font-size: 85%;
+            }
+        </style>
+        <script type="application/javascript" src="version.js">
+        </script>
+        <script type="application/javascript">
+            window.onload = function(){
+               GRP.setVersion();
+            };
+        </script>
+    </head>
+    <body>
+        <div id="optionsBox">
+            <h1>Google Reader Plus <span id='version'></span></h1>
+            <table>
+                <tr>
+                    <td>
+                        <span class="top_right"><img src="48.png"></span><h1>Thank you...</h1>
+                        <p>... for installing (or updating to) the latest version of <strong>Google Reader Plus</strong>!</p>
+                        <p>Make sure you check the <a href="preferences.html" title="Go to the preferences page"><strong>preferences page</strong></a> for configuration of the extension.</p>
+                        <p><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong>Visit the Google Chrome Extensions gallery page!</strong></a></p>
+                        <p><a href="http://www.twitter.com/ludoo0d0a"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow me on Twitter"/></a></p><p></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>If you like this extension and want more features, feel free to make a donation.</p>
+                        <p>In this way, I could buy a truck of coffee so that i can stay awake to write all the code :)</p>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h2>Changelog</h2>
+                        <h4>Version 2.7.1 - 27/01/2010</h4>
+                        <ul>
+                            <li>close entry shortcut bugfix</li>
+                        </ul>
+								<h4>Version 2.7.0 - 22/01/2010</h4>
+                        <ul>
+                            <li>new feature : fit height, open in background, packages</li>
+                            <li>updates : colorful listview now colors tree</li>
+                            <li>Preferences page theme</li>
+                            <li>Custom shortcuts</li>
+									 <li>Favicons improvement</li>
+                            <li>Lock option (some features can now be activated by default)</li>
+                            <li>resize image on multi colum</li>
+                            <li>theme unchecked = no theme</li>
+                            <li>fixenclosures and fixwidth merged into fixlayout</li>
+                            <li>large refactoring of the code</li>
+                        </ul>
+                        <h4>Version 2.6.0 - 8/01/2010</h4>
+                        <ul>
+                            <li>new feature : close entry</li>
+                            <li>add system information</li>
+                        </ul>
+                        <h4>Version 2.5.4 - 7/01/2010</h4>
+                        <ul>
+                            <li>bugfix on regex for removeads</li>
+                        </ul>
+                        <h4>Version 2.5.3 - 7/01/2010</h4>
+                        <ul>
+                            <li>debugging log removed on saved alert</li>
+                        </ul>
+                        <h4>2.5.2 - 7/01/2010</h4>
+                        <ul>
+                            <li>Preferences page rewritten to add options panel by feature</li>
+                            <li>Add an about page (loaded on update/install)</li>
+                            <li>Remove ads filters are configurable (as regular expressions)</li>
+                        </ul>
+                        <h4>Version 2.5.1 - 5/01/2010</h4>
+                        <ul>
+                            <li>bugfix for preview height</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

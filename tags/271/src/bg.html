@@ -1,0 +1,381 @@
+<html>
+    <head>
+        <title>GoogleReaderPlus Background</title>
+        <script type="application/javascript" src="version.js">
+        </script>
+		<script type="application/javascript" src="lib/util.js">
+        </script>
+        <script type="application/javascript" src="features.js">
+        </script>
+        <script type="application/javascript">
+            var myport;
+            
+            chrome.extension.onConnect.addListener(onPortConnect);
+            //chrome.extension.onRequest.addListener(onPortRequest);
+            
+            function onPortConnect(a){
+                if (a.name != "googlereaderplus") {
+                    return false;
+                }
+                myport = a;
+                a.onMessage.addListener(onMessageRecieved);
+            }
+            
+            function onMessageRecieved(a){
+                if (a.message == "loadicons") {
+                    loadIcons(a);
+                } else if (a.message == "setprefs") {
+                    setPreferences(a);
+                } else if (a.message == "getprefs") {
+                    getPreferences(a);
+                } else if (a.message == "openprefs") {
+                    open_preferences();
+                } else if (a.message == "opentab") {
+                    opentab(a);
+                } else if (a.message == "geticon") {
+                    extractFavicon(a);
+                } else if (a.message == "request") {
+                    request(a);
+                }
+            }
+			/*
+            function onPortRequest(request, sender, sendResponse){
+                var prev;
+                chrome.tabs.getSelected(undefined, function(tab){
+                    prev = tab.id;
+                });
+                chrome.tabs.create(
+                {
+                    url: request.url
+                }, function(tab){
+                    chrome.tabs.update(prev, 
+                    {
+                        selected: true
+                    });
+                });
+                sendResponse({});
+            }*/
+            
+            function setPrefs(prefs, cleanall){
+                localStorage.setItem('grp_prefs', JSON.stringify(prefs));
+				if (cleanall) {
+					localStorage.setItem('grp_favicons', '');
+				}
+            }
+            
+            function setPreferences(a){
+                localStorage.clear();
+                localStorage.setItem('grp_version', GRP.VERSION);
+                setPrefs(a.prefs, a.cleanall);
+            }
+            
+            function getPrefs(a){
+                var id;
+                var textPrefs = localStorage.getItem('grp_prefs');
+                var prefs = JSON.parse(textPrefs);
+                prefs = checkPrefs(prefs);
+                return prefs;
+            }
+            
+            function getPreferences(a){
+                var prefs = getPrefs();
+                myport.postMessage(
+                {
+                    message: "prefs",
+                    prefs: prefs
+                });
+                
+                return prefs;
+            }
+            
+            function checkPrefs(prefs){
+                //set default if not
+                for (var i = 0, len = GRP.scripts.length; i < len; i++) {
+                    var script = GRP.scripts[i];
+                    //options
+                    if (script.options) {
+                        for (var option in script.options) {
+                            id = script.id + '_' + option;
+                            if (typeof prefs[id] === "undefined") {
+                                prefs[id] = getTypedValue(script.options[option]);
+                            }
+                        }
+                    }
+                    //shortcuts
+                    if (script.shortcuts) {
+                        for (var shortcut in script.shortcuts) {
+                            id = script.id + '_key_' + shortcut;
+                            if (typeof prefs[id] === "undefined") {
+                                prefs[id] = script.shortcuts[shortcut];
+                            }
+                        }
+                    }
+                }
+                
+                //Check domains
+                if (!prefs.favicons_domains) {
+                    prefs.favicons_domains = {};
+                }
+                if (typeof prefs.favicons_domains == "string") {
+                    var favicons = {};
+                    var sites = prefs.favicons_domains.split(',');
+                    for (var j = 0, ln = sites.length; i < ln; i++) {
+                        var site = sites[j];
+                        if (site && site != 'null') {
+                            favicons[site] = '';
+                        }
+                    }
+                    prefs.favicons_domains = favicons;
+                }
+                
+                return prefs;
+            }
+            
+            
+            function getTypedValue(text){
+                if (text === "true") {
+                    return true;
+                } else if (text === "false") {
+                    return false;
+                } else {
+                    return text;
+                }
+            }
+            
+            function parseXml(xml, FAVICON_TPL_URL){
+				var prefs = getPrefs();
+                var domains = prefs.favicons_domains;
+				
+				var FAVICON = {};
+                var manual = localStorage.getItem("favicons_manual") === "true";
+                Array.forEach(xml.getElementsByTagName('outline'), function(outline){
+                    if (!outline.hasAttribute('htmlUrl')) {
+                        return;
+                    }
+                    var title = outline.getAttribute('title');
+                    var url = outline.getAttribute('htmlUrl');
+                    var favicon;
+                    var domain = url.split(/\/|\?/)[2];
+					var icon = FAVICON_TPL_URL+domain;
+					
+					setFavicon(title, icon, url, FAVICON);
+/*
+					var icond = domains[url];//domains store site->faviconUrl
+					var manualDomain = (typeof icond !== "undefined"); 
+					if (manualDomain){
+						icon=icond;
+					}
+					//manualmode + (empty or null or not defined)
+					//or EXCEPTION + empty (autofill)
+					if ((manual && !icon) || (!manual && manualDomain && icon==='')) {
+                        extractFavicon(
+                        {
+                            url: url,
+                            title: title,
+                            FAVICON: FAVICON
+                        });
+                    }else{
+						setFavicon(title, icon, url, FAVICON);
+					}
+					*/
+                });
+                return FAVICON;
+            }
+            
+            function saveFavicon(url, icon){
+                var prefs = getPrefs();
+                prefs.favicons_domains[url] = icon;
+                setPrefs(prefs);
+            }
+            
+            function setFavicon(title, icon, url, FAVICON){
+                if (FAVICON) {
+                     var key = ellipsis(title);
+					 FAVICON[key] = 
+                    {
+                        icon: icon,
+                        url: url,
+                        title: title
+                    };
+                }
+            }
+            
+            function loadIcons(a){
+                var xhr = new XMLHttpRequest();
+                xhr.open(a.method || 'get', a.url, true);
+				var FAVICON_TPL_URL = a.FAVICON_TPL_URL;
+                xhr.onload = function(o){
+                    var xhr = o.target;
+                    if (xhr) {
+                        var xml = xhr.responseXML;
+                        var FAVICON = parseXml(xml, FAVICON_TPL_URL);
+                        myport.postMessage(
+                        {
+                            message: "iconsloaded",
+                            FAVICON: FAVICON
+                        });
+                    }
+                };
+                xhr.send({});
+            }
+            
+            function extractFavicon(a){
+                var xhr = new XMLHttpRequest();
+				var url, title, key = a.key,FAVICON = a.FAVICON;
+				if (!key){
+					//url+title
+					key = ellipsis(title);
+					url = a.url;
+					title = a.title;
+				}else{
+					//key only
+					var f = FAVICON[key];
+					url = f.url;
+					title = f.title;
+				}	
+				
+                xhr.open(a.method || 'get', normalizeUrl(url), true);
+                xhr.onload = function(o){
+                    var xhr = o.target;			
+                    if (xhr) {
+                        var html = xhr.responseText; //responseBody
+                        var icon = parseFavicon(html, url);
+						if (icon) {
+							setFavicon(title, icon, url, FAVICON);
+							saveFavicon(url, icon);
+						}
+                        myport.postMessage(
+                        {
+                            message: "iconget",
+                            title: title,
+                            icon: icon,
+                            url: url,
+							FAVICON: FAVICON
+                        });
+                    }
+                };
+                xhr.send({});
+            }
+            
+            function parseFavicon(html, url){
+                var icon, link;
+                var relink = /<LINK[^>]*?REL=["'](SHORTCUT\W+)?ICON["'][^>]*?>/i;
+                var rehref = /href=["'](.*?)["']/i;
+                var m = relink.exec(html);
+                if (m) {
+                    link = m[0];
+                    m = rehref.exec(link);
+                    if (m) {
+                        icon = m[1];
+                    }
+                }
+                if (!icon) {
+                    icon = cleanUrl(url) + "/favicon.ico";
+                } else {
+                    //Add domain if relative url
+                    var re = new RegExp("^http:", "i");
+                    if (!re.test(icon)) {
+                        icon = url + '/' + icon;
+                    }
+                }
+				icon = normalizeUrl(icon);
+                return icon;
+            }
+            
+            function request(a){
+                var xhr = new XMLHttpRequest();
+                xhr.open(a.method || 'get', a.url, true);
+                //headers
+                if (a.headers) {
+                    for (var k in a.headers) {
+                        xhr.setRequestHeader(k, a.headers[k]);
+                    }
+                }
+                xhr.onload = function(o){
+                    var xhr = o.target;
+                    if (xhr) {
+                        myport.postMessage(
+                        {
+                            message: a.callback || "requestdone",
+                            responseXML: xhr.responseXML,
+                            responseText: xhr.responseText,
+                            responseHeaders: xhr.responseHeaders,
+                            status: xhr.status,
+                            statusText: xhr.statusText
+                        });
+                    }
+                };
+                var fns = ['readystatechange', 'error'];
+                for (var i = 0, len = fns.length; i < len; i++) {
+                    var f = fns[i];
+                    if (a['on' + f]) {
+                        xhr[f] = function(o){
+                            var xhr = o.target;
+                            if (xhr) {
+                                myport.postMessage(
+                                {
+                                    message: a.callback || "requestdone",
+                                    action: f,
+                                    responseXML: xhr.responseXML,
+                                    responseText: xhr.responseText,
+                                    responseHeaders: xhr.responseHeaders,
+                                    status: xhr.status,
+                                    statusText: xhr.statusText
+                                });
+                            }
+                        };
+                    }
+                    /*if (typeof a[o] === "function") {
+                     xhr[o] = a[o];
+                     }*/
+                }
+                try {
+                    xhr.send(a.data || {});
+                } 
+                catch (e) {
+                    myport.postMessage(
+                    {
+                        message: a.callback || "requestdone",
+                        responseText: e.message || 'Error',
+                        status: (e.name || '') + ' ' + (e.code || 0),
+                        statusText: (e.name || '') + ' ' + (e.code || 0),
+                        action: 'error',
+                        error: e
+                    });
+                }
+            }
+            
+            function opentab(a){
+                var o = 
+                {
+                    url: a.url,
+                    selected: a.selected,
+                    windowId: a.windowId,
+                    index: a.index
+                };
+                chrome.tabs.create(o);
+            }
+            
+            function open_preferences(){
+                opentab(
+                {
+                    url: "preferences.html"
+                });
+            }
+            
+            function init(){
+                var v = localStorage.getItem('grp_version');
+                if (v === null || v !== GRP.VERSION) {
+                    localStorage.setItem('grp_version', GRP.VERSION);
+                    opentab(
+                    {
+                        url: "about.html"
+                    });
+                }
+                
+            }
+        </script>
+    </head>
+    <body onload="init();">
+    </body>
+</html>
