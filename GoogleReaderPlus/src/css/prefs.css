@@ -137,6 +137,9 @@ li a.link {
     font-size: 85%;
     font-family: 'trebuchet ms', Verdana, Arial, Helvetica, sans-serif;
 }
+.mnu.crud li a{
+	display: inline;
+}
 .mnu.shortcut li {
 	padding:5px 10px;
 }
@@ -169,6 +172,16 @@ li a.link {
 .mnu li.button a {
     padding-left: 0 !important;
     text-align: center;
+}
+
+/**
+ * favicon
+ */
+.remove{
+	float:right;
+}
+img.favicon{
+	margin-right:5px;
 }
 
 /**

@@ -16,7 +16,6 @@
                 createscripts();
                 createskins();
                 infoNavigator();
-                
                 showPanel('theme');
                 
                 if (typeof chrome !== "undefined" && chrome.extension) {
@@ -53,27 +52,25 @@
             }
             
             function applyprefs(){
-                if (prefs) {
-                    var form = document.frmprefs;
-                    for (var o in prefs) {
-                        var pref = prefs[o];
-                        if (form[o]) {
-                            if (form[o].key) {
-                                //shortcut code
-                                prefs[o] = form[o].key;
-                            } else if (form[o].type === "checkbox") {
-                                prefs[o] = form[o].checked || false;
-                            } else {
-                                prefs[o] = form[o].value;
-                            }
-                            
+                var form = document.frmprefs;
+                for (var o in prefs) {
+                    var pref = prefs[o];
+                    if (form[o]) {
+                        if (form[o].key) {
+                            //shortcut code
+                            prefs[o] = form[o].key;
+                        } else if (form[o].type === "checkbox") {
+                            prefs[o] = form[o].checked || false;
                         } else {
-                            console.log("Pref not found in form : " + o);
+                            prefs[o] = form[o].value;
                         }
+                        
+                    } else {
+                        console.log("Pref not found in form : " + o);
                     }
                 }
             }
-            
+
             function saveprefs(reload){
                 //TODO: save all form.elements
                 applyprefs();
@@ -115,6 +112,7 @@
                         }
                     }
                     loadSkin();
+					loadFavicons();
                 }
             }
             
@@ -442,37 +440,58 @@
                 loadprefs();//update
             }
 			
-			var index_favicon=0;
-			function addfavicons(favicons){
-				for (var i=0, len=favicons.length; i<len; i++){
-					var favicon = favicons[i];
-					addfavicon(favicon);
+			var tplDomain = '<a href="http://{url}" target="_blank"><span><img alt="favicon" class="favicon" title="Preview" src="{icon}" width="16" height="16"/>{url}</span></a><a class="remove" href="javascript:removefavicon(\'{url}\');">remove</a>';
+			
+			function loadFavicons(){
+				var favicons = prefs.favicons_domains;
+				if (!favicons){
+					return;
+				}
+				if (typeof favicons == "string"){
+					var newfavicons = {};
+					//old format, convert it
+					var sites = favicons.split(',');
+					for (var i=0,  len=sites.length; i<len; i++){
+						var site = sites[i];
+						if (site && site!='null') {
+							newfavicons[site]= '';
+						}
+					}
+					favicons=newfavicons;
+					prefs.favicons_domains=favicons;
+				}
+				var tplDomainLi = '<li id="li_{url}">'+tplDomain+'</li>';
+				var html='';
+				var ul = document.getElementById('favicon_crud');
+				for (var url in favicons){
+					var favicon={url:url, icon:favicons[url]};
+					html += fillTpl(tplDomainLi, favicon);
+				}
+				ul.innerHTML=html;
+			}
+			function addfavicon(){
+				var url = prompt ("Enter the site?","");
+				if (!url){return;}
+				var icon = prompt ("Enter the icon url:","");
+				if (!icon){return;}
+				
+				var favicon = {url:url, icon:icon};
+				var ul = document.getElementById('favicon_crud');
+				var li = document.createElement('li');
+				li.id='li_'+favicon.url;
+				li.innerHTML= fillTpl(tplDomain, favicon);
+				ul.appendChild(li);
+				prefs.favicons_domains[favicon.url]=favicon.icon;
+			}
+
+			function removefavicon(url){
+				delete prefs.favicons_domains[url];
+				var li = document.getElementById('li_'+url);
+				if (li) {
+					li.parentNode.removeChild(li);
 				}
 			}
-			function addfavicon(favicon){
-				index_favicon++;
-				favicon=favicon||{id:index_favicon, site:'', url:'', icon:''};
-				var tpl = '<tr id="favicon_row_{id}"><td><input type="text" class="ignore" name="favicon_site_{id}" value="{site}" size="40"/></td><td><input type="text" class="ignore" name="favicon_url_{id}" value="{url}" size="40"/></td><td><img alt="favicon" title="Preview of favicon" src="{icon}" width="16" height="16"/></td><td><a href="javascript:removefavicon({id});">Remove</a></td></tr>';
-				var table = document.getElementById('favicon_crud');
-				var row = document.createElement('tr');
-				tr.innerHTML = fillTpl(tpl, favicon);
-				table.append(row);
-			}
-			function removefavicon(id){
-				var row = document.getElementById('favicon_row_'+id);
-				row.parentNode.removeChild(row);
-			}
-			
-			function getfavicons(){
-				var hidden = document.getElementById('favicon_favicons');
-				var favicons = JSON.parse(hidden.value);
-				return favicons;
-			}
-			function setfavicons(){
-				var hidden = document.getElementById('favicon_favicons');
-				hidden.value = JSON.stringify(favicons);
-			}
-            
+
             window.onload = init;
             //}());
         </script>
@@ -512,7 +531,7 @@
                         <input type="button" name="Submit" value="Save" onClick="saveprefs();">
                     </div>
                     <div id="panels">
-                        <div id="panel_theme">
+                        <div id="panel_theme" style="display:none;">
                             <div class="body">
                                 <div id="themebox">
                                     <input id="theme_skin" name="theme_skin" type="hidden" value=""/>
@@ -566,36 +585,25 @@
                         </div>
                         <div id="panel_favicons" style="display:none;">
                             <div class="body">
-                                <input id="favicons_manual" name="favicons_manual" type="checkbox" />
-                                <label for="favicons_manual">
-                                    Manual search for all sites (not recommended ; slower)
-                                </label>
                                 <p>
-                                    Extract favicon for following sites (comma separated):
+                                    Enter your custom favicon :
                                 </p>
-                                <textarea name="favicons_domains" cols="70" rows="8">
+                                <!--
+								<textarea name="favicons_domains" cols="70" rows="8">
                                 </textarea>
+								-->
 								<div id="crud_domains">
-									<input type="hidden" name="favicon_favicons" value=""/>
-									<table summary="crud" class="crud" id="favicon_crud">
-										<tr>
-											<th>Site</th>
-											<th>Icon</th>
-											<th class="preview-title">Preview</th>
-											<th>&nbsp;</th>
-										</tr>
-										<tr>
-											<td><input type="text" name="favicon_site_1" size="40"/></td>
-											<td><input type="text" name="favicon_icon_1" size="40"/></td>
-											<td><img alt="favicon" title="Preview of favicon" src="favicon1.ico" width="16" height="16"/></td>
-											<td><a href="javascript:removefavicon(1);">Remove</a></td>
-										</tr>
-									</table>
+									<ul class="mnu crud" id="favicon_crud">
+									</ul>
 									<a class="add" href="javascript:addfavicon();">Add</a>
 								</div>
                                 <p>
-                                    You could add too a site using the contextual menu of the side bar ("Get favicon")
+                                    If icon is not found, you could add it using the contextual menu of the side bar ("Get favicon")
                                 </p>
+								<input id="favicons_manual" name="favicons_manual" type="checkbox" />
+                                <label for="favicons_manual">
+                                    Manual search for all sites (not recommended ; slower)
+                                </label>
                             </div>
                         </div>
                         <div id="panel_pack" style="display:none;">
