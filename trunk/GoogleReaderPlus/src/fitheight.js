@@ -15,6 +15,7 @@ GRP.fitheight = function(prefs) {
 
 	function fitHeight(btn, entry, locked){
 		var active = isActive(btn, entry, 'fitheight', locked);
+		//TODO: replace 'fit-height-on' with 'fitheight'
 		addClassIf(entry, 'fit-height-on', active);
 		jump(entry, true);
 	}	
@@ -31,11 +32,10 @@ GRP.fitheight = function(prefs) {
 		onKey('btn-fitheight', fitHeight);
 	}
 	
-	
-	
 	var he = getHeightEntries()-2;	
 
 	var css = " .read.fit-height-on .entry-body{ display:block !important; max-height: "+he+"px !important; overflow-y:auto;}";
+	css += ".fit-height-on .entry-likers{display:none;}";
 	GM_addStyle(css);
 	
 	initCatchEntries(addButton, 'efitheight');
