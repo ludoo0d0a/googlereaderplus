@@ -44,7 +44,7 @@ GRP.column = function(prefs) {
 					}else if (tag==="#text"){
 						txt += paras[i].textContent;//nodeValue
 					}else if(tag==="IFRAME" || tag==="OBJECT" || tag==="EMBED"){
-						// nothing
+						//TODO: add a resized video
 					}else if (tag==="DIV"){
 						txt += paras[i].innerHTML;
 					}else{
@@ -86,13 +86,18 @@ GRP.column = function(prefs) {
 		locked = prefs.column_locked;
 	}
 
-	var cw = getFirstElementMatchingClassName(document, 'div', 'entry-main');
-	if (!cw) {
-		cw = get_id('entries');
+	function getColumWidth(){
+		var cwh=300;
+		var cw = getFirstElementMatchingClassName(document, 'div', 'entry-main');
+		if (!cw) {
+			cw = get_id('entries');
+		}
+		if (cw) {
+			cwh = Math.max(Math.round(cw.clientWidth / cols), 50);
+		}
+		return cwh;
 	}
-	if (cw) {
-		var cwh = Math.max(Math.round(cw.clientWidth / cols), 50);
-	}
+	var cwh=getColumWidth();
 	
 	// copy of fixwidth
 	GM_addStyle(".entry .entry-body, .entry .entry-title{ display: inline !important; max-width: 100% !important; }");
@@ -103,7 +108,7 @@ GRP.column = function(prefs) {
 	
 
 	initCatchEntries(addButton, 'ecolumn');
-	var keycode = getShortcutKey('column', 'columns', prefs); //67;//c
+	var keycode = getShortcutKey('column', 'columns', prefs); //67 c
 	keycode.fn = addKey;
 	initKey(keycode);
 	

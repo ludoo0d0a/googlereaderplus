@@ -31,9 +31,9 @@
                             me.loadprefs.call(me);
                         } else if (a.message === "info") {
                             createReport(a.report);
-                        }else if (a.message === "iconget"){
-							savefavicon(a.url, a.icon, a.title);
-						}
+                        } else if (a.message === "iconget") {
+                            savefavicon(a.url, a.icon, a.title);
+                        }
                     });
                     myport.postMessage(
                     {
@@ -56,21 +56,21 @@
             function applyprefs(){
                 var form = document.frmprefs;
                 for (var i in form) {
-	                var ctrl = form[i];
-					if (ctrl && !hasClass(ctrl, 'ignore')) {
-						var o = ctrl.id;
-						if (typeof ctrl.key !== "undefined") {
-							//shortcut code
-							prefs[o] = ctrl.key;
-						} else if (ctrl.type === "checkbox") {
-							prefs[o] = ctrl.checked || false;
-						} else {
-							prefs[o] = ctrl.value;
-						}
-					}
+                    var ctrl = form[i];
+                    if (ctrl && !hasClass(ctrl, 'ignore')) {
+                        var o = ctrl.id;
+                        if (typeof ctrl.key !== "undefined") {
+                            //shortcut code
+                            prefs[o] = ctrl.key;
+                        } else if (ctrl.type === "checkbox") {
+                            prefs[o] = ctrl.checked || false;
+                        } else {
+                            prefs[o] = ctrl.value;
+                        }
+                    }
                 }
             }
-
+            
             function saveprefs(reload, cleanall){
                 applyprefs();
                 
@@ -78,7 +78,7 @@
                 {
                     message: "setprefs",
                     prefs: prefs,
-					cleanall:cleanall||false
+                    cleanall: cleanall || false
                 });
                 run_extshortcuts();
                 info("Preferences saved");
@@ -112,7 +112,7 @@
                         }
                     }
                     loadSkin();
-					loadFavicons();
+                    loadFavicons();
                 }
             }
             
@@ -122,17 +122,16 @@
                 if (!li) {
                     li = document.getElementById('skin_none');
                 }
-					 if (li) {
+                if (li) {
                     li.onclick();
                 }
             }
             
             var lastPanel, lastLink;
             function showPanel(id){
-                if (typeof window['run_' + id] == "function") {
-                    window['run_' + id].call(this, id);
-                }
-                
+                /*if (typeof window['run_' + id] == "function") {
+                 window['run_' + id].call(this, id);
+                 }*/
                 var link = document.getElementById('l_' + id);
                 if (lastLink) {
                     lastLink.className = "";
@@ -297,10 +296,10 @@
                 for (var i = 0, len = GRP.scripts.length; i < len; i++) {
                     var script = GRP.scripts[i];
                     if (script.shortcuts) {
-                        for (var sid in script.shortcuts){
-							var shortcut = script.shortcuts[sid];
-                            if (prefs && prefs[script.id + '_key_' + shortcut.id]) {
-                                key = unmarshallKey(prefs[script.id + '_key_' + shortcut.id]);
+                        for (var sid in script.shortcuts) {
+                            var shortcut = script.shortcuts[sid];
+                            if (prefs && prefs[script.id + '_key_' + sid]) {
+                                key = unmarshallKey(prefs[script.id + '_key_' + sid]);
                             } else {
                                 key = shortcut.key;
                             }
@@ -314,10 +313,8 @@
             
             function createShortcuts(el, script, shortcuts){
                 if (shortcuts) {
-					for (var sid in  shortcuts) {
-						var shortcut = shortcuts[sid];
-					//for (var i = 0, len = shortcuts.length; i < len; i++) {
-                        //var shortcut = shortcuts[i];
+                    for (var sid in shortcuts) {
+                        var shortcut = shortcuts[sid];
                         createShortcut(el, script, shortcut, sid);
                     }
                 }
@@ -336,15 +333,12 @@
                 input.className = 'shortcut';
                 input.id = script.id + '_key_' + shortcut.id;
                 var key = shortcut.key;
-                if (gshortcuts[input.id]) {
-                    key = gshortcuts[input.id];
-                }
-                input.value = formatKey(key);
-                input.key = marshallKey(key);
-                
+				//use default value on creation
+                setShortcut(key, input);
+				
                 var scriptId = script.id;
                 var shortcutId = shortcut.id;
-                setShortcut(shortcut.key, input);
+                
                 input.onkeydown = function(e){
                     e.preventDefault();
                     e.stopPropagation();
@@ -372,7 +366,11 @@
             }
             
             function setShortcut(key, ctrl){
-                //remove old
+                if (!key.keyCode){
+					//error
+					return;
+				}
+				//remove old
                 delete gshortcuts[ctrl.key];
                 ctrl.value = formatKey(key);
                 ctrl.key = marshallKey(key);
@@ -424,7 +422,7 @@
                     var sure = confirm('This will ERASE and reset all your preferences. Are you sure ?');
                     if (sure) {
                         prefs = {};
-						loadprefs();
+                        loadprefs();
                         saveprefs(true, true);
                     }
                     return;
@@ -433,74 +431,80 @@
                         var o = GRP.packages[id][i];
                         prefs[o] = true;
                         //if (o === 'theme' && !prefs[o + '_skin']) {
-                            prefs[o + '_skin'] = 'osxblack';
+                        prefs[o + '_skin'] = 'osxblack';
                         //}
                     }
                 }
                 loadprefs();//update
             }
-			
-			var tplDomain = '<a href="http://{url}" target="_blank"><span><img alt="favicon" class="favicon" title="Preview" src="{icon}" width="16" height="16"/>{url}</span></a><a class="action" href="javascript:addfavicon(\'{url}\');">edit</a><a class="action" href="javascript:removefavicon(\'{url}\');">remove</a>';
-			
-			function loadFavicons(){
-				var favicons = prefs.favicons_domains;
-				if (!favicons){
-					return;
-				}
-				var tplDomainLi = '<li id="li_{url}">'+tplDomain+'</li>';
-				var html='';
-				var ul = document.getElementById('favicon_crud');
-				for (var url in favicons){
-					var favicon={url:url, icon:favicons[url]};
-					html += fillTpl(tplDomainLi, favicon);
-				}
-				ul.innerHTML=html;
-			}
-			function addfavicon(urlin){
-				var url = urlin || '';
-				url = prompt("Enter the site :", url);
-				if (!url) {
-					return;
-				}
-				var icon = prefs.favicons_domains[url] || '';
-				icon = prompt("Enter the icon url :", icon);
-				if (!icon) {
-					return;
-				}
-				
-				var favicon = 
-				{
-					url: url,
-					icon: icon
-				};
-				if (urlin && url != urlin) {
-					//remove old
-					removefavicon(urlin);
-				}
-				
-				var id = 'li_' + favicon.url;
-				var li = document.getElementById(id);
-				if (!li) {
-					var ul = document.getElementById('favicon_crud');
-					li = document.createElement('li');
-					li.id = 'li_' + favicon.url;
-					ul.appendChild(li);
-				}
-				li.innerHTML = fillTpl(tplDomain, favicon);
-				savefavicon(favicon.url, favicon.icon);
-			}
-			function savefavicon(url,icon, title){
-				prefs.favicons_domains[url]=icon;
-			}
-
-			function removefavicon(url){
-				delete prefs.favicons_domains[url];
-				var li = document.getElementById('li_'+url);
-				if (li) {
-					li.parentNode.removeChild(li);
-				}
-			}
-
+            
+            var tplDomain = '<a href="http://{url}" target="_blank"><span><img alt="favicon" class="favicon" title="Preview" src="{icon}" width="16" height="16"/>{url}</span></a><a class="action" href="javascript:addfavicon(\'{url}\');">edit</a><a class="action" href="javascript:removefavicon(\'{url}\');">remove</a>';
+            
+            function loadFavicons(){
+                var favicons = prefs.favicons_domains;
+                if (!favicons) {
+                    return;
+                }
+                var tplDomainLi = '<li id="li_{url}">' + tplDomain + '</li>';
+                var html = '';
+                var ul = document.getElementById('favicon_crud');
+                for (var url in favicons) {
+                    var favicon = 
+                    {
+                        url: url,
+                        icon: favicons[url]
+                    };
+                    html += fillTpl(tplDomainLi, favicon);
+                }
+                ul.innerHTML = html;
+            }
+            
+            function addfavicon(urlin){
+                var url = urlin || '';
+                url = prompt("Enter the site :", url);
+                if (!url) {
+                    return;
+                }
+                var icon = prefs.favicons_domains[url] || '';
+                icon = prompt("Enter the icon url :", icon);
+                if (!icon) {
+                    return;
+                }
+                
+                var favicon = 
+                {
+                    url: url,
+                    icon: icon
+                };
+                if (urlin && url != urlin) {
+                    //remove old
+                    removefavicon(urlin);
+                }
+                
+                var id = 'li_' + favicon.url;
+                var li = document.getElementById(id);
+                if (!li) {
+                    var ul = document.getElementById('favicon_crud');
+                    li = document.createElement('li');
+                    li.id = 'li_' + favicon.url;
+                    ul.appendChild(li);
+                }
+                li.innerHTML = fillTpl(tplDomain, favicon);
+                savefavicon(favicon.url, favicon.icon);
+            }
+            
+            function savefavicon(url, icon, title){
+                prefs.favicons_domains[url] = icon;
+            }
+            
+            function removefavicon(url){
+                delete prefs.favicons_domains[url];
+                var li = document.getElementById('li_' + url);
+                if (li) {
+                    li.parentNode.removeChild(li);
+                }
+            }
+            
             window.onload = init;
             //}());
         </script>
@@ -597,19 +601,21 @@
                                 <p>
                                     Enter your custom favicons :
                                 </p>
-								<div id="crud_domains">
-									<ul class="mnu crud" id="favicon_crud">
-									</ul>
-									<a class="add" href="javascript:addfavicon();">Add</a>
-								</div>
+                                <div id="crud_domains">
+                                    <ul class="mnu crud" id="favicon_crud">
+                                    </ul>
+                                    <a class="add" href="javascript:addfavicon();">Add</a>
+                                </div>
                                 <p>
                                     Tip: You could add it easily using the contextual menu "Get favicon" of the left side bar
                                 </p>
-								<input id="favicons_manual" name="favicons_manual" type="checkbox" />
+                                <input id="favicons_manual" name="favicons_manual" type="checkbox" />
                                 <label for="favicons_manual">
                                     Manual favicons for all sites (not recommended ; slower)
                                 </label>
-								<p>This will try to detect favicon by parsing each homepage</p>
+                                <p>
+                                    This will try to detect favicon by parsing each homepage
+                                </p>
                             </div>
                         </div>
                         <div id="panel_pack" style="display:none;">

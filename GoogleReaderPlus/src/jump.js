@@ -42,9 +42,9 @@ GRP.jump = function(prefs){
     GM_addStyle(css);
     
     initCatchEntries(addJumpButtons, 'ejump');
-    var keycodeUp = getShortcutKey('jump', 'goup', prefs); //84;//Shift+T
+    var keycodeUp = getShortcutKey('jump', 'goup', prefs); //84 Shift+T
     keycodeUp.fn = gototop;
-    var keycodeDown = getShortcutKey('jump', 'godown', prefs); //66;//Shift+B
+    var keycodeDown = getShortcutKey('jump', 'godown', prefs); //66 Shift+B
     keycodeDown.fn = gotobottom;
     initKey([keycodeUp, keycodeDown]);
 };

@@ -39,7 +39,7 @@ GRP.fitheight = function(prefs) {
 	GM_addStyle(css);
 	
 	initCatchEntries(addButton, 'efitheight');
-	var keycode = getShortcutKey('fitheight', 'fit', prefs); //70;//f
+	var keycode = getShortcutKey('fitheight', 'fit', prefs); //70 f
 	keycode.fn = fitHeightKey;
 	initKey(keycode);
 };
