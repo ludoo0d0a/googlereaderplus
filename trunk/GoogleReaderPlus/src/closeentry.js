@@ -16,7 +16,7 @@ GRP.closeentry = function(prefs) {
 	
 	function addKey(e) {
 		var entry = getEntry(e);
-		closeEntry(entry);
+		closeEntry('item-close-me', entry);
 	}
 	
 	function closeEntry(btn, entry, locked, e){
