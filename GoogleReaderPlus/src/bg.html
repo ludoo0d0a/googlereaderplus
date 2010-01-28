@@ -78,7 +78,8 @@
             }
             
             function getPreferences(a){
-                var prefs = getPrefs();
+                initVersion();
+				var prefs = getPrefs();
                 myport.postMessage(
                 {
                     message: "prefs",
@@ -350,7 +351,7 @@
                 var o = 
                 {
                     url: a.url,
-                    selected: a.selected,
+                    selected: !(a.selected),
                     windowId: a.windowId,
                     index: a.index
                 };
@@ -364,7 +365,7 @@
                 });
             }
             
-            function init(){
+            function initVersion(){
                 var v = localStorage.getItem('grp_version');
                 if (v === null || v !== GRP.VERSION) {
                     localStorage.setItem('grp_version', GRP.VERSION);
@@ -373,10 +374,9 @@
                         url: "about.html"
                     });
                 }
-                
             }
         </script>
     </head>
-    <body onload="init();">
+    <body>
     </body>
 </html>
