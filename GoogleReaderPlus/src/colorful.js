@@ -242,7 +242,11 @@ GRP.colorful = function(prefs){
 
 	function getColorCss(title){
 		var hue = getHue(title);
-		return getTreeCss(title, hue)+getLvCss(title, hue) + getEvCss(title, hue) + getEfCss(title, hue);
+		var css = getLvCss(title, hue) + getEvCss(title, hue) + getEfCss(title, hue);
+		if (prefs.colorful_tree){
+			css = getTreeCss(title, hue)+ css;
+		}
+		return css;
 	}
 
 	function getLvCss(ttl,hue){// css for coloring items in list view
@@ -309,6 +313,9 @@ GRP.colorful = function(prefs){
 	
 	// inject color css into the page
 	function setTreeColor(){
+		if (!prefs.colorful_tree){
+			return;
+		}
 		// pick up all uncolored entries, including ones missed previously
 		var tree = get_id("sub-tree");
 		var nocolor = getElements(".//li[contains(@class, 'sub ')][contains(@class, 'unread')][not(@colored)]", tree);
