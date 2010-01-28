@@ -295,8 +295,8 @@ GRP.scripts = [
  }, */
 {
     id: "extshortcuts",
-    name: "Extension shortcuts",
-    desc: "Extension keyboard shortcuts",
+    name: "Key shortcuts",
+    desc: "Keyboard shortcuts",
     link: true
 }, 
 {
