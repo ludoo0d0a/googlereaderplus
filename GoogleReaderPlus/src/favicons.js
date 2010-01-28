@@ -11,7 +11,8 @@
  * 
  * +Google Reader Favicon ++ v1.5.0 (LudoO)
  */
-GRP.favicons = function(prefs) {
+GRP.favicons = function(prefs, langs) {
+	var SL = langs.favicons; 
 
 	var GRP_INFO = JSON.parse(GM_getValue('grp_favicons', '{}'));
 	var FAVICON = GRP_INFO.icon || (GRP_INFO.icon = {});
@@ -255,7 +256,7 @@ GRP.favicons = function(prefs) {
 			div.className = 'goog-button goog-button-base unselectable goog-inline-block goog-button-float-left goog-button-tight viewer-buttons';
 			div.setAttribute('tabindex', '0');
 			div.setAttribute('role', 'wairole:button');
-			div.innerHTML = '<div class="goog-button-base-outer-box goog-inline-block"><div class="goog-button-base-inner-box goog-inline-block"><div class="goog-button-base-pos"><div class="goog-button-base-top-shadow">&nbsp;</div><div class="goog-button-base-content"><div class="goog-button-body">Preferences</div></div></div></div></div>';
+			div.innerHTML = '<div class="goog-button-base-outer-box goog-inline-block"><div class="goog-button-base-inner-box goog-inline-block"><div class="goog-button-base-pos"><div class="goog-button-base-top-shadow">&nbsp;</div><div class="goog-button-base-content"><div class="goog-button-body">'+SL.preferences+'</div></div></div></div></div>';
 			insert.parentNode.insertBefore(div, insert.nextSibling);
 			var me = this;
 			div.addEventListener('click', function(e) {
@@ -293,7 +294,7 @@ GRP.favicons = function(prefs) {
 			var div = document.createElement('div');
 			div.className = 'goog-menuitem goog-option grf-menuitem';
 			div.style = '-webkit-user-select: none;';
-			div.innerHTML = '<div class="goog-menuitem-content">Get favicon</div>';
+			div.innerHTML = '<div class="goog-menuitem-content">'+SL.getfavicon+'</div>';
 			sep.parentNode.insertBefore(div, sep.nextSibling);// insert after
 
 		// +separator
@@ -324,7 +325,8 @@ GRP.favicons = function(prefs) {
 					});
 					// ->iconget
 				} else {
-					alert('Cannot found favicon for "' + title + '"');
+					var msg = formatText(SL.notfoundicon, title);
+					alert(msg);
 				}
 				// hide menu
 				menu.blur();

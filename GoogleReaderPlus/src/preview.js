@@ -14,8 +14,9 @@
  * http://userscripts.org/scripts/show/9455
  */
 
-GRP.preview = function(prefs){
-   var locked = false;
+GRP.preview = function(prefs, langs) {
+	var SL = langs.preview; 
+    var locked = false;
    
    function addPreviewButton(el, entry, mode){
       // Top link
@@ -25,7 +26,7 @@ GRP.preview = function(prefs){
       
       //empty current link to keep open link
       var text = link.textContent;
-      link.title = 'Open in a new window';
+      link.title = SL.opennewtab;
       addClass(link, 'title-link-url');
       link.innerHTML = '<div class="entry-title-maximize"></div>';
       
@@ -36,7 +37,7 @@ GRP.preview = function(prefs){
       var ilink = document.createElement('a');
       ilink.className = 'ilink entry-title-link';
       ilink.href = '#';
-      ilink.title = 'Open as preview' + keytext; //[Shift+V]
+      ilink.title = SL.title + keytext; //[Shift+V]
       ilink.innerText = ' ' + text;
       link.parentNode.insertBefore(ilink, link);
       ilink.addEventListener('click', previewTitleClick, false);
@@ -52,7 +53,7 @@ GRP.preview = function(prefs){
        link.onclick = previewTitleClick;//with preventdefault on first
        */
       // Bottom button
-      addBottomLink(el, 'Preview', 'Integrated preview of the news '+keytext, 'btn-preview', true, previewize, locked, entry);
+      addBottomLink(el, SL.keyword, SL.text + keytext, 'btn-preview', true, previewize, locked, entry);
    }
    
    

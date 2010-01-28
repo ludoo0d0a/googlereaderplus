@@ -13,11 +13,12 @@
  * http://userscripts.org/scripts/show/9594
  */
 
-GRP.facebook = function(prefs) {
+GRP.facebook = function(prefs, langs) {
+	var SL = langs.facebook; 
 
 	function addButton(el, entry, mode) {
-		var text = 'Share this news on Facebook' + formatShortcut('facebook', 'gofacebook', prefs); //[b]
-		addBottomLink(el,'Facebook', text, 'facebook', false, facebookShare, false, entry);
+		var text = SL.text + formatShortcut('facebook', 'gofacebook', prefs); //[b]
+		addBottomLink(el,SL.keyword, text, 'facebook', false, facebookShare, false, entry);
 	}
 
 	function addKey() {
@@ -42,8 +43,8 @@ GRP.facebook = function(prefs) {
 				iframe = document.createElement('iframe');
 				iframe.setAttribute('width', '650px');
 				iframe.setAttribute('height', '350px');
-				iframe.setAttribute('name', 'fred');
-				iframe.setAttribute('target', 'fred');
+				iframe.setAttribute('name', 'grpfacebook');
+				iframe.setAttribute('target', 'grpfacebook');
 				var shareurl = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
 				var e = encodeURIComponent;
 				var fbsharer = 'http://www.facebook.com/sharer.php?&u=' + e(shareurl.href) + '&t='

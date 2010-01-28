@@ -10,7 +10,8 @@
  * http://userscripts.org/scripts/show/10169
  */
 
-GRP.twitter = function(prefs) {
+GRP.twitter = function(prefs, langs) {
+	var SL = langs.twitter; 
 	// Constants
 	// NORMALIZE=false leaves the tags alone
 	// NORMALIZE=true converts tags to proper case and replaces -'s with spaces,

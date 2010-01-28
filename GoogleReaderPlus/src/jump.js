@@ -7,7 +7,8 @@
  * Add 2 jump buttons to go to top and bottom of entry
  *
  */
-GRP.jump = function(prefs){
+GRP.jump = function(prefs, langs) {
+	var SL = langs.jump; 
     function addJumpButtons(el, entry, mode){
         var title = getFirstElementMatchingClassName(entry, 'h2', 'entry-title');
         if (title) {
@@ -16,15 +17,15 @@ GRP.jump = function(prefs){
             
             var a = document.createElement('a');
             a.href = "#";
-            a.title = 'Jump to bottom' + formatShortcut('jump', 'godown', prefs);// [Shift+B] 
+            a.title = SL.textbottom + formatShortcut('jump', 'godown', prefs);// [Shift+B] 
             a.appendChild(div);
             
             title.appendChild(a);
             div.addEventListener('click', gotobottom, false);
         }
         
-        var text = 'Jump to top' + formatShortcut('jump', 'goup', prefs); //[Shift+T]
-        addBottomLink(el, 'Top', text, 'item-go-to-top', false, gototop, false, entry);
+        var text =  SL.texttop + formatShortcut('jump', 'goup', prefs); //[Shift+T]
+        addBottomLink(el, SL.keywordtop, text, 'item-go-to-top', false, gototop, false, entry);
     }
     
     function gototop(e){

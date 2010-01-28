@@ -8,12 +8,13 @@
  *
  */
 
-GRP.openbackground = function(prefs) {
+GRP.openbackground = function(prefs, langs) {
+	var SL = langs.openbackground; 
 	var selectTab = prefs.openbackground_selectTab||false;
 	
 	function addButtons(el, entry, mode) {
-		var text = 'Open in background' + formatShortcut('openbackground', 'openback', prefs); //[Shift+V]
-		addBottomLink(el, 'Open', text, 'item-open-background', false, openbackground, false, entry);
+		var text = SL.text + formatShortcut('openbackground', 'openback', prefs); //[Shift+V]
+		addBottomLink(el, SL.keyword, text, 'item-open-background', false, openbackground, false, entry);
 	}
 
 	function openbackground(e) {

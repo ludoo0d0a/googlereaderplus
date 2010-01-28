@@ -7,7 +7,7 @@
  * Show hidde nunread count on folder
  *
  */
-GRP.unreadcount = function(prefs) {
+GRP.unreadcount = function(prefs, langs) {
 	var css = '.lhn-section-no-unread-counts .unread-count{display:inline !important}';
 	GM_addStyle(css);
 };
