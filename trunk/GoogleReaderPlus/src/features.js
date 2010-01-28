@@ -29,7 +29,7 @@ GRP.scripts = [
 {
     id: "fixlayout",
     name: "Fix layout",
-    desc: "Fix different layout bugs style"
+    desc: "Fix different layout bugs style like full width for entry, fix missing pictures in enclosures, and make big images fit the screen"
 }, 
 {
     id: "count",
@@ -102,7 +102,11 @@ GRP.scripts = [
 {
     id: "colorful",
     name: "Colorful listview",
-    desc: "Use a background color for a same feed"
+    desc: "Use a background color for a same feed",
+	options: 
+    {
+        tree: false
+    }
 }, 
 {
     id: "filter",
@@ -361,6 +365,10 @@ GRP.skins = [
 {
     id: "optimized",
     name: "Optimized Skin"
+}, 
+{
+    id: "portal",
+    name: "Portal Theme"
 }, 
 {
     id: "osxblue",
