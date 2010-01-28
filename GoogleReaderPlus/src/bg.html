@@ -297,6 +297,7 @@
                         myport.postMessage(
                         {
                             message: a.callback || "requestdone",
+							action:'onload',
                             responseXML: xhr.responseXML,
                             responseText: xhr.responseText,
                             responseHeaders: xhr.responseHeaders,
