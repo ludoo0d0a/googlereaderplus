@@ -50,6 +50,7 @@ function catchEntry(el, mode, fn, bid){
 function openEntryInNewTab(ent, selected){
     var entry = ent || getCurrentEntry();
     var link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
+	//var link = getFirstElementMatchingClassName(entry, 'a', 'title-link-url');
     var url = link.href;
     GM_openInTab(url, selected);
 }
