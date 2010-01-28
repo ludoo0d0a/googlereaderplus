@@ -7,12 +7,13 @@
  *
  */
 
-GRP.column = function(prefs) {
+GRP.column = function(prefs, langs) {
+	var SL = langs.column; 
 	var locked = false;
 	
 	function addButton(el, entry, mode) {
-		var text = 'Display as multi columns layout' + formatShortcut('column', 'columns', prefs); //[c]
-		addBottomLink(el,'Column', text, 'btn-column', true, columnize, locked, entry);
+		var text = SL.text + formatShortcut('column', 'columns', prefs); //[c]
+		addBottomLink(el,SL.keyword, text, 'btn-column', true, columnize, locked, entry);
 	}
 
 	function addKey() {

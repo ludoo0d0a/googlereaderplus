@@ -10,11 +10,12 @@
  * http://userscripts.org/scripts/show/8782
  */
 
-GRP.colorful = function(prefs){
-
+GRP.colorful = function(prefs, langs) {
+	var STRINGS = langs.colorful; 
+	
 	// CSS to allow items to be colored
 	const	BASE_CSS = "#entries.list .entry-likers,#entries.list .collapsed .entry-source-title,#entries.list .collapsed .entry-secondary,#entries.list .collapsed .entry-title{background-color:transparent!important}.gm-color-lv .collapsed /* list view headers */{border-color:transparent!important}#entries.list.gm-color-lv #current-entry .collapsed{border:2px solid #8181DC!important}#entries.list.gm-color-lv #current-entry.expanded .collapsed{border-bottom-color:transparent!important;border-width:2px 0!important}#entries .entry{padding:5px 0}#entries.list .collapsed{line-height:2.4ex!important}";
-
+/*
 	const	STRINGS ={
 		// pref labels
 		color : "Color these items:",
@@ -42,7 +43,7 @@ GRP.colorful = function(prefs){
 		update : "Userscript Update Available",
 		install : "Install"
 	};
-
+*/
 	// user interface for script settings added on settings page
 	var settings ={
 		timeoutID : 0,

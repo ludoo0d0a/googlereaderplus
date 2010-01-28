@@ -297,6 +297,27 @@ function formatKey(e){
 }
 
 /**
+ * Cookies
+ * 
+ */
+function readCookie(name) {
+    name = name.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
+    var regex = new RegExp('(?:^|;)\\s?' + name + '=(.*?)(?:;|$)','i'),
+        match = document.cookie.match(regex);
+    return match && unescape(match[1]);
+}
+
+function getLanguage(){
+	var cookie = readCookie('GRLD');
+	var lang='en', m = /((\w+)-(\w+)):\d+/.exec(cookie);
+	if (m){
+		lang = m[2];//en
+		//lang = m[1];en-US
+	}
+	return lang;
+}
+
+/**
  * Templates
  */
 function fillTpl(tpl, o){
@@ -310,6 +331,19 @@ function fillTpl(tpl, o){
         }
     }
     return txt;
+}
+//Format text using number {0}
+function formatText(){
+	if (!arguments) {
+		return '';
+	}
+	var args = arguments;
+	var tpl = args.shift();
+	var values={};
+	for (var i=0,  len=args.length; i<len; i++){
+		values[i]=args[i];
+	}
+	return fillTpl(tpl, values);
 }
 
 function getGlobal(){

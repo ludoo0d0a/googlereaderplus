@@ -8,10 +8,11 @@
  *
  */
 
-GRP.closeentry = function(prefs) {
+GRP.closeentry = function(prefs, langs) {
+	var SL = langs.closeentry; 
 	function addLink(el, entry, mode) {
-		var text = 'Close this entry' + formatShortcut('closeentry', 'close', prefs); //[x]
-		addBottomLink(el, 'Close', text, 'item-close-me', false, closeEntry, false, entry);
+		var text = SL.text + formatShortcut('closeentry', 'close', prefs); //[x]
+		addBottomLink(el, SL.keyword , text, 'item-close-me', false, closeEntry, false, entry);
 	}
 	
 	function addKey(e) {

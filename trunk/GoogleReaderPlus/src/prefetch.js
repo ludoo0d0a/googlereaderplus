@@ -11,8 +11,8 @@
  * http://userscripts.org/scripts/show/26383
  */
 
-GRP.prefetch = function(prefs) {
-
+GRP.prefetch = function(prefs, langs) {
+	
 	var first = 25; // default is 5
 	var next = 15; // default is 1
 	var list = 60; // default is 20

@@ -10,7 +10,8 @@
  * http://userscripts.org/scripts/show/24955
  */
 
-GRP.mark = function(prefs) {
+GRP.mark = function(prefs, langs) {
+	 
 	var currentElement, modeList=false;
 
 	function setConfig(){

@@ -14,7 +14,9 @@
  * Ryan Williams <ryanbot at gmail>
  * http://userscripts.org/scripts/show/8843
  */
-GRP.readbymouse = function(prefs) {
+GRP.readbymouse = function(prefs, langs) {
+	var SL = langs.readbymouse;
+	
 	var systemStatus = GM_getValue('rbmStatus', 'Off');
 	var ua = navigator.userAgent.toLowerCase();
 	var isWindows = /windows|win32/.test(ua);

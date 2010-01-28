@@ -7,7 +7,8 @@
  * Fit entry height
  *
  */
-GRP.fixlayout = function(prefs) {
+GRP.fixlayout = function(prefs, langs){
+    
 	function checkImage(root, href) {
 		var links = getElements(".//img[@src='" + href + "']", root);
 		return (links && links.length > 0);

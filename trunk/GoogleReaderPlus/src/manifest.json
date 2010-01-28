@@ -1,6 +1,6 @@
 {
   "name": "Google Reader Plus",
-  "version": "2.7.2",
+  "version": "2.7.3",
   "description": "Enhance Google Reader by adding missing favicons and a collection of others features",
   "icons": { 
      "16": "16.png",
@@ -16,6 +16,7 @@
 	],
       "js": ["lib/json.js", "lib/util.js","lib/greasekit.js","lib/entry.js",
 		"version.js","features.js",
+		"lang/en.js","lang/fr.js",
 		"fixlayout.js", "unreadcount.js", "mark.js", "removeads.js", "favicons.js", "column.js","jump.js",
 		"preview.js", "openbackground.js", "colorful.js", "filter.js", "count.js", "counticon.js", "readbymouse.js", 
 		"facebook.js", "twitter.js", "closeentry.js", "fitheight.js",

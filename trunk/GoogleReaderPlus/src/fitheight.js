@@ -7,7 +7,8 @@
  * Fit entry height
  *
  */
-GRP.fitheight = function(prefs) {
+GRP.fitheight = function(prefs, langs){
+    var SL = langs.fitheight;
 	var locked=false;
 	if (prefs && prefs.fitheight_locked) {
 		locked = prefs.fitheight_locked;
@@ -21,8 +22,8 @@ GRP.fitheight = function(prefs) {
 	}	
 	
 	function addButton(el, entry, mode) {
-		var text = 'Fit height' + formatShortcut('fitheight', 'fit', prefs); //[f]
-		addBottomLink(el,'Fit height', text, 'btn-fitheight', true, fitHeight, false, entry);
+		var text = SL.text + formatShortcut('fitheight', 'fit', prefs); //[f]
+		addBottomLink(el,SL.keyword, text, 'btn-fitheight', true, fitHeight, false, entry);
 		if (locked){
 			fitHeight(el, entry, true);
 		}

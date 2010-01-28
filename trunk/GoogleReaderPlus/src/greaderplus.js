@@ -22,8 +22,9 @@
             {
                 name: "googlereaderplus"
             });
+			window.GRP = window.GRP || {};
             this.prefs = {};
-            window.GRP = window.GRP || {};
+			this.lang = getLanguage();
             var me = this;
             function onMessageReceived(a){
                 if (a.message == "prefs") {
@@ -41,11 +42,12 @@
             var count = 0;
             if (window.GRP.scripts) {
                 var total = window.GRP.scripts.length;
-                for (var i = 0; i < total; i++) {
+                var langs = GRP.langs[this.lang];
+				for (var i = 0; i < total; i++) {
                     var script = window.GRP.scripts[i];
                     if (script && this.prefs[script.id]) {
                         ++count;
-                        this.run(script.id);
+                        this.run(script.id, langs);
                     }
                 }
 				console.log("GoogleReaderPlus is running with " + count + "/" + total + " features");
@@ -53,16 +55,16 @@
 				console.error("GoogleReaderPlus failed to load any features!!");
 			}
         },
-        run: function(o){
+        run: function(o, langs){
             if (o && o !== "false") {
                 if (o == 'theme') {
                     //Run skin
-                    this.run(this.prefs.theme_skin);
+                    this.run(this.prefs.theme_skin, langs);
                 } else {
                     if (window.GRP[o]) {
                         console.log("**** run " + o);
                         try {
-                            window.GRP[o].call(window, this.prefs);
+                            window.GRP[o].call(window, this.prefs, langs);
                         } 
                         catch (e) {
                             console.error(e);
