@@ -1,0 +1,79 @@
+/**
+ * From Sexy undoclose tab popup
+ */
+ 
+ body {
+	margin: 0;
+	font: 10px "Lucida Grande", verdana, sans-serif;
+	-moz-user-select: none;
+	overflow-x:hidden;overflow-y:auto;
+}
+
+#contentDiv {
+	width: 400px;
+	line-height: 95%;
+	text-align: left;
+	overflow-x:hidden;overflow-y:auto;
+}
+.table {
+	width: 380px;
+}
+img{vertical-align:top;margin: 0 5px 0 0;}
+#contentDiv div { 
+	color:#404352; 
+	border:1px solid #F7F8FF;
+	text-decoration:none;
+	margin:2px;
+	padding:2px;
+	background:#F6F7FF;
+	cursor: pointer;
+	-moz-border-radius: 4px;
+	border-radius:4px;
+	background: -webkit-gradient(linear, left top, left bottom,color-stop(0.0, #F7F8FF),color-stop(1.0, #FFF));
+}
+#contentDiv div:hover { 
+	background:#F7F8FF;
+}
+#contentDiv div a{ 
+	display:inline-block;
+	width:270px;
+	min-height:11px;
+	margin: 3px 0 3px 0;
+	overflow:hidden;
+}
+.maxh1{max-height:10px;}
+.maxh2{max-height:18px;}
+.maxh3{max-height:26px;}
+.maxh4{max-height:34px;}
+.maxh5{max-height:42px;}
+.maxh6{max-height:50px;}
+
+#contentDiv div span,b{ 
+	padding: 3px 0 0 0;
+	vertical-align:top;
+	overflow:hidden;
+}
+#contentDiv div span{ 
+	overflow:hidden;
+	margin: 0 0 0 10px;
+}
+button {
+	color:#6791DA;
+	background:#E5ECFF;
+	border:1px solid #E5ECFF;
+	padding:0px 10px 0px 10px;
+	text-align:center;
+	position:relative;
+	vertical-align:baseline;
+	text-decoration:none !important;
+	cursor: pointer;
+	-moz-border-radius: 4px;
+	border-radius:4px;
+	background: -webkit-gradient(linear, left top, left bottom,color-stop(0.0, #E5ECFF),color-stop(1.0, #FFF));
+}
+button:hover{
+	color: #000 !important;
+	background:#BCCAEB;
+	border-color: #80A2FF !important;
+	background: -webkit-gradient(linear, left top, left bottom,color-stop(0.0, #E5ECFF),color-stop(1.0, #F7F8FF));
+}

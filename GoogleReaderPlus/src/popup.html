@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<link href="css/popup1.css" type="text/css" rel="stylesheet">
+        <script src="features.js"></script>
+		<script src="popup.js"></script>
+    </head>
+    <body onload="init();">
+        <div id="menu">
+        	<div class="menu_speed">
+                <select id="theme" class="opt_select" OnChange="button('theme');" title="Change Theme">
+                    <option value="">None</option>
+				</select>
+                <img id="theme" src="" alt="theme" class="menu_pref" onClick="button('theme');" title="Theme"/>
+            </div>
+			<div class="menu_button" onClick="button('prefs');" title="preferences">
+                Preferences
+            </div>
+		</div>
+    </body>
+</html>
