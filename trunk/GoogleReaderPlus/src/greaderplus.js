@@ -10,7 +10,11 @@
  * ChangeLog: cf about.html
  */
 //home : njidamgjohnfbkeagfbnkllfkdnlpjhi
+//debug : cmkepfncdncbdpmdfnkbpenhfbmmnebm
+var GUID = 'cmkepfncdncbdpmdfnkbpenhfbmmnebm';
+
 //remote : hhcknjkmaaeinhdjgimjnophgpbdgfmg
+//var GUID = 'hhcknjkmaaeinhdjgimjnophgpbdgfmg';
 
 (function(){
 
@@ -23,12 +27,15 @@
                 name: "googlereaderplus"
             });
             window.GRP = window.GRP || {};
+            GRP.language = function(){
+                //dummy
+            };
             this.prefs = {};
             var me = this;
             function onMessageReceived(a){
                 if (a.message == "prefs") {
                     me.prefs = a.prefs;
-                    me.runExtra.call(me);
+                    me.applyLang.call(me);
                 }
             }
             this.myport.onMessage.addListener(onMessageReceived);
@@ -37,14 +44,17 @@
                 message: "getprefs"
             });
         },
+        applyLang: function(){
+            //var langs = GRP.texts;
+			this.lang = this.prefs.language_lang || 'en';
+            this.lang = (GRP.langs[this.lang]) ? this.lang : 'en';
+			//override locale texts
+			merge(GRP, GRP.langs[this.lang]);
+			//next
+			this.runExtra(this.lang);
+        },
         runExtra: function(){
-            this.lang = this.prefs.language_lang||'en';
-			var langs = GRP.langs[this.lang];
-			if (!langs){
-				this.lang = 'en';
-				langs = GRP.langs[this.lang];
-			}
-			
+			var langs = GRP.langs[this.lang].texts;
 			var count = 0;
             if (window.GRP.scripts) {
                 var total = window.GRP.scripts.length;
@@ -80,6 +90,25 @@
                 }
             }
         }
+        /*,fixlang: function(){
+         this.lang = this.prefs.language_lang || 'en';
+         this.stack = ['texts', 'scripts', 'skins', 'googleshortcuts'];
+         var base = 'chrome://extensions/'+GUID+'/';
+         this.runExtra();
+         this.i18n(this.lang, this.runExtra, this.stack, base, this);
+         },*/
+        /*i18n: function(lang, fn, stack, base, scope){
+         var cb = function(i){
+         i++;
+         if (i < stack.length) {
+         applyRemoteLang(lang, base, stack[i], GRP, cb, scope);
+         } else {
+         //get out
+         fn.call(scope || this, []);
+         }
+         };
+         cb(-1);
+         }*/
     };
     
     googleReaderPlus.init();

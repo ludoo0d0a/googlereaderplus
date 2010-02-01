@@ -1,0 +1,11 @@
+{
+  "extension_name": {
+    "message": "Google Reader Plus"
+  },
+  "extension_description": {
+    "message": "Améliorer Google Reader en ajoutant les icònes des sites, des thèmes et toute une collection d'autres fonctionnalités"
+  },
+  "browser_action_tooltip_default": {
+    "message": "Préférences our GoogleReaderPlus "
+  } 
+}

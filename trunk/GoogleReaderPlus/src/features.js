@@ -64,7 +64,7 @@ GRP.scripts = [
 {
     id: "column",
     name: "Text multi columns",
-    desc: "Add abutton to display news as a newspaper in multi columns",
+    desc: "Add a button to display news as a newspaper in multi columns",
     options: 
     {
         locked: false,

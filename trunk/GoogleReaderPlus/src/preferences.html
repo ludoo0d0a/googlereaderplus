@@ -11,7 +11,7 @@
         </script>
         <script type="application/javascript">
             //(function(){
-            var prefs = {}, gshortcuts = {}, myport;
+            var lang='en', prefs = {}, gshortcuts = {}, myport;
             function init(){
                 GRP.setVersion("Version: ");
                 createscripts();
@@ -29,7 +29,7 @@
                         if (a.message === "prefs") {
                             //scripts = a.scripts;
                             prefs = a.prefs;
-                            me.displayprefs.call(me);
+                            me.applyLang.call(me);
                         } else if (a.message === "info") {
                             createReport(a.report);
                         } else if (a.message === "iconget") {
@@ -43,6 +43,15 @@
                     
                 }
             }
+			
+			function applyLang(){
+				lang = prefs.language_lang || 'en';
+	            lang = (GRP.langs[lang]) ? lang : 'en';
+				//override locale texts
+				merge(GRP, GRP.langs[lang]);
+				//next
+				this.displayprefs();
+			}
             
             function info(msg){
                 var status = document.getElementById('status');
