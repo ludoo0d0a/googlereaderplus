@@ -278,3 +278,25 @@ function toggleCheckMenu(el){
 		addClass(el, 'goog-option-selected');
 	}
 }
+
+function getLanguage(){
+    var m, lang = 'en';
+    var cookie = readCookie('GRLD') || '';
+    if (cookie !== '') {
+        //GRLD Not visible !!
+        m = /((\w+)-(\w+)):\d+/.exec(cookie);
+        if (m) {
+            lang = m[2];//en
+        //lang = m[1];en-US
+        }
+    } else {
+        cookie = readCookie('PREF') || '';
+        //855ba6572:LD=en:CR=2:TM=12
+        m = /:LD=(\w+):/.exec(cookie);
+        if (m) {
+            lang = m[1];//en
+        }
+    }
+    
+    return lang;
+}

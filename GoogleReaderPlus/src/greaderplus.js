@@ -22,9 +22,8 @@
             {
                 name: "googlereaderplus"
             });
-			window.GRP = window.GRP || {};
+            window.GRP = window.GRP || {};
             this.prefs = {};
-			this.lang = getLanguage();
             var me = this;
             function onMessageReceived(a){
                 if (a.message == "prefs") {
@@ -39,21 +38,27 @@
             });
         },
         runExtra: function(){
-            var count = 0;
+            this.lang = this.prefs.language_lang||'en';
+			var langs = GRP.langs[this.lang];
+			if (!langs){
+				this.lang = 'en';
+				langs = GRP.langs[this.lang];
+			}
+			
+			var count = 0;
             if (window.GRP.scripts) {
                 var total = window.GRP.scripts.length;
-                var langs = GRP.langs[this.lang];
-				for (var i = 0; i < total; i++) {
+                for (var i = 0; i < total; i++) {
                     var script = window.GRP.scripts[i];
                     if (script && this.prefs[script.id]) {
                         ++count;
                         this.run(script.id, langs);
                     }
                 }
-				console.log("GoogleReaderPlus is running with " + count + "/" + total + " features");
-            }else{
-				console.error("GoogleReaderPlus failed to load any features!!");
-			}
+                console.log("GoogleReaderPlus is running with " + count + "/" + total + " features");
+            } else {
+                console.error("GoogleReaderPlus failed to load any features!!");
+            }
         },
         run: function(o, langs){
             if (o && o !== "false") {
