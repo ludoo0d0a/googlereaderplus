@@ -39,12 +39,18 @@ GRP.instapaper = function(prefs, langs){
 			return;
 		}
         var link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
+		
+		var body = getBody(entry);
         var params = 
         {
             url: link.href,
-            selection: window.getSelection().toString()
+			title: link.textContent,
+			selection:body.innerText
+            //selection: window.getSelection().toString()
         };
-        login(auth, params, btn);
+        //login(auth, params, btn);
+		//direct
+		post(auth, params, btn);
     }
     
     function login(auth, params, btn){
@@ -56,7 +62,7 @@ GRP.instapaper = function(prefs, langs){
             onload: function(r){
                 if (r.status == 200) {
                     //login success
-                    post(params, btn);
+                    post(auth, params, btn);
                 } else if (r.status == 403) {
                     //403: Invalid username or password.
                     clearAuth();
@@ -69,8 +75,12 @@ GRP.instapaper = function(prefs, langs){
             }
         });
     }
-    function post(params, btn){
-        GM_xmlhttpRequest(
+    function post(auth, params, btn){
+		params.username = auth.username;
+		if (auth.password) {
+			params.password = auth.password;
+		}
+		GM_xmlhttpRequest(
         {
             method: 'GET',
             url: apiUrl.add,
