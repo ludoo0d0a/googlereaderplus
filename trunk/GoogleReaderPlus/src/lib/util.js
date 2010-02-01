@@ -135,8 +135,8 @@ function insertBefore(el, ref){
 }
 
 /**
-* Strings
-*/   
+ * Strings
+ */
 function normalizeUrl(url){
     if (!(/^http(s)?:/i.test(url))) {
         return 'http://' + url;
@@ -144,22 +144,23 @@ function normalizeUrl(url){
         return url;
     }
 }
+
 //without parameter
 function cleanUrl(url){
     var m = /([^\?]+)\??(.*)/.exec(url);
-	if (m) {
+    if (m) {
         return m[1];
     } else {
         return url;
     }
 }
 
-function ellipsis(text) {
-	var match = text;
-	if (match.length > 24) {
-		match = match.substr(0, 21) + '...';
-	}
-	return match;
+function ellipsis(text){
+    var match = text;
+    if (match.length > 24) {
+        match = match.substr(0, 21) + '...';
+    }
+    return match;
 }
 
 function isArray(obj){
@@ -168,10 +169,9 @@ function isArray(obj){
 
 
 /**
-* Shortcuts
-* 
-*/  
-
+ * Shortcuts
+ *
+ */
 /**
  *
  * @param fn
@@ -181,8 +181,8 @@ function isArray(obj){
  */
 function initKey(keys){
     document.addEventListener('keydown', function(ee){
-   	  var e = ee;
-   	  var tag = e.target.tagName.toLowerCase();
+        var e = ee;
+        var tag = e.target.tagName.toLowerCase();
         if (tag !== "input" && tag !== "select" && tag !== "textarea") {
             if (!isArray(keys)) {
                 keys = [keys];
@@ -274,23 +274,27 @@ function getStringFromCharCode(codePt){
         return String.fromCharCode(codePt);
     }
 }
+
 //saved under format CTRL[0,1]ALT[0,1]SHIFT[0,1]keyCode
 function unmarshallKey(text){
     var m = /(\d)(\d)(\d)(\d+)/.exec(text);
-	var key = {};
-	if (m) {
-		key = {
-			ctrlKey: (m[1] === '1'),
-			altKey: (m[2] === '1'),
-			shiftKey: (m[3] === '1'),
-			keyCode: m[4]
-		};
-	}
-	return key;
+    var key = {};
+    if (m) {
+        key = 
+        {
+            ctrlKey: (m[1] === '1'),
+            altKey: (m[2] === '1'),
+            shiftKey: (m[3] === '1'),
+            keyCode: m[4]
+        };
+    }
+    return key;
 }
+
 function marshallKey(e){
     return ((e.ctrlKey) ? '1' : '0') + ((e.altKey) ? '1' : '0') + ((e.shiftKey) ? '1' : '0') + e.keyCode;
 }
+
 function formatKey(e){
     var keyLetter = getStringFromCharCode(e.keyCode);
     return ((e.ctrlKey) ? 'ctrl+' : '') + ((e.altKey) ? 'alt+' : '') + ((e.shiftKey) ? 'shift+' : '') + keyLetter;
@@ -298,23 +302,12 @@ function formatKey(e){
 
 /**
  * Cookies
- * 
+ *
  */
-function readCookie(name) {
+function readCookie(name){
     name = name.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
-    var regex = new RegExp('(?:^|;)\\s?' + name + '=(.*?)(?:;|$)','i'),
-        match = document.cookie.match(regex);
+    var regex = new RegExp('(?:^|;)\\s?' + name + '=(.*?)(?:;|$)', 'i'), match = document.cookie.match(regex);
     return match && unescape(match[1]);
-}
-
-function getLanguage(){
-	var cookie = readCookie('GRLD');
-	var lang='en', m = /((\w+)-(\w+)):\d+/.exec(cookie);
-	if (m){
-		lang = m[2];//en
-		//lang = m[1];en-US
-	}
-	return lang;
 }
 
 /**
@@ -332,18 +325,19 @@ function fillTpl(tpl, o){
     }
     return txt;
 }
+
 //Format text using number {0}
 function formatText(){
-	if (!arguments) {
-		return '';
-	}
-	var args = arguments;
-	var tpl = args.shift();
-	var values={};
-	for (var i=0,  len=args.length; i<len; i++){
-		values[i]=args[i];
-	}
-	return fillTpl(tpl, values);
+    if (!arguments) {
+        return '';
+    }
+    var args = arguments;
+    var tpl = args.shift();
+    var values = {};
+    for (var i = 0, len = args.length; i < len; i++) {
+        values[i] = args[i];
+    }
+    return fillTpl(tpl, values);
 }
 
 function getGlobal(){
@@ -455,3 +449,27 @@ var keycodes =
     222: 'singlequote'
 };
 
+//a.href sometimes truncated
+function getHref(a){
+	var url = a.protocol+'//'+a.host+a.pathname+(a.hash||'');
+	return url;
+}
+				
+function adjustIframeHeight(iframe, heightMaxi){
+    var el;
+	if (iframe.document.height) {
+        el = parent.document.getElementById(iframe.name);
+        el.style.height = iframe.document.height + 'px';
+        //el.style.width = iframe.document.width + 'px';
+    } else if (document.all) {
+        el = parent.document.all[iframe.name];
+        if (iframe.document.compatMode &&
+        iframe.document.compatMode != 'BackCompat') {
+            el.style.height = iframe.document.documentElement.scrollHeight + 5 + 'px';
+            //el.style.width = iframe.document.documentElement.scrollWidth + 5 + 'px';
+        } else {
+            el.style.height = iframe.document.body.scrollHeight + 5 + 'px';
+            //el.style.width = iframe.document.body.scrollWidth + 5 + 'px';
+        }
+    }
+}

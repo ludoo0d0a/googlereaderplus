@@ -12,6 +12,15 @@ GRP.scripts = [
     }
 }, 
 {
+    id: "language",
+    name: "Language",
+    desc: "Change the language for this extension",
+    options: 
+    {
+        lang: 'en'
+    }
+}, 
+{
     id: "favicons",
     name: "Favicons",
     desc: "Display favicons for every feed",
@@ -82,7 +91,8 @@ GRP.scripts = [
     desc: "Add a button to show entire original page instead the entry",
     options: 
     {
-        locked: false
+        locked: false,
+		adjustframe: false
     },
     //shortcut: "shift+R",
     shortcuts: 

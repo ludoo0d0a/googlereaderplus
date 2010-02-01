@@ -13,115 +13,115 @@ GRP.langs.fr =
     'version': "version",
     closeentry: 
     {
-        text: 'Close this entry',
-        keyword: 'Close'
+        text: 'Fermer cet élément',
+        keyword: 'Fermer'
     },
     colorful: 
     {
         // pref labels
-        color: "Color these items:",
-        list: "List view headers.",
-        expanded: "Expanded view entry bodies.",
-        frame: "Expanded view entry frames.",
-        read: "Read items.",
-        unread: "Unread items.",
+        color: "Colorier ces élément:",
+        list: "En tete de la vue liste.",
+        expanded: "Corps des éléments en vue 'texte complet'.",
+        frame: "Frames des éléments en vue 'texte complet'.",
+        read: "Lire les éléments",
+        unread: "Elément non lus.",
         
         // pref messages
-        msgWill: "will",
-        msgWillNot: "will not",
+        msgWill: "sera",
+        msgWillNot: "ne sera pas",
         msgColored: " be colored.",
-        msgList: "List view items ",
-        msgExpanded: "Expanded view entry bodies ",
-        msgFrame: "Expanded view entry frames ",
-        msgUnread: "Unread items ",
-        msgRead: "Read items ",
-        msgUndef: "Undefined",
+        msgList: "En tete de la vue liste ",
+        msgExpanded: "Corps des éléments en vue 'texte complet' ",
+        msgFrame: "Frames des éléments en vue 'texte complet' ",
+        msgUnread: "Elément non lus ",
+        msgRead: "Lire les éléments",
+        msgUndef: "Indéfini",
         
-        scheme: "Color Scheme: ",
-        def: "Default",
-        custom: "Custom",
+        scheme: "Schema des couleurs: ",
+        def: "Defaut",
+        custom: "Personnalise",
         
-        update: "Userscript Update Available",
-        install: "Install"
+        update: "Mise à jour disponible",
+        install: "Installation"
     },
     column: 
     {
-        text: 'Display as multi columns layout',
-        keyword: 'Column'
+        text: 'Affichage multi-colonnes (type journal)',
+        keyword: 'Colonnes'
     },
     facebook: 
     {
-        text: 'Share this news on Facebook',
+        text: 'Partager cette nouvelle sur Facebook',
         keyword: 'Facebook'
     },
 	twitter:{
-		plslogin:'Please login to Twitter',
-		toolong:"the message is too long!",
-		notetoolong:"<b>Note to go along with the item:</b> (Optional, remain {0} characters)",
-		notemax:"<b>Note to go along with the item:</b> (Optional, no more than 140 characters)",
-		text_title:'Title',
+		plslogin:'Merci de vous connecter à Twitter',
+		toolong:"Ce message est trop long!",
+		notetoolong:"<b>Note attachée à la nouvelle:</b> (optionel, reste {0} caractères)",
+		notemax:"<b>Note attachée à la nouvelle:</b> (optionel, 140 caractères maximum)",
+		text_title:'Titre',
 		text_tag:'Tag',
-		text_url:'URL',
-		text_count:'Count',
-		text_cancel:'Cancel'
+		text_url:'Adresse',
+		text_count:'Nombre',
+		text_cancel:'Annuler'
 	},
 	instapaper:{
-		text:'Read Later with Instapaper',
+		text:'Lire plus tard avec Instapaper',
 		keyword: 'Instapaper',
-		plslogin:'Please login to Instapaper',
-		login:'Email or username:',
-		password:'Password, if you have one:',
-		wronglogin:'Wrong username or password, please retry!!',
-		error:'The service encountered an error. Please try again later.',
-		badrequest:'Bad request. Probably missing a required parameter, such as url.',
-		saving:'Saving'
+		plslogin:'Merci de vous connecter Instapaper',
+		login:'Email ou nom d\'utilisateur:',
+		password:'Mot de passe, si vous en avez un:',
+		wronglogin:'Mauvais mot de passe ou nom d\'utilisateur, merci de réessayer!!',
+		error:'Ce service a rencontré une erreur. merci de réessayer plus tard.',
+		badrequest:'Mauvaise requête. Il manque surement un paramètre comme l\'url.',
+		saving:'Sauvegarde'
 	},
     favicons: 
     {
-        preferences: 'Preferences',
-        getfavicon: 'Get favicon',
-        notfoundicon: 'Cannot found favicon for "{0}"'
+        preferences: 'Préférences',
+        getfavicon: 'Obtenir l\'icône de ce site',
+        notfoundicon: 'Impossible d\'obtenir l\'icône de  "{0}"'
     },
     filter: 
     {
-        quickadd: 'Quick Add',
-        highlight: 'Highlight',
-        exclude: 'Exclude',
-        add: 'Add',
-        close: 'Close'
+        quickadd: 'Ajout rapide',
+        highlight: 'Surligner',
+        exclude: 'Exclure',
+        add: 'Ajouter',
+        close: 'Fermer'
     },
     fitheight: 
     {
-        text: 'Fit height',
-        keyword: 'Fit height'
+        text: 'Adapter la hauteur',
+        keyword: 'Adapter la hauteur'
     },
     jump: 
     {
-        textbottom: 'Jump to bottom',
-        texttop: 'Jump to top',
-        keywordtop: 'top'
+        textbottom: 'Aller en bas',
+        texttop: 'Aller en haut',
+        keywordtop: 'haut'
     },
     openbackground: 
     {
-        text: 'Open in background',
-        keyword: 'Open'
+        text: 'Ouvrir en arriére-plan',
+        keyword: 'Ouvrir'
     },
     preview: 
     {
-        text: 'Integrated preview of the news',
-        title: 'Open as preview',
-        opennewtab: 'Open in a new window',
-        keyword: 'Preview'
+        text: 'Aperçu de la nouvelle',
+        title: 'Aperçu de la nouvelle',
+        opennewtab: 'Ouvrir dans une nouvelle fenêtre',
+        keyword: 'Aperçu'
     },
     readbymouse: 
     {
-        middleclick: 'Middle click',
-        openintab: 'Opens in Tab',
-        shares: 'Shares',
-        stars: 'Stars',
+        middleclick: 'Clic bouton du milieu',
+        openintab: 'Ouvrir dans un nouvel onglet',
+        shares: 'Partage',
+        stars: 'suivi',
         tag: 'Tag',
-        addtag: 'Add a Tag',
-        on: 'ReadByMouse On',
-        off: 'ReadByMouse Off'
+        addtag: 'Ajouter un tag',
+        on: 'ReadByMouse activé',
+        off: 'ReadByMouse arrêté'
     }
 };

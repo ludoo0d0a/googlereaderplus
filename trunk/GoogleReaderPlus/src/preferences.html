@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Google Reader Plus - Preferences</title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" /> 
         <link href="css/prefs.css" type="text/css" rel="stylesheet">
         <script type="application/javascript" src="version.js">
         </script>
@@ -12,495 +13,510 @@
             //(function(){
             var prefs = {}, gshortcuts = {}, myport;
             function init(){
-               GRP.setVersion("Version: ");
-               createscripts();
-               createskins();
-               infoNavigator();
-               showPanel('theme');
-               
-               if (typeof chrome !== "undefined" && chrome.extension) {
-                  myport = chrome.extension.connect({
-                     name: "googlereaderplus"
-                  });
-                  var me = this;
-                  myport.onMessage.addListener(function(a){
-                     if (a.message === "prefs") {
-                        //scripts = a.scripts;
-                        prefs = a.prefs;
-                        me.displayprefs.call(me);
-                     } else if (a.message === "info") {
-                        createReport(a.report);
-                     } else if (a.message === "iconget") {
-                        savefavicon(a.url, a.icon, a.title);
-                     }
-                  });
-                  myport.postMessage({
-                     message: "getprefs"
-                  });
-                  
-               }
+                GRP.setVersion("Version: ");
+                createscripts();
+                createskins();
+                infoNavigator();
+                showPanel('theme');
+                
+                if (typeof chrome !== "undefined" && chrome.extension) {
+                    myport = chrome.extension.connect(
+                    {
+                        name: "googlereaderplus"
+                    });
+                    var me = this;
+                    myport.onMessage.addListener(function(a){
+                        if (a.message === "prefs") {
+                            //scripts = a.scripts;
+                            prefs = a.prefs;
+                            me.displayprefs.call(me);
+                        } else if (a.message === "info") {
+                            createReport(a.report);
+                        } else if (a.message === "iconget") {
+                            savefavicon(a.url, a.icon, a.title);
+                        }
+                    });
+                    myport.postMessage(
+                    {
+                        message: "getprefs"
+                    });
+                    
+                }
             }
             
             function info(msg){
-               var status = document.getElementById('status');
-               status.innerHTML = msg;
-               status.className = "menupanel";
-               window.setTimeout(function(){
-                  status.innerHTML = "";
-                  status.className = "menupanel hidden";
-               }, 3000);
+                var status = document.getElementById('status');
+                status.innerHTML = msg;
+                status.className = "menupanel";
+                window.setTimeout(function(){
+                    status.innerHTML = "";
+                    status.className = "menupanel hidden";
+                }, 3000);
             }
             
             function applyprefs(){
-               var form = document.frmprefs;
-               for (var i in form) {
-                  var ctrl = form[i];
-                  if (ctrl && !hasClass(ctrl, 'ignore')) {
-                     var o = ctrl.id;
-                     if (typeof ctrl.key !== "undefined") {
-                        //shortcut code
-                        prefs[o] = ctrl.key;
-                     } else if (ctrl.type === "checkbox") {
-                        prefs[o] = ctrl.checked || false;
-                     } else {
-                        prefs[o] = ctrl.value;
-                     }
-                  }
-               }
+                var form = document.frmprefs;
+                for (var i in form) {
+                    var ctrl = form[i];
+                    if (ctrl && !hasClass(ctrl, 'ignore')) {
+                        var o = ctrl.id;
+                        if (typeof ctrl.key !== "undefined") {
+                            //shortcut code
+                            prefs[o] = ctrl.key;
+                        } else if (ctrl.type === "checkbox") {
+                            prefs[o] = ctrl.checked || false;
+                        } else {
+                            prefs[o] = ctrl.value;
+                        }
+                    }
+                }
             }
             
             function saveprefs(reload, cleanall){
-               if (!cleanall) {
-			   	 applyprefs();
-			   }
-               
-               myport.postMessage({
-                  message: "setprefs",
-                  prefs: prefs,
-                  cleanall: cleanall || false
-               });
-               run_extshortcuts();
-               info("Preferences saved");
-               if (reload) {
-                  window.location.reload();
-               }
+                if (!cleanall) {
+                    applyprefs();
+                }
+                
+                myport.postMessage(
+                {
+                    message: "setprefs",
+                    prefs: prefs,
+                    cleanall: cleanall || false
+                });
+                run_extshortcuts();
+                info("Preferences saved");
+                if (reload) {
+                    window.location.reload();
+                }
             }
             
             function displayprefs(){
-               if (prefs) {
-                  for (var o in prefs) {
-                     var ctrl = document.frmprefs[o];
-                     if (ctrl && (typeof prefs[o] !== 'undefined')) {
-                        if (!hasClass(ctrl, 'ignore')) {
-                           if (ctrl.tagName === "INPUT") {
-                              if (ctrl.key) {
-                                 //shortcut
-                                 var key = unmarshallKey(prefs[o]);
-                                 setShortcut(key, ctrl);
-                              } else if (ctrl.type === "checkbox") {
-                                 ctrl.checked = (prefs[o] === true);
-                              } else if (ctrl.type === "text") {
-                                 ctrl.value = prefs[o];
-                              } else if (ctrl.type === "hidden") {
-                                 ctrl.value = prefs[o];
-                              }
-                           } else if (ctrl.nodeName === "TEXTAREA") {
-                              ctrl.value = prefs[o];
-                           }
+                if (prefs) {
+                    for (var o in prefs) {
+                        var ctrl = document.frmprefs[o];
+                        if (ctrl && (typeof prefs[o] !== 'undefined')) {
+                            if (!hasClass(ctrl, 'ignore')) {
+                                if (ctrl.tagName === "INPUT") {
+                                    if (ctrl.key) {
+                                        //shortcut
+                                        var key = unmarshallKey(prefs[o]);
+                                        setShortcut(key, ctrl);
+                                    } else if (ctrl.type === "checkbox") {
+                                        ctrl.checked = (prefs[o] === true);
+                                    } else if (ctrl.type === "text") {
+                                        ctrl.value = prefs[o];
+                                    } else if (ctrl.type === "hidden") {
+                                        ctrl.value = prefs[o];
+                                    }
+                                } else if (ctrl.nodeName === "TEXTAREA") {
+                                    ctrl.value = prefs[o];
+                                }
+                            }
                         }
-                     }
-                  }
-                  loadSkin();
-                  loadFavicons();
-               }
+                    }
+                    loadSkin();
+					loadLang();
+                    loadFavicons();
+                }
             }
             
             function loadSkin(){
-               var input = document.getElementById("theme_skin");
-               var li = document.getElementById('skin_' + input.value);
-               if (!li) {
-                  li = document.getElementById('skin_none');
-               }
-               if (li) {
-                  li.onclick();
-               }
+                var input = document.getElementById("theme_skin");
+                var li = document.getElementById('skin_' + input.value);
+                if (!li) {
+                    li = document.getElementById('skin_none');
+                }
+                if (li) {
+                    li.onclick();
+                }
+            }
+			
+			function loadLang(){
+                var select = document.getElementById("language_lang");
+                if (select) {
+                    select.value=prefs.language_lang;
+                }
             }
             
             var lastPanel, lastLink;
             function showPanel(id){
-               if (typeof window['run_' + id] == "function") {
-                window['run_' + id].call(this, id);
-               }
-               var link = document.getElementById('l_' + id);
-               if (lastLink) {
-                  lastLink.className = "";
-               }
-               if (link) {
-                  link.className = "on";
-                  lastLink = link;
-               }
-               
-               var panel = document.getElementById('panel_' + id);
-               if (lastPanel) {
-                  lastPanel.style.display = "none";
-               }
-               if (panel) {
-                  panel.style.display = "inline";
-                  lastPanel = panel;
-               }
+                if (typeof window['run_' + id] == "function") {
+                    window['run_' + id].call(this, id);
+                }
+                var link = document.getElementById('l_' + id);
+                if (lastLink) {
+                    lastLink.className = "";
+                }
+                if (link) {
+                    link.className = "on";
+                    lastLink = link;
+                }
+                
+                var panel = document.getElementById('panel_' + id);
+                if (lastPanel) {
+                    lastPanel.style.display = "none";
+                }
+                if (panel) {
+                    panel.style.display = "inline";
+                    lastPanel = panel;
+                }
             }
             
             function createscripts(){
-               var list = document.getElementById('scriptlist');
-               var panels = document.getElementById('panels');
-               list.innerHTML = 'In progress...';
-               var html = '';
-               var tplCheckbox = '<li id="l_{id}"><a href="javascript:showPanel(\'{id}\')"><input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{desc}">{name}</label><span class="open">{dlink}</span></a></li>';
-               var tplLink = '<li id="l_{id}"><a class="link" href="javascript:showPanel(\'{id}\')"><span class="linkblock">{name}</span><span class="open olink">{dlink}</span></a></li>';
-               var tplPanelTitle = '<div class="title"><h2>{name}</h2><div id="paneldesc_{id}" class="desc">{desc}</div></div>';
-               var tplPanelIframe = '<div class="title"><h2>{name}</h2><iframe src="{url}" width="700" height="620"></iframe></div>';
-               for (var i = 0, len = GRP.scripts.length; i < len; i++) {
-                  var script = GRP.scripts[i];
-                  script.dlink = '>';
-                  var t = (script.link) ? tplLink : tplCheckbox;
-                  html += fillTpl(t, script);
-                  var panel = document.getElementById('panel_' + script.id);
-                  var tpl = (script.url) ? tplPanelIframe : tplPanelTitle;
-                  if (script.url) {
-                     script.url = script.url;
-                  }
-                  if (!panel) {
-                     //create panels for descritpion
-                     panel = document.createElement('div');
-                     panel.id = "panel_" + script.id;
-                     panel.style.display = "none";
-                     script.shortcut = script.shortcut || '-';
-                     panel.innerHTML = fillTpl(tpl, script);
-                     panels.appendChild(panel);
-                     script.dlink = '&gt;';
-                  } else {
-                     var container = document.createElement('div');
-                     container.className = 'container';
-                     container.innerHTML = fillTpl(tplPanelTitle, script);
-                     var body = getFirstNode(panel);
-                     panel.insertBefore(container, body);
-                  }
-                  createShortcuts(panel, script, script.shortcuts);
-               }
-               list.innerHTML = html;
+                var list = document.getElementById('scriptlist');
+                var panels = document.getElementById('panels');
+                list.innerHTML = 'In progress...';
+                var html = '';
+                var tplCheckbox = '<li id="l_{id}"><a href="javascript:showPanel(\'{id}\')"><input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{desc}">{name}</label><span class="open">{dlink}</span></a></li>';
+                var tplLink = '<li id="l_{id}"><a class="link" href="javascript:showPanel(\'{id}\')"><span class="linkblock">{name}</span><span class="open olink">{dlink}</span></a></li>';
+                var tplPanelTitle = '<div class="title"><h2>{name}</h2><div id="paneldesc_{id}" class="desc">{desc}</div></div>';
+                var tplPanelIframe = '<div class="title"><h2>{name}</h2><iframe src="{url}" width="700" height="620"></iframe></div>';
+                for (var i = 0, len = GRP.scripts.length; i < len; i++) {
+                    var script = GRP.scripts[i];
+                    script.dlink = '>';
+                    var t = (script.link) ? tplLink : tplCheckbox;
+                    html += fillTpl(t, script);
+                    var panel = document.getElementById('panel_' + script.id);
+                    var tpl = (script.url) ? tplPanelIframe : tplPanelTitle;
+                    if (script.url) {
+                        script.url = script.url;
+                    }
+                    if (!panel) {
+                        //create panels for descritpion
+                        panel = document.createElement('div');
+                        panel.id = "panel_" + script.id;
+                        panel.style.display = "none";
+                        script.shortcut = script.shortcut || '-';
+                        panel.innerHTML = fillTpl(tpl, script);
+                        panels.appendChild(panel);
+                        script.dlink = '&gt;';
+                    } else {
+                        var container = document.createElement('div');
+                        container.className = 'container';
+                        container.innerHTML = fillTpl(tplPanelTitle, script);
+                        var body = getFirstNode(panel);
+                        panel.insertBefore(container, body);
+                    }
+                    createShortcuts(panel, script, script.shortcuts);
+                }
+                list.innerHTML = html;
             }
             
             function createskins(){
-               var last;
-               var list = document.getElementById('skinlist');
-               list.innerHTML = '';
-               for (var i = 0, len = GRP.skins.length; i < len; i++) {
-                  var o = GRP.skins[i];
-                  var li = document.createElement('li');
-                  var a = document.createElement('a');
-                  li.id = 'skin_' + o.id;
-                  a.innerHTML = o.name;
-                  a.href = '#';
-                  li.appendChild(a);
-                  list.appendChild(li);
-                  var id = o.id;
-                  li.onclick = function(){
-                     var c = this;
-                     if (last) {
-                        last.className = "";
-                     }
-                     c.className = "on";
-                     var thumb = document.getElementById("thumb");
-                     var id = c.id.replace('skin_', '');
-                     var input = document.getElementById("theme_skin");
-                     if (id === "none") {
-                        input.value = "";
-                        thumb.className = "hidden";
-                     } else {
-                        input.value = id;
-                        thumb.className = "";
-                        thumb.src = "skin/img/" + id + ".png";
-                        //check theme feature
-                        var checktheme = document.getElementById("theme");
-                        if (checktheme) {
-                           checktheme.checked = true;
+                var last;
+                var list = document.getElementById('skinlist');
+                list.innerHTML = '';
+                for (var i = 0, len = GRP.skins.length; i < len; i++) {
+                    var o = GRP.skins[i];
+                    var li = document.createElement('li');
+                    var a = document.createElement('a');
+                    li.id = 'skin_' + o.id;
+                    a.innerHTML = o.name;
+                    a.href = '#';
+                    li.appendChild(a);
+                    list.appendChild(li);
+                    var id = o.id;
+                    li.onclick = function(){
+                        var c = this;
+                        if (last) {
+                            last.className = "";
                         }
-                     }
-                     last = c;
-                  };
-               }
+                        c.className = "on";
+                        var thumb = document.getElementById("thumb");
+                        var id = c.id.replace('skin_', '');
+                        var input = document.getElementById("theme_skin");
+                        if (id === "none") {
+                            input.value = "";
+                            thumb.className = "hidden";
+                        } else {
+                            input.value = id;
+                            thumb.className = "";
+                            thumb.src = "skin/img/" + id + ".png";
+                            //check theme feature
+                            var checktheme = document.getElementById("theme");
+                            if (checktheme) {
+                                checktheme.checked = true;
+                            }
+                        }
+                        last = c;
+                    };
+                }
             }
             
             function createReport(report){
-               var list = document.getElementById('sysinfo');
-               list.innerHTML = '';
-               recurseList(list, report);
+                var list = document.getElementById('sysinfo');
+                list.innerHTML = '';
+                recurseList(list, report);
             }
             
             function recurseList(root, list){
-               var ul = document.createElement('ul');
-               for (var o in list) {
-                  var li = document.createElement('li');
-                  if (typeof list[o] === "object") {
-                     ul.innerHTML += "<span class='info-title'>" + o + "</span>";
-                     recurseList(ul, list[o]);
-                  } else {
-                     li.innerHTML = o + " : " + list[o];
-                     ul.appendChild(li);
-                  }
-               }
-               root.appendChild(ul);
+                var ul = document.createElement('ul');
+                for (var o in list) {
+                    var li = document.createElement('li');
+                    if (typeof list[o] === "object") {
+                        ul.innerHTML += "<span class='info-title'>" + o + "</span>";
+                        recurseList(ul, list[o]);
+                    } else {
+                        li.innerHTML = o + " : " + list[o];
+                        ul.appendChild(li);
+                    }
+                }
+                root.appendChild(ul);
             }
             
             //Duplicate from info.js
             function infoNavigator(){
-               var n = window.navigator;
-               var w = {};
-               for (var p in n) {
-                  if (typeof n[p] === "string" || typeof n[p] === "boolean") {
-                     w[p] = n[p];
-                  }
-               }
-               var chromeVersion = extract('Chrome', n.appVersion);
-               var webkitVersion = extract('AppleWebKit', n.appVersion);
-               
-               var o = {
-                  version: chromeVersion,
-                  webkit: webkitVersion,
-                  os: n.platform,
-                  lang: n.language,
-                  resolution: screen.width + 'x' + screen.height
-               };
-               createReport({
-                  info: o,
-                  navigator: w,
-                  screen: screen
-               });
+                var n = window.navigator;
+                var w = {};
+                for (var p in n) {
+                    if (typeof n[p] === "string" || typeof n[p] === "boolean") {
+                        w[p] = n[p];
+                    }
+                }
+                var chromeVersion = extract('Chrome', n.appVersion);
+                var webkitVersion = extract('AppleWebKit', n.appVersion);
+                
+                var o = 
+                {
+                    version: chromeVersion,
+                    webkit: webkitVersion,
+                    os: n.platform,
+                    lang: n.language,
+                    resolution: screen.width + 'x' + screen.height
+                };
+                createReport(
+                {
+                    info: o,
+                    navigator: w,
+                    screen: screen
+                });
             }
             
             function extract(name, text){
-               try {
-                  var re = new RegExp(name + '/[\\d\\.]+');
-                  var r = re.exec(text);
-                  return (r) ? (r[0].replace(name + '/', '')) : '?';
-               } 
-               catch (e) {
-                  return '?';
-               }
+                try {
+                    var re = new RegExp(name + '/[\\d\\.]+');
+                    var r = re.exec(text);
+                    return (r) ? (r[0].replace(name + '/', '')) : '?';
+                } 
+                catch (e) {
+                    return '?';
+                }
             }
             
             function run_extshortcuts(){
-               //update all Keyboard shortcuts
-               var key, html = '';
-               var tplShorcut = '<li><span>{keytext}</span>{title}</li>';
-               var grpshortcuts = document.getElementById('grpshortcuts');
-               grpshortcuts.innerHTML = '';
-               for (var i = 0, len = GRP.scripts.length; i < len; i++) {
-                  var script = GRP.scripts[i];
-                  if (script.shortcuts) {
-                     for (var sid in script.shortcuts) {
-                        var shortcut = script.shortcuts[sid];
-                        if (prefs && prefs[script.id + '_key_' + sid]) {
-                           key = unmarshallKey(prefs[script.id + '_key_' + sid]);
-                        } else {
-                           key = shortcut.key;
+                //update all Keyboard shortcuts
+                var key, html = '';
+                var tplShorcut = '<li><span>{keytext}</span>{title}</li>';
+                var grpshortcuts = document.getElementById('grpshortcuts');
+                grpshortcuts.innerHTML = '';
+                for (var i = 0, len = GRP.scripts.length; i < len; i++) {
+                    var script = GRP.scripts[i];
+                    if (script.shortcuts) {
+                        for (var sid in script.shortcuts) {
+                            var shortcut = script.shortcuts[sid];
+                            if (prefs && prefs[script.id + '_key_' + sid]) {
+                                key = unmarshallKey(prefs[script.id + '_key_' + sid]);
+                            } else {
+                                key = shortcut.key;
+                            }
+                            shortcut.keytext = formatKey(key);
+                            html += fillTpl(tplShorcut, shortcut);
                         }
-                        shortcut.keytext = formatKey(key);
-                        html += fillTpl(tplShorcut, shortcut);
-                     }
-                  }
-               }
-               grpshortcuts.innerHTML = html;
+                    }
+                }
+                grpshortcuts.innerHTML = html;
             }
             
             function createShortcuts(el, script, shortcuts){
-               if (shortcuts) {
-                  for (var sid in shortcuts) {
-                     var shortcut = shortcuts[sid];
-                     createShortcut(el, script, shortcut, sid);
-                  }
-               }
+                if (shortcuts) {
+                    for (var sid in shortcuts) {
+                        var shortcut = shortcuts[sid];
+                        createShortcut(el, script, shortcut, sid);
+                    }
+                }
             }
             
             function createShortcut(el, script, shortcut){
-               var div = document.createElement('div');
-               div.className = 'shortcut';
-               
-               var label = document.createElement('span');
-               label.innerHTML = shortcut.title + ' : ';
-               div.appendChild(label);
-               var input = document.createElement('input');
-               input.type = 'text';
-               input.size = 15;
-               input.className = 'shortcut';
-               input.id = script.id + '_key_' + shortcut.id;
-               var key = shortcut.key;
-               //use default value on creation
-               setShortcut(key, input);
-               
-               var scriptId = script.id;
-               var shortcutId = shortcut.id;
-               
-               input.onkeydown = function(e){
-                  e.preventDefault();
-                  e.stopPropagation();
-                  fixShortcut(e, e.target);
-               };
-               div.appendChild(input);
-               el.appendChild(div);
+                var div = document.createElement('div');
+                div.className = 'shortcut';
+                
+                var label = document.createElement('span');
+                label.innerHTML = shortcut.title + ' : ';
+                div.appendChild(label);
+                var input = document.createElement('input');
+                input.type = 'text';
+                input.size = 15;
+                input.className = 'shortcut';
+                input.id = script.id + '_key_' + shortcut.id;
+                var key = shortcut.key;
+                //use default value on creation
+                setShortcut(key, input);
+                
+                var scriptId = script.id;
+                var shortcutId = shortcut.id;
+                
+                input.onkeydown = function(e){
+                    e.preventDefault();
+                    e.stopPropagation();
+                    fixShortcut(e, e.target);
+                };
+                div.appendChild(input);
+                el.appendChild(div);
             }
             
             function isShortcutFree(e){
-               var text = formatKey(e);
-               var key = marshallKey(e);
-               
-               //custom in prefs
-               if (gshortcuts[key]) {
-                  return 'Already used in your preferences !';
-               }
-               
-               //google
-               if (GRP.googleshortcuts && GRP.googleshortcuts[text]) {
-                  return 'Already used by Google!<br/>(' + GRP.googleshortcuts[text] + ')';
-               }
-               
-               return true;
+                var text = formatKey(e);
+                var key = marshallKey(e);
+                
+                //custom in prefs
+                if (gshortcuts[key]) {
+                    return 'Already used in your preferences !';
+                }
+                
+                //google
+                if (GRP.googleshortcuts && GRP.googleshortcuts[text]) {
+                    return 'Already used by Google!<br/>(' + GRP.googleshortcuts[text] + ')';
+                }
+                
+                return true;
             }
             
             function setShortcut(key, ctrl){
-               if (!key.keyCode) {
-                  //error
-                  return;
-               }
-               //remove old
-               delete gshortcuts[ctrl.key];
-               ctrl.value = formatKey(key);
-               ctrl.key = marshallKey(key);
-               //add new
-               gshortcuts[ctrl.key] = key;
-               prefs[ctrl.id] = ctrl.key;
+                if (!key.keyCode) {
+                    //error
+                    return;
+                }
+                //remove old
+                delete gshortcuts[ctrl.key];
+                ctrl.value = formatKey(key);
+                ctrl.key = marshallKey(key);
+                //add new
+                gshortcuts[ctrl.key] = key;
+                prefs[ctrl.id] = ctrl.key;
             }
             
             //function fixShortcut(e, hidden, input){
             function fixShortcut(e, input){
-               //himself?
-               var newKey = marshallKey(e);
-               if (input.key == newKey) {
-                  return;
-               }
-               var free = isShortcutFree(e);
-               var warn = input.nextSibling;
-               if (free === true) {
-                  if (warn) {
-                     warn.className = 'warning hidden';
-                  }
-                  input.className = '';
-                  setShortcut(e, input);
-               } else {
-                  //Already set
-                  if (!hasClass(warn, 'warning')) {
-                     warn = document.createElement('div');
-                     warn.className = 'warning';
-                     insertAfter(warn, input);
-                  }
-                  warn.className = 'warning';
-                  input.value = formatKey(e);
-                  input.className = 'warning';
-                  warn.innerHTML = free;
-               }
+                //himself?
+                var newKey = marshallKey(e);
+                if (input.key == newKey) {
+                    return;
+                }
+                var free = isShortcutFree(e);
+                var warn = input.nextSibling;
+                if (free === true) {
+                    if (warn) {
+                        warn.className = 'warning hidden';
+                    }
+                    input.className = '';
+                    setShortcut(e, input);
+                } else {
+                    //Already set
+                    if (!hasClass(warn, 'warning')) {
+                        warn = document.createElement('div');
+                        warn.className = 'warning';
+                        insertAfter(warn, input);
+                    }
+                    warn.className = 'warning';
+                    input.value = formatKey(e);
+                    input.className = 'warning';
+                    warn.innerHTML = free;
+                }
             }
             
             function disableAllScripts(){
-               for (var i = 0, len = GRP.scripts.length; i < len; i++) {
-                  var script = GRP.scripts[i];
-                  prefs[script.id] = false;
-               }
+                for (var i = 0, len = GRP.scripts.length; i < len; i++) {
+                    var script = GRP.scripts[i];
+                    prefs[script.id] = false;
+                }
             }
             
             function setpackage(id){
-               disableAllScripts();
-               if (id === "reset") {
-                  //Refresh page to reload all options for each script
-                  var sure = confirm('This will ERASE and reset all your preferences. Are you sure ?');
-                  if (sure) {
-                     prefs = {};
-                     displayprefs();
-                     saveprefs(true, true);
-                  }
-                  return;
-               } else {
-                  for (var i = 0, len = GRP.packages[id].length; i < len; i++) {
-                     var o = GRP.packages[id][i];
-                     prefs[o] = true;
-                     prefs[o + '_skin'] = 'osxblack';
-                  }
-               }
-               displayprefs();//update
+                disableAllScripts();
+                if (id === "reset") {
+                    //Refresh page to reload all options for each script
+                    var sure = confirm('This will ERASE and reset all your preferences. Are you sure ?');
+                    if (sure) {
+                        prefs = {};
+                        displayprefs();
+                        saveprefs(true, true);
+                    }
+                    return;
+                } else {
+                    for (var i = 0, len = GRP.packages[id].length; i < len; i++) {
+                        var o = GRP.packages[id][i];
+                        prefs[o] = true;
+                        prefs[o + '_skin'] = 'osxblack';
+                    }
+                }
+                displayprefs();//update
             }
             
             var tplDomain = '<a href="http://{url}" target="_blank"><span><img alt="favicon" class="favicon" title="Preview" src="{icon}" width="16" height="16"/>{url}</span></a><a class="action" href="javascript:addfavicon(\'{url}\');">edit</a><a class="action" href="javascript:removefavicon(\'{url}\');">remove</a>';
             
             function loadFavicons(){
-               var favicons = prefs.favicons_domains;
-               if (!favicons) {
-                  return;
-               }
-               var tplDomainLi = '<li id="li_{url}">' + tplDomain + '</li>';
-               var html = '';
-               var ul = document.getElementById('favicon_crud');
-               for (var url in favicons) {
-                  var favicon = {
-                     url: url,
-                     icon: favicons[url]
-                  };
-                  html += fillTpl(tplDomainLi, favicon);
-               }
-               ul.innerHTML = html;
+                var favicons = prefs.favicons_domains;
+                if (!favicons) {
+                    return;
+                }
+                var tplDomainLi = '<li id="li_{url}">' + tplDomain + '</li>';
+                var html = '';
+                var ul = document.getElementById('favicon_crud');
+                for (var url in favicons) {
+                    var favicon = 
+                    {
+                        url: url,
+                        icon: favicons[url]
+                    };
+                    html += fillTpl(tplDomainLi, favicon);
+                }
+                ul.innerHTML = html;
             }
             
             function addfavicon(urlin){
-               var url = urlin || '';
-               url = prompt("Enter the site :", url);
-               if (!url) {
-                  return;
-               }
-               var icon = prefs.favicons_domains[url] || '';
-               icon = prompt("Enter the icon url :", icon);
-               if (!icon) {
-                  return;
-               }
-               
-               var favicon = {
-                  url: url,
-                  icon: icon
-               };
-               if (urlin && url != urlin) {
-                  //remove old
-                  removefavicon(urlin);
-               }
-               
-               var id = 'li_' + favicon.url;
-               var li = document.getElementById(id);
-               if (!li) {
-                  var ul = document.getElementById('favicon_crud');
-                  li = document.createElement('li');
-                  li.id = 'li_' + favicon.url;
-                  ul.appendChild(li);
-               }
-               li.innerHTML = fillTpl(tplDomain, favicon);
-               savefavicon(favicon.url, favicon.icon);
+                var url = urlin || '';
+                url = prompt("Enter the site :", url);
+                if (!url) {
+                    return;
+                }
+                var icon = prefs.favicons_domains[url] || '';
+                icon = prompt("Enter the icon url :", icon);
+                if (!icon) {
+                    return;
+                }
+                
+                var favicon = 
+                {
+                    url: url,
+                    icon: icon
+                };
+                if (urlin && url != urlin) {
+                    //remove old
+                    removefavicon(urlin);
+                }
+                
+                var id = 'li_' + favicon.url;
+                var li = document.getElementById(id);
+                if (!li) {
+                    var ul = document.getElementById('favicon_crud');
+                    li = document.createElement('li');
+                    li.id = 'li_' + favicon.url;
+                    ul.appendChild(li);
+                }
+                li.innerHTML = fillTpl(tplDomain, favicon);
+                savefavicon(favicon.url, favicon.icon);
             }
             
             function savefavicon(url, icon, title){
-               prefs.favicons_domains[url] = icon;
+                prefs.favicons_domains[url] = icon;
             }
             
             function removefavicon(url){
-               delete prefs.favicons_domains[url];
-               var li = document.getElementById('li_' + url);
-               if (li) {
-                  li.parentNode.removeChild(li);
-               }
+                delete prefs.favicons_domains[url];
+                var li = document.getElementById('li_' + url);
+                if (li) {
+                    li.parentNode.removeChild(li);
+                }
             }
             
             window.onload = init;
@@ -552,16 +568,33 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="panel_language" style="display:none;">
+                            <div class="body">
+                                <label for="lang">
+                                    Choose your language for GoogleReaderPlus extension :
+                                </label>
+								<select id="language_lang" title="your language setting">
+                                    <option value="en">English </option>
+                                    <option value="fr">Français</option>
+                                </select>
+                            </div>
+                        </div>
                         <div id="panel_column" style="display:none;">
                             <div class="body">
                                 Columns number : <input id="column_count" name="column_count" type="text" value="3" size="2"/>
                                 <br/>
-                                <input id="column_locked" name="column_locked" type="checkbox" /><label for="column_locked">Feature 'Column' always actived by default</label>
+                                <input id="column_locked" name="column_locked" type="checkbox" />
+                                <label for="column_locked">
+                                    Feature 'Column' always actived by default
+                                </label>
                             </div>
                         </div>
-						<div id="panel_colorful" style="display:none;">
+                        <div id="panel_colorful" style="display:none;">
                             <div class="body">
-                                <input id="colorful_tree" name="colorful_tree" type="checkbox" /><label for="colorful_tree">Show label colors in the left navigation tree</label>
+                                <input id="colorful_tree" name="colorful_tree" type="checkbox" />
+                                <label for="colorful_tree">
+                                    Show label colors in the left navigation tree
+                                </label>
                             </div>
                         </div>
                         <div id="panel_removeads" style="display:none;">
@@ -581,27 +614,54 @@
                         </div>
                         <div id="panel_preview" style="display:none;">
                             <div class="body">
-								<input id="preview_onicon" name="preview_onicon" type="checkbox" /><label for="preview_onicon">Show integrated preview when click on icon right after the title (if not checked, on title)</label><br/>
-								<input id="preview_locked" name="preview_locked" type="checkbox" /><label for="preview_locked">Feature 'Preview' always actived by default</label><br/>
+                                <input id="preview_onicon" name="preview_onicon" type="checkbox" />
+                                <label for="preview_onicon">
+                                    Show integrated preview when click on icon right after the title (if not checked, on title)
+                                </label>
+                                <br/>
+								<!--
+								<input id="preview_adjustframe" name="preview_adjustframe" type="checkbox" />
+                                <label for="preview_adjustframe">
+                                    Adjust size of iframe to the content (only if size is smaller than screen height)
+                                </label>
+                                <br/>
+								-->
+                                <input id="preview_locked" name="preview_locked" type="checkbox" />
+                                <label for="preview_locked">
+                                    Feature 'Preview' always actived by default
+                                </label>
+                                <br/>
                             </div>
                         </div>
                         <div id="panel_fitheight" style="display:none;">
                             <div class="body">
                                 <br/>
-                                <input id="fitheight_locked" name="fitheight_locked" type="checkbox" /><label for="fitheight_locked">Feature 'Fit height' always actived by default</label>
+                                <input id="fitheight_locked" name="fitheight_locked" type="checkbox" />
+                                <label for="fitheight_locked">
+                                    Feature 'Fit height' always actived by default
+                                </label>
                             </div>
                         </div>
                         <div id="panel_favicons" style="display:none;">
                             <div class="body">
-                                <p>Enter your custom favicons :</p>
+                                <p>
+                                    Enter your custom favicons :
+                                </p>
                                 <div id="crud_domains">
                                     <ul class="mnu crud" id="favicon_crud">
                                     </ul>
                                     <a class="add" href="javascript:addfavicon();">Add</a>
                                 </div>
-                                <p>Tip: You could add it easily using the contextual menu "Get favicon" of the left side bar</p>
-                                <input id="favicons_manual" name="favicons_manual" type="checkbox" /><label for="favicons_manual">Manual favicons for all sites (not recommended ; slower)</label>
-                                <p>This will try to detect favicon by parsing each homepage</p>
+                                <p>
+                                    Tip: You could add it easily using the contextual menu "Get favicon" of the left side bar
+                                </p>
+                                <input id="favicons_manual" name="favicons_manual" type="checkbox" />
+                                <label for="favicons_manual">
+                                    Manual favicons for all sites (not recommended ; slower)
+                                </label>
+                                <p>
+                                    This will try to detect favicon by parsing each homepage
+                                </p>
                             </div>
                         </div>
                         <div id="panel_pack" style="display:none;">
@@ -708,6 +768,7 @@
                                     <li><a href="http://www.hicksdesign.co.uk/journal/google-reader-theme">OS X fixer</a></li>
                                     <li><a href="http://userstyles.org/styles/4096">Google Aero</a></li>
                                     <li><a href="http://userscripts.org/scripts/show/24955">Google Reader - Mark Until Current As Read</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/54713">Instapaper in Google Reader</a></li>
                                 </ul>
                             </div>
                         </div>

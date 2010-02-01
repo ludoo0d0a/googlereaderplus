@@ -116,7 +116,7 @@ GRP.preview = function(prefs, langs){
                 // iframe already in document, display it
                 iframe.style.display = 'block';
             } else {
-                // iframe not in document, create it
+				// iframe not in document, create it
                 iframe = document.createElement('iframe');
                 //iframe.id='if-preview';
                 iframe.setAttribute('width', '100%');
@@ -128,10 +128,16 @@ GRP.preview = function(prefs, langs){
                     //or if not, from classical one
                     urlLink = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
                 }
-                iframe.setAttribute('src', urlLink.href);
+				var url = urlLink.href;
+                iframe.setAttribute('src', url);
+				iframe.setAttribute('url', url);
                 iframe.className = 'if-preview';
                 body.appendChild(iframe);
-            }
+				
+				/*if (prefs.preview_adjustframe) {
+					adjustIframeHeight(iframe, h);
+				}*/
+            }			
             
             // Scale article container to fullwidth
             body.setAttribute('style', 'max-width: 98%');
