@@ -18,7 +18,7 @@ GRP.fitheight = function(prefs, langs){
 		var active = isActive(btn, entry, 'fitheight', locked);
 		//TODO: replace 'fit-height-on' with 'fitheight'
 		addClassIf(entry, 'fit-height-on', active);
-		jump(entry, true);
+		//jump(entry, true);
 	}	
 	
 	function addButton(el, entry, mode) {

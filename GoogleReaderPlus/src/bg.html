@@ -293,8 +293,8 @@
 					for (var k in a.parameters) {
 						params.push(k+'='+ encodeURIComponent(a.parameters[k]));
                     }
-					var sep = (url.indexOf('?')>0)?'&amp;':'?';  
-					url += sep + params.join('&amp;');
+					var sep = (url.indexOf('?')>0)?'&':'?';  
+					url += sep + params.join('&');
                 }
 				
 				xhr.open(a.method || 'get', url, true);

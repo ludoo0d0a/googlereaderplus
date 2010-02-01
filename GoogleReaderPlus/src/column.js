@@ -68,10 +68,10 @@ GRP.column = function(prefs, langs) {
 		// toggle to correct body
 		divoriginal.style.display = (active)?"none":"";
 		divwrap.style.display = (active)?"":"none";
-		
-		if (!locked) {
+		/*
+		if (!active) {
 			jump(entry, true);
-		}
+		}*/
 	}
 	
 	//column_count
