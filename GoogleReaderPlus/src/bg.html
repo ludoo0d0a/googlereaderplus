@@ -285,13 +285,26 @@
             
             function request(a){
                 var xhr = new XMLHttpRequest();
-                xhr.open(a.method || 'get', a.url, true);
+                var method = a.method || 'get';
+				var url = a.url;
+				
+				if (a.parameters && (method.toLowerCase()=='get') ) {
+                    var params = [];
+					for (var k in a.parameters) {
+						params.push(k+'='+ encodeURIComponent(a.parameters[k]));
+                    }
+					var sep = (url.indexOf('?')>0)?'&amp;':'?';  
+					url += sep + params.join('&amp;');
+                }
+				
+				xhr.open(a.method || 'get', url, true);
                 //headers
                 if (a.headers) {
                     for (var k in a.headers) {
                         xhr.setRequestHeader(k, a.headers[k]);
                     }
                 }
+
                 xhr.onload = function(o){
                     var xhr = o.target;
                     if (xhr) {
