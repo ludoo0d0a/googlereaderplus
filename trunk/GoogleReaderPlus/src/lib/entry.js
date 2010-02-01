@@ -50,7 +50,7 @@ function catchEntry(el, mode, fn, bid){
 function openEntryInNewTab(ent, selected){
     var entry = ent || getCurrentEntry();
     var link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
-	//var link = getFirstElementMatchingClassName(entry, 'a', 'title-link-url');
+    //var link = getFirstElementMatchingClassName(entry, 'a', 'title-link-url');
     var url = link.href;
     GM_openInTab(url, selected);
 }
@@ -207,7 +207,7 @@ function getShortcutKey(script, shortcut, prefs){
     } else {
         try {
             var s = getScriptObject(script);
-			key = s.shortcuts[shortcut];
+            key = s.shortcuts[shortcut];
         } 
         catch (e) {
             console.error("Failed to get default shortcut " + shortcut + " for script " + script);
@@ -224,7 +224,57 @@ function getScriptObject(id){
         var script = GRP.scripts[i];
         if (script.id == id) {
             return script;
-         }
+        }
     }
     return null;
+}
+
+function toggle(el){
+	if (!el.style.display){
+		hide(el);
+	}else{
+		show(el);
+	}
+}
+function hide(el){
+	el.style.display = "none";
+}
+function show(el){
+	delete el.style.display;
+}
+
+function createMenu(items){
+    var menu = document.createElement('div');
+    menu.className = "goog-menu goog-menu-vertical";
+    menu.style = "-moz-user-select: none; left: 228px; top: 20.1px; max-height: 300px;";
+    menu.role = "menu";
+    //menu['aria-haspopup']=true;
+    menu.tabindex = -1;
+    menu.id = "stream-prefs-menu-menu";
+	addMenuItems(menu,items);
+}
+
+function addMenuItems(menu, items){
+    var item, i, len, html = '';
+	var tplInner = '<div class="goog-menuitem-content"><div class="goog-menuitem-checkbox"></div>{text}</div>';
+    for (i = 0, len = items.length; i < len; i++) {
+        item = items[i];
+        var el = document.createElement('div');
+		addClass(el, 'goog-menuitem goog-option '+((item.selected) ? 'goog-option-selected' : ''));
+		el.role = "menuitem";
+		el.style="-moz-user-select: none;";
+		el.id=':grp' + i;
+		el.innerHTML=fillTpl(tplInner, item);
+		var callback = function(){
+			item.fn.call(el, [item, el]);
+		};
+		el.addEventListener('click', callback, false);
+	 }
+}
+function toggleCheckMenu(el){
+	if (hasClass(el, 'goog-option-selected')) {
+		removeClass(el, 'goog-option-selected');
+	} else {
+		addClass(el, 'goog-option-selected');
+	}
 }

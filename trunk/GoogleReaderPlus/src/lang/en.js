@@ -52,9 +52,27 @@ GRP.langs.en =
 		text:'Share this news on Facebook',
 		keyword: 'Facebook'
 	},
-	twitter: {
-		text:'Display as multi columns layout',
-		keyword: 'Column'
+	twitter:{
+		plslogin:'Please login to Twitter',
+		toolong:"the message is too long!",
+		notetoolong:"<b>Note to go along with the item:</b> (Optional, remain {0} characters)",
+		notemax:"<b>Note to go along with the item:</b> (Optional, no more than 140 characters)",
+		text_title:'Title',
+		text_tag:'Tag',
+		text_url:'URL',
+		text_count:'Count',
+		text_cancel:'Cancel'
+	},
+	instapaper:{
+		text:'Read Later with Instapaper',
+		keyword: 'Instapaper',
+		plslogin:'Please login to Instapaper',
+		login:'Email or username:',
+		password:'Password, if you have one:',
+		wronglogin:'Wrong username or password, please retry!!',
+		error:'The service encountered an error. Please try again later.',
+		badrequest:'Bad request. Probably missing a required parameter, such as url.',
+		saving:'Saving'
 	},
 	favicons:{
 		preferences: 'Preferences',
@@ -88,9 +106,15 @@ GRP.langs.en =
 		keyword: 'Preview'
 	},
 	readbymouse:{
-		todo:''
-	},
-	twitter:{
-		todo:''
+		middleclick:'Middle click',
+		openintab:'Opens in Tab',
+		shares:'Shares',
+		stars:'Stars',
+		tag:'Tag',
+		addtag:'Add a Tag',
+		on:'ReadByMouse On',
+		off:'ReadByMouse Off'
 	}
+
 };
+

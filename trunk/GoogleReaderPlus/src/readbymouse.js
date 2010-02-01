@@ -30,7 +30,7 @@ GRP.readbymouse = function(prefs, langs) {
 		var mouseCtrlButton = document.createElement("span");
 		mouseCtrlButton.innerHTML = '<input type="button" id="___mouseCtrl" value="ReadByMouse ' + systemStatus + '" style="margin-left: 10px;"></input>';
 		if (!isWindows) {
-			mouseCtrlButton.innerHTML += '<span style="margin-left: 10px;">Middle click: </span><select id="___middleClickSettings" name="midClickSettings" style="margin-left: 5px;"><option id="openInTab" value="openInTab">Opens in Tab<option id="share" value="share">Shares<option id="star" value="star">Stars<option id="addTag" value="addTag">Add a Tag</select><span id="addTagSpan" style="text-align:left; visibility: collapse; margin-left: 10px;">Tag: <input type="textbox" id="txtTag" value=""></span>';
+			mouseCtrlButton.innerHTML += '<span style="margin-left: 10px;">'+SL.middleclick+':</span><select id="___middleClickSettings" name="midClickSettings" style="margin-left: 5px;"><option id="openInTab" value="openInTab">'+SL.openintab+'<option id="share" value="share">'+SL.shares+'<option id="star" value="star">'+SL.stars+'<option id="addTag" value="addTag">'+SL.addtag+'</select><span id="addTagSpan" style="text-align:left; visibility: collapse; margin-left: 10px;">'+SL.addtag+':<input type="textbox" id="txtTag" value=""></span>';
 		}
 		nearNewButton.parentNode.insertBefore(mouseCtrlButton, nearNewButton.nextSibling);
 	}
@@ -67,12 +67,12 @@ GRP.readbymouse = function(prefs, langs) {
 			}
 
 			if (systemStatus == 'On') {
-				myBtn.value = 'ReadByMouse Off';
+				myBtn.value = SL.off;
 				systemStatus = 'Off';
 				GM_setValue('rbmStatus', systemStatus);
 
 			} else {
-				myBtn.value = 'ReadByMouse On';
+				myBtn.value = SL.on;
 				systemStatus = 'On';
 				GM_setValue('rbmStatus', systemStatus);
 			}
@@ -83,7 +83,7 @@ GRP.readbymouse = function(prefs, langs) {
 	document.addEventListener('click', function(event) {
 		// On each left click, check to see if the middle click setting
 			// has changed. if so, then set it in GM
-			if (event.button == 0) {
+			if (event.button === 0) {
 
 				// Get the selected option
 				var myMiddleSelect = document.getElementById('___middleClickSettings');
@@ -160,12 +160,12 @@ GRP.readbymouse = function(prefs, langs) {
 			}
 			var clickType = event.button;
 			// Left Click
-			if (clickType == 0) {
+			if (clickType === 0) {
 
 				// turn mouse control off if clicking on the mouse
 				// control button
 				if (myTarget.id == '___mouseCtrl') {
-					myTarget.value = 'ReadByMouse Off';
+					myTarget.value = SL.off;
 					systemStatus = 'Off';
 					if (GM_setValue) {
 						GM_setValue('rbmStatus', systemStatus);
@@ -217,7 +217,7 @@ GRP.readbymouse = function(prefs, langs) {
 			// If they clicked on the mouse control button, then turn it
 			// on.
 			if (myTarget.id == '___mouseCtrl') {
-				myTarget.value = 'ReadByMouse On';
+				myTarget.value = SL.on;
 				systemStatus = 'On';
 				GM_setValue('rbmStatus', systemStatus);
 			}
@@ -226,20 +226,16 @@ GRP.readbymouse = function(prefs, langs) {
 
 	// Go find the "Open original in tab" element and get the URL for original
 	function openInTab() {
-		var current = document.getElementById("current-entry");
-		var currentEntry = current.getElementsByTagName("entry-title-link")[0];
-
+		openEntryInNewTab();
 		/*
-		 * var currentEntry = $("#current-entry .entry-title-link"); if
-		 * (!GM_openInTab) { alert('Please upgrade to the latest version of
-		 * Greasemonkey.'); return; }
-		 */
-		GM_openInTab(currentEntry.attr('href'), '_blank');
+		var current = getCurrentEntry();
+		var currentEntry = current.getElementsByTagName("entry-title-link")[0];
+		GM_openInTab(currentEntry.attr('href'), '_blank');*/
 	}
 
 	// Go find the "share item" button and simulate a click on it
 	function shareItem() {
-		var current = document.getElementById("current-entry");
+		var current = getCurrentEntry();
 		var currentEntry = current.getElementsByTagName("broadcast")[0];
 		// var currentEntry = $("#current-entry .entry-actions .broadcast");
 		simulateClick(currentEntry);
@@ -247,7 +243,7 @@ GRP.readbymouse = function(prefs, langs) {
 
 	// Go find the "star item" button and simulate a click on it
 	function starItem() {
-		var current = document.getElementById("current-entry");
+		var current = getCurrentEntry();
 		var currentEntry = current.getElementsByTagName("star")[0];
 		// var currentEntry = $("#current-entry .entry-actions .star");
 		simulateClick(currentEntry);
@@ -256,7 +252,7 @@ GRP.readbymouse = function(prefs, langs) {
 	// Do the first part of tagging (click the tag button to reveal the tag
 	// control)
 	function tagItem1() {
-		var current = document.getElementById("current-entry");
+		var current = getCurrentEntry();
 		var currentEntry = current.getElementsByTagName("entry-tagging-action-title")[0];
 		// var currentEntry = $("#current-entry .entry-actions
 		// .entry-tagging-action-title");
@@ -285,6 +281,7 @@ GRP.readbymouse = function(prefs, langs) {
 		simulateClick(popup);
 	}
 
+	//TODO: use util.simulateClick
 	function simulateClick(node) {
 		var event = node.ownerDocument.createEvent("MouseEvents");
 

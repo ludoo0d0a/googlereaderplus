@@ -166,7 +166,7 @@ GRP.twitter = function(prefs, langs) {
 				bookmarkStar.parentNode.parentNode.className = "card-actions card-bottom";
 				bookmarkField.className = "action-area card-bottom hidden";
 				bookmarkStar.className = "item-star star link";
-				notesdesc.innerHTML = "<b>Note to go along with the item:</b> (Optional, no more than 140 characters)";
+				notesdesc.innerHTML = SL.notemax;
 				notesinput.value = "";
 			}, false);
 		} else {
@@ -174,7 +174,7 @@ GRP.twitter = function(prefs, langs) {
 				parent.className = "entry read expanded";
 				bookmarkField.className = "action-area hidden";
 				bookmarkStar.className = "item-star star link";
-				notesdesc.innerHTML = "<b>Note to go along with the item:</b> (Optional, no more than 140 characters)";
+				notesdesc.innerHTML = SL.notemax;
 				notesinput.value = "";
 			}, false);
 		}
@@ -187,7 +187,9 @@ GRP.twitter = function(prefs, langs) {
 		if (!bookmarkField) {
 			bookmarkField = document.createElement("div");
 			bookmarkField.setAttribute("id", "twitterField");
-			bookmarkField.innerHTML = "<div class='email-this-area'> <iframe id='iftwitter' src='https://twitter.com/statuses/update.xml' width='0' height='0' style='display:block;'></iframe><table class='email-entry-table'> <tbody> <tr> <td class='field-name'>Title:</td> <td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='titleinput'></td> </tr> <tr> <td class='field-name'>Tag:</td> <td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='lblinput'></td> </tr> <tr> <td class='field-name'>URL:</td> <td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='urlinput'></td> </tr> <tr> <td colspan='2'><div id='notesdesc'><b>Note to go along with the item:</b> (Optional, no more than 140 characters)</div><br> <textarea class='email-this-comment' rows='6' id='notesinput'></textarea> <div class='email-this-buttons' tabindex='-1'> <div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-send' id='btnSend'> <div class='goog-button-base-outer-box goog-inline-block'> <div class='goog-button-base-inner-box goog-inline-block'> <div class='goog-button-base-pos'> <div class='goog-button-base-top-shadow'>&nbsp;</div> <div class='goog-button-base-content'> <div class='goog-button-body'>Send</div> </div></div></div></div></div> <div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnTinyURL'> <div class='goog-button-base-outer-box goog-inline-block'> <div class='goog-button-base-inner-box goog-inline-block'> <div class='goog-button-base-pos'> <div class='goog-button-base-top-shadow'>&nbsp;</div> <div class='goog-button-base-content'> <div class='goog-button-body'>TinyURL</div> </div></div></div></div></div> <div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnCount'> <div class='goog-button-base-outer-box goog-inline-block'> <div class='goog-button-base-inner-box goog-inline-block'> <div class='goog-button-base-pos'> <div class='goog-button-base-top-shadow'>&nbsp;</div> <div class='goog-button-base-content'> <div class='goog-button-body'>Count</div> </div></div></div></div></div> <div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnCancel'> <div class='goog-button-base-outer-box goog-inline-block'> <div class='goog-button-base-inner-box goog-inline-block'> <div class='goog-button-base-pos'> <div class='goog-button-base-top-shadow'>&nbsp;</div> <div class='goog-button-base-content'> <div class='goog-button-body'>Cancel</div> </div></div></div></div></div> </div></td></tr></tbody></table> </div>";
+			var tpl = "<html><body><div class='email-this-area'><iframe id='iftwitter' src='https://twitter.com/statuses/update.xml' width='0' height='0' style='display:block;'></iframe><table class='email-entry-table'><tbody><tr><td class='field-name'>{text_title}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='titleinput'></td></tr><tr><td class='field-name'>{text_tag}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='lblinput'></td></tr><tr><td class='field-name'>{text_url}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='urlinput'></td></tr><tr><td colspan='2'><div id='notesdesc'>{notemax}</div><br/><textarea class='email-this-comment' rows='6' id='notesinput'></textarea><div class='email-this-buttons' tabindex='-1'><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-send' id='btnSend'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'> Send </div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnTinyURL'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'> TinyURL </div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnCount'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_count}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnCancel'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_cancel}</div></div></div></div></div></div></div></td></tr></tbody></table></div></body></html>";
+			var html = fillTpl(tpl, SL);
+			bookmarkField.innerHTML = html;
 		}
 		return bookmarkField;
 	}
@@ -236,8 +238,8 @@ GRP.twitter = function(prefs, langs) {
 		var msg = formatSendMsg(labels, title, notes, urlinput.value);
 		var size = 140 - countMsgWord(msg);
 		if (size < 0) {
-			alert("the message is too long!");
-			notesdesc.innerHTML = "<b>Note to go along with the item:</b> (Optional, remain " + size + " characters)";
+			alert(SL.toolong);
+			notesdesc.innerHTML = formatText(SL.notetoolong, size);
 			return;
 		}
 
@@ -261,7 +263,7 @@ GRP.twitter = function(prefs, langs) {
 			},
 			onerror: function(r){
 				GM_log('onerror'+ r.responseText);
-				alert('Please login to Twitter');
+				alert(SL.plslogin);
 				var iframe = document.getElementById('iftwitter');
 				//iframe.src=iframe.src;
 				iframe.location.reload(true);
@@ -282,13 +284,11 @@ GRP.twitter = function(prefs, langs) {
 	}
 
 	function countWord(event) {
-
 		var title = titleinput.value;
 		var labels = lblinput.value;
 		var notes = notesinput.value;
 		var msg = formatSendMsg(labels, title, notes, urlinput.value);
-		notesdesc.innerHTML = "<b>Note to go along with the item:</b> (Optional, remain " + (140 - countMsgWord(msg))
-				+ " characters)";
+		notesdesc.innerHTML = formatText(SL.notetoolong, (140 - countMsgWord(msg)));		
 	}
 
 	function countMsgWord(str) {

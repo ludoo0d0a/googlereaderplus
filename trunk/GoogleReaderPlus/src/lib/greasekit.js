@@ -15,10 +15,11 @@ if (typeof GM_getCookieValue === "undefined") {
 		var nameEQ = escape("_greasekit" + name) + "=", ca = document.cookie
 				.split(';');
 		for ( var i = 0, c; i < ca.length; i++) {
-			var c = ca[i];
-			while (c.charAt(0) == ' ')
+			c = ca[i];
+			while (c.charAt(0) == ' ') {
 				c = c.substring(1, c.length);
-			if (c.indexOf(nameEQ) == 0) {
+			}
+			if (c.indexOf(nameEQ) === 0) {
 				value = unescape(c.substring(nameEQ.length, c.length));
 				break;
 			}
@@ -142,13 +143,20 @@ if (typeof GM_openInTab === "undefined") {
 if (typeof unsafeWindow === "undefined") {
 	unsafeWindow = window;
 }
-/*
- * if(typeof uneval === "undefined") { uneval=function(value){ return
- * value.toString(); }; }
+
+if (typeof (this['clone']) !== 'function') {
+	clone = function(o) {
+		try {
+			return eval(uneval(o));
+		} catch (e) {
+			throw (e);
+		}
+	};
+}
+
+/**
+ * uneval for prefetch !!
  */
-
-
-
 if (typeof (this['uneval']) !== 'function') {
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
 	var protos = [];
@@ -234,15 +242,5 @@ if (typeof (this['uneval']) !== 'function') {
 			return 'null';
 		var func = name2uneval[typeName(o)] || uneval_default;
 		return func(o, np);
-	};
-}
-
-if (typeof (this['clone']) !== 'function') {
-	clone = function(o) {
-		try {
-			return eval(uneval(o));
-		} catch (e) {
-			throw (e);
-		}
 	};
 }

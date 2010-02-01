@@ -69,7 +69,9 @@ GRP.column = function(prefs, langs) {
 		divoriginal.style.display = (active)?"none":"";
 		divwrap.style.display = (active)?"":"none";
 		
-		jump(entry, true);
+		if (!locked) {
+			jump(entry, true);
+		}
 	}
 	
 	//column_count
