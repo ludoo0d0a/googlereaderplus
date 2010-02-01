@@ -1,14 +1,17 @@
 /**
  * GoogleReaderPlus
  * Translation
+ * 
+ * **************************
  * fr : Francais
- *
+ * **************************
+ * 
  * Version : 0.1
  * Date : 01-28-2010
  * @author Valente
  */
-GRP.langs = GRP.langs || {};
-GRP.langs.fr = 
+namespace('GRP.langs.fr');
+GRP.langs.fr.texts = 
 {
     'version': "version",
     closeentry: 

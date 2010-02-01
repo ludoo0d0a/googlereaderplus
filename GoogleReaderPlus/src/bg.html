@@ -304,23 +304,8 @@
                         xhr.setRequestHeader(k, a.headers[k]);
                     }
                 }
-
-                xhr.onload = function(o){
-                    var xhr = o.target;
-                    if (xhr) {
-                        myport.postMessage(
-                        {
-                            message: a.callback || "requestdone",
-							action:'onload',
-                            responseXML: xhr.responseXML,
-                            responseText: xhr.responseText,
-                            responseHeaders: xhr.responseHeaders,
-                            status: xhr.status,
-                            statusText: xhr.statusText
-                        });
-                    }
-                };
-                var fns = ['readystatechange', 'error'];
+				//a['onload']=true;//force onload
+                var fns = ['load', 'readystatechange', 'error'];
                 for (var i = 0, len = fns.length; i < len; i++) {
                     var f = fns[i];
                     if (a['on' + f]) {
@@ -340,9 +325,6 @@
                             }
                         };
                     }
-                    /*if (typeof a[o] === "function") {
-                     xhr[o] = a[o];
-                     }*/
                 }
                 try {
                     xhr.send(a.data || {});

@@ -100,7 +100,7 @@ if (typeof GM_xmlhttpRequest === "undefined") {
 				} else if (a.action==="error"){
 					GM_log('error: '+a.responseText);
 					if (typeof om.onerror == "function"){
-						om.onerror(a);
+						om.onerror(a, om);
 					}
 				}
 			}

@@ -6,7 +6,6 @@
  * Display entry using multi colum layout
  *
  */
-
 GRP.column = function(prefs, langs) {
 	var SL = langs.column; 
 	var locked = false;

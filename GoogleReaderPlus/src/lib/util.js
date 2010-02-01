@@ -473,3 +473,74 @@ function adjustIframeHeight(iframe, heightMaxi){
         }
     }
 }
+function foreach(array, fn, scope){
+    if(!array){
+        return;
+    }
+    if(typeof array.length == "undefined"){
+        array = [array];
+    }
+    for(var i = 0, len = array.length; i < len; i++){
+        if(fn.call(scope || array[i], array[i], i, array) === false){
+            return i;
+        }
+    }
+}		
+function namespace(){
+    var o, d;
+    foreach(arguments, function(v) {
+        d = v.split(".");
+        o = window[d[0]] = window[d[0]] || {};
+        foreach(d.slice(1), function(v2){
+            o = o[v2] = o[v2] || {};
+        });
+    });
+    return o;
+}
+function apply(o, c, defaults){
+    if(defaults){
+        apply(o, defaults);
+    }
+    if(o && c && typeof c == 'object'){
+        for(var p in c){
+            o[p] = c[p];
+        }
+    }
+    return o;
+}
+//Override text iyth last item
+function merge(o, c, defaults){
+    if(defaults){
+        apply(o, defaults);
+    }
+    if(o && c){
+        if (typeof c === 'object') {
+			for (var p in c) {
+				apply(o[p], c[p]);
+			}
+		}else{
+			o[p] = c[p];
+		}
+    }
+    return o;
+}
+function applyRemoteLang(lang, base, id, o, fn, scope){
+	GM_xmlhttpRequest({
+            method: 'GET',
+            url: base+'_locales/'+lang+'/'+id+'.json',
+            onload: function(res){
+                var data = eval(xhr.responseText);
+				if (data) {
+					//merge data into o
+					applyLast(o[id], data);
+				}
+            },
+			onerror: function(res, a){
+				if (a && a.url) {
+					console.error(a.url);
+				}
+				
+				console.error(res);
+			}
+       });
+}

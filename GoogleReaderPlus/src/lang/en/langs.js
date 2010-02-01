@@ -1,14 +1,17 @@
 /**
  * GoogleReaderPlus
  * Translation
+ * 
+ * **************************
  * en : English
- *
+ * **************************
+ * 
  * Version : 0.1
  * Date : 01-28-2010
  * @author Valente
  */
-GRP.langs = GRP.langs || {};
-GRP.langs.en = 
+namespace('GRP.langs.en');
+GRP.langs.en.texts = 
 {
     'version': "version",
     closeentry: 

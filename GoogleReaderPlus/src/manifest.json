@@ -10,7 +10,7 @@
   },
   "default_locale": "en",
   "background_page": "bg.html",
-  "NObrowser_action": {
+  "browser_action": {
     "default_icon": "images/19.png",
 	"default_title": "__MSG_browser_action_tooltip_default__",
     "popup": "popup.html"
@@ -22,7 +22,7 @@
 	],
       "js": ["lib/json.js", "lib/util.js","lib/greasekit.js","lib/entry.js",
 		"version.js","features.js",
-		"lang/en.js","lang/fr.js",
+		"lang/en/langs.js","lang/fr/langs.js","lang/fr/features.js",
 		"fixlayout.js", "unreadcount.js", "mark.js", "removeads.js", "favicons.js", "column.js","jump.js",
 		"preview.js", "openbackground.js", "colorful.js", "filter.js", "count.js", "counticon.js", "readbymouse.js", 
 		"facebook.js", "twitter.js", "instapaper.js", "closeentry.js", "fitheight.js", "menu.js",
