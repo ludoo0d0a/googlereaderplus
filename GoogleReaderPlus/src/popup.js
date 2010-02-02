@@ -8,10 +8,7 @@ if (chrome && chrome.extension) {
         if (a == 'prefs') {
             backgroundPage.open_preferences();
         }else if (a == 'reader'){
-			backgroundPage.findtab({
-				search: 'www.google.com/reader/view/',
-				url: 'http://www.google.com/reader/view/'
-			});
+			backgroundPage.findreader(true, true);
 		}
     }
     
