@@ -116,7 +116,7 @@
                                     updateIcon(true, text);
                                 },
                                 onerror: function(o){
-                                    updateIcon(false, '?');
+                                    updateIcon(false, '');
                                 }
                             }, true);
                         }
@@ -126,7 +126,7 @@
             
             function formatUnread(count){
                 if (!count) {
-                    return '?';
+                    return '';
                 }
                 
                 var text = '' + count;
@@ -147,7 +147,7 @@
             function parseTabtitle(tab){
                 var title = tab.title;
                 var m = /\((\d+)\+?\)/.exec(title);
-                var text = m[1] || '?';
+                var text = m[1] || '';
                 return text;
             }
             
