@@ -42,8 +42,11 @@ div#menu {
     padding: 0px;
     background-color: white;
 }
-
-.menu_button {
+a{
+	text-decoration:none;
+	color:#030377;
+}
+.item {
     width: 142px;
     display: block;
     padding: 3px;
@@ -53,7 +56,7 @@ div#menu {
     border: 1px solid white;
 }
 
-.menu_speed {
+.title {
     width: 142px;
     display: block;
     padding: 3px;
@@ -64,23 +67,26 @@ div#menu {
     -webkit-border-radius: 0px 0px 5px 5px;
     -webkit-box-shadow: rgba(0, 0, 0, 0.292969) 0px 1px 3px;
 }
-.menu_speed:hover {
+/*
+.title:hover {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F4F8FE), to(#D3E3F7));
 	border: 1px solid #D3E3F7;
 }
-.menu_button:hover {
+*/
+.item:hover {
     -webkit-border-radius: 4px;
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F4F8FE), to(#D3E3F7));
 	border: 1px solid #D3E3F7;
 }
-.menu_pref {
+
+.pref {
 	width: 22px;
 	margin: 0px;
 	cursor:pointer;
 	vertical-align:middle;
 	float: right;
 }
-.menu_pref:hover {
+.pref:hover {
 	opacity:.6;
 }
 div#real_time {
@@ -117,4 +123,4 @@ div#opt {
 	margin-top : 0px;
 	font-size: 8pt;
 	width: 94px;
-	}
+}

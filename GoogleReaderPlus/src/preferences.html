@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Google Reader Plus - Preferences</title>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" /> 
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
         <link href="css/prefs.css" type="text/css" rel="stylesheet">
         <script type="application/javascript" src="version.js">
         </script>
@@ -9,9 +9,13 @@
         </script>
         <script type="application/javascript" src="lib/util.js">
         </script>
+		<script type="application/javascript" src="lang/en/langs.js">
+        </script>
+		<script type="application/javascript" src="lang/fr/langs.js">
+        </script>
         <script type="application/javascript">
             //(function(){
-            var lang='en', prefs = {}, gshortcuts = {}, myport;
+            var lang = 'en', prefs = {}, gshortcuts = {}, myport;
             function init(){
                 GRP.setVersion("Version: ");
                 createscripts();
@@ -29,7 +33,7 @@
                         if (a.message === "prefs") {
                             //scripts = a.scripts;
                             prefs = a.prefs;
-                            me.applyLang.call(me);
+                            me.displayprefs.call(me);
                         } else if (a.message === "info") {
                             createReport(a.report);
                         } else if (a.message === "iconget") {
@@ -43,15 +47,6 @@
                     
                 }
             }
-			
-			function applyLang(){
-				lang = prefs.language_lang || 'en';
-	            lang = (GRP.langs[lang]) ? lang : 'en';
-				//override locale texts
-				merge(GRP, GRP.langs[lang]);
-				//next
-				this.displayprefs();
-			}
             
             function info(msg){
                 var status = document.getElementById('status');
@@ -62,6 +57,15 @@
                     status.className = "menupanel hidden";
                 }, 3000);
             }
+			
+			function findReader(){
+				myport.postMessage(
+                    {
+                        message: "findtab",
+						search: 'www.google.com/reader/view/',
+						url: 'http://www.google.com/reader/view/'
+                    });
+			}
             
             function applyprefs(){
                 var form = document.frmprefs;
@@ -79,6 +83,7 @@
                         }
                     }
                 }
+                applyLang();
             }
             
             function saveprefs(reload, cleanall){
@@ -101,6 +106,7 @@
             
             function displayprefs(){
                 if (prefs) {
+                    loadLang();
                     for (var o in prefs) {
                         var ctrl = document.frmprefs[o];
                         if (ctrl && (typeof prefs[o] !== 'undefined')) {
@@ -124,7 +130,6 @@
                         }
                     }
                     loadSkin();
-					loadLang();
                     loadFavicons();
                 }
             }
@@ -139,11 +144,25 @@
                     li.onclick();
                 }
             }
-			
-			function loadLang(){
+            
+            function loadLang(){
+                lang = prefs.language_lang || 'en';
+                lang = (GRP.langs && GRP.langs[lang]) ? lang : 'en';
+                //override locale texts
+                if (GRP.langs) {
+                    merge(GRP, GRP.langs[lang]);
+                }
+                
                 var select = document.getElementById("language_lang");
                 if (select) {
-                    select.value=prefs.language_lang;
+                    select.value = lang;
+                }
+            }
+            
+            function applyLang(){
+                var select = document.getElementById("language_lang");
+                if (select) {
+                    prefs.language_lang = select.value;
                 }
             }
             
@@ -545,7 +564,7 @@
                     </div>
                     <div class="menupanel">
                         <ul class="mnu nav1">
-                            <li class="item"><a href="http://www.google.com/reader" target="_blank"><span>Google Reader</span>Your RSS reader</a></li>
+                            <li class="item"><a href="#" onclick="findReader();"><span>Google Reader</span>Your RSS reader</a></li>
                             <li class="item"><a href="http://code.google.com/p/googlereaderplus/issues/entry"><span>Report issue</span>Found a bug or suggestion ?</a></li>
                             <li class="item"><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg/" target="_blank"><span>Google Extension</span>The place to download</a></li>
                             <li class="item"><a href="about.html" target="_blank"><span>About</span>About, thanks,...</a></li>
@@ -564,6 +583,13 @@
                 </div>
                 <div class="menupanel panel">
                     <div class="savetop">
+                        <label for="language_lang">
+                            Language :
+                        </label>
+                        <select name="language_lang" id="language_lang" title="your language setting">
+                            <option value="en">English </option>
+                            <option value="fr">Français</option>
+                        </select>
                         <input type="button" name="Submit" value="Save" onClick="saveprefs();">
                     </div>
                     <div id="panels">
@@ -576,18 +602,17 @@
                                     <img alt="thumb" id="thumb" src="" width="400" height="243" class="hidden"/>
                                 </div>
                             </div>
+                        </div><!--div id="panel_language" style="display:none;">
+                        <div class="body">
+                        <label for="lang">
+                        Choose your language for GoogleReaderPlus extension :
+                        </label>
+                        <select id="language_lang" title="your language setting">
+                        <option value="en">English </option>
+                        <option value="fr">Français</option>
+                        </select>
                         </div>
-                        <div id="panel_language" style="display:none;">
-                            <div class="body">
-                                <label for="lang">
-                                    Choose your language for GoogleReaderPlus extension :
-                                </label>
-								<select id="language_lang" title="your language setting">
-                                    <option value="en">English </option>
-                                    <option value="fr">Français</option>
-                                </select>
-                            </div>
-                        </div>
+                        </div-->
                         <div id="panel_column" style="display:none;">
                             <div class="body">
                                 Columns number : <input id="column_count" name="column_count" type="text" value="3" size="2"/>
@@ -628,14 +653,13 @@
                                     Show integrated preview when click on icon right after the title (if not checked, on title)
                                 </label>
                                 <br/>
-								<!--
-								<input id="preview_adjustframe" name="preview_adjustframe" type="checkbox" />
+                                <!--
+                                <input id="preview_adjustframe" name="preview_adjustframe" type="checkbox" />
                                 <label for="preview_adjustframe">
-                                    Adjust size of iframe to the content (only if size is smaller than screen height)
+                                Adjust size of iframe to the content (only if size is smaller than screen height)
                                 </label>
                                 <br/>
-								-->
-                                <input id="preview_locked" name="preview_locked" type="checkbox" />
+                                --><input id="preview_locked" name="preview_locked" type="checkbox" />
                                 <label for="preview_locked">
                                     Feature 'Preview' always actived by default
                                 </label>

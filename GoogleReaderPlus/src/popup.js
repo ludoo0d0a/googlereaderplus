@@ -5,9 +5,14 @@
 if (chrome && chrome.extension) {
     var backgroundPage = chrome.extension.getBackgroundPage();
     function button(a){
-        if (a == "prefs") {
+        if (a == 'prefs') {
             backgroundPage.open_preferences();
-        }
+        }else if (a == 'reader'){
+			backgroundPage.findtab({
+				search: 'www.google.com/reader/view/',
+				url: 'http://www.google.com/reader/view/'
+			});
+		}
     }
     
     function fillThemes(){

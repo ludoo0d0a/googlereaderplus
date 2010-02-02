@@ -7,13 +7,20 @@
     </head>
     <body onload="init();">
         <div id="menu">
-        	<div class="menu_speed">
-                Theme: <select id="theme" class="opt_select" OnChange="button('theme');" title="Change Theme">
+			<div class="title">
+                GoogleReaderPlus
+				<!--
+				Theme: <select id="theme" class="opt_select" OnChange="button('theme');" title="Change Theme">
                     <option value="">None</option>
 				</select>
-                <img id="theme" src="" alt="theme" class="menu_pref" onClick="button('theme');" title="Theme"/>
+                <img id="theme" src="" alt="theme" class="pref" onClick="button('theme');" title="Theme"/>
+				-->
             </div>
-			<div class="menu_button" onClick="button('prefs');" title="preferences">
+			
+			<div class="item" onClick="button('reader');" title="Google Reader">
+                Google Reader
+            </div>
+			<div class="item" onClick="button('prefs');" title="preferences">
                 Preferences
             </div>
 		</div>
