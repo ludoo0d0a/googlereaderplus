@@ -11,6 +11,7 @@ GRP.scripts = [
         skin: ''
     }
 }, 
+/*
 {
     id: "language",
     name: "Language",
@@ -20,6 +21,7 @@ GRP.scripts = [
         lang: 'en'
     }
 }, 
+*/
 {
     id: "favicons",
     name: "Favicons",
@@ -300,11 +302,12 @@ GRP.scripts = [
         }
     }
 }, 
+/*
 {
     id: "menu",
     name: "Intuitive menu",
     desc: "Intuitive menu to add extra capabilites"
-}, 
+}, */
 {
     id: "aero",
     name: "Google Aero Toolbar",

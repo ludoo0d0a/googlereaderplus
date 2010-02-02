@@ -96,22 +96,17 @@ GRP.preview = function(prefs, langs){
 			jump(entry, true);
 		}
         
-        //todo: factorize in entry.js
-        var body = getFirstElementMatchingClassName(entry, 'div', 'entry-body');
+		var body = getFirstElementMatchingClassName(entry, 'div', 'entry-body');
         var entryBody = getFirstElementMatchingClassName(body, 'div', 'entry-enclosure');
         if (!entryBody) {
             entryBody = getFirstElementMatchingClassName(body, 'div', 'item-body');
         }
-        
+		
         iframe = getFirstElementMatchingClassName(entry, 'iframe', 'if-preview');
         
         if (active) {
             // classic mode-> preview mode
-            
-            // hide rss item
             entryBody.style.display = 'none';
-            // iframe creation/display
-            
             if (iframe) {
                 // iframe already in document, display it
                 iframe.style.display = 'block';
@@ -128,9 +123,7 @@ GRP.preview = function(prefs, langs){
                     //or if not, from classical one
                     urlLink = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
                 }
-				var url = urlLink.href;
-                iframe.setAttribute('src', url);
-				iframe.setAttribute('url', url);
+                iframe.setAttribute('src', urlLink.href);
                 iframe.className = 'if-preview';
                 body.appendChild(iframe);
 				
@@ -141,8 +134,6 @@ GRP.preview = function(prefs, langs){
             
             // Scale article container to fullwidth
             body.setAttribute('style', 'max-width: 98%');
-            
-            //lastEntry = entry;
         } else {
             // preview mode -> classic mode
             
@@ -154,9 +145,9 @@ GRP.preview = function(prefs, langs){
             // show rss item
             entryBody.style.display = 'block';
             body.removeAttribute('style', '');
-            //lastEntry = false;
-            
-            jump(entry, true);
+            if (!locked) {
+				jump(entry, true);
+			}
         }
     }
     

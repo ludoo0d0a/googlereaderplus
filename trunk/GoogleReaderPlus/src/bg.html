@@ -3,7 +3,7 @@
         <title>GoogleReaderPlus Background</title>
         <script type="application/javascript" src="version.js">
         </script>
-		<script type="application/javascript" src="lib/util.js">
+        <script type="application/javascript" src="lib/util.js">
         </script>
         <script type="application/javascript" src="features.js">
         </script>
@@ -32,35 +32,37 @@
                     open_preferences();
                 } else if (a.message == "opentab") {
                     opentab(a);
+				} else if (a.message == "findtab") {
+                    findtab(a);	
                 } else if (a.message == "geticon") {
                     extractFavicon(a);
                 } else if (a.message == "request") {
                     request(a);
                 }
             }
-			/*
-            function onPortRequest(request, sender, sendResponse){
-                var prev;
-                chrome.tabs.getSelected(undefined, function(tab){
-                    prev = tab.id;
-                });
-                chrome.tabs.create(
-                {
-                    url: request.url
-                }, function(tab){
-                    chrome.tabs.update(prev, 
-                    {
-                        selected: true
-                    });
-                });
-                sendResponse({});
-            }*/
             
+            /*
+             function onPortRequest(request, sender, sendResponse){
+             var prev;
+             chrome.tabs.getSelected(undefined, function(tab){
+             prev = tab.id;
+             });
+             chrome.tabs.create(
+             {
+             url: request.url
+             }, function(tab){
+             chrome.tabs.update(prev,
+             {
+             selected: true
+             });
+             });
+             sendResponse({});
+             }*/
             function setPrefs(prefs, cleanall){
                 localStorage.setItem('grp_prefs', JSON.stringify(prefs));
-				if (cleanall) {
-					localStorage.setItem('grp_favicons', '');
-				}
+                if (cleanall) {
+                    localStorage.setItem('grp_favicons', '');
+                }
             }
             
             function setPreferences(a){
@@ -79,7 +81,7 @@
             
             function getPreferences(a){
                 initVersion();
-				var prefs = getPrefs();
+                var prefs = getPrefs();
                 myport.postMessage(
                 {
                     message: "prefs",
@@ -144,10 +146,10 @@
             }
             
             function parseXml(xml, FAVICON_TPL_URL){
-				var prefs = getPrefs();
+                var prefs = getPrefs();
                 var domains = prefs.favicons_domains;
-				
-				var FAVICON = {};
+                
+                var FAVICON = {};
                 var manual = localStorage.getItem("favicons_manual") === "true";
                 Array.forEach(xml.getElementsByTagName('outline'), function(outline){
                     if (!outline.hasAttribute('htmlUrl')) {
@@ -157,28 +159,28 @@
                     var url = outline.getAttribute('htmlUrl');
                     var favicon;
                     var domain = url.split(/\/|\?/)[2];
-					var icon = FAVICON_TPL_URL+domain;
-					
-					setFavicon(title, icon, url, FAVICON);
-/*
-					var icond = domains[url];//domains store site->faviconUrl
-					var manualDomain = (typeof icond !== "undefined"); 
-					if (manualDomain){
-						icon=icond;
-					}
-					//manualmode + (empty or null or not defined)
-					//or EXCEPTION + empty (autofill)
-					if ((manual && !icon) || (!manual && manualDomain && icon==='')) {
-                        extractFavicon(
-                        {
-                            url: url,
-                            title: title,
-                            FAVICON: FAVICON
-                        });
-                    }else{
-						setFavicon(title, icon, url, FAVICON);
-					}
-					*/
+                    var icon = FAVICON_TPL_URL + domain;
+                    
+                    setFavicon(title, icon, url, FAVICON);
+                    /*
+                     var icond = domains[url];//domains store site->faviconUrl
+                     var manualDomain = (typeof icond !== "undefined");
+                     if (manualDomain){
+                     icon=icond;
+                     }
+                     //manualmode + (empty or null or not defined)
+                     //or EXCEPTION + empty (autofill)
+                     if ((manual && !icon) || (!manual && manualDomain && icon==='')) {
+                     extractFavicon(
+                     {
+                     url: url,
+                     title: title,
+                     FAVICON: FAVICON
+                     });
+                     }else{
+                     setFavicon(title, icon, url, FAVICON);
+                     }
+                     */
                 });
                 return FAVICON;
             }
@@ -191,8 +193,8 @@
             
             function setFavicon(title, icon, url, FAVICON){
                 if (FAVICON) {
-                     var key = ellipsis(title);
-					 FAVICON[key] = 
+                    var key = ellipsis(title);
+                    FAVICON[key] = 
                     {
                         icon: icon,
                         url: url,
@@ -204,7 +206,7 @@
             function loadIcons(a){
                 var xhr = new XMLHttpRequest();
                 xhr.open(a.method || 'get', a.url, true);
-				var FAVICON_TPL_URL = a.FAVICON_TPL_URL;
+                var FAVICON_TPL_URL = a.FAVICON_TPL_URL;
                 xhr.onload = function(o){
                     var xhr = o.target;
                     if (xhr) {
@@ -222,36 +224,36 @@
             
             function extractFavicon(a){
                 var xhr = new XMLHttpRequest();
-				var url, title, key = a.key,FAVICON = a.FAVICON;
-				if (!key){
-					//url+title
-					key = ellipsis(title);
-					url = a.url;
-					title = a.title;
-				}else{
-					//key only
-					var f = FAVICON[key];
-					url = f.url;
-					title = f.title;
-				}	
-				
+                var url, title, key = a.key, FAVICON = a.FAVICON;
+                if (!key) {
+                    //url+title
+                    key = ellipsis(title);
+                    url = a.url;
+                    title = a.title;
+                } else {
+                    //key only
+                    var f = FAVICON[key];
+                    url = f.url;
+                    title = f.title;
+                }
+                
                 xhr.open(a.method || 'get', normalizeUrl(url), true);
                 xhr.onload = function(o){
-                    var xhr = o.target;			
+                    var xhr = o.target;
                     if (xhr) {
                         var html = xhr.responseText; //responseBody
                         var icon = parseFavicon(html, url);
-						if (icon) {
-							setFavicon(title, icon, url, FAVICON);
-							saveFavicon(url, icon);
-						}
+                        if (icon) {
+                            setFavicon(title, icon, url, FAVICON);
+                            saveFavicon(url, icon);
+                        }
                         myport.postMessage(
                         {
                             message: "iconget",
                             title: title,
                             icon: icon,
                             url: url,
-							FAVICON: FAVICON
+                            FAVICON: FAVICON
                         });
                     }
                 };
@@ -279,32 +281,32 @@
                         icon = url + '/' + icon;
                     }
                 }
-				icon = normalizeUrl(icon);
+                icon = normalizeUrl(icon);
                 return icon;
             }
             
             function request(a){
                 var xhr = new XMLHttpRequest();
                 var method = a.method || 'get';
-				var url = a.url;
-				
-				if (a.parameters && (method.toLowerCase()=='get') ) {
+                var url = a.url;
+                
+                if (a.parameters && (method.toLowerCase() == 'get')) {
                     var params = [];
-					for (var k in a.parameters) {
-						params.push(k+'='+ encodeURIComponent(a.parameters[k]));
+                    for (var k in a.parameters) {
+                        params.push(k + '=' + encodeURIComponent(a.parameters[k]));
                     }
-					var sep = (url.indexOf('?')>0)?'&':'?';  
-					url += sep + params.join('&');
+                    var sep = (url.indexOf('?') > 0) ? '&' : '?';
+                    url += sep + params.join('&');
                 }
-				
-				xhr.open(a.method || 'get', url, true);
+                
+                xhr.open(a.method || 'get', url, true);
                 //headers
                 if (a.headers) {
                     for (var k in a.headers) {
                         xhr.setRequestHeader(k, a.headers[k]);
                     }
                 }
-				//a['onload']=true;//force onload
+                //a['onload']=true;//force onload
                 var fns = ['load', 'readystatechange', 'error'];
                 for (var i = 0, len = fns.length; i < len; i++) {
                     var f = fns[i];
@@ -340,6 +342,29 @@
                         error: e
                     });
                 }
+            }
+            
+            function findtab(a){
+                chrome.windows.getAll(
+                {
+                    populate: true
+                }, function(windows){
+                    var found = false;
+                    for (var i = 0, len = windows.length; i < len; i++) {
+                        var window = windows[i];
+                        for (var j = 0, jlen = window.tabs.length; j < jlen; j++) {
+                            var tab = window.tabs[j];
+                            if (tab.url.indexOf(a.search) >= 0) {
+                                chrome.tabs.update(tab.id, {selected:true});
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!found) {
+                        opentab(a);
+                    }
+                });
             }
             
             function opentab(a){

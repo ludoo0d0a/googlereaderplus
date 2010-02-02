@@ -105,6 +105,7 @@ function getBody(entry){
     return body;
 }
 
+
 function initResize(fn){
     document.body.addEventListener('resize', function(e){
         if (typeof fn === "function") {

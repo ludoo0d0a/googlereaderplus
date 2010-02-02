@@ -97,7 +97,7 @@ GRP.filter = function(prefs, langs){
         GM_addStyle(".filter-settings-button,.filter-settings-window *,.filter-settings-entry-window *{font-family:verdana;font-size:11px;color:#000;} .filter-settings-window textarea,.filter-settings-entry-window input[type=text]{font-family:'courier new';border:1px solid #669CB9;} .filter-settings-button{cursor:pointer;background-color:#ADCBDA;padding:4px;position:absolute;top:30px;right:10px;z-index:1000;} .filter-settings-button:hover{background-color:#B46B8F;} .filter-settings-window{background-color:#ADCBDA;border:1px solid #669CB9;padding:4px;position:absolute;top:30px;right:10px;z-index:1000;} .filter-settings-window label.ta{float:left;width:250px;} .filter-settings-window textarea{height:300px;width:250px;} .filter-settings-entry-window{width:300px;background-color:#ADCBDA;border:1px solid #669CB9;font-size:11px;padding:4px;position:fixed;top:30px;right:10px;z-index:1000;} .filter-settings-entry-window input[type=text]{width:300px;} .filter-settings-window button,.filter-settings-entry-window button{margin-top:5px;margin-right:5px;background-color:#669CB9;color:#fff;font-size:11px;border:1px solid #000;}  .entry-filtered div.card-content *{color:#BCBCBC!important;} .entry-filtered:hover div.card-content *{color:#6A6A6A!important;} .entry-highlighted div.card-content{background-color:#E6EFCF!important;} .entry-highlighted div.card-content *{color:#000!important;background-color:#E6EFCF;} .entry-duplicate *{color:#C7D0D8!important;} .filter-configure-entry{background-color:#daa;color:#fff;padding:2px;cursor:pointer;position:absolute;top:0;right:90px}");
         
         var div = document.createElement("div");
-        div.innerHTML = "Filter settings";
+        div.innerHTML = SL.settings;
         div.className = "filter-settings-button";
         div.addEventListener("click", openSettings, false);
         document.body.appendChild(div);
@@ -118,7 +118,7 @@ GRP.filter = function(prefs, langs){
             var settings = document.createElement("div");
             settings.className = "filter-settings-window";
             
-            settings.innerHTML = "<label class='ta'>Excludes</label><label class='ta'>Highlights</label><div style='clear:both'></div>";
+            settings.innerHTML = "<label class='ta'>"+SL.excludes+"</label><label class='ta'>"+SL.highlights+"</label><div style='clear:both'></div>";
             
             var excludeTextarea = document.createElement("textarea");
             settings.appendChild(excludeTextarea);
@@ -135,7 +135,7 @@ GRP.filter = function(prefs, langs){
             settings.appendChild(hideDuplicatesCheckbox);
             
             var hideDuplicatesLabel = document.createElement("label");
-            hideDuplicatesLabel.innerHTML = "Hide Duplicates";
+            hideDuplicatesLabel.innerHTML = SL.hideduplicates;
             hideDuplicatesLabel.setAttribute("for", "grf-hideDuplicates");
             settings.appendChild(hideDuplicatesLabel);
             hideDuplicatesLabel.style.paddingRight = "20px;";
@@ -148,7 +148,7 @@ GRP.filter = function(prefs, langs){
             
             var hideExcludsLabel = document.createElement("label");
             hideExcludsLabel.setAttribute("for", "grf-hideExcluds");
-            hideExcludsLabel.innerHTML = "Hide Excludes";
+            hideExcludsLabel.innerHTML = SL.hideexcludes;
             settings.appendChild(hideExcludsLabel);
             
             // hide dups
@@ -158,7 +158,7 @@ GRP.filter = function(prefs, langs){
             settings.appendChild(preferHighlightsCheckbox);
             
             var preferHighlightsLabel = document.createElement("label");
-            preferHighlightsLabel.innerHTML = "Prefer Hilights over excludes";
+            preferHighlightsLabel.innerHTML = SL.preferehighlights;
             preferHighlightsLabel.setAttribute("for", "grf-preferHighlights");
             settings.appendChild(preferHighlightsLabel);
             preferHighlightsLabel.style.paddingRight = "20px;";
@@ -167,7 +167,7 @@ GRP.filter = function(prefs, langs){
             
             // / buttons
             var update = document.createElement("button");
-            update.textContent = "Update";
+            update.textContent = SL.update;
             update.addEventListener("click", function(){
                 saveSettings(excludeTextarea.value, highlightTextarea.value);
                 settings.style.display = "none";
@@ -175,7 +175,7 @@ GRP.filter = function(prefs, langs){
             settings.appendChild(update);
             
             var close = document.createElement("button");
-            close.textContent = "Close";
+            close.textContent = SL.close;
             close.addEventListener("click", function(){
                 settings.style.display = "none";
             }, false);

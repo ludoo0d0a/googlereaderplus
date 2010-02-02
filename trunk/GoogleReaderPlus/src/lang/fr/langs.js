@@ -87,9 +87,16 @@ GRP.langs.fr.texts =
     },
     filter: 
     {
-        quickadd: 'Ajout rapide',
+        settings: 'Réglages du filtre',
+        excludes: 'Exclusions',
+        highlights: 'Surlignages',
         highlight: 'Surligner',
         exclude: 'Exclure',
+        hideduplicates: 'Cacher les doublons',
+        hideexcludes: 'Cacher les exclusions',
+        preferehighlights: 'Préférer les surlignages',
+        update: 'Mise à jour',
+        quickadd: 'Ajout rapide',
         add: 'Ajouter',
         close: 'Fermer'
     },
