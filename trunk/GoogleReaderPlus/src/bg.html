@@ -78,14 +78,26 @@
                 }
             }
             
-            var lastTabReader;
+			var lastTabReader=false;
+			monitorCloseTab();
+			function monitorCloseTab(){
+				//Check if greader were closed
+				chrome.tabs.onRemoved.addListener(function(tabId){
+					if (!(lastTabReader && tabId==lastTabReader.id)){
+						lastTabReader=false;
+					}
+				});
+			}
+            
             function getUnreadCount(){
-                if (lastTabReader) {
+                checkTab(tab);
+				if (lastTabReader) {
                     updateFromTabtitle(lastTabReader);
                 } else {
                     findreader(false, false, function(tab){
                         if (tab) {
-                            //From tab title
+                            lastTabReader=tab;
+							//From tab title
                             updateFromTabtitle(tab);
                         } else {
                             //from xhr (1000+ limitations)
