@@ -1,11 +1,11 @@
 {
   "extension_name": {
-    "message": "Icône de barre d'outil Google Reader Plus"
+    "message": "Google Reader Plus"
   },
   "extension_description": {
-    "message": "Icône de barre d'outil pour Google Reader Plus"
+    "message": "Améliorer Google Reader en ajoutant les icônes des sites, des thèmes et toute une collection d'autres fonctionnalités"
   },
   "browser_action_tooltip_default": {
-    "message": "Icône de barre d'outil Google Reader Plus "
+    "message": "Préférences pour GoogleReaderPlus "
   } 
 }
