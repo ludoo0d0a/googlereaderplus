@@ -22,13 +22,14 @@ GRP.preview = function(prefs, langs){
         //[preview as text] [maximize as icon]
         var previewOnIcon = prefs.preview_onicon || false;
         
-        var link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
+        //var link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
+		var link = getEntryLink(entry);
         var keytext = formatShortcut('preview', 'prview', prefs);
         
         if (previewOnIcon) {
-            //add a button right after the title
+            addClass(link, 'title-link-url');
+			//add a button right after the title
             var plink = document.createElement('a');
-            //addClass(plink, 'title-link-url');
             plink.title = SL.title + keytext; //[Shift+V]
             plink.href = '#';
             plink.innerHTML = '<div class="entry-title-preview"></div>';
@@ -118,11 +119,13 @@ GRP.preview = function(prefs, langs){
                 var h = getHeightEntries();
                 iframe.setAttribute('height', h + 'px');
                 //get url fron hidden link
-                var urlLink = getFirstElementMatchingClassName(entry, 'a', 'title-link-url');
+				var urlLink = getEntryLink(entry);
+                /*var urlLink = getFirstElementMatchingClassName(entry, 'a', 'title-link-url');
                 if (!urlLink) {
                     //or if not, from classical one
                     urlLink = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
-                }
+                }*/
+				
                 iframe.setAttribute('src', urlLink.href);
                 iframe.className = 'if-preview';
                 body.appendChild(iframe);

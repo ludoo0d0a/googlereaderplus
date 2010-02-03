@@ -84,12 +84,11 @@ if (typeof GM_xmlhttpRequest === "undefined") {
 		o.method = o.method.toUpperCase() || "GET";
 		if (!o.url) {
 			throw ("GM_xmlhttpRequest requires an URL.");
-			return;
 		}
 		var om = o;
 		accessSecure("request", o, function(a){
 			if (a.message===(om.callback||"requestdone")){
-				if (a.action==="onload"){
+				if (a.action==="load"){
 					if (typeof om.onload == "function"){
 						om.onload(a);
 					}

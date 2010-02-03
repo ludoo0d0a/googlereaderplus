@@ -38,8 +38,9 @@ GRP.instapaper = function(prefs, langs){
 		if (!auth){
 			return;
 		}
-        var link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
-		
+        
+		//var link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
+		var link = getEntryLink(entry);
 		var body = getBody(entry);
         var params = 
         {

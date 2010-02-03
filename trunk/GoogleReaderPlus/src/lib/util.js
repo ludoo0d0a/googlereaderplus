@@ -314,12 +314,12 @@ function readCookie(name){
  * Templates
  */
 function fillTpl(tpl, o){
-    var re, txt = '' + tpl;
+    var txt = '' + tpl;
     for (var k in o) {
         if (o.hasOwnProperty(k)) {
-            if (typeof o[k] === "string") {
-                re = new RegExp('{' + k + '}', 'g');
-                txt = txt.replace(re, o[k] || '');
+            if (typeof o[k] !== "object") {
+                var re = new RegExp("\\{" + k + "\\}", "g");
+                txt = txt.replace(re, (o[k]) ? ('' + o[k]) : '');
             }
         }
     }
@@ -327,12 +327,11 @@ function fillTpl(tpl, o){
 }
 
 //Format text using number {0}
-function formatText(){
+function formatText(tpl){
     if (!arguments) {
         return '';
     }
-    var args = arguments;
-    var tpl = args.shift();
+    var args = Array.prototype.slice.call(arguments, 1);
     var values = {};
     for (var i = 0, len = args.length; i < len; i++) {
         values[i] = args[i];
@@ -451,44 +450,46 @@ var keycodes =
 
 //a.href sometimes truncated
 function getHref(a){
-	var url = a.protocol+'//'+a.host+a.pathname+(a.hash||'');
-	return url;
+    var url = a.protocol + '//' + a.host + a.pathname + (a.hash || '');
+    return url;
 }
-				
+
 function adjustIframeHeight(iframe, heightMaxi){
     var el;
-	if (iframe.document.height) {
+    if (iframe.document.height) {
         el = parent.document.getElementById(iframe.name);
         el.style.height = iframe.document.height + 'px';
-        //el.style.width = iframe.document.width + 'px';
+    //el.style.width = iframe.document.width + 'px';
     } else if (document.all) {
         el = parent.document.all[iframe.name];
         if (iframe.document.compatMode &&
         iframe.document.compatMode != 'BackCompat') {
             el.style.height = iframe.document.documentElement.scrollHeight + 5 + 'px';
-            //el.style.width = iframe.document.documentElement.scrollWidth + 5 + 'px';
+        //el.style.width = iframe.document.documentElement.scrollWidth + 5 + 'px';
         } else {
             el.style.height = iframe.document.body.scrollHeight + 5 + 'px';
-            //el.style.width = iframe.document.body.scrollWidth + 5 + 'px';
+        //el.style.width = iframe.document.body.scrollWidth + 5 + 'px';
         }
     }
 }
+
 function foreach(array, fn, scope){
-    if(!array){
+    if (!array) {
         return;
     }
-    if(typeof array.length == "undefined"){
+    if (typeof array.length == "undefined") {
         array = [array];
     }
-    for(var i = 0, len = array.length; i < len; i++){
-        if(fn.call(scope || array[i], array[i], i, array) === false){
+    for (var i = 0, len = array.length; i < len; i++) {
+        if (fn.call(scope || array[i], array[i], i, array) === false) {
             return i;
         }
     }
-}		
+}
+
 function namespace(){
     var o, d;
-    foreach(arguments, function(v) {
+    foreach(arguments, function(v){
         d = v.split(".");
         o = window[d[0]] = window[d[0]] || {};
         foreach(d.slice(1), function(v2){
@@ -497,50 +498,54 @@ function namespace(){
     });
     return o;
 }
+
 function apply(o, c, defaults){
-    if(defaults){
+    if (defaults) {
         apply(o, defaults);
     }
-    if(o && c && typeof c == 'object'){
-        for(var p in c){
+    if (o && c && typeof c == 'object') {
+        for (var p in c) {
             o[p] = c[p];
         }
     }
     return o;
 }
+
 //Override text iyth last item
 function merge(o, c, defaults){
-    if(defaults){
+    if (defaults) {
         apply(o, defaults);
     }
-    if(o && c){
+    if (o && c) {
         if (typeof c === 'object') {
-			for (var p in c) {
-				apply(o[p], c[p]);
-			}
-		}else{
-			o[p] = c[p];
-		}
+            for (var p in c) {
+                apply(o[p], c[p]);
+            }
+        } else {
+            o[p] = c[p];
+        }
     }
     return o;
 }
+
 function applyRemoteLang(lang, base, id, o, fn, scope){
-	GM_xmlhttpRequest({
-            method: 'GET',
-            url: base+'_locales/'+lang+'/'+id+'.json',
-            onload: function(res){
-                var data = eval(xhr.responseText);
-				if (data) {
-					//merge data into o
-					applyLast(o[id], data);
-				}
-            },
-			onerror: function(res, a){
-				if (a && a.url) {
-					console.error(a.url);
-				}
-				
-				console.error(res);
-			}
-       });
+    GM_xmlhttpRequest(
+    {
+        method: 'GET',
+        url: base + '_locales/' + lang + '/' + id + '.json',
+        onload: function(res){
+            var data = eval(xhr.responseText);
+            if (data) {
+                //merge data into o
+                applyLast(o[id], data);
+            }
+        },
+        onerror: function(res, a){
+            if (a && a.url) {
+                console.error(a.url);
+            }
+            
+            console.error(res);
+        }
+    });
 }

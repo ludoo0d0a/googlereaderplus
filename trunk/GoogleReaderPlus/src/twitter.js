@@ -17,7 +17,7 @@ GRP.twitter = function(prefs, langs) {
 	// NORMALIZE=true converts tags to proper case and replaces -'s with spaces,
 	// like reader should itself
 
-	var URL_SHORTENER = 'tinyurl';// bitly, tinyurl
+	var URL_SHORTENER = prefs.twitter_shortener||'tinyurl';// bitly, tinyurl
 
 	// format the message to send, pls type as you like
 	function formatSendMsg(labels, title, notes, url) {
@@ -44,9 +44,9 @@ GRP.twitter = function(prefs, langs) {
 		GM_xmlhttpRequest( {
 			method : 'GET',
 			url : "http://tinyurl.com/create.php?url=" + thelongurl,
-			onload : function(responseDetails) {
-				if (responseDetails.status == 200) {
-					var t = responseDetails.responseText;
+			onload : function(r) {
+				if (r.status == 200) {
+					var t = r.responseText;
 					urlinput.value = t.match(/<blockquote><b>(http\:\/\/tinyurl\.com\/[a-zA-Z0-9]+)<\/b><br>/)[1];
 					countWord(event);
 				}
@@ -61,8 +61,8 @@ GRP.twitter = function(prefs, langs) {
 			method : 'GET',
 			url : "http://api.bit.ly/shorten?version=2.0.1&login=twitthis&apiKey=R_f0b6b5e3a4c028b3ec97119e4f3ce16c&format=xml&longUrl="
 					+ thelongurl,
-			onload : function(responseDetails) {
-				var tinydom = new DOMParser().parseFromString(responseDetails.responseText, "application/xml");
+			onload : function(r) {
+				var tinydom = new DOMParser().parseFromString(r.responseText, "application/xml");
 				urlinput.value = tinydom.getElementsByTagName('shortUrl')[0].textContent;
 				countWord(event);
 			}
@@ -88,28 +88,23 @@ GRP.twitter = function(prefs, langs) {
 	var notesdesc;
 
 	var mode;
-
-	function addTwitterButton(el, entry, mode) {
-		var btn = document.createElement("span");
-		btn.className = "btn-twitter item-star star link";
-		btn.innerHTML = "Twitter";
-		var text = 'Share this news on Twitter' + formatShortcut('twitter', 'tweet', prefs); //[d]
-		btn.title = text; //"Share this news on Twitter [d]";
-		btn.addEventListener("click", postBookmark, false);
-		el.appendChild(btn);
+	
+	function addTwitterButton(el, entry, mode){
+		var text = SL.text + formatShortcut('twitter', 'tweet', prefs); //[b]
+        addBottomLink(el, SL.keyword, text, 'btn-twitter item-star star link', false, postBookmark, false, entry);
 	}
-	function postBookmarkKey(e) {
-		var entry = getCurrentEntry();
-		var el = getFirstElementMatchingClassName(entry, 'span', 'btn-twitter');
-		postBookmark( {
-			target : el
-		});
-		// TODO : optimize entry
+	function addKey() {
+		onKey('btn-twitter', facebookShare);
 	}
 
-	function postBookmark(el) {
-		bookmarkStar = event.target;
-		var parent = findParentNode(bookmarkStar, 'div', 'entry');
+	function postBookmark(btn, entry, locked){
+		var active = isActive(btn, entry, 'twitter', locked);
+		
+		//bookmarkStar = event.target;
+		//var parent = findParentNode(bookmarkStar, 'div', 'entry');
+		bookmarkStar=btn;
+		var parent=entry;
+		
 		var header;
 		if (mode == "expanded") {
 			// parent = bookmarkStar.parentNode.parentNode.parentNode;
@@ -119,10 +114,10 @@ GRP.twitter = function(prefs, langs) {
 			parent.className = "entry read expanded action-area-visible";
 		}
 		bookmarkStar.className = "item-star star link email-active";
-		var l = getFirstElementMatchingClassName(parent, 'a', 'entry-title-link');
-		url = l.href; // getAttribute('href');
-		var title = l.firstChild.nodeValue;
-		var pos = findPos(bookmarkStar);
+
+		var link = getEntryLink(entry);
+		url = link.href;
+		var title = link.textContent; 
 		var addbkmk = getBookmarkField();
 		if (mode == "expanded") {
 			if (addbkmk.className == "action-area card-bottom") {
@@ -150,6 +145,7 @@ GRP.twitter = function(prefs, langs) {
 		notesinput.addEventListener('click', function() {
 			notesinput.focus();
 		}, false);
+		notesinput.addEventListener('keypress', countWord, false);
 		notesinput.value = "";
 		lblinput.value = getTags(parent);
 		urlinput.value = url;
@@ -181,13 +177,13 @@ GRP.twitter = function(prefs, langs) {
 		countWord(event);
 		btnSend.focus();
 		notesinput.focus();
-	}
+	};
 
 	function getBookmarkField() {
 		if (!bookmarkField) {
 			bookmarkField = document.createElement("div");
 			bookmarkField.setAttribute("id", "twitterField");
-			var tpl = "<html><body><div class='email-this-area'><iframe id='iftwitter' src='https://twitter.com/statuses/update.xml' width='0' height='0' style='display:block;'></iframe><table class='email-entry-table'><tbody><tr><td class='field-name'>{text_title}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='titleinput'></td></tr><tr><td class='field-name'>{text_tag}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='lblinput'></td></tr><tr><td class='field-name'>{text_url}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='urlinput'></td></tr><tr><td colspan='2'><div id='notesdesc'>{notemax}</div><br/><textarea class='email-this-comment' rows='6' id='notesinput'></textarea><div class='email-this-buttons' tabindex='-1'><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-send' id='btnSend'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'> Send </div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnTinyURL'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'> TinyURL </div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnCount'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_count}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnCancel'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_cancel}</div></div></div></div></div></div></div></td></tr></tbody></table></div></body></html>";
+			var tpl = "<html><body><div class='email-this-area'><iframe id='iftwitter' src='https://twitter.com/statuses/update.xml' width='0' height='0' style='display:block;'></iframe><table class='email-entry-table'><tbody><tr><td class='field-name'>{text_title}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='titleinput'></td></tr><tr><td class='field-name'>{text_tag}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='lblinput'></td></tr><tr><td class='field-name'>{text_url}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='urlinput'></td></tr><tr><td colspan='2'><div id='notesdesc'>{notemax}</div><br/><textarea class='email-this-comment' rows='6' id='notesinput'></textarea><div class='email-this-buttons' tabindex='-1'><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-send' id='btnSend'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_send}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnTinyURL'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_shortener}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnCount'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_count}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnCancel'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_cancel}</div></div></div></div></div></div></div></td></tr></tbody></table></div></body></html>";
 			var html = fillTpl(tpl, SL);
 			bookmarkField.innerHTML = html;
 		}
@@ -219,15 +215,6 @@ GRP.twitter = function(prefs, langs) {
 			}
 		}
 		return lbls;
-	}
-
-	function findPos(obj) {
-		var curleft = 0, curtop = 0;
-		if (obj.offsetParent) {
-			curleft = obj.offsetLeft + obj.offsetParent.offsetLeft;
-			curtop = obj.offsetTop + obj.offsetParent.offsetTop + obj.offsetParent.offsetParent.offsetTop;
-		}
-		return [ curleft, curtop ];
 	}
 
 	function saveBookmark(event) {
@@ -308,6 +295,6 @@ GRP.twitter = function(prefs, langs) {
 	initCatchEntries(addTwitterButton, 'etwitter');
 	
 	var keycode = getShortcutKey('twitter', 'tweet', prefs); //68 d
-	keycode.fn = postBookmarkKey;
+	keycode.fn = addKey;
 	initKey(keycode);
 };
