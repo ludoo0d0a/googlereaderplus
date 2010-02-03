@@ -11,10 +11,8 @@
  */
 //home : njidamgjohnfbkeagfbnkllfkdnlpjhi
 //debug : cmkepfncdncbdpmdfnkbpenhfbmmnebm
+//prod: hhcknjkmaaeinhdjgimjnophgpbdgfmg
 var GUID = 'cmkepfncdncbdpmdfnkbpenhfbmmnebm';
-
-//remote : hhcknjkmaaeinhdjgimjnophgpbdgfmg
-//var GUID = 'hhcknjkmaaeinhdjgimjnophgpbdgfmg';
 
 (function(){
 
