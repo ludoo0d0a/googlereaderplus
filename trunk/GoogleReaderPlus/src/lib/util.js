@@ -247,11 +247,14 @@ function fireResizeDefer(){
 }
 
 function fireResize(){
-    //dont work
-    var p = document.createElement("p");
-    p.appendChild(document.createTextNode('==='));
-    document.body.appendChild(p);
-    document.body.removeChild(p);
+	updateHeight('sub-tree');
+	updateHeight('entries');
+}
+function updateHeight(name){
+	var st = document.getElementById(name);
+	if (st && st.style && st.style.height){
+		st.style.height='auto';
+	}
 }
 
 function simulateClick(node){
