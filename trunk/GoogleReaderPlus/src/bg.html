@@ -529,7 +529,7 @@
                 var o = 
                 {
                     url: a.url,
-                    selected: !(a.selected),
+                    selected: (a.selected || typeof a.selected === "undefined"),
                     windowId: a.windowId,
                     index: a.index
                 };
