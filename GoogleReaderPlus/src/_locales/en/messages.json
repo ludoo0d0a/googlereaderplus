@@ -1,11 +1,11 @@
 {
   "extension_name": {
-    "message": "Google Reader Plus"
+    "message": "Google Reader Plus Toolbar button"
   },
   "extension_description": {
-    "message": "Enhance Google Reader by adding missing favicons and a collection of others features"
+    "message": "Add a button with icon for Google Reader Plus in Chrome Toolbar"
   },
   "browser_action_tooltip_default": {
-    "message": "Google Reader Plus Preferences"
+    "message": "Google Reader Plus Toolbar button"
   } 
 }
