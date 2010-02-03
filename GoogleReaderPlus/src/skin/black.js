@@ -1467,9 +1467,7 @@ GRP.black = function() {
 	else if (dW >= 1006) resW = 62;
 	else if (dW >= 981)  resW = 61;
 	else if (dW < 981)   resW = 60;
-	
-	
-	
+
 	// Shortcut!
 	function getEl(id) {return document.getElementById(id);}
 	
