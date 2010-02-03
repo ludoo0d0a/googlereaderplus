@@ -227,10 +227,6 @@ GRP.readbymouse = function(prefs, langs) {
 	// Go find the "Open original in tab" element and get the URL for original
 	function openInTab() {
 		openEntryInNewTab();
-		/*
-		var current = getCurrentEntry();
-		var currentEntry = current.getElementsByTagName("entry-title-link")[0];
-		GM_openInTab(currentEntry.attr('href'), '_blank');*/
 	}
 
 	// Go find the "share item" button and simulate a click on it

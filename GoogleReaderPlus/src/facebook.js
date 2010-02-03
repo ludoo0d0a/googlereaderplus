@@ -45,7 +45,8 @@ GRP.facebook = function(prefs, langs) {
 				iframe.setAttribute('height', '350px');
 				iframe.setAttribute('name', 'grpfacebook');
 				iframe.setAttribute('target', 'grpfacebook');
-				var shareurl = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
+				//var shareurl = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
+				var shareurl = getEntryLink(entry);
 				var e = encodeURIComponent;
 				var fbsharer = 'http://www.facebook.com/sharer.php?&u=' + e(shareurl.href) + '&t='
 						+ e(shareurl.textContent);

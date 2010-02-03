@@ -114,11 +114,7 @@ GRP.scripts = [
 {
     id: "colorful",
     name: "Colorful listview",
-    desc: "Use a background color for a same feed",
-	options: 
-    {
-        tree: false
-    }
+    desc: "Use a background color for a same feed"
 }, 
 {
     id: "filter",
@@ -153,6 +149,10 @@ GRP.scripts = [
     id: "twitter",
     name: "Twitter integration",
     desc: "Add a button to share news using Twitter",
+	options: 
+    {
+        shortener: 'tinyurl'
+    },
     shortcuts: 
     {
         'tweet': 

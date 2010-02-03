@@ -28,15 +28,21 @@ function getMode(entry){
     return hasClass(entry.firstChild, 'collapsed') ? 'list' : 'expanded';
 }
 
-function catchAllEntries(fn, bid){
+function forAllEntries(fn){
     var root = document.getElementById('entries');
     var entries = getElementsByClazzName('entry', 'div', root);
     for (var i = 0; i < entries.length; i++) {
-        catchEntryAdded(
-        {
-            target: entries[i]
-        }, fn, bid);
+        fn.call(this, entries[i]);
     }
+}
+
+function catchAllEntries(fn, bid){
+    forAllEntries(function(entry){
+		catchEntryAdded(
+        {
+            target: entry
+        }, fn, bid);
+	});
 }
 
 function catchEntry(el, mode, fn, bid){
@@ -47,11 +53,19 @@ function catchEntry(el, mode, fn, bid){
     }
 }
 
-function openEntryInNewTab(ent, selected){
+function getEntryLink(ent){
     var entry = ent || getCurrentEntry();
-    //var link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
     var link = getFirstElementMatchingClassName(entry, 'a', 'title-link-url');
-    var url = link.href;
+	if (!link || link.href == "#") {
+		//Normal way
+		link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
+	}
+	return link;
+}
+
+function openEntryInNewTab(entry, selected){
+    var link = getEntryLink(entry);
+	var url =  link.href;
     GM_openInTab(url, selected);
 }
 
@@ -176,11 +190,15 @@ function isActive(btn, entry, cls, locked){
     //if (locked || entry.className.indexOf(cls) == -1) {
     if (locked || !hasClass(btn, 'read-state-kept-unread')) {
         addClass(entry, cls);
-        toggleClass(btn, 'read-state-not-kept-unread', 'read-state-kept-unread');
+		if (btn) {
+			toggleClass(btn, 'read-state-not-kept-unread', 'read-state-kept-unread');
+		}
         active = true;
     } else {
         removeClass(entry, cls);
-        toggleClass(btn, 'read-state-kept-unread', 'read-state-not-kept-unread');
+		if (btn) {
+			toggleClass(btn, 'read-state-kept-unread', 'read-state-not-kept-unread');
+		}
         active = false;
     }
     return active;

@@ -59,15 +59,19 @@ GRP.langs.en.texts =
     },
     twitter: 
     {
-        plslogin: 'Please login to Twitter',
+        text: 'Share this news on Twitter',
+        keyword: 'Twitter',
+		plslogin: 'Please login to Twitter',
         toolong: "the message is too long!",
         notetoolong: "<b>Note to go along with the item:</b> (Optional, remain {0} characters)",
         notemax: "<b>Note to go along with the item:</b> (Optional, no more than 140 characters)",
         text_title: 'Title',
         text_tag: 'Tag',
         text_url: 'URL',
+		text_send:'Send',
         text_count: 'Count',
-        text_cancel: 'Cancel'
+        text_cancel: 'Cancel',
+		text_shortener:'Url courte'
     },
     instapaper: 
     {

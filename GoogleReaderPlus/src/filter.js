@@ -12,6 +12,12 @@
  */
 GRP.filter = function(prefs, langs){
     var SL = langs.filter;
+    var locked = false;
+    
+    function addButton(el, entry, mode){
+        var text = SL.text;
+        addBottomLink(el, SL.keyword, text, 'btn-filter', true, filterEntries, locked, entry);
+    }
     
     function findPosition(element){
         var point = 
@@ -52,7 +58,8 @@ GRP.filter = function(prefs, langs){
         setRegExps();
         
         if (_excludes.length || _highlights.length) {
-            document.body.addEventListener("DOMNodeInserted", filterEntries, false);
+            initCatchEntries(filterEntries, 'efilter');
+            //document.body.addEventListener("DOMNodeInserted", filterEntries, false);
         }
     }
     
@@ -118,7 +125,7 @@ GRP.filter = function(prefs, langs){
             var settings = document.createElement("div");
             settings.className = "filter-settings-window";
             
-            settings.innerHTML = "<label class='ta'>"+SL.excludes+"</label><label class='ta'>"+SL.highlights+"</label><div style='clear:both'></div>";
+            settings.innerHTML = "<label class='ta'>" + SL.excludes + "</label><label class='ta'>" + SL.highlights + "</label><div style='clear:both'></div>";
             
             var excludeTextarea = document.createElement("textarea");
             settings.appendChild(excludeTextarea);
@@ -206,7 +213,7 @@ GRP.filter = function(prefs, langs){
         if (!_settingsForEntry) {
             var settingsForEntry = document.createElement("div");
             settingsForEntry.className = "filter-settings-entry-window";
-            settingsForEntry.innerHTML = "<label>"+SL.quickadd+"</label><div style='clear:both'></div>";
+            settingsForEntry.innerHTML = "<label>" + SL.quickadd + "</label><div style='clear:both'></div>";
             
             var input = document.createElement("input");
             input.type = "text";
@@ -284,6 +291,7 @@ GRP.filter = function(prefs, langs){
         GM_setValue("hideDuplicates", _hideDuplicates ? 1 : "");
         GM_setValue("preferHighlights", _preferHighlights ? 1 : "");
         saveCollections();
+		//updateFilterEntries();
     }
     
     function saveCollections(){
@@ -291,64 +299,66 @@ GRP.filter = function(prefs, langs){
         GM_setValue("highlights", encodeURI(JSON.stringify(_highlights)));
         setRegExps();
     }
-    
-    function filterEntries(e){
-        var element = e.target;
-        
-        if (!(/(^| )entry( |$)/.test(element.className))) {
-            return;
-		}
-        
+	
+	function updateFilterEntries(){
+		forAllEntries(function(entry){
+			filterEntries(false, entry);
+		});
+	}
+
+    function filterEntries(btn, entry, mode){
+        var active = isActive(btn, entry, 'filter', locked);
+
         // reset the dups list when entries inserted again
-        if (element.parentNode.id == "entries") {
+        if (entry.parentNode.id == "entries") {
             var l = document.getElementById("entries").childNodes.length;
             if (l <= 2) {
-				_alreadyPrinted = {};
-			}
+                _alreadyPrinted = {};
+            }
         }
         
-        var title = element.getElementsByTagName("h2")[0];
-        var url = element.getElementsByTagName("a")[0].href;
-        
-        var minifiedTitle = minifyTitle(title.textContent);
-        
-        var configure = document.createElement("span");
-        configure.className = "filter-configure-entry";
-        configure.textContent = "#";
-        element.appendChild(configure, element);
-        configure.title = minifiedTitle;
-        configure.addEventListener("click", configureCurrent, false);
-        
+        var link = getEntryLink(entry);
+        var title = link.textContent;
+        var url = link.href;
+
+        var minifiedTitle = minifyTitle(title);
         var escapedTitle = encodeURI(minifiedTitle);
         
+         var configure = document.createElement("span");
+         configure.className = "filter-configure-entry";
+         configure.textContent = "#";
+         entry.appendChild(configure, entry);
+         configure.title = minifiedTitle;
+         configure.addEventListener("click", configureCurrent, false);
+         
         var b = false;
         if (_alreadyPrinted[escapedTitle]/* || _alreadyPrinted[url] */) {
-            element.className += " entry-duplicate";
+            entry.className += " entry-duplicate";
             if (_hideDuplicates) {
-				element.parentNode.removeChild(element);// element.style.display="none";
-			}
-			return;
+                entry.parentNode.removeChild(entry);// entry.style.display="none";
+            }
+            return;
         }
         
         if (_preferHighlights) {
             if (_highlights.length) {
-                b = checkEntry(minifiedTitle, element, _rxHighlights, "entry-highlighted");
+                b = checkEntry(minifiedTitle, entry, _rxHighlights, "entry-highlighted");
             }
             if (!b && _excludes.length) {
-				b = checkEntry(minifiedTitle, element, _rxExcludes, "entry-filtered");
-				if (_hideExcluds && b) {
-					element.parentNode.removeChild(element);// element.style.display="none";
-				}
+                b = checkEntry(minifiedTitle, entry, _rxExcludes, "entry-filtered");
+                if (_hideExcluds && b) {
+                    entry.parentNode.removeChild(entry);// entry.style.display="none";
+                }
             }
         } else {
             if (_excludes.length) {
-                b = checkEntry(minifiedTitle, element, _rxExcludes, "entry-filtered");
+                b = checkEntry(minifiedTitle, entry, _rxExcludes, "entry-filtered");
                 if (_hideExcluds && b) {
-                    element.parentNode.removeChild(element);// element.style.display="none";
+                    entry.parentNode.removeChild(entry);// entry.style.display="none";
                 }
             }
             if (!b && _highlights.length) {
-                checkEntry(minifiedTitle, element, _rxHighlights, "entry-highlighted");
+                checkEntry(minifiedTitle, entry, _rxHighlights, "entry-highlighted");
             }
         }
         
@@ -363,6 +373,7 @@ GRP.filter = function(prefs, langs){
         e.preventDefault();
         e.stopPropagation();
     }
+	
     function checkEntry(title, element, rx, className){
         if (rx.test(title)) {
             element.className += " " + className;

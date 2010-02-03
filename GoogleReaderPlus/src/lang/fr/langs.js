@@ -58,6 +58,8 @@ GRP.langs.fr.texts =
         keyword: 'Facebook'
     },
 	twitter:{
+		text: 'Partager cette nouvelle sur Twitter',
+        keyword: 'Twitter',
 		plslogin:'Merci de vous connecter à Twitter',
 		toolong:"Ce message est trop long!",
 		notetoolong:"<b>Note attachée à la nouvelle:</b> (optionel, reste {0} caractères)",
@@ -65,8 +67,10 @@ GRP.langs.fr.texts =
 		text_title:'Titre',
 		text_tag:'Tag',
 		text_url:'Adresse',
-		text_count:'Nombre',
-		text_cancel:'Annuler'
+		text_send:'Envoyer',
+		text_count:'Compter',
+		text_cancel:'Annuler',
+		text_shortener:'Short URL'
 	},
 	instapaper:{
 		text:'Lire plus tard avec Instapaper',
