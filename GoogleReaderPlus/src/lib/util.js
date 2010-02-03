@@ -246,15 +246,26 @@ function fireResizeDefer(){
     window.setTimeout(fireResize, 500);
 }
 
-function fireResize(){
-	updateHeight('sub-tree');
-	updateHeight('entries');
+function fireResize(){    
+    fitHeight('sub-tree');
+	fitHeight('entries');
 }
-function updateHeight(name){
-	var st = document.getElementById(name);
-	if (st && st.style && st.style.height){
-		st.style.height='auto';
-	}
+
+function fitHeight(id){
+	var el = document.getElementById(id);
+    var h = findTop(st);
+	st.style.height = (window.innerHeight - h) + 'px';
+}
+
+function findTop(obj){
+    var curtop = 0;
+    if (obj.offsetParent) {
+        do {
+            curtop += obj.offsetTop;
+        }
+        while ((obj = obj.offsetParent));
+        return curtop;
+    }
 }
 
 function simulateClick(node){
