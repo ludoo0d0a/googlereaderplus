@@ -21,15 +21,16 @@ GRP.preview = function(prefs, langs){
         // Top link
         //[preview as text] [maximize as icon]
         var previewOnIcon = prefs.preview_onicon || false;
-        
-        //var link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
-		var link = getEntryLink(entry);
         var keytext = formatShortcut('preview', 'prview', prefs);
         
+        var link = getEntryLink(entry);
+        addClass(link, 'iframe');
+        
+        var plink;
         if (previewOnIcon) {
             addClass(link, 'title-link-url');
-			//add a button right after the title
-            var plink = document.createElement('a');
+            //add a button right after the title
+            plink = document.createElement('a');
             plink.title = SL.title + keytext; //[Shift+V]
             plink.href = '#';
             plink.innerHTML = '<div class="entry-title-preview"></div>';
@@ -44,25 +45,59 @@ GRP.preview = function(prefs, langs){
             
             //create a second link before the previous one to used as preview
             var title = link.parentNode;// h2.entry-title
-            var ilink = document.createElement('a');
-            ilink.className = 'ilink entry-title-link';
-            ilink.href = '#';
-            ilink.title = SL.title + keytext; //[Shift+V]
-            ilink.innerText = ' ' + text;
-            link.parentNode.insertBefore(ilink, link);
-            ilink.addEventListener('click', previewTitleClick, false);
+            plink = document.createElement('a');
+            plink.className = 'ilink entry-title-link';
+            plink.href = '#';
+            plink.title = SL.title + keytext; //[Shift+V]
+            plink.innerText = ' ' + text;
+            link.parentNode.insertBefore(plink, link);
+            plink.addEventListener('click', previewTitleClick, false);
             
             /*
+            
+             
+            
              //solution 2
+            
+             
+            
              //preventdefault on entry-title-link
+            
+             
+            
              //create a second link after to open background
+            
+             
+            
              var url = link.href;
+            
+             
+            
              link.className = 'ilink entry-title-link';
+            
+             
+            
              link.href = '#';
+            
+             
+            
              link.title = 'Open as preview [Shift+R]';
+            
+             
+            
              link.onclick = previewTitleClick;//with preventdefault on first
+            
+             
+            
              */
+            
         }
+        
+        if (fancybox) {
+            //var link = getEntryLink(entry);
+            setFancyBox(plink);
+        }
+        
         // Bottom button
         addBottomLink(el, SL.keyword, SL.text + keytext, 'btn-preview', true, previewize, locked, entry);
     }
@@ -94,63 +129,98 @@ GRP.preview = function(prefs, langs){
         // Need to scroll before changing entry-body, because scrolling repaints
         // article from scratch (list view only)
         if (!locked) {
-			jump(entry, true);
-		}
+            jump(entry, true);
+        }
         
-		var body = getFirstElementMatchingClassName(entry, 'div', 'entry-body');
+        var body = getFirstElementMatchingClassName(entry, 'div', 'entry-body');
         var entryBody = getFirstElementMatchingClassName(body, 'div', 'entry-enclosure');
         if (!entryBody) {
             entryBody = getFirstElementMatchingClassName(body, 'div', 'item-body');
         }
-		
-        iframe = getFirstElementMatchingClassName(entry, 'iframe', 'if-preview');
         
-        if (active) {
-            // classic mode-> preview mode
-            entryBody.style.display = 'none';
-            if (iframe) {
-                // iframe already in document, display it
-                iframe.style.display = 'block';
-            } else {
-				// iframe not in document, create it
-                iframe = document.createElement('iframe');
-                //iframe.id='if-preview';
-                iframe.setAttribute('width', '100%');
-                var h = getHeightEntries();
-                iframe.setAttribute('height', h + 'px');
-                //get url fron hidden link
-				var urlLink = getEntryLink(entry);
-                /*var urlLink = getFirstElementMatchingClassName(entry, 'a', 'title-link-url');
-                if (!urlLink) {
-                    //or if not, from classical one
-                    urlLink = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
-                }*/
-				
-                iframe.setAttribute('src', urlLink.href);
-                iframe.className = 'if-preview';
-                body.appendChild(iframe);
-				
-				/*if (prefs.preview_adjustframe) {
-					adjustIframeHeight(iframe, h);
-				}*/
-            }			
-            
-            // Scale article container to fullwidth
-            body.setAttribute('style', 'max-width: 98%');
+        if (fancybox) {
+            //var link = getEntryLink(entry);
+            //setFancyBox(link);
         } else {
-            // preview mode -> classic mode
+            iframe = getFirstElementMatchingClassName(entry, 'iframe', 'if-preview');
             
-            // hide iframe
-            if (iframe) {
-                iframe.style.display = 'none';
+            if (active) {
+                // classic mode-> preview mode
+                entryBody.style.display = 'none';
+                if (iframe) {
+                    // iframe already in document, display it
+                    iframe.style.display = 'block';
+                } else {
+                    // iframe not in document, create it
+                    iframe = document.createElement('iframe');
+                    //iframe.id='if-preview';
+                    iframe.setAttribute('width', '100%');
+                    var h = getHeightEntries();
+                    iframe.setAttribute('height', h + 'px');
+                    //get url fron hidden link
+                    var urlLink = getEntryLink(entry);
+                    /*var urlLink = getFirstElementMatchingClassName(entry, 'a', 'title-link-url');
+                     if (!urlLink) {
+                     //or if not, from classical one
+                     urlLink = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
+                     }*/
+                    iframe.setAttribute('src', urlLink.href);
+                    iframe.className = 'if-preview';
+                    body.appendChild(iframe);
+                    
+                    /*if (prefs.preview_adjustframe) {
+                    
+                     
+                    
+                     
+                    
+                     
+                    
+                     
+                    
+                     
+                    
+                     
+                    
+                     
+                    
+                     adjustIframeHeight(iframe, h);
+                    
+                     
+                    
+                     
+                    
+                     
+                    
+                     
+                    
+                     
+                    
+                     
+                    
+                     
+                    
+                     }*/
+                    
+                }
+                
+                // Scale article container to fullwidth
+                body.setAttribute('style', 'max-width: 98%');
+            } else {
+                // preview mode -> classic mode
+                
+                // hide iframe
+                if (iframe) {
+                    iframe.style.display = 'none';
+                }
+                
+                // show rss item
+                entryBody.style.display = 'block';
+                body.removeAttribute('style', '');
+                if (!locked) {
+                    jump(entry, true);
+                }
             }
-            
-            // show rss item
-            entryBody.style.display = 'block';
-            body.removeAttribute('style', '');
-            if (!locked) {
-				jump(entry, true);
-			}
         }
     }
     
@@ -164,6 +234,52 @@ GRP.preview = function(prefs, langs){
         }
     }
     
+    var fancybox = prefs.preview_fancybox || true;
+    
+    function initFancyBox(){
+        if (fancybox) {
+            GM_addScript("http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js", true);
+            GM_addCss("http://fancybox.net/js/fancybox/jquery.fancybox-1.2.6.css");
+            waitJquery(function(){
+                GM_addScript("http://fancybox.net/js/fancybox/jquery.fancybox-1.2.6.pack.js", true);
+                GM_addScript("http://fancybox.net/js/jquery.easing.1.3.js", true);
+            })
+            
+        }
+    }
+    function waitJquery(fn){
+        window.setTimeout(function(){
+            //wait jquery
+            if (typeof jQuery !== "undefined") {
+                fn.call(this);
+            } else {
+                //console.log('No jquery found '+new Date());
+                waitJquery(fn);
+            }
+        }, 1000);
+    }
+    function runFancyBoxAuto(){
+        if (fancybox) {
+            if ((typeof jQuery !== "undefined") && (typeof jQuery.fn.fancybox !== "undefined")) {
+                jQuery("a.dofbox").removeClass('dofbox').addClass('infbox').fancybox(
+                {
+                     hideOnContentClick: false
+					 /*
+					,title: jQuery(this).text(),
+                    frameWidth: 800,
+                    frameHeight: 600,
+                    enableEscapeButton: true,
+                    showCloseButton: true*/
+                });
+            }
+        }
+    }
+    function setFancyBox(link){
+        if (fancybox) {
+            addClass(link, 'dofbox');
+        }
+    }
+    
     //column_locked
     locked = false;
     if (prefs && prefs.preview_locked) {
@@ -171,14 +287,15 @@ GRP.preview = function(prefs, langs){
     }
     
     var css = ".entry-title-maximize {margin-left: 4px;padding-left:16px;width:14px;height:14px;background-repeat:no-repeat;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEAMIAzwDxOt8TMwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9kMERYGFfecphMAAAIYSURBVDjLjVK/a1NRGD3fffcleUlaSRpjiylBCTV0FTc3cXXRDkVB0bGDUnRxqCB2VKE4qCDSwcGt/4G66GBBpEOt1RolsTHBJLT58X7ez6H58fLU6lk+Lufe75zvfJewD0zbm9nYtuYsmzUiH8EACBg1hEP4B9qme3t1vTUPIBbkdEmr0rS8Ez9qzknFTK6rmIgAIijFGDugy2hELhQrZn6rZJ3b0x2AAMhPRXOxtuOeZuYBQQRB+JrLGHd2Wu7jdx9bM3+zKk1bxSZS+kouYywFFGqVhnPmw5fOeSKAAaaAAwCQABDWRZ2IXvQzYhb1pntvo9C56rNLg/j6FeJPthq77t21zfZlZoAIHOSz4+EVAC0G6LcG1Ya9uPa5fQ3ASHd1PUUAcKePGMuHD4XOHs/Hl0I6WXJY2Xn4frN9YS/Igc0ecpnI/eSofN3sqIXRmLzZtrwrwje3UarYKRBigVkZgJXPGo8mUqGnb9ebt75XbQcAomHtiRhsjjrTR6Oz6YR8TsTE3G9C+ayxfDChzwFIWDZPaVpgC0TQul0cpdR1Zqhq3Z1lwJmajDxIJ0PzXZfw5TFo4KsQQhSV517yPA6lk6HddEK/sd9XlwCgCRoKU2jSVkpdFEK0Avdd9n9ZAJIIXmHbOlat2888xV6PqNQdlH9aQ6+/lc04EY2QbzlyMh1+VShbp7ZKZg7/gbghXo6P6W9651+wUN+npzFYbAAAAABJRU5ErkJggg==);}";
-	css += ".entry-title-preview {margin-left: 4px;padding-left:16px;width:14px;height:14px;background-repeat:no-repeat;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oCAQg3C7TLiegAAAB3SURBVCjPYzx0/uN/BnIBuZoPnf/4nwXB+fCLgYHxAQMDAxMuDf8Z/v9jZGBQsDMUYGNgYGBgQUgxPrAz5FcjwsZbMDayLUxEupiJVA34TRnVTLrmf8Rp+Q9Xh5RI/itAEwBu1/z//4+BgVEBQzMsyZECGCnJVQB9eSYmMdOF/wAAAABJRU5ErkJggg==);}";
+    css += ".entry-title-preview {margin-left: 4px;padding-left:16px;width:14px;height:14px;background-repeat:no-repeat;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oCAQg3C7TLiegAAAB3SURBVCjPYzx0/uN/BnIBuZoPnf/4nwXB+fCLgYHxAQMDAxMuDf8Z/v9jZGBQsDMUYGNgYGBgQUgxPrAz5FcjwsZbMDayLUxEupiJVA34TRnVTLrmf8Rp+Q9Xh5RI/itAEwBu1/z//4+BgVEBQzMsyZECGCnJVQB9eSYmMdOF/wAAAABJRU5ErkJggg==);}";
     css += ".preview .entry-likers{display:none;}";
     GM_addStyle(css);
     
-    initCatchEntries(addPreviewButton, 'epreview');
+    initCatchEntries(addPreviewButton, 'epreview', runFancyBoxAuto);
     initResize(onResize);
     
     var keycode = getShortcutKey('preview', 'prview', prefs); //81 q
     keycode.fn = previewShortcut;
     initKey(keycode);
+    initFancyBox();
 };
