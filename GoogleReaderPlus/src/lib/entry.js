@@ -1,11 +1,17 @@
 /*
  *
  */
-function initCatchEntries(fn, bid){
+function initCatchEntries(fn, bid, globalFn){
     document.body.addEventListener('DOMNodeInserted', function(e){
         catchEntryAdded(e, fn, bid);
+		if (globalFn){
+			globalFn.call(this);
+		}
     }, false);
     catchAllEntries(fn, bid);
+	if (globalFn){
+		globalFn.call(this);
+	}
 }
 
 function catchEntryAdded(e, fn, bid){
