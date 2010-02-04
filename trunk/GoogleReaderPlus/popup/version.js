@@ -1,7 +1,7 @@
 /**
  * @author Valente
  */
-window.GRP={
+window.GRPP={
 	VERSION: "1.0",
 	setVersion:function(text){
 		var ver = document.getElementById('version');
