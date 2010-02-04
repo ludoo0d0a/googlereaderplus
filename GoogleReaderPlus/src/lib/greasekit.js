@@ -118,21 +118,38 @@ if (typeof GM_addStyle === "undefined") {
 }
 
 if (typeof GM_addScript === "undefined") {
-    function GM_addScript(script, remote){
-        if (remote) {
-            GM_xmlhttpRequest(
-            {
-                method: 'get',
-                url: script,
-                onload: function(r){
-                    eval('' + r.responseText + '');
-                }
-            });
+    function GM_addScript(script, remote, cb, cbonerror){
+        var s = document.getElementById(script);
+        if (s) {
+            if (cbonerror && cb) {
+                cb.call(this);
+            }
         } else {
-            var el = document.createElement("script");
-            el.setAttribute("type", "text\/javascript");
-            el.setAttribute("src", script);
-            document.getElementsByTagName("head")[0].appendChild(el);
+            if (remote) {
+                GM_xmlhttpRequest(
+                {
+                    method: 'get',
+                    url: script,
+                    onload: function(r){
+                        eval('' + r.responseText + '');
+                        if (cb) {
+                            cb.call(this);
+                        }
+                    },
+                    onerror: function(r){
+                        if (cbonerror && cb) {
+                            cb.call(this);
+                        }
+                        console.error('Error on loading Javascript ' + script);
+                    }
+                });
+            } else {
+                var el = document.createElement("script");
+                el.setAttribute("type", "text\/javascript");
+                el.setAttribute("src", script);
+                el.setAttribute("id", script);
+                document.getElementsByTagName("head")[0].appendChild(el);
+            }
         }
     }
 }

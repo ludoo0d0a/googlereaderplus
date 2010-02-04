@@ -1,14 +1,14 @@
 /**
  * @author Valente
  */
-//var backgroundPage = chrome.extension.getBackgroundPage();
+var backgroundPage = chrome.extension.getBackgroundPage();
 function button(a){
     if (a == 'prefs') {
         //backgroundPage.open_preferences();
-        external_call('openprefs');
+        call_core('openprefs');
     } else if (a == 'reader') {
         //backgroundPage.findreader(true, true);
-        external_call('findreader');
+        call_core('findreader');
     }
 }
 
@@ -24,6 +24,13 @@ function button(a){
  }
  }*/
 function init(){
-    //fillThemes();
+    /*external_call('getprefs', null, function(a){
+     prefs=a.prefs;
+     });*/
+    var opendirect = backgroundPage.getPref('icon_opendirect');
+    if (opendirect) {
+        call_core('findreader');
+        window.close();
+    }
 }
 

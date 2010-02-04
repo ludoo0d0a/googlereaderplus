@@ -11,14 +11,14 @@
 //home crx : njidamgjohnfbkeagfbnkllfkdnlpjhi
 //prod: hhcknjkmaaeinhdjgimjnophgpbdgfmg
 
-var GUID_CORE = 'cmkepfncdncbdpmdfnkbpenhfbmmnebm';
+var GUID_CORE = 'hhcknjkmaaeinhdjgimjnophgpbdgfmg';
 var GUID_ICON = '?';
-var env = '';
+var env = 'home';
 if (env && env == 'home') {
 	GUID_CORE = 'njidamgjohnfbkeagfbnkllfkdnlpjhi';
 	GUID_ICON = 'aencokegfecfkpckmiklpcklhdblkdgj';
 } else if (env && env == 'debug') {
-	GUID_CORE = 'njidamgjohnfbkeagfbnkllfkdnlpjhi';
+	GUID_CORE = 'cmkepfncdncbdpmdfnkbpenhfbmmnebm';
 	GUID_ICON = '';
 }
 
@@ -36,5 +36,6 @@ function external_call(guid, message, options, callback){
         message: message,
         options: options || {}
     }, callback || emptyFn);
-    console.log('send "' + message + '" on ' + GUID);
+    console.log('send "' + message + '" on ' + guid);
+	console.log(options);
 }

@@ -8,7 +8,8 @@ GRP.scripts = [
     desc: "Add an icon in the toolbar of Chrome",
     options: 
     {
-        counter: true
+        counter: true,
+		opendirect:false
     }
 },
 {

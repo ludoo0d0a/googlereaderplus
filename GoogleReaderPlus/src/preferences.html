@@ -3,26 +3,23 @@
         <title>Google Reader Plus - Preferences</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
         <link href="css/prefs.css" type="text/css" rel="stylesheet">
-        <script type="application/javascript" src="version.js">
-        </script>
-        <script type="application/javascript" src="features.js">
-        </script>
         <script type="application/javascript" src="lib/util.js">
         </script>
-		<script type="application/javascript" src="lang/en/langs.js">
+        <script type="application/javascript" src="lib/greasekit.js">
         </script>
-		<script type="application/javascript" src="lang/fr/langs.js">
+		<script type="application/javascript" src="version.js">
+        </script>
+        <script type="application/javascript" src="features.js">
         </script>
         <script type="application/javascript">
             //(function(){
             var lang = 'en', prefs = {}, gshortcuts = {}, myport;
             function init(){
                 GRP.setVersion("Version: ");
-                createscripts();
-                createskins();
-                infoNavigator();
-                showPanel('theme');
-                
+                /*createScripts();
+                 createSkins();
+                 infoNavigator();
+                 showPanel('theme');*/
                 if (typeof chrome !== "undefined" && chrome.extension) {
                     myport = chrome.extension.connect(
                     {
@@ -33,7 +30,7 @@
                         if (a.message === "prefs") {
                             //scripts = a.scripts;
                             prefs = a.prefs;
-                            me.displayprefs.call(me);
+                            me.initprefs.call(me);
                         } else if (a.message === "info") {
                             createReport(a.report);
                         } else if (a.message === "iconget") {
@@ -57,13 +54,24 @@
                     status.className = "menupanel hidden";
                 }, 3000);
             }
-			
-			function findReader(){
-				myport.postMessage(
-                    {
-                        message: "findreader"
-                    });
-			}
+            
+            function findReader(){
+                myport.postMessage(
+                {
+                    message: "findreader"
+                });
+            }
+            
+            function initprefs(){
+                //first i18n
+                getLanguage(function(){
+                    createScripts();
+                    createSkins();
+                    infoNavigator();
+                    displayprefs();
+                    showPanel('theme');
+                });
+            }
             
             function applyprefs(){
                 var form = document.frmprefs;
@@ -81,13 +89,20 @@
                         }
                     }
                 }
-                applyLang();
+                var select = document.getElementById("language_lang");
+                if (select) {
+                    prefs.language_lang = select.value;
+                }
             }
             
             function saveprefs(reload, cleanall){
-                if (!cleanall) {
+				if (!cleanall) {
                     applyprefs();
                 }
+				if (prefs && lang!==prefs.language_lang){
+					//reload if lang changed!
+					reload = true;
+				}
                 
                 myport.postMessage(
                 {
@@ -104,7 +119,11 @@
             
             function displayprefs(){
                 if (prefs) {
-                    loadLang();
+                    var select = document.getElementById("language_lang");
+                    if (select) {
+                        select.value = lang;
+                    }
+                    
                     for (var o in prefs) {
                         var ctrl = document.frmprefs[o];
                         if (ctrl && (typeof prefs[o] !== 'undefined')) {
@@ -143,25 +162,20 @@
                 }
             }
             
-            function loadLang(){
+            function getLanguage(cb){
                 lang = prefs.language_lang || 'en';
-                lang = (GRP.langs && GRP.langs[lang]) ? lang : 'en';
-                //override locale texts
-                if (GRP.langs) {
-                    merge(GRP, GRP.langs[lang]);
-                }
+                //lang = (GRP.langs && GRP.langs[lang]) ? lang : 'en';
                 
-                var select = document.getElementById("language_lang");
-                if (select) {
-                    select.value = lang;
-                }
-            }
-            
-            function applyLang(){
-                var select = document.getElementById("language_lang");
-                if (select) {
-                    prefs.language_lang = select.value;
-                }
+				//TODO: load json here instead evald js
+                GM_addScript('lang/' + lang + '/features.js', true, function(){
+                    //override locale texts
+                    if (GRP.langs) {
+                        merge(GRP, GRP.langs[lang]);
+                    }
+                    if (cb) {
+                        cb.call(this);
+                    }
+                }, true);
             }
             
             var lastPanel, lastLink;
@@ -188,7 +202,7 @@
                 }
             }
             
-            function createscripts(){
+            function createScripts(){
                 var list = document.getElementById('scriptlist');
                 var panels = document.getElementById('panels');
                 list.innerHTML = 'In progress...';
@@ -228,7 +242,7 @@
                 list.innerHTML = html;
             }
             
-            function createskins(){
+            function createSkins(){
                 var last;
                 var list = document.getElementById('skinlist');
                 list.innerHTML = '';
@@ -600,17 +614,7 @@
                                     <img alt="thumb" id="thumb" src="" width="400" height="243" class="hidden"/>
                                 </div>
                             </div>
-                        </div><!--div id="panel_language" style="display:none;">
-                        <div class="body">
-                        <label for="lang">
-                        Choose your language for GoogleReaderPlus extension :
-                        </label>
-                        <select id="language_lang" title="your language setting">
-                        <option value="en">English </option>
-                        <option value="fr">Français</option>
-                        </select>
                         </div>
-                        </div-->
                         <div id="panel_column" style="display:none;">
                             <div class="body">
                                 Columns number : <input id="column_count" name="column_count" type="text" value="3" size="2"/>
@@ -621,13 +625,13 @@
                                 </label>
                             </div>
                         </div>
-						 <div id="panel_twitter" style="display:none;">
+                        <div id="panel_twitter" style="display:none;">
                             <div class="body">
                                 Shortener : 
-								<select name="twitter_shortener" id="twitter_shortener" title="your prefered shortener">
-		                            <option value="tinyurl">TinyUrl </option>
-		                            <option value="bitly">BitLy</option>
-		                        </select>
+                                <select name="twitter_shortener" id="twitter_shortener" title="your prefered shortener">
+                                    <option value="tinyurl">TinyUrl </option>
+                                    <option value="bitly">BitLy</option>
+                                </select>
                             </div>
                         </div>
                         <div id="panel_colorful" style="display:none;">
@@ -638,12 +642,22 @@
                                 </label>
                             </div>
                         </div>
-						 <div id="panel_icon" style="display:none;">
+                        <div id="panel_icon" style="display:none;">
                             <div class="body">
                                 <label for="icon_counter">
                                     Display unread counter in the toolbar icon
                                 </label>
-								<input id="icon_counter" name="icon_counter" type="checkbox" />
+                                <input id="icon_counter" name="icon_counter" type="checkbox" />
+                                <br/>
+                                <label for="icon_opendirect">
+                                    Click on icon will open GoogeReader
+                                </label>
+                                <input id="icon_opendirect" name="icon_opendirect" type="checkbox" />
+                                <br/>
+								<p>To add button with icon in toolbar, please download and install it.</p>
+<p>To make the button optional, we put him in an another extension as standalone, to be installed along with GoogleReaderPlus.</p> 
+<p>To add the button, click <b>Install</b> on the Browser Button for <a href="https://chrome.google.com/extensions/detail/xxxx">GoogleReaderPlus</a> page.</p> 
+<p>To remove the button, right click him and choose Disable.</p>
                             </div>
                         </div>
                         <div id="panel_removeads" style="display:none;">

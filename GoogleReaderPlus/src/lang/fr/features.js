@@ -34,8 +34,8 @@ GRP.langs.fr.scripts = [
 }, 
 {
     id: "unreadcount",
-    name: "Show all unread count",
-    desc: "Show all feeds unread count"
+    name: "Afficher les non lus",
+    desc: "Afficher le compteur d'éléments non lus pour chaque site et catégorie"
 }, 
 {
     id: "fixlayout",
@@ -44,12 +44,12 @@ GRP.langs.fr.scripts = [
 }, 
 {
     id: "count",
-    name: "Corriger le compteur (1000+)",
-    desc: "Afficher le vrai nombre de nouvelles non lues"
+    name: "Corriger le compteur",
+    desc: "Afficher le vrai nombre d'éléments non lus à la place de 1000+"
 }, 
 {
     id: "counticon",
-    name: "Compteur dans l\icône du site",
+    name: "Compteur dans l\icône",
     desc: "Afficher un compteur dans l\icône du site de Google Reader"
 }, 
 {
@@ -59,74 +59,73 @@ GRP.langs.fr.scripts = [
 }, 
 {
     id: "column",
-    name: "Texte au format multi columns (type magazine)",
+    name: "Multi colonnes",
     desc: "Permet d'afficher le texte sur plusieurs colonnes comme dans un magazine"
 }, 
 {
     id: "preview",
-    name: "Integrated preview",
-    desc: "Add a button to show entire original page instead the entry"
+    name: "Aperçu",
+    desc: "Ajoute un bouton pour afficher la page originale du site à la place de la nouvelle"
 }, 
 {
     id: "colorful",
-    name: "Colorful listview",
-    desc: "Use a background color for a same feed"
+    name: "Liste colorée",
+    desc: "Regrouper vos éléments en utilisant une couleur pour chaque site"
 }, 
 {
     id: "filter",
-    name: "Filter entries",
-    desc: "Filter entries by removing or highligting items based on user terms"
+    name: "Filtrage",
+    desc: "Filtrer les éléments en le supprimant ou en les mettant em surbrillance grâce à vos mots clés"
 }, 
 {
     id: "readbymouse",
-    name: "Read by mouse",
-    desc: "Middle click not available on Windows",
-    desc: "Next/previous item using right/left mouse click"
+    name: "Lecture par souris",
+    desc: "Lire les éléments avec votre souris. Clid croit ou gauche pour aller sur l'élément suivant pour précédent"
 }, 
 {
     id: "facebook",
-    name: "Facebook integration",
-    desc: "Add a button to share news using Facebook"
+    name: "Facebook",
+    desc: "Partager vos nouvelles sur Facebook"
 }, 
 {
     id: "twitter",
-    name: "Twitter integration",
-    desc: "Add a button to share news using Twitter"
+    name: "Twitter",
+    desc: "Partager vos nouvelles sur Twitter"
 }, 
 {
     id: "instapaper",
-    name: "Instapaper integration",
-    desc: "Add a button to read news later using Instapaper"
+    name: "Instapaper",
+    desc: "partager et lire plus tard vos nouvelles via Instapaper"
 }, 
 {
     id: "mark",
-    name: "Mark As Read",
-    desc: "Mark items before/after current as read"
+    name: "Marquer comme lus",
+    desc: "Marquer tous les éléments précédents ou suivants comme lus"
 }, 
 {
     id: "jump",
-    name: "Add top/bottom links",
-    desc: "Add a 'goto bottom' icon on top entry and a 'goto top' on bottom entry"
+    name: "Haut / bas",
+    desc: "Aller directement en haut ou en bas de l'élément"
 }, 
 {
     id: "fitheight",
-    name: "Fit height",
-    desc: "Fit height of the current news to the screen height (for long articles)"
+    name: "Adapteur hauteur",
+    desc: "Adapteur la hauteur de l'élément à la hauteur de l'écran (pour les articles longs)"
 }, 
 {
     id: "closeentry",
-    name: "Close entry",
-    desc: "Add a 'close' button on each entry to remove it"
+    name: "Fermer élément",
+    desc: "Fermer complétement un élément"
 }, 
 {
     id: "openbackground",
-    name: "Open in background",
-    desc: "Add a 'open in background' button on each entry"
+    name: "Ouvrir en arrière plan",
+    desc: "Ouvrir en arrière plan un élément"
 }, 
 {
     id: "menu",
-    name: "Intuitive menu",
-    desc: "Intuitive menu to add extra capabilites"
+    name: "Menu contextuel",
+    desc: "Menu contextuel pour effectuer des opérations directement sur tous les éléments chaque site"
 }, 
 {
     id: "aero",
@@ -139,13 +138,6 @@ GRP.langs.fr.scripts = [
     desc: "Information sur le système",
     link: true
 }, 
-/*{
- id: "readershortcuts",
- name: "Keyboard shortcuts",
- desc: "Original keyboard shortcuts",
- url: 'http://www.google.com/support/reader/bin/answer.py?hl=en&answer=69973',
- link: true
- }, */
 {
     id: "extshortcuts",
     name: "Raccourcis",
