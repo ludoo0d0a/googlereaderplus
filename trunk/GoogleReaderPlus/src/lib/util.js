@@ -248,13 +248,16 @@ function fireResizeDefer(){
 
 function fireResize(){    
     fitHeight('sub-tree');
-	fitHeight('entries');
+	fitHeight('entries', 'viewer-footer');
 }
 
-function fitHeight(id){
+function fitHeight(id, bottom){
 	var el = document.getElementById(id);
-    var h = findTop(st);
-	st.style.height = (window.innerHeight - h) + 'px';
+    var h = findTop(el);
+	if (bottom && bottom){
+		h-=el.clientHeight;
+	}
+	el.style.height = (window.innerHeight - h) + 'px';
 }
 
 function findTop(obj){

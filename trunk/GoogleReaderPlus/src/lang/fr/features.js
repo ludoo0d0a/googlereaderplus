@@ -13,6 +13,11 @@
 namespace('GRP.langs.fr');
 GRP.langs.fr.scripts = [
 {
+    id: "icon",
+    name: "Icône",
+    desc: "Icône dans la barre d'outil de Chrome"
+}, 
+{
     id: "theme",
     name: "Theme",
     desc: "Changer l'apparence de GoogleReader"

@@ -3,6 +3,15 @@
  */
 GRP.scripts = [
 {
+    id: "icon",
+    name: "Icon",
+    desc: "Add an icon in the toolbar of Chrome",
+    options: 
+    {
+        counter: true
+    }
+},
+{
     id: "theme",
     name: "Theme",
     desc: "Change the look of GoogleReader",

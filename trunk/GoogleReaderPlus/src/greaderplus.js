@@ -1,7 +1,5 @@
 /**
  * Google Reader Plus
- * @version  2.7.1
- * @date 2010-01-04
  *
  * Adds favicons to feeds and entries
  *
@@ -9,10 +7,6 @@
  *
  * ChangeLog: cf about.html
  */
-//home : njidamgjohnfbkeagfbnkllfkdnlpjhi
-//debug : cmkepfncdncbdpmdfnkbpenhfbmmnebm
-//prod: hhcknjkmaaeinhdjgimjnophgpbdgfmg
-var GUID = 'cmkepfncdncbdpmdfnkbpenhfbmmnebm';
 
 (function(){
 
@@ -91,7 +85,7 @@ var GUID = 'cmkepfncdncbdpmdfnkbpenhfbmmnebm';
         /*,fixlang: function(){
          this.lang = this.prefs.language_lang || 'en';
          this.stack = ['texts', 'scripts', 'skins', 'googleshortcuts'];
-         var base = 'chrome://extensions/'+GUID+'/';
+         var base = 'chrome://extensions/'+GUID_CORE+'/';
          this.runExtra();
          this.i18n(this.lang, this.runExtra, this.stack, base, this);
          },*/
