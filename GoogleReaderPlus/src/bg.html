@@ -5,6 +5,8 @@
         </script>
         <script type="application/javascript" src="lib/util.js">
         </script>
+		<script type="application/javascript" src="lib/external.js">
+        </script>
         <script type="application/javascript" src="features.js">
         </script>
         <script type="application/javascript">
@@ -19,9 +21,17 @@
                 color: [208, 0, 24, 255]
             };
             var READING_LIST_RE_ = new RegExp('user/[\\d]+/state/com\\.google/reading-list');
+			var GUID_ICON = 'aencokegfecfkpckmiklpcklhdblkdgj';//crx home
             
             chrome.extension.onConnect.addListener(onPortConnect);
             //chrome.extension.onRequest.addListener(onPortRequest);
+			chrome.extension.onRequestExternal.addListener(
+		        function(request, sender, sendResponse) {
+		          if (sender.id === GUID_ICON) {
+				  	onMessageRecieved(request, sendResponse);
+				  }
+		        }
+		      );
             
             monitorIcon();
             
@@ -33,7 +43,7 @@
                 a.onMessage.addListener(onMessageRecieved);
             }
             
-            function onMessageRecieved(a){
+            function onMessageRecieved(a, cb){
                 if (a.message == "loadicons") {
                     loadIcons(a);
                 } else if (a.message == "setprefs") {
@@ -48,34 +58,43 @@
                     findreader(true, true);
                 } else if (a.message == "geticon") {
                     extractFavicon(a);
+                } else if (a.message == "iconcounter") {
+                    monitorIcon();
                 } else if (a.message == "request") {
                     request(a);
                 }
             }
             
+			/**
+			 * Icon monitor for unreead count
+			 */
+			var monitorId;
             function monitorIcon(){
-                getUnreadCount();
-                window.setInterval(function(){
-                    getUnreadCount();
-                }, 5000);
-            }
+                var prefs = getPrefs();
+				if (prefs && prefs.icon && prefs.icon_counter){
+					getUnreadCount();
+					if (monitorId){
+						window.clearInterval(monitorId);
+					}
+	                monitorId = window.setInterval(function(){
+						getUnreadCount();
+	                }, 2000);
+				}            
+			}
             
             var lastText, lastLogged;
             function updateIcon(logged, text){
-                if (logged !== lastLogged) {
-                    chrome.browserAction.setIcon(
-                    {
-                        path: (logged) ? 'images/19.png' : 'images/19-gray.png'
-                    });
-                    chrome.browserAction.setBadgeBackgroundColor((logged) ? SIGNED_IN_BADGE_COLOR_ : SIGNED_OUT_BADGE_COLOR_);
+                var a = {};
+				if (logged !== lastLogged) {
+                    a.logged = logged;
                 }
                 if (!lastText || text !== lastText) {
-                    chrome.browserAction.setBadgeText(
-                    {
-                        text: text
-                    });
+					a.badgeText=text;
                     lastText = text;
                 }
+				if (a) {
+					call_icon('updateicon', a);
+				}
             }
             
 			var lastTabReader=false;
@@ -176,6 +195,7 @@
                 if (cleanall) {
                     localStorage.setItem('grp_favicons', '');
                 }
+				monitorIcon();
             }
             
             function setPreferences(a){
