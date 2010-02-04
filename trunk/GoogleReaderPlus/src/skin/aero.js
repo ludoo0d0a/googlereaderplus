@@ -19,4 +19,5 @@ GRP.aero = function() {
 //TODO: give offline span a hover button 
 //make .offline-status same behavior as #guser nobr > a (:hover active...)
 	GM_addStyle(css);
+	//fireResize();
 };
