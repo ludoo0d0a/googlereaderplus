@@ -246,18 +246,18 @@ function fireResizeDefer(){
     window.setTimeout(fireResize, 500);
 }
 
-function fireResize(){    
+function fireResize(){
     fitHeight('sub-tree');
-	fitHeight('entries', 'viewer-footer');
+    fitHeight('entries', 'viewer-footer');
 }
 
 function fitHeight(id, bottom){
-	var el = document.getElementById(id);
+    var el = document.getElementById(id);
     var h = findTop(el);
-	if (bottom && bottom){
-		h-=el.clientHeight;
-	}
-	el.style.height = (window.innerHeight - h) + 'px';
+    if (bottom && bottom) {
+        h -= el.clientHeight;
+    }
+    el.style.height = (window.innerHeight - h) + 'px';
 }
 
 function findTop(obj){
@@ -520,7 +520,7 @@ function apply(o, c, defaults){
     if (defaults) {
         apply(o, defaults);
     }
-    if (o && c && typeof c == 'object') {
+    if (o && c && typeof c === 'object') {
         for (var p in c) {
             o[p] = c[p];
         }
@@ -528,17 +528,21 @@ function apply(o, c, defaults){
     return o;
 }
 
-//Override text iyth last item
+//Override text with last item
 function merge(o, c, defaults){
     if (defaults) {
-        apply(o, defaults);
+        merge(o, defaults);
     }
     if (o && c) {
         if (typeof c === 'object') {
             for (var p in c) {
-                apply(o[p], c[p]);
+                merge(o[p], c[p]);
             }
-        } else {
+        } else if (isArray(c)) {
+            for (var i = 0, len = c.length; i < len; i++) {
+				o[i] = c[i];
+            }
+        } else{
             o[p] = c[p];
         }
     }

@@ -12,44 +12,37 @@
         <script type="application/javascript">
             var myport;
             
-            var SIGNED_OUT_BADGE_COLOR_ = 
-            {
-                color: [190, 190, 190, 230]
-            };
-            var SIGNED_IN_BADGE_COLOR_ = 
-            {
-                color: [208, 0, 24, 255]
-            };
             var READING_LIST_RE_ = new RegExp('user/[\\d]+/state/com\\.google/reading-list');
-			var GUID_ICON = 'aencokegfecfkpckmiklpcklhdblkdgj';//crx home
             
             chrome.extension.onConnect.addListener(onPortConnect);
             //chrome.extension.onRequest.addListener(onPortRequest);
-			chrome.extension.onRequestExternal.addListener(
+            chrome.extension.onRequestExternal.addListener(
 		        function(request, sender, sendResponse) {
 		          if (sender.id === GUID_ICON) {
-				  	onMessageRecieved(request, sendResponse);
+				  	onMessageReceived(request, false, sendResponse);
 				  }
 		        }
 		      );
             
             monitorIcon();
+			
+			sendPrefsToIcon();
             
             function onPortConnect(a){
                 if (a.name != "googlereaderplus") {
                     return false;
                 }
                 myport = a;
-                a.onMessage.addListener(onMessageRecieved);
+                a.onMessage.addListener(onMessageReceived);
             }
             
-            function onMessageRecieved(a, cb){
+            function onMessageReceived(a, p, cb){
                 if (a.message == "loadicons") {
                     loadIcons(a);
                 } else if (a.message == "setprefs") {
                     setPreferences(a);
                 } else if (a.message == "getprefs") {
-                    getPreferences(a);
+                    getPreferences(a, cb);
                 } else if (a.message == "openprefs") {
                     open_preferences();
                 } else if (a.message == "opentab") {
@@ -81,19 +74,23 @@
 	                }, 2000);
 				}            
 			}
+			function sendPrefsToIcon(prefs){
+				var myprefs = prefs || getPrefs();
+				call_icon('prefs', {prefs:myprefs});
+			}
             
             var lastText, lastLogged;
             function updateIcon(logged, text){
-                var a = {};
-				if (logged !== lastLogged) {
-                    a.logged = logged;
-                }
-                if (!lastText || text !== lastText) {
-					a.badgeText=text;
-                    lastText = text;
-                }
-				if (a) {
+				var refresh = ((!lastLogged || logged !== lastLogged) && (!lastText || text !== lastText));
+				refresh=true;
+				if (refresh){
+                    var a = {
+						logged: logged,
+						text:text
+					};
 					call_icon('updateicon', a);
+					lastLogged=logged;
+					lastText = text;
 				}
             }
             
@@ -109,7 +106,6 @@
 			}
             
             function getUnreadCount(){
-                checkTab(tab);
 				if (lastTabReader) {
                     updateFromTabtitle(lastTabReader);
                 } else {
@@ -158,16 +154,22 @@
             }
             
             function updateFromTabtitle(tab){
-                var count = parseTabtitle(tab);
-                var text = formatUnread(count);
-                updateIcon(true, text);
+                var count = parseTabtitle(tab, function(count){
+					var text = formatUnread(count);
+                	updateIcon(true, text);
+				});
             }
             
-            function parseTabtitle(tab){
-                var title = tab.title;
-                var m = /\((\d+)\+?\)/.exec(title);
-                var text = m[1] || '';
-                return text;
+            function parseTabtitle(tab, cb){
+                //Needs update data 
+				chrome.tabs.get(tab.id, function(){
+					var title = tab.title;
+	                var m = /\((\d+)\+?\)/.exec(title);
+	                if (m) {
+						var text = m[1] || '';
+						cb.call(this, text);
+					}
+				});
             }
             
             function parseUnread(json){
@@ -195,6 +197,7 @@
                 if (cleanall) {
                     localStorage.setItem('grp_favicons', '');
                 }
+				sendPrefsToIcon(prefs);
 				monitorIcon();
             }
             
@@ -212,14 +215,21 @@
                 return prefs;
             }
             
-            function getPreferences(a){
+            function getPreferences(a, cb){
                 initVersion();
                 var prefs = getPrefs();
-                myport.postMessage(
-                {
-                    message: "prefs",
-                    prefs: prefs
-                });
+				if (cb){
+					cb.call(this, {
+	                    message: "prefs",
+	                    prefs: prefs
+	                });
+				}else{
+	                myport.postMessage(
+	                {
+	                    message: "prefs",
+	                    prefs: prefs
+	                });
+				}
                 
                 return prefs;
             }

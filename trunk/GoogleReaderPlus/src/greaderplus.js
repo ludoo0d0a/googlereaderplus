@@ -27,7 +27,7 @@
             function onMessageReceived(a){
                 if (a.message == "prefs") {
                     me.prefs = a.prefs;
-                    me.applyLang.call(me);
+                    me.initprefs.call(me);
                 }
             }
             this.myport.onMessage.addListener(onMessageReceived);
@@ -36,7 +36,7 @@
                 message: "getprefs"
             });
         },
-        applyLang: function(){
+        initprefs: function(){
             //var langs = GRP.texts;
 			this.lang = this.prefs.language_lang || 'en';
             this.lang = (GRP.langs[this.lang]) ? this.lang : 'en';

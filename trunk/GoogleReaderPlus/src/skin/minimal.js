@@ -82,6 +82,8 @@ GRP.minimal = function() {
 	toggle_gr();
 
 	var accountname = document.getElementById('email-address');
-	document.title = document.title + " | " + accountname.innerHTML + " | ";
+	if (accountname) {
+		document.title = document.title + " | " + accountname.innerHTML + " | ";
+	}
 
 };

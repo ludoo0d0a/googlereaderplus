@@ -1,6 +1,6 @@
 {
   "name": "__MSG_extension_name__",
-  "version": "2.8.3",
+  "version": "2.8.4",
   "description": "__MSG_extension_description__",
   "icons": { 
      "16": "images/16.png",
@@ -10,11 +10,6 @@
   },
   "default_locale": "en",
   "background_page": "bg.html",
-  "NObrowser_action": {
-    "default_icon": "images/19.png",
-	"default_title": "__MSG_browser_action_tooltip_default__",
-    "popup": "popup.html"
-  },
   "content_scripts": [
     {
       "matches": [
