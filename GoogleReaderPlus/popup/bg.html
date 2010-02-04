@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <script type="application/javascript" src="version.js">
+        </script>
+		<script type="application/javascript" src="lib/external.js">
+        </script>
+        <script type="application/javascript">
+            function updateIcon(logged, text){
+                chrome.browserAction.setIcon(
+                {
+                    path: (logged) ? 'images/19.png' : 'images/19-gray.png'
+                });
+                chrome.browserAction.setBadgeBackgroundColor((logged) ? SIGNED_IN_BADGE_COLOR_ : SIGNED_OUT_BADGE_COLOR_);
+                
+                if (text) {
+                    chrome.browserAction.setBadgeText(
+                    {
+                        text: text
+                    });
+                    
+                }
+            }
+            
+            chrome.extension.onRequestExternal.addListener(function(request, sender, sendResponse){
+                console.log('receive external request');
+				if (sender.id === GUID_CORE && request.message) {
+                    console.log('external request :'+request.message);
+					if (request.message === 'updateicon') {
+                        var a = request.options;
+						console.log('updateIcon>> '+a.logged + a.text);
+                        updateIcon(a.logged, a.text);
+                    } else if (request.message === 'version') {
+                        console.log('version: '+GRPP.VERSION);
+						sendResponse(window.GRPP.VERSION);
+                    }
+                }
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
