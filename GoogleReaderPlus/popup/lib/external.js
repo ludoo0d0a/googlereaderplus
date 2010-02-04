@@ -1,25 +1,25 @@
 /**
  * @author Valente
  */
-//*************** ICON ************************
-//debug : 
-//home crx : aencokegfecfkpckmiklpcklhdblkdgj
-//prod: 
-
 //*************** CORE ************************
-//debug : cmkepfncdncbdpmdfnkbpenhfbmmnebm
-//home crx : njidamgjohnfbkeagfbnkllfkdnlpjhi
 //prod: hhcknjkmaaeinhdjgimjnophgpbdgfmg
+//home crx : njidamgjohnfbkeagfbnkllfkdnlpjhi
+//debug : cmkepfncdncbdpmdfnkbpenhfbmmnebm
 
-var GUID_CORE = 'cmkepfncdncbdpmdfnkbpenhfbmmnebm';
-var GUID_ICON = '?';
+//*************** ICON ************************
+//prod: xxx-icon-prod
+//home crx : aencokegfecfkpckmiklpcklhdblkdgj
+//debug : xxx-icon-debug
+
+var GUID_CORE = 'hhcknjkmaaeinhdjgimjnophgpbdgfmg';
+var GUID_ICON = 'xxx-icon-prod';
 var env = 'home';
 if (env && env == 'home') {
 	GUID_CORE = 'njidamgjohnfbkeagfbnkllfkdnlpjhi';
 	GUID_ICON = 'aencokegfecfkpckmiklpcklhdblkdgj';
 } else if (env && env == 'debug') {
-	GUID_CORE = 'njidamgjohnfbkeagfbnkllfkdnlpjhi';
-	GUID_ICON = '';
+	GUID_CORE = 'cmkepfncdncbdpmdfnkbpenhfbmmnebm';
+	GUID_ICON = 'xxx-icon-debug';
 }
 
 function call_icon(message, options, callback){
