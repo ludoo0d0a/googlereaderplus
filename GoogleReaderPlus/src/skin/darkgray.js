@@ -42,5 +42,5 @@ GRP.darkgray = function() {
 	
 	GM_addStyle('#viewer-container, #entries .entry, .entry-likers, .lhn-section, .scroll-tree li, .card-common, .card-common .card-actions {background-color: transparent !important;}');
 	GM_addStyle('.lhn-section {background: no-repeat scroll 0 0 transparent !important;}');
-	fireResize();
+	//fireResize();
 };
