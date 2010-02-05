@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<link href="css/popup1.css" type="text/css" rel="stylesheet">
+        <!--script src="version.js"></script-->
+		<!--script src="features.js"></script-->
+		<script type="application/javascript" src="lib/external.js"></script>
+		<script type="application/javascript" src="popup.js"></script>
+		<title>Popup GoogleReaderPlus</title>
+    </head>
+    <body onload="init();">
+        <div id="menu">
+			<div class="title">
+                GoogleReaderPlus
+				<!--
+				Theme: <select id="theme" class="opt_select" OnChange="button('theme');" title="Change Theme">
+                    <option value="">None</option>
+				</select>
+                <img id="theme" src="" alt="theme" class="pref" onClick="button('theme');" title="Theme"/>
+				-->
+            </div>
+			
+			<div class="item" onClick="button('reader');" title="Google Reader">
+                Google Reader
+            </div>
+			<div class="item" onClick="button('prefs');" title="preferences">
+                Preferences
+            </div>
+		</div>
+    </body>
+</html>
