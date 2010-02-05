@@ -53,44 +53,6 @@ GRP.preview = function(prefs, langs){
             link.parentNode.insertBefore(plink, link);
             plink.addEventListener('click', previewTitleClick, false);
             
-            /*
-            
-             
-            
-             //solution 2
-            
-             
-            
-             //preventdefault on entry-title-link
-            
-             
-            
-             //create a second link after to open background
-            
-             
-            
-             var url = link.href;
-            
-             
-            
-             link.className = 'ilink entry-title-link';
-            
-             
-            
-             link.href = '#';
-            
-             
-            
-             link.title = 'Open as preview [Shift+R]';
-            
-             
-            
-             link.onclick = previewTitleClick;//with preventdefault on first
-            
-             
-            
-             */
-            
         }
         
         if (fancybox) {
@@ -157,51 +119,23 @@ GRP.preview = function(prefs, langs){
                     iframe.setAttribute('width', '100%');
                     var h = getHeightEntries();
                     iframe.setAttribute('height', h + 'px');
-                    //get url fron hidden link
-                    var urlLink = getEntryLink(entry);
-                    /*var urlLink = getFirstElementMatchingClassName(entry, 'a', 'title-link-url');
-                     if (!urlLink) {
-                     //or if not, from classical one
-                     urlLink = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
-                     }*/
-                    iframe.setAttribute('src', urlLink.href);
+					var urlLink = getEntryLink(entry);
+					var url = urlLink.href;
+					var locksite = isSiteLocked(url);
+					if (locksite){
+						GM_xmlhttpRequest({url:url, onload:function(r){
+							iframe.setAttribute('src', cleanHtml(r.responseText, url));
+						}});
+					}else{
+	                    //get url fron hidden link
+						iframe.setAttribute('src', url);
+                   	}
                     iframe.className = 'if-preview';
                     body.appendChild(iframe);
                     
                     /*if (prefs.preview_adjustframe) {
-                    
-                     
-                    
-                     
-                    
-                     
-                    
-                     
-                    
-                     
-                    
-                     
-                    
-                     
-                    
                      adjustIframeHeight(iframe, h);
-                    
-                     
-                    
-                     
-                    
-                     
-                    
-                     
-                    
-                     
-                    
-                     
-                    
-                     
-                    
                      }*/
-                    
                 }
                 
                 // Scale article container to fullwidth
@@ -223,6 +157,25 @@ GRP.preview = function(prefs, langs){
             }
         }
     }
+	function isSiteLocked(url){
+		/*if (/www\.zdnet\.fr/.test(url) || /www\.lefigaro\.fr/.test(url) || /www\.chauffeurdebuzz\.com/.test(url)){
+			return true;
+		}*/
+		return false;
+	}	
+	
+	function cleanHtml(html, url){
+		var base = (/(.*)\//.exec(url))[0];
+		//compress
+		var text=html.replace(/\n\r/,"");
+		//remove scripts
+		text=text.replace(/<script.*<\/script>/gi, '');
+		//add base
+		text=text.replace('<head>', '<head><base href="'+base+'" />');
+		//render html
+		var htmlurl = 'data:text/html;,' + encodeURIComponent(text);
+		return htmlurl;
+	}
     
     function onResize(height){
         var iframes = getElementsByClazzName('if-preview', 'iframe', document);
@@ -234,7 +187,8 @@ GRP.preview = function(prefs, langs){
         }
     }
     
-    var fancybox = prefs.preview_fancybox || true;
+    //var fancybox = prefs.preview_fancybox || false;
+	var fancybox = false;
     
     function initFancyBox(){
         if (fancybox) {

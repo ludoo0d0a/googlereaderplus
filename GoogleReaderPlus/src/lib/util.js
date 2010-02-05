@@ -533,17 +533,31 @@ function merge(o, c, defaults){
     if (defaults) {
         merge(o, defaults);
     }
-    if (o && c) {
+    if (typeof o !== "undefined" && typeof c !== "undefined" ) {
         if (typeof c === 'object') {
             for (var p in c) {
-                merge(o[p], c[p]);
+                //console.log(c[p] + ' Omerge['+p+']> ' + o[p]);
+				if (typeof c[p] === 'object' || isArray(c[p])) {
+					merge(o[p], c[p]);
+				}else{
+					o[p]= c[p];
+				}
             }
         } else if (isArray(c)) {
             for (var i = 0, len = c.length; i < len; i++) {
-				o[i] = c[i];
+				//o[i] = c[i];
+				//console.log(c[i] + ' Amerge['+i+']> ' + o[i]);
+				if (typeof c[i] === 'object' || isArray(c[i])) {
+					merge(o[i], c[i]);
+				}else{
+					o[i]= c[i];
+				}
+				console.log('after: '+c[i] + ' Amerge['+i+']> ' + o[i]);
             }
         } else{
-            o[p] = c[p];
+            //o[p] = c[p];
+			console.log(c + ' -> ' + o);
+			o = c;
         }
     }
     return o;

@@ -22,11 +22,11 @@ GRP.langs.fr.scripts = [
     name: "Theme",
     desc: "Changer l'apparence de GoogleReader"
 }, 
-{
+/*{
     id: "language",
     name: "Language",
     desc: "Changer la langue de l'extension"
-}, 
+},*/ 
 {
     id: "favicons",
     name: "Favicons",
@@ -204,11 +204,11 @@ GRP.langs.fr.skins = [
 }, 
 {
     id: "osxblue",
-    name: "Thème Mac OS X Snow Leopard - Bleu"
+    name: "Mac OS X Snow Leopard - Bleu"
 }, 
 {
     id: 'osxblack',
-    name: "Thème Mac OS X Snow Leopard - Noir"
+    name: "Mac OS X Snow Leopard - Noir"
 }];
 
 
