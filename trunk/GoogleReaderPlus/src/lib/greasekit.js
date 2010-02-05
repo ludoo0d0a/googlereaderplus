@@ -82,7 +82,7 @@ function accessSecure(message, o, callback){
 
 if (typeof GM_xmlhttpRequest === "undefined") {
     GM_xmlhttpRequest = function(o){
-        o.method = o.method.toUpperCase() || "GET";
+        o.method = (o.method)?o.method.toUpperCase():"GET";
         if (!o.url) {
             throw ("GM_xmlhttpRequest requires an URL.");
         }

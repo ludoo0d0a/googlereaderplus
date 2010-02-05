@@ -235,7 +235,8 @@
             }
             
             function checkPrefs(prefs){
-                //set default if not
+                prefs=prefs||{};
+				//set default if not
                 for (var i = 0, len = GRP.scripts.length; i < len; i++) {
                     var script = GRP.scripts[i];
                     //options

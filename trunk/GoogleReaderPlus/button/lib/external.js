@@ -9,7 +9,7 @@
 //*************** ICON ************************
 //prod: ecpcafinfpjgabomoamkhkgnpgpmdmeo
 //home crx : aencokegfecfkpckmiklpcklhdblkdgj
-//debug : xxx-icon-debug
+//unpacked : lomblngfikeinenjgnkcnhbdgchkaeai
 
 var GUID_CORE = 'hhcknjkmaaeinhdjgimjnophgpbdgfmg';
 var GUID_ICON = 'ecpcafinfpjgabomoamkhkgnpgpmdmeo';
@@ -17,9 +17,9 @@ var env = '';
 if (env && env == 'home') {
 	GUID_CORE = 'njidamgjohnfbkeagfbnkllfkdnlpjhi';
 	GUID_ICON = 'aencokegfecfkpckmiklpcklhdblkdgj';
-} else if (env && env == 'debug') {
+} else if (env && env == 'unpacked') {
 	GUID_CORE = 'cmkepfncdncbdpmdfnkbpenhfbmmnebm';
-	GUID_ICON = 'xxx-icon-debug';
+	GUID_ICON = 'lomblngfikeinenjgnkcnhbdgchkaeai';
 }
 
 function call_icon(message, options, callback){
