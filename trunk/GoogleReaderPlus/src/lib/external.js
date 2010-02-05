@@ -7,13 +7,13 @@
 //debug : cmkepfncdncbdpmdfnkbpenhfbmmnebm
 
 //*************** ICON ************************
-//prod: xxx-icon-prod
+//prod: ecpcafinfpjgabomoamkhkgnpgpmdmeo
 //home crx : aencokegfecfkpckmiklpcklhdblkdgj
 //debug : xxx-icon-debug
 
 var GUID_CORE = 'hhcknjkmaaeinhdjgimjnophgpbdgfmg';
-var GUID_ICON = 'xxx-icon-prod';
-var env = 'home';
+var GUID_ICON = 'ecpcafinfpjgabomoamkhkgnpgpmdmeo';
+var env = '';
 if (env && env == 'home') {
 	GUID_CORE = 'njidamgjohnfbkeagfbnkllfkdnlpjhi';
 	GUID_ICON = 'aencokegfecfkpckmiklpcklhdblkdgj';
