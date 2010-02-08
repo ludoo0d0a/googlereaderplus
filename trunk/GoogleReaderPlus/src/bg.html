@@ -5,7 +5,7 @@
         </script>
         <script type="application/javascript" src="lib/util.js">
         </script>
-		<script type="application/javascript" src="lib/external.js">
+        <script type="application/javascript" src="lib/external.js">
         </script>
         <script type="application/javascript" src="features.js">
         </script>
@@ -16,17 +16,15 @@
             
             chrome.extension.onConnect.addListener(onPortConnect);
             //chrome.extension.onRequest.addListener(onPortRequest);
-            chrome.extension.onRequestExternal.addListener(
-		        function(request, sender, sendResponse) {
-		          if (sender.id === GUID_ICON) {
-				  	onMessageReceived(request, false, sendResponse);
-				  }
-		        }
-		      );
+            chrome.extension.onRequestExternal.addListener(function(request, sender, sendResponse){
+                if (sender.id === GUID_ICON) {
+                    onMessageReceived(request, false, sendResponse);
+                }
+            });
             
             monitorIcon();
-			
-			sendPrefsToIcon();
+            
+            sendPrefsToIcon();
             
             function onPortConnect(a){
                 if (a.name != "googlereaderplus") {
@@ -58,61 +56,66 @@
                 }
             }
             
-			/**
-			 * Icon monitor for unreead count
-			 */
-			var monitorId;
+            /**
+             * Icon monitor for unreead count
+             */
+            var monitorId;
             function monitorIcon(){
                 var prefs = getPrefs();
-				if (prefs && prefs.icon && prefs.icon_counter){
-					getUnreadCount();
-					if (monitorId){
-						window.clearInterval(monitorId);
-					}
-	                monitorId = window.setInterval(function(){
-						getUnreadCount();
-	                }, 2000);
-				}            
-			}
-			function sendPrefsToIcon(prefs){
-				var myprefs = prefs || getPrefs();
-				call_icon('prefs', {prefs:myprefs});
-			}
+                if (prefs && prefs.icon && prefs.icon_counter) {
+                    getUnreadCount();
+                    if (monitorId) {
+                        window.clearInterval(monitorId);
+                    }
+                    monitorId = window.setInterval(function(){
+                        getUnreadCount();
+                    }, 2000);
+                }
+            }
+            
+            function sendPrefsToIcon(prefs){
+                var myprefs = prefs || getPrefs();
+                call_icon('prefs', 
+                {
+                    prefs: myprefs
+                });
+            }
             
             var lastText, lastLogged;
             function updateIcon(logged, text){
-				var refresh = ((!lastLogged || logged !== lastLogged) && (!lastText || text !== lastText));
-				refresh=true;
-				if (refresh){
-                    var a = {
-						logged: logged,
-						text:text
-					};
-					call_icon('updateicon', a);
-					lastLogged=logged;
-					lastText = text;
-				}
+                var refresh = ((!lastLogged || logged !== lastLogged) && (!lastText || text !== lastText));
+                refresh = true;
+                if (refresh) {
+                    var a = 
+                    {
+                        logged: logged,
+                        text: text
+                    };
+                    call_icon('updateicon', a);
+                    lastLogged = logged;
+                    lastText = text;
+                }
             }
             
-			var lastTabReader=false;
-			monitorCloseTab();
-			function monitorCloseTab(){
-				//Check if greader were closed
-				chrome.tabs.onRemoved.addListener(function(tabId){
-					if (!(lastTabReader && tabId==lastTabReader.id)){
-						lastTabReader=false;
-					}
-				});
-			}
+            var lastTabReader = false;
+            monitorCloseTab();
+            function monitorCloseTab(){
+                //Check if greader were closed
+                chrome.tabs.onRemoved.addListener(function(tabId){
+                    if (!(lastTabReader && tabId == lastTabReader.id)) {
+                        lastTabReader = false;
+                    }
+                });
+            }
             
             function getUnreadCount(){
-				if (lastTabReader) {
+                if (lastTabReader) {
                     updateFromTabtitle(lastTabReader);
                 } else {
                     findreader(false, false, function(tab){
                         if (tab) {
-                            lastTabReader=tab;
-							//From tab title
+                            lastTabReader = tab;
+                            //From tab title
                             updateFromTabtitle(tab);
                         } else {
                             //from xhr (1000+ limitations)
@@ -155,21 +158,19 @@
             
             function updateFromTabtitle(tab){
                 var count = parseTabtitle(tab, function(count){
-					var text = formatUnread(count);
-                	updateIcon(true, text);
-				});
+                    var text = formatUnread(count);
+                    updateIcon(true, text);
+                });
             }
             
             function parseTabtitle(tab, cb){
                 //Needs update data 
-				chrome.tabs.get(tab.id, function(){
-					var title = tab.title;
-	                var m = /\((\d+)\+?\)/.exec(title);
-	                if (m) {
-						var text = m[1] || '';
-						cb.call(this, text);
-					}
-				});
+                chrome.tabs.get(tab.id, function(){
+                    var title = tab.title;
+                    var m = /\((\d+)\+?\)/.exec(title);
+                    var text = (m) ? m[1] : '0';
+                    cb.call(this, text);
+                });
             }
             
             function parseUnread(json){
@@ -197,8 +198,8 @@
                 if (cleanall) {
                     localStorage.setItem('grp_favicons', '');
                 }
-				sendPrefsToIcon(prefs);
-				monitorIcon();
+                sendPrefsToIcon(prefs);
+                monitorIcon();
             }
             
             function setPreferences(a){
@@ -218,25 +219,26 @@
             function getPreferences(a, cb){
                 initVersion();
                 var prefs = getPrefs();
-				if (cb){
-					cb.call(this, {
-	                    message: "prefs",
-	                    prefs: prefs
-	                });
-				}else{
-	                myport.postMessage(
-	                {
-	                    message: "prefs",
-	                    prefs: prefs
-	                });
-				}
+                if (cb) {
+                    cb.call(this, 
+                    {
+                        message: "prefs",
+                        prefs: prefs
+                    });
+                } else {
+                    myport.postMessage(
+                    {
+                        message: "prefs",
+                        prefs: prefs
+                    });
+                }
                 
                 return prefs;
             }
             
             function checkPrefs(prefs){
-                prefs=prefs||{};
-				//set default if not
+                prefs = prefs || {};
+                //set default if not
                 for (var i = 0, len = GRP.scripts.length; i < len; i++) {
                     var script = GRP.scripts[i];
                     //options
@@ -466,7 +468,7 @@
                                     {
                                         message: a.callback || "requestdone",
                                         action: f,
-                                        responseXML: xhr.responseXML,
+                                        responseXML: null, //xhr.responseXML,
                                         responseText: xhr.responseText,
                                         responseHeaders: xhr.responseHeaders,
                                         status: xhr.status,

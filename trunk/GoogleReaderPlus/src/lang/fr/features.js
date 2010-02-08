@@ -122,11 +122,13 @@ GRP.langs.fr.scripts = [
     name: "Ouvrir en arrière plan",
     desc: "Ouvrir en arrière plan un élément"
 }, 
+/*
 {
     id: "menu",
     name: "Menu contextuel",
     desc: "Menu contextuel pour effectuer des opérations directement sur tous les éléments chaque site"
 }, 
+*/
 {
     id: "aero",
     name: "Barre d'outil Aero",
