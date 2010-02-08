@@ -116,6 +116,12 @@ function getElementValue(query, context){
     return doc.evaluate(query, (context || doc), null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 }
 
+function parseXml(xmlText){
+	var dom = new DOMParser().parseFromString(xmlText, "application/xml");
+	//urlinput.value = dom.getElementsByTagName('shortUrl')[0].textContent;
+	return dom;
+}
+
 if (typeof Array.forEach === "undefined") {
     Array.forEach = function(arr, fn){
         Array.prototype.forEach.call(arr, fn);

@@ -309,6 +309,11 @@ GRP.filter = function(prefs, langs){
     function filterEntries(btn, entry, mode){
         var active = isActive(btn, entry, 'filter', locked);
 
+		if(isTagged(entry, 'tfilter')){
+			//stop entry was already scanned
+			return;
+		}
+		
         // reset the dups list when entries inserted again
         if (entry.parentNode.id == "entries") {
             var l = document.getElementById("entries").childNodes.length;
@@ -320,6 +325,8 @@ GRP.filter = function(prefs, langs){
         var link = getEntryLink(entry);
         var title = link.textContent;
         var url = link.href;
+		
+		console.log('>>>>'+active+'--'+title);
 
         var minifiedTitle = minifyTitle(title);
         var escapedTitle = encodeURI(minifiedTitle);

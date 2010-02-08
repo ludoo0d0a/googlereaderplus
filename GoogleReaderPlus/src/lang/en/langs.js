@@ -71,7 +71,8 @@ GRP.langs.en.texts =
 		text_send:'Send',
         text_count: 'Count',
         text_cancel: 'Cancel',
-		text_shortener:'Url courte'
+		text_shortener:'Url courte',
+		shortfailed:"Sorry, an error occured on trying to use short url!\n\r{0}"
     },
     instapaper: 
     {

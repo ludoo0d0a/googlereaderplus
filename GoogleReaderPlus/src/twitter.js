@@ -50,6 +50,10 @@ GRP.twitter = function(prefs, langs) {
 					urlinput.value = t.match(/<blockquote><b>(http\:\/\/tinyurl\.com\/[a-zA-Z0-9]+)<\/b><br>/)[1];
 					countWord(event);
 				}
+			},
+			onerror:function(r) {
+				var error = formatText(SL.shortfailed, r.status);
+				alert(error);
 			}
 		});
 	}
@@ -57,14 +61,25 @@ GRP.twitter = function(prefs, langs) {
 	function getTinyAndInsert_BitLy(event) {
 		var thelongurl = encodeURIComponent(url);
 		// urlinput.value = "making url tiny...";
+		var o ={
+			login: prefs.twitter_bitlylogin||'twitthis',
+			apiKey:prefs.twitter_bitlykey||'R_f0b6b5e3a4c028b3ec97119e4f3ce16c',
+			url:thelongurl
+		};
+		var tpl = "http://api.bit.ly/shorten?version=2.0.1&login={login}&apiKey={apiKey}&format=xml&longUrl={url}";
+		var urlbitly = fillTpl(tpl, o);
+		
 		GM_xmlhttpRequest( {
 			method : 'GET',
-			url : "http://api.bit.ly/shorten?version=2.0.1&login=twitthis&apiKey=R_f0b6b5e3a4c028b3ec97119e4f3ce16c&format=xml&longUrl="
-					+ thelongurl,
+			url : urlbitly,
 			onload : function(r) {
 				var tinydom = new DOMParser().parseFromString(r.responseText, "application/xml");
 				urlinput.value = tinydom.getElementsByTagName('shortUrl')[0].textContent;
 				countWord(event);
+			},
+			onerror:function(r) {
+				var error = formatText(SL.shortfailed, r.status);
+				alert(error);
 			}
 		});
 	}

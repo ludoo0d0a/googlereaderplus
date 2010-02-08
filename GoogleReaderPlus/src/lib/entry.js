@@ -193,7 +193,6 @@ function addBottomLink(el, text, title, cls, button, callback, locked, entry){
 
 function isActive(btn, entry, cls, locked){
     var active = false;
-    //if (locked || entry.className.indexOf(cls) == -1) {
     if (locked || !hasClass(btn, 'read-state-kept-unread')) {
         addClass(entry, cls);
 		if (btn) {
@@ -209,6 +208,14 @@ function isActive(btn, entry, cls, locked){
     }
     return active;
 }
+function isTagged(entry, cls){
+ 	var tagged = hasClass(entry, cls);
+    if (!tagged) {
+		addClass(entry, cls);
+    }
+    return tagged;
+}
+
 
 function formatShortcut(script, shortcut, prefs){
     var t = '';

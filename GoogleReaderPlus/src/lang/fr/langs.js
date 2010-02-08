@@ -70,7 +70,8 @@ GRP.langs.fr.texts =
 		text_send:'Envoyer',
 		text_count:'Compter',
 		text_cancel:'Annuler',
-		text_shortener:'Short URL'
+		text_shortener:'Short URL',
+		shortfailed:"Désolé, une erreur est survenue pour obtenir une url courte!\n\r{0}"
 	},
 	instapaper:{
 		text:'Lire plus tard avec Instapaper',

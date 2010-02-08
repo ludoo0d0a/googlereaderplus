@@ -36,6 +36,6 @@ function external_call(guid, message, options, callback){
         message: message,
         options: options || {}
     }, callback || emptyFn);
-    console.log('send "' + message + '" on ' + guid);
-	console.log(options);
+    //console.log('send "' + message + '" on ' + guid);
+	//console.log(options);
 }
