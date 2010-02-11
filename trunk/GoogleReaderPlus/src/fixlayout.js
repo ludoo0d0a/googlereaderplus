@@ -44,7 +44,7 @@ GRP.fixlayout = function(prefs, langs){
 	}
 	
 	//fix image width
-	var css = ".item-body img {max-width:100% !important;}";
+	var css = ".item-body img {max-width:100%;}";
 	GM_addStyle(css);
 	
 	//fix width of entry
