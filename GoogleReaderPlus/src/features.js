@@ -80,7 +80,7 @@ GRP.scripts = [
     options: 
     {
         locked: false,
-        count: 0
+        count: 3
     },
     //shortcut: "c",
     shortcuts: 
