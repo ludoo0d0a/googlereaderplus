@@ -243,10 +243,13 @@ GRP.favicons = function(prefs, langs) {
 			});
 		},
 		addBaseCss : function() {
-			GM_addStyle("img.entry-favicon{ width:16px !important; height:16px !important; border:none !important; margin-right:5px}.collapsed img.entry-favicon{ position:absolute !important; top:3px !important; left:1.6em !important; margin-right:0px !important; vertical-align:baseline !important}#entries.list .collapsed .entry-main .entry-source-title{ left:3.25em !important; width:9em !important}#sub-tree a img{ width:16px; height:16px; border:none; vertical-align:middle}#entries.list .collapsed .entry-secondary{ margin:0 8.5em 0 14em !important}#entries.single-source .collapsed .entry-source-title{ display:block !important}.colorful-view-content{ color:#EEE !important}.colorful-view-base-top-shadow{ background-color:#999 !important; border-bottom-color:#888 !important}.colorful-view-inner-box{ background-color:#777 !important; background:#F9F9F9 none repeat scroll 0 0 !important; border-color:#888 !important}.colorful-view-base-pos{ background-color:#777 !important; border-color:#888 !important}");
+			var css= "img.entry-favicon{ width:16px !important; height:16px !important; border:none !important; margin-right:5px}.collapsed img.entry-favicon{ position:absolute !important; top:3px !important; left:1.6em !important; margin-right:0px !important; vertical-align:baseline !important}#entries.list .collapsed .entry-main .entry-source-title{ left:3.25em !important; width:9em !important}#sub-tree a img{ width:16px; height:16px; border:none; vertical-align:middle}#entries.list .collapsed .entry-secondary{ margin:0 8.5em 0 14em !important}#entries.single-source .collapsed .entry-source-title{ display:block !important}.colorful-view-content{ color:#EEE !important}.colorful-view-base-top-shadow{ background-color:#999 !important; border-bottom-color:#888 !important}.colorful-view-inner-box{ background-color:#777 !important; background:#F9F9F9 none repeat scroll 0 0 !important; border-color:#888 !important}.colorful-view-base-pos{ background-color:#777 !important; border-color:#888 !important}";
+			css+='.samedir #entries.single-source .collapsed div.entry-secondary{margin-left:14em !important;}';
+			GM_addStyle(css);
 		},
 		addListViewCss : function() {
-			GM_addStyle("#entries.list .read .collapsed{opacity:0.6}#entries.list .entry .collapsed:hover{background:#C2CFF1}#entries.list .read .collapsed:hover{opacity:1.0;background:#C2CFF1}");
+			var css= "#entries.list .read .collapsed{opacity:0.6}#entries.list .entry .collapsed:hover{background:#C2CFF1}#entries.list .read .collapsed:hover{opacity:1.0;background:#C2CFF1}";
+			GM_addStyle(css);
 		},
 		showButton : function() {
 			var insert = document.getElementById('stream-prefs-menu');
