@@ -109,11 +109,23 @@ if (typeof GM_xmlhttpRequest === "undefined") {
 }
 
 if (typeof GM_addStyle === "undefined") {
-    function GM_addStyle(/* String */styles){
-        var el = document.createElement("style");
-        el.setAttribute("type", "text\/css");
-        el.appendChild(document.createTextNode(styles));
-        document.getElementsByTagName("head")[0].appendChild(el);
+    function GM_addStyle(/* String */styles, id){
+        var el;
+		if (id) {
+			el = document.getElementById(id);
+		}
+		if (!el) {
+			el = document.createElement("style");
+			el.setAttribute("type", "text\/css");
+			if (id) {
+				el.id = id;
+			}
+			el.appendChild(document.createTextNode(styles));
+			document.getElementsByTagName("head")[0].appendChild(el);
+		}else{
+			//update
+			el.innerText=styles;//textContent??
+		}
     }
 }
 

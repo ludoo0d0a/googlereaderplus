@@ -19,6 +19,8 @@ GRP.openbackground = function(prefs, langs) {
 
 	function openbackground(e) {
 		var entry = getEntry(e);
+		e.stopPropagation();
+		e.preventDefault();
 		openEntryInNewTab(entry, selectTab);
 	}
 

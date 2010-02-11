@@ -4,14 +4,14 @@
 function initCatchEntries(fn, bid, globalFn){
     document.body.addEventListener('DOMNodeInserted', function(e){
         catchEntryAdded(e, fn, bid);
-		if (globalFn){
-			globalFn.call(this);
-		}
+        if (globalFn) {
+            globalFn.call(this);
+        }
     }, false);
     catchAllEntries(fn, bid);
-	if (globalFn){
-		globalFn.call(this);
-	}
+    if (globalFn) {
+        globalFn.call(this);
+    }
 }
 
 function catchEntryAdded(e, fn, bid){
@@ -21,12 +21,14 @@ function catchEntryAdded(e, fn, bid){
             // Expanding article in list view
             mode = "list";
             catchEntry(el, mode, fn, bid);
-        } else if (getFirstElementMatchingClassName(el, 'div', 'card-bottom')) {
-            // Adding article in expanded view
-            mode = "expanded";
-            el = getFirstElementMatchingClassName(el, 'div', 'entry-actions');
-            catchEntry(el, mode, fn, bid);
         }
+        else 
+            if (getFirstElementMatchingClassName(el, 'div', 'card-bottom')) {
+                // Adding article in expanded view
+                mode = "expanded";
+                el = getFirstElementMatchingClassName(el, 'div', 'entry-actions');
+                catchEntry(el, mode, fn, bid);
+            }
     }
 }
 
@@ -44,11 +46,10 @@ function forAllEntries(fn){
 
 function catchAllEntries(fn, bid){
     forAllEntries(function(entry){
-		catchEntryAdded(
-        {
+        catchEntryAdded({
             target: entry
         }, fn, bid);
-	});
+    });
 }
 
 function catchEntry(el, mode, fn, bid){
@@ -58,20 +59,38 @@ function catchEntry(el, mode, fn, bid){
         fn.call(this, el, entry, mode);
     }
 }
+function getOriginalEntryLink(entry){
+	var link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
+	return link;
+}
 
 function getEntryLink(ent){
-    var entry = ent || getCurrentEntry();
-    var link = getFirstElementMatchingClassName(entry, 'a', 'title-link-url');
-	if (!link || link.href == "#") {
-		//Normal way
-		link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
-	}
-	return link;
+    //<a class="ilink entry-title-link" href="#" title="Open as preview [q]"> Il écope de 5 ans pour avoir parlé de sexe à la télé</a>
+    //<a class="entry-title-link iframe title-link-url" target="_blank" href="http://www.lessentiel.lu/news/monde/story/17066269" title="Open in a new window"><div class="entry-title-maximize"></div></a>	
+    var o, entry = ent || getCurrentEntry();
+    var link = getFirstElementMatchingClassName(entry, 'a', 'grp-link-url');
+    if (!link) {
+        //Normal way
+        link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
+		o = {
+            title: link.textContent,
+            url: link.href
+        };
+    }
+    else {
+        //preview on 
+		var link2 = getFirstElementMatchingClassName(entry, 'a', 'grp-link-title');
+        o = {
+            title: link2.textContent,
+            url: link.href
+        };
+    }
+    return o;
 }
 
 function openEntryInNewTab(entry, selected){
     var link = getEntryLink(entry);
-	var url =  link.href;
+    var url = link.url;
     GM_openInTab(url, selected);
 }
 
@@ -100,7 +119,8 @@ function jump(entry, dirtop){
     var top = 0;
     if (dirtop) {
         top = entry.offsetTop; // - height;
-    } else {
+    }
+    else {
         top = entry.offsetTop + entry.offsetHeight - height;
     }
     if (top >= 0) {
@@ -149,17 +169,21 @@ function addButton(reference, text, title, fn, position){
         //after
         if (reference.nextSibling) {
             reference.parentNode.insertBefore(div, reference.nextSibling);
-        } else {
+        }
+        else {
             //last item
             reference.parentNode.appendChild(div);
         }
-    } else if (position == 2) {
-        //before
-        reference.parentNode.insertBefore(div, reference);
-    } else {
-        //append
-        reference.appendChild(div);
     }
+    else 
+        if (position == 2) {
+            //before
+            reference.parentNode.insertBefore(div, reference);
+        }
+        else {
+            //append
+            reference.appendChild(div);
+        }
     var me = this;
     div.addEventListener('click', function(e){
         fn.call(me);
@@ -195,23 +219,25 @@ function isActive(btn, entry, cls, locked){
     var active = false;
     if (locked || !hasClass(btn, 'read-state-kept-unread')) {
         addClass(entry, cls);
-		if (btn) {
-			toggleClass(btn, 'read-state-not-kept-unread', 'read-state-kept-unread');
-		}
+        if (btn) {
+            toggleClass(btn, 'read-state-not-kept-unread', 'read-state-kept-unread');
+        }
         active = true;
-    } else {
+    }
+    else {
         removeClass(entry, cls);
-		if (btn) {
-			toggleClass(btn, 'read-state-kept-unread', 'read-state-not-kept-unread');
-		}
+        if (btn) {
+            toggleClass(btn, 'read-state-kept-unread', 'read-state-not-kept-unread');
+        }
         active = false;
     }
     return active;
 }
+
 function isTagged(entry, cls){
- 	var tagged = hasClass(entry, cls);
+    var tagged = hasClass(entry, cls);
     if (!tagged) {
-		addClass(entry, cls);
+        addClass(entry, cls);
     }
     return tagged;
 }
@@ -236,7 +262,8 @@ function getShortcutKey(script, shortcut, prefs){
     var key, keyhash = prefs[script + '_key_' + shortcut];
     if (keyhash) {
         key = unmarshallKey(keyhash);
-    } else {
+    }
+    else {
         try {
             var s = getScriptObject(script);
             key = s.shortcuts[shortcut];
@@ -262,17 +289,20 @@ function getScriptObject(id){
 }
 
 function toggle(el){
-	if (!el.style.display){
-		hide(el);
-	}else{
-		show(el);
-	}
+    if (!el.style.display) {
+        hide(el);
+    }
+    else {
+        show(el);
+    }
 }
+
 function hide(el){
-	el.style.display = "none";
+    el.style.display = "none";
 }
+
 function show(el){
-	delete el.style.display;
+    delete el.style.display;
 }
 
 function createMenu(items){
@@ -283,32 +313,34 @@ function createMenu(items){
     //menu['aria-haspopup']=true;
     menu.tabindex = -1;
     menu.id = "stream-prefs-menu-menu";
-	addMenuItems(menu,items);
+    addMenuItems(menu, items);
 }
 
 function addMenuItems(menu, items){
     var item, i, len, html = '';
-	var tplInner = '<div class="goog-menuitem-content"><div class="goog-menuitem-checkbox"></div>{text}</div>';
+    var tplInner = '<div class="goog-menuitem-content"><div class="goog-menuitem-checkbox"></div>{text}</div>';
     for (i = 0, len = items.length; i < len; i++) {
         item = items[i];
         var el = document.createElement('div');
-		addClass(el, 'goog-menuitem goog-option '+((item.selected) ? 'goog-option-selected' : ''));
-		el.role = "menuitem";
-		el.style="-moz-user-select: none;";
-		el.id=':grp' + i;
-		el.innerHTML=fillTpl(tplInner, item);
-		var callback = function(){
-			item.fn.call(el, [item, el]);
-		};
-		el.addEventListener('click', callback, false);
-	 }
+        addClass(el, 'goog-menuitem goog-option ' + ((item.selected) ? 'goog-option-selected' : ''));
+        el.role = "menuitem";
+        el.style = "-moz-user-select: none;";
+        el.id = ':grp' + i;
+        el.innerHTML = fillTpl(tplInner, item);
+        var callback = function(){
+            item.fn.call(el, [item, el]);
+        };
+        el.addEventListener('click', callback, false);
+    }
 }
+
 function toggleCheckMenu(el){
-	if (hasClass(el, 'goog-option-selected')) {
-		removeClass(el, 'goog-option-selected');
-	} else {
-		addClass(el, 'goog-option-selected');
-	}
+    if (hasClass(el, 'goog-option-selected')) {
+        removeClass(el, 'goog-option-selected');
+    }
+    else {
+        addClass(el, 'goog-option-selected');
+    }
 }
 
 function getLanguage(){
@@ -319,9 +351,10 @@ function getLanguage(){
         m = /((\w+)-(\w+)):\d+/.exec(cookie);
         if (m) {
             lang = m[2];//en
-        //lang = m[1];en-US
+            //lang = m[1];en-US
         }
-    } else {
+    }
+    else {
         cookie = readCookie('PREF') || '';
         //855ba6572:LD=en:CR=2:TM=12
         m = /:LD=(\w+):/.exec(cookie);

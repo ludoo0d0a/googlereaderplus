@@ -23,12 +23,13 @@ GRP.preview = function(prefs, langs){
         var previewOnIcon = prefs.preview_onicon || false;
         var keytext = formatShortcut('preview', 'prview', prefs);
         
-        var link = getEntryLink(entry);
-        addClass(link, 'iframe');
+        var link = getOriginalEntryLink(entry);
+        //addClass(link, 'iframe');
         
         var plink;
         if (previewOnIcon) {
-            addClass(link, 'title-link-url');
+            addClass(link, 'grp-link-url');
+			addClass(link, 'grp-link-title');
             //add a button right after the title
             plink = document.createElement('a');
             plink.title = SL.title + keytext; //[Shift+V]
@@ -40,13 +41,14 @@ GRP.preview = function(prefs, langs){
             //clean current a.href link to keep open link
             var text = link.textContent;
             link.title = SL.opennewtab;
-            addClass(link, 'title-link-url');
+			addClass(link, 'grp-link-url');
             link.innerHTML = '<div class="entry-title-maximize"></div>';
             
             //create a second link before the previous one to used as preview
             var title = link.parentNode;// h2.entry-title
             plink = document.createElement('a');
-            plink.className = 'ilink entry-title-link';
+            //plink.className = 'ilink entry-title-link';
+			addClass(plink, 'grp-link-title');
             plink.href = '#';
             plink.title = SL.title + keytext; //[Shift+V]
             plink.innerText = ' ' + text;
@@ -120,7 +122,7 @@ GRP.preview = function(prefs, langs){
                     var h = getHeightEntries();
                     iframe.setAttribute('height', h + 'px');
 					var urlLink = getEntryLink(entry);
-					var url = urlLink.href;
+					var url = urlLink.url;
 					var locksite = isSiteLocked(url);
 					if (locksite){
 						GM_xmlhttpRequest({url:url, onload:function(r){
