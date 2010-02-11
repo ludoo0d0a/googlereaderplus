@@ -139,6 +139,13 @@ function insertAfter(el, ref){
 function insertBefore(el, ref){
     ref.parentNode.insertBefore(el, ref);
 }
+function insertBeforeFirst(el, ref){
+    if (ref.firstChild) {
+		insertBefore(el, ref.firstChild);
+	}else{
+		ref.parentNode.appendChild(el);
+	}
+}
 
 /**
  * Strings
