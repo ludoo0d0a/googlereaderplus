@@ -44,8 +44,8 @@ GRP.instapaper = function(prefs, langs){
 		var body = getBody(entry);
         var params = 
         {
-            url: link.href,
-			title: link.textContent,
+            url: link.url,
+			title: link.title,
 			selection:body.innerText
             //selection: window.getSelection().toString()
         };
