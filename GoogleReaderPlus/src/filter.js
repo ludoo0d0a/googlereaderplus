@@ -291,13 +291,13 @@ GRP.filter = function(prefs, langs){
         GM_setValue("hideDuplicates", _hideDuplicates ? 1 : "");
         GM_setValue("preferHighlights", _preferHighlights ? 1 : "");
         saveCollections();
-		//updateFilterEntries();
     }
     
     function saveCollections(){
         GM_setValue("excludes", encodeURI(JSON.stringify(_excludes)));
         GM_setValue("highlights", encodeURI(JSON.stringify(_highlights)));
         setRegExps();
+		updateFilterEntries();
     }
 	
 	function updateFilterEntries(){
