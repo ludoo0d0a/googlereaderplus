@@ -20,8 +20,7 @@ GRP.filter = function(prefs, langs){
     }
     
     function findPosition(element){
-        var point = 
-        {
+        var point = {
             x: 0,
             y: 0
         };
@@ -93,15 +92,18 @@ GRP.filter = function(prefs, langs){
     function stringSort(a, b){
         if (a > b) {
             return 1;
-        } else if (a < b) {
-            return -1;
-        } else {
-            return 0;
         }
+        else 
+            if (a < b) {
+                return -1;
+            }
+            else {
+                return 0;
+            }
     }
     
     function initInterface(){
-        GM_addStyle(".filter-settings-button,.filter-settings-window *,.filter-settings-entry-window *{font-family:verdana;font-size:11px;color:#000;} .filter-settings-window textarea,.filter-settings-entry-window input[type=text]{font-family:'courier new';border:1px solid #669CB9;} .filter-settings-button{cursor:pointer;background-color:#ADCBDA;padding:4px;position:absolute;top:30px;right:10px;z-index:1000;} .filter-settings-button:hover{background-color:#B46B8F;} .filter-settings-window{background-color:#ADCBDA;border:1px solid #669CB9;padding:4px;position:absolute;top:30px;right:10px;z-index:1000;} .filter-settings-window label.ta{float:left;width:250px;} .filter-settings-window textarea{height:300px;width:250px;} .filter-settings-entry-window{width:300px;background-color:#ADCBDA;border:1px solid #669CB9;font-size:11px;padding:4px;position:fixed;top:30px;right:10px;z-index:1000;} .filter-settings-entry-window input[type=text]{width:300px;} .filter-settings-window button,.filter-settings-entry-window button{margin-top:5px;margin-right:5px;background-color:#669CB9;color:#fff;font-size:11px;border:1px solid #000;}  .entry-filtered div.card-content *{color:#BCBCBC!important;} .entry-filtered:hover div.card-content *{color:#6A6A6A!important;} .entry-highlighted div.card-content{background-color:#E6EFCF!important;} .entry-highlighted div.card-content *{color:#000!important;background-color:#E6EFCF;} .entry-duplicate *{color:#C7D0D8!important;} .filter-configure-entry{background-color:#daa;color:#fff;padding:2px;cursor:pointer;position:absolute;top:0;right:90px}");
+        GM_addStyle(".filter-settings-button,.filter-settings-window *,.filter-settings-entry-window *{font-family:verdana;font-size:11px;color:#000;} .filter-settings-window textarea,.filter-settings-entry-window input[type=text]{font-family:'courier new';border:1px solid #669CB9;} .filter-settings-button{cursor:pointer;background-color:#ADCBDA;padding:4px;position:absolute;top:30px;right:10px;z-index:1000;} .filter-settings-button:hover{background-color:#B46B8F;} .filter-settings-window{background-color:#ADCBDA;border:1px solid #669CB9;padding:4px;position:absolute;top:30px;right:10px;z-index:1000;} .filter-settings-window label.ta{float:left;width:250px;} .filter-settings-window textarea{height:300px;width:250px;} .filter-settings-entry-window{width:300px;background-color:#ADCBDA;border:1px solid #669CB9;font-size:11px;padding:4px;position:fixed;top:30px;right:10px;z-index:1000;} .filter-settings-entry-window input[type=text]{width:300px;} .filter-settings-window button,.filter-settings-entry-window button{margin-top:5px;margin-right:5px;background-color:#669CB9;color:#fff;font-size:11px;border:1px solid #000;}  .entry-filtered div.card-content *{color:#BCBCBC!important;} .entry-filtered:hover div.card-content *{color:#6A6A6A!important;} .entry-highlighted div.card-content{background-color:#E6EFCF!important;} .entry-highlighted div.card-content *{color:#000!important;background-color:#E6EFCF;} .entry-duplicate *{color:#C7D0D8!important;} .filter-configure-entry{background-color:#daa;color:#fff;padding:2px;cursor:pointer;position:absolute;top:0;right:90px};.entry-hidden{display:none;}");
         
         var div = document.createElement("div");
         div.innerHTML = SL.settings;
@@ -207,6 +209,23 @@ GRP.filter = function(prefs, langs){
         _preferHighlightsCheckbox.checked = !!_preferHighlights;
     }
     
+    function createRadio(parent, id, text, value, selected){
+        var el = document.createElement("input");
+        el.name = "ex";
+        el.id = id;
+        el.type = "radio";
+        el.value = value;
+        if (selected) {
+            el.checked = true;
+        }
+        parent.appendChild(el);
+        var label = document.createElement("label");
+        label.attributes['for'] = 'radio-exclude';
+        label.innerText = text;
+        parent.appendChild(label);
+		return el;
+    }
+    
     var _settingsForEntry, _settingsForEntryInput;
     
     function openSettingsForEntry(relative, title){
@@ -221,21 +240,9 @@ GRP.filter = function(prefs, langs){
             
             settingsForEntry.appendChild(document.createElement("br"));
             
-            var excludeRadio = document.createElement("input");
-            excludeRadio.name = "ex";
-            excludeRadio.type = "radio";
-            excludeRadio.value = 1;
-            excludeRadio.checked = true;
-            settingsForEntry.appendChild(excludeRadio);
-            settingsForEntry.appendChild(document.createTextNode(SL.exclude));
-            
-            var highlightRadio = document.createElement("input");
-            highlightRadio.name = "ex";
-            highlightRadio.type = "radio";
-            highlightRadio.value = 2;
-            settingsForEntry.appendChild(highlightRadio);
-            settingsForEntry.appendChild(document.createTextNode(SL.highlight));
-            
+            var  excludesRadio = createRadio(settingsForEntry, 'radio-exclude', SL.exclude, 1, true);
+            var  highlightRadio =createRadio(settingsForEntry, 'radio-highlight',SL.highlight,  2, false);
+           
             settingsForEntry.appendChild(document.createElement("br"));
             
             var update = document.createElement("button");
@@ -272,7 +279,8 @@ GRP.filter = function(prefs, langs){
             y +
             10) +
             "px";
-        } else {
+        }
+        else {
             _settingsForEntry.style.top = y + "px";
             _settingsForEntry.style.bottom = "auto";
         }
@@ -293,27 +301,26 @@ GRP.filter = function(prefs, langs){
         saveCollections();
     }
     
-    function saveCollections(){
+    function saveCollections(update){
         GM_setValue("excludes", encodeURI(JSON.stringify(_excludes)));
         GM_setValue("highlights", encodeURI(JSON.stringify(_highlights)));
         setRegExps();
-		updateFilterEntries();
+        updateFilterEntries();
     }
-	
-	function updateFilterEntries(){
-		forAllEntries(function(entry){
-			filterEntries(false, entry);
-		});
-	}
-
-    function filterEntries(btn, entry, mode){
-        var active = isActive(btn, entry, 'filter', locked);
-
-		if(isTagged(entry, 'tfilter')){
-			//stop entry was already scanned
-			return;
-		}
-		
+    
+    function updateFilterEntries(){
+        forAllEntries(function(entry){
+            filterEntries(false, entry, false, true);
+        });
+    }
+    
+    function filterEntries(btn, entry, mode, force){
+        //var active = isActive(btn, entry, 'filter', locked);
+        if (!force && isTagged(entry, 'tfilter')) {
+            //stop entry was already scanned
+            return;
+        }
+        
         // reset the dups list when entries inserted again
         if (entry.parentNode.id == "entries") {
             var l = document.getElementById("entries").childNodes.length;
@@ -322,27 +329,35 @@ GRP.filter = function(prefs, langs){
             }
         }
         
+        if (force) {
+            //clean before update
+            removeClass(entry, 'entry-highlighted');
+            removeClass(entry, 'entry-filtered');
+            removeClass(entry, 'entry-duplicate');
+            removeClass(entry, 'entry-hidden');
+        }
         var link = getEntryLink(entry);
-        var title = link.textContent;
-        var url = link.href;
-		
-		console.log('>>>>'+active+'--'+title);
-
+        var title = link.title;
+        var url = link.url;
+        
+        //console.log('>>>>'+active+'--'+title);
+        
         var minifiedTitle = minifyTitle(title);
         var escapedTitle = encodeURI(minifiedTitle);
         
-         var configure = document.createElement("span");
-         configure.className = "filter-configure-entry";
-         configure.textContent = "#";
-         entry.appendChild(configure, entry);
-         configure.title = minifiedTitle;
-         configure.addEventListener("click", configureCurrent, false);
-         
+        var configure = document.createElement("span");
+        configure.className = "filter-configure-entry";
+        configure.textContent = "#";
+        entry.appendChild(configure, entry);
+        configure.title = minifiedTitle;
+        configure.addEventListener("click", configureCurrent, false);
+        
         var b = false;
-        if (_alreadyPrinted[escapedTitle]/* || _alreadyPrinted[url] */) {
-            entry.className += " entry-duplicate";
+        if (!force && _alreadyPrinted[escapedTitle]/* || _alreadyPrinted[url] */) {
+            addClass(entry, 'entry-duplicate');
             if (_hideDuplicates) {
-                entry.parentNode.removeChild(entry);// entry.style.display="none";
+                addClass(entry, 'entry-hidden');
+                //entry.parentNode.removeChild(entry);// entry.style.display="none";
             }
             return;
         }
@@ -354,22 +369,26 @@ GRP.filter = function(prefs, langs){
             if (!b && _excludes.length) {
                 b = checkEntry(minifiedTitle, entry, _rxExcludes, "entry-filtered");
                 if (_hideExcluds && b) {
-                    entry.parentNode.removeChild(entry);// entry.style.display="none";
+                    addClass(entry, 'entry-hidden');
+                    //entry.parentNode.removeChild(entry);// entry.style.display="none";
                 }
             }
-        } else {
+        }
+        else {
             if (_excludes.length) {
                 b = checkEntry(minifiedTitle, entry, _rxExcludes, "entry-filtered");
                 if (_hideExcluds && b) {
-                    entry.parentNode.removeChild(entry);// entry.style.display="none";
+                    addClass(entry, 'entry-hidden');
+                    //entry.parentNode.removeChild(entry);// entry.style.display="none";
                 }
             }
             if (!b && _highlights.length) {
                 checkEntry(minifiedTitle, entry, _rxHighlights, "entry-highlighted");
             }
         }
-        
-        _alreadyPrinted[escapedTitle] = /* _alreadyPrinted[url]= */ true;
+        if (!force) {
+			_alreadyPrinted[escapedTitle] = /* _alreadyPrinted[url]= */ true;
+		}
     }
     function minifyTitle(title){
         return trim(title.replace(_minifyRx, " ").replace(/ +/g, " ").toLowerCase());
@@ -380,17 +399,14 @@ GRP.filter = function(prefs, langs){
         e.preventDefault();
         e.stopPropagation();
     }
-	
+    
     function checkEntry(title, element, rx, className){
         if (rx.test(title)) {
-            element.className += " " + className;
+            addClass(element, className);
             return true;
         }
         return false;
     }
-    /*
-     * if (window.attachEvent) attachEvent("onload",init); else
-     * addEventListener("load",init,false);
-     */
+    
     init();
 };
