@@ -102,7 +102,7 @@
             function monitorCloseTab(){
                 //Check if greader were closed
                 chrome.tabs.onRemoved.addListener(function(tabId){
-                    if (!(lastTabReader && tabId == lastTabReader.id)) {
+                    if (lastTabReader && tabId == lastTabReader.id) {
                         lastTabReader = false;
                     }
                 });
@@ -174,10 +174,10 @@
             }
             
             function parseUnread(json){
-                var count = 0, o = eval('(' + json + ')');
+                /*var count = 0, o = eval('(' + json + ')');
                 //var o = JSON.parse(json);
                 var max = parseInt(o.max, 10);
-                if (max == 1000) {
+                if (max == 1000) {*/
                     for (var i = 0, len = o.unreadcounts.length; i < len; i++) {
                         var f = o.unreadcounts[i];
                         //count += parseInt(f.count, 10);
@@ -186,9 +186,9 @@
                             continue;
                         }
                     }
-                } else {
+                /*} else {
                     count = max;
-                }
+                }*/
                 return count;
             }
             
