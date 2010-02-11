@@ -64,6 +64,7 @@ GRP.column = function(prefs, langs){
             var div = createDiv(divwrap, hpage);
             var paras = divoriginal.childNodes;
             var length = paras.length;
+			var cwh = getColumWidth();
             //compute using real time height (img.height (400px default), p=12...)
             //var elsPage = (pages > 0) ? (length / pages) : length;
             if (paras && length > 0) {
@@ -77,6 +78,7 @@ GRP.column = function(prefs, langs){
                         line = paras[i].textContent;//nodeValue
                     } else if (tag === "IFRAME" || tag === "OBJECT" || tag === "EMBED") {
                         //TODO: add a resized video
+						//line = resizeVideo(paras[i].innerHTML, cwh);
 						line = paras[i].innerHTML;
                     } else if (tag === "DIV") {
                         line = paras[i].innerHTML;
@@ -110,6 +112,17 @@ GRP.column = function(prefs, langs){
             jump(entry, true);
         }
     }
+	
+	function resizeVideo(html, width){
+		var rew =  /WIDTH\w*=\w*["']?(\d+)["']?/i;
+		var reh =  /HEIGHT\w*=\w*["']?(\d+)["']?/i;
+		var m = rew.exec(html);
+		var vwidth = m[1];
+		m = reh.exec(html);
+		var vheight = m[1];
+		return html.replace(rew, 'WIDTH="'+width+'"').replace(reh, 'HEIGHT="'+(vheight * width / vwidth)+'"');
+	}
+	
     function createDiv(parent, hpage){
         var div = document.createElement('div');
         div.className = 'column-wrapped';
@@ -120,23 +133,6 @@ GRP.column = function(prefs, langs){
 		}
         parent.appendChild(div);
         return div;
-    }
-    
-    function findFirstOverflowItem(root, maxwidth){
-        //start from last
-        var overel, el = root.lastChild;
-        if (!el) {
-            return;
-        }
-        do {
-            if (el.clientLeft + el.clientWidth > maxwidth) {
-                overel = el;
-            } else {
-                return overel;
-            }
-        }
-        while ((el = el.previousSibling));
-        return false;
     }
     
     // clean up
