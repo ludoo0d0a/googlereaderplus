@@ -83,7 +83,7 @@ GRP.scripts = [
         locked: false,
         count: 3,
 		maxcolumns:6,
-		column_pagebreak:true
+		pagebreak:true
     },
     //shortcut: "c",
     shortcuts: 
