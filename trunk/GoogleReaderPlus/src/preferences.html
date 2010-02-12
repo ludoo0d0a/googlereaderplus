@@ -7,7 +7,7 @@
         </script>
         <script type="application/javascript" src="lib/greasekit.js">
         </script>
-		<script type="application/javascript" src="version.js">
+        <script type="application/javascript" src="version.js">
         </script>
         <script type="application/javascript" src="features.js">
         </script>
@@ -92,13 +92,13 @@
             }
             
             function saveprefs(reload, cleanall){
-				if (!cleanall) {
+                if (!cleanall) {
                     applyprefs();
                 }
-				if (prefs && lang!==prefs.language_lang){
-					//reload if lang changed!
-					reload = true;
-				}
+                if (prefs && lang !== prefs.language_lang) {
+                    //reload if lang changed!
+                    reload = true;
+                }
                 
                 myport.postMessage(
                 {
@@ -153,17 +153,20 @@
                 if (!li) {
                     li = document.getElementById('skin_none');
                 }
-				//no theme is no theme
+                //no theme is no theme
                 /*if (li) {
-                    li.onclick();
-                }*/
+                
+                 li.onclick();
+                
+                 }*/
+                
             }
             
             function getLanguage(cb){
                 lang = prefs.language_lang || 'en';
                 //lang = (GRP.langs && GRP.langs[lang]) ? lang : 'en';
                 
-				//TODO: load json here instead evald js
+                //TODO: load json here instead evald js
                 GM_addScript('lang/' + lang + '/features.js', true, function(){
                     //override locale texts
                     if (GRP.langs) {
@@ -503,7 +506,7 @@
                     var favicon = 
                     {
                         url: url,
-						text:ellipsis(url,60),
+                        text: ellipsis(url, 60),
                         icon: favicons[url]
                     };
                     html += fillTpl(tplDomainLi, favicon);
@@ -617,15 +620,14 @@
                             <div class="body">
                                 Columns number : <input id="column_count" name="column_count" type="text" value="3" size="2"/>
                                 <br/>
-								<!--
-								Maximum columns  : <input id="column_maxcolumns" name="column_maxcolumns" type="text" value="6" size="2"/>
-                                <br/>-->
-                                <input id="column_locked" name="column_locked" type="checkbox" />
+                                <!--
+                                Maximum columns  : <input id="column_maxcolumns" name="column_maxcolumns" type="text" value="6" size="2"/>
+                                <br/>--><input id="column_locked" name="column_locked" type="checkbox" />
                                 <label for="column_locked">
                                     Feature 'Column' always actived by default
                                 </label>
-								<br/>
-								<input id="column_pagebreak" name="column_pagebreak" type="checkbox" />
+                                <br/>
+                                <input id="column_pagebreak" name="column_pagebreak" type="checkbox" />
                                 <label for="column_pagebreak">
                                     Break long articles so long articles can be read page by page like a newspaper. 
                                 </label>
@@ -638,9 +640,13 @@
                                     <option value="tinyurl">TinyUrl </option>
                                     <option value="bitly">BitLy</option>
                                 </select>
-								<p>BitLy configuration (optional):</p> 
-								Login: <input id="twitter_bitlylogin" name="twitter_bitlylogin" type="text" size="20"/><br/>
-								ApiKey: <input id="twitter_bitlykey" name="twitter_bitlykey" type="text" size="30"/><br/>
+                                <p>
+                                    BitLy configuration (optional):
+                                </p>
+                                Login: <input id="twitter_bitlylogin" name="twitter_bitlylogin" type="text" size="20"/>
+                                <br/>
+                                ApiKey: <input id="twitter_bitlykey" name="twitter_bitlykey" type="text" size="30"/>
+                                <br/>
                             </div>
                         </div>
                         <div id="panel_colorful" style="display:none;">
@@ -663,13 +669,18 @@
                                 </label>
                                 <input id="icon_opendirect" name="icon_opendirect" type="checkbox" />
                                 <br/>
-								<p>To add button with icon in toolbar, please <a href="https://chrome.google.com/extensions/detail/xxxx">download and install it</a>.</p>
-								<p>
-									<span>To make the button optional, we put him in an another extension as standalone,</span><br/> 
-									<span>to be installed along with GoogleReaderPlus.</span> <br/>
-									<span>To add the button, click <b>Install</b> on the <a href="https://chrome.google.com/extensions/detail/xxxx">GoogleReaderPlus Toolbar button</a> page.</span><br/> 
-									<span>To remove the button, right click him and choose Disable.</span>
-								</p>
+                                <p>
+                                    To add button with icon in toolbar, please <a href="https://chrome.google.com/extensions/detail/xxxx">download and install it</a>.
+                                </p>
+                                <p>
+                                    <span>To make the button optional, we put him in an another extension as standalone,</span>
+                                    <br/>
+                                    <span>to be installed along with GoogleReaderPlus.</span>
+                                    <br/>
+                                    <span>To add the button, click <b>Install</b> on the <a href="https://chrome.google.com/extensions/detail/xxxx">GoogleReaderPlus Toolbar button</a> page.</span>
+                                    <br/>
+                                    <span>To remove the button, right click him and choose Disable.</span>
+                                </p>
                             </div>
                         </div>
                         <div id="panel_removeads" style="display:none;">
@@ -709,7 +720,6 @@
                         </div>
                         <div id="panel_fitheight" style="display:none;">
                             <div class="body">
-                                <br/>
                                 <input id="fitheight_locked" name="fitheight_locked" type="checkbox" />
                                 <label for="fitheight_locked">
                                     Feature 'Fit height' always actived by default
@@ -718,6 +728,11 @@
                         </div>
                         <div id="panel_favicons" style="display:none;">
                             <div class="body">
+                                <input id="favicons_sidebaronly" name="favicons_sidebaronly" type="checkbox" />
+                                <label for="favicons_sidebaronly">
+                                    Show favicons in sidebar only
+                                </label>
+                                <br/>
                                 <p>
                                     Enter your custom favicons :
                                 </p>
@@ -808,10 +823,11 @@
                             <div class="body">
                                 Thanks to donators to contribute to this project:
                                 <ul>
-                                    <li>Ian Chipman</li><!--10-->
-									<li>Parker Harrington</li><!--5-->
-									<li>Darren Lynn</li><!--5-->
-									<li>Feng Gao</li><!--3-->
+                                    <li>Ian Chipman</li>
+                                    <!--10--><li>Parker Harrington</li>
+                                    <!--5--><li>Darren Lynn</li>
+                                    <!--5--><li>Feng Gao</li>
+                                    <!--3-->
                                 </ul>
                                 Thanks to authors of original scripts and skins (Greasemonkey and Stylish):
                                 <ul>

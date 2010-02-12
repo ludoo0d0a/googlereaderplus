@@ -72,7 +72,9 @@ GRP.favicons = function(prefs, langs, myport){
     }
     
     function initFavicons(){
-        initCatchEntries(addFaviconEntry, 'entry-favicons');
+        if (!prefs.favicons_sidebaronly) {
+			initCatchEntries(addFaviconEntry, 'entry-favicons');
+		}
         initCatchSidebars(addFaviconSidebar, 'sidebar-favicons');
     }
     
