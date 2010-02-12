@@ -38,7 +38,8 @@ GRP.scripts = [
     desc: "Display favicons for every feed",
     options: 
     {
-        manual: '',
+        sidebaronly:false,
+		manual: '',
         domains: {}
     }
 }, 
