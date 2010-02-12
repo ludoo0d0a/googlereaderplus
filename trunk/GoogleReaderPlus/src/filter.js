@@ -16,7 +16,7 @@ GRP.filter = function(prefs, langs){
     
     function addButton(el, entry, mode){
         var text = SL.text;
-        addBottomLink(el, SL.keyword, text, 'btn-filter', true, filterEntries, locked, entry);
+        addBottomLink(el, SL.keyword, text, 'btn-filter', true, filterEntries, locked, entry, mode);
     }
     
     function findPosition(element){
@@ -209,6 +209,22 @@ GRP.filter = function(prefs, langs){
         _preferHighlightsCheckbox.checked = !!_preferHighlights;
     }
     
+	function createButton(parent, id, text, input, exclude){
+		var el = document.createElement("button");
+        el.id = id;
+        el.name = "btnex";
+        el.id = id;
+        el.textContent = text;
+		el.addEventListener("click", function(){
+                var coll = exclude ? _excludes : _highlights;
+                coll.push(input.value);
+                saveCollections();
+                parent.style.display = "none";
+            }, false);
+			
+        parent.appendChild(el);
+		return el;
+	}
     function createRadio(parent, id, text, value, selected){
         var el = document.createElement("input");
         el.name = "ex";
@@ -240,9 +256,11 @@ GRP.filter = function(prefs, langs){
             
             settingsForEntry.appendChild(document.createElement("br"));
             
-            var  excludesRadio = createRadio(settingsForEntry, 'radio-exclude', SL.exclude, 1, true);
+            var  excludesButton = createButton(settingsForEntry, 'btn-exclude', SL.exclude, input, true);
+			var  highlightButton = createButton(settingsForEntry, 'btn-highlight',SL.highlight, input, false);
+			/*
+			var  excludesRadio = createRadio(settingsForEntry, 'radio-exclude', SL.exclude, 1, true);
             var  highlightRadio =createRadio(settingsForEntry, 'radio-highlight',SL.highlight,  2, false);
-           
             settingsForEntry.appendChild(document.createElement("br"));
             
             var update = document.createElement("button");
@@ -255,7 +273,8 @@ GRP.filter = function(prefs, langs){
                 settingsForEntry.style.display = "none";
             }, false);
             settingsForEntry.appendChild(update);
-            
+            */
+			
             var close = document.createElement("button");
             close.textContent = SL.close;
             close.addEventListener("click", function(){

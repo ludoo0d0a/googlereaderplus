@@ -71,7 +71,7 @@
                     if (window.GRP[o]) {
                         console.log("**** run " + o);
                         try {
-                            window.GRP[o].call(window, this.prefs, langs);
+                            window.GRP[o].call(window, this.prefs, langs, this.myport);
                         } 
                         catch (e) {
                             console.error(e);

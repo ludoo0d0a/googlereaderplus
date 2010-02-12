@@ -12,7 +12,7 @@ GRP.closeentry = function(prefs, langs) {
 	var SL = langs.closeentry; 
 	function addLink(el, entry, mode) {
 		var text = SL.text + formatShortcut('closeentry', 'close', prefs); //[x]
-		addBottomLink(el, SL.keyword , text, 'item-close-me', false, closeEntry, false, entry);
+		addBottomLink(el, SL.keyword , text, 'item-close-me', false, closeEntry, false, entry, mode);
 	}
 	
 	function addKey(e) {

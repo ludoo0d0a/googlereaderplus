@@ -14,7 +14,7 @@ GRP.openbackground = function(prefs, langs) {
 	
 	function addButtons(el, entry, mode) {
 		var text = SL.text + formatShortcut('openbackground', 'openback', prefs); //[Shift+V]
-		addBottomLink(el, SL.keyword, text, 'item-open-background', false, openbackground, false, entry);
+		addBottomLink(el, SL.keyword, text, 'item-open-background', false, openbackground, false, entry, mode);
 	}
 
 	function openbackground(e) {

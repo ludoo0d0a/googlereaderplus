@@ -63,7 +63,7 @@ GRP.preview = function(prefs, langs){
         }
         
         // Bottom button
-        addBottomLink(el, SL.keyword, SL.text + keytext, 'btn-preview', true, previewize, locked, entry);
+        addBottomLink(el, SL.keyword, SL.text + keytext, 'btn-preview', true, previewize, locked, entry, mode);
     }
     
     

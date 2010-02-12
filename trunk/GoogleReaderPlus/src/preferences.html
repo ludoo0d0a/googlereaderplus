@@ -489,7 +489,7 @@
                 displayprefs();//update
             }
             
-            var tplDomain = '<a href="http://{url}" target="_blank"><span><img alt="favicon" class="favicon" title="Preview" src="{icon}" width="16" height="16"/>{url}</span></a><a class="action" href="javascript:addfavicon(\'{url}\');">edit</a><a class="action" href="javascript:removefavicon(\'{url}\');">remove</a>';
+            var tplDomain = '<a href="http://{url}" target="_blank"><span><img alt="favicon" class="favicon" title="Preview" src="{icon}" width="16" height="16"/>{text}</span></a><a class="action" href="javascript:addfavicon(\'{url}\');">edit</a><a class="action" href="javascript:removefavicon(\'{url}\');">remove</a>';
             
             function loadFavicons(){
                 var favicons = prefs.favicons_domains;
@@ -503,6 +503,7 @@
                     var favicon = 
                     {
                         url: url,
+						text:ellipsis(url,60),
                         icon: favicons[url]
                     };
                     html += fillTpl(tplDomainLi, favicon);
@@ -616,13 +617,16 @@
                             <div class="body">
                                 Columns number : <input id="column_count" name="column_count" type="text" value="3" size="2"/>
                                 <br/>
+								<!--
+								Maximum columns  : <input id="column_maxcolumns" name="column_maxcolumns" type="text" value="6" size="2"/>
+                                <br/>-->
                                 <input id="column_locked" name="column_locked" type="checkbox" />
                                 <label for="column_locked">
                                     Feature 'Column' always actived by default
                                 </label>
 								<br/>
-								<input id="column_auto" name="column_auto" type="checkbox" />
-                                <label for="column_auto">
+								<input id="column_pagebreak" name="column_pagebreak" type="checkbox" />
+                                <label for="column_pagebreak">
                                     Break long articles so long articles can be read page by page like a newspaper. 
                                 </label>
                             </div>
@@ -804,9 +808,10 @@
                             <div class="body">
                                 Thanks to donators to contribute to this project:
                                 <ul>
-                                    <li>Ian Chipman</li>
-									<li>Parker Harrington</li>
-									<li>Feng Gao</li>
+                                    <li>Ian Chipman</li><!--10-->
+									<li>Parker Harrington</li><!--5-->
+									<li>Darren Lynn</li><!--5-->
+									<li>Feng Gao</li><!--3-->
                                 </ul>
                                 Thanks to authors of original scripts and skins (Greasemonkey and Stylish):
                                 <ul>
