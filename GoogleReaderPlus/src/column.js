@@ -11,7 +11,6 @@ GRP.column = function(prefs, langs){
     var locked = false;
     var cols = 3;
     var maxcolumns = 6; //between 1 and 6
-    prefs.column_auto = true;
     var entries = get_id('entries');
     
     function addButton(el, entry, mode){
@@ -35,7 +34,7 @@ GRP.column = function(prefs, langs){
             divoriginal.className = "column-original";
             divwrap = document.createElement('div');
             //divwrap.style.display = "none";
-			divwrap.visibility = "hidden";
+            divwrap.visibility = "hidden";
             //divwrap.className = "column-wrapped";
             divwrap.className = "wrap-container";
             
@@ -44,24 +43,24 @@ GRP.column = function(prefs, langs){
             //check height
             var pages = 0;
             var hpage = 0;
-            if (prefs.column_auto) {
+            if (prefs.column_pagebreak) {
                 hpage = getHeightEntries();
                 /*
-                if (prefs && prefs.column_maxcolumns) {
-                    var colsCount = Math.ceil(divoriginal.clientHeight / hpage);
-                    if (colsCount < maxcolumns) {
-                        divwrap.style['-webkit-column-count'] = colsCount;
-                    } 
-                }*/
+                 if (prefs && prefs.column_maxcolumns) {
+                 var colsCount = Math.ceil(divoriginal.clientHeight / hpage);
+                 if (colsCount < maxcolumns) {
+                 divwrap.style['-webkit-column-count'] = colsCount;
+                 }
+                 }*/
             }
             //first append to monitor scrollwidth
-			body.appendChild(divwrap);
-			
-			var ecw = entries.clientWidth;
+            body.appendChild(divwrap);
+            
+            var ecw = entries.clientWidth;
             var div = createDiv(divwrap, hpage);
             var paras = divoriginal.childNodes;
             var length = paras.length;
-			var cwh = getColumWidth();
+            var cwh = getColumWidth();
             //compute using real time height (img.height (400px default), p=12...)
             //var elsPage = (pages > 0) ? (length / pages) : length;
             if (paras && length > 0) {
@@ -73,61 +72,54 @@ GRP.column = function(prefs, langs){
                         line = paras[i].innerHTML + '<br/>';
                     } else if (tag === "#text") {
                         line = paras[i].textContent;//nodeValue
-                    } else if (tag === "IFRAME" || tag === "OBJECT" || tag === "EMBED") {
-                        //TODO: add a resized video
-						//line = resizeVideo(paras[i].innerHTML, cwh);
-						line = paras[i].innerHTML;
+                    } else if (tag === "IFRAME") {
+                        //ignore iframe
+                    } else if (tag === "OBJECT" || tag === "EMBED") {
+                        line = paras[i].innerHTML;
                     } else if (tag === "DIV") {
                         line = paras[i].innerHTML;
                     } else {
                         line = paras[i].outerHTML;
                     }
-					
-					var para = document.createElement('p');
-                	para.innerHTML = line;
-                	div.appendChild(para);
-                	
-                	//fix it up if width > page.width
-	                if (prefs.column_auto && div.scrollWidth > ecw) {
-	                    //new div
-	                    var newdiv = createDiv(divwrap, hpage);
-            			newdiv.appendChild(para);
-	                    div = newdiv;
-	                }
+                    
+                    //line = line.replace(/<br\/?>/, '');
+					line = line.trim();
+                    if (line !== '') {
+                        var para = document.createElement('p');
+                        para.innerHTML = line;
+                        div.appendChild(para);
+                        
+                        //fix it up if width > page.width
+                        if (prefs.column_pagebreak && div.scrollWidth > ecw) {
+                            //new div
+                            var newdiv = createDiv(divwrap, hpage);
+                            newdiv.appendChild(para);
+                            div = newdiv;
+                        }
+                    }
                 }
-
-            } 
-
-			divwrap.visibility = "visible";
+                
+            }
+            
+            divwrap.visibility = "visible";
         }
         // toggle to correct body
         divoriginal.style.display = (active) ? "none" : "";
         divwrap.style.display = (active) ? "" : "none";
         
-        
         if (!locked) {
             jump(entry, true);
         }
     }
-	
-	function resizeVideo(html, width){
-		var rew =  /WIDTH\w*=\w*["']?(\d+)["']?/i;
-		var reh =  /HEIGHT\w*=\w*["']?(\d+)["']?/i;
-		var m = rew.exec(html);
-		var vwidth = m[1];
-		m = reh.exec(html);
-		var vheight = m[1];
-		return html.replace(rew, 'WIDTH="'+width+'"').replace(reh, 'HEIGHT="'+(vheight * width / vwidth)+'"');
-	}
-	
+    
     function createDiv(parent, hpage){
         var div = document.createElement('div');
         div.className = 'column-wrapped';
-        if (prefs.column_auto) {
-			if (hpage > 0) {
-				div.style['max-height'] = hpage + 'px';
-			}
-		}
+        if (prefs.column_pagebreak) {
+            if (hpage > 0) {
+                div.style['max-height'] = hpage + 'px';
+            }
+        }
         parent.appendChild(div);
         return div;
     }
@@ -142,13 +134,13 @@ GRP.column = function(prefs, langs){
         var c = parseInt(prefs.column_count, 10);
         cols = Math.max(0, c);
     }
-	//maxi columns enable to fit from 1 to n columns automatically
+    //maxi columns enable to fit from 1 to n columns automatically
     if (prefs && prefs.column_maxcolumns) {
         var d = parseInt(prefs.column_maxcolumns, 10);
         maxcolumns = Math.max(1, Math.min(6, d));
     }
-	//column_auto
-    //prefs.column_auto
+    //column_pagebreak
+    //prefs.column_pagebreak
     //column_locked
     if (prefs && prefs.column_locked) {
         locked = prefs.column_locked;
@@ -174,11 +166,47 @@ GRP.column = function(prefs, langs){
     }
     var cwh = getColumWidth();
     
-    // copy of fixwidth
+    
+    
+    var lastcwh = -1;
+    function fitall(){
+        //Images
+        var cwh = getColumWidth();
+        if (lastcwh !== cwh) {
+            var css = '.column-wrapped img{max-width:' + cwh + 'px !important;height: auto !important;}';
+            GM_addStyle(css, 'column_css_imgfit');
+            
+            //videos
+            fitVideos(cwh);
+            lastcwh = cwh;
+        }
+    }
+    
+    function fitVideos(width){
+        var objects = entries.querySelectorAll(".column-wrapped OBJECT,.column-wrapped EMBED");
+        for (var i = 0, len = objects.length; i < len; i++) {
+            var o = objects[i];
+            if (!o.w) {
+                o.w = o.width;
+                o.h = o.height;
+            }
+            o.width = width;
+            o.height = Math.round(o.h * width / o.w);
+        }
+    }
+    
+    window.addEventListener('resize', function(e){
+        fitall();
+    }, false);
+    window.setInterval(function(){
+        fitall();
+    }, 2000);
+    fitall();
+    
+    // copy of fixwidth to fit content
     GM_addStyle(".entry .entry-body, .entry .entry-title{ display: inline !important; max-width: 100% !important; }");
     
     var css = ".column-wrapped{ text-align: justify; -webkit-column-count: " + cols + "; -webkit-column-gap: 1.5em; -webkit-column-rule: 1px solid #dedede;overflow:visible;padding-bottom:4px;border-bottom:1px solid #dedede;} ";
-    css += '.column-wrapped img{max-width:' + cwh + 'px !important;height: auto !important;}';
     //css += '.column-wrapped p{page-break-after:auto;}';
     GM_addStyle(css);
     
