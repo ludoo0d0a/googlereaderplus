@@ -16,7 +16,7 @@ GRP.column = function(prefs, langs){
     
     function addButton(el, entry, mode){
         var text = SL.text + formatShortcut('column', 'columns', prefs); //[c]
-        addBottomLink(el, SL.keyword, text, 'btn-column', true, columnize, locked, entry);
+        addBottomLink(el, SL.keyword, text, 'btn-column', true, columnize, locked, entry, mode);
     }
     
     function addKey(){
@@ -46,16 +46,13 @@ GRP.column = function(prefs, langs){
             var hpage = 0;
             if (prefs.column_auto) {
                 hpage = getHeightEntries();
-                
+                /*
                 if (prefs && prefs.column_maxcolumns) {
                     var colsCount = Math.ceil(divoriginal.clientHeight / hpage);
                     if (colsCount < maxcolumns) {
                         divwrap.style['-webkit-column-count'] = colsCount;
-                    } else {
-                        //Nb de pages moyen
-						pages = Math.ceil(colsCount / maxcolumns);
-                    }
-                }
+                    } 
+                }*/
             }
             //first append to monitor scrollwidth
 			body.appendChild(divwrap);

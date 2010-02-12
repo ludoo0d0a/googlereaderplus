@@ -139,7 +139,7 @@ function insertAfter(el, ref){
 function insertBefore(el, ref){
     ref.parentNode.insertBefore(el, ref);
 }
-function insertBeforeFirst(el, ref){
+function insertFirst(el, ref){
     if (ref.firstChild) {
 		insertBefore(el, ref.firstChild);
 	}else{
@@ -168,10 +168,11 @@ function cleanUrl(url){
     }
 }
 
-function ellipsis(text){
-    var match = text;
-    if (match.length > 24) {
-        match = match.substr(0, 21) + '...';
+function ellipsis(text, max){
+    var match = text||'';
+	max=max||24;
+    if (match.length > max) {
+        match = match.substr(0, max-3) + '...';
     }
     return match;
 }

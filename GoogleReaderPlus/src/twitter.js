@@ -106,7 +106,7 @@ GRP.twitter = function(prefs, langs) {
 	
 	function addTwitterButton(el, entry, mode){
 		var text = SL.text + formatShortcut('twitter', 'tweet', prefs); //[b]
-        addBottomLink(el, SL.keyword, text, 'btn-twitter item-star star link', false, postBookmark, false, entry);
+        addBottomLink(el, SL.keyword, text, 'btn-twitter item-star star link', false, postBookmark, false, entry, mode);
 	}
 	function addKey() {
 		onKey('btn-twitter', facebookShare);
