@@ -211,7 +211,7 @@
             function getPrefs(a){
                 var id;
                 var textPrefs = localStorage.getItem('grp_prefs');
-                var prefs = JSON.parse(textPrefs);
+                var prefs = (textPrefs)?JSON.parse(textPrefs):false;
                 prefs = checkPrefs(prefs);
                 return prefs;
             }

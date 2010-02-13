@@ -15,33 +15,21 @@ function initCatchEntries(fn, bid, globalFn){
 }
 
 function catchEntryAdded(e, fn, bid){
-    if (!e) {
-        console.error(e);
-    }
     var el = e.target;
-    if (el.tagName == "DIV" && hasClass(el, 'entry')) {
-        if (!hasClass(el, 'entry-actions')) {
-			if (getFirstElementMatchingClassName(el, 'div', 'card-bottom')) {
-				//el = entry-actions on expanded view
-				el = getFirstElementMatchingClassName(el, 'div', 'entry-actions');
-			}
-		}
-		catchEntry(el, fn, bid);
-        /*
-         if (el.className.indexOf('entry-actions') > -1) {
-         // Expanding article in list view
-         mode = "list";
-         catchEntry(el, mode, fn, bid);
-         }else {
-         if (getFirstElementMatchingClassName(el, 'div', 'card-bottom')) {
-         // Adding article in expanded view
-         mode = "expanded";
-         el = getFirstElementMatchingClassName(el, 'div', 'entry-actions');
-         catchEntry(el, mode, fn, bid);
-         }
-         }
-         */
+    //console.log(el.tagName + "." + el.className);
+    if (el.tagName == "DIV" && hasClass(el, 'entry-actions')) {
+        // Expanding article in list view
+        catchEntry(el, fn, bid);
     }
+    else 
+        if (el.tagName == "DIV" && hasClass(el, 'entry')) {
+            //if (getFirstElementMatchingClassName(el, 'div', 'card-bottom')) {
+            // Adding article in expanded view
+            //el = entry-actions on expanded view
+            el = getFirstElementMatchingClassName(el, 'div', 'entry-actions');
+            catchEntry(el, fn, bid);
+        //}
+        }
 }
 
 function forAllEntries(fn){
@@ -54,21 +42,15 @@ function forAllEntries(fn){
 
 function catchAllEntries(fn, bid){
     forAllEntries(function(entry){
-        catchEntryAdded(
-        {
+        catchEntryAdded({
             target: entry
         }, fn, bid);
     });
 }
 
 function catchEntry(el, fn, bid){
-    var entry;
-    if (hasClass(el, 'entry')) {
-        entry = el;
-    } else {
-        entry = findParentNode(el, 'div', 'entry');
-    }
-	var mode = getMode(entry);
+    var entry = findParentNode(el, 'div', 'entry');
+    var mode = getMode(entry);
     if (!entry.className || entry.className.indexOf(bid) === -1) {
         addClass(entry, bid);
         fn.call(this, el, entry, mode);
@@ -111,8 +93,7 @@ function forAllSidebars(fn){
 
 function catchAllSidebars(fn, bid){
     forAllSidebars(function(el){
-        catchSidebarAdded(
-        {
+        catchSidebarAdded({
             target: el
         }, fn, bid);
     });
@@ -133,26 +114,26 @@ function getOriginalEntryLink(entry){
 function getEntrySiteTitle(ent){
     var entry = ent || getCurrentEntry();
     var point, match;
-	//var mode = getMode(entry);
+    //var mode = getMode(entry);
     //if (mode === 'collapsed') {
-		point = getFirstElementMatchingClassName(entry, 'span', 'entry-source-title');
-		if (!point) {
-			point = getFirstElementMatchingClassName(entry, 'a', 'entry-source-title');
-		}
-        if (point) {
-			match = point.textContent;
-		}
+    point = getFirstElementMatchingClassName(entry, 'span', 'entry-source-title');
+    if (!point) {
+        point = getFirstElementMatchingClassName(entry, 'a', 'entry-source-title');
+    }
+    if (point) {
+        match = point.textContent;
+    }
     /*} else {
-	    point = getFirstElementMatchingClassName(entry, 'span', 'entry-source-title');
-		point = target.getElementsByClassName('entry-title-link')[0] ||
-        target.getElementsByClassName('comment-entry-title')[0];
-        //titre du site
-        var title = target.getElementsByClassName('entry-source-title')[0];
-        //var title = target.getElementsByClassName('entry-title')[0];
-        if (title) {
-            match = title.textContent;
-        }
-    }*/
+     point = getFirstElementMatchingClassName(entry, 'span', 'entry-source-title');
+     point = target.getElementsByClassName('entry-title-link')[0] ||
+     target.getElementsByClassName('comment-entry-title')[0];
+     //titre du site
+     var title = target.getElementsByClassName('entry-source-title')[0];
+     //var title = target.getElementsByClassName('entry-title')[0];
+     if (title) {
+     match = title.textContent;
+     }
+     }*/
     return match;
 }
 
@@ -167,7 +148,8 @@ function getEntryLink(ent){
         if (link) {
             o.url = link.href;
             o.title = link.textContent;
-        } else {
+        }
+        else {
             //Feed from html (non RSS page)
             var etitle = getFirstElementMatchingClassName(entry, 'h2', 'entry-title');
             if (etitle) {
@@ -178,11 +160,11 @@ function getEntryLink(ent){
                 o.title = etitle.textContent;
             }
         }
-    } else {
+    }
+    else {
         //preview on 
         var link2 = getFirstElementMatchingClassName(entry, 'a', 'grp-link-title');
-        o = 
-        {
+        o = {
             title: link2.textContent,
             url: link.href
         };
@@ -222,7 +204,8 @@ function jump(entry, dirtop){
     var top = 0;
     if (dirtop) {
         top = entry.offsetTop; // - height;
-    } else {
+    }
+    else {
         top = entry.offsetTop + entry.offsetHeight - height;
     }
     if (top >= 0) {
@@ -271,17 +254,21 @@ function addButton(reference, text, title, fn, position){
         //after
         if (reference.nextSibling) {
             reference.parentNode.insertBefore(div, reference.nextSibling);
-        } else {
+        }
+        else {
             //last item
             reference.parentNode.appendChild(div);
         }
-    } else if (position == 2) {
-        //before
-        reference.parentNode.insertBefore(div, reference);
-    } else {
-        //append
-        reference.appendChild(div);
     }
+    else 
+        if (position == 2) {
+            //before
+            reference.parentNode.insertBefore(div, reference);
+        }
+        else {
+            //append
+            reference.appendChild(div);
+        }
     var me = this;
     div.addEventListener('click', function(e){
         fn.call(me);
@@ -295,24 +282,22 @@ function onKey(cls, fn){
 }
 
 function addBottomLink(el, text, title, cls, button, callback, locked, entry, mode){
-    if (mode === 'expanded') {
-		var span = document.createElement('span');
-		span.className = cls + (button ? ' read-state-not-kept-unread read-state' : '') + ' link unselectable';
-		span.innerHTML = text;
-		span.title = title;
-		el.appendChild(span);
-		var lcked = locked;
-		function onClick(e){
-			var btn = e.target;
-			var entry = findParentNode(el, 'div', 'entry');
-			callback(btn, entry, lcked, e);
-		}
-		span.addEventListener('click', onClick, false);
-		if (locked) {
-			//activate it
-			callback(span, entry, true);
-		}
-	}
+    var span = document.createElement('span');
+    span.className = cls + (button ? ' read-state-not-kept-unread read-state' : '') + ' link unselectable';
+    span.innerHTML = text;
+    span.title = title;
+    el.appendChild(span);
+    var lcked = locked;
+    function onClick(e){
+        var btn = e.target;
+        var entry = findParentNode(el, 'div', 'entry');
+        callback(btn, entry, lcked, e);
+    }
+    span.addEventListener('click', onClick, false);
+    if (locked) {
+        //activate it
+        callback(span, entry, true);
+    }
 }
 
 function isActive(btn, entry, cls, locked){
@@ -323,7 +308,8 @@ function isActive(btn, entry, cls, locked){
             toggleClass(btn, 'read-state-not-kept-unread', 'read-state-kept-unread');
         }
         active = true;
-    } else {
+    }
+    else {
         removeClass(entry, cls);
         if (btn) {
             toggleClass(btn, 'read-state-kept-unread', 'read-state-not-kept-unread');
@@ -361,7 +347,8 @@ function getShortcutKey(script, shortcut, prefs){
     var key, keyhash = prefs[script + '_key_' + shortcut];
     if (keyhash) {
         key = unmarshallKey(keyhash);
-    } else {
+    }
+    else {
         try {
             var s = getScriptObject(script);
             key = s.shortcuts[shortcut];
@@ -389,7 +376,8 @@ function getScriptObject(id){
 function toggle(el){
     if (!el.style.display) {
         hide(el);
-    } else {
+    }
+    else {
         show(el);
     }
 }
@@ -434,7 +422,8 @@ function addMenuItems(menu, items){
 function toggleCheckMenu(el){
     if (hasClass(el, 'goog-option-selected')) {
         removeClass(el, 'goog-option-selected');
-    } else {
+    }
+    else {
         addClass(el, 'goog-option-selected');
     }
 }
@@ -449,7 +438,8 @@ function getLanguage(){
             lang = m[2];//en
             //lang = m[1];en-US
         }
-    } else {
+    }
+    else {
         cookie = readCookie('PREF') || '';
         //855ba6572:LD=en:CR=2:TM=12
         m = /:LD=(\w+):/.exec(cookie);

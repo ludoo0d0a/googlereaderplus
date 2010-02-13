@@ -19,7 +19,7 @@ GRP.favicons = function(prefs, langs, myport){
     var protocol = document.location.protocol;
     var FAVICON_TPL_URL = protocol + '//s2.googleusercontent.com/s2/favicons?alt=feed&domain=';
     var FAVICON_TPL_DEF_URL = protocol + '//s2.googleusercontent.com/s2/favicons';
-    var LOADING_IMAGE = "chrome-extension://njidamgjohnfbkeagfbnkllfkdnlpjhi/images/loading.gif";
+    var LOADING_IMAGE = "chrome-extension://'+GUID_CORE+'/images/loading.gif";
     
     var RSS = getElements('id("sub-tree-item-0-main")/ul/li/ul/li').length;
     var FOLDER = getElements('id("sub-tree-item-0-main")/ul/li').length;
