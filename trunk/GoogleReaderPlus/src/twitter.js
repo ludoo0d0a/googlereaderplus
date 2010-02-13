@@ -109,7 +109,7 @@ GRP.twitter = function(prefs, langs) {
         addBottomLink(el, SL.keyword, text, 'btn-twitter item-star star link', false, postBookmark, false, entry, mode);
 	}
 	function addKey() {
-		onKey('btn-twitter', facebookShare);
+		onKey('btn-twitter', postBookmark);
 	}
 
 	function postBookmark(btn, entry, locked){

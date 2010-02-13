@@ -221,8 +221,8 @@ GRP.scripts = [
             title: 'Mark items after As Read',
             key: 
             {
-                //75 x
-				keyCode: 75
+                //89 y
+				keyCode: 89
             }
         }
     }
