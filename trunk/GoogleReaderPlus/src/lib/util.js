@@ -117,9 +117,9 @@ function getElementValue(query, context){
 }
 
 function parseXml(xmlText){
-	var dom = new DOMParser().parseFromString(xmlText, "application/xml");
-	//urlinput.value = dom.getElementsByTagName('shortUrl')[0].textContent;
-	return dom;
+    var dom = new DOMParser().parseFromString(xmlText, "application/xml");
+    //urlinput.value = dom.getElementsByTagName('shortUrl')[0].textContent;
+    return dom;
 }
 
 if (typeof Array.forEach === "undefined") {
@@ -139,12 +139,13 @@ function insertAfter(el, ref){
 function insertBefore(el, ref){
     ref.parentNode.insertBefore(el, ref);
 }
+
 function insertFirst(el, ref){
     if (ref.firstChild) {
-		insertBefore(el, ref.firstChild);
-	}else{
-		ref.parentNode.appendChild(el);
-	}
+        insertBefore(el, ref.firstChild);
+    } else {
+        ref.parentNode.appendChild(el);
+    }
 }
 
 /**
@@ -169,10 +170,10 @@ function cleanUrl(url){
 }
 
 function ellipsis(text, max){
-    var match = text||'';
-	max=max||24;
+    var match = text || '';
+    max = max || 24;
     if (match.length > max) {
-        match = match.substr(0, max-3) + '...';
+        match = match.substr(0, max - 3) + '...';
     }
     return match;
 }
@@ -194,22 +195,34 @@ function isArray(obj){
  * @return
  */
 function initKey(keys){
-    document.addEventListener('keydown', function(ee){
-        var e = ee;
-        var tag = e.target.tagName.toLowerCase();
-        if (tag !== "input" && tag !== "select" && tag !== "textarea") {
+	document.addEventListener('keydown', function(e){
+		var target = e.target;
+		var tag = target.tagName;
+		//console.log('keydown on '+tag+'.'+(tag.className||''));
+        if (tag !== 'INPUT' && tag !== 'SELECT' && tag !== 'TEXTAREA') {
             if (!isArray(keys)) {
                 keys = [keys];
             }
-            keys.forEach(function(k){
+            for (var i = 0, len = keys.length; i < len; i++) {
+                var k = keys[i];
                 if (k.keyCode == e.keyCode &&
                 ((k.shiftKey && e.shiftKey) || (!k.shiftKey && !e.shiftKey)) &&
                 ((k.ctrlKey && e.ctrlKey) || (!k.ctrlKey && !e.ctrlKey)) &&
                 ((k.altKey && e.altKey) || (!k.altKey && !e.altKey))) {
-                    k.fn(e);
-                    e.preventDefault();
+					e.preventDefault();
+					//e.stopPropagation();
+					//k.fn(e);
+					if (!target.locked) {
+						//console.log('run fn for keyCode='+k.keyCode);
+						k.fn(e);
+						target.locked = true;
+						window.setTimeout(function(){target.locked = false;},300);
+					}else{
+						console.log('LOCK run fn for keyCode='+k.keyCode);
+					}
+                    break;
                 }
-            });
+            }
         }
     }, false);
 }
@@ -547,31 +560,31 @@ function merge(o, c, defaults){
     if (defaults) {
         merge(o, defaults);
     }
-    if (typeof o !== "undefined" && typeof c !== "undefined" ) {
+    if (typeof o !== "undefined" && typeof c !== "undefined") {
         if (typeof c === 'object') {
             for (var p in c) {
                 //console.log(c[p] + ' Omerge['+p+']> ' + o[p]);
-				if (typeof c[p] === 'object' || isArray(c[p])) {
-					merge(o[p], c[p]);
-				}else{
-					o[p]= c[p];
-				}
+                if (typeof c[p] === 'object' || isArray(c[p])) {
+                    merge(o[p], c[p]);
+                } else {
+                    o[p] = c[p];
+                }
             }
         } else if (isArray(c)) {
             for (var i = 0, len = c.length; i < len; i++) {
-				//o[i] = c[i];
-				//console.log(c[i] + ' Amerge['+i+']> ' + o[i]);
-				if (typeof c[i] === 'object' || isArray(c[i])) {
-					merge(o[i], c[i]);
-				}else{
-					o[i]= c[i];
-				}
-				console.log('after: '+c[i] + ' Amerge['+i+']> ' + o[i]);
+                //o[i] = c[i];
+                //console.log(c[i] + ' Amerge['+i+']> ' + o[i]);
+                if (typeof c[i] === 'object' || isArray(c[i])) {
+                    merge(o[i], c[i]);
+                } else {
+                    o[i] = c[i];
+                }
+                console.log('after: ' + c[i] + ' Amerge[' + i + ']> ' + o[i]);
             }
-        } else{
+        } else {
             //o[p] = c[p];
-			console.log(c + ' -> ' + o);
-			o = c;
+            console.log(c + ' -> ' + o);
+            o = c;
         }
     }
     return o;
