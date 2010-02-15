@@ -131,8 +131,8 @@ GRP.twitter = function(prefs, langs) {
 		bookmarkStar.className = "item-star star link email-active";
 
 		var link = getEntryLink(entry);
-		url = link.href;
-		var title = link.textContent; 
+		url = link.url;
+		var title = link.title; 
 		var addbkmk = getBookmarkField();
 		if (mode == "expanded") {
 			if (addbkmk.className == "action-area card-bottom") {
