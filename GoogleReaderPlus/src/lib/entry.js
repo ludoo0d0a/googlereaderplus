@@ -74,13 +74,13 @@ function initCatchSidebars(fn, bid, globalFn){
 }
 
 function catchSidebarAdded(e, fn, bid){
-    if (!e) {
-        console.error(e);
-    }
     var el = e.target;
-    if (el.tagName == "LI" && hasClass(el, 'sub')) {
+    //console.log(el.tagName + "." + el.className);
+	if (el.tagName == "LI" && hasClass(el, 'sub')) {
         fn.call(this, el);
-    }
+    }else if(el.tagName == "LI" && hasClass(el, 'folder') && (el.parentNode.id==='sub-tree')){
+		catchAllSidebars(fn, bid);
+	}
 }
 
 function forAllSidebars(fn){
