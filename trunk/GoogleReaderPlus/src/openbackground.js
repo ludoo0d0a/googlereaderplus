@@ -19,8 +19,6 @@ GRP.openbackground = function(prefs, langs) {
 
 	function openbackground(e) {
 		var entry = getEntry(e);
-		e.stopPropagation();
-		e.preventDefault();
 		openEntryInNewTab(entry, selectTab);
 	}
 
@@ -29,7 +27,7 @@ GRP.openbackground = function(prefs, langs) {
 	
 	initCatchEntries(addButtons, 'eopenbackground');
 	
-	var keycode = getShortcutKey('openbackground', 'openback', prefs); //86 Shift+V
+	var keycode = getShortcutKey('openbackground', 'openback', prefs); 
 	keycode.fn = openbackground;
 	initKey(keycode);
 };
