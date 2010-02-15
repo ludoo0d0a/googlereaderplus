@@ -155,18 +155,17 @@ GRP.column = function(prefs, langs){
         return cw;
     }
     
+	var cw = getContainer(entries);
     function getColumWidth(){
         var cwh = 300;
         //var entries = get_id('entries');
-        var cw = getContainer(entries);
+        //var cw = getContainer(entries);
         if (cw) {
             cwh = Math.max(Math.round(cw.clientWidth / cols), 50);
         }
         return cwh;
     }
     var cwh = getColumWidth();
-    
-    
     
     var lastcwh = -1;
     function fitall(){
