@@ -16,6 +16,7 @@ GRP.favicons = function(prefs, langs, myport){
     
     var GRP_INFO = JSON.parse(GM_getValue('grp_favicons', '{}'));
     var FAVICON = GRP_INFO.icon || (GRP_INFO.icon = {});
+	updateFavicons();
     var protocol = document.location.protocol;
     var FAVICON_TPL_URL = protocol + '//s2.googleusercontent.com/s2/favicons?alt=feed&domain=';
     var FAVICON_TPL_DEF_URL = protocol + '//s2.googleusercontent.com/s2/favicons';
@@ -32,6 +33,7 @@ GRP.favicons = function(prefs, langs, myport){
         if (a.message == "iconsloaded") {
             if (a.FAVICON) {
                 FAVICON = a.FAVICON;
+				updateFavicons();
             }
             initFavicons();
             setValue();
@@ -39,6 +41,7 @@ GRP.favicons = function(prefs, langs, myport){
             if (a.icon) {
                 if (a.FAVICON) {
                     FAVICON = a.FAVICON;
+					updateFavicons();
                 }
                 renderFavicons(a.url, a.title, a.icon);
                 setValue();
