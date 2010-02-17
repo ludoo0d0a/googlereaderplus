@@ -1,35 +1,38 @@
 /*
  * Entries
  */
-function initCatchEntries(fn, bid, globalFn){
-    document.body.addEventListener('DOMNodeInserted', function(e){
-        catchEntryAdded(e, fn, bid);
+function initCatchEntries(fn, bid, globalFn, oncollapsed){
+    catchAllEntries(fn, bid, oncollapsed);
+	document.body.addEventListener('DOMNodeInserted', function(e){
+        catchEntryAdded(e, fn, bid, oncollapsed);
         if (globalFn) {
             globalFn.call(this);
         }
     }, false);
-    catchAllEntries(fn, bid);
+    
     if (globalFn) {
         globalFn.call(this);
     }
 }
 
-function catchEntryAdded(e, fn, bid){
+function catchEntryAdded(e, fn, bid, oncollapsed){
     var el = e.target;
     //console.log(el.tagName + "." + el.className);
     if (el.tagName == "DIV" && hasClass(el, 'entry-actions')) {
         // Expanding article in list view
         catchEntry(el, fn, bid);
-    }
-    else 
-        if (el.tagName == "DIV" && hasClass(el, 'entry')) {
-            //if (getFirstElementMatchingClassName(el, 'div', 'card-bottom')) {
+    } else if (el.tagName == "DIV" && hasClass(el, 'entry')) {
+		if (getFirstElementMatchingClassName(el, 'div', 'card-bottom')) {
             // Adding article in expanded view
             //el = entry-actions on expanded view
             el = getFirstElementMatchingClassName(el, 'div', 'entry-actions');
             catchEntry(el, fn, bid);
-        //}
-        }
+        }else if (oncollapsed){
+			//collapsed title
+			el=el.firstChild;//el then means nothing, just go down to find entry later 
+			catchEntry(el, fn, bid);
+		}
+    }
 }
 
 function forAllEntries(fn){
@@ -40,18 +43,19 @@ function forAllEntries(fn){
     }
 }
 
-function catchAllEntries(fn, bid){
+function catchAllEntries(fn, bid, oncollapsed){
     forAllEntries(function(entry){
-        catchEntryAdded({
+        catchEntryAdded(
+        {
             target: entry
-        }, fn, bid);
+        }, fn, bid, oncollapsed);
     });
 }
 
 function catchEntry(el, fn, bid){
     var entry = findParentNode(el, 'div', 'entry');
     var mode = getMode(entry);
-    if (!entry.className || entry.className.indexOf(bid) === -1) {
+    if (!hasClass(entry, bid)) {
         addClass(entry, bid);
         fn.call(this, el, entry, mode);
     }
@@ -76,11 +80,11 @@ function initCatchSidebars(fn, bid, globalFn){
 function catchSidebarAdded(e, fn, bid){
     var el = e.target;
     //console.log(el.tagName + "." + el.className);
-	if (el.tagName == "LI" && hasClass(el, 'sub')) {
+    if (el.tagName == "LI" && hasClass(el, 'sub')) {
         fn.call(this, el);
-    }else if(el.tagName == "LI" && hasClass(el, 'folder') && (el.parentNode.id==='sub-tree')){
-		catchAllSidebars(fn, bid);
-	}
+    } else if (el.tagName == "LI" && hasClass(el, 'folder') && (el.parentNode.id === 'sub-tree')) {
+        catchAllSidebars(fn, bid);
+    }
 }
 
 function forAllSidebars(fn){
@@ -93,7 +97,8 @@ function forAllSidebars(fn){
 
 function catchAllSidebars(fn, bid){
     forAllSidebars(function(el){
-        catchSidebarAdded({
+        catchSidebarAdded(
+        {
             target: el
         }, fn, bid);
     });
@@ -148,8 +153,7 @@ function getEntryLink(ent){
         if (link) {
             o.url = link.href;
             o.title = link.textContent;
-        }
-        else {
+        } else {
             //Feed from html (non RSS page)
             var etitle = getFirstElementMatchingClassName(entry, 'h2', 'entry-title');
             if (etitle) {
@@ -160,11 +164,11 @@ function getEntryLink(ent){
                 o.title = etitle.textContent;
             }
         }
-    }
-    else {
+    } else {
         //preview on 
         var link2 = getFirstElementMatchingClassName(entry, 'a', 'grp-link-title');
-        o = {
+        o = 
+        {
             title: link2.textContent,
             url: link.href
         };
@@ -204,8 +208,7 @@ function jump(entry, dirtop){
     var top = 0;
     if (dirtop) {
         top = entry.offsetTop; // - height;
-    }
-    else {
+    } else {
         top = entry.offsetTop + entry.offsetHeight - height;
     }
     if (top >= 0) {
@@ -217,7 +220,7 @@ function getHeightEntries(){
     var entries = document.getElementById('entries');
     //TODO: better computation if minimalistic skin (110??)
     //todo : wrong if 'xx persons like this' is displayed
-    return entries ? (parseInt(entries.style.height.replace('px', ''), 10) - 110) : 500;
+    return entries ? (parseInt(entries.style.height.replace('px', ''), 10) - 50) : 500;
 }
 
 function getBody(entry){
@@ -254,21 +257,17 @@ function addButton(reference, text, title, fn, position){
         //after
         if (reference.nextSibling) {
             reference.parentNode.insertBefore(div, reference.nextSibling);
-        }
-        else {
+        } else {
             //last item
             reference.parentNode.appendChild(div);
         }
+    } else if (position == 2) {
+        //before
+        reference.parentNode.insertBefore(div, reference);
+    } else {
+        //append
+        reference.appendChild(div);
     }
-    else 
-        if (position == 2) {
-            //before
-            reference.parentNode.insertBefore(div, reference);
-        }
-        else {
-            //append
-            reference.appendChild(div);
-        }
     var me = this;
     div.addEventListener('click', function(e){
         fn.call(me);
@@ -308,8 +307,7 @@ function isActive(btn, entry, cls, locked){
             toggleClass(btn, 'read-state-not-kept-unread', 'read-state-kept-unread');
         }
         active = true;
-    }
-    else {
+    } else {
         removeClass(entry, cls);
         if (btn) {
             toggleClass(btn, 'read-state-kept-unread', 'read-state-not-kept-unread');
@@ -347,8 +345,7 @@ function getShortcutKey(script, shortcut, prefs){
     var key, keyhash = prefs[script + '_key_' + shortcut];
     if (keyhash) {
         key = unmarshallKey(keyhash);
-    }
-    else {
+    } else {
         try {
             var s = getScriptObject(script);
             key = s.shortcuts[shortcut];
@@ -376,8 +373,7 @@ function getScriptObject(id){
 function toggle(el){
     if (!el.style.display) {
         hide(el);
-    }
-    else {
+    } else {
         show(el);
     }
 }
@@ -422,8 +418,7 @@ function addMenuItems(menu, items){
 function toggleCheckMenu(el){
     if (hasClass(el, 'goog-option-selected')) {
         removeClass(el, 'goog-option-selected');
-    }
-    else {
+    } else {
         addClass(el, 'goog-option-selected');
     }
 }
@@ -438,8 +433,7 @@ function getLanguage(){
             lang = m[2];//en
             //lang = m[1];en-US
         }
-    }
-    else {
+    } else {
         cookie = readCookie('PREF') || '';
         //855ba6572:LD=en:CR=2:TM=12
         m = /:LD=(\w+):/.exec(cookie);
