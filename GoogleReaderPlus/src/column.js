@@ -26,23 +26,30 @@ GRP.column = function(prefs, langs){
         var active = isActive(btn, entry, 'columnize', locked);
         
         var body = getBody(entry);
-        
+        var hpage = 0;
         var divoriginal = body.firstChild;
-        var divwrap = getFirstElementMatchingClassName(entry, 'div', 'column-wrapped');
+        var divwrap = getFirstElementMatchingClassName(entry, 'div', 'wrap-container');
         
-        if (!divwrap) {
-            divoriginal.className = "column-original";
+		if (divwrap && active && prefs.column_pagebreak) {
+			//already exists but height changed
+			var h = divwrap.firstChild.style['max-height'];
+			if (h) {
+				var oldHeight = parseInt(h.replace('px', ''), 10);
+				hpage = getHeightEntries();
+				if (hpage !== oldHeight) {
+					divwrap.parentNode.removeChild(divwrap);
+					divwrap = null;
+				}
+			}
+		}
+		
+        if (!divwrap) {			
+			divoriginal.className = "column-original";
             divwrap = document.createElement('div');
-            //divwrap.style.display = "none";
             divwrap.visibility = "hidden";
-            //divwrap.className = "column-wrapped";
             divwrap.className = "wrap-container";
-            
-            // var paras = divoriginal.querySelectorAll("p");
-            
+
             //check height
-            var pages = 0;
-            var hpage = 0;
             if (prefs.column_pagebreak) {
                 hpage = getHeightEntries();
                 /*
@@ -61,8 +68,7 @@ GRP.column = function(prefs, langs){
             var paras = divoriginal.childNodes;
             var length = paras.length;
             var cwh = getColumWidth();
-            //compute using real time height (img.height (400px default), p=12...)
-            //var elsPage = (pages > 0) ? (length / pages) : length;
+
             if (paras && length > 0) {
                 var top, h, tag, line, offset;
                 for (var i = 0; i < length; i++) {
