@@ -76,7 +76,7 @@ GRP.favicons = function(prefs, langs, myport){
     
     function initFavicons(){
         if (!prefs.favicons_sidebaronly) {
-			initCatchEntries(addFaviconEntry, 'entry-favicons');
+			initCatchEntries(addFaviconEntry, 'entry-favicons', false, true);
 		}
         initCatchSidebars(addFaviconSidebar, 'sidebar-favicons');
     }
