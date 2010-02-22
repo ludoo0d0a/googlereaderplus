@@ -1,11 +1,11 @@
 {
   "extension_name": {
-    "message": "Google Reader Plus"
+    "message": "Reader Plus"
   },
   "extension_description": {
     "message": "Enhance Google Reader by adding missing favicons and a collection of others features"
   },
   "browser_action_tooltip_default": {
-    "message": "Google Reader Plus Preferences"
+    "message": "Reader Plus Preferences"
   } 
 }
