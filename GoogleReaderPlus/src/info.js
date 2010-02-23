@@ -13,7 +13,7 @@ GRP.info = function(prefs){
 	
 	function init(){		
 		myport = chrome.extension.connect( {
-			name : "googlereaderplus"
+			name : "ReaderPlus"
 		});
 	}
 	
@@ -54,7 +54,7 @@ GRP.info = function(prefs){
             method: 'GET',
             url: 'chrome://extensions',
             onload: function(res){
-                var extensions = parseExtensions(xhr.responseXML);
+                var extensions = parseExtensions(res.responseXML);
 				console.log(extensions);
 				report.extensions = extensions;
 				sendreport(++status);
@@ -73,7 +73,7 @@ GRP.info = function(prefs){
             method: 'GET',
             url: 'about:version',
             onload: function(res){
-                var version = parseVersion(xhr.responseXML);
+                var version = parseVersion(res.responseXML);
 				console.log(version);
 				report.version = version;
 				sendreport(++status);

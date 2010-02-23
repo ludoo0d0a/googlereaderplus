@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>GoogleReaderPlus Background</title>
+        <title>readerplus Background</title>
         <script type="application/javascript" src="version.js">
         </script>
         <script type="application/javascript" src="lib/util.js">
@@ -27,7 +27,7 @@
             sendPrefsToIcon();
             
             function onPortConnect(a){
-                if (a.name != "googlereaderplus") {
+                if (a.name != "readerplus") {
                     return false;
                 }
                 myport = a;
@@ -121,7 +121,7 @@
                             //from xhr (1000+ limitations)
                             request(
                             {
-                                url: 'http://www.google.com/reader/api/0/unread-count?output=json&client=googlereaderplus&refresh=true',
+                                url: 'http://www.google.com/reader/api/0/unread-count?output=json&client=readerplus&refresh=true',
                                 onload: function(xhr){
                                     var count = parseUnread(xhr.responseText);
                                     var text;
