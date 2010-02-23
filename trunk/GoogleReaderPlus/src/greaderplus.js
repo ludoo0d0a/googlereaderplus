@@ -1,5 +1,5 @@
 /**
- * Google Reader Plus
+ * Reader Plus
  *
  * Adds favicons to feeds and entries
  *
@@ -10,13 +10,13 @@
 
 (function(){
 
-    var googleReaderPlus = 
+    var ReaderPlus = 
     {
         init: function(){
-            console.log("Starts GoogleReaderPlus");
+            console.log("Starts ReaderPlus");
             this.myport = chrome.extension.connect(
             {
-                name: "googlereaderplus"
+                name: "readerplus"
             });
             window.GRP = window.GRP || {};
             GRP.language = function(){
@@ -57,9 +57,9 @@
                         this.run(script.id, langs);
                     }
                 }
-                console.log("GoogleReaderPlus is running with " + count + "/" + total + " features");
+                console.log("ReaderPlus is running with " + count + "/" + total + " features");
             } else {
-                console.error("GoogleReaderPlus failed to load any features!!");
+                console.error("ReaderPlus failed to load any features!!");
             }
         },
         run: function(o, langs){
@@ -103,6 +103,6 @@
          }*/
     };
     
-    googleReaderPlus.init();
+    ReaderPlus.init();
     
 })();
