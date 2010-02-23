@@ -3,15 +3,15 @@
  * Translation
  *
  * **************************
- * en : English
+ * fr : Chinese
  * **************************
  *
- * Version : 0.2
+ * Version : 0.1
  * Date : 02-23-2010
- * @author Valente
+ * @author Jfjj007
  */
-namespace('GRP.langs.en');
-GRP.langs.en.texts = 
+namespace('GRP.langs.fr');
+GRP.langs.zh.texts = 
 {
     'version': "version",
     closeentry: 
@@ -144,20 +144,20 @@ GRP.langs.en.texts =
 
 };
 
-GRP.langs.en.prefs = 
+GRP.langs.zh.prefs = 
 {
     "global": 
     {
-        "title": "Reader Plus"
+        "title": "设置Reader Plus"
     },
     "link": 
     {
-        "reader": "<span>Google Reader</span>Your RSS reader",
-        "issues": "<span>Report issue</span>Found a bug or suggestion ?",
-        "download": "<span>Google Extension</span>The place to download",
+        "reader": "<span>转到Google Reader</span>Your RSS reader",
+        "issues": "<span>报告问题Report issue</span>Found a bug or suggestion ?",
+        "download": "<span>扩展页Google Extension</span>The place to download",
         "about": "<span>About</span>About, thanks,...",
-        "site": "<span>Website</span>My personal website",
-        "twitter": "<span><img width=\"160\" height=\"27\" src=\"http://twitter-badges.s3.amazonaws.com/follow_me-a.png\" alt=\"Follow ludoo0d0a on Twitter\"></span>Follow news and updates"
+        "site": "<span>网站</span>My personal website",
+        "twitter": "<span><img width=\"61\" height=\"23\" src=\"http://twitter-badges.s3.amazonaws.com/twitter-a.png\" alt=\"Follow ludoo0d0a on Twitter\"></span>Follow news and updates"
     },
     "column": 
     {

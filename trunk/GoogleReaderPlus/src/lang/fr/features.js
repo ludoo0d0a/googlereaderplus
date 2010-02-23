@@ -1,13 +1,13 @@
 /**
- * GoogleReaderPlus
+ * ReaderPlus
  * Translation for features
  * 
  * **************************
  * fr : Francais
  * **************************
  * 
- * Version : 0.1
- * Date : 01-28-2010
+ * Version : 0.2
+ * Date : 02-23-2010
  * @author Valente
  */
 namespace('GRP.langs.fr');
@@ -122,6 +122,11 @@ GRP.langs.fr.scripts = [
     name: "Ouvrir en arrière plan",
     desc: "Ouvrir en arrière plan un élément"
 }, 
+{
+    id: "getpart",
+    name: "Remplacement",
+    desc: "Remplace un élément avec une partie de la page originale"
+},, 
 /*
 {
     id: "menu",
@@ -152,13 +157,13 @@ GRP.langs.fr.scripts = [
 }, 
 {
     id: "thanks",
-    name: "Merci",
-    desc: "Remerciements"
+    name: "Remerciements",
+    desc: "Merci!"
 }, 
 {
     id: "about",
     name: "A propos",
-    desc: "A propos de GoogleReaderPlus",
+    desc: "A propos de ReaderPlus",
     url: 'about.html'
 }];
 
