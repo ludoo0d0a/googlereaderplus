@@ -2375,7 +2375,7 @@ GRP.black = function(){
             };
                     };
         
-        GM_addStyle(googleEnhancedBLACK);
+        GM_addStyle(googleEnhancedBLACK, 'rps_black');
         
         //fireResize();
     
