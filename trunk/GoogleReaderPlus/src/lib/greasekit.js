@@ -63,7 +63,7 @@ if (typeof GM_setCookieValue === "undefined") {
 function accessSecure(message, o, callback){
     var myport = chrome.extension.connect(
     {
-        name: "googlereaderplus"
+        name: "readerplus"
     });
     if (callback) {
         myport.onMessage.addListener(callback);
@@ -91,11 +91,11 @@ if (typeof GM_xmlhttpRequest === "undefined") {
             if (a.message === (om.callback || "requestdone")) {
                 if (a.action === "load") {
                     if (typeof om.onload == "function") {
-                        om.onload(a);
+                        om.onload(a, om);
                     }
                 } else if (a.action === "readystatechange") {
                     if (typeof om.onreadystatechange == "function") {
-                        om.onreadystatechange(a);
+                        om.onreadystatechange(a, om);
                     }
                 } else if (a.action === "error") {
                     GM_log('error: ' + a.responseText);

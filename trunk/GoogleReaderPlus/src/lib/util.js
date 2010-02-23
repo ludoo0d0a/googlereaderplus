@@ -611,3 +611,10 @@ function applyRemoteLang(lang, base, id, o, fn, scope){
         }
     });
 }
+
+//http://snipplr.com/view/9649/escape-regular-expression-characters-in-string/
+//http://simonwillison.net/2006/Jan/20/escape/
+function encodeRE(s) { 
+	var specials = new RegExp("[.*+?|()\\[\\]{}\\\\]", "g"); // .*+?|()[]{}\
+  	return s.replace(specials, "\\$&").replace(' ', '\\W');
+}

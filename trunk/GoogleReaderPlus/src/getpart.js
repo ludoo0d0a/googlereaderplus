@@ -9,7 +9,7 @@
 GRP.getpart = function(prefs, langs, myport){
     var locked = false;
     var partIndex = 0;
-    var gp_links, gp_from, gp_to, gp_fromregex = [];
+    var gp_links, gp_from, gp_to, re_from = [], re_links = [];
     
     function initVars(){
         gp_links = prefs.getpart_link.split("\n");
@@ -17,34 +17,21 @@ GRP.getpart = function(prefs, langs, myport){
         gp_to = prefs.getpart_to.split("\n");
         
         for (var i = 0; i < gp_from.length; i++) {
-            gp_fromregex[i] = new RegExp(gp_from[i], "i");
+            if (gp_from[i] && gp_links[i]) {
+				re_from[i] = new RegExp(gp_from[i], "i");
+				re_links[i] = new RegExp(gp_links[i], "i");
+			}
         }
     }
     
-    function replaceItem(res, request){
-        var partresult = document.getElementById("getpart_result_" + request.partindex);
-        
-        if (!partresult) {
-            console.log("cant find entry " + request.partindex);
-            return;
-        }
-        
-        var html = res.responseText;
+    function replaceItem(html, index, partresult, partindex){
         var result = "";
-        
-        for (var i = 0; i < gp_links.length; i++) {
-            re = new RegExp(gp_links[i]);
-            if (re.test(request.url)) {
-                // console.log ("link match : "+request.url);
-                var matchingPart = gp_fromregex[i].exec(html);
-                if (matchingPart && (matchingPart.length > 0)) {
-                    var matchingtext = matchingPart[0];
-                    //console.log ("match found : "+matchingPart);
-                    result += matchingtext.replace(gp_fromregex[i], gp_to[i]);
-                } else {
-                    console.log("Match " + i + " not found");
-                }
-            }
+        var m = re_from[index].exec(html);
+        if (m && (m.length > 0)) {
+            var matchingtext = m[0];
+            result += matchingtext.replace(re_from[index], gp_to[index]);
+        } else {
+            console.log("Match " + index + " not found");
         }
         
         if (result !== "") {
@@ -55,20 +42,19 @@ GRP.getpart = function(prefs, langs, myport){
     }
     
     function dogetpart(el, entry, mode, force){
-        var link = getEntryLink(entry);
-        // console.log ("entry link : "+link.url);
+        var index = -1, regex, link = getEntryLink(entry);
         if (link && prefs.getpart_link) {
-            var matched = false;
-			for (var i=0,  len=gp_links.length; i<len; i++){	
-                // console.log("testing : "+gp_links[i]);
-                re = new RegExp(gp_links[i]);
-                if (re.test(link.url)) {
-                    matched = true;
-					continue;
-                    // console.log ("link match : "+link.title);
+            for (var i = 0, len = gp_links.length; i < len; i++) {
+                if (gp_links[i]) {
+                    console.log(link.url);
+					console.log(gp_links[i]);
+					if (re_links[i].test(link.url)) {
+                        index = i;
+                        break;
+                    }
                 }
             }
-            if (matched) {
+            if (index >= 0) {
                 var body = getFirstElementMatchingClassName(entry, 'div', 'entry-body');
                 var entryBody = getEntryBody(body);
                 
@@ -78,14 +64,16 @@ GRP.getpart = function(prefs, langs, myport){
                 partresult.id = "getpart_result_" + partIndex;
                 partresult.innerHTML = "Loading ...";
                 body.appendChild(partresult);
+				var ii=index, pr=partresult, pi = partIndex;
                 GM_xmlhttpRequest(
                 {
                     url: link.url,
                     method: "GET",
-                    partindex: partIndex,
-                    onload: replaceItem
+                    //partindex: partIndex,
+                    onload: function(res, req){
+						replaceItem(res.responseText, ii, pr, pi);
+                    }
                 });
-                // console.log ("sent request.");
             }
         }
     }

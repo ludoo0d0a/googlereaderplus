@@ -11,10 +11,10 @@
         </script>
         <script type="application/javascript" src="features.js">
         </script>
-		<script type="application/javascript" src="lib/i18n.js">
+        <script type="application/javascript" src="lib/i18n.js">
         </script>
         <script type="application/javascript">
-			//(function(){
+            //(function(){
             var lang = 'en', prefs = {}, gshortcuts = {}, myport;
             function init(){
                 GRP.setVersion("Version: ");
@@ -63,8 +63,8 @@
             function initprefs(){
                 //first i18n
                 getLanguage(function(){
-					createScripts();
-					translatePage(lang);
+                    createScripts();
+                    translatePage(lang);
                     createSkins();
                     infoNavigator();
                     displayprefs();
@@ -167,18 +167,18 @@
             function getLanguage(cb){
                 lang = prefs.language_lang || 'en';
                 //lang = (GRP.langs && GRP.langs[lang]) ? lang : 'en';
-
+                
                 //TODO: load json here instead evald js
                 GM_addScript('lang/' + lang + '/features.js', true, function(){
                     GM_addScript('lang/' + lang + '/langs.js', true, function(){
-						//override locale texts
-	                    if (GRP.langs) {
-	                        merge(GRP, GRP.langs[lang]);
-	                    }
-	                    if (cb) {
-	                        cb.call(this);
-	                    }
-					}, true);
+                        //override locale texts
+                        if (GRP.langs) {
+                            merge(GRP, GRP.langs[lang]);
+                        }
+                        if (cb) {
+                            cb.call(this);
+                        }
+                    }, true);
                 }, true);
             }
             
@@ -606,7 +606,7 @@
                         <select name="language_lang" id="language_lang" title="your language setting">
                             <option value="en">English </option>
                             <option value="fr">Français</option>
-							<!--<option value="zh">(Chinese)</option>-->
+                            <!--<option value="zh">(Chinese)</option>-->
                         </select>
                         <input type="button" name="Submit" value="Save" onClick="saveprefs();">
                     </div>
@@ -623,7 +623,8 @@
                         </div>
                         <div id="panel_column" style="display:none;">
                             <div class="body">
-                                <span id="t_column_count">Columns number</span> : <input id="column_count" name="column_count" type="text" value="3" size="2"/>
+                                <span id="t_column_count">Columns number</span>
+                                : <input id="column_count" name="column_count" type="text" value="3" size="2"/>
                                 <br/>
                                 <!--
                                 Maximum columns  : <input id="column_maxcolumns" name="column_maxcolumns" type="text" value="6" size="2"/>
@@ -640,7 +641,8 @@
                         </div>
                         <div id="panel_twitter" style="display:none;">
                             <div class="body">
-                                <span id="t_twitter_shortener">Shortener</span> : 
+                                <span id="t_twitter_shortener">Shortener</span>
+                                : 
                                 <select name="twitter_shortener" id="twitter_shortener" title="your prefered shortener">
                                     <option value="tinyurl">TinyUrl </option>
                                     <option value="bitly">BitLy</option>
@@ -701,16 +703,16 @@
                         </div>
                         <div id="panel_removeads" style="display:none;">
                             <div class="body">
-                                <span id='t_removeads_linkf'>Link filter</span> : 
-                                <textarea name="removeads_links" cols="70" rows="4">
+                                <span id='t_removeads_linkf'>Link filter</span>:<br/>
+                                <textarea name="removeads_links" id="removeads_links" cols="70" rows="4">
                                 </textarea>
                                 <br/>
-                                <span id='t_removeads_imgf'>Image filter</span> : 
-                                <textarea name="removeads_images" cols="70" rows="4">
+                                <span id='t_removeads_imgf'>Image filter</span>:<br/>
+                                <textarea name="removeads_images" id="removeads_images" cols="70" rows="4">
                                 </textarea>
                                 <br/>
-                                <span id='t_removeads_ifrf'>iframe filter</span> : 
-                                <textarea name="removeads_iframes" cols="70" rows="4">
+                                <span id='t_removeads_ifrf'>iframe filter</span>:<br/> 
+                                <textarea name="removeads_iframes" id="removeads_iframes" cols="70" rows="4">
                                 </textarea>
                             </div>
                         </div>
@@ -749,7 +751,7 @@
                                     Show favicons in sidebar only
                                 </label>
                                 <br/>
-                                <p id="t_favicons_custom" >
+                                <p id="t_favicons_custom">
                                     Enter your custom favicons :
                                 </p>
                                 <div id="crud_domains">
@@ -771,18 +773,18 @@
                         </div>
                         <div id="panel_getpart" style="display:none;">
                             <div class="body">
-                                <span id='t_getpart_lr'>Link Regex</span>
-                                <br/>
-                                <textarea name="getpart_link" cols="33%" rows="10">
+                                <span id='t_getpart_lr'>Link Regex</span>:<br/>
+                                <textarea name="getpart_link" id="getpart_link" cols="70" rows="10">
                                 </textarea>
-                                <span id='t_getpart_sr'>Search regex</span>
                                 <br/>
-                                <textarea name="getpart_from" cols="33%" rows="10">
+                                <span id='t_getpart_sr'>Search regex</span>:<br/>
+                                <textarea name="getpart_from" id="getpart_from" cols="70" rows="10">
                                 </textarea>
-                                <span id='t_getpart_to'>Replace</span>
                                 <br/>
-                                <textarea name="getpart_to" cols="33%" rows="10">
+                                <span id='t_getpart_to'>Replace</span>:<br/>
+                                <textarea name="getpart_to" id="getpart_to" cols="70" rows="10">
                                 </textarea>
+                                <br/>
                             </div>
                         </div>
                         <div id="panel_pack" style="display:none;">
@@ -900,8 +902,5 @@
                 </div>
             </div>
         </form>
-<script type="application/javascript">
-	//getAllTexts();
-</script>
     </body>
 </html>
