@@ -3,7 +3,7 @@
  */
 function initCatchEntries(fn, bid, globalFn, oncollapsed){
     catchAllEntries(fn, bid, oncollapsed);
-	document.body.addEventListener('DOMNodeInserted', function(e){
+    document.body.addEventListener('DOMNodeInserted', function(e){
         catchEntryAdded(e, fn, bid, oncollapsed);
         if (globalFn) {
             globalFn.call(this);
@@ -22,16 +22,16 @@ function catchEntryAdded(e, fn, bid, oncollapsed){
         // Expanding article in list view
         catchEntry(el, fn, bid);
     } else if (el.tagName == "DIV" && hasClass(el, 'entry')) {
-		if (getFirstElementMatchingClassName(el, 'div', 'card-bottom')) {
+        if (getFirstElementMatchingClassName(el, 'div', 'card-bottom')) {
             // Adding article in expanded view
             //el = entry-actions on expanded view
             el = getFirstElementMatchingClassName(el, 'div', 'entry-actions');
             catchEntry(el, fn, bid);
-        }else if (oncollapsed){
-			//collapsed title
-			el=el.firstChild;//el then means nothing, just go down to find entry later 
-			catchEntry(el, fn, bid);
-		}
+        } else if (oncollapsed) {
+            //collapsed title
+            el = el.firstChild;//el then means nothing, just go down to find entry later 
+            catchEntry(el, fn, bid);
+        }
     }
 }
 
@@ -216,6 +216,11 @@ function jump(entry, dirtop){
     }
 }
 
+function getWidthEntries(){
+    var entries = document.getElementById('entries');
+    return entries.clientWidth;
+}
+
 function getHeightEntries(){
     var entries = document.getElementById('entries');
     //TODO: better computation if minimalistic skin (110??)
@@ -231,6 +236,14 @@ function getBody(entry){
         body = subbody;
     }
     return body;
+}
+
+function getEntryBody(body){
+    var entryBody = getFirstElementMatchingClassName(body, 'div', 'entry-enclosure');
+    if (!entryBody) {
+        entryBody = getFirstElementMatchingClassName(body, 'div', 'item-body');
+    }
+    return entryBody;
 }
 
 

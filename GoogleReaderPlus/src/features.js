@@ -326,11 +326,15 @@ GRP.scripts = [
     desc: "Replace entry with a part of the original page",
     options: 
     {
-        link: "http://feedproxy.google.com/~r/uclick/|http://www.gocomics.com/|http://feeds.gocomics.com/\nhttp://feedproxy.google.com/~r/uclick/|http://www.gocomics.com/|http://feeds.gocomics.com/",
+        link: 'http://feedproxy.google.com/~r/uclick/|http://www.gocomics.com/|http://feeds.gocomics.com/',
         from: "\"(http:\/\/imgsrv.gocomics.com\/dim\/[^\"]*)\"\n<H3>(Comments) \\(<SPAN id='comment_count_display'>([0-9]*)</SPAN>\\) <A href=\"[^\"]*\">Jump to Comments Form</a></h3>\\n *\\n *<ol id='commentList'>",
         to: "<img src='$1'><br>\nnb of $1: $2"
     }
 },
+/*
+        from: '<p\\Wclass="feature_item">.*src="([^"]*).*</p>',
+ */
+
 /*
 {
     id: "menu",
