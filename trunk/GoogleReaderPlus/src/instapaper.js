@@ -115,8 +115,10 @@ GRP.instapaper = function(prefs, langs){
 		/*
 		var username = GM_getValue('instapaper_username');
         var password = GM_getValue('instapaper_password');
+        */
         if (typeof username === "undefined" || username === '') {
-            username = prompt(SL.login);
+            alert(SL.nologin);
+			/*username = prompt(SL.login);
             username = username || '';
 			if (username===''){
 				return false;
@@ -125,7 +127,8 @@ GRP.instapaper = function(prefs, langs){
             password = password || '';
             GM_setValue('instapaper_username', username);
             GM_setValue('instapaper_password', password);
-        }*/
+            */
+        }
         
         return {
             username: username,
