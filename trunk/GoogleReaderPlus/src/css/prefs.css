@@ -2,12 +2,16 @@ body {
     background: #898989;
 }
 
-input {
-    margin: 5px;
-}
-
 h2 {
     margin: 0;
+	font-weight: bold;
+}
+.title h2 {
+    margin: 10px 0;
+}
+
+.subtitle {
+	font-weight: bold;
 }
 
 .hidden {
@@ -19,69 +23,71 @@ img {
 }
 
 /**
- * Rounded corners
+ * Pretty form
  */
-#colors_cc, #colors_ct {
-    height: 115px;
-    width: 108px;
-    -webkit-border-radius: 7px;
-    -webkit-box-shadow: 0px 0px 5px #729FCF;
-    padding: 7px 7px 7px 7px;
-    z-index: 9999;
-    font-family: Lucida grande, arial, sans-serif;
-    font-size: 13px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: normal;
-    background: #FFFFFF;
+#panels input, #panels textarea, #panels select{
+	border:0;
+	margin:3px;
+	padding:0px 3px;
+	font:90%/180% "Trebuchet MS", "Lucida Grande", "Bitstream Vera Sans", Arial, Helvetica, sans-serif;
+	color:#666666;
+
 }
 
-div.color_cc, div.color_ct {
-    height: 12px;
-    width: 12px;
-    border: 1px solid #000;
-    margin: 2px;
-    float: left;
-    cursor: pointer;
+label.lbl, .shortcut label{
+	float:left;
+	margin:5px;
+	width:130px;
+	display:block;
 }
+
+/*
+.clearAll{
+	clear:both;
+}
+*/
 
 /**
  * Skeleton
  */
 #main {
-    width: 1300px;
+    /*width: 1300px;*/
+	margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.fixednav {
+.container1 {
     float: left;
     height: 500px;
     width: 240px;
+	padding: 7px;
+    margin: 0 7px;
 }
 
-.fixednav .large {
+.container1 .large {
     margin-top: 5px;
 }
 
-.nav {
+.container2 {
     float: left;
     width: 220px;
 	/* height */
     height: 700px;
+	/*padding: 7px;*/
+    margin: 0 7px;
 }
 
-.nav a.item {
+.container2 a.item {
     margin-left: 20px;
     text-decoration: none;
 }
 
-.panel {
-    float: left;
-    /* height */
+.container3 {
+	margin: 0 80px 0 515px;
+	padding:7px;
 	min-height: 700px;
     min-width: 500px;
-	padding-left:30px !important;
 }
 
 .savetop {
@@ -126,6 +132,10 @@ ul.mnu, .mnu li {
 }
 .mnu.nav2 span.linkblock, .mnu.shortcut span, .mnu.pack span {
     display: block;
+}
+
+.mnu.pack {
+    width: 400px;
 }
 
 li a.link {
@@ -207,16 +217,10 @@ span.olink {
 /**
  * Panels
  */
-.menupanel {
+.rounded {
     background: #AFAFAF;
     -webkit-border-radius: 7px;
     -webkit-box-shadow: 0px 0px 5px #000000;
-    padding: 7px;
-    margin: 7px;
-}
-
-.menupanel:hover {
-    background: #BFBFBF;
 }
 
 .detail {
@@ -226,6 +230,7 @@ span.olink {
 
 .logo {
     text-align: center;
+	margin-bottom:10px;
 }
 
 .logo .txt {
@@ -283,6 +288,10 @@ div.warning {
 
 input.warning {
     background-color: #dd2222;
+}
+
+.shortcut {
+	margin-top:20px;
 }
 
 /**
