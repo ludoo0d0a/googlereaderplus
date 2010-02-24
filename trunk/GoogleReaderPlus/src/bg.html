@@ -165,7 +165,7 @@
             
             function parseTabtitle(tab, cb){
                 //Needs update data 
-                chrome.tabs.get(tab.id, function(){
+                chrome.tabs.get(tab.id, function(tab){
                     var title = tab.title;
                     var m = /\((\d+)\+?\)/.exec(title);
                     var text = (m) ? m[1] : '0';
