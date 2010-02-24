@@ -1,122 +1,19 @@
 <html>
     <head>
         <title>Reader Plus</title>
-        <style type="text/css">
-            
-            body {
-                font-family: arial, sans-serif;
-                font-size: 80%;
-                background: #898989;
-                color: #fff;
-            }
-            
-            body a, body a:visited {
-                color: #fff;
-                text-decoration: none;
-                border-bottom: 1px dotted #fff;
-            }
-            
-            body a:hover {
-                border-bottom: 1px solid #fff;
-            }
-            
-            img {
-                border: 0;
-            }
-            
-            h1 {
-                margin-top: 0;
-            }
-            
-            #optionsBox {
-                margin: 0 auto;
-                margin-top: 30px;
-                text-align: center;
-                width: 500px;
-            }
-            
-            #optionsBox img {
-                vertical-align: text-bottom;
-            }
-            
-            #optionsBox input {
-                margin-top: 5px;
-            }
-            
-            #save {
-                clear: both;
-                float: right;
-                margin: 0;
-                padding: 0;
-                text-align: right;
-                font-size: 70%;
-                font-weight: bold;
-            }
-            
-            span.field {
-                padding-top: 8px;
-                clear: both;
-                float: left;
-                text-align: right;
-                width: 80px;
-            }
-            
-            table {
-                border-width: 5px;
-                border-style: outset;
-                border-color: gray;
-                border-collapse: separate;
-                background-color: #fff;
-                color: #000;
-                font-size: 90%;
-                margin: 0 auto;
-                width: 100%;
-                position: relative;
-            }
-            
-            table a, table a:visited {
-                color: #000;
-                text-decoration: none;
-                border-bottom: 1px dotted #000;
-            }
-            
-            table a:hover {
-                border-bottom: 1px solid #000;
-            }
-            
-            table td {
-                border-width: 1px;
-                padding: 10px;
-                border-style: dashed;
-                border-color: #ccc;
-                background-color: white;
-            }
-            
-            td.left_column {
-                text-align: right;
-                width: 100px;
-            }
-            
-            form {
-                margin: 0 auto;
-                padding: 0;
-            }
-            
-            .top_right {
-                right: 15px;
-                top: 5px;
-                position: absolute;
-            }
-            
-            li, h4 {
-                font-size: 85%;
-            }
-        </style>
+        <link href="css/about.css" type="text/css" rel="stylesheet">
         <script type="application/javascript" src="version.js">
+        </script>
+		<script type="application/javascript" src="lib/util.js">
+        </script>
+		<script type="application/javascript" src="lib/greasekit.js">
+        </script>
+		<script type="application/javascript" src="lib/i18n.js">
         </script>
         <script type="application/javascript">
             window.onload = function(){
                 GRP.setVersion();
+				autoTranslate('about');
             };
         </script>
     </head>
@@ -124,11 +21,11 @@
         <div id="optionsBox">
             <h1>Google Reader Plus <span id='version'></span></h1>
             <table>
-                <tr>
+                <tr id="t_about_thanks1">
                     <td>
                         <span class="top_right"><img src="images/48.png"></span><h1>Thank you...</h1>
                         <p>
-                            ... for installing (or updating to) the latest version of <strong>Google Reader Plus</strong>!
+                            ... for installing (or updating to) the latest version of <strong>Reader Plus</strong>!
                         </p>
                         <p>
                             Make sure you check the <a href="preferences.html" title="Go to the preferences page"><strong>preferences page</strong></a>
@@ -144,7 +41,7 @@
                         </p>
                     </td>
                 </tr>
-                <tr>
+                <tr id="t_about_thanks2">
                     <td>
                         <p>
                             If you like this extension and want more features, feel free to make a donation.
@@ -160,14 +57,15 @@
                         <h2>Changelog</h2>
 						<h4>Version 2.9.0 - /02/2010</h4>
                         <ul>
-							<li>Change name and icon</li>
+							<li>Prefs page html/css improved</li>
 							<li>Bugfixes:</li>
 							<li> - #120 : theme minimal no more change on feed select (+specific w toggle shortcut key removed)</li>
 							<li> - #130 : theme portal getWidthEntries missing</li>
 							<li> - #135 : clear Instapaper credentials (now set it in prefs page)</li>
 							<li> - #137 : improved translations</li>
+							<li> - #138 : Change name and icon</li>
 							<li>Features:</li>
-							<li> - #133 : getpart - replace entry with part of original page</li>
+							<li> - #133 : replacer - replace entry with part of original page</li>
                         </ul>
 						<h4>Version 2.8.10 - 17/02/2010</h4>
                         <ul>
