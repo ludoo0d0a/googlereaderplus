@@ -7,9 +7,7 @@
  *
  */
 GRP.replacer = function(prefs, langs, myport){
-    var locked = false;
-    var partIndex = 0;
-	var TPL_NAME = "replacer_result_";
+    var locked = false, SL = langs.replacer,partIndex = 0,TPL_NAME = "replacer_result_";
     var gp_links, gp_from, gp_to, re_from = [], re_links = [];
     
     function initVars(){
@@ -39,7 +37,7 @@ GRP.replacer = function(prefs, langs, myport){
         if (result !== "") {
             el.innerHTML = result;
         } else {
-            el.innerHTML = "No match found.";
+            el.innerHTML = SL.nomatch;
         }
     }
     
@@ -67,7 +65,7 @@ GRP.replacer = function(prefs, langs, myport){
         var el = document.createElement('div');
         partIndex++;
         el.id = TPL_NAME + partIndex;
-        el.innerHTML = "Loading ...";
+        el.innerHTML = SL.loading;
         body.appendChild(el);
 		console.log('request '+partIndex+' - '+link.url);
 		GM_xmlhttpRequest(
