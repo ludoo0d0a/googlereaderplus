@@ -13,7 +13,7 @@ function autoTranslate(name){
 function translatePage(lang, name){
     var translations = (GRP.langs[lang]) ? GRP.langs[lang].prefs : false;
     if (translations) {
-		function replaceTexts(texts){
+		function replaceTexts(name, texts){
 			for (var key in texts) {
 				var id = 't_' + ((name === 'global') ? '' : (name + '_')) + key;
 				var el = document.getElementById(id);
@@ -29,11 +29,11 @@ function translatePage(lang, name){
 		}
         if (name){
 			var texts = translations[name];
-			replaceTexts(texts);
+			replaceTexts(name, texts);
 		}else{
 			for (var nam in translations) {
 				var texts = translations[nam];
-				replaceTexts(texts);
+				replaceTexts(nam, texts);
 			}
 		}
     }
