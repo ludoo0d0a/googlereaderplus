@@ -448,8 +448,8 @@
                 xhr.open(a.method || 'get', url, true);
                 //headers
                 if (a.headers) {
-                    for (var k in a.headers) {
-                        xhr.setRequestHeader(k, a.headers[k]);
+                    for (var kh in a.headers) {
+                        xhr.setRequestHeader(kh, a.headers[kh]);
                     }
                 }
                 //a['onload']=true;//force onload
@@ -472,7 +472,8 @@
                                         responseText: xhr.responseText,
                                         responseHeaders: xhr.responseHeaders,
                                         status: xhr.status,
-                                        statusText: xhr.statusText
+                                        statusText: xhr.statusText,
+										request:a
                                     });
                                 }
                             }
