@@ -87,20 +87,20 @@ if (typeof GM_xmlhttpRequest === "undefined") {
             throw ("GM_xmlhttpRequest requires an URL.");
         }
         var om = o;
-        accessSecure("request", o, function(a){
+        accessSecure("request", om, function(a){
             if (a.message === (om.callback || "requestdone")) {
                 if (a.action === "load") {
                     if (typeof om.onload == "function") {
-                        om.onload(a, om);
+                        om.onload(a, a.request);
                     }
                 } else if (a.action === "readystatechange") {
                     if (typeof om.onreadystatechange == "function") {
-                        om.onreadystatechange(a, om);
+                        om.onreadystatechange(a, a.request);
                     }
                 } else if (a.action === "error") {
                     GM_log('error: ' + a.responseText);
                     if (typeof om.onerror == "function") {
-                        om.onerror(a, om);
+                        om.onerror(a, a.request);
                     }
                 }
             }
