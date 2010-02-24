@@ -66,22 +66,13 @@ function getFirstElementMatchingClassName(root, tag, clazz){
 
 function getLastElementMatchingClassName(root, tag, clazz){
     var elements = root.getElementsByTagName(tag);
-    var i = 0, j = 0;
-    while (elements[i]) {
-        if (hasClass(elements[i], clazz)) {
-            j = i;
-        }
-        i++;
+    var i = elements.length, j = 0;
+    while (i >= 0 && elements[i] && !hasClass(elements[i], clazz)) {
+        i--;
     }
-    return ((!elements[j]) ? null : (elements[j]));
+    return ((i < 0 || !elements[i]) ? null : (elements[i]));
 }
 
-/*
- * function getElementsByClassName(root, tag, class) { var elements =
- * root.getElementsByTagName(tag); var results = new Array(); for ( var i = 0; i <
- * elements.length; i++) { if (elements[i].className.indexOf(class) > -1) {
- * results.push(elements[i]); } } return (results); }
- */
 function getElementsByClazzName(clazz, itag, ielm){
     var tag = itag || "*";
     var elm = ielm || document;
@@ -195,10 +186,10 @@ function isArray(obj){
  * @return
  */
 function initKey(keys){
-	document.addEventListener('keydown', function(e){
-		var target = e.target;
-		var tag = target.tagName;
-		//console.log('keydown on '+tag+'.'+(tag.className||''));
+    document.addEventListener('keydown', function(e){
+        var target = e.target;
+        var tag = target.tagName;
+        //console.log('keydown on '+tag+'.'+(tag.className||''));
         if (tag !== 'INPUT' && tag !== 'SELECT' && tag !== 'TEXTAREA') {
             if (!isArray(keys)) {
                 keys = [keys];
@@ -209,17 +200,19 @@ function initKey(keys){
                 ((k.shiftKey && e.shiftKey) || (!k.shiftKey && !e.shiftKey)) &&
                 ((k.ctrlKey && e.ctrlKey) || (!k.ctrlKey && !e.ctrlKey)) &&
                 ((k.altKey && e.altKey) || (!k.altKey && !e.altKey))) {
-					e.preventDefault();
-					//e.stopPropagation();
-					//k.fn(e);
-					if (!target.locked) {
-						//console.log('run fn for keyCode='+k.keyCode);
-						k.fn(e);
-						target.locked = true;
-						window.setTimeout(function(){target.locked = false;},300);
-					}else{
-						console.log('LOCK run fn for keyCode='+k.keyCode);
-					}
+                    e.preventDefault();
+                    //e.stopPropagation();
+                    //k.fn(e);
+                    if (!target.locked) {
+                        //console.log('run fn for keyCode='+k.keyCode);
+                        k.fn(e);
+                        target.locked = true;
+                        window.setTimeout(function(){
+                            target.locked = false;
+                        }, 300);
+                    } else {
+                        console.log('LOCK run fn for keyCode=' + k.keyCode);
+                    }
                     break;
                 }
             }
@@ -614,7 +607,19 @@ function applyRemoteLang(lang, base, id, o, fn, scope){
 
 //http://snipplr.com/view/9649/escape-regular-expression-characters-in-string/
 //http://simonwillison.net/2006/Jan/20/escape/
-function encodeRE(s) { 
-	var specials = new RegExp("[.*+?|()\\[\\]{}\\\\]", "g"); // .*+?|()[]{}\
-  	return s.replace(specials, "\\$&").replace(' ', '\\W');
+function encodeRE(s){
+    var specials = new RegExp("[.*+?|()\\[\\]{}\\\\]", "g"); // .*+?|()[]{}\
+    return s.replace(specials, "\\$&").replace(' ', '\\W');
+}
+
+function urlDecode(string){
+    var obj = {}, pairs = string.split('&'), d = decodeURIComponent, name, value;
+    for (var i = 0, len = pairs.length; i < len; i++) {
+        var pair = pairs[i];
+        pair = pair.split('=');
+        name = d(pair[0]);
+        value = d(pair[1]);
+        obj[name] = !obj[name] ? value : [].concat(obj[name]).concat(value);
+    }
+    return obj;
 }
