@@ -41,18 +41,11 @@ label.lbl, .shortcut label{
 	display:block;
 }
 
-/*
-.clearAll{
-	clear:both;
-}
-*/
-
 /**
  * Skeleton
  */
 #main {
-    /*width: 1300px;*/
-	margin-top: 10px;
+	margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -161,7 +154,8 @@ li a.link {
 }
 
 .mnu.nav2 li a, .mnu.pack li a {
-    padding-left: .7em;
+    /*padding-left: .7em;*/
+	padding: .2em 0 .2em 2px;
 }
 
 .mnu.navskin {
@@ -253,7 +247,8 @@ span.olink {
     color: #EFEFEF;
     background-color: #1A8F2A;
     height: 16px;
-    margin-top: 5px;
+    margin: 15px;
+	padding: 5px;
 }
 
 /**
