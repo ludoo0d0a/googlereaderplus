@@ -81,7 +81,8 @@ GRP.langs.fr.texts =
         plslogin: 'Merci de vous connecter Instapaper',
         login: 'Email ou nom d\'utilisateur:',
         password: 'Mot de passe, si vous en avez un:',
-        wronglogin: 'Mauvais mot de passe ou nom d\'utilisateur, merci de réessayer!!',
+        wronglogin: 'Mauvais mot de passe ou nom d\'utilisateur, merci de vérifier!!',
+		nologin: 'Instapaper a besoin d\'un nom d\'utilisateur, merci de le renseigner dans la page des préférences!!',
         error: 'Ce service a rencontré une erreur. merci de réessayer plus tard.',
         badrequest: 'Mauvaise requête. Il manque surement un paramètre comme l\'url.',
         saving: 'Sauvegarde',
@@ -141,7 +142,11 @@ GRP.langs.fr.texts =
         addtag: 'Ajouter un tag',
         on: 'ReadByMouse activé',
         off: 'ReadByMouse arrêté'
-    }
+    },
+	replacer:{
+		nomatch:'Pas de résultat.',
+		loading:'Chargement...'
+	}
 };
 
 GRP.langs.fr.prefs = 
@@ -170,7 +175,8 @@ GRP.langs.fr.prefs =
         "about": "<span>A propos</span>A propos, remerciements,...",
         "site": "<span>Site web</span>Mon site web",
         "twitter": "<span><img width=\"61\" height=\"23\" src=\"http://twitter-badges.s3.amazonaws.com/twitter-a.png\" alt=\"Suivez ludoo0d0a sur Twitter\"></span>Suivez les mises à jours",
-		"donate":'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=FR&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/fr_FR/i/btn/btn_donate_SM.gif" width="108" height="21"></span>Offrez moi un café!</a>'
+		"donate":'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=FR&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/fr_FR/i/btn/btn_donate_SM.gif" width="108" height="21"></span>Offrez moi un café!</a>',
+		"translate":'<span>Traduction</span>Aidez moi à traduire</a>'
     },
     "column": 
     {
