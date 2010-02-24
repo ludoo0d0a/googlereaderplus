@@ -81,7 +81,8 @@ GRP.langs.en.texts =
         plslogin: 'Please login to Instapaper',
         login: 'Email or username:',
         password: 'Password, if you have one:',
-        wronglogin: 'Wrong username or password, please retry!!',
+        wronglogin: 'Wrong username or password, please check it!!',
+		nologin: 'Instapaper needs a username, please set preferences!!',
         error: 'The service encountered an error. Please try again later.',
         badrequest: 'Bad request. Probably missing a required parameter, such as url.',
         saving: 'Saving',
@@ -141,8 +142,11 @@ GRP.langs.en.texts =
         addtag: 'Add a Tag',
         on: 'ReadByMouse On',
         off: 'ReadByMouse Off'
-    }
-
+    },
+	replacer:{
+		nomatch:'No match found.',
+		loading:'Loading ...'
+	}
 };
 
 GRP.langs.en.prefs = 
@@ -171,7 +175,8 @@ GRP.langs.en.prefs =
         "about": "<span>About</span>About, thanks,...",
         "site": "<span>Website</span>My personal website",
         "twitter": "<span><img width=\"160\" height=\"27\" src=\"http://twitter-badges.s3.amazonaws.com/follow_me-a.png\" alt=\"Follow ludoo0d0a on Twitter\"></span>Follow news and updates",
-		"donate":'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=US&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></span>Offer me a coffee!</a>'
+		"donate":'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=US&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></span>Offer me a coffee!</a>',
+		"translate":'<span>Translation</span>Help me to translate</a>'
     },
     "column": 
     {
