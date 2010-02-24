@@ -5,7 +5,6 @@ GRP.scripts = [
 {
     id: "icon",
     name: "Icon",
-    desc: "Add an icon in the toolbar of Chrome",
     options: 
     {
         counter: true,
@@ -15,27 +14,14 @@ GRP.scripts = [
 {
     id: "theme",
     name: "Theme",
-    desc: "Change the look of GoogleReader",
     options: 
     {
         skin: ''
     }
 }, 
-/*
-{
-    id: "language",
-    name: "Language",
-    desc: "Change the language for this extension",
-    options: 
-    {
-        lang: 'en'
-    }
-}, 
-*/
 {
     id: "favicons",
     name: "Favicons",
-    desc: "Display favicons for every feed",
     options: 
     {
         sidebaronly:false,
@@ -45,28 +31,23 @@ GRP.scripts = [
 }, 
 {
     id: "unreadcount",
-    name: "Show all unread count",
-    desc: "Show all feeds unread count"
+    name: "Show all unread count"
 }, 
 {
     id: "fixlayout",
-    name: "Fix layout",
-    desc: "Fix different layout bugs style like full width for entry, fix missing pictures in enclosures, and make big images fit the screen"
+    name: "Fix layout"
 }, 
 {
     id: "count",
-    name: "Fix counter (1000+)",
-    desc: "Display real unread count"
+    name: "Fix counter (1000+)"
 }, 
 {
     id: "counticon",
-    name: "Icon counter",
-    desc: "Dislay unread count in the Google Reader favicon"
+    name: "Icon counter"
 }, 
 {
     id: "removeads",
     name: "Remove ads",
-    desc: "Simple advertising blocker",
     options: 
     {
         links: "da\.feedsportal\.com|res\.feedsportal\.com|doubleclick\.net|/ads",
@@ -77,7 +58,6 @@ GRP.scripts = [
 {
     id: "column",
     name: "Text multi columns",
-    desc: "Add a button to display news as a newspaper in multi columns",
     options: 
     {
         locked: false,
@@ -103,7 +83,6 @@ GRP.scripts = [
 {
     id: "preview",
     name: "Integrated preview",
-    desc: "Add a button to show entire original page instead the entry",
     options: 
     {
         locked: false,
@@ -126,24 +105,19 @@ GRP.scripts = [
 }, 
 {
     id: "colorful",
-    name: "Colorful listview",
-    desc: "Use a background color for a same feed"
+    name: "Colorful listview"
 }, 
 {
     id: "filter",
-    name: "Filter entries",
-    desc: "Filter entries by removing or highligting items based on user terms"
+    name: "Filter entries"
 }, 
 {
     id: "readbymouse",
-    name: "Read by mouse",
-    desc: "Middle click not available on Windows",
-    desc: "Next/previous item using right/left mouse click"
+    name: "Read by mouse"
 }, 
 {
     id: "facebook",
     name: "Facebook integration",
-    desc: "Add a button to share news using Facebook",
     shortcuts: 
     {
         'gofacebook': 
@@ -161,7 +135,6 @@ GRP.scripts = [
 {
     id: "twitter",
     name: "Twitter integration",
-    desc: "Add a button to share news using Twitter",
 	options: 
     {
         shortener: 'tinyurl'
@@ -183,7 +156,6 @@ GRP.scripts = [
 {
     id: "instapaper",
     name: "Instapaper integration",
-    desc: "Add a button to read news later using Instapaper",
     options: 
     {
         username: '',
@@ -206,8 +178,6 @@ GRP.scripts = [
 {
     id: "mark",
     name: "Mark As Read",
-    desc: "Mark items before/after current as read",
-    //shortcut: "before: w ; after: x",
     shortcuts: 
     {
         'markprev': 
@@ -235,8 +205,6 @@ GRP.scripts = [
 {
     id: "jump",
     name: "Add top/bottom links",
-    desc: "Add a 'goto bottom' icon on top entry and a 'goto top' on bottom entry",
-    //shortcut: "shift+T: goto top ; shift+B : goto bottom",
     shortcuts: 
     {
         'goup': 
@@ -266,7 +234,6 @@ GRP.scripts = [
 {
     id: "fitheight",
     name: "Fit height",
-    desc: "Fit height of the current news to the screen height (for long articles)",
     shortcuts: 
     {
         'fit': 
@@ -284,8 +251,6 @@ GRP.scripts = [
 {
     id: "closeentry",
     name: "Close entry",
-    desc: "Add a 'close' button on each entry to remove it",
-    //shortcut: "x",
     shortcuts: 
     {
         'close': 
@@ -304,8 +269,6 @@ GRP.scripts = [
 {
     id: "openbackground",
     name: "Open in background",
-    desc: "Add a 'open in background' button on each entry",
-    //shortcut: "shift + V : open in background tab",
     shortcuts: 
     {
         'openback': 
@@ -321,9 +284,8 @@ GRP.scripts = [
     }
 }, 
 {
-    id: "getpart",
-    name: "Entry replacer",
-    desc: "Replace entry with a part of the original page",
+    id: "replacer",
+    name: "Replacer",
     options: 
     {
         link: 'http://feedproxy.google.com/~r/uclick/|http://www.gocomics.com/|http://feeds.gocomics.com/',
@@ -332,10 +294,6 @@ GRP.scripts = [
     }
 },
 /*
-        from: '<p\\Wclass="feature_item">.*src="([^"]*).*</p>',
- */
-
-/*
 {
     id: "menu",
     name: "Intuitive menu",
@@ -343,50 +301,38 @@ GRP.scripts = [
 }, */
 {
     id: "aero",
-    name: "Google Aero Toolbar",
-    desc: "Toolbar using Aero theme"
+    name: "Google Aero Toolbar"
 }, 
 {
     id: "info",
     name: "SysInfo",
-    desc: "System information",
     link: true
 }, 
-/*{
- id: "readershortcuts",
- name: "Keyboard shortcuts",
- desc: "Original keyboard shortcuts",
- url: 'http://www.google.com/support/reader/bin/answer.py?hl=en&answer=69973',
- link: true
- }, */
 {
     id: "extshortcuts",
     name: "Shortcuts",
-    desc: "Keyboard shortcuts",
     link: true
 }, 
 {
     id: "pack",
     name: "Packages",
-    desc: "Predefined configuration packages",
     link: true
 
 }, 
 {
     id: "thanks",
     name: "Thanks",
-    desc: "",
     link: true
 
-}, 
-{
+}
+/*,{
     id: "about",
     name: "About",
-    desc: "About ReaderPlus",
     url: 'about.html',
     link: true
 
-}];
+}*/
+];
 
 GRP.packages = 
 {
