@@ -84,7 +84,8 @@ GRP.langs.fr.texts =
         wronglogin: 'Mauvais mot de passe ou nom d\'utilisateur, merci de réessayer!!',
         error: 'Ce service a rencontré une erreur. merci de réessayer plus tard.',
         badrequest: 'Mauvaise requête. Il manque surement un paramètre comme l\'url.',
-        saving: 'Sauvegarde'
+        saving: 'Sauvegarde',
+		shortcut_readitlater: 'Lire plus tard avec Instapaper'
     },
     favicons: 
     {
@@ -147,8 +148,20 @@ GRP.langs.fr.prefs =
 {
     "global": 
     {
-        "title": "Mon Reader Plus"
+        "title": "Reader Plus",
+		"val-save":"Sauver"
     },
+	"about":{
+		"thanks1":'<td><span class="top_right"><img src="images/48.png"></span><h1>Merci...</h1>'+
+'<p>... d\'avoir installé (ou mis à jour) la dernière version de <strong>Reader Plus</strong>!</p>'+
+'<p>Vérifiez bien que vous avez configuré votre extension dans la <a href="preferences.html" title="Aller à la page des préférences"><strong>page des préférences</strong></a>.</p>'+
+'<p><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong>Visitez la galerie des Extensions Google Chrome!</strong></a></p>'+
+'<p><a href="http://www.twitter.com/ludoo0d0a"><img width=\"61\" height=\"23\" src=\"http://twitter-badges.s3.amazonaws.com/twitter-a.png\" alt=\"Suivez ludoo0d0a sur Twitter\"></a></p>'+
+'<p></p></td>',
+		"thanks2":'<td><p>Si vous appréciez cette extension ou que vous avez des idées pour de nouvelles fonctionnalités, n\'hésitez pas à m\'en parler.</p>'+
+		'<p>Vous pouvez également me faire un don, de sorte que je puisse m\'acheter une cargaison de café pour tenir le coup pour écrire le code :)</p>'+
+        '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=FR&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/fr_FR/i/btn/btn_donate_SM.gif" width="108" height="21"></span></a></td>'
+	},
     "link": 
     {
         "reader": "<span>Google Reader</span>Mon lecteur RSS",
@@ -156,82 +169,84 @@ GRP.langs.fr.prefs =
         "download": "<span>Télécharger</span>La galerie Google",
         "about": "<span>A propos</span>A propos, remerciements,...",
         "site": "<span>Site web</span>Mon site web",
-        "twitter": "<span><img width=\"61\" height=\"23\" src=\"http://twitter-badges.s3.amazonaws.com/twitter-a.png\" alt=\"Suivez ludoo0d0a sur Twitter\"></span>Suivez les mises à jours"
+        "twitter": "<span><img width=\"61\" height=\"23\" src=\"http://twitter-badges.s3.amazonaws.com/twitter-a.png\" alt=\"Suivez ludoo0d0a sur Twitter\"></span>Suivez les mises à jours",
+		"donate":'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=FR&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/fr_FR/i/btn/btn_donate_SM.gif" width="108" height="21"></span>Offrez moi un café!</a>'
     },
     "column": 
     {
-        "count": "Columns number",
-        "locked": "Feature 'Column' always actived by default",
-        "pagebreak": "Break long articles so long articles can be read page by page like a newspaper."
+        "count": "Nombre de colonnes",
+        "locked": "Option 'Colonne' toujours activée",
+        "pagebreak": "Ajouter des sauts de page dans les articles longs pour les lire page par page comme un journal."
     },
     "twitter": 
     {
-        "shortener": "Shortener",
-        "shortener_bitly": "BitLy configuration (optional):",
-        "shortener_login": "Login",
-        "shortener_apikey": "ApiKey",
-        "shortener_pwd": "Password"
+        "shortener": "Urls courtes",
+        "shortener_bitly": "Configuration pour BitLy (optionnel):",
+        "shortener_login": "Utilisateur",
+        "shortener_apikey": "Clé (ApiKey)",
+        "shortener_pwd": "Mot de passe"
     },
     "instapaper": 
     {
-        "auth": "Instapaper authentication (optional):"
+        "auth": "Authentification de Instapaper (optionnel):"
     },
     "colorful": 
     {
-        "tree": "Show label colors in the left navigation tree"
+        "tree": "Afficher les titres en couleurs dans l'arbre des sites à gauche"
     },
     "icon": 
     {
-        "counter": "Display unread counter in the toolbar icon",
-        "opendirect": "Click on icon will open GoogleReader",
-        "icontoolbar_add": "To add button with icon in toolbar, please <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">download and install it</a>.",
-        "icontoolbar_text": "<span>To make the button optional, we put him in an another extension as standalone,</span>                                    <br>                                    <span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b>Install</b> on the <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span>                                    <br>                                    <span>To remove the button, right click him and choose Disable.</span>"
+        "counter": "Afficher le compteur dans la barre d'outil",
+        "opendirect": "Cliquer sur l'icône pour ouvrir GoogleReader",
+        "icontoolbar_add": "Pour ajouter un bouton avec icône dans la barre d'outil, veuillez <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">télécharger et installer le bouton</a>.",
+        "icontoolbar_text": "<span>Afin de le rendre optionnel, nous fournissons le bouton sous forme d'une extension indépendante,</span><br><span>à installé en plus de ReaderPlus.</span><br><span>Pour ajouter le bouton, cliquer <b>Installer</b> sur la page <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">bouton pour ReaderPlus</a>.</span><br><span>Pour retirer le bouton, un clic droit et choisissez 'Désactiver'.</span>"
     },
     "removeads": 
     {
-        "linkf": "Link filter",
-        "imgf": "Image filter",
-        "ifrf": "iframe filter"
+        "linkf": "Liens:",
+        "imgf": "Images:",
+        "ifrf": "Iframes:"
     },
     "preview": 
     {
-        "onicon": "Show integrated preview when click on icon right after the title (if not checked, on title)",
-        "locked": "Feature 'Preview' always actived by default"
+        "onicon": "Utiliser un icone apres le titre pour afficher l'apercu (si non coché, l'apercu apparait lors du clic sur le titre)",
+        "locked": "Option 'Apercu' toujours activée"
     },
     "fitheight": 
     {
-        "locked": "Feature 'Fit height' always actived by default"
+        "locked": "Option 'Adapter hauteur' toujours activée"
     },
     "favicons": 
     {
-        "sidebaronly": "Show favicons in sidebar only",
-        "custom": "Enter your custom favicons :",
-        "add": "Add",
-        "tip": "Tip: You could add it easily using the contextual menu \"Get favicon\" of the left side bar",
-        "manual": "Manual favicons for all sites (not recommended ; slower)",
-        "parsing": "This will try to detect favicon by parsing each homepage"
+        "sidebaronly": "Afficher favicons in sidebar only",
+        "custom": "Saisissez vos propres favicons :",
+        "add": "Ajouter",
+        "tip": "Conseil: Vous pouvez également utiliser le menu contextuel \"Obtenir l'icône de ce site\" sur chaque site dans l'arbre de gauche",
+        "manual": "Favicons manuels pour tous les sites (non conseillé car relativement lent)",
+        "parsing": "Les icône sont obtenues en parcourant la page de chaque site."
     },
-    "getpart": 
+    "replacer": 
     {
-        "lr": "Link Regex",
-        "sr": "Search regex",
-        "to": "Replace"
+        "lr": "Sites:",
+        "sr": "Rechercher:",
+        "to": "Remplacer par:"
     },
     "pack": 
     {
-        "mini": "Package Mini",
-        "ludoo": "Package LudoO",
-        "full": "Package Full",
-        "reset": "Package Reset"
+        "mini": "<span>Paquetage Mini</span>Le minimum nécessaire",
+        "ludoo": "<span>Paquetage LudoO</span>Les meilleurs options en un clic",
+        "full": "<span>Paquetage Complet</span>Toutes les options activées",
+        "reset": "<span>Paquetage Reset</span>Remise à zéro de votre configuration"
     },
+	
     "extshortcuts": 
     {
-        "custom": "Your custom Shortcuts",
-        "official": "Google Reader official shortcuts"
+        "custom": "Vos propres raccourcis clavier",
+        "official": "Les raccourcis clavier officiels de Google Reader"
     },
     "thanks": 
     {
-        "donators": "Thanks to donators to contribute to this project",
-        "authors": "Thanks to authors of original scripts and skins (Greasemonkey and Stylish)"
+        "donators": "Merci aux généreux donateurs pour leurs contributions sur ce projet",
+        "authors": "Merci aux auteurs des scripts et skins originaux (Greasemonkey et Stylish)"
     }
 };

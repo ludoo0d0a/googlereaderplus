@@ -22,14 +22,6 @@ GRP.langs.en.scripts = [
     name: "Theme",
     desc: "Change the look of GoogleReader"
 }, 
-/*
-{
-    id: "language",
-    name: "Language",
-    desc: "Change the language for this extension"
- 
-}, 
-*/
 {
     id: "favicons",
     name: "Favicons",
@@ -127,9 +119,9 @@ GRP.langs.en.scripts = [
     desc: "Add a 'open in background' button on each entry"
 }, 
 {
-    id: "getpart",
+    id: "replacer",
     name: "Entry replacer",
-    desc: "Replace entry with a part of the original page"
+    desc: "Replace entry with a part of the original page. currently used to get comic strips from gocomics.com. <br/>Thanks to jolan78 for its original idea and script."
 },
 /*
 {

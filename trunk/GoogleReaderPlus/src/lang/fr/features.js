@@ -22,11 +22,6 @@ GRP.langs.fr.scripts = [
     name: "Theme",
     desc: "Changer l'apparence de GoogleReader"
 }, 
-/*{
-    id: "language",
-    name: "Language",
-    desc: "Changer la langue de l'extension"
-},*/ 
 {
     id: "favicons",
     name: "Favicons",
@@ -49,8 +44,8 @@ GRP.langs.fr.scripts = [
 }, 
 {
     id: "counticon",
-    name: "Compteur dans l\icône",
-    desc: "Afficher un compteur dans l\icône du site de Google Reader"
+    name: "Compteur dans l'icône",
+    desc: "Afficher un compteur dans l'icône du site de Google Reader"
 }, 
 {
     id: "removeads",
@@ -123,10 +118,10 @@ GRP.langs.fr.scripts = [
     desc: "Ouvrir en arrière plan un élément"
 }, 
 {
-    id: "getpart",
+    id: "replacer",
     name: "Remplacement",
-    desc: "Remplace un élément avec une partie de la page originale"
-},, 
+    desc: "Remplace un élément avec une partie de la page originale. Actuellement utilisé pour afficher les bandes dessinées de gocomics.com. Merci à jolan78 pour son idée originale et son script."
+},
 /*
 {
     id: "menu",

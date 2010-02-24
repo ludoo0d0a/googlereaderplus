@@ -84,7 +84,8 @@ GRP.langs.en.texts =
         wronglogin: 'Wrong username or password, please retry!!',
         error: 'The service encountered an error. Please try again later.',
         badrequest: 'Bad request. Probably missing a required parameter, such as url.',
-        saving: 'Saving'
+        saving: 'Saving',
+		shortcut_readitlater: 'Read Later with Instapaper'
     },
     favicons: 
     {
@@ -148,8 +149,20 @@ GRP.langs.en.prefs =
 {
     "global": 
     {
-        "title": "Reader Plus"
+        "title": "Reader Plus",
+		"val-save":"Save"
     },
+	"about":{
+		"thanks1":'<td><span class="top_right"><img src="images/48.png"></span><h1>Thank you...</h1>'+
+'<p>... for installing (or updating to) the latest version of <strong>Reader Plus</strong>!</p>'+
+'<p>Make sure you check the <a href="preferences.html" title="Go to the preferences page"><strong>preferences page</strong></a> for configuration of the extension.</p>'+
+'<p><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong>Visit the Google Chrome Extensions gallery page!</strong></a></p>'+
+'<p><a href="http://www.twitter.com/ludoo0d0a"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow me on Twitter"/></a></p>'+
+'<p></p></td>',
+		"thanks2":'<td><p>If you like this extension and want more features, feel free to make a donation.</p>'+
+		'<p>In this way, I could buy a truck of coffee so that i can stay awake to write all the code :)</p>'+
+        '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></a></td>'
+	},
     "link": 
     {
         "reader": "<span>Google Reader</span>Your RSS reader",
@@ -157,7 +170,8 @@ GRP.langs.en.prefs =
         "download": "<span>Google Extension</span>The place to download",
         "about": "<span>About</span>About, thanks,...",
         "site": "<span>Website</span>My personal website",
-        "twitter": "<span><img width=\"160\" height=\"27\" src=\"http://twitter-badges.s3.amazonaws.com/follow_me-a.png\" alt=\"Follow ludoo0d0a on Twitter\"></span>Follow news and updates"
+        "twitter": "<span><img width=\"160\" height=\"27\" src=\"http://twitter-badges.s3.amazonaws.com/follow_me-a.png\" alt=\"Follow ludoo0d0a on Twitter\"></span>Follow news and updates",
+		"donate":'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=US&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></span>Offer me a coffee!</a>'
     },
     "column": 
     {
@@ -190,9 +204,9 @@ GRP.langs.en.prefs =
     },
     "removeads": 
     {
-        "linkf": "Link filter",
-        "imgf": "Image filter",
-        "ifrf": "iframe filter"
+        "linkf": "Link filter:",
+        "imgf": "Image filter:",
+        "ifrf": "Iframe filter:"
     },
     "preview": 
     {
@@ -212,18 +226,18 @@ GRP.langs.en.prefs =
         "manual": "Manual favicons for all sites (not recommended ; slower)",
         "parsing": "This will try to detect favicon by parsing each homepage"
     },
-    "getpart": 
+    "replacer": 
     {
-        "lr": "Link Regex",
-        "sr": "Search regex",
-        "to": "Replace"
+        "lr": "Link Regex:",
+        "sr": "Search regex:",
+        "to": "Replace:"
     },
     "pack": 
     {
-        "mini": "Package Mini",
-        "ludoo": "Package LudoO",
-        "full": "Package Full",
-        "reset": "Package Reset"
+        "mini": "<span>Package Mini</span>The minimum for best reading",
+        "ludoo": "<span>Package LudoO</span>The best features in one click",
+        "full": "<span>Package Full</span>All features activated",
+        "reset": "<span>Package Reset</span>Reset your configuration"
     },
     "extshortcuts": 
     {
