@@ -1,36 +1,73 @@
 /*
  * Entries
  */
+var stackFeatures = [];
 function initCatchEntries(fn, bid, globalFn, oncollapsed){
-    catchAllEntries(fn, bid, oncollapsed);
+	var args = Array.prototype.slice.call(arguments);
+	var params = args.shift();
+	registerFeature(fn, params);
+}
+function registerFeature(fn, params){	
+	stackFeatures.push({
+		fn: fn,
+		params: params
+	});
+    if (params && params.globalFn) {
+        params.globalFn.call(this);
+    }
+}
+
+function execAll(el, entry, mode){
+	for (var i=0, len=stackFeatures.length; i<len; i++){
+		stackFeatures[i].fn.call(this, el, entry, mode);
+	}
+}
+	
+function monitorEntries(){
+	document.body.addEventListener('DOMNodeInserted', function(e){
+			catchEntryAdded(e.target, execAll);
+	 }, false);
+	catchAllEntries(execAll);
+}
+
+/*
+function initCatchEntries(fn, bid, globalFn, oncollapsed){
+    var end, start;
+	start = (new Date()).valueOf();
+	catchAllEntries(fn, bid, oncollapsed);
+	console.log('Time for ALL '+bid+' : '+((new Date()).valueOf()-start)+' ms');
+	
     document.body.addEventListener('DOMNodeInserted', function(e){
-        catchEntryAdded(e, fn, bid, oncollapsed);
+        start = (new Date()).valueOf();
+		catchEntryAdded(e, fn, bid, oncollapsed);
+		console.log('Time for 1 '+bid+' : '+((new Date()).valueOf()-start)+' ms');
         if (globalFn) {
             globalFn.call(this);
         }
     }, false);
-    
+	
     if (globalFn) {
         globalFn.call(this);
     }
 }
+*/
 
-function catchEntryAdded(e, fn, bid, oncollapsed){
-    var el = e.target;
+function catchEntryAdded(el, fn, params){
     //console.log(el.tagName + "." + el.className);
     if (el.tagName == "DIV" && hasClass(el, 'entry-actions')) {
-        // Expanding article in list view
-        catchEntry(el, fn, bid);
+        // *********** List view
+        catchEntry(el, fn, params);
     } else if (el.tagName == "DIV" && hasClass(el, 'entry')) {
-        if (getFirstElementMatchingClassName(el, 'div', 'card-bottom')) {
+        // *********** Expanded view
+		if (getFirstElementMatchingClassName(el, 'div', 'card-bottom')) {
             // Adding article in expanded view
             //el = entry-actions on expanded view
             el = getFirstElementMatchingClassName(el, 'div', 'entry-actions');
-            catchEntry(el, fn, bid);
-        } else if (oncollapsed) {
+            catchEntry(el, fn, params);
+        } else /*if (oncollapsed)*/ {
             //collapsed title
             el = el.firstChild;//el then means nothing, just go down to find entry later 
-            catchEntry(el, fn, bid);
+            catchEntry(el, fn, params);
         }
     }
 }
@@ -43,22 +80,19 @@ function forAllEntries(fn){
     }
 }
 
-function catchAllEntries(fn, bid, oncollapsed){
+function catchAllEntries(fn, params){
     forAllEntries(function(entry){
-        catchEntryAdded(
-        {
-            target: entry
-        }, fn, bid, oncollapsed);
+        catchEntryAdded(entry, fn, params);
     });
 }
 
-function catchEntry(el, fn, bid){
+function catchEntry(el, fn, params){
     var entry = findParentNode(el, 'div', 'entry');
     var mode = getMode(entry);
-    if (!hasClass(entry, bid)) {
-        addClass(entry, bid);
+    //if (!hasClass(entry, bid)) {
+    //    addClass(entry, bid);
         fn.call(this, el, entry, mode);
-    }
+    //}
 }
 
 /*

@@ -58,6 +58,8 @@
                     }
                 }
                 console.log("ReaderPlus is running with " + count + "/" + total + " features");
+				//Start entries monitoring 
+				monitorEntries();
             } else {
                 console.error("ReaderPlus failed to load any features!!");
             }
