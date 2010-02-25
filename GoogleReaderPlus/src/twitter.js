@@ -121,7 +121,7 @@ GRP.twitter = function(prefs, langs) {
 		var parent=entry;
 		
 		var header;
-		if (mode == "expanded") {
+		if (mode === "expanded") {
 			// parent = bookmarkStar.parentNode.parentNode.parentNode;
 			bookmarkStar.parentNode.parentNode.className = "card-actions";
 		} else {
@@ -307,7 +307,7 @@ GRP.twitter = function(prefs, langs) {
 		return len;
 	}
 
-	initCatchEntries(addTwitterButton, 'etwitter');
+	registerFeature(addTwitterButton, 'etwitter');
 	
 	var keycode = getShortcutKey('twitter', 'tweet', prefs); //68 d
 	keycode.fn = addKey;

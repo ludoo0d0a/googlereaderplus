@@ -58,7 +58,7 @@ GRP.replacer = function(prefs, langs, myport){
     }
     
     function replacePart(index, entry, link){
-        var body = getFirstElementMatchingClassName(entry, 'div', 'entry-body');
+        var body = getFirstElementByClassName(entry,  'entry-body');//div
         var entryBody = getEntryBody(body);
         
         entryBody.style.display = 'none';
@@ -82,5 +82,5 @@ GRP.replacer = function(prefs, langs, myport){
     
     
     initVars();
-    initCatchEntries(doreplacer, 'ereplacer');
+    registerFeature(doreplacer, 'ereplacer');
 };

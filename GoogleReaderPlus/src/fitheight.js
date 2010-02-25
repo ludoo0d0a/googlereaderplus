@@ -42,7 +42,7 @@ GRP.fitheight = function(prefs, langs){
 	css += ".fit-height-on .entry-likers{display:none;}";
 	GM_addStyle(css);
 	
-	initCatchEntries(addButton, 'efitheight');
+	registerFeature(addButton, 'efitheight');
 	var keycode = getShortcutKey('fitheight', 'fit', prefs); //70 f
 	keycode.fn = fitHeightKey;
 	initKey(keycode);
