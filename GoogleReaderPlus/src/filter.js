@@ -55,11 +55,8 @@ GRP.filter = function(prefs, langs){
         initInterface();
         
         setRegExps();
-        
-        if (_excludes.length || _highlights.length) {
-            registerFeature(filterEntries, 'efilter');
-            //document.body.addEventListener("DOMNodeInserted", filterEntries, false);
-        }
+		
+        registerFeature(filterEntries, 'efilter', {onlistviewtitle: true});
     }
     
     var _rxExcludes, _rxHighlights;
@@ -103,7 +100,7 @@ GRP.filter = function(prefs, langs){
     }
     
     function initInterface(){
-        GM_addStyle(".filter-settings-button,.filter-settings-window *,.filter-settings-entry-window *{font-family:verdana;font-size:11px;color:#000;} .filter-settings-window textarea,.filter-settings-entry-window input[type=text]{font-family:'courier new';border:1px solid #669CB9;} .filter-settings-button{cursor:pointer;background-color:#ADCBDA;padding:4px;position:absolute;top:30px;right:10px;z-index:1000;} .filter-settings-button:hover{background-color:#B46B8F;} .filter-settings-window{background-color:#ADCBDA;border:1px solid #669CB9;padding:4px;position:absolute;top:30px;right:10px;z-index:1000;} .filter-settings-window label.ta{float:left;width:250px;} .filter-settings-window textarea{height:300px;width:250px;} .filter-settings-entry-window{width:300px;background-color:#ADCBDA;border:1px solid #669CB9;font-size:11px;padding:4px;position:fixed;top:30px;right:10px;z-index:1000;} .filter-settings-entry-window input[type=text]{width:300px;} .filter-settings-window button,.filter-settings-entry-window button{margin-top:5px;margin-right:5px;background-color:#669CB9;color:#fff;font-size:11px;border:1px solid #000;}  .entry-filtered div.card-content *{color:#BCBCBC!important;} .entry-filtered:hover div.card-content *{color:#6A6A6A!important;} .entry-highlighted div.card-content{background-color:#E6EFCF!important;} .entry-highlighted div.card-content *{color:#000!important;background-color:#E6EFCF;} .entry-duplicate *{color:#C7D0D8!important;} .filter-configure-entry{background-color:#daa;color:#fff;padding:2px;cursor:pointer;position:absolute;top:0;right:90px};.entry-hidden{display:none;}");
+        GM_addStyle(".filter-settings-button,.filter-settings-window *,.filter-settings-entry-window *{font-family:verdana;font-size:11px;color:#000;} .filter-settings-window textarea,.filter-settings-entry-window input[type=text]{font-family:'courier new';border:1px solid #669CB9;} .filter-settings-button{cursor:pointer;background-color:#ADCBDA;padding:4px;position:absolute;top:30px;right:10px;z-index:1000;} .filter-settings-button:hover{background-color:#B46B8F;} .filter-settings-window{background-color:#ADCBDA;border:1px solid #669CB9;padding:4px;position:absolute;top:30px;right:10px;z-index:1000;} .filter-settings-window label.ta{float:left;width:250px;} .filter-settings-window textarea{height:300px;width:250px;} .filter-settings-entry-window{width:300px;background-color:#ADCBDA;border:1px solid #669CB9;font-size:11px;padding:4px;position:fixed;top:30px;right:10px;z-index:1000;} .filter-settings-entry-window input[type=text]{width:300px;} .filter-settings-window button,.filter-settings-entry-window button{margin-top:5px;margin-right:5px;background-color:#669CB9;color:#fff;font-size:11px;border:1px solid #000;}.entry-filtered .card-content *, .entry-filtered .collapsed *{color:#BCBCBC!important;} .entry-filtered:hover .card-content *, .entry-filtered:hover .collapsed *{color:#6A6A6A!important;} .entry-highlighted .card-content, .entry-highlighted .collapsed{background-color:#E6EFCF!important;} .entry-highlighted .card-content *, .entry-highlighted .collapsed *{color:#000!important;background-color:#E6EFCF;} .entry-duplicate *{color:#C7D0D8!important;} .filter-configure-entry{background-color:#daa;color:#fff;padding:2px;cursor:pointer;position:absolute;top:0;right:90px};.entry-hidden{display:none;}");
         
         var div = document.createElement("div");
         div.innerHTML = SL.settings;
@@ -258,22 +255,6 @@ GRP.filter = function(prefs, langs){
             
             var  excludesButton = createButton(settingsForEntry, 'btn-exclude', SL.exclude, input, true);
 			var  highlightButton = createButton(settingsForEntry, 'btn-highlight',SL.highlight, input, false);
-			/*
-			var  excludesRadio = createRadio(settingsForEntry, 'radio-exclude', SL.exclude, 1, true);
-            var  highlightRadio =createRadio(settingsForEntry, 'radio-highlight',SL.highlight,  2, false);
-            settingsForEntry.appendChild(document.createElement("br"));
-            
-            var update = document.createElement("button");
-            update.textContent = SL.add;
-            update.addEventListener("click", function(){
-                var coll;
-                coll = highlightRadio.checked ? _highlights : _excludes;
-                coll.push(input.value);
-                saveCollections();
-                settingsForEntry.style.display = "none";
-            }, false);
-            settingsForEntry.appendChild(update);
-            */
 			
             var close = document.createElement("button");
             close.textContent = SL.close;
@@ -341,8 +322,8 @@ GRP.filter = function(prefs, langs){
         }
         
         // reset the dups list when entries inserted again
-        if (entry.parentNode.id == "entries") {
-            var l = document.getElementById("entries").childNodes.length;
+        if (entry.parentNode.id === "entries") {
+            var l = entry.parentNode.childNodes.length;
             if (l <= 2) {
                 _alreadyPrinted = {};
             }
@@ -357,7 +338,7 @@ GRP.filter = function(prefs, langs){
         }
         var link = getEntryLink(entry);
         var title = link.title;
-        var url = link.url;
+        //var url = link.url;
         
         //console.log('>>>>'+active+'--'+title);
         
