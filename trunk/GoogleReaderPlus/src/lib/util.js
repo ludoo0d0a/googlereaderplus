@@ -54,7 +54,18 @@ function getFirstNode(el){
     }
     return o;
 }
+//native getElementsByClassName
+function getFirstElementByClassName(root, clazz){
+	return root.getElementsByClassName(clazz)[0];
+}
 
+/**
+ * 
+ * @param {Object} root
+ * @param {Object} tag
+ * @param {Object} clazz
+ * @deprecated use getFirstElementByClassName
+ */
 function getFirstElementMatchingClassName(root, tag, clazz){
     var elements = root.getElementsByTagName(tag);
     var i = 0;
