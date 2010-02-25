@@ -29,9 +29,9 @@ GRP.replacer = function(prefs, langs, myport){
         if (m && (m.length > 0)) {
             var matchingtext = m[0];
             result += matchingtext.replace(re_from[index], gp_to[index]);
-        } else {
+        } /*else {
             console.log("Match " + index + " not found");
-        }
+        }*/
         
 		var el = document.getElementById(TPL_NAME + partIndex);
         if (result !== "") {
@@ -46,8 +46,8 @@ GRP.replacer = function(prefs, langs, myport){
         if (link && prefs.replacer_link) {
             for (var i = 0, len = gp_links.length; i < len; i++) {
                 if (gp_links[i]) {
-                    console.log(link.url);
-                    console.log(gp_links[i]);
+                    //console.log(link.url);
+                    //console.log(gp_links[i]);
                     if (re_links[i].test(link.url)) {
 						replacePart(i, entry, link);
                         break;
@@ -67,7 +67,7 @@ GRP.replacer = function(prefs, langs, myport){
         el.id = TPL_NAME + partIndex;
         el.innerHTML = SL.loading;
         body.appendChild(el);
-		console.log('request '+partIndex+' - '+link.url);
+		//console.log('request '+partIndex+' - '+link.url);
 		GM_xmlhttpRequest(
         {
             url: link.url,
