@@ -22,7 +22,7 @@
 		"lang/en/langs.js","lang/fr/langs.js","lang/fr/features.js",
 		"fixlayout.js", "unreadcount.js", "mark.js", "removeads.js", "favicons.js", "column.js","jump.js",
 		"preview.js", "openbackground.js", "colorful.js", "filter.js", "count.js", "counticon.js", "readbymouse.js", 
-		"facebook.js", "twitter.js", "instapaper.js", "closeentry.js", "fitheight.js", "menu.js", "replacer.js",
+		"facebook.js", "twitter.js", "instapaper.js", "closeentry.js", "fitheight.js", "replacer.js",
 		"skin/aero.js", "skin/air.js", "skin/aircomic.js", "skin/black.js","skin/darkgray.js", "skin/dark.js", "skin/helvetireader.js", 
 		"skin/minimal.js", "skin/optimized.js", "skin/portal.js", "skin/osxblue.js","skin/osxblack.js",
 		"greaderplus.js"]
