@@ -28,7 +28,7 @@ GRP.column = function(prefs, langs){
         var body = getBody(entry);
         var hpage = 0;
         var divoriginal = body.firstChild;
-        var divwrap = getFirstElementMatchingClassName(entry, 'div', 'wrap-container');
+        var divwrap = getFirstElementByClassName(entry,  'wrap-container');//div
         
 		if (divwrap && active && prefs.column_pagebreak) {
 			//already exists but height changed
@@ -154,7 +154,7 @@ GRP.column = function(prefs, langs){
     
     function getContainer(entry){
         var cwh = 300;
-        var cw = getFirstElementMatchingClassName(entry, 'div', 'entry-main');
+        var cw = getFirstElementByClassName(entry,  'entry-main');//div
         if (!cw) {
             cw = entries; //get_id('entries');
         }
@@ -216,7 +216,7 @@ GRP.column = function(prefs, langs){
     GM_addStyle(css);
     
     
-    initCatchEntries(addButton, 'ecolumn');
+    registerFeature(addButton, 'ecolumn');
     var keycode = getShortcutKey('column', 'columns', prefs); //67 c
     keycode.fn = addKey;
     initKey(keycode);

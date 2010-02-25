@@ -16,7 +16,7 @@ GRP.mark = function(prefs, langs) {
 
 	function setConfig(){
 		currentElement = getCurrentEntry();
-		modeList=getMode(currentElement)=='list';
+		modeList=(getMode(currentElement)==='list');
 	}
 	function clickEntry(entry, modeList){
 		if (!hasClass(entry,'read')){

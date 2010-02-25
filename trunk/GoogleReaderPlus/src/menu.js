@@ -12,9 +12,9 @@ GRP.menu = function(prefs, langs) {
 	
 	var menu; 
     function addJumpButtons(el, entry, mode){
-        var favicon = getFirstElementMatchingClassName(entry, 'div', 'entry-favicon');
+        var favicon = getFirstElementByClassName(entry, 'entry-favicon');//div
 		
-		var title = getFirstElementMatchingClassName(entry, 'a', 'entry-source-title');
+		var title = getFirstElementByClassName(entry,  'entry-source-title');//a
         if (title) {
             
 			var e = document.createElement('span');
@@ -46,7 +46,7 @@ GRP.menu = function(prefs, langs) {
     var css = "";
     GM_addStyle(css);
     
-    initCatchEntries(addJumpButtons, 'ejump');
+    registerFeature(addJumpButtons, 'ejump');
 
     var keycodeDown = getShortcutKey('jump', 'godown', prefs); //66 Shift+B
     keycodeDown.fn = gotobottom;

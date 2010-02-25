@@ -30,11 +30,12 @@ GRP.facebook = function(prefs, langs) {
 		
 		var iframe, facebookSharer;
 		
-		var body = getFirstElementMatchingClassName(entry, 'div', 'entry-body');
-
+		var body = getFirstElementByClassName(entry,  'entry-body');//div
+		
+		iframe = getFirstElementByClassName(entry,  'facebookSharer');//iframe
+		
 		if (active) {
 			// iframe creation/display
-			iframe = getFirstElementMatchingClassName(entry, 'iframe', 'facebookSharer');
 			if (iframe) {
 				// iframe already in document, display it
 				iframe.style.display = 'block';
@@ -59,7 +60,6 @@ GRP.facebook = function(prefs, langs) {
 			body.setAttribute('style', gpeStyles.entryBody);
 		} else {
 			// hide iframe
-			iframe = getFirstElementMatchingClassName(entry, 'iframe', 'facebookSharer');
 			iframe.style.display = 'none';
 
 			// Go back to initial width
@@ -80,7 +80,7 @@ GRP.facebook = function(prefs, langs) {
 		entryBody : 'max-width: 98%'
 	};
 
-	initCatchEntries(addButton, 'efacebook');
+	registerFeature(addButton, 'efacebook');
 	var keycode = getShortcutKey('facebook', 'gofacebook', prefs); //66 b
 	keycode.fn = addKey;
 	initKey(keycode);

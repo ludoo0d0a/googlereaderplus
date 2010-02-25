@@ -76,7 +76,7 @@ GRP.favicons = function(prefs, langs, myport){
     
     function initFavicons(){
         if (!prefs.favicons_sidebaronly) {
-			initCatchEntries(addFaviconEntry, 'entry-favicons', false, true);
+			registerFeature(addFaviconEntry, 'entry-favicons', {onlistviewtitle: true});
 		}
         initCatchSidebars(addFaviconSidebar, 'sidebar-favicons');
     }
@@ -110,11 +110,11 @@ GRP.favicons = function(prefs, langs, myport){
         }
         
         var point;
-        if (mode == "expanded") {
-            var entryTitle = getFirstElementMatchingClassName(entry, 'h2', 'entry-title');
+        if (mode === "expanded") {
+            var entryTitle = getFirstElementByClassName(entry, 'entry-title');//h2
             insertFirst(icon, entryTitle);
         } else {
-            var entrySourceTitle = getFirstElementMatchingClassName(entry, 'span', 'entry-source-title');
+            var entrySourceTitle = getFirstElementByClassName(entry,  'entry-source-title');//span
             insertBefore(icon, entrySourceTitle);
         }
         
@@ -129,7 +129,7 @@ GRP.favicons = function(prefs, langs, myport){
             return;
         }
         
-        var elsubicon = getFirstElementMatchingClassName(el, 'span', 'sub-icon');
+        var elsubicon = getFirstElementByClassName(el,  'sub-icon');//span
         var title = elsubicon.nextSibling;
         var match = ellipsis(title.firstChild.textContent);
         title.style.paddingLeft = '7px';
@@ -248,7 +248,7 @@ GRP.favicons = function(prefs, langs, myport){
                     var f = FAVICON[key];
                     if (!f) {
                         //try to get url+title
-                        var nameText = getFirstElementMatchingClassName(node, 'span', 'name-text');
+                        var nameText = getFirstElementByClassName(node,  'name-text');//span
                         if (nameText) {
                             f = 
                             {

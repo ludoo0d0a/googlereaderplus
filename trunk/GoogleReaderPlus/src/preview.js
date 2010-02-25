@@ -81,7 +81,7 @@ GRP.preview = function(prefs, langs){
             //Ctrl+click : open in a new tab
             openEntryInNewTab(entry);
         } else {
-            var btn = getFirstElementMatchingClassName(entry, 'span', 'btn-preview');
+            var btn = getFirstElementByClassName(entry, 'btn-preview');//span
             previewize(btn, entry, locked, e);
         }
     }
@@ -96,17 +96,17 @@ GRP.preview = function(prefs, langs){
             jump(entry, true);
         }
         
-        var body = getFirstElementMatchingClassName(entry, 'div', 'entry-body');
-        var entryBody = getFirstElementMatchingClassName(body, 'div', 'entry-enclosure');
+        var body = getFirstElementByClassName(entry, 'entry-body');//div
+        var entryBody = getFirstElementByClassName(body,  'entry-enclosure');//div
         if (!entryBody) {
-            entryBody = getFirstElementMatchingClassName(body, 'div', 'item-body');
+            entryBody = getFirstElementByClassName(body, 'item-body');//div
         }
         
         if (fancybox) {
             //var link = getEntryLink(entry);
             //setFancyBox(link);
         } else {
-            iframe = getFirstElementMatchingClassName(entry, 'iframe', 'if-preview');
+            iframe = getFirstElementByClassName(entry,  'if-preview');//'iframe'
             
             if (active) {
                 // classic mode-> preview mode
@@ -247,8 +247,8 @@ GRP.preview = function(prefs, langs){
     css += ".preview .entry-likers, .preview .entry-annotations, .preview .entry-via, .preview .card-comments{display:none;}";
     GM_addStyle(css);
     
-    //initCatchEntries(addPreviewButton, 'epreview', runFancyBoxAuto);
-	initCatchEntries(addPreviewButton, 'epreview');
+    //registerFeature(addPreviewButton, 'epreview', runFancyBoxAuto);
+	registerFeature(addPreviewButton, 'epreview');
     initResize(onResize);
     
     var keycode = getShortcutKey('preview', 'prview', prefs); //81 q

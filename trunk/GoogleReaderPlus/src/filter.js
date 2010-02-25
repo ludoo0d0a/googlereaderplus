@@ -57,7 +57,7 @@ GRP.filter = function(prefs, langs){
         setRegExps();
         
         if (_excludes.length || _highlights.length) {
-            initCatchEntries(filterEntries, 'efilter');
+            registerFeature(filterEntries, 'efilter');
             //document.body.addEventListener("DOMNodeInserted", filterEntries, false);
         }
     }
