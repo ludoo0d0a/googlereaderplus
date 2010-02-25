@@ -2,79 +2,107 @@
  * Entries
  */
 var stackFeatures = [];
-function initCatchEntries(fn, bid, globalFn, oncollapsed){
-	var args = Array.prototype.slice.call(arguments);
-	var params = args.shift();
-	registerFeature(fn, params);
-}
-function registerFeature(fn, params){	
-	stackFeatures.push({
-		fn: fn,
-		params: params
-	});
+
+function registerFeature(fn, bid, params){
+    params=params||{};
+	params.bid=bid;
+	stackFeatures.push(
+    {
+        fn: fn,
+        params: params
+    });
     if (params && params.globalFn) {
         params.globalFn.call(this);
     }
 }
 
-function execAll(el, entry, mode){
-	for (var i=0, len=stackFeatures.length; i<len; i++){
-		stackFeatures[i].fn.call(this, el, entry, mode);
-	}
+function execAll(el, entry, mode, force){
+    for (var i = 0, len = stackFeatures.length; i < len; i++) {
+        var p = stackFeatures[i].params;
+        if (el){
+            //ListView-opened + ExpandedView
+			if (!isTagged(el, p.bid)){
+				stackFeatures[i].fn.call(this, el, entry, mode);
+			}
+        }else{
+			//ListView-closed
+			if (p && p.onlistviewtitle){
+				//only for favcions (onlistviewtitle=true)
+				if (force || !isTagged(entry.firstChild, p.bid)){
+					stackFeatures[i].fn.call(this, el, entry, mode);
+				}
+			}
+		}
+    }
 }
-	
+
 function monitorEntries(){
-	document.body.addEventListener('DOMNodeInserted', function(e){
-			catchEntryAdded(e.target, execAll);
-	 }, false);
-	catchAllEntries(execAll);
+    document.body.addEventListener('DOMNodeInserted', function(e){
+        checkEntry(e.target, execAll);
+    }, false);
+    catchAllEntries(execAll);
 }
 
 /*
-function initCatchEntries(fn, bid, globalFn, oncollapsed){
-    var end, start;
-	start = (new Date()).valueOf();
-	catchAllEntries(fn, bid, oncollapsed);
-	console.log('Time for ALL '+bid+' : '+((new Date()).valueOf()-start)+' ms');
-	
-    document.body.addEventListener('DOMNodeInserted', function(e){
-        start = (new Date()).valueOf();
-		catchEntryAdded(e, fn, bid, oncollapsed);
-		console.log('Time for 1 '+bid+' : '+((new Date()).valueOf()-start)+' ms');
-        if (globalFn) {
-            globalFn.call(this);
-        }
-    }, false);
-	
-    if (globalFn) {
-        globalFn.call(this);
-    }
+//ListView
+entry
+-collapsed
+if open{
+-entry-container
+-entry-comments
+-entry-actions
 }
+//ExpandedView
+entry
+-card card-common
+--card-content
+--card-comments
+--card-actions card-bottom
+---entry-actions
+
+//ListView -closed
+DIV.hidden
+DIV.
+DIV.entry entry-0(*)
+
+//ListView -opened
+DIV.entry-container
+DIV.entry-comments
+DIV.entry-actions(*)
+DIV.entry-title-maximize
+
+//ExpandedView
+DIV.entry entry-0(*)
+DIV.entry-title-maximize
 */
 
-function catchEntryAdded(el, fn, params){
-    //console.log(el.tagName + "." + el.className);
-    if (el.tagName == "DIV" && hasClass(el, 'entry-actions')) {
-        // *********** List view
-        catchEntry(el, fn, params);
-    } else if (el.tagName == "DIV" && hasClass(el, 'entry')) {
-        // *********** Expanded view
-		if (getFirstElementMatchingClassName(el, 'div', 'card-bottom')) {
-            // Adding article in expanded view
-            //el = entry-actions on expanded view
-            el = getFirstElementMatchingClassName(el, 'div', 'entry-actions');
-            catchEntry(el, fn, params);
-        } else /*if (oncollapsed)*/ {
-            //collapsed title
-            el = el.firstChild;//el then means nothing, just go down to find entry later 
-            catchEntry(el, fn, params);
-        }
+function checkEntry(el, fn, params){
+    if (el.tagName == "DIV") {
+		if (hasClass(el, 'entry')) {
+			if (hasClass(el.firstChild, 'card')) {
+                // *********** Expanded view
+                var ea = getFirstElementByClassName(el, 'entry-actions');
+				//console.log("Run as ExpandedView for "+el.tagName + "." + el.className);
+                catchEntry(el, ea, fn, params, false);
+            } else {
+                // *********** Closed article in List view
+				//console.log("Run as ListView-closed for "+el.tagName + "." + el.className);
+                catchEntry(el, false, fn, params, true);
+            }
+        }else if (hasClass(el, 'entry-actions')) {
+            // *********** Expand article in List view
+			//console.log("Run as ListView-opened for "+el.tagName + "." + el.className);
+            var entry = findParentNode(el, 'div', 'entry');
+			catchEntry(entry, el, fn, params, true, true);
+        } 
     }
+    
 }
 
 function forAllEntries(fn){
     var root = document.getElementById('entries');
-    var entries = getElementsByClazzName('entry', 'div', root);
+    //var entries = getElementsByClazzName('entry', 'div', root);
+	var entries = root.getElementsByClassName('entry');
     for (var i = 0; i < entries.length; i++) {
         fn.call(this, entries[i]);
     }
@@ -82,17 +110,14 @@ function forAllEntries(fn){
 
 function catchAllEntries(fn, params){
     forAllEntries(function(entry){
-        catchEntryAdded(entry, fn, params);
+        checkEntry(entry, fn, params);
     });
 }
 
-function catchEntry(el, fn, params){
-    var entry = findParentNode(el, 'div', 'entry');
-    var mode = getMode(entry);
-    //if (!hasClass(entry, bid)) {
-    //    addClass(entry, bid);
-        fn.call(this, el, entry, mode);
-    //}
+function catchEntry(entry, el, fn, params, listview, force){
+    //var mode = getMode(entry);
+	var mode = (listview)?'list':'expanded';
+    fn.call(this, el, entry, mode, force);
 }
 
 /*
@@ -146,8 +171,7 @@ function getMode(entry){
 
 
 function getOriginalEntryLink(entry){
-    var link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
-    return link;
+	return getFirstElementByClassName(entry, 'entry-title-link');
 }
 
 function getEntrySiteTitle(ent){
@@ -155,24 +179,14 @@ function getEntrySiteTitle(ent){
     var point, match;
     //var mode = getMode(entry);
     //if (mode === 'collapsed') {
-    point = getFirstElementMatchingClassName(entry, 'span', 'entry-source-title');
+    point = getFirstElementByClassName(entry, 'entry-source-title');//'span'
     if (!point) {
-        point = getFirstElementMatchingClassName(entry, 'a', 'entry-source-title');
+        point = getFirstElementByClassName(entry, 'entry-source-title');//'a'
     }
     if (point) {
         match = point.textContent;
     }
-    /*} else {
-     point = getFirstElementMatchingClassName(entry, 'span', 'entry-source-title');
-     point = target.getElementsByClassName('entry-title-link')[0] ||
-     target.getElementsByClassName('comment-entry-title')[0];
-     //titre du site
-     var title = target.getElementsByClassName('entry-source-title')[0];
-     //var title = target.getElementsByClassName('entry-title')[0];
-     if (title) {
-     match = title.textContent;
-     }
-     }*/
+
     return match;
 }
 
@@ -180,16 +194,16 @@ function getEntryLink(ent){
     //<a class="ilink entry-title-link" href="#" title="Open as preview [q]"> Il écope de 5 ans pour avoir parlé de sexe à la télé</a>
     //<a class="entry-title-link iframe title-link-url" target="_blank" href="http://www.lessentiel.lu/news/monde/story/17066269" title="Open in a new window"><div class="entry-title-maximize"></div></a>	
     var o = {}, entry = ent || getCurrentEntry();
-    var link = getFirstElementMatchingClassName(entry, 'a', 'grp-link-url');
+    var link = getFirstElementByClassName(entry, 'grp-link-url');//'a'
     if (!link) {
         //Normal way
-        link = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
+        link = getFirstElementByClassName(entry,  'entry-title-link');//'a'
         if (link) {
             o.url = link.href;
             o.title = link.textContent;
         } else {
             //Feed from html (non RSS page)
-            var etitle = getFirstElementMatchingClassName(entry, 'h2', 'entry-title');
+            var etitle = getFirstElementByClassName(entry,  'entry-title');//'h2'
             if (etitle) {
                 var m = /"(.*)"/.exec(etitle.textContent);
                 if (m) {
@@ -200,7 +214,7 @@ function getEntryLink(ent){
         }
     } else {
         //preview on 
-        var link2 = getFirstElementMatchingClassName(entry, 'a', 'grp-link-title');
+        var link2 = getFirstElementByClassName(entry,  'grp-link-title');//'a'
         o = 
         {
             title: link2.textContent,
@@ -256,16 +270,30 @@ function getWidthEntries(){
 }
 
 function getHeightEntries(){
-    var entries = document.getElementById('entries');
-    //TODO: better computation if minimalistic skin (110??)
-    //todo : wrong if 'xx persons like this' is displayed
-    return entries ? (parseInt(entries.style.height.replace('px', ''), 10) - 50) : 500;
+    var height=500;
+	var entries = document.getElementById('entries');
+	if (entries) {
+		var offset = 0;
+		var eb = getFirstElementByClassName(entries, 'entry-body');
+		if (eb) {
+			offset += eb.offsetTop;
+		}
+		var ea = getFirstElementByClassName(entries, 'entry-actions');
+		if (ea) {
+			offset += ea.clientHeight;
+		}
+		console.log('offset='+offset);
+		offset = Math.max(110, offset);
+		
+		height = parseInt(entries.style.height.replace('px', ''), 10) - offset; 
+	}
+    return height;
 }
 
 function getBody(entry){
-    var body = getFirstElementMatchingClassName(entry, 'div', 'item-body');
+    var body = getFirstElementByClassName(entry, 'item-body');//div
     // why a sub body sometimes ??
-    var subbody = getFirstElementMatchingClassName(body, 'div', 'item-body');
+    var subbody = getFirstElementByClassName(body, 'item-body');//div
     if (subbody) {
         body = subbody;
     }
@@ -273,9 +301,9 @@ function getBody(entry){
 }
 
 function getEntryBody(body){
-    var entryBody = getFirstElementMatchingClassName(body, 'div', 'entry-enclosure');
+    var entryBody = getFirstElementByClassName(body, 'entry-enclosure');//div
     if (!entryBody) {
-        entryBody = getFirstElementMatchingClassName(body, 'div', 'item-body');
+        entryBody = getFirstElementByClassName(body, 'item-body');//div
     }
     return entryBody;
 }
@@ -323,7 +351,7 @@ function addButton(reference, text, title, fn, position){
 
 function onKey(cls, fn){
     var entry = getCurrentEntry();
-    var btn = getFirstElementMatchingClassName(entry, 'span', cls);
+    var btn = getFirstElementByClassName(entry,  cls);//'span'
     fn.call(this, btn, entry);
 }
 
@@ -365,10 +393,15 @@ function isActive(btn, entry, cls, locked){
 }
 
 function isTagged(entry, cls){
-    var tagged = hasClass(entry, cls);
+    var tagged = entry.getAttribute(cls);
+	if (!tagged) {
+        entry.setAttribute(cls, 'true');
+    }
+	/*
+	var tagged = hasClass(entry, cls);
     if (!tagged) {
         addClass(entry, cls);
-    }
+    }*/
     return tagged;
 }
 
