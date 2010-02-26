@@ -18,7 +18,7 @@ GRP.facebook = function(prefs, langs) {
 
 	function addButton(el, entry, mode) {
 		var text = SL.text + formatShortcut('facebook', 'gofacebook', prefs); //[b]
-		addBottomLink(el,SL.keyword, text, 'facebook', false, facebookShare, false, entry, mode);
+		addBottomLink(el,SL.keyword, text, 'btn-facebook', false, facebookShare, false, entry, mode);
 	}
 
 	function addKey() {
