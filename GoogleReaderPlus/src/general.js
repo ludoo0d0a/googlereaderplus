@@ -5,8 +5,7 @@
  *
  */
 GRP.general = function(prefs, langs){
-
-	if (prefs.secure){
+	if (prefs.general_secure){
 		if (/^http\:/.test(window.location.href)) {
 			window.location.href=window.location.href.replace(/^http\:/, 'https:');
 		}

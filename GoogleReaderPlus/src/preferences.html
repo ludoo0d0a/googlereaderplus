@@ -81,7 +81,13 @@
 			}
             
             function applyprefs(){
-                var form = document.frmprefs;
+				var form = document.frmprefs;
+				//general checked if one option ON 
+				if (form.general_secure.checked || 
+					form.general_counter.checked || 
+					form.general_opendirect.checked){
+					form.general.checked=true;
+				}
                 for (var i in form) {
                     var ctrl = form[i];
                     if (ctrl && !hasClass(ctrl, 'ignore')) {
