@@ -24,20 +24,20 @@ GRP.langs.fr.texts =
         // pref labels
         color: "Colorier ces élément:",
         list: "En tete de la vue liste.",
-        expanded: "Corps des éléments en vue 'texte complet'.",
-        frame: "Frames des éléments en vue 'texte complet'.",
-        read: "Lire les éléments",
-        unread: "Elément non lus.",
+        expanded: "Corps des articles en vue 'texte complet'.",
+        frame: "Frames des articles en vue 'texte complet'.",
+        read: "Lire les articles",
+        unread: "Articles non lus.",
         
         // pref messages
         msgWill: "sera",
         msgWillNot: "ne sera pas",
         msgColored: " be colored.",
         msgList: "En tete de la vue liste ",
-        msgExpanded: "Corps des éléments en vue 'texte complet' ",
-        msgFrame: "Frames des éléments en vue 'texte complet' ",
-        msgUnread: "Elément non lus ",
-        msgRead: "Lire les éléments",
+        msgExpanded: "Corps des articles en vue 'texte complet' ",
+        msgFrame: "Frames des articles en vue 'texte complet' ",
+        msgUnread: "Articles non lus ",
+        msgRead: "Lire les articles",
         msgUndef: "Indéfini",
         
         scheme: "Schema des couleurs: ",
@@ -156,6 +156,10 @@ GRP.langs.fr.prefs =
         "title": "Reader Plus",
 		"val-save":"Sauver"
     },
+	"theme": 
+    {
+        "noborder": "Retirer les bords des articles pour en afficher un maximum sur une page"
+    },
 	"about":{
 		"thanks1":'<td><span class="top_right"><img src="images/48.png"></span><h1>Merci...</h1>'+
 '<p>... d\'avoir installé (ou mis à jour) la dernière version de <strong>Reader Plus</strong>!</p>'+
@@ -200,10 +204,11 @@ GRP.langs.fr.prefs =
     {
         "tree": "Afficher les titres en couleurs dans l'arbre des sites à gauche"
     },
-    "icon": 
+    "general": 
     {
         "counter": "Afficher le compteur dans la barre d'outil",
         "opendirect": "Cliquer sur l'icône pour ouvrir GoogleReader",
+		"secure": "Forcer l'utilisiation du protocole sécurisé (https)",
         "icontoolbar_add": "Pour ajouter un bouton avec icône dans la barre d'outil, veuillez <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">télécharger et installer le bouton</a>.",
         "icontoolbar_text": "<span>Afin de le rendre optionnel, nous fournissons le bouton sous forme d'une extension indépendante,</span><br><span>à installé en plus de ReaderPlus.</span><br><span>Pour ajouter le bouton, cliquer <b>Installer</b> sur la page <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">bouton pour ReaderPlus</a>.</span><br><span>Pour retirer le bouton, un clic droit et choisissez 'Désactiver'.</span>"
     },
