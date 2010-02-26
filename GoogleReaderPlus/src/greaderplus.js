@@ -89,7 +89,7 @@
                 var css = '.card-common,.entry-main{margin:0 !important;}';
                 css += '.entry,.card-content,.entry-actions,.entry-container{padding:0 !important;}';
                 css += '.entry-title{margin-left:20px !important;font-size:100% !important;}';
-                css += '.entry .entry-body{margin-width:100% !important;}';
+                css += '.entry .entry-body{max-width:100% !important;}';
                 css += '.entry-author{display:none;}';
                 css += '.entry,.entry .card, #no-entries-msg{border-width:0 !important;}';
                 css += '.collapsed{background-color:transparent !important;}';
