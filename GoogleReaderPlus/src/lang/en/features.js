@@ -13,9 +13,9 @@
 namespace('GRP.langs.en');
 GRP.langs.en.scripts = [
 {
-    id: "icon",
-    name: "Icon",
-    desc: "Add an icon in the toolbar of Chrome"
+    id: "general",
+    name: "General",
+    desc: "General configuration"
 },
 {
     id: "theme",
