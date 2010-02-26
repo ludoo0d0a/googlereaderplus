@@ -7,7 +7,6 @@
  *
  * ChangeLog: cf about.html
  */
-
 (function(){
 
     var ReaderPlus = 
@@ -38,16 +37,16 @@
         },
         initprefs: function(){
             //var langs = GRP.texts;
-			this.lang = this.prefs.language_lang || 'en';
+            this.lang = this.prefs.language_lang || 'en';
             this.lang = (GRP.langs[this.lang]) ? this.lang : 'en';
-			//override locale texts
-			merge(GRP, GRP.langs[this.lang]);
-			//next
-			this.runExtra(this.lang);
+            //override locale texts
+            merge(GRP, GRP.langs[this.lang]);
+            //next
+            this.runExtra(this.lang);
         },
         runExtra: function(){
-			var langs = GRP.langs[this.lang].texts;
-			var count = 0;
+            var langs = GRP.langs[this.lang].texts;
+            var count = 0;
             if (window.GRP.scripts) {
                 var total = window.GRP.scripts.length;
                 for (var i = 0; i < total; i++) {
@@ -58,8 +57,8 @@
                     }
                 }
                 console.log("ReaderPlus is running with " + count + "/" + total + " features");
-				//Start entries monitoring 
-				monitorEntries();
+                //Start entries monitoring 
+                monitorEntries();
             } else {
                 console.error("ReaderPlus failed to load any features!!");
             }
@@ -67,8 +66,8 @@
         run: function(o, langs){
             if (o && o !== "false") {
                 if (o == 'theme') {
-                    //Run skin
-                    this.run(this.prefs.theme_skin, langs);
+                    //skin
+                    this.runTheme(langs);
                 } else {
                     if (window.GRP[o]) {
                         console.log("**** run " + o);
@@ -83,7 +82,20 @@
                     }
                 }
             }
-        }
+        },
+        runTheme: function(o, langs){
+            this.run(this.prefs.theme_skin, langs);
+            if (this.prefs.theme_compress) {
+                var css = '.card-common,.entry-main{margin:0 !important;}';
+                css += '.entry,.card-content,.entry-actions,.entry-container{padding:0 !important;}';
+                css += '.entry-title{margin-left:20px !important;font-size:100% !important;}';
+                css += '.entry .entry-body{margin-width:100% !important;}';
+                css += '.entry-author{display:none;}';
+                css += '.entry,.entry .card, #no-entries-msg{border-width:0 !important;}';
+                css += '.collapsed{background-color:transparent !important;}';
+                GM_addStyle(css, 'rps_compress');
+            }
+        },
         /*,fixlang: function(){
          this.lang = this.prefs.language_lang || 'en';
          this.stack = ['texts', 'scripts', 'skins', 'googleshortcuts'];
