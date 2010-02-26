@@ -7,7 +7,7 @@
  *
  */
 GRP.replacer = function(prefs, langs, myport){
-    var locked = false, SL = langs.replacer,partIndex = 0,TPL_NAME = "replacer_result_";
+    var locked = false, SL = langs.replacer, partIndex = 0, TPL_NAME = "replacer_result_";
     var gp_links, gp_from, gp_to, re_from = [], re_links = [];
     
     function initVars(){
@@ -23,42 +23,46 @@ GRP.replacer = function(prefs, langs, myport){
         }
     }
     
-    function replaceItem(html, index, partIndex){
-		var result = "";
-        var m = re_from[index].exec(html);
-        if (m && (m.length > 0)) {
-            var matchingtext = m[0];
-            result += matchingtext.replace(re_from[index], gp_to[index]);
-        } /*else {
-            console.log("Match " + index + " not found");
-        }*/
-        
-		var el = document.getElementById(TPL_NAME + partIndex);
+    function replaceItem(html, indexes, partIndex){
+        var result = "";
+        for (var i = 0, len = indexes.length; i < len; i++) {
+            var index = indexes[i];
+            var m = re_from[index].exec(html);
+            if (m && (m.length > 0)) {
+                var matchingtext = m[0];
+                result += matchingtext.replace(re_from[index], gp_to[index]);
+            }
+            
+        }
+        var el = document.getElementById(TPL_NAME + partIndex);
         if (result !== "") {
             el.innerHTML = result;
         } else {
             el.innerHTML = SL.nomatch;
         }
+        
     }
     
     function doreplacer(el, entry, mode, force){
         var index = -1, regex, link = getEntryLink(entry);
         if (link && prefs.replacer_link) {
+            var indexes = [];
             for (var i = 0, len = gp_links.length; i < len; i++) {
                 if (gp_links[i]) {
                     //console.log(link.url);
                     //console.log(gp_links[i]);
                     if (re_links[i].test(link.url)) {
-						replacePart(i, entry, link);
-                        break;
+                        indexes.push(i);
                     }
                 }
             }
+            
+            replacePart(indexes, entry, link);
         }
     }
     
-    function replacePart(index, entry, link){
-        var body = getFirstElementByClassName(entry,  'entry-body');//div
+    function replacePart(indexes, entry, link){
+        var body = getFirstElementByClassName(entry, 'entry-body');//div
         var entryBody = getEntryBody(body);
         
         entryBody.style.display = 'none';
@@ -67,15 +71,16 @@ GRP.replacer = function(prefs, langs, myport){
         el.id = TPL_NAME + partIndex;
         el.innerHTML = SL.loading;
         body.appendChild(el);
-		//console.log('request '+partIndex+' - '+link.url);
-		GM_xmlhttpRequest(
+        //console.log('request '+partIndex+' - '+link.url);
+        GM_xmlhttpRequest(
         {
             url: link.url,
             method: "GET",
             partIndex: partIndex,
-			index:index,
+            indexes: JSON.stringify(indexes),
             onload: function(res, req){
-				replaceItem(res.responseText, req.index, req.partIndex);
+                var indexes = JSON.parse(req.indexes);
+                replaceItem(res.responseText, indexes, req.partIndex);
             }
         });
     }
