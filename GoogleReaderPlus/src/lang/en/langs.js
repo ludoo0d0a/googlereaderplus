@@ -156,6 +156,10 @@ GRP.langs.en.prefs =
         "title": "Reader Plus",
 		"val-save":"Save"
     },
+	"theme": 
+    {
+        "noborder": "Remove entries borders to display more items on a single page"
+    },
 	"about":{
 		"thanks1":'<td><span class="top_right"><img src="images/48.png"></span><h1>Thank you...</h1>'+
 '<p>... for installing (or updating to) the latest version of <strong>Reader Plus</strong>!</p>'+
@@ -200,10 +204,11 @@ GRP.langs.en.prefs =
     {
         "tree": "Show label colors in the left navigation tree"
     },
-    "icon": 
+    "general": 
     {
         "counter": "Display unread counter in the toolbar icon",
         "opendirect": "Click on icon will open GoogleReader",
+		"secure": "Always force use of secure protocol (https)",
         "icontoolbar_add": "To add button with icon in toolbar, please <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">download and install it</a>.",
         "icontoolbar_text": "<span>To make the button optional, we put him in an another extension as standalone,</span>                                    <br>                                    <span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b>Install</b> on the <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span>                                    <br>                                    <span>To remove the button, right click him and choose Disable.</span>"
     },
