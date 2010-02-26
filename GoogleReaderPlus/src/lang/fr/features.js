@@ -13,9 +13,9 @@
 namespace('GRP.langs.fr');
 GRP.langs.fr.scripts = [
 {
-    id: "icon",
-    name: "Icône",
-    desc: "Icône dans la barre d'outil de Chrome"
+    id: "general",
+    name: "General",
+    desc: "Configuration générale"
 }, 
 {
     id: "theme",
@@ -30,17 +30,17 @@ GRP.langs.fr.scripts = [
 {
     id: "unreadcount",
     name: "Afficher les non lus",
-    desc: "Afficher le compteur d'éléments non lus pour chaque site et catégorie"
+    desc: "Afficher le compteur d'articles non lus pour chaque site et catégorie"
 }, 
 {
     id: "fixlayout",
     name: "Corriger la mise en page",
-    desc: "Corriger plusieurs problémes de mise en page comme la largeur des textes des nouvelles, afficher des images manquantes, et adapter la taille des images trop grande"
+    desc: "Corriger plusieurs problémes de mise en page comme la largeur des textes des articles, afficher des images manquantes, et adapter la taille des images trop grande"
 }, 
 {
     id: "count",
     name: "Corriger le compteur",
-    desc: "Afficher le vrai nombre d'éléments non lus à la place de 1000+"
+    desc: "Afficher le vrai nombre d'articles non lus à la place de 1000+"
 }, 
 {
     id: "counticon",
@@ -65,37 +65,37 @@ GRP.langs.fr.scripts = [
 {
     id: "colorful",
     name: "Liste colorée",
-    desc: "Regrouper vos éléments en utilisant une couleur pour chaque site"
+    desc: "Regrouper vos articles en utilisant une couleur pour chaque site"
 }, 
 {
     id: "filter",
     name: "Filtrage",
-    desc: "Filtrer les éléments en le supprimant ou en les mettant em surbrillance grâce à vos mots clés"
+    desc: "Filtrer les articles en le supprimant ou en les mettant em surbrillance grâce à vos mots clés"
 }, 
 {
     id: "readbymouse",
     name: "Lecture par souris",
-    desc: "Lire les éléments avec votre souris. Clid croit ou gauche pour aller sur l'élément suivant pour précédent"
+    desc: "Lire les articles avec votre souris. Clid croit ou gauche pour aller sur l'élément suivant pour précédent"
 }, 
 {
     id: "facebook",
     name: "Facebook",
-    desc: "Partager vos nouvelles sur Facebook"
+    desc: "Partager vos articles sur Facebook"
 }, 
 {
     id: "twitter",
     name: "Twitter",
-    desc: "Partager vos nouvelles sur Twitter"
+    desc: "Partager vos articles sur Twitter"
 }, 
 {
     id: "instapaper",
     name: "Instapaper",
-    desc: "partager et lire plus tard vos nouvelles via Instapaper"
+    desc: "partager et lire plus tard vos articles via Instapaper"
 }, 
 {
     id: "mark",
     name: "Marquer comme lus",
-    desc: "Marquer tous les éléments précédents ou suivants comme lus"
+    desc: "Marquer tous les articles précédents ou suivants comme lus"
 }, 
 {
     id: "jump",
@@ -126,7 +126,7 @@ GRP.langs.fr.scripts = [
 {
     id: "menu",
     name: "Menu contextuel",
-    desc: "Menu contextuel pour effectuer des opérations directement sur tous les éléments chaque site"
+    desc: "Menu contextuel pour effectuer des opérations directement sur tous les articles chaque site"
 }, 
 */
 {
