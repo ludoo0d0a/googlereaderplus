@@ -3,12 +3,13 @@
  */
 GRP.scripts = [
 {
-    id: "icon",
-    name: "Icon",
+    id: "general",
+    name: "General",
     options: 
     {
         counter: true,
-		opendirect:false
+		opendirect:false,
+		secure:false
     }
 },
 {
@@ -16,7 +17,8 @@ GRP.scripts = [
     name: "Theme",
     options: 
     {
-        skin: ''
+        skin: '',
+		noborder:false
     }
 }, 
 {
@@ -288,9 +290,9 @@ GRP.scripts = [
     name: "Replacer",
     options: 
     {
-        link: 'http://feedproxy.google.com/~r/uclick/|http://www.gocomics.com/|http://feeds.gocomics.com/',
-        from: "\"(http:\/\/imgsrv.gocomics.com\/dim\/[^\"]*)\"\n<H3>(Comments) \\(<SPAN id='comment_count_display'>([0-9]*)</SPAN>\\) <A href=\"[^\"]*\">Jump to Comments Form</a></h3>\\n *\\n *<ol id='commentList'>",
-        to: "<img src='$1'><br>\nnb of $1: $2"
+        link: 'http://feedproxy.google.com/~r/uclick/|http://www.gocomics.com/|http://feeds.gocomics.com/\nhttp://feedproxy.google.com/~r/uclick/|http://www.gocomics.com/|http://feeds.gocomics.com/',
+        from: "\"(http:\/\/imgsrv.gocomics.com\/dim\/[^\"]*)\"\n<SPAN id='comment_count_display'>(\d*)</SPAN>",
+        to: "<img src='$1'><br>\nComments: $2"
     }
 },
 /*
