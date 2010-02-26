@@ -21,7 +21,7 @@ GRP.instapaper = function(prefs, langs){
     
     function addButton(el, entry, mode){
         var text = SL.text + formatShortcut('instapaper', 'readitlater', prefs); //[b]
-        addBottomLink(el, SL.keyword, text, 'instapaper item-star star', false, instapaperShare, false, entry, mode);
+        addBottomLink(el, SL.keyword, text, 'btn-instapaper item-star star', false, instapaperShare, false, entry, mode);
     }
     
     function addKey(){
