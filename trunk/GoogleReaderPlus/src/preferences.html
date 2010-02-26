@@ -13,6 +13,8 @@
         </script>
         <script type="application/javascript" src="lib/i18n.js">
         </script>
+		<script type="application/javascript" src="prefs/crud.js">
+        </script>
         <script type="application/javascript">
             //(function(){
             var lang = 'en', prefs = {}, gshortcuts = {}, myport;
@@ -162,7 +164,7 @@
                         }
                     }
                     loadSkin();
-                    loadFavicons();
+                    loadCrudFavicons();
                 }
             }
             
@@ -238,6 +240,7 @@
                         panel.insertBefore(container, body);
                     }
                     createShortcuts(panel, script, script.shortcuts);
+					loadCruds
                 }
                 list.innerHTML = html;
             }
@@ -499,74 +502,6 @@
                     }
                 }
                 displayprefs();//update
-            }
-            
-            var tplDomain = '<a href="http://{url}" target="_blank"><span><img alt="favicon" class="favicon" title="Preview" src="{icon}" width="16" height="16"/>{text}</span></a><a class="action" href="javascript:addfavicon(\'{url}\');">edit</a><a class="action" href="javascript:removefavicon(\'{url}\');">remove</a>';
-            
-            function loadFavicons(){
-                var favicons = prefs.favicons_domains;
-                if (!favicons) {
-                    return;
-                }
-                var tplDomainLi = '<li id="li_{url}">' + tplDomain + '</li>';
-                var html = '';
-                var ul = document.getElementById('favicon_crud');
-                for (var url in favicons) {
-                    var favicon = 
-                    {
-                        url: url,
-                        text: ellipsis(url, 60),
-                        icon: favicons[url]
-                    };
-                    html += fillTpl(tplDomainLi, favicon);
-                }
-                ul.innerHTML = html;
-            }
-            
-            function addfavicon(urlin){
-                var url = urlin || '';
-                url = prompt("Enter the site :", url);
-                if (!url) {
-                    return;
-                }
-                var icon = prefs.favicons_domains[url] || '';
-                icon = prompt("Enter the icon url :", icon);
-                if (!icon) {
-                    return;
-                }
-                
-                var favicon = 
-                {
-                    url: url,
-                    icon: icon
-                };
-                if (urlin && url != urlin) {
-                    //remove old
-                    removefavicon(urlin);
-                }
-                
-                var id = 'li_' + favicon.url;
-                var li = document.getElementById(id);
-                if (!li) {
-                    var ul = document.getElementById('favicon_crud');
-                    li = document.createElement('li');
-                    li.id = 'li_' + favicon.url;
-                    ul.appendChild(li);
-                }
-                li.innerHTML = fillTpl(tplDomain, favicon);
-                savefavicon(favicon.url, favicon.icon);
-            }
-            
-            function savefavicon(url, icon, title){
-                prefs.favicons_domains[url] = icon;
-            }
-            
-            function removefavicon(url){
-                delete prefs.favicons_domains[url];
-                var li = document.getElementById('li_' + url);
-                if (li) {
-                    li.parentNode.removeChild(li);
-                }
             }
             
             window.onload = init;
