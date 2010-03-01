@@ -36,8 +36,9 @@ function execAll(el, entry, mode, force){
     }
 }
 
-function monitorEntries(){
-    document.body.addEventListener('DOMNodeInserted', function(e){
+function monitorEntries(el){
+    var root = el||get_id("entries");
+	root.addEventListener('DOMNodeInserted', function(e){
         checkEntry(e.target, execAll);
     }, false);
     catchAllEntries(execAll);
@@ -123,17 +124,11 @@ function catchEntry(entry, el, fn, params, listview, force){
 /*
  * Side bar
  */
-function initCatchSidebars(fn, bid, globalFn){
+function initCatchSidebars(fn, bid){
     document.body.addEventListener('DOMNodeInserted', function(e){
         catchSidebarAdded(e, fn, bid);
-        if (globalFn) {
-            globalFn.call(this);
-        }
     }, false);
     catchAllSidebars(fn, bid);
-    if (globalFn) {
-        globalFn.call(this);
-    }
 }
 
 function catchSidebarAdded(e, fn, bid){
