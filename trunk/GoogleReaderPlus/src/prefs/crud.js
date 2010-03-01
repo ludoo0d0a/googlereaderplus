@@ -1,6 +1,6 @@
 var tplRowCrud = '<a href="http://{url}" target="_blank"><span><img alt="favicon" class="favicon" title="Preview" src="{icon}" width="16" height="16"/>{text}</span></a><a class="action" href="javascript:addfavicon(\'{url}\');">edit</a><a class="action" href="javascript:removefavicon(\'{url}\');">remove</a>';
 
-function loadCrudFavicons(){
+function loadCruds(){
 	loadCRUD('favicon_crud', 'favicons_domains');
 }
 
