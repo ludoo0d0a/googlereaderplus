@@ -126,6 +126,7 @@ if (typeof GM_addStyle === "undefined") {
 			//update
 			el.innerText=styles;//textContent??
 		}
+		return el;
     }
 }
 
