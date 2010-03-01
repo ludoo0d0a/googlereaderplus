@@ -521,6 +521,15 @@ function adjustIframeHeight(iframe, heightMaxi){
     }
 }
 
+function bind(func, thisArg){
+    var args = Array.prototype.slice.call(arguments, 2);
+    
+    return function(){
+        var bargs = args.concat(Array.prototype.slice.call(arguments));
+        func.apply(thisArg, bargs);
+    };
+}
+	
 function foreach(array, fn, scope){
     if (!array) {
         return;
