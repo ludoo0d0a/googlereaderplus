@@ -14,134 +14,20 @@ GRP.colorful = function(prefs, langs){
     
     // CSS to allow items to be colored
     const BASE_CSS = "#entries.list .entry-likers,#entries.list .collapsed .entry-source-title,#entries.list .collapsed .entry-secondary,#entries.list .collapsed .entry-title{background-color:transparent!important}.gm-color-lv .collapsed /* list view headers */{border-color:transparent!important}#entries.list.gm-color-lv #current-entry .collapsed{border:2px solid #8181DC!important}#entries.list.gm-color-lv #current-entry.expanded .collapsed{border-bottom-color:transparent!important;border-width:2px 0!important}#entries .entry{padding:5px 0}#entries.list .collapsed{line-height:2.4ex!important}";
-    
-    // user interface for script settings added on settings page
+
     var settings = 
     {
-        timeoutID: 0,
-        entries: null,
-        
-        init: function(){ // insert page color options into the settings page
-            // ascend out of iframe
-            this.entries = frameElement.ownerDocument.getElementById("entries");
-            //var sect = this.addPrefs();
-        },
-        /*
-        addPrefs: function(){
-            var sect = document.createElement("div");
-            sect.className = "extra";
-            
-            // two column list
-            sect.innerHTML = "<div class=\"extra-header\">Colors</div>" +
-            STRINGS.color +
-            "<div style=\"width: 30em;" +
-            "margin: 0pt 0pt 1em 1em;\">" +
-            "<ul style=\"list-style-type: none; padding-left: 0;" +
-            "float: right;\">" +
-            "</ul>" +
-            "<ul style=\"list-style-type: none;" +
-            "padding-left: 0;\">" +
-            "</ul></div>";
-            
-            get_id("setting-extras-body").appendChild(sect);
-            
-            var lists = sect.getElementsByTagName("ul");
-            var list1 = lists[1], list2 = lists[0];
-            
-            var tc = bind(this.toggleColors, this);
-            
-            this.addColorPref(list2, "gm-color-ri", STRINGS.read, tc);
-            this.addColorPref(list2, "gm-color-ui", STRINGS.unread, tc);
-            this.addColorPref(list1, "gm-color-lv", STRINGS.list, tc);
-            this.addColorPref(list1, "gm-color-ev", STRINGS.expanded, tc);
-            this.addColorPref(list1, "gm-color-ef", STRINGS.frame, tc, 0);
-            this.addColorPref(list1, "gm-color-cv", STRINGS.comment, tc, 0);
-            
-            return sect;
-        },
-        
-        addColorPref: function(list, id, text, handler, def){
-            var pref = document.createElement("li");
-            var selected = GM_getValue(id, (typeof def == "undefined") ? 1 : def);
-            pref.innerHTML = "<label><input id=\"" + id + "\" type=\"checkbox\"/>" +
-            text +
-            "</label>";
-            
-            // just setting the "checked" attribute doesn't seem to work in Chrome
-            // I should figure out why later
-            var chk = pref.firstChild.firstChild;
-            chk.checked = (selected) ? true : false;
-            list.appendChild(pref);
-            chk.addEventListener("change", handler, false);
-        },
-        */
-        toggleColors: function(event){
-            var id = event.target.id, curr = event.target.checked;
-            var msg, newPref = "", cName = "";
-            
-            if (curr) {
-                newPref = id;
-                cName = id + " ";
-                msg = "<em>" + STRINGS.msgWill + "</em>";
-            } else {
-                msg = "<em>" + STRINGS.msgWillNot + "</em>";
-            }
-            
-            var re = new RegExp(id + " |^", "g");
-            this.entries.className = this.entries.className.replace(re, cName);
-            GM_setValue(id, newPref);
-            this.setMessage(id, msg);
-        },
-        
-        setMessage: function(id, msg){
-            clearTimeout(this.timeoutID);
-            var inner = getElementValue("id( 'message-area-inner' )");
-            var outer = getElementValue("id( 'message-area-outer' )");
-            
-            // get the message string to insert into the page
-            var type = (id == "gm-color-lv") ? STRINGS.msgList : (id == "gm-color-ev") ? STRINGS.msgExpanded : (id == "gm-color-ef") ? STRINGS.msgFrame : (id == "gm-color-ui") ? STRINGS.msgUnread : (id == "gm-color-ri") ? STRINGS.msgRead : (id == "gm-color-cv") ? STRINGS.msgComment : STRINGS.msgUndef;
-            
-            var newMsg = type + msg + STRINGS.msgColored;
-            inner.innerHTML = newMsg; // set the message
-            // force display and set position and width
-            outer.setAttribute("style", "display: block !important;" +
-            "margin-left:" +
-            Math.round(inner.offsetWidth / -2) +
-            "px;" +
-            "width:" +
-            (inner.offsetWidth + 10) +
-            "px;");
-            outer.className = "message-area info-message";
-            
-            this.timeoutID = setTimeout(function(){
-                outer.style.display = "";
-                
-                // test if the same message is still showing.
-                // force lowercase to handle any (tag name) capitalization change
-                if (inner.innerHTML.toLowerCase() == newMsg.toLowerCase()) {
-                    outer.className = outer.className.replace(/ hidden|$/, " hidden");
-                }
-                
-            }, 7 * 1000);
-        },
-        
         getColorPrefs: function(){
             var prefs = "";
-            
             prefs += GM_getValue("gm-color-lv", "gm-color-lv") + " ";
             prefs += GM_getValue("gm-color-ev", "gm-color-ev") + " ";
             prefs += GM_getValue("gm-color-ef", "") + " ";
             prefs += GM_getValue("gm-color-cv", "") + " ";
-            
             prefs += GM_getValue("gm-color-ui", "gm-color-ui") + " ";
             prefs += GM_getValue("gm-color-ri", "gm-color-ri") + " ";
-            
             return prefs;
         }
     };
-	
-	
-	
 	
     // controls and applies colors
     var theme = 
@@ -166,18 +52,18 @@ GRP.colorful = function(prefs, langs){
         setup: function(){ // initial setup and toggling of settings
             this.initConfig(); // put this in here so theme scripts run first
             var entries = get_id("entries");
-            
+			
             if (entries) {
                 addClass(entries, this.prefs);
                 entries.addEventListener("DOMNodeInserted", bind(this.processEntries, this), false);
 				this.processEntries();
             }
-			/*
+			
 			if (prefs.colorful_tree){
 				var root = get_id("sub-tree");
 				addClass(root, this.prefs);
 				initCatchSidebars(bind(this.processNodes, this), 'sidebar-colorful');
-			}*/
+			}
         },
         
         // determine what color theme to use by looking at the header colors
@@ -380,9 +266,9 @@ GRP.colorful = function(prefs, langs){
             };
         
 	        var css = this.getLvCss(title, hsl) + this.getEvCss(title, hsl) + this.getEfCss(title, hsl) + this.getCvCss(title, hsl);
-	        /*if (prefs.colorful_tree) {
-	            css = this.getTreeCss(title, hsl) + css;
-	        }*/
+	        if (prefs.colorful_tree) {
+	            css += this.getTreeCss(title, hsl);
+	        }
 	        return css;
         },
         
@@ -403,14 +289,13 @@ GRP.colorful = function(prefs, langs){
             us +
             ".read .collapsed," +
             us +
-            ".read:hover .collapsed { /* force no color for read items */ " +
-            "background-color: white !important; }" +
+            ".read:hover .collapsed {background-color: white !important; }" +
             rs +
-            ".read .collapsed { /* override unread item colors */" +
+            ".read .collapsed {" +
             hsl.read +
             "}" +
             rs +
-            ".read:hover .collapsed { /* override unread item colors */ " +
+            ".read:hover .collapsed { " +
             hsl.readhvr +
             "}";
         },
@@ -423,7 +308,7 @@ GRP.colorful = function(prefs, langs){
             return "" +
             us +
             " .card," +
-            /* .ccard, .t2, .t3 used for Opera expanded view */
+            /* .ccard, .t2, .t3 used for Opera expanded view 
             us +
             " .ccard," +
             us +
@@ -432,7 +317,7 @@ GRP.colorful = function(prefs, langs){
             " .t3 {" +
             hsl.norm +
             "}" +
-            
+            */
             us +
             ":hover .card," +
             us +
@@ -459,9 +344,7 @@ GRP.colorful = function(prefs, langs){
             us +
             ".read:hover .t2," +
             us +
-            ".read:hover .t3 { /* force no color for read items */ " +
-            "background-color: white !important; }" +
-            
+            ".read:hover .t3 { background-color: white !important; }" +
             rs +
             ".read .card," +
             rs +
@@ -469,10 +352,9 @@ GRP.colorful = function(prefs, langs){
             rs +
             ".read .t2," +
             rs +
-            ".read .t3 { /* override unread item colors */ " +
+            ".read .t3 { " +
             hsl.read +
             "}" +
-            
             rs +
             ".read:hover .card," +
             rs +
@@ -480,7 +362,7 @@ GRP.colorful = function(prefs, langs){
             rs +
             ".read:hover .t2," +
             rs +
-            ".read:hover .t3 { /* override unread item colors */ " +
+            ".read:hover .t3 {" +
             hsl.readhvr +
             "}";
         },
@@ -502,14 +384,14 @@ GRP.colorful = function(prefs, langs){
             us +
             ".read," +
             us +
-            ".read:hover { /* force no color for read items */ " +
+            ".read:hover { " +
             "background-color: #F3F5FC !important; }" +
             rs +
-            ".read { /* override unread item colors */ " +
+            ".read {  " +
             hsl.read +
             "}" +
             rs +
-            ".read:hover { /* override unread item colors */ " +
+            ".read:hover { " +
             hsl.readhvr +
             "}";
         },
@@ -531,23 +413,22 @@ GRP.colorful = function(prefs, langs){
             us +
             ".read .comment-entry," +
             us +
-            ".read:hover .comment-entry { /* force no color for read items */ " +
+            ".read:hover .comment-entry {" +
             "background-color: white !important; }" +
             rs +
-            ".read .comment-entry { /* override unread item colors */ " +
+            ".read .comment-entry {" +
             hsl.read +
             "}" +
             rs +
-            ".read:hover .comment-entry { /* override unread item colors */ " +
+            ".read:hover .comment-entry {" +
             hsl.readhvr +
             "}";
         },
 
 		getTreeCss: function(ttl, hsl){
             var us = "#sub-tree li[ colored='" + ttl + "' ]";
-			
 	        return us + " {" + hsl.norm +"}" +
-	        us + "']:hover{" + hsl.hover + "}";
+	        us + ":hover{" + hsl.hover + "}";
 	    },
         
         getHue: function(title){ // calculate item hue
