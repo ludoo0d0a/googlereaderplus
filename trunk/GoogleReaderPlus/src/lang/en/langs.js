@@ -26,6 +26,7 @@ GRP.langs.en.texts =
         list: "List view headers.",
         expanded: "Expanded view entry bodies.",
         frame: "Expanded view entry frames.",
+		comment: "Comment view entries.",
         read: "Read items.",
         unread: "Unread items.",
         
@@ -36,6 +37,7 @@ GRP.langs.en.texts =
         msgList: "List view items ",
         msgExpanded: "Expanded view entry bodies ",
         msgFrame: "Expanded view entry frames ",
+		msgComment: "Comment view items ",
         msgUnread: "Unread items ",
         msgRead: "Read items ",
         msgUndef: "Undefined",

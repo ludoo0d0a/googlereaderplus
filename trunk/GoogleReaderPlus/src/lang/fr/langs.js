@@ -26,7 +26,8 @@ GRP.langs.fr.texts =
         list: "En tete de la vue liste.",
         expanded: "Corps des articles en vue 'texte complet'.",
         frame: "Frames des articles en vue 'texte complet'.",
-        read: "Lire les articles",
+		comment: "Commentaires.",
+        read: "Articles lus",
         unread: "Articles non lus.",
         
         // pref messages
@@ -36,6 +37,7 @@ GRP.langs.fr.texts =
         msgList: "En tete de la vue liste ",
         msgExpanded: "Corps des articles en vue 'texte complet' ",
         msgFrame: "Frames des articles en vue 'texte complet' ",
+		msgComment: "Commentaires ",
         msgUnread: "Articles non lus ",
         msgRead: "Lire les articles",
         msgUndef: "Indéfini",
