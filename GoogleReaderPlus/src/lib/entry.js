@@ -17,6 +17,11 @@ function registerFeature(fn, bid, params){
 }
 
 function execAll(el, entry, mode, force){
+	window.setTimeout(function(){
+		execAllOffset(el, entry, mode, force);
+	}, 400);
+}
+function execAllOffset(el, entry, mode, force){
     for (var i = 0, len = stackFeatures.length; i < len; i++) {
         var p = stackFeatures[i].params;
         if (el){
@@ -82,7 +87,8 @@ function checkEntry(el, fn, params){
 		if (hasClass(el, 'entry')) {
 			if (hasClass(el.firstChild, 'card')) {
                 // *********** Expanded view
-                var ea = getFirstElementByClassName(el, 'entry-actions');
+                //var ea = getFirstElementByClassName(el, 'entry-actions');
+				var ea = el.firstChild.lastChild.firstChild;
 				//console.log("Run as ExpandedView for "+el.tagName + "." + el.className);
                 catchEntry(el, ea, fn, params, false);
             } else {
