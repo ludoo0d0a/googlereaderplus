@@ -305,6 +305,16 @@ function findTop(obj){
 function simulateClick(node){
     var event = node.ownerDocument.createEvent("MouseEvents");
     event.initMouseEvent("click", true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
+		/* ReadByMouse
+		event.initMouseEvent("click", true, // can bubble
+				true, // cancellable
+				node.ownerDocument.defaultView, 1, // clicks
+				50, 50, // screen coordinates
+				50, 50, // client coordinates
+				false, false, false, false, // control/alt/shift/meta
+				0, // button,
+				node);
+				*/
     node.dispatchEvent(event);
 }
 
