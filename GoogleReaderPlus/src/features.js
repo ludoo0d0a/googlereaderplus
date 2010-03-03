@@ -7,9 +7,11 @@ GRP.scripts = [
     name: "General",
     options: 
     {
-        counter: true,
+        secure:false,
+		counter: true,
 		opendirect:false,
-		secure:false
+		icontoolbar_add:{xtype:'p'},
+		icontoolbar_text:{xtype:'p'}
     }
 },
 {
@@ -27,8 +29,12 @@ GRP.scripts = [
     options: 
     {
         sidebaronly:false,
-		manual: '',
-        domains: {}
+		custom:{xtype:'p'},
+/*		domains: {xtype:'crud', value:'<div id="crud_domains"><ul class="mnu crud" id="favicon_crud"></ul><a id="t_favicons_add" class="add" href="javascript:addfavicon();">Add</a></div>'},*/
+		domains: {xtype:'crud'},
+		tip:{xtype:'p'},
+		manual: false,
+		parsing:{xtype:'p'}
     }
 }, 
 {
@@ -52,9 +58,9 @@ GRP.scripts = [
     name: "Remove ads",
     options: 
     {
-        links: "da\.feedsportal\.com|res\.feedsportal\.com|doubleclick\.net|/ads",
-        images: "feedsportal\.com|doubleclick\.net|/ads",
-        iframes: "feedsportal\.com|doubleclick\.net|googlesyndication\.com/pagead/ads"
+        links: {xtype:'textarea', value:"da\.feedsportal\.com|res\.feedsportal\.com|doubleclick\.net|/ads"},
+        images: {xtype:'textarea', value:"feedsportal\.com|doubleclick\.net|/ads"},
+        iframes: {xtype:'textarea', value:"feedsportal\.com|doubleclick\.net|googlesyndication\.com/pagead/ads"}
     }
 }, 
 {
@@ -64,10 +70,9 @@ GRP.scripts = [
     {
         locked: false,
         count: 3,
-		maxcolumns:6,
+		/*maxcolumns:6,*/
 		pagebreak:true
     },
-    //shortcut: "c",
     shortcuts: 
     {
         'columns': 
@@ -87,8 +92,9 @@ GRP.scripts = [
     name: "Integrated preview",
     options: 
     {
-        locked: false,
-		adjustframe: false
+        onicon:false,
+		locked: false
+		/*,adjustframe: false*/
     },
     //shortcut: "shift+R",
     shortcuts: 
@@ -107,7 +113,10 @@ GRP.scripts = [
 }, 
 {
     id: "colorful",
-    name: "Colorful listview"
+    name: "Colorful listview",
+	options:{
+		tree:false
+	}
 }, 
 {
     id: "filter",
@@ -139,7 +148,17 @@ GRP.scripts = [
     name: "Twitter integration",
 	options: 
     {
-        shortener: 'tinyurl'
+		shortener: 
+		{
+			xtype: 'select',
+			values:{
+				tinyurl:  'TinyUrl',
+				bitly: 'BitLy'
+			}
+		},
+		shortener_bitly:{xtype:'p', cls:'subtitle'},
+		shortener_login:{value:'', size:20},
+		shortener_apikey:{value:'', size:30}
     },
     shortcuts: 
     {
@@ -160,7 +179,8 @@ GRP.scripts = [
     name: "Instapaper integration",
     options: 
     {
-        username: '',
+        auth: {xtype:'p', cls:'subtitle'},
+		username: '',
 		password:''
     },
 	shortcuts: 
@@ -236,6 +256,9 @@ GRP.scripts = [
 {
     id: "fitheight",
     name: "Fit height",
+	options:{
+		locked:false
+	},
     shortcuts: 
     {
         'fit': 
@@ -290,9 +313,9 @@ GRP.scripts = [
     name: "Replacer",
     options: 
     {
-        link: 'http://feedproxy.google.com/~r/uclick/|http://www.gocomics.com/|http://feeds.gocomics.com/\nhttp://feedproxy.google.com/~r/uclick/|http://www.gocomics.com/|http://feeds.gocomics.com/',
-        from: "\"(http:\/\/imgsrv.gocomics.com\/dim\/[^\"]*)\"\n<SPAN id='comment_count_display'>(\d*)</SPAN>",
-        to: "<img src='$1'><br>\nComments: $2"
+        link: {xtype:'textarea', value:'http://feedproxy.google.com/~r/uclick/|http://www.gocomics.com/|http://feeds.gocomics.com/\nhttp://feedproxy.google.com/~r/uclick/|http://www.gocomics.com/|http://feeds.gocomics.com/'},
+        from: {xtype:'textarea', value:"\"(http:\/\/imgsrv.gocomics.com\/dim\/[^\"]*)\"\n<SPAN id='comment_count_display'>(\d*)</SPAN>"},
+        to: {xtype:'textarea', value:"<img src='$1'><br>\nComments: $2"}
     }
 },
 /*
@@ -308,7 +331,10 @@ GRP.scripts = [
 {
     id: "info",
     name: "SysInfo",
-    link: true
+    link: true,
+	options:{
+		sysinfo:{xtype:'html', value:'<div id="sysinfo"></div>'}
+	}
 }, 
 {
     id: "extshortcuts",
