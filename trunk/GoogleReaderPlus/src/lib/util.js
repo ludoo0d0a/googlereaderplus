@@ -181,7 +181,7 @@ function ellipsis(text, max){
 }
 
 function isArray(obj){
-    return obj.constructor == Array;
+    return (obj && obj.constructor == Array);
 }
 
 
@@ -335,7 +335,7 @@ function getStringFromCharCode(codePt){
 
 //saved under format CTRL[0,1]ALT[0,1]SHIFT[0,1]keyCode
 function unmarshallKey(text){
-    var m = /(\d)(\d)(\d)(\d+)/.exec(text);
+    var m = /(\d)(\d)(\d)(\d+)/.exec(text||'');
     var key = {};
     if (m) {
         key = 
@@ -552,6 +552,17 @@ function foreach(array, fn, scope){
             return i;
         }
     }
+}
+function iterate(o, fn, scope){
+    if (o) {
+		for (var p in o) {
+			if (!hasOwnProperty.call(o, p)) {
+	            continue;
+	        }
+			fn.call(scope || this, p, o[p]);
+		}
+	}
+    return false;
 }
 
 function namespace(){
