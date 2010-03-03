@@ -200,7 +200,9 @@ GRP.langs.en.prefs =
     },
     "instapaper": 
     {
-        "auth": "Instapaper authentication (optional):"
+        "auth": "Instapaper authentication (optional):",
+		"username": "Username:",
+		"password": "Password:"
     },
     "colorful": 
     {
@@ -216,9 +218,9 @@ GRP.langs.en.prefs =
     },
     "removeads": 
     {
-        "linkf": "Link filter:",
-        "imgf": "Image filter:",
-        "ifrf": "Iframe filter:"
+        "links": "Link filter:",
+        "images": "Image filter:",
+        "iframes": "Iframe filter:"
     },
     "preview": 
     {
@@ -240,8 +242,8 @@ GRP.langs.en.prefs =
     },
     "replacer": 
     {
-        "lr": "Link Regex:",
-        "sr": "Search regex:",
+        "link": "Link Regex:",
+        "from": "Search regex:",
         "to": "Replace:"
     },
     "pack": 
