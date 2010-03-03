@@ -1,5 +1,5 @@
 /**
- * SystemInformation 
+ * SystemInformation
  * @version  0.3
  * @date 2010-01-22
  * @author LudoO
@@ -8,46 +8,39 @@
  *
  */
 GRP.info = function(prefs){
-	
-	var myport, status, report = {};
-	
-	function init(){		
-		myport = chrome.extension.connect( {
-			name : "ReaderPlus"
-		});
-	}
-	
-	function sendreport(){
-		if (status == 3) {
-			//status ==3 -> report complete
-			myport.postMessage(
-			{
-				message: "info",
-				report: report
-			});
-		}
-	}
-	
- 	function sysinfo(){
-		status=0;
-		infoNavigator();
-		infoExtensions();
-		infoVersion();
-	}
-	
-	function infoNavigator(){
-		var n = window.navigator;
-		var w = {};
-		for(var p in n) {
-			if (typeof n[p] === "string" || typeof n[p] === "boolean"){
-				w[p]=n[p];
-			}
-		}
-		console.log(w);
-		report.navigator = w;
-		sendreport(++status);
-	}
-		
+
+    var myport, status, report = {};
+    
+    function init(){
+        myport = chrome.extension.connect(
+        {
+            name: "ReaderPlus"
+        });
+    }
+    
+    function sendreport(){
+        if (status == 3) {
+            //status ==3 -> report complete
+            myport.postMessage(
+            {
+                message: "info",
+                report: report
+            });
+        }
+    }
+    
+    function sysinfo(){
+        status = 0;
+        infoNavigator();
+        infoExtensions();
+        infoVersion();
+    }
+    
+    function infoNavigator(){
+        report.navigator = getInfo();
+        sendreport(++status);
+    }
+    
     function infoExtensions(){
         GM_xmlhttpRequest(
         {
@@ -55,15 +48,15 @@ GRP.info = function(prefs){
             url: 'chrome://extensions',
             onload: function(res){
                 var extensions = parseExtensions(res.responseXML);
-				console.log(extensions);
-				report.extensions = extensions;
-				sendreport(++status);
+                console.log(extensions);
+                report.extensions = extensions;
+                sendreport(++status);
             },
-			onerror: function(res){
-				console.log(res);
-				report.extensions = {};
-				sendreport(++status);
-			}
+            onerror: function(res){
+                console.log(res);
+                report.extensions = {};
+                sendreport(++status);
+            }
         });
     }
     
@@ -74,15 +67,15 @@ GRP.info = function(prefs){
             url: 'about:version',
             onload: function(res){
                 var version = parseVersion(res.responseXML);
-				console.log(version);
-				report.version = version;
-				sendreport(++status);
+                console.log(version);
+                report.version = version;
+                sendreport(++status);
             },
-			onerror: function(res){
-				console.log(res);
-				report.version = {};
-				sendreport(++status);
-			}
+            onerror: function(res){
+                console.log(res);
+                report.version = {};
+                sendreport(++status);
+            }
         });
     }
     
@@ -92,7 +85,7 @@ GRP.info = function(prefs){
             var data = 
             {
                 name: getElementValue("./span[@jscontent='name']", e),
-                version:  getElementValue("./span[@jscontent='version']", e),
+                version: getElementValue("./span[@jscontent='version']", e),
                 description: getElementValue("./span[@jscontent='description']", e),
                 id: getElementValue("./span[@jscontent='id']", e)
             };
@@ -120,6 +113,44 @@ GRP.info = function(prefs){
         });
         return version;
     }
-	
-	init();
+    
+    init();
 };
+
+
+function getInfo(){
+    var n = window.navigator;
+    var w = {};
+    for (var p in n) {
+        if (typeof n[p] === "string" || typeof n[p] === "boolean") {
+            w[p] = n[p];
+        }
+    }
+    var chromeVersion = extractInfo('Chrome', n.appVersion);
+    var webkitVersion = extractInfo('AppleWebKit', n.appVersion);
+    
+    var o = 
+    {
+        version: chromeVersion,
+        webkit: webkitVersion,
+        os: n.platform,
+        lang: n.language,
+        resolution: screen.width + 'x' + screen.height
+    };
+    return {
+        info: o,
+        navigator: w,
+        screen: screen
+    };
+}
+
+function extractInfo(name, text){
+    try {
+        var re = new RegExp(name + '/[\\d\\.]+');
+        var r = re.exec(text);
+        return (r) ? (r[0].replace(name + '/', '')) : '?';
+    } 
+    catch (e) {
+        return '?';
+    }
+}
