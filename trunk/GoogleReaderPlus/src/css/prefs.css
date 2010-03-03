@@ -4,14 +4,15 @@ body {
 
 h2 {
     margin: 0;
-	font-weight: bold;
+    font-weight: bold;
 }
+
 .title h2 {
     margin: 10px 0;
 }
 
 .subtitle {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .hidden {
@@ -25,27 +26,26 @@ img {
 /**
  * Pretty form
  */
-#panels input, #panels textarea, #panels select{
-	border:0;
-	margin:3px;
-	padding:0px 3px;
-	font:90%/180% "Trebuchet MS", "Lucida Grande", "Bitstream Vera Sans", Arial, Helvetica, sans-serif;
-	color:#666666;
-
+#panels input, #panels textarea, #panels select {
+    border: 0;
+    margin: 3px;
+    padding: 0px 3px;
+    font: 90% / 180% "Trebuchet MS", "Lucida Grande", "Bitstream Vera Sans", Arial, Helvetica, sans-serif;
+    color: #666666;
 }
 
-label.lbl, .shortcut label{
-	float:left;
-	margin:5px;
-	width:130px;
-	display:block;
+label.lbl, .shortcut label {
+    float: left;
+    margin: 5px;
+    width: 130px;
+    display: block;
 }
 
 /**
  * Skeleton
  */
 #main {
-	margin-top: 20px;
+    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -54,7 +54,7 @@ label.lbl, .shortcut label{
     float: left;
     height: 500px;
     width: 240px;
-	padding: 7px;
+    padding: 7px;
     margin: 0 7px;
 }
 
@@ -65,9 +65,9 @@ label.lbl, .shortcut label{
 .container2 {
     float: left;
     width: 220px;
-	/* height */
+    /* height */
     height: 700px;
-	/*padding: 7px;*/
+    /*padding: 7px;*/
     margin: 0 7px;
 }
 
@@ -77,9 +77,9 @@ label.lbl, .shortcut label{
 }
 
 .container3 {
-	margin: 0 80px 0 515px;
-	padding:7px;
-	min-height: 700px;
+    margin: 0 80px 0 515px;
+    padding: 7px;
+    min-height: 700px;
     min-width: 500px;
 }
 
@@ -118,11 +118,12 @@ ul.mnu, .mnu li {
     font-size: 167%;
 }
 
-.mnu.shortcut{
-	width:480px;
+.mnu.shortcut {
+    width: 480px;
     height: 250px;
-	overflow: auto;
+    overflow: auto;
 }
+
 .mnu.nav2 span.linkblock, .mnu.shortcut span, .mnu.pack span {
     display: block;
 }
@@ -142,11 +143,13 @@ li a.link {
     font-size: 85%;
     font-family: 'trebuchet ms', Verdana, Arial, Helvetica, sans-serif;
 }
-.mnu.crud li a{
-	display: inline;
+
+.mnu.crud li a {
+    display: inline;
 }
+
 .mnu.shortcut li {
-	padding:5px 10px;
+    padding: 5px 10px;
 }
 
 .mnu.nav1 li a {
@@ -155,7 +158,7 @@ li a.link {
 
 .mnu.nav2 li a, .mnu.pack li a {
     /*padding-left: .7em;*/
-	padding: .2em 0 .2em 2px;
+    padding: .2em 0 .2em 2px;
 }
 
 .mnu.navskin {
@@ -178,17 +181,6 @@ li a.link {
 .mnu li.button a {
     padding-left: 0 !important;
     text-align: center;
-}
-
-/**
- * favicon
- */
-a.action{
-	float:right;
-	margin-left:4px;
-}
-img.favicon{
-	margin-right:5px;
 }
 
 /**
@@ -216,6 +208,18 @@ span.olink {
     -webkit-border-radius: 7px;
     -webkit-box-shadow: 0px 0px 5px #000000;
 }
+.rounded thead th:first-child{
+	border-top-left-radius: 7px 7px;
+}
+.rounded thead th:last-child{
+	border-top-right-radius: 7px 7px;
+}
+.rounded tfoot td:first-child{
+	border-bottom-left-radius: 7px 7px;
+}
+.rounded tfoot td:last-child{
+	border-bottom-right-radius: 7px 7px;
+}
 
 .detail {
     color: blue;
@@ -224,7 +228,7 @@ span.olink {
 
 .logo {
     text-align: center;
-	margin-bottom:10px;
+    margin-bottom: 10px;
 }
 
 .logo .txt {
@@ -248,7 +252,7 @@ span.olink {
     background-color: #1A8F2A;
     height: 16px;
     margin: 15px;
-	padding: 5px;
+    padding: 5px;
 }
 
 /**
@@ -286,18 +290,84 @@ input.warning {
 }
 
 .shortcut {
-	margin-top:20px;
+    margin-top: 20px;
+}
+
+/**
+ * favicon
+ */
+img.favicon {
+    margin-right: 5px;
 }
 
 /**
  * CRUD
  */
-.crud{
-	border:0;
+/*
+.crud {
+    border: 0;
 }
-.crud th.preview-title{
-	width: 40px;
+
+.crud th.preview-title {
+    width: 40px;
 }
-.crud .add{
-	text-align:right;
+
+.crud .add {
+    text-align: right;
+}
+*/
+/*a.action {
+    float: right;
+    margin-left: 4px;
+}
+*/
+
+/**
+ * Table with rounded corners
+ */
+.crud {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 12px;
+    width: 480px;
+    text-align: left;
+    border-collapse: collapse;
+    margin: 20px;
+}
+
+.crud th {
+    font-weight: normal;
+    font-size: 13px;
+    color: #dddddd;
+    background: #1F1E1B;
+    padding: 8px;
+}
+
+.crud td {
+    background: #3E3A37;
+    border-top: 1px solid #fff;
+    color: #ffffff;
+    padding: 8px;
+}
+.crud tfoot td {
+	background: #1F1E1B;
+}
+.crud tbody tr:hover td {
+    background: #555555;
+}
+.crud a {
+	text-decoration:none;
+	color: #ffffff;
+}
+
+/**
+ * Columns width
+ */
+.crud_header_add{
+	width:50px;
+}
+.crud_header_edit{
+	width:50px;
+}
+.crud_header_remove{
+	width:50px;
 }
