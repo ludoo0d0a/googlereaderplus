@@ -111,17 +111,31 @@ function add(id, key){
  * 
  */
 function addfavicon(urlin){
-    var DEFAULT_SITE = 'http://www.lemonde.fr';
-	var DEFAULT_URL = 'http://medias.lemonde.fr/medias/info/favicon.ico';
-	
+	var DEFAULT_SITE = '';
+	var DEFAULT_URL = '';
+    
+	DEFAULT_SITE = 'http://www.lemonde.fr';
+	//DEFAULT_URL = 'http://medias.lemonde.fr/medias/info/favicon.ico';
+		
 	var url = urlin || DEFAULT_SITE;
     url = prompt("Enter the site :", url);
     if (!url) {
         return;
     }
-    var icon = prefs.favicons_domains[url] || DEFAULT_URL;
-    icon = prompt("Enter the icon url :", icon);
-    if (!icon) {
+
+    var icon = prefs.favicons_domains[url] || getDomain(url)+'/favicon.ico';
+	icon = prompt("Enter the icon url:", icon);
+    /*icon = prompt("Enter the icon url (empty to get automatic):", icon);
+	if (icon===''){
+		//go to find
+		GRP.myport.postMessage({
+	        message: "geticon",
+	        url: url
+	    });
+	    // ->iconget DONT WORK !!!
+		return;
+	}*/
+	if (!icon) {
         return;
     }
     
@@ -134,7 +148,10 @@ function addfavicon(urlin){
         //remove old
         removefavicon(urlin);
     }
+    savefavicon(favicon.url, favicon.icon);
+}
 
+function savefavicon(url, icon, title){
     prefs.favicons_domains[url] = icon;
 	//Refresh all
 	loadCruds();
