@@ -664,3 +664,7 @@ function urlDecode(string){
     }
     return obj;
 }
+
+function getDomain(url){
+    return url.split(/\/|\?/)[2];
+}
