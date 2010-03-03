@@ -78,6 +78,8 @@ function renderScripts(){
         renderShortcuts(panel, script);    
     }
     list.innerHTML = html;
+	addClass(list.firstChild, 'first');
+	addClass(list.lastChild, 'last');
 }
 
 var tplInput = '<label class="lbl" id="t_{id}" for="{id}">{text}</label><input id="{id}" name="{id}" type="text" value="{value}" {extra}"/><br/>';
@@ -169,7 +171,7 @@ function renderSkins(){
             if (last) {
                 last.className = "";
             }
-            c.className = "on";
+            addClass(c, "on");
             var thumb = document.getElementById("thumb");
             var id = c.id.replace('skin_', '');
             var input = document.getElementById("theme_skin");
@@ -189,23 +191,28 @@ function renderSkins(){
             last = c;
         };
     }
+	addClass(list.firstChild, 'first');
+	addClass(list.lastChild, 'last');
 }
 
 function createReport(report){
     var list = document.getElementById('sysinfo');
     list.innerHTML = '';
-    recurseList(list, report);
+    recurseList(list, report, true);
 }
 
-function recurseList(root, list){
+function recurseList(root, list, first){
     var ul = document.createElement('ul');
+	if (!first) {
+		ul.className = "mnu rounded info";
+	}
     for (var o in list) {
         var li = document.createElement('li');
         if (typeof list[o] === "object") {
             ul.innerHTML += "<span class='info-title'>" + o + "</span>";
             recurseList(ul, list[o]);
         } else {
-            li.innerHTML = o + " : " + list[o];
+            li.innerHTML = '<span>'+o + " : " + list[o]+'</span>';
             ul.appendChild(li);
         }
     }
