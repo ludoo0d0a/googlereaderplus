@@ -175,20 +175,20 @@
             
             function parseUnread(json){
                 /*var count = 0, o = eval('(' + json + ')');
-                //var o = JSON.parse(json);
-                var max = parseInt(o.max, 10);
-                if (max == 1000) {*/
-                    for (var i = 0, len = o.unreadcounts.length; i < len; i++) {
-                        var f = o.unreadcounts[i];
-                        //count += parseInt(f.count, 10);
-                        if (READING_LIST_RE_.test(f.id)) {
-                            count = f.count;
-                            continue;
-                        }
+                 //var o = JSON.parse(json);
+                 var max = parseInt(o.max, 10);
+                 if (max == 1000) {*/
+                for (var i = 0, len = o.unreadcounts.length; i < len; i++) {
+                    var f = o.unreadcounts[i];
+                    //count += parseInt(f.count, 10);
+                    if (READING_LIST_RE_.test(f.id)) {
+                        count = f.count;
+                        continue;
                     }
+                }
                 /*} else {
-                    count = max;
-                }*/
+                 count = max;
+                 }*/
                 return count;
             }
             
@@ -211,7 +211,7 @@
             function getPrefs(a){
                 var id;
                 var textPrefs = localStorage.getItem('grp_prefs');
-                var prefs = (textPrefs)?JSON.parse(textPrefs):false;
+                var prefs = (textPrefs) ? JSON.parse(textPrefs) : false;
                 prefs = checkPrefs(prefs);
                 return prefs;
             }
@@ -242,23 +242,20 @@
                 for (var i = 0, len = GRP.scripts.length; i < len; i++) {
                     var script = GRP.scripts[i];
                     //options
-                    if (script.options) {
-                        for (var option in script.options) {
-                            id = script.id + '_' + option;
-                            if (typeof prefs[id] === "undefined") {
-                                prefs[id] = getTypedValue(script.options[option]);
-                            }
+                    iterate(script.options, function(option, o){
+                        id = script.id + '_' + option;
+                        if (typeof prefs[id] === "undefined") {
+							prefs[id] = getTypedValue(o);
                         }
-                    }
+                    });
                     //shortcuts
-                    if (script.shortcuts) {
-                        for (var shortcut in script.shortcuts) {
-                            id = script.id + '_key_' + shortcut;
-                            if (typeof prefs[id] === "undefined") {
-                                prefs[id] = script.shortcuts[shortcut];
-                            }
+                    iterate(script.shortcuts, function(shortcut, o){
+                        id = script.id + '_key_' + shortcut;
+                        if (typeof prefs[id] === "undefined") {
+                            prefs[id] = o;
                         }
-                    }
+                    });
+                    
                 }
                 
                 //Check domains
@@ -281,8 +278,14 @@
             }
             
             
-            function getTypedValue(text){
-                if (text === "true") {
+            function getTypedValue(o){
+				var text;
+				if (typeof o === 'object'){
+					text = o.value||'';
+				}else{
+					text=o;
+				}
+				if (text === "true") {
                     return true;
                 } else if (text === "false") {
                     return false;
@@ -473,7 +476,7 @@
                                         responseHeaders: xhr.responseHeaders,
                                         status: xhr.status,
                                         statusText: xhr.statusText,
-										request:a
+                                        request: a
                                     });
                                 }
                             }
