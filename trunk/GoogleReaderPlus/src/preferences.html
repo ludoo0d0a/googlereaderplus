@@ -33,6 +33,7 @@
                     {
                         name: "readerplus"
                     });
+					GRP.myport = myport;
                     var me = this;
                     myport.onMessage.addListener(function(a){
                         if (a.message === "prefs") {
@@ -97,18 +98,16 @@
                         <span id="t_title" class="txt">Reader Plus</span>
 						<span id="version" class="txt"></span>
                     </div>
-                    <div class="rounded">
-                        <ul class="mnu nav1">
-                            <li class="item"><a id="t_link_reader" href="#" onclick="findReader();"><span>Google Reader</span>Your RSS reader</a></li>
-                            <li class="item"><a id="t_link_issues" href="http://code.google.com/p/googlereaderplus/issues/entry"><span>Report issue</span>Found a bug or suggestion ?</a></li>
-                            <li class="item"><a id="t_link_download" href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg/" target="_blank"><span>Google Extension</span>The place to download</a></li>
-                            <li class="item"><a id="t_link_about" href="about.html" target="_blank"><span>About</span>About, thanks,...</a></li>
-                            <li class="item"><a id="t_link_site" href="http://www.pitaso.com/chrome" target="_blank"><span>Website</span>My personal website</a></li>
-							<li class="item"><a id="t_link_translate" href="http://code.google.com/p/googlereaderplus/issues/detail?id=141" target="_blank"><span>Translation</span>Help me to translate</a></li>
-                            <li class="button"><a id="t_link_twitter" href="http://www.twitter.com/ludoo0d0a" target="_blank"><span><img width="160" height="27" src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow ludoo0d0a on Twitter"/></span>Follow news and updates</a></li>
-							<li class="button" id="t_link_donate"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=US&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></span>Offer me a coffee!</a></li>
-                        </ul>
-                    </div>
+                    <ul class="mnu rounded nav1">
+                        <li class="first item"><a id="t_link_reader" href="#" onclick="findReader();"><span>Google Reader</span>Your RSS reader</a></li>
+                        <li class="item"><a id="t_link_issues" href="http://code.google.com/p/googlereaderplus/issues/entry"><span>Report issue</span>Found a bug or suggestion ?</a></li>
+                        <li class="item"><a id="t_link_download" href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg/" target="_blank"><span>Google Extension</span>The place to download</a></li>
+                        <li class="item"><a id="t_link_about" href="about.html" target="_blank"><span>About</span>About, thanks,...</a></li>
+                        <li class="item"><a id="t_link_site" href="http://www.pitaso.com/chrome" target="_blank"><span>Website</span>My personal website</a></li>
+						<li class="item"><a id="t_link_translate" href="http://code.google.com/p/googlereaderplus/issues/detail?id=141" target="_blank"><span>Translation</span>Help me to translate</a></li>
+                        <li class="button"><a id="t_link_twitter" href="http://www.twitter.com/ludoo0d0a" target="_blank"><span><img width="160" height="27" src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow ludoo0d0a on Twitter"/></span>Follow news and updates</a></li>
+						<li class="last button" id="t_link_donate"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=US&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></span>Offer me a coffee!</a></li>
+                    </ul>
                 </div>
                 <div id="scriptlist0" class="container2">
                     <ul id="scriptlist" class="rounded mnu nav2">
@@ -131,7 +130,7 @@
                             <div class="body">
                                 <div id="themebox">
                                     <input id="theme_skin" name="theme_skin" type="hidden" value=""/>
-                                    <ul class="mnu navskin" id="skinlist">
+                                    <ul class="mnu rounded navskin" id="skinlist">
                                     </ul>
 									<input id="theme_noborder" name="theme_noborder" type="checkbox" />
 	                                <label class="lbl_locked" id="t_theme_noborder" for="theme_noborder">
@@ -144,11 +143,11 @@
                         </div>
                         <div id="panel_pack" style="display:none;">
                             <div class="body">
-                                <ul class="mnu pack">
-                                    <li><a id="t_pack_mini" href="javascript:setpackage('mini');"><span>Package Mini</span>The minimum for best reading</a></li>
+                                <ul class="rounded mnu pack">
+                                    <li class="first"><a id="t_pack_mini" href="javascript:setpackage('mini');"><span>Package Mini</span>The minimum for best reading</a></li>
                                     <li><a id="t_pack_ludoo" href="javascript:setpackage('ludoo');"><span>Package LudoO</span>The best features in one click</a></li>
                                     <li><a id="t_pack_full" href="javascript:setpackage('full');"><span>Package Full</span>All features activated</a></li>
-                                    <li><a id="t_pack_reset" href="javascript:setpackage('reset');"><span>Package Reset</span>Reset your configuration</a></li>
+                                    <li class="last"><a id="t_pack_reset" href="javascript:setpackage('reset');"><span>Package Reset</span>Reset your configuration</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -158,8 +157,8 @@
                                 <ul id="grpshortcuts" class="mnu shortcut">
                                 </ul>
                                 <h2><a id="t_extshortcuts_official" href="http://www.google.com/support/reader/bin/answer.py?hl=en&amp;answer=69973" target="_blank">Google Reader official shortcuts</a></h2>
-                                <ul id="googleshortcuts" class="mnu shortcut">
-                                    <li><span>j/k</span>item down/up : selects the next/previous item in the list</li>
+                                <ul id="googleshortcuts" class="mnu rounded shortcut">
+                                    <li class="first"><span>j/k</span>item down/up : selects the next/previous item in the list</li>
                                     <li><span>space/shift-space</span>page down/up : moves the page down/up</li>
                                     <li><span>n/p</span>scan down/up : in list view, selects the next item without opening it</li>
                                     <li><span>shift-n/p</span>navigation down/up : selects the next/previous subscription or folder in the navigation</li>
@@ -193,53 +192,56 @@
                                     <li><span>2</span>list view : displays the subscription as a list of headlines</li>
                                     <li><span>/</span>search : moves your cursor to the search box</li>
                                     <li><span>a</span>add a subscription : opens the "Add a subscription" box in the sidebar</li>
-                                    <li><span>?</span>keyboard shortcuts help : displays a quick guide to all of Reader's shortcuts</li>
+                                    <li class="last"><span>?</span>keyboard shortcuts help : displays a quick guide to all of Reader's shortcuts</li>
                                 </ul>
                             </div>
                         </div>
                         <div id="panel_thanks" style="display:none;">
                             <div class="body">
                                 <span id="t_thanks_donators">Thanks to donators to contribute to this project</span>:
-                                <ul>
-                                    <li>Ian Chipman<!--10--></li>
-                                    <li>Parker Harrington<!--5--></li>
-                                    <li>Darren Lynn<!--5--></li>
-                                    <li>Feng Gao<!--3--></li>
+                                <ul class="rounded mnu donators">
+                                    <li class="first"><!--10--><a href="javascript:void();"><span>Ian Chipman</span></a></li>
+                                    <li><!--5--><a href="javascript:void();"><span>Parker Harrington</span></a></li>
+                                    <li><!--5--><a href="javascript:void();"><span>Darren Lynn</span></a></li>
+                                    <li class="last"><!--3--><a href="javascript:void();"><span>Feng Gao</span></a></li>
                                 </ul>
                                 <span id="t_thanks_authors">Thanks to authors of original scripts and skins (Greasemonkey and Stylish)</span>:
-                                <ul>
-                                    <li><a href="http://userscripts.org/scripts/show/56756">Google Reader Plus (aka me LudoO :)</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/40120">Google Reader Favicon ++</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/12197">Google Reader Minimalistic</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/8782">Google Reader - Colorful List View</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/12352">Google Reader Preview Enhanced (patched by bryantsai)</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/23671">Google Reader Filter</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/6415">Google Reader for wider screens</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/12601">Google Reader Unread Count</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/46615">GReader Favicon Alerts</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/8843">Google Reader - Read by Mouse</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/9594">Facebook Sharer + Google Reader</a> and my update : <a href="http://userscripts.org/scripts/show/63997">Share with Facebook in Google Reader</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/10169">Google Reader + Twitter</a></li>
-                                    <!-- <li>
+                                <ul class="rounded mnu thanks">
+                                    <li class="first"><a href="http://userscripts.org/scripts/show/56756"><span>Google Reader Plus (aka me LudoO :)</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/40120"><span>Google Reader Favicon ++</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/12197"><span>Google Reader Minimalistic</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/8782"><span>Google Reader - Colorful List View</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/12352"><span>Google Reader Preview Enhanced (patched by bryantsai)</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/23671"><span>Google Reader Filter</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/6415"><span>Google Reader for wider screens</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/12601"><span>Google Reader Unread Count</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/46615"><span>GReader Favicon Alerts</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/8843"><span>Google Reader - Read by Mouse</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/9594"><span>Facebook Sharer + Google Reader</span></a></li>
+									<li><a href="http://userscripts.org/scripts/show/63997"><span>Share with Facebook in Google Reader</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/10169"><span>Google Reader + Twitter</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/63802"><span>Google Reader: Mac OS X Snow Leopard Fixes</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/10573"><span>Google Reader Air Skin</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/9692"><span>Google Air Skin Comic Sans</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/12917"><span>google Enhanced BLACK</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/24736"><span>Black Skin</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/5133"><span>Another Dark Google Reader Style</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/38251"><span>Helvetireader style for Google Reader</span></a></li>
+                                    <li><a href="http://userstyles.org/styles/12859"><span>OS X Style for New Google Reader</span></a></li>
+									<li><a href="http://userstyles.org/styles/2336"><span>OS X Spinner for Google Reader</span></a>
+                                    <li><a href="http://userstyles.org/styles/16900"><span>Google Reader: Mac OS X Snow Leopard</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/63802"><span>Google Reader: Mac OS X Snow Leopard Fixes</span></a></li>
+                                    <li><a href="http://www.hicksdesign.co.uk/journal/google-reader-theme"><span>OS X fixer</span></a></li>
+                                    <li><a href="http://userstyles.org/styles/4096"><span>Google Aero</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/24955"><span>Google Reader - Mark Until Current As Read</span></a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/54713"><span>Instapaper in Google Reader</span></a></li>
+									<li class="last"><a href="#"><span>Entry replacer for gocomics(jolan78)</span></a></li>
+									<!-- <li>
                                     <a href="http://userscripts.org/scripts/show/49958">Grittr = Google Reader + Twitter</a>
                                     </li>
                                     <li>
                                     <a href="http://userscripts.org/scripts/show/26383">Google Reader Prefetch More</a>
-                                    </li>--><li><a href="http://userscripts.org/scripts/show/63802">Google Reader: Mac OS X Snow Leopard Fixes</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/10573">Google Reader Air Skin</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/9692">Google Air Skin Comic Sans</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/12917">google Enhanced BLACK</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/24736">Black Skin</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/5133">Another Dark Google Reader Style</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/38251">Helvetireader style for Google Reader</a></li>
-                                    <li><a href="http://userstyles.org/styles/12859">OS X Style for New Google Reader</a><a href="http://userstyles.org/styles/2336">OS X Spinner for Google Reader</a></li>
-                                    <li><a href="http://userstyles.org/styles/16900">Google Reader: Mac OS X Snow Leopard</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/63802">Google Reader: Mac OS X Snow Leopard Fixes</a></li>
-                                    <li><a href="http://www.hicksdesign.co.uk/journal/google-reader-theme">OS X fixer</a></li>
-                                    <li><a href="http://userstyles.org/styles/4096">Google Aero</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/24955">Google Reader - Mark Until Current As Read</a></li>
-                                    <li><a href="http://userscripts.org/scripts/show/54713">Instapaper in Google Reader</a></li>
-									<li><a href="#">Entry replacer for gocomics(jolan78)</a></li>
+                                    </li>-->
                                 </ul>
                             </div>
                         </div>
