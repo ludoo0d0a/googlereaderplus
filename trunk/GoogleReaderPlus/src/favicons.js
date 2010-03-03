@@ -177,11 +177,7 @@ GRP.favicons = function(prefs, langs, myport){
     function revertFavicon(event){
         this.src = FAVICON_TPL_DEF_URL;
     }
-    
-    function getDomain(url){
-        return url.split(/\/|\?/)[2];
-    }
-    
+        
     function findFaviconByTitle(FAVICON, title){
         return find(FAVICON, 'title', title);
     }
