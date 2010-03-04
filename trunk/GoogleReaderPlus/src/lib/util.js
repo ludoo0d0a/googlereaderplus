@@ -613,11 +613,11 @@ function merge(o, c, defaults){
                 } else {
                     o[i] = c[i];
                 }
-                console.log('after: ' + c[i] + ' Amerge[' + i + ']> ' + o[i]);
+                //console.log('after: ' + c[i] + ' Amerge[' + i + ']> ' + o[i]);
             }
         } else {
             //o[p] = c[p];
-            console.log(c + ' -> ' + o);
+            //console.log(c + ' -> ' + o);
             o = c;
         }
     }
