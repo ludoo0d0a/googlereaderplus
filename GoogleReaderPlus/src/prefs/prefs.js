@@ -99,10 +99,3 @@ function renderPrefs(){
     }
 }
 
-function getText(lang, script, option){
-	var text = false;
-	if (GRP.langs[lang] && GRP.langs[lang].texts[script] && GRP.langs[lang].texts[script][option]) {
-        text = GRP.langs[lang].texts[script][option];
-    }
-	return text;
-}
