@@ -6,8 +6,8 @@
  * 翻译 : 简体中文 By Jfjj007
  * **************************
  *
- * Version : 0.1
- * Date : 2010-03-04
+ * Version : 0.3
+ * Date : 03-04-2010
  * @author Jfjj007
  */
 namespace('GRP.langs.zh_CN');
@@ -26,6 +26,7 @@ GRP.langs.zh_CN.texts =
         list: "查看列表标题.",
         expanded: "进入展开条目视图.",
         frame: "进入列表条目视图.",
+comment: "Comment view entries.",
         read: "Read items.",
         unread: "Unread items.",
         
@@ -36,6 +37,7 @@ GRP.langs.zh_CN.texts =
         msgList: "List view items ",
         msgExpanded: "显示条目为展开模式 ",
         msgFrame: "显示条目为列表模式 ",
+msgComment: "Comment view items ",
         msgUnread: "Unread items ",
         msgRead: "Read items ",
         msgUndef: "未定义的",
@@ -156,6 +158,10 @@ GRP.langs.zh_CN.prefs =
         "title": "Reader Plus",
 		"val-save":"保存"
     },
+	"theme": 
+    {
+        "noborder": "Remove entries borders to display more items on a single page"
+    },
 	"about":{
 		"thanks1":'<td><span class="top_right"><img src="images/48.png"></span><h1>谢谢您...</h1>'+
 '<p>... 安装（或更新）最新的版本 <strong>Reader Plus</strong>!</p>'+
@@ -194,24 +200,27 @@ GRP.langs.zh_CN.prefs =
     },
     "instapaper": 
     {
-        "auth": "Instapaper认证(可选):"
+        "auth": "Instapaper认证(可选):",
+"username": "Username:",
+"password": "Password:"
     },
     "colorful": 
     {
         "tree": "在左侧导航栏中显示标签的颜色"
     },
-    "icon": 
+    "general": 
     {
         "counter": "在工具栏显示未读消息的计数器图标",
         "opendirect": "点击图标就会打开Google Reader",
+"secure": "Always force use of secure protocol (https)",
         "icontoolbar_add": "要添加工具栏图标，请点击 <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">下载并安装</a>.",
         "icontoolbar_text": "<span>为了使按钮自定义添加，我们也开发了另外一个独立的扩展,</span>                                    <br>                                    <span>必须安装reader plus.</span>                                    <br>                                    <span>要添加按钮，点击 <b>Install</b> 在 <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus 工具栏按钮</a> page.</span>                                    <br>                                    <span>要删除按钮，右键点击他，选择禁用.</span>"
     },
     "removeads": 
     {
-        "linkf": "过滤链接",
-        "imgf": "过滤图片",
-        "ifrf": "自定义过滤"
+        "links": "过滤链接",
+        "images": "过滤图片",
+        "iframes": "自定义过滤"
     },
     "preview": 
     {
@@ -233,8 +242,8 @@ GRP.langs.zh_CN.prefs =
     },
     "replacer": 
     {
-        "lr": "链接正则表达式",
-        "sr": "搜索正则表达式",
+        "link": "链接正则表达式",
+        "from": "搜索正则表达式",
         "to": "替换"
     },
     "pack": 
@@ -247,7 +256,9 @@ GRP.langs.zh_CN.prefs =
     "extshortcuts": 
     {
         "custom": "自定义快捷键",
-        "official": "Google Reader 官方快捷键"
+        "official": "Google Reader 官方快捷键",
+"alreadyusedprefs": "Already used in your preferences!",
+"alreadyusedgoogle": "Already used by Google!"
     },
     "thanks": 
     {

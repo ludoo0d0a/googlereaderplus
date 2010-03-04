@@ -13,9 +13,9 @@
 namespace('GRP.langs.zh_CN');
 GRP.langs.zh_CN.scripts = [
 {
-    id: "icon",
-    name: "图标",
-    desc: "添加Chrome的工具栏图标"
+    id: "general",
+    name: "General",
+    desc: "General configuration"
 },
 {
     id: "theme",
