@@ -6,8 +6,8 @@
  * fr : Francais
  * **************************
  *
- * Version : 0.2
- * Date : 02-23-2010
+ * Version : 0.3
+ * Date : 03-04-2010
  * @author Valente
  */
 namespace('GRP.langs.fr');
@@ -257,7 +257,9 @@ GRP.langs.fr.prefs =
     "extshortcuts": 
     {
         "custom": "Vos propres raccourcis clavier",
-        "official": "Les raccourcis clavier officiels de Google Reader"
+        "official": "Les raccourcis clavier officiels de Google Reader",
+		"alreadyusedprefs": "Déjà utilisé dans vos préférences!",
+		"alreadyusedgoogle": "Déjà utilisé par Google!"
     },
     "thanks": 
     {

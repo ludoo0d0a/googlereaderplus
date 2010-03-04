@@ -6,8 +6,8 @@
  * en : English
  * **************************
  *
- * Version : 0.2
- * Date : 02-23-2010
+ * Version : 0.3
+ * Date : 03-04-2010
  * @author Valente
  */
 namespace('GRP.langs.en');
@@ -256,7 +256,9 @@ GRP.langs.en.prefs =
     "extshortcuts": 
     {
         "custom": "Your custom Shortcuts",
-        "official": "Google Reader official shortcuts"
+        "official": "Google Reader official shortcuts",
+		"alreadyusedprefs": "Already used in your preferences!",
+		"alreadyusedgoogle": "Already used by Google!"
     },
     "thanks": 
     {
