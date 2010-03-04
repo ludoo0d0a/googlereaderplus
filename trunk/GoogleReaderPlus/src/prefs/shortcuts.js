@@ -72,12 +72,14 @@ function isShortcutFree(e){
     
     //custom in prefs
     if (gshortcuts[key]) {
-        return 'Already used in your preferences !';
+        var warning1 = getTextPrefs(lang, 'extshortcuts', 'alreadyusedprefs');
+		return warning1;
     }
     
     //google
     if (GRP.googleshortcuts && GRP.googleshortcuts[text]) {
-        return 'Already used by Google!<br/>(' + GRP.googleshortcuts[text] + ')';
+        var warning2 = getTextPrefs(lang, 'extshortcuts', 'alreadyusedgoogle');
+		return warning2+'<br/>(' + GRP.googleshortcuts[text] + ')';
     }
     
     return true;
