@@ -1,6 +1,23 @@
 /**
  * @author Valente
  */
+function getText(lang, script, option){
+	var text = false;
+	if (GRP.langs[lang] && GRP.langs[lang].texts[script] && GRP.langs[lang].texts[script][option]) {
+        text = GRP.langs[lang].texts[script][option];
+    }
+	return text;
+}
+
+function getTextPrefs(lang, script, option){
+	var text = false;
+	if (GRP.langs[lang] && GRP.langs[lang].prefs[script] && GRP.langs[lang].prefs[script][option]) {
+        text = GRP.langs[lang].prefs[script][option];
+    }
+	return text;
+}
+
+
 function autoTranslate(name){
     var params = urlDecode(window.location.search.substring(1));
     var lang = params.lang || 'en';
@@ -11,7 +28,15 @@ function autoTranslate(name){
 }
 
 function translatePage(lang, name){
-    var translations = (GRP.langs[lang]) ? GRP.langs[lang].prefs : false;
+    /*var translations, DEFAULT_translations = GRP.langs.en.prefs;
+	if(GRP.langs[lang]){
+		//translations=merge(DEFAULT_translations, GRP.langs[lang].prefs);
+		translations= GRP.langs[lang].prefs;
+	}else{
+		translations=DEFAULT_translations;
+	}	
+	*/
+	var translations= GRP.langs[lang].prefs;
     if (translations) {
 		function replaceTexts(name, texts){
 			for (var key in texts) {
@@ -53,7 +78,7 @@ function getAllTexts(){
         }
         translations[o.name][o.key] = text.trim();
     }
-    document.write("<!--" + JSON.stringify(translations) + "-->");
+    //document.write("<!--" + JSON.stringify(translations) + "-->");
 }
 
 function splitId(id){
@@ -74,7 +99,7 @@ function splitId(id){
     };
 }
 
-function loadLangs(lang, cb){
+function loadLangs(lang, cb, scope){
     //TODO: load json here instead evald js
     GM_addScript('lang/' + lang + '/features.js', true, function(){
         GM_addScript('lang/' + lang + '/langs.js', true, function(){
@@ -83,7 +108,7 @@ function loadLangs(lang, cb){
                 merge(GRP, GRP.langs[lang]);
             }
             if (cb) {
-                cb.call(this);
+                cb.call(scope||this);
             }
         }, true);
     }, true);
