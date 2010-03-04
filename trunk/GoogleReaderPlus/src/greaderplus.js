@@ -36,13 +36,11 @@
             });
         },
         initprefs: function(){
-            //var langs = GRP.texts;
             this.lang = this.prefs.language_lang || 'en';
-            this.lang = (GRP.langs[this.lang]) ? this.lang : 'en';
-            //override locale texts
-            merge(GRP, GRP.langs[this.lang]);
-            //next
-            this.runExtra(this.lang);
+			loadLangs(this.lang, function(){
+				console.log("ReaderPlus in "+this.lang);
+	            this.runExtra(this.lang);
+			}, this);
         },
         runExtra: function(){
             var langs = GRP.langs[this.lang].texts;
@@ -95,7 +93,7 @@
                 css += '.collapsed{background-color:transparent !important;}';
                 GM_addStyle(css, 'rps_compress');
             }
-        },
+        }
         /*,fixlang: function(){
          this.lang = this.prefs.language_lang || 'en';
          this.stack = ['texts', 'scripts', 'skins', 'googleshortcuts'];
