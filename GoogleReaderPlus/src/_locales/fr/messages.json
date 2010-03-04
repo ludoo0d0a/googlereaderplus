@@ -5,6 +5,12 @@
   "extension_description": {
     "message": "Améliorer Google Reader en ajoutant les icônes des sites, des thèmes et toute une collection d'autres fonctionnalités"
   },
+  "extension_summary": {
+    "message": "Améliorer votre Google Reader en ajoutant les icônes de sites (favicons), la correction de nombreux problèmes de mise en page et d'images manquantes, afficher le compteur réel d'éléments nons lus, un meilleur affichage sur des écrans plus larges,  aperçu intégré, une vue avec couleur, un filtrage, un affiche en mode colonnes comme les magazines, aller de bas en haut, fermer la nouvelle, adapter la hauteur, ouverture dans un onglet en arrière-plan, lecture par la souris, partager des nouvelles sur Facebook, Twitter, Instapaper, marquer comme lu pour les éléments précédents et suivants , nettoyeur de publicités, remplacement des articles pour les BD.\nVous pouvez choisir votre thème préféré.\nLes raccourcis clavier peuvent être facilement configurable.\nCette extension prend en charge les traductions (anglais, français) .\nN'hésitez pas à venir aider pour compléter les traductions [http://goo.gl/HjiG]\n\nVous pouvez ajouter un bouton optionel dans la barre d'outil :\nhttps://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo"
+  },
+  "extension_language": {
+    "message": "Français"
+  },
   "browser_action_tooltip_default": {
     "message": "Préférences pour ReaderPlus "
   } 

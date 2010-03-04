@@ -3,7 +3,10 @@
     "message": "Reader Plus"
   },
   "extension_description": {
-    "message": "Enhance Google Reader by adding missing favicons and a collection of others features"
+    "message": "增加谷歌阅读器丢失的Favicon的和收藏共享功能"
+  },
+  "extension_language": {
+    "message": "Chinese"
   },
   "browser_action_tooltip_default": {
     "message": "Reader Plus Preferences"
