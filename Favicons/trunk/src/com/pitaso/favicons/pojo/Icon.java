@@ -4,6 +4,14 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+/**
+ * 
+ * @author Valente
+ * 
+ * http://googleappengine.blogspot.com/2009/12/jpajdo-java-persistence-tips-year-in.html
+ * http://gae-java-persistence.blogspot.com/
+ *
+ */
 @PersistenceCapable
 public class Icon {
 
@@ -29,6 +37,16 @@ public class Icon {
     }
     public String getUrl() {
 	return url;
+    }
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+	StringBuffer sb = new StringBuffer("[Icon]");
+	sb.append(" url:").append(url);
+	sb.append(" icon:").append(icon);
+	return sb.toString();
     }
     
 }

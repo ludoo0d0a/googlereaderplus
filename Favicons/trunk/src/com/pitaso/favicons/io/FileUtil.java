@@ -9,12 +9,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.Proxy;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.logging.Logger;
 
 import com.google.appengine.repackaged.org.apache.commons.logging.Log;
 import com.google.appengine.repackaged.org.apache.commons.logging.LogFactory;
+import com.pitaso.favicons.FaviconsServlet;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -23,7 +25,7 @@ import com.google.appengine.repackaged.org.apache.commons.logging.LogFactory;
 public class FileUtil {
 
     /** The Constant LOG. */
-    private final static Log LOG = LogFactory.getLog(FileUtil.class);
+    private static final Logger log = Logger.getLogger(FileUtil.class.getName());
 
     // Help function that reads the file from the disk into a String
     /**
@@ -48,7 +50,7 @@ public class FileUtil {
 		    fis.close();
 		}
 	    } catch (final Exception e1) {
-		LOG.error("Error on close opened file", e);
+		log.severe("Error on close opened file");
 	    }
 	}
 	return new String(bytes, "UTF-8");
@@ -109,7 +111,7 @@ public class FileUtil {
 	try {
 	    inputstream = new ByteArrayInputStream(value.getBytes("UTF-8"));
 	} catch (final UnsupportedEncodingException e) {
-	    LOG.error("Encoding unsupported on conversion", e);
+	    log.severe("Encoding unsupported on conversion");
 	}
 	return inputstream;
     }
@@ -135,14 +137,14 @@ public class FileUtil {
 		buffer.append(inputLine);
 	    }
 	} catch (final Exception e) {
-	    LOG.error("Cannot download file "+url, e);
+	    log.severe("Cannot download file "+url);
 	} finally {
 	    try {
 		if (bufferreader != null) {
 		    bufferreader.close();
 		}
 	    } catch (final Exception e) {
-		LOG.error("Cannot close input file", e);
+		log.severe("Cannot close input file");
 	    }
 	}
 	return buffer.toString();
@@ -165,6 +167,11 @@ public class FileUtil {
 	    // String contentType = uc.getContentType();
 	    if (contentLength == -1) {
 		throw new IOException("No data behind this url : " + url.toString());
+	    }
+	    
+	    int code = ((HttpURLConnection)conn).getResponseCode();
+	    if (code>=400){
+		throw new IOException("No data behind this url (http error "+code+") : " + url.toString());
 	    }
 
 	    /*
@@ -191,7 +198,7 @@ public class FileUtil {
 			+ " bytes");
 	    }
 	} catch (IOException e) {
-	    LOG.error("doynload error for " + url, e);
+	    log.severe("download error for " + url);
 	}
 
 	return data;
