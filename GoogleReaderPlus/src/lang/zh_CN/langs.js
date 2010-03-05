@@ -233,7 +233,8 @@ GRP.langs.zh_CN.prefs =
     },
     "favicons": 
     {
-        "sidebaronly": "在侧边栏显示Favicon",
+        "providerpageicons": "Use PageIcons provider rendering all favicons correctly (First access could be a little slow to load all icons)",
+		"sidebaronly": "在侧边栏显示Favicon",
         "custom": "请输入您的自定义Favicons :",
         "add": "添加",
         "tip": "Tip: 你可以很容易的在左侧栏添加使用上下文菜单 \"获取 favicon\" ",

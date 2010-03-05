@@ -233,7 +233,8 @@ GRP.langs.en.prefs =
     },
     "favicons": 
     {
-        "sidebaronly": "Show favicons in sidebar only",
+        "providerpageicons": "Use PageIcons provider rendering all favicons correctly (First access could be a little slow to load all icons)",
+		"sidebaronly": "Show favicons in sidebar only",
         "custom": "Enter your custom favicons :",
         "add": "Add",
         "tip": "Tip: You could add it easily using the contextual menu \"Get favicon\" of the left side bar",
