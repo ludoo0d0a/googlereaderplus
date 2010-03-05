@@ -233,7 +233,8 @@ GRP.langs.fr.prefs =
     },
     "favicons": 
     {
-        "sidebaronly": "Afficher favicons in sidebar only",
+        "providerpageicons": "Utiliser le fournisseur 'PageIcons' pour afficher correctement toutes les icônes  des sites (Le premier accès peut être un peu lent, le temps de charger toutes les icônes)",
+		"sidebaronly": "Afficher favicons in sidebar only",
         "custom": "Saisissez vos propres favicons :",
         "add": "Ajouter",
         "tip": "Conseil: Vous pouvez également utiliser le menu contextuel \"Obtenir l'icône de ce site\" sur chaque site dans l'arbre de gauche",
