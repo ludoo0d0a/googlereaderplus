@@ -9,19 +9,12 @@
  */
 GRP.info = function(prefs){
 
-    var myport, status, report = {};
-    
-    function init(){
-        myport = chrome.extension.connect(
-        {
-            name: "ReaderPlus"
-        });
-    }
+    var status, report = {};
     
     function sendreport(){
         if (status == 3) {
             //status ==3 -> report complete
-            myport.postMessage(
+            chrome.extension.sendRequest(
             {
                 message: "info",
                 report: report
@@ -114,7 +107,6 @@ GRP.info = function(prefs){
         return version;
     }
     
-    init();
 };
 
 
