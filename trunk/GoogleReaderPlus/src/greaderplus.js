@@ -13,27 +13,33 @@
     {
         init: function(){
             console.log("Starts ReaderPlus");
-            this.myport = chrome.extension.connect(
+            /*this.myport = chrome.extension.connect(
             {
                 name: "readerplus"
             });
+			console.log("myport "+this.myport.portId_);
+			*/
             window.GRP = window.GRP || {};
             GRP.language = function(){
                 //dummy
             };
             this.prefs = {};
             var me = this;
-            function onMessageReceived(a){
-                if (a.message == "prefs") {
+            /*function onMessageReceived(a){
+                console.log("Message greaderplus "+a.message);
+				if (a.message == "prefs") {
                     me.prefs = a.prefs;
                     me.initprefs.call(me);
                 }
-            }
-            this.myport.onMessage.addListener(onMessageReceived);
-            this.myport.postMessage(
+            }*/
+            //this.myport.onMessage.addListener(onMessageReceived);
+            chrome.extension.sendRequest(
             {
                 message: "getprefs"
-            });
+            }, function(a){
+				me.prefs = a.prefs;
+                me.initprefs.call(me);
+			});
         },
         initprefs: function(){
             this.lang = this.prefs.language_lang || 'en';
@@ -70,7 +76,8 @@
                     if (window.GRP[o]) {
                         console.log("**** run " + o);
                         try {
-                            window.GRP[o].call(window, this.prefs, langs, this.myport);
+                            //console.log("myport(run) "+this.myport.portId_);
+							window.GRP[o].call(window, this.prefs, langs);
                         } 
                         catch (e) {
                             console.error(e);

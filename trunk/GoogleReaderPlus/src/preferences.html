@@ -25,31 +25,34 @@
         </script>
         <script type="application/javascript">
             //(function(){
-            var lang = 'en', prefs = {}, gshortcuts = {}, myport;
+            var lang = 'en', prefs = {}, gshortcuts = {};
             function init(){
                 GRP.setVersion();
                 if (typeof chrome !== "undefined" && chrome.extension) {
-                    myport = chrome.extension.connect(
+                    var me = this;
+					/*
+					myport = chrome.extension.connect(
                     {
                         name: "readerplus"
                     });
 					GRP.myport = myport;
-                    var me = this;
                     myport.onMessage.addListener(function(a){
                         if (a.message === "prefs") {
-                            //scripts = a.scripts;
-                            prefs = a.prefs;
-                            me.initprefs.call(me);
+                            
                         } else if (a.message === "info") {
                             createReport(a.report);
                         } else if (a.message === "iconget") {
                             savefavicon(a.url, a.icon, a.title);
                         }
-                    });
-                    myport.postMessage(
+                    });*/
+                    chrome.extension.sendRequest(
                     {
                         message: "getprefs"
-                    });
+                    }, function(a){
+						//scripts = a.scripts;
+                        prefs = a.prefs;
+                        me.initprefs.call(me);
+					});
                     
                 }
             }
@@ -65,7 +68,7 @@
             }
             
             function findReader(){
-                myport.postMessage(
+                chrome.extension.sendRequest(
                 {
                     message: "findreader"
                 });
