@@ -10,12 +10,12 @@
         <script type="application/javascript" src="features.js">
         </script>
         <script type="application/javascript">
-            var myport;
+            //var myport;
             
             var READING_LIST_RE_ = new RegExp('user/[\\d]+/state/com\\.google/reading-list');
             
-            chrome.extension.onConnect.addListener(onPortConnect);
-            //chrome.extension.onRequest.addListener(onPortRequest);
+            //chrome.extension.onConnect.addListener(onPortConnect);
+            chrome.extension.onRequest.addListener(onRequest);
             chrome.extension.onRequestExternal.addListener(function(request, sender, sendResponse){
                 if (sender.id === GUID_ICON) {
                     onMessageReceived(request, false, sendResponse);
@@ -25,34 +25,42 @@
             monitorIcon();
             
             sendPrefsToIcon();
-            
+            /*
             function onPortConnect(a){
-                if (a.name != "readerplus") {
+                if (a.name !== "readerplus") {
                     return false;
                 }
                 myport = a;
                 a.onMessage.addListener(onMessageReceived);
-            }
+            }*/
+			
+			function onRequest(request, sender, callback){
+				onMessageReceived(request, sender, callback);
+			}
             
             function onMessageReceived(a, p, cb){
-                if (a.message == "loadicons") {
-                    loadIcons(a);
+				if (a.message == "loadicons") {
+                    loadIcons(a, cb);
                 } else if (a.message == "setprefs") {
                     setPreferences(a);
+					sendNull(cb);
                 } else if (a.message == "getprefs") {
                     getPreferences(a, cb);
                 } else if (a.message == "openprefs") {
                     open_preferences();
+					sendNull(cb);
                 } else if (a.message == "opentab") {
                     opentab(a);
+					sendNull(cb);
                 } else if (a.message == "findreader") {
                     findreader(true, true);
+					sendNull(cb);
                 } else if (a.message == "geticon") {
-                    extractFavicon(a);
+                    extractFavicon(a, cb);
                 } else if (a.message == "iconcounter") {
                     monitorIcon();
                 } else if (a.message == "request") {
-                    request(a);
+                    request(a, false, cb);
                 }
             }
             
@@ -226,11 +234,11 @@
                         prefs: prefs
                     });
                 } else {
-                    myport.postMessage(
+                    sendResponse(
                     {
                         message: "prefs",
                         prefs: prefs
-                    });
+                    },cb);
                 }
                 
                 return prefs;
@@ -352,7 +360,7 @@
                 }
             }
             
-            function loadIcons(a){
+            function loadIcons(a, cb){
                 var xhr = new XMLHttpRequest();
                 xhr.open(a.method || 'get', a.url, true);
                 var FAVICON_TPL_URL = a.FAVICON_TPL_URL;
@@ -361,17 +369,17 @@
                     if (xhr) {
                         var xml = xhr.responseXML;
                         var FAVICON = parseXml(xml, FAVICON_TPL_URL);
-                        myport.postMessage(
+						sendResponse( 
                         {
                             message: "iconsloaded",
                             FAVICON: FAVICON
-                        });
+                        }, cb);
                     }
                 };
                 xhr.send({});
             }
             
-            function extractFavicon(a){
+            function extractFavicon(a, cb){
                 var xhr = new XMLHttpRequest();
                 var url, title, key = a.key, FAVICON = a.FAVICON;
                 if (!key) {
@@ -396,14 +404,14 @@
                             setFavicon(title, icon, url, FAVICON);
                             saveFavicon(url, icon);
                         }
-                        myport.postMessage(
+                        sendResponse(
                         {
                             message: "iconget",
                             title: title,
                             icon: icon,
                             url: url,
                             FAVICON: FAVICON
-                        });
+                        }, cb);
                     }
                 };
                 xhr.send({});
@@ -434,7 +442,7 @@
                 return icon;
             }
             
-            function request(a, local){
+            function request(a, local, cb){
                 var xhr = new XMLHttpRequest();
                 var method = a.method || 'get';
                 var url = a.url;
@@ -467,7 +475,7 @@
                                 if (local && typeof a['on' + f] === "function") {
                                     a['on' + f].call(this, xhr);
                                 } else {
-                                    myport.postMessage(
+                                    sendResponse(
                                     {
                                         message: a.callback || "requestdone",
                                         action: f,
@@ -477,7 +485,7 @@
                                         status: xhr.status,
                                         statusText: xhr.statusText,
                                         request: a
-                                    });
+                                    }, cb);
                                 }
                             }
                         };
@@ -499,7 +507,7 @@
                     if (local && typeof a.onerror === "function") {
                         a.onerror.call(this, o);
                     } else {
-                        myport.postMessage(o);
+                        sendResponse(o, cb);
                     }
                 }
             }
@@ -579,6 +587,19 @@
                     url: "preferences.html"
                 });
             }
+			
+			function sendResponse(a, cb){
+				if (cb){
+					cb(a);
+				}else{
+					//myport.postMessage(a);
+				}
+			}
+			function sendNull(cb){
+				if (cb) {
+						cb({});
+					}
+			}	
             
             function initVersion(){
                 var v = localStorage.getItem('grp_version');
