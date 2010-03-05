@@ -25,6 +25,8 @@ GRP.readbymouse = function(prefs, langs){
     var systemStatus = GM_getValue('rbmStatus', 'Off');
     var ua = navigator.userAgent.toLowerCase();
     var isWindows = /windows|win32/.test(ua);
+		
+	var isMClick = (!isWindows || (isWindows && isVersionMini('5.0.342.1')));
     
     // Get the element our new button goes by
     var nearNewButton = document.getElementById('entries-down');
@@ -35,7 +37,7 @@ GRP.readbymouse = function(prefs, langs){
         var mouseCtrlButton = document.createElement("span");
         mouseCtrlButton.id = 'btn-readbymouse';
         mouseCtrlButton.innerHTML = '<input type="button" id="___mouseCtrl" value="ReadByMouse ' + systemStatus + '" style="margin-left: 10px;"></input>';
-        if (!isWindows) {
+        if (isMClick) {
             mouseCtrlButton.innerHTML += '<span style="margin-left: 10px;">' + SL.middleclick + ':</span><select id="___middleClickSettings" name="midClickSettings" style="margin-left: 5px;"><option id="openInTab" value="openInTab">' + SL.openintab + '<option id="share" value="share">' + SL.shares + '<option id="star" value="star">' + SL.stars + '<option id="addTag" value="addTag">' + SL.addtag + '</select><span id="addTagSpan" style="text-align:left; visibility: collapse; margin-left: 10px;">' + SL.addtag + ':<input type="textbox" id="txtTag" value=""></span>';
         }
         insertAfter(mouseCtrlButton, nearNewButton);
