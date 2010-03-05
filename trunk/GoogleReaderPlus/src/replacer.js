@@ -6,7 +6,7 @@
  * Replace entries with part of the original article
  *
  */
-GRP.replacer = function(prefs, langs, myport){
+GRP.replacer = function(prefs, langs){
     var locked = false, SL = langs.replacer, partIndex = 0, TPL_NAME = "replacer_result_";
     var gp_links, gp_from, gp_to, re_from = [], re_links = [];
     
