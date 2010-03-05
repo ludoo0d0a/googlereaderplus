@@ -131,7 +131,7 @@ function catchEntry(entry, el, fn, params, listview, force){
  * Side bar
  */
 function initCatchSidebars(fn, bid){
-    document.body.addEventListener('DOMNodeInserted', function(e){
+	document.body.addEventListener('DOMNodeInserted', function(e){
         catchSidebarAdded(e, fn, bid);
     }, false);
     catchAllSidebars(fn, bid);
@@ -139,7 +139,7 @@ function initCatchSidebars(fn, bid){
 
 function catchSidebarAdded(e, fn, bid){
     var el = e.target;
-    //console.log(el.tagName + "." + el.className);
+    //console.log("catchSidebarAdded > "+el.tagName + "." + el.className);
     if (el.tagName == "LI" && hasClass(el, 'sub')) {
         fn.call(this, el);
     } else if (el.tagName == "LI" && hasClass(el, 'folder') && (el.parentNode.id === 'sub-tree')) {
