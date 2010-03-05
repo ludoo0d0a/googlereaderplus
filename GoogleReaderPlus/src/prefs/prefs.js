@@ -50,7 +50,7 @@ function saveprefs(reload, cleanall){
         reload = true;
     }
     
-    myport.postMessage(
+	chrome.extension.sendRequest(
     {
         message: "setprefs",
         prefs: prefs,
