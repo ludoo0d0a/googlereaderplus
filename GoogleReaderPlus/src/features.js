@@ -28,7 +28,8 @@ GRP.scripts = [
     name: "Favicons",
     options: 
     {
-        sidebaronly:false,
+		providerpageicons:false,
+		sidebaronly:false,
 		custom:{xtype:'p'},
 /*		domains: {xtype:'crud', value:'<div id="crud_domains"><ul class="mnu crud" id="favicon_crud"></ul><a id="t_favicons_add" class="add" href="javascript:addfavicon();">Add</a></div>'},*/
 		domains: {xtype:'crud'},
