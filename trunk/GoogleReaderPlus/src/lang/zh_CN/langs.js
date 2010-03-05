@@ -6,8 +6,8 @@
  * 翻译 : 简体中文 By Jfjj007
  * **************************
  *
- * Version : 0.3
- * Date : 03-04-2010
+ * Version : 0.4
+ * Date : 03-02-2010
  * @author Jfjj007
  */
 namespace('GRP.langs.zh_CN');
