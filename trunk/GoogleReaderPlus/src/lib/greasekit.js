@@ -1,9 +1,14 @@
-
+var PREFIX = "readerplus.";
 //GreaseKit
 //http://groups.google.com/group/greasekit-users/browse_thread/thread/d0ed6e8919bb6b42
 if (typeof GM_getValue === "undefined") {
     GM_getValue = function(name, def){
         var value = localStorage.getItem(name);
+		if (value) {
+			//Move to new prefixed place
+			GM_setValue(name, value);
+			localStorage.removeItem(name);//remove old
+        }
         if (value === null && def !== null) {
             value = def;
         }
@@ -33,7 +38,7 @@ if (typeof GM_getCookieValue === "undefined") {
 if (typeof GM_setValue === "undefined") {
     GM_setValue = function(name, value, options){
         try {
-            localStorage.setItem(name, value);
+            localStorage.setItem(PREFIX+name, value);
         } 
         catch (e) {
             console.log('error on GM_setValue[' + name + ']=' + value);
@@ -61,13 +66,13 @@ if (typeof GM_setCookieValue === "undefined") {
 }
 //TODO
 function accessSecure(message, o, callback){
-    var myport = chrome.extension.connect(
+    /*var myport = chrome.extension.connect(
     {
         name: "readerplus"
     });
     if (callback) {
         myport.onMessage.addListener(callback);
-    }
+    }*/
     var a = clone(o) || {};
     a.message = message;
     var fns = ['onload', 'onreadystatechange', 'onerror'];
@@ -77,12 +82,12 @@ function accessSecure(message, o, callback){
             a[f] = true;
         }
     }
-    myport.postMessage(a);
+    chrome.extension.sendRequest(a, callback);
 }
 
 if (typeof GM_xmlhttpRequest === "undefined") {
     GM_xmlhttpRequest = function(o){
-        o.method = (o.method)?o.method.toUpperCase():"GET";
+		o.method = (o.method)?o.method.toUpperCase():"GET";
         if (!o.url) {
             throw ("GM_xmlhttpRequest requires an URL.");
         }
