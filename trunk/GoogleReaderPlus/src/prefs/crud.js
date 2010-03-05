@@ -124,17 +124,23 @@ function addfavicon(urlin){
     }
 
     var icon = prefs.favicons_domains[url] || getDomain(url)+'/favicon.ico';
-	icon = prompt("Enter the icon url:", icon);
-    /*icon = prompt("Enter the icon url (empty to get automatic):", icon);
+	//icon = prompt("Enter the icon url:", icon);
+    icon = prompt("Enter the icon url (empty to get automatic):", icon);
 	if (icon===''){
 		//go to find
-		GRP.myport.postMessage({
+		chrome.extension.sendRequest({
 	        message: "geticon",
 	        url: url
-	    });
-	    // ->iconget DONT WORK !!!
-		return;
-	}*/
+	    }, function(a){
+			// ->iconget 
+			addfaviconNext(a.url, a.icon, a.title);
+		});
+	}else{
+		addfaviconNext(url, icon, title);
+	}
+}
+	
+function addfaviconNext(url, icon, title){
 	if (!icon) {
         return;
     }
