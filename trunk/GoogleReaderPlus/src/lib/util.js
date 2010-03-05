@@ -54,13 +54,14 @@ function getFirstNode(el){
     }
     return o;
 }
+
 //native getElementsByClassName
 function getFirstElementByClassName(root, clazz){
-	return root.getElementsByClassName(clazz)[0];
+    return root.getElementsByClassName(clazz)[0];
 }
 
 /**
- * 
+ *
  * @param {Object} root
  * @param {Object} tag
  * @param {Object} clazz
@@ -305,16 +306,16 @@ function findTop(obj){
 function simulateClick(node){
     var event = node.ownerDocument.createEvent("MouseEvents");
     event.initMouseEvent("click", true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
-		/* ReadByMouse
-		event.initMouseEvent("click", true, // can bubble
-				true, // cancellable
-				node.ownerDocument.defaultView, 1, // clicks
-				50, 50, // screen coordinates
-				50, 50, // client coordinates
-				false, false, false, false, // control/alt/shift/meta
-				0, // button,
-				node);
-				*/
+    /* ReadByMouse
+ event.initMouseEvent("click", true, // can bubble
+ true, // cancellable
+ node.ownerDocument.defaultView, 1, // clicks
+ 50, 50, // screen coordinates
+ 50, 50, // client coordinates
+ false, false, false, false, // control/alt/shift/meta
+ 0, // button,
+ node);
+ */
     node.dispatchEvent(event);
 }
 
@@ -335,7 +336,7 @@ function getStringFromCharCode(codePt){
 
 //saved under format CTRL[0,1]ALT[0,1]SHIFT[0,1]keyCode
 function unmarshallKey(text){
-    var m = /(\d)(\d)(\d)(\d+)/.exec(text||'');
+    var m = /(\d)(\d)(\d)(\d+)/.exec(text || '');
     var key = {};
     if (m) {
         key = 
@@ -539,7 +540,7 @@ function bind(func, thisArg){
         func.apply(thisArg, bargs);
     };
 }
-	
+
 function foreach(array, fn, scope){
     if (!array) {
         return;
@@ -553,15 +554,16 @@ function foreach(array, fn, scope){
         }
     }
 }
+
 function iterate(o, fn, scope){
     if (o) {
-		for (var p in o) {
-			if (!hasOwnProperty.call(o, p)) {
-	            continue;
-	        }
-			fn.call(scope || this, p, o[p]);
-		}
-	}
+        for (var p in o) {
+            if (!hasOwnProperty.call(o, p)) {
+                continue;
+            }
+            fn.call(scope || this, p, o[p]);
+        }
+    }
     return false;
 }
 
@@ -613,7 +615,7 @@ function merge(o, c, defaults){
                 } else {
                     o[i] = c[i];
                 }
-                //console.log('after: ' + c[i] + ' Amerge[' + i + ']> ' + o[i]);
+            //console.log('after: ' + c[i] + ' Amerge[' + i + ']> ' + o[i]);
             }
         } else {
             //o[p] = c[p];
@@ -667,4 +669,20 @@ function urlDecode(string){
 
 function getDomain(url){
     return url.split(/\/|\?/)[2];
+}
+
+function isVersionMini(ref){
+    var version = /Chrome\/([\d\.]+)/.exec(window.navigator.appVersion);
+    version = version[1].split('.');
+    var refs = ref.split('.');
+    for (var i = 0, len = version.length; i < len; i++) {
+        version[i] = parseInt(version[i], 10);
+        if (i<=refs.length) {
+            refs[i] = parseInt(refs[i], 10);
+            if (version[i + 1] < refs[i]) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
