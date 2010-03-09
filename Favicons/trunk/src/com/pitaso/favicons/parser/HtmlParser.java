@@ -1,5 +1,7 @@
 package com.pitaso.favicons.parser;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,9 +12,18 @@ public class HtmlParser {
 
     private static final Logger log = Logger.getLogger(HtmlParser.class.getName());
 
+    // (?:.*).... for lesfronatliers.lu
+
     private final static Pattern reLinkFaviconDirect = Pattern.compile(
-	    "<LINK[^>]*?REL=[\\\"'](SHORTCUT\\W+)?ICON[\\\"'].*\\s+href=\\\"([^\\\"']*)",
-	    Pattern.CASE_INSENSITIVE);
+	    "<LINK[^>]*?REL=[\\\"'](SHORTCUT\\W+)?ICON[\\\"'].*?\\s+href=\\\"([^\\\"']*)",
+	    Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+
+    private final static Pattern reLinkFaviconTag = Pattern.compile(
+	    "<LINK[^>]*?REL=[\\\"'](SHORTCUT\\s+)?ICON[^>]+", Pattern.CASE_INSENSITIVE
+		    | Pattern.MULTILINE);
+
+    private final static Pattern reLinkFaviconHref = Pattern.compile("href=\"([^\"]+)",
+	    Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
 
     private final static Pattern reProtocol = Pattern.compile("^https?:", Pattern.CASE_INSENSITIVE);
     private final static Pattern reCleanUrl = Pattern.compile("([^\\?]+)\\??(.*)",
@@ -25,6 +36,8 @@ public class HtmlParser {
     private final static Pattern rePath = Pattern.compile("^([\\\\/\\.]*)",
 	    Pattern.CASE_INSENSITIVE);
 
+    private final static String FAVICON_DEFAULT = "favicon.ico";
+
     // public static void main(String[] args) {
     // HtmlParser p = new HtmlParser();
     // System.out.println(p.getDomain("http://www.lemonde.fr/tu_tu/titi?tutu=1&z=#12-1"));
@@ -36,7 +49,7 @@ public class HtmlParser {
     // }
 
     public String getFavicon(String url) {
-	log.info("url: " + url);
+	log.info("parse url: " + url);
 	String html = FileUtil.download(url);
 	// log.info("html="+html.substring(0,200));
 	String icon = null;
@@ -45,23 +58,58 @@ public class HtmlParser {
 	}
 	if (icon == null) {
 	    log.info("No icon in HTML");
-	    icon = getDomain(url) + "/favicon.ico";
+	    String ico = getDomain(url) + "/" + FAVICON_DEFAULT;
 	    log.info("domain " + getDomain(url));
+
+	    if (iconExist(ico)) {
+		icon = ico;
+		log.info("Icon exist ; store it");
+	    }else{
+		log.info("Cannot reach icon : "+ico);
+	    }
+
 	}
 
 	return icon;
     }
 
+    private boolean iconExist(String url) {
+	boolean exist = false;
+	try {
+	    byte[] b = FileUtil.download(new URL(url));
+	    exist = (b != null && b.length > 0);
+	} catch (MalformedURLException e) {
+	    log.severe("Icon don't exist :" + url);
+	}
+	return exist;
+    }
+
     private String parseFavicon(String html, String url) {
 	String icon = null;
+	/*
+	 * Matcher matcher = reLinkFaviconDirect.matcher(html); if
+	 * (matcher.find()) { icon = matcher.group(2);
+	 * log.info("Found in Webpage:" + icon); }
+	 */
 
-	Matcher matcher = reLinkFaviconDirect.matcher(html);
-	if (matcher.find()) {
-	    icon = matcher.group(2);
+	// Two steps because attributes could be mixed
+	Matcher matcherTag = reLinkFaviconTag.matcher(html);
+	if (matcherTag.find()) {
+	    String link = matcherTag.group(0);
+	    Matcher matcherLink = reLinkFaviconHref.matcher(link);
+	    if (matcherLink.find()) {
+		icon = matcherLink.group(1);
+		log.info("Found in Webpage:" + icon);
+	    } else {
+		log.info("Not found in Link ofWebpage");
+	    }
+	} else {
+	    log.info("Not found in Webpage");
 	}
 
 	if (icon == null) {
-	    icon = getContext(url) + "/favicon.ico";
+	    icon = getContext(url) + "/" + FAVICON_DEFAULT;
+	    log.info("Set default:" + icon);
 	} else {
 	    // Add domain if relative url
 	    Matcher matcher3 = reProtocol.matcher(icon);
@@ -69,9 +117,11 @@ public class HtmlParser {
 		if (icon.startsWith("/")) {
 		    // domain+icon
 		    icon = getDomain(url) + '/' + cleanStartPath(icon);
+		    log.info("Set default domain+icon:" + icon);
 		} else {
 		    // context+icon
 		    icon = getContext(url) + '/' + icon;
+		    log.info("Set default context+icon:" + icon);
 		}
 	    }
 	}

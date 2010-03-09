@@ -24,6 +24,7 @@ import net.sf.jsr107cache.Cache;
 import net.sf.jsr107cache.CacheException;
 import net.sf.jsr107cache.CacheManager;
 
+import com.pitaso.favicons.image.ImageUtil;
 import com.pitaso.favicons.io.FileUtil;
 import com.pitaso.favicons.parser.HtmlParser;
 import com.pitaso.favicons.service.IconService;
@@ -32,11 +33,12 @@ import com.pitaso.favicons.service.IconService;
 public class FaviconsServlet extends HttpServlet {
 
     private static final Logger log = Logger.getLogger(FaviconsServlet.class.getName());
+    private static final String ICON_BLANK = "blank.png";
     private String servletUrl = null;
     private String defaultIconUrl = null;
     private String defaultIconFile = null;
     private Cache cache = null;
-    private Cache cacheBytes;
+    private Cache cacheBytes = null;
 
     /**
      * 
@@ -45,6 +47,7 @@ public class FaviconsServlet extends HttpServlet {
      * 
      */
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	initServlet(req);
 	String cache = req.getParameter("cache");
 	if (cache != null && "clear".equals(cache)) {
 	    clearCache(resp);
@@ -64,8 +67,8 @@ public class FaviconsServlet extends HttpServlet {
 	}
 
 	servletUrl = req.getRequestURL().toString();
-	defaultIconUrl = servletUrl + "/blank.png";
-	defaultIconFile = "favicons/blank.png";
+	defaultIconUrl = servletUrl + "/" + ICON_BLANK;
+	defaultIconFile = "favicons/" + ICON_BLANK;
     }
 
     /**
@@ -98,6 +101,9 @@ public class FaviconsServlet extends HttpServlet {
 
 	resp.setContentType("application/json");
 
+	String update = req.getParameter("u");
+	boolean isUpdate = "1".equals(update);
+
 	HtmlParser parser = new HtmlParser();
 
 	List<String> urls = Arrays.asList(req.getParameterValues("url"));
@@ -105,7 +111,7 @@ public class FaviconsServlet extends HttpServlet {
 	if (urls != null) {
 	    for (String urlin : urls) {
 		String url = parser.normalizeUrl(urlin);
-		String icon = getIcon(url, cache, parser);
+		String icon = getIcon(url, cache, parser, isUpdate);
 		if (icon != null) {
 		    icons.put(url, icon);
 		}
@@ -126,17 +132,18 @@ public class FaviconsServlet extends HttpServlet {
      * @throws ServletException
      */
     public void doGetIcon(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-	initServlet(req);
-
 	// resp.setContentType("image/png");
 	HtmlParser parser = new HtmlParser();
 
 	String forward = req.getParameter("f");
+	String update = req.getParameter("u");
+	boolean isUpdate = "1".equals(update);
+
 	String url = parser.normalizeUrl(req.getParameter("url"));
-	String icon = getIcon(url, cache, parser);
+	String icon = getIcon(url, cache, parser, isUpdate);
 
 	if ("1".equals(forward)) {
-	    forward(resp, icon);
+	    forward(resp, icon, isUpdate);
 	} else {
 	    resp.sendRedirect(icon);
 	}
@@ -151,21 +158,31 @@ public class FaviconsServlet extends HttpServlet {
      * @param parser
      * @return
      */
-    private String getIcon(String url, Cache cache, HtmlParser parser) {
+    private String getIcon(String url, Cache cache, HtmlParser parser, boolean isUpdate) {
 	String icon = null;
 	if (StringUtils.isNotBlank(url)) {
-	    icon = (String) cache.get(url);
+	    if (!isUpdate) {
+		icon = (String) cache.get(url);
+	    }
 	    if (StringUtils.isBlank(icon)) {
 		IconService iconService = new IconService();
-		icon = iconService.getIcon(url);
+		if (!isUpdate) {
+		    icon = iconService.getIcon(url);
+		}
 		if (icon == null) {
 		    // parse Webpage to get favicons
 		    icon = parser.getFavicon(url);
-		    iconService.save(url, icon);
+		    if (isUpdate) {
+			iconService.update(url, icon);
+		    } else {
+			iconService.save(url, icon);
+		    }
 		}
 		if (icon != null) {
 		    cache.put(url, icon);
 		}
+	    } else {
+		log.info("Get icon from cache");
 	    }
 	}
 
@@ -182,14 +199,23 @@ public class FaviconsServlet extends HttpServlet {
      * @param urlin
      * @throws IOException
      */
-    public void forward(final HttpServletResponse res, String urlin) throws IOException {
+    public void forward(final HttpServletResponse res, String urlin, boolean isUpdate)
+	    throws IOException {
 	try {
 	    byte[] b = null;
-	    b = (byte[]) cacheBytes.get(urlin);
+	    if (!isUpdate) {
+		b = (byte[]) cacheBytes.get(urlin);
+	    }
 	    if (b == null) {
 		URL url = new URL(urlin);
 		b = FileUtil.download(url);
+		// resize it
+		b = ImageUtil.resize(b, 16, 16);
+		cacheBytes.put(urlin, b);
+	    } else {
+		log.info("Get icon bytes from cache");
 	    }
+
 	    if (b == null) {
 		// res.sendRedirect(defaultIcon);
 		forward(res, new File(defaultIconFile));
@@ -198,7 +224,6 @@ public class FaviconsServlet extends HttpServlet {
 		// res.setContentType("application/octet-stream");
 		res.setContentType("image/x-icon");
 		out.write(b);
-		cacheBytes.put(urlin, b);
 	    }
 	} catch (Exception e) {
 	    log.severe(e.getMessage());
@@ -207,42 +232,37 @@ public class FaviconsServlet extends HttpServlet {
     }
 
     public void forward(final HttpServletResponse res, File file) throws IOException {
-
 	ServletOutputStream out = null;
-	RandomAccessFile raf = null;
-
-	// if not exists abort
-	if (file != null && file.exists()) {
-	    try {
-		// res.setContentType("application/octet-stream");
-		res.setContentType("image/x-icon");
-
-		// setResponseHeaders(res);
-
-		raf = new RandomAccessFile(file, "r");
-		res.setContentLength((int) raf.length());
-		out = res.getOutputStream();
-
-		final byte[] loader = new byte[(int) raf.length()];
-		while ((raf.read(loader)) > 0) {
-		    out.write(loader);
-		}
-	    } catch (final IOException e) {
-		throw new IOException("File not found : " + file);
-	    } catch (final Exception e) {
-		log.severe("Exception in execution of the stream service");
-	    } finally {
-		if (out != null) {
-		    out.flush();
-		    out.close();
-		}
-		if (raf != null) {
-		    raf.close();
-		}
+	byte[] b = (byte[]) cacheBytes.get(file.getAbsolutePath());
+	if (b == null) {
+	    if (file != null && file.exists()) {
+		b = FileUtil.getBytesFromFile(file);
+		cacheBytes.put(file.getAbsolutePath(), b);
+	    } else {
+		throw new IOException("File not found:" + file);
 	    }
-	} else {
-	    throw new IOException("File not found:" + file);
+	} 
+
+	try {
+	    // res.setContentType("application/octet-stream");
+	    res.setContentType("image/x-icon");
+
+	    if (b != null) {
+		res.setContentLength((int) b.length);
+		out = res.getOutputStream();
+		out.write(b);
+	    }
+	} catch (final IOException e) {
+	    throw new IOException("IOException on forward");
+	} catch (final Exception e) {
+	    log.severe("Exception in execution of the stream service");
+	} finally {
+	    if (out != null) {
+		out.flush();
+		out.close();
+	    }
 	}
+
     }
 
 }
