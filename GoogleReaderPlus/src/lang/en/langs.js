@@ -6,8 +6,8 @@
  * en : English
  * **************************
  *
- * Version : 0.4
- * Date : 03-05-2010
+ * Version : 0.5
+ * Date : 03-09-2010
  * @author Valente
  */
 namespace('GRP.langs.en');
@@ -138,6 +138,7 @@ GRP.langs.en.texts =
     {
         middleclick: 'Middle click',
         openintab: 'Opens in Tab',
+		openinbacktab: 'Opens in Background Tab',
         shares: 'Shares',
         stars: 'Stars',
         tag: 'Tag',
@@ -233,7 +234,7 @@ GRP.langs.en.prefs =
     },
     "favicons": 
     {
-        "providerpageicons": "Use PageIcons provider rendering all favicons correctly (First access could be a little slow to load all icons)",
+        "providerpageicons": "Use [Beta] PageIcons provider (Recommended to load succesfully all icons)",
 		"sidebaronly": "Show favicons in sidebar only",
         "custom": "Enter your custom favicons :",
         "add": "Add",

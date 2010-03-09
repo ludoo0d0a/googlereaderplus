@@ -6,8 +6,8 @@
  * 翻译 : 简体中文 By Jfjj007
  * **************************
  *
- * Version : 0.4
- * Date : 03-02-2010
+ * Version : 0.5
+ * Date : 03-09-2010
  * @author Jfjj007
  */
 namespace('GRP.langs.zh_CN');
@@ -138,7 +138,8 @@ msgComment: "Comment view items ",
     {
         middleclick: 'Middle click',
         openintab: '在标签中打开',
-        shares: '分享',
+        openinbacktab: '在标签中打开 (Background)',
+		shares: '分享',
         stars: 'Stars',
         tag: '标签',
         addtag: '添加标签',
@@ -233,7 +234,7 @@ GRP.langs.zh_CN.prefs =
     },
     "favicons": 
     {
-        "providerpageicons": "Use PageIcons provider rendering all favicons correctly (First access could be a little slow to load all icons)",
+        "providerpageicons": "Use [Beta] PageIcons provider (Recommended to load succesfully all icons)",
 		"sidebaronly": "在侧边栏显示Favicon",
         "custom": "请输入您的自定义Favicons :",
         "add": "添加",

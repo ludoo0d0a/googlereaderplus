@@ -6,8 +6,8 @@
  * fr : Francais
  * **************************
  *
- * Version : 0.4
- * Date : 03-02-2010
+ * Version : 0.5
+ * Date : 03-09-2010
  * @author Valente
  */
 namespace('GRP.langs.fr');
@@ -138,7 +138,8 @@ GRP.langs.fr.texts =
     {
         middleclick: 'Clic bouton du milieu',
         openintab: 'Ouvrir dans un nouvel onglet',
-        shares: 'Partage',
+        openinbacktab: 'Ouvrir dans un nouvel onglet en arriéèe plan',
+		shares: 'Partage',
         stars: 'suivi',
         tag: 'Tag',
         addtag: 'Ajouter un tag',
@@ -233,7 +234,7 @@ GRP.langs.fr.prefs =
     },
     "favicons": 
     {
-        "providerpageicons": "Utiliser le fournisseur 'PageIcons' pour afficher correctement toutes les icônes  des sites (Le premier accès peut être un peu lent, le temps de charger toutes les icônes)",
+        "providerpageicons": "Utiliser le fournisseur 'PageIcons' [Beta] pour afficher correctement toutes les icônes des sites (Recommandé)",
 		"sidebaronly": "Afficher favicons in sidebar only",
         "custom": "Saisissez vos propres favicons :",
         "add": "Ajouter",
