@@ -36,14 +36,43 @@ GRP.readbymouse = function(prefs, langs){
     if (nearNewButton) {
         var mouseCtrlButton = document.createElement("span");
         mouseCtrlButton.id = 'btn-readbymouse';
-        mouseCtrlButton.innerHTML = '<input type="button" id="___mouseCtrl" value="ReadByMouse ' + systemStatus + '" style="margin-left: 10px;"></input>';
+        var html = '<input type="button" id="___mouseCtrl" value="ReadByMouse ' + systemStatus + '" style="margin-left: 10px;"></input>';
         if (isMClick) {
-            mouseCtrlButton.innerHTML += '<span style="margin-left: 10px;">' + SL.middleclick + ':</span><select id="___middleClickSettings" name="midClickSettings" style="margin-left: 5px;"><option id="openInTab" value="openInTab">' + SL.openintab + '<option id="share" value="share">' + SL.shares + '<option id="star" value="star">' + SL.stars + '<option id="addTag" value="addTag">' + SL.addtag + '</select><span id="addTagSpan" style="text-align:left; visibility: collapse; margin-left: 10px;">' + SL.addtag + ':<input type="textbox" id="txtTag" value=""></span>';
+            html += '<span style="margin-left: 10px;">' + SL.middleclick + 
+			':</span><select id="___middleClickSettings" name="midClickSettings" style="margin-left: 5px;">'+
+			'<option id="openInTab" value="openInTab">' + SL.openintab + 
+			'</option><option id="openInBackTab" value="openInBackTab">' + SL.openinbacktab +
+			'</option><option id="share" value="share">' + SL.shares + 
+			'</option><option id="star" value="star">' + SL.stars + 
+			'</option><option id="addTag" value="addTag">' + SL.addtag + 
+			'</option></select><span id="addTagSpan" style="text-align:left; visibility: collapse; margin-left: 10px;">' + SL.addtag + ':<input type="textbox" id="txtTag" value=""></span>';
         }
+		
+html+='<input id="__testme" type="button" value="test"></input>';
+		mouseCtrlButton.innerHTML+=html;
         insertAfter(mouseCtrlButton, nearNewButton);
         //nearNewButton.parentNode.insertBefore(mouseCtrlButton, nearNewButton.nextSibling);
     }
     
+	var btestme = document.getElementById('__testme');
+	btestme.addEventListener('click', function(){
+		    GM_xmlhttpRequest(
+		    {
+		        /*url: FAVICON_TPL_URL + 'http://www.lemonde.fr',*/
+		        url:'https://s2.googleusercontent.com/s2/favicons?alt=feed&domain=planet.mozilla.org',
+		        success: function(a, r){
+		            console.log('testme success');
+		            console.log(a);
+		            console.log(r);
+		        },
+		        error: function(a, r){
+		            console.log('testme failed');
+		            console.log(a);
+		            console.log(r);
+		        }
+		    });
+	})
+	
     
     var currentSettingMidClick = 'openInTab';
     var currentTag = 'test';
@@ -90,9 +119,10 @@ GRP.readbymouse = function(prefs, langs){
     
     // Add listener for mouse clicks
     document.addEventListener('click', function(event){
-        // On each left click, check to see if the middle click setting
+        console.log('event.button:'+event.button);
+		// On each left click, check to see if the middle click setting
         // has changed. if so, then set it in GM
-        if (event.button === 0) {
+		if (event.button === 0) {
         
             // Get the selected option
             var myMiddleSelect = document.getElementById('___middleClickSettings');
@@ -104,7 +134,7 @@ GRP.readbymouse = function(prefs, langs){
             if (!midClickSelValue) {
                 return;
             }
-            
+		
             // If the middle click setting has changed, then set it
             // in GM
             if (currentSettingMidClick != midClickSelValue) {
@@ -132,11 +162,9 @@ GRP.readbymouse = function(prefs, langs){
                 document.getElementById('addTagSpan').style.visibility = 'collapse';
             }
             
-        }
-        
-        // Middle click
-        if (event.button == 1 && systemStatus == 'On') {
-            // If they click on a link, let the link work like
+        }else if (event.button == 1 && systemStatus == 'On') {
+            // Middle click
+			// If they click on a link, let the link work like
             // normal
             if (event.target.nodeName.toLowerCase() == 'a') {
                 return;
@@ -204,8 +232,11 @@ GRP.readbymouse = function(prefs, langs){
                 if (mySettingsDL) {
                     switch (mySettingsDL.options[mySettingsDL.selectedIndex].value) {
                         case "openInTab":
-                            openInTab();
+                            openInTab(true);
                             break;
+						case "openInBackTab":
+                            openInTab(false);
+                            break;	
                         case "share":
                             shareItem();
                             break;
@@ -234,8 +265,8 @@ GRP.readbymouse = function(prefs, langs){
     }, true);
     
     // Go find the "Open original in tab" element and get the URL for original
-    function openInTab(){
-        openEntryInNewTab();
+    function openInTab(selected){
+        openEntryInNewTab(false, selected);
     }
     
     // Go find the "share item" button and simulate a click on it
