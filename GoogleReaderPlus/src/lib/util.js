@@ -679,7 +679,7 @@ function isVersionMini(ref){
         version[i] = parseInt(version[i], 10);
         if (i<=refs.length) {
             refs[i] = parseInt(refs[i], 10);
-            if (version[i + 1] < refs[i]) {
+            if (version[i] < refs[i]) {
                 return false;
             }
         }
