@@ -64,22 +64,14 @@ if (typeof GM_setCookieValue === "undefined") {
         document.cookie = curCookie;
     };
 }
-//TODO
-function accessSecure(message, o, callback){
-    /*var myport = chrome.extension.connect(
-    {
-        name: "readerplus"
-    });
-    if (callback) {
-        myport.onMessage.addListener(callback);
-    }*/
+
+function sendMessage(message, o, callback){
     var a = clone(o) || {};
     a.message = message;
     var fns = ['onload', 'onreadystatechange', 'onerror'];
     for (var i = 0, len = fns.length; i < len; i++) {
-        var f = fns[i];
-        if (o[f]) {
-            a[f] = true;
+        if (o[fns[i]]) {
+            a[fns[i]] = true;
         }
     }
     chrome.extension.sendRequest(a, callback);
@@ -92,7 +84,7 @@ if (typeof GM_xmlhttpRequest === "undefined") {
             throw ("GM_xmlhttpRequest requires an URL.");
         }
         var om = o;
-        accessSecure("request", om, function(a){
+        sendMessage("request", om, function(a){
             if (a.message === (om.callback || "requestdone")) {
                 if (a.action === "load") {
                     if (typeof om.onload == "function") {
@@ -202,12 +194,13 @@ if (typeof GM_openInTab === "undefined") {
         }
         var data = 
         {
-            url: url,
+            message:'opentab',
+			url: url,
             selected: selected,
             index: index,
             windowId: windowId
         };
-        accessSecure("opentab", data);
+		chrome.extension.sendRequest(data);
     };
 }
 
