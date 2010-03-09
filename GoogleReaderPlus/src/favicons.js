@@ -20,20 +20,21 @@ GRP.favicons = function(prefs, langs){
     var protocol = document.location.protocol;
     var FAVICON_TPL_URL = protocol + '//s2.googleusercontent.com/s2/favicons?alt=feed&domain=';
     var FAVICON_TPL_DEF_URL = protocol + '//s2.googleusercontent.com/s2/favicons';
-	if (prefs.favicons_providerpageicons){
-		FAVICON_TPL_URL = 'http://pageicons.appspot.com/favicons?f=1&url=';
-    	FAVICON_TPL_DEF_URL = 'http://pageicons.appspot.com/favicons';
-	}
+    if (prefs.favicons_providerpageicons) {
+        FAVICON_TPL_URL = 'http://pageicons.appspot.com/favicons?f=1&url=';
+        FAVICON_TPL_DEF_URL = 'http://pageicons.appspot.com/favicons';
+    }
+	//FAVICON_TPL_URL = 'http://getfavicons.appspot.com?domain=';
+	
     var LOADING_IMAGE = "chrome-extension://'+GUID_CORE+'/images/loading.gif";
     
     var RSS = getElements('id("sub-tree-item-0-main")/ul/li/ul/li').length;
     var FOLDER = getElements('id("sub-tree-item-0-main")/ul/li').length;
     var RSS_NUMBERS = GRP_INFO.rss || null;
     var FOLDER_NUMBERS = GRP_INFO.dirs || null;
-    
-    
+	
     function init(){
-		if (true || isObjectEmpty(FAVICON) || RSS_NUMBERS === null || FOLDER_NUMBERS === null || RSS !== RSS_NUMBERS || FOLDER !== FOLDER_NUMBERS) {
+        if (true || isObjectEmpty(FAVICON) || RSS_NUMBERS === null || FOLDER_NUMBERS === null || RSS !== RSS_NUMBERS || FOLDER !== FOLDER_NUMBERS) {
             loadFavicons();
         } else {
             initFavicons();
@@ -78,8 +79,7 @@ GRP.favicons = function(prefs, langs){
         }
         
         var icon = document.createElement('img');
-        icon.className = 'entry-favicon grf-favicon grf-entry';
-        
+        icon.className = 'entry-favicon grf-favicon grf-entry';       
         var siteTitle = getEntrySiteTitle(entry);
         var match = ellipsis(siteTitle);
         
@@ -111,7 +111,7 @@ GRP.favicons = function(prefs, langs){
         
         //icon.removeEventListener('error', revertFavicon, false);
         //icon.addEventListener('error', revertFavicon, false);
-        
+    
     }
     function addFaviconSidebar(el, mode){
         if (isTagged(el, 'tfavicon')) {
@@ -128,14 +128,21 @@ GRP.favicons = function(prefs, langs){
         icon.title = match;
         elsubicon.parentNode.insertBefore(icon, elsubicon);
         elsubicon.parentNode.removeChild(elsubicon);
-        
-        //var t = findFaviconByTitle(FAVICON, match);
-        var t = FAVICON[match];
-        if (t) {
-            icon.src = t.icon;
-        } else {
-            icon.src = FAVICON_TPL_DEF_URL;
-        }
+		
+		function setIcon(match){
+			//console.log('setIcon:'+match);
+			//var t = findFaviconByTitle(FAVICON, match);
+			var t = FAVICON[match];
+			if (t) {
+				icon.src = t.icon;
+			} else {
+				icon.src = FAVICON_TPL_DEF_URL;
+			}
+		}
+		var tim= (hasClass(el, 'unread')) ?0:2000;
+		window.setTimeout(function(){
+			setIcon(match);
+		}, tim);
         //icon.removeEventListener('error', revertFavicon, false);
         //icon.addEventListener('error', revertFavicon, false);
     }
@@ -149,7 +156,7 @@ GRP.favicons = function(prefs, langs){
             img.src = icon;
         });
     }
-
+    
     //Override with manual favicons
     function updateFavicons(){
         var domains = prefs.favicons_domains;
@@ -158,17 +165,17 @@ GRP.favicons = function(prefs, langs){
         }
         for (var key in FAVICON) {
             var f = FAVICON[key];
-			var icon = domains[f.url];
+            var icon = domains[f.url];
             if (icon) {
                 f.icon = icon;
             }
         }
     }
     /*
-    function revertFavicon(event){
-        this.src = FAVICON_TPL_DEF_URL;
-    }
-    */
+     function revertFavicon(event){
+     this.src = FAVICON_TPL_DEF_URL;
+     }
+     */
     function findFaviconByTitle(FAVICON, title){
         return find(FAVICON, 'title', title);
     }
@@ -295,18 +302,4 @@ GRP.favicons = function(prefs, langs){
     
 };
 
-GRP.test=function(){
-		GM_xmlhttpRequest({
-			url: FAVICON_TPL_URL + 'http://www.lemonde.fr',
-			success: function(a, r){
-				console.log('success');
-				console.log(a);
-				console.log(r);
-			},
-			error: function(a, r){
-				console.log('failed');
-				console.log(a);
-				console.log(r);
-			}
-		});
-}
+
