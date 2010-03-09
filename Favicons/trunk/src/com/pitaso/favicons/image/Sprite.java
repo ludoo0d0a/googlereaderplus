@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Hashtable;
 import java.util.Map;
-
+/*
 import org.apache.sanselan.FormatCompliance;
 import org.apache.sanselan.ImageFormat;
 import org.apache.sanselan.ImageInfo;
@@ -17,6 +17,7 @@ import org.apache.sanselan.ImageReadException;
 import org.apache.sanselan.ImageWriteException;
 import org.apache.sanselan.Sanselan;
 import org.apache.sanselan.common.IImageMetadata;
+*/
 
 public class Sprite {
 /*
