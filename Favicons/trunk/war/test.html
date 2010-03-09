@@ -1,0 +1,116 @@
+<!DO	CTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>PageIcons</title>
+
+<script type="text/javascript">
+function sand(){
+var sandbox = document.getElementById('sandbox');
+var sandboxurls = document.getElementById('sandboxurls');
+var urls = sandboxurls.value.split('\n');
+var html = '';
+for (var i=0,  len=urls.length; i<len; i++){
+	var url = urls[i];
+	if (url){
+		html+=url+':<img alt="'+url+'" title="'+url+'" src="favicons?f=1&url='+url+'"/></br>';
+	}
+}
+
+sandbox.innerHTML = html
+}
+</script> 
+</head>
+
+<body>
+<h1>Favicons provider : PageIcons</h1>
+
+<table>
+	</li>
+		<td colspan="2" style="font-weight: bold;">Available Servlets:</td>
+	</tr>
+	<tr>
+		<td><a href="favicons">Favicons</a></td>
+	</tr>
+</table>
+
+<a href="favicons?cache=clear">Clear cache</a>
+
+<h2>Samples</h2>
+<ul>
+<li><a href="favicons?url=lemonde.fr">lemonde.fr (set on another domain)</a></li>
+	</tr>
+	<li>
+		<a href="favicons?url=www.lemonde.fr">www.lemonde.fr (set on another domain)</a>
+	</li>
+	<li>
+		<a href="favicons?url=http://www.lemonde.fr">http://www.lemonde.fr (set on another domain)</a>
+	</li>
+	<li>
+		<a href="favicons?url=http://www.google.fr">google.fr</a>
+	</li>
+	<li>
+		<a href="favicons?url=http://www.nytimes.com">nytimes.com (not set but default /favicon.ico)</a>
+	</li>
+	<li>
+		<a href="favicons?url=http://www.pitaso.com">pitaso.com (relative)</a>
+	</li>
+	<li>
+		<a href="favicons?f=1&url=lemonde.fr">pitaso.com (forwarded)</a></td>
+	</li>
+	<li>
+		<a href="favicons?f=1&url=www.vincentabry.com">www.vincentabry.com (forwarded)</a>
+	</li>
+	<li>
+		<a href="favicons?f=1&url=www.accessoweb.com">www.accessoweb.com (forwarded)</a>
+	</li>
+	<li>
+		<a href="favicons?f=1&url=www.lesfrontaliers.lu">www.lesfrontaliers.lu (forwarded relative +images/x-icon)</a>
+	</li>
+	<li>
+		<a href="favicons?f=1&url=www.jsfcentral.com">www.jsfcentral.com (forwarded)</a>
+	</li>
+	<li>
+		<a href="favicons?f=1&url=www.smarterware.org">www.smarterware.org (forwarded)</a>
+	</li>
+	<li>
+		<a href="favicons?f=1&url=www.framasoft.net">wwww.framasoft.net (forwarded)</a>
+	</li>
+	<li>
+		<a href="favicons?f=1&url=www.cinemovies.fr">www.cinemovies.fr (128x128)</a>
+	</li>
+	<li>
+		<a href="favicons?f=1&url=www.developer.com">www.developer.com (no favicon)</a>
+	</li>
+</ul>
+<hr/>
+
+<h2>Sandbox</h2>
+<textarea rows="10" cols="80" id="sandboxurls">
+lemonde.fr
+www.vincentabry.com
+www.accessoweb.com
+www.lesfrontaliers.lu
+www.jsfcentral.com
+www.smarterware.org
+www.framasoft.net
+www.cinemovies.fr
+www.developer.com
+</textarea><br/>
+<input type="button" value="Sandbox" onclick="javascript:sand();"/><br/>
+<div id="sandbox"></div>
+<hr/>
+
+
+<h2>Post {result=Json}</h2>
+<form method="post" action="favicons" target="blank">
+<input type="text" name="url" value="google.fr"/><br/>
+<input type="text" name="url" value="www.lemonde.fr"/><br/>
+<input type="text" name="url" value="nytimes.com"/><br/>
+<input type="text" name="url" value="pitaso.com"/><br/>
+<input type="text" name="url" value="http://www.infoq.com"/><br/>
+<input type="submit" name="OK"/><br/>
+</form>
+
+</body>
+</html>
