@@ -10,7 +10,7 @@
  * Date : 03-09-2010
  * @author Valente
  */
-namespace('GRP.langs.en');
+namespace('GRP.langs.uk');
 GRP.langs.uk.texts = 
 {
     'version': "version",
@@ -234,7 +234,7 @@ GRP.langs.uk.prefs =
     },
     "favicons": 
     {
-        "providerpageicons": "Use [Beta] PageIcons provider (Recommended to load succesfully all icons)",
+        "providerpageicons": 'Use <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> provider (Recommended to load succesfully all icons)',
 		"sidebaronly": "Show favicons in sidebar only",
         "custom": "Enter your custom favicons :",
         "add": "Add",
@@ -265,6 +265,7 @@ GRP.langs.uk.prefs =
     "thanks": 
     {
         "donators": "Thanks to donators to contribute to this project",
+"translators" : "Thanks to brave translators for their wonderful work",
         "authors": "Thanks to authors of original scripts and skins (Greasemonkey and Stylish)"
     }
 };
