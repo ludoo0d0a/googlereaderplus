@@ -47,32 +47,10 @@ GRP.readbymouse = function(prefs, langs){
 			'</option><option id="addTag" value="addTag">' + SL.addtag + 
 			'</option></select><span id="addTagSpan" style="text-align:left; visibility: collapse; margin-left: 10px;">' + SL.addtag + ':<input type="textbox" id="txtTag" value=""></span>';
         }
-		
-html+='<input id="__testme" type="button" value="test"></input>';
+
 		mouseCtrlButton.innerHTML+=html;
         insertAfter(mouseCtrlButton, nearNewButton);
-        //nearNewButton.parentNode.insertBefore(mouseCtrlButton, nearNewButton.nextSibling);
     }
-    
-	var btestme = document.getElementById('__testme');
-	btestme.addEventListener('click', function(){
-		    GM_xmlhttpRequest(
-		    {
-		        /*url: FAVICON_TPL_URL + 'http://www.lemonde.fr',*/
-		        url:'https://s2.googleusercontent.com/s2/favicons?alt=feed&domain=planet.mozilla.org',
-		        success: function(a, r){
-		            console.log('testme success');
-		            console.log(a);
-		            console.log(r);
-		        },
-		        error: function(a, r){
-		            console.log('testme failed');
-		            console.log(a);
-		            console.log(r);
-		        }
-		    });
-	})
-	
     
     var currentSettingMidClick = 'openInTab';
     var currentTag = 'test';
