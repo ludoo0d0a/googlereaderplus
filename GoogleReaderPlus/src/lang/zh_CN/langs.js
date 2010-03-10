@@ -259,12 +259,13 @@ GRP.langs.zh_CN.prefs =
     {
         "custom": "自定义快捷键",
         "official": "Google Reader 官方快捷键",
-"alreadyusedprefs": "Already used in your preferences!",
-"alreadyusedgoogle": "Already used by Google!"
+"alreadyusedprefs": "方法已在您的偏好!",
+"alreadyusedgoogle": "已经使用了谷歌!"
     },
     "thanks": 
     {
         "donators": "感谢对这一项目作出贡献行为的捐赠者",
+"translators" : "感谢你为他们的出色工作，勇敢的翻译",
         "authors": "感谢原创作者的脚本和皮肤 (Greasemonkey and Stylish)"
     }
 };

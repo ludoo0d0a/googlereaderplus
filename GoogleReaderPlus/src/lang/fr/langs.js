@@ -234,7 +234,7 @@ GRP.langs.fr.prefs =
     },
     "favicons": 
     {
-        "providerpageicons": "Utiliser le fournisseur 'PageIcons' [Beta] pour afficher correctement toutes les icônes des sites (Recommandé)",
+        "providerpageicons": 'Utiliser le fournisseur d\'icônes <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> pour afficher correctement toutes les icônes des sites (Recommandé)',
 		"sidebaronly": "Afficher favicons in sidebar only",
         "custom": "Saisissez vos propres favicons :",
         "add": "Ajouter",
@@ -266,6 +266,7 @@ GRP.langs.fr.prefs =
     "thanks": 
     {
         "donators": "Merci aux généreux donateurs pour leurs contributions sur ce projet",
+		"translators" : "Merci aux courageux traducteurs pour leur superbe travail",
         "authors": "Merci aux auteurs des scripts et skins originaux (Greasemonkey et Stylish)"
     }
 };
