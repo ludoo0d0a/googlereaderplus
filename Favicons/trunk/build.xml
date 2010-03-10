@@ -41,7 +41,7 @@
 	</target>
 
 	<target name="proxy">
-		<property name="proxy.host" value="" />
+		<property name="proxy.host" value="cie-vproxy2.cie.etat.lu" />
 		<property name="proxy.port" value="8080" />
 		<setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}" />
 	</target>

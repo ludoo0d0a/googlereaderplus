@@ -2,7 +2,7 @@ package com.pitaso.favicons;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,12 +17,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
-
-import net.sf.json.JSONObject;
 import net.sf.jsr107cache.Cache;
 import net.sf.jsr107cache.CacheException;
 import net.sf.jsr107cache.CacheManager;
+
+import org.apache.commons.lang.StringUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import com.pitaso.favicons.image.ImageUtil;
 import com.pitaso.favicons.io.FileUtil;
@@ -49,7 +49,7 @@ public class FaviconsServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 	initServlet(req);
 	String cache = req.getParameter("cache");
-	if (cache != null && "clear".equals(cache)) {
+	if ("clear".equals(cache)) {
 	    clearCache(resp);
 	} else {
 	    doGetIcon(req, resp);
@@ -97,7 +97,7 @@ public class FaviconsServlet extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 	initServlet(req);
 
-	log.info("Post");
+	// //log.info("Post");
 
 	resp.setContentType("application/json");
 
@@ -111,16 +111,18 @@ public class FaviconsServlet extends HttpServlet {
 	if (urls != null) {
 	    for (String urlin : urls) {
 		String url = parser.normalizeUrl(urlin);
-		String icon = getIcon(url, cache, parser, isUpdate);
+		String icon = getIcon(url, parser, isUpdate);
 		if (icon != null) {
 		    icons.put(url, icon);
 		}
 	    }
 	}
 
-	JSONObject out = JSONObject.fromObject(icons);
+	ObjectMapper mapper = new ObjectMapper();
+	mapper.writeValue(resp.getOutputStream(), icons);
 
-	print(resp, out.toString());
+	// JSONObject out = JSONObject.fromObject(icons);
+	// print(resp, out.toString());
     }
 
     /**
@@ -135,19 +137,20 @@ public class FaviconsServlet extends HttpServlet {
 	// resp.setContentType("image/png");
 	HtmlParser parser = new HtmlParser();
 
-	String forward = req.getParameter("f");
+	String direct = req.getParameter("d");
 	String update = req.getParameter("u");
 	boolean isUpdate = "1".equals(update);
 
 	String url = parser.normalizeUrl(req.getParameter("url"));
-	String icon = getIcon(url, cache, parser, isUpdate);
+	String icon = getIcon(url, parser, isUpdate);
 
-	if ("1".equals(forward)) {
-	    forward(resp, icon, isUpdate);
-	} else {
+	sendHeaders(resp);
+
+	if ("1".equals(direct)) {
 	    resp.sendRedirect(icon);
+	} else {
+	    forward(resp, url, icon, isUpdate);
 	}
-
     }
 
     /**
@@ -158,7 +161,7 @@ public class FaviconsServlet extends HttpServlet {
      * @param parser
      * @return
      */
-    private String getIcon(String url, Cache cache, HtmlParser parser, boolean isUpdate) {
+    private String getIcon(String url, HtmlParser parser, boolean isUpdate) {
 	String icon = null;
 	if (StringUtils.isNotBlank(url)) {
 	    if (!isUpdate) {
@@ -182,7 +185,7 @@ public class FaviconsServlet extends HttpServlet {
 		    cache.put(url, icon);
 		}
 	    } else {
-		log.info("Get icon from cache");
+		// log.info("Get icon from cache");
 	    }
 	}
 
@@ -196,24 +199,23 @@ public class FaviconsServlet extends HttpServlet {
      * Forward binary data
      * 
      * @param res
-     * @param urlin
+     * @param uri
      * @throws IOException
      */
-    public void forward(final HttpServletResponse res, String urlin, boolean isUpdate)
+    public void forward(final HttpServletResponse res, String url, String uri, boolean isUpdate)
 	    throws IOException {
 	try {
 	    byte[] b = null;
 	    if (!isUpdate) {
-		b = (byte[]) cacheBytes.get(urlin);
+		b = (byte[]) cacheBytes.get(uri);
 	    }
 	    if (b == null) {
-		URL url = new URL(urlin);
-		b = FileUtil.download(url);
+		b = downloadIcon(url, uri);
 		// resize it
 		b = ImageUtil.resize(b, 16, 16);
-		cacheBytes.put(urlin, b);
+		cacheBytes.put(uri, b);
 	    } else {
-		log.info("Get icon bytes from cache");
+		// log.info("Get icon bytes from cache");
 	    }
 
 	    if (b == null) {
@@ -231,6 +233,40 @@ public class FaviconsServlet extends HttpServlet {
 	}
     }
 
+    /**
+     * Advandec method tho find correct icon if first try fails
+     * @param uri
+     * @return
+     * @throws MalformedURLException
+     */
+    private byte[] downloadIcon(String url, String uri) throws MalformedURLException {
+	byte[] b = FileUtil.download(new URL(uri));
+
+	if (b == null || b.length == 0) {
+	    log.info("Cannot reach icon : " + url);
+	    // if not with www. try it
+	    // may be a ccSLD like co.uk
+	    String uri2 = uri.replaceFirst("http://", "http://www.");
+	    if (!uri.equals(uri2)) {
+		log.info("Try using : " + uri2);
+		byte[] b2 = FileUtil.download(new URL(uri2));
+		if ((b2 != null && b2.length > 0)) {
+		    b = b2;
+		    IconService iconService=new IconService();
+		    iconService.update(url, uri2);
+		    cache.put(url, uri2);
+		}
+	    }
+	}
+
+	return b;
+    }
+
+    private void sendHeaders(HttpServletResponse res) {
+	res.addHeader("Cache-Control", "public, max-age=2592000");
+	// res.addHeader("Expires", "Thu, 08 Apr 2010 10:10:10");
+    }
+
     public void forward(final HttpServletResponse res, File file) throws IOException {
 	ServletOutputStream out = null;
 	byte[] b = (byte[]) cacheBytes.get(file.getAbsolutePath());
@@ -241,7 +277,7 @@ public class FaviconsServlet extends HttpServlet {
 	    } else {
 		throw new IOException("File not found:" + file);
 	    }
-	} 
+	}
 
 	try {
 	    // res.setContentType("application/octet-stream");

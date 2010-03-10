@@ -20,9 +20,9 @@ public class ImageUtil {
 	    Transform resize = ImagesServiceFactory.makeResize(newW, newH);
 	    Image newImage = imagesService.applyTransform(resize, oldImage);
 	    newImageData = newImage.getImageData();
-	    log.info("Resize icon into "+newW+"x"+newH);
+	    //log.info("Resize icon into "+newW+"x"+newH);
 	} catch (Exception e) {
-	    log.severe("Error on resize icon into "+newW+"x"+newH);
+	    log.severe("Error on resize icon into "+newW+"x"+newH+" : "+e.getMessage());
 	    newImageData=img;
 	}
 	return newImageData;

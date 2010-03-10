@@ -1,6 +1,6 @@
 var URL = 'http://pageicons.appspot.com/favicons?url=';
 var URL_LUCKY = 'http://pageicons.appspot.com/lucky?p=';
-//'http://www.alexa.com/topsites/global;'
+
 function init(){
 	var p = getParameters();
 	if (p && p.q){
@@ -26,21 +26,35 @@ function getParameters(){
 function xhr(url, callback){
 	var oXMLHttpRequest = new XMLHttpRequest();
 	oXMLHttpRequest.open("POST", url, true);
-	oXMLHttpRequest.onreadystatechange = function(){
+	oXMLHttpRequest.onreadystatechange = function(xhr){
 		if (this.readyState == XMLHttpRequest.DONE) {
-			callback();
+			callback(xhr.target);
 		}
 	};
 	oXMLHttpRequest.send(null);
 }
-
-function lucky(){
-	var n=Math.floor(Math.random()*25);
+var alls;
+function luckyall(){
+	alls=[];
+	luckysearch(1, 24);
+}
+function luckysearch(n, max){
 	xhr(URL_LUCKY+n, function(a){
-		var urls=[],m = /<h2><a\shref="([^"]+)">([^<]*)<\/a><\/h2>/.exec(a.responseText);
-		for (var i=0,  len=m.length; i<len; i++){
-			urls.push(m[i][2]);
+		var urls=JSON.parse(a.responseText);
+		if (urls) {
+			alls.push(urls.join(','));
 		}
+		if (n<max){
+			luckysearch(n+1, max);
+		}else{
+			search(alls.join(','), true);
+		}
+	});
+}
+function lucky(){
+	var n=1+Math.floor(Math.random()*24);
+	xhr(URL_LUCKY+n, function(a){
+		var urls=JSON.parse(a.responseText);
 		if (urls) {
 			search(urls.join(','), true);
 		}
@@ -69,13 +83,24 @@ function search(value, clear){
         icon.className = 'icon white';
         
         var link = document.createElement('a');
-        link.href = URL + d;
+		link.href = URL + d;
         
         var img = document.createElement('img');
         img.title = d;
         img.src = URL + d;
         link.appendChild(img);
-        icon.appendChild(link);
+		icon.appendChild(link);
+		
+		var br = document.createElement('br');
+		icon.appendChild(br);
+		
+		var linktitle = document.createElement('a');
+		var url = fixurl(d); 
+		var domain = getdomain(url);
+		linktitle.href = url;
+		linktitle.innerText = domain;
+		icon.appendChild(linktitle);
+        
         icons.appendChild(icon);
     }
     
@@ -83,6 +108,21 @@ function search(value, clear){
     
     var results = document.getElementById('results');
     results.style.display = 'inline';
+}
+
+function getdomain(url){
+    return url.split(/\/|\?/)[2].replace('www.','');
+}
+
+function fixurl(d){
+	var url = d;
+	if (!(/^http/.test(d))){
+		url = 'http://'+url;
+	}
+	if (d.indexOf('.') < 1) {
+		url += '.com';
+	}
+	return url;
 }
 
 window.onload=init;

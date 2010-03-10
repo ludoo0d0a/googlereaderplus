@@ -279,27 +279,33 @@ body h2 {
     border: 0;
 }
 
-#main .search {
+.search {
     float: none;
-}
-#main div {
-    margin: 0 auto;
+	margin: 0 auto;
 }
 
 /* Icon */
+#icons {
+	margin:0 50px 0 50px;
+}
+
 .icon {
-    height: 30px; 
-	width: 30px;
+    height: 50px; 
+	width: 80px;
 	background-color: #fff;
     border: 1px solid #e6e9ef;
-    margin: 0 10px 10px 0;
+    margin: 5px;
+	padding-top:10px;
     float: left;
     text-align: center;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-box-shadow: 0 1px 2px #e9eff7;
     -webkit-box-shadow: 0 1px 2px #e9eff7;
-	padding:20px;
+}
+
+.icon a {
+	margin-top:10px;
 }
 
 .icon img {
@@ -344,4 +350,8 @@ body h2 {
 
 #footer{
 	margin-top: 20px;
+}
+
+.clearsearch{
+	margin:20px;
 }

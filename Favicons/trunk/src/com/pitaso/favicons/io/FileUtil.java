@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.logging.Logger;
@@ -185,6 +186,45 @@ public class FileUtil {
 	}
 	return buffer.toString();
     }
+    
+    /**
+     * 
+     * @param uri
+     * @return
+     */
+    public static String downloadHtml(final String uri) {
+	String res=null;
+	try {
+            URL url = new URL(uri);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+            String line=null;
+            StringBuffer sb = new StringBuffer();
+            while ((line = reader.readLine()) != null) {
+        	sb.append(line);
+            }
+            reader.close();
+            res=sb.toString();
+        } catch (MalformedURLException e) {
+            log.severe("Error on download html - MalformedURLException");
+        } catch (IOException e) {
+            log.severe("Error on download html - IOException");
+        }
+	return res;
+    }
+    
+    public static String downloadHtml2(final String url) {
+	byte[] b=null;
+	String res=null;
+	try {
+	    b = download(new URL(url));
+	    if (b != null && b.length > 0){
+		res = new String(b);
+	    }
+	} catch (MalformedURLException e) {
+	    log.severe("Error on download html - MalformedURLException");
+	}
+	return res;
+    }
 
     /**
      * Download.
@@ -201,6 +241,7 @@ public class FileUtil {
 	    final int contentLength = conn.getContentLength();
 
 	    // String contentType = uc.getContentType();
+	    //TODO : in https, no contentLength
 	    if (contentLength == -1) {
 		throw new IOException("No data behind this url : " + url.toString());
 	    }
@@ -209,11 +250,6 @@ public class FileUtil {
 	    if (code>=400){
 		throw new IOException("No data behind this url (http error "+code+") : " + url.toString());
 	    }
-
-	    /*
-	     * if(contentType.startsWith("text/")) { throw new
-	     * IOException("This is not a binary file."); }
-	     */
 
 	    final InputStream raw = conn.getInputStream();
 	    final InputStream input = new BufferedInputStream(raw);
@@ -234,7 +270,9 @@ public class FileUtil {
 			+ " bytes");
 	    }
 	} catch (IOException e) {
-	    log.severe("download error for " + url);
+	    log.severe("Error on download for " + url + " - "+e.getMessage());
+	} catch (RuntimeException re) {
+	    log.severe("Severe error on download for " + url + " - "+re.getMessage());
 	}
 
 	return data;

@@ -6,36 +6,50 @@
         <META name="description" content="Pageicons provides favicons for Readerplus extension">
         <TITLE>Pageicons | Favicons provider</TITLE>
         <LINK type="text/css" rel="stylesheet" href="pageicons.css">
-		<script type="application/javascript" src="j/search.js"></script>
-        <LINK rel="shortcut icon" href="http://pageicons.appspot.com/favicons/blank.png">
+        <script type="application/javascript" src="j/xhr.js">
+        </script>
+        <script type="application/javascript" src="j/json2.js">
+        </script>
+        <script type="application/javascript" src="j/search.js">
+        </script>
+        <LINK rel="shortcut icon" href="favicon.ico">
     </HEAD>
     <BODY>
         <DIV id="main" style="padding-top: 20px !important;">
             <DIV id="title">
                 <img src="i/logo.png" width="371" height="60" alt="PageIcons" title="PageIcons provider"/>
-            </DIV>
-            <H2>Search a favicon :</H2>
-            <DIV>
-                <DIV class="search">
-                    <DIV>
-                        <INPUT type="text" id="q" name="q" value="">&nbsp;<INPUT class="sb" type="button" value="Search" onclick="javascript:search();">&nbsp;<INPUT class="sb" type="button" value="I'm feeling lucky" onclick="javascript:lucky();">
-                    </DIV>
+            </DIV><H2>Search a favicon :</H2>
+            <DIV class="search">
+                <DIV>
+                    <INPUT type="text" id="q" name="q" value="">&nbsp;<INPUT class="sb" type="button" value="Get icon" onclick="javascript:search();">&nbsp;<INPUT class="sb" type="button" value="I'm feeling lucky" onclick="javascript:lucky();">
                 </DIV>
             </DIV><H3 class="samples">like <A href="javascript:search('www.lemonde.fr');"><img src="http://pageicons.appspot.com/favicons?url=www.lemonde.fr"/>Le Monde</A>, <A href="javascript:search('www.nytimes.com')"><img src="http://pageicons.appspot.com/favicons?url=www.nytimes.com"/>NYtimes</A>, <A href="javascript:search('www.facebook.com')"><img src="http://pageicons.appspot.com/favicons?url=www.facebook.com"/>Facebook</A> or <A href="javascript:search('www.twitter.com')"><img src="http://pageicons.appspot.com/favicons?url=www.twitter.com"/>Twitter</A>.</H3>
             <br/>
             <div id="results" style="display:none;">
-                <div id="icons"></div>
+                <div id="icons">
+                </div>
                 <div class="clearboth">
                     &nbsp;
                 </div>
-				<INPUT class="sb" type="button" value="Clear" onclick="javascript:clearsearch();">
+                <INPUT class="sb clearsearch" type="button" value="Clear" onclick="javascript:clearsearch();">
             </div>
-            <BR>
+            <BR/>
             <div id="footer">
-			<A href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg">Get ReaderPlus</A>
-            | <A href="http://www.twitter.com/ludoo0d0a">Follow author on Twitter</A>
-			</div>
+                <A href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg">Get ReaderPlus</A>
+                | <A href="http://www.twitter.com/ludoo0d0a">Follow author on Twitter</A>
+            </div>
         </DIV>
-<script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-ana"+"lytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script>
-<script type="text/javascript">try {var pageTracker = _gat._getTracker("UA-183120-10");pageTracker._trackPageview();} catch(err) {}</script>
-</BODY></HTML>
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-ana" + "lytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-183120-10");
+                pageTracker._trackPageview();
+            } 
+            catch (err) {
+            }
+        </script>
+    </BODY>
+</HTML>

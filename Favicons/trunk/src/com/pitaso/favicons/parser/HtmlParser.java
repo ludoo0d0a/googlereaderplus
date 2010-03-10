@@ -6,18 +6,18 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.pitaso.favicons.io.FileUtil;
 
 public class HtmlParser {
 
     private static final Logger log = Logger.getLogger(HtmlParser.class.getName());
-
-    // (?:.*).... for lesfronatliers.lu
-
-    private final static Pattern reLinkFaviconDirect = Pattern.compile(
-	    "<LINK[^>]*?REL=[\\\"'](SHORTCUT\\W+)?ICON[\\\"'].*?\\s+href=\\\"([^\\\"']*)",
-	    Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
-
+    /*
+     * private final static Pattern reLinkFaviconDirect = Pattern.compile(
+     * "<LINK[^>]*?REL=[\\\"'](SHORTCUT\\W+)?ICON[\\\"'].*?\\s+href=\\\"([^\\\"']*)"
+     * , Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+     */
     private final static Pattern reLinkFaviconTag = Pattern.compile(
 	    "<LINK[^>]*?REL=[\\\"'](SHORTCUT\\s+)?ICON[^>]+", Pattern.CASE_INSENSITIVE
 		    | Pattern.MULTILINE);
@@ -28,10 +28,10 @@ public class HtmlParser {
     private final static Pattern reProtocol = Pattern.compile("^https?:", Pattern.CASE_INSENSITIVE);
     private final static Pattern reCleanUrl = Pattern.compile("([^\\?]+)\\??(.*)",
 	    Pattern.CASE_INSENSITIVE);
-    private final static Pattern reDomain = Pattern.compile("^http://[^/]+",
+    private final static Pattern reDomain = Pattern.compile("^https?://[^/]+",
 	    Pattern.CASE_INSENSITIVE);
 
-    private final static Pattern reContext = Pattern.compile("^http://(.*)/?",
+    private final static Pattern reContext = Pattern.compile("^https?://(.*)/?",
 	    Pattern.CASE_INSENSITIVE);
     private final static Pattern rePath = Pattern.compile("^([\\\\/\\.]*)",
 	    Pattern.CASE_INSENSITIVE);
@@ -51,21 +51,21 @@ public class HtmlParser {
     public String getFavicon(String url) {
 	log.info("parse url: " + url);
 	String html = FileUtil.download(url);
-	// log.info("html="+html.substring(0,200));
+	log.info("html="+html.substring(0,200));
 	String icon = null;
-	if (html != null && html.trim().length() > 0) {
+	if (StringUtils.isNotBlank(html)) {
 	    icon = parseFavicon(html, url);
+	    log.info("icon found in html:"+icon);
 	}
 	if (icon == null) {
-	    log.info("No icon in HTML");
+	    // log.info("No icon in HTML");
 	    String ico = getDomain(url) + "/" + FAVICON_DEFAULT;
-	    log.info("domain " + getDomain(url));
+	    // log.info("domain " + getDomain(url));
 
+	   
 	    if (iconExist(ico)) {
 		icon = ico;
-		log.info("Icon exist ; store it");
-	    }else{
-		log.info("Cannot reach icon : "+ico);
+		// log.info("Icon exist ; store it");
 	    }
 
 	}
@@ -89,7 +89,7 @@ public class HtmlParser {
 	/*
 	 * Matcher matcher = reLinkFaviconDirect.matcher(html); if
 	 * (matcher.find()) { icon = matcher.group(2);
-	 * log.info("Found in Webpage:" + icon); }
+	 * //log.info("Found in Webpage:" + icon); }
 	 */
 
 	// Two steps because attributes could be mixed
@@ -99,17 +99,17 @@ public class HtmlParser {
 	    Matcher matcherLink = reLinkFaviconHref.matcher(link);
 	    if (matcherLink.find()) {
 		icon = matcherLink.group(1);
-		log.info("Found in Webpage:" + icon);
+		// log.info("Found in Webpage:" + icon);
 	    } else {
-		log.info("Not found in Link ofWebpage");
+		// log.info("Not found in Link ofWebpage");
 	    }
 	} else {
-	    log.info("Not found in Webpage");
+	    // log.info("Not found in Webpage");
 	}
 
 	if (icon == null) {
 	    icon = getContext(url) + "/" + FAVICON_DEFAULT;
-	    log.info("Set default:" + icon);
+	    // log.info("Set default:" + icon);
 	} else {
 	    // Add domain if relative url
 	    Matcher matcher3 = reProtocol.matcher(icon);
@@ -117,11 +117,11 @@ public class HtmlParser {
 		if (icon.startsWith("/")) {
 		    // domain+icon
 		    icon = getDomain(url) + '/' + cleanStartPath(icon);
-		    log.info("Set default domain+icon:" + icon);
+		    // log.info("Set default domain+icon:" + icon);
 		} else {
 		    // context+icon
 		    icon = getContext(url) + '/' + icon;
-		    log.info("Set default context+icon:" + icon);
+		    // log.info("Set default context+icon:" + icon);
 		}
 	    }
 	}
@@ -160,21 +160,30 @@ public class HtmlParser {
 	String out = url;
 	// Add http if not there
 	if (url != null) {
-	    Matcher matcher = reProtocol.matcher(url);
+	    //protocol if not
+	    Matcher matcher = reDomain.matcher(url);
 	    if (!matcher.find()) {
 		out = "http://" + url;
 	    }
 
+	    //extension if not
+	    int points = getCount(out,"\\.");
+	    if (points==0) {
+		out += ".com";
+	    }
+
 	    // Ensure www. is there
 	    String domain = getDomain(out);
-	    // Add www if not there
-	    int points = domain.length() - domain.replaceAll("\\.", "").length();
-	    if (points < 2) {
-		out = out.replaceFirst("://", "://www.");
+	    if (domain != null) {
+		// Add www if not there
+		if (points < 2) {
+		    out = out.replaceFirst("://", "://www.");
+		}
 	    }
 
 	    // Clean jsessionid or anything else after ;
-	    out = out.replaceAll(";.*", "");
+	    // clean https
+	    out = out.replaceAll(";.*", "").replaceFirst("https://", "http://");
 	}
 
 	return out;
@@ -189,5 +198,10 @@ public class HtmlParser {
 	    out = matcher.group(1);
 	}
 	return out;
+    }
+    
+    private int getCount(String text, String search){
+	int count = text.length() - text.replaceAll(search, "").length();
+	return count;
     }
 }
