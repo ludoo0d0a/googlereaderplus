@@ -310,6 +310,8 @@ body h2 {
 
 .icon img {
     text-align: center;
+	width:16px;
+	height:16px;
 }
 
 /* icon background colors */
