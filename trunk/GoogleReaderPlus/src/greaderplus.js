@@ -90,7 +90,7 @@
         },
         runTheme: function(o, langs){
             this.run(this.prefs.theme_skin, langs);
-            if (this.prefs.theme_compress) {
+            if (this.prefs.theme_noborder) {
                 var css = '.card-common,.entry-main{margin:0 !important;}';
                 css += '.entry,.card-content,.entry-actions,.entry-container{padding:0 !important;}';
                 css += '.entry-title{margin-left:20px !important;font-size:100% !important;}';
