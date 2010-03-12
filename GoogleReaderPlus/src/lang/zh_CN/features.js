@@ -6,7 +6,7 @@
  * 翻译 : 简体中文 By Jfjj007
  * **************************
  * 
- * Version : 0.1
+ * Version : 0.1.1
  * Date : 2010-03-04
  * @author Jfjj007
  */
@@ -172,7 +172,7 @@ GRP.langs.zh_CN.scripts = [
 }];
 
 
-GRP.skins = [
+GRP.langs.zh_CN.skins = [
 {
     id: "none",
     name: "None"

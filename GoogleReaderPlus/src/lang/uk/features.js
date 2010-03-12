@@ -6,7 +6,7 @@
  * uk : Ukrainian
  * **************************
  * 
- * Version : 0.2
+ * Version : 0.2.1
  * Date : 02-23-2010
  * @author G3D
  */
@@ -164,7 +164,7 @@ GRP.langs.uk.scripts = [
 }];
 
 
-GRP.skins = [
+GRP.langs.uk.skins = [
 {
     id: "none",
     name: "Жлдного"

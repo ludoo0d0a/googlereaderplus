@@ -6,8 +6,13 @@
  * fr : English
  * **************************
  * 
- * Version : 0.2
- * Date : 02-23-2010
+ * For translators : please keep major version or original for your translations !
+ * Use minor version for yours translations 
+ * so that 0.3.11 is the 11th translated version of the original v0.3 english version.  
+ * 
+ * 
+ * Version : 0.3
+ * Date : 03-11-2010
  * @author Valente
  */
 namespace('GRP.langs.en');
@@ -164,7 +169,7 @@ GRP.langs.en.scripts = [
 }];
 
 
-GRP.skins = [
+GRP.langs.en.skins = [
 {
     id: "none",
     name: "None"
