@@ -32,7 +32,7 @@ function showPanel(id){
     if (panel) {
         panel.style.display = "inline";
         lastPanel = panel;
-		window.location.hash='#'+id;
+        window.location.hash = '#' + id;
     }
 }
 
@@ -66,8 +66,8 @@ function renderScripts(){
             
             panels.appendChild(panel);
             script.dlink = '&gt;';
-			
-			renderOptions(body, script);
+            
+            renderOptions(body, script);
         } else {
             var header = document.createElement('div');
             header.className = 'header';
@@ -75,15 +75,16 @@ function renderScripts(){
             body = getFirstNode(panel);
             panel.insertBefore(header, body);
         }
-        renderShortcuts(panel, script);    
+        renderShortcuts(panel, script);
     }
     list.innerHTML = html;
-	addClass(list.firstChild, 'first');
-	addClass(list.lastChild, 'last');
+    addClass(list.firstChild, 'first');
+    addClass(list.lastChild, 'last');
+    extraFeatures();
 }
 
 var tplInput = '<label class="lbl" id="t_{id}" for="{id}">{text}</label><input id="{id}" name="{id}" type="text" value="{value}" {extra}"/><br/>';
-var tplTextarea = '<label class="lbl" id="t_{id}" for="{id}">{text}</label><textarea id="{id}" name="{id}" cols="{cols}" rows="{rows}" {extra}">{value}</textarea><br/>';
+var tplTextarea = '<label class="lbl" id="t_{id}" for="{id}">{text}</label><textarea style="" class="{cls}" id="{id}" name="{id}" cols="{cols}" rows="{rows}" {extra}">{value}</textarea><br/>';
 var tplCheckbox = '<input id="{id}" name="{id}" type="checkbox"/><label class="lbl_checkbox" id="t_{id}" for="{id}">{text}</label><br/>';
 var tplSelect = '<label class="lbl" id="t_{id}">{text}</label><select name="{id}" id="{id}">{options}</select><br/>';
 var tplSelectOption = '<option value="{id}"{checked}>{value}</option>';
@@ -98,8 +99,8 @@ function renderOptions(body, script){
     var cfg, xtype, value, html = '';
     iterate(script.options, function(option, cfg){
         if (typeof cfg === "object") {
-            cfg.value=cfg.value||'';
-			value = cfg.value;
+            cfg.value = cfg.value || '';
+            value = cfg.value;
             xtype = cfg.xtype || (typeof value);
         } else {
             value = cfg;
@@ -115,41 +116,61 @@ function renderOptions(body, script){
         };
         if (!document.getElementById(o.id)) {
             if (xtype === "boolean") {
-				html += fillTpl(tplCheckbox, o);
-			} else if (xtype === "string") {
-				html += fillTpl(tplInput, o);
-			} else if (xtype === "number") {
-				o.size = o.size || 3;
-				o.extra = ' size="' + o.size + '"';
-				html += fillTpl(tplInput, o);
-			} else if (xtype === "textarea") {
-				o.rows = cfg.rows || 5;
-				o.cols = cfg.cols || 70;
-				html += fillTpl(tplTextarea, o);
-			} else if (xtype === "p") {
-				o.cls = cfg.cls || '';
-				html += fillTpl(tplPara, o);
-			} else if (xtype === "html") {
-				html += value;
-			} else if (xtype === "select") {
-				o.options = '';
-				iterate(cfg.values, function(id, vo){
-					text = ''; //getText(lang, script.id, option+'_'+id);
-					o.options += fillTpl(tplSelectOption, 
-					{
-						id: id,
-						value: vo.value || vo,
-						checked: (vo.checked ? ' checked="checked"' : '')
-					});
-				});
-				html += fillTpl(tplSelect, o);
-			} else if (xtype === "crud") {
-				o.cls='_crud';
-				html += fillTpl(tplDiv, o);
-			}
+                html += fillTpl(tplCheckbox, o);
+            } else if (xtype === "string") {
+                html += fillTpl(tplInput, o);
+            } else if (xtype === "number") {
+                o.size = o.size || 3;
+                o.extra = ' size="' + o.size + '"';
+                html += fillTpl(tplInput, o);
+            } else if (xtype === "textarea") {
+                o.rows = cfg.rows || 5;
+                o.cols = cfg.cols || 70;
+                o.cls = cfg.cls || '';
+                html += fillTpl(tplTextarea, o);
+            } else if (xtype === "p") {
+                o.cls = cfg.cls || '';
+                html += fillTpl(tplPara, o);
+            } else if (xtype === "html") {
+                html += value;
+            } else if (xtype === "select") {
+                o.options = '';
+                iterate(cfg.values, function(id, vo){
+                    text = ''; //getText(lang, script.id, option+'_'+id);
+                    o.options += fillTpl(tplSelectOption, 
+                    {
+                        id: id,
+                        value: vo.value || vo,
+                        checked: (vo.checked ? ' checked="checked"' : '')
+                    });
+                });
+                html += fillTpl(tplSelect, o);
+            } else if (xtype === "crud") {
+                o.cls = '_crud';
+                html += fillTpl(tplDiv, o);
+            }
         }
     });
     body.innerHTML = html;
+}
+var EDITORS={};
+function extraFeatures(){
+    textareaTab();
+	
+    var CODEMIRROR_PATH = 'http://marijn.haverbeke.nl/codemirror';
+    //add script
+    function renderCss(){
+        EDITORS.relook_css=CodeMirror.fromTextArea('relook_css', 
+        {
+            parserfile: "parsecss.js",
+            stylesheet: [CODEMIRROR_PATH + "/css/csscolors.css", "css/editor.css"],
+            path: CODEMIRROR_PATH + "/js/",
+			tabMode:'shift'
+        });
+		
+    }
+    GM_addScript(CODEMIRROR_PATH + '/js/codemirror.js', false, renderCss, false, this);
+    
 }
 
 function renderSkins(){
@@ -191,8 +212,8 @@ function renderSkins(){
             last = c;
         };
     }
-	addClass(list.firstChild, 'first');
-	addClass(list.lastChild, 'last');
+    addClass(list.firstChild, 'first');
+    addClass(list.lastChild, 'last');
 }
 
 function createReport(report){
@@ -203,16 +224,16 @@ function createReport(report){
 
 function recurseList(root, list, first){
     var ul = document.createElement('ul');
-	if (!first) {
-		ul.className = "mnu rounded info";
-	}
+    if (!first) {
+        ul.className = "mnu rounded info";
+    }
     for (var o in list) {
         var li = document.createElement('li');
         if (typeof list[o] === "object") {
             ul.innerHTML += "<span class='info-title'>" + o + "</span>";
             recurseList(ul, list[o]);
         } else {
-            li.innerHTML = '<span>'+o + " : " + list[o]+'</span>';
+            li.innerHTML = '<span>' + o + " : " + list[o] + '</span>';
             ul.appendChild(li);
         }
     }
