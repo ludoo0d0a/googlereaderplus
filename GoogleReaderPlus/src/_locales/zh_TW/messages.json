@@ -2,5 +2,17 @@
   "extension_name": {
     "message": "Reader Plus"
   }
+  "extension_description": {
+    "message": "加強谷歌閱讀器加入失踪favicon的和收集的其他特點"
+  },
+  "extension_summary": {
+    "message": "加強谷歌閱讀器加入失踪favicon的，固定在外殼失踪圖像，更好讀計數器，更好的視覺更廣泛的屏幕，全屏，預覽，彩色列表視圖，過濾，多列的顯示，跳躍頂部底部，關閉輸入，適合高度，打開背景選項卡上，宣讀了鼠標，共享新聞在Facebook，Twitter的，Instapaper，標記為已讀，簡單的廣告劑，替代品物品漫畫 .\n您可以選擇自己喜歡的主題，在不同的可用的皮膚 .\n捷徑可很容易地定制.\n這擴展支持翻譯（英語，法語 ).\n不要猶豫，幫助我在您的語言翻譯 [http://goo.gl/HjiG ]\n\n你可以添加可選按鈕，在這裡鉻工具欄 :\nhttps://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo"
+  },
+  "extension_language": {
+    "message": "繁體中文"
+  },
+  "browser_action_tooltip_default": {
+    "message": "Reader Plus Preferences"
+  } 
 
 }
