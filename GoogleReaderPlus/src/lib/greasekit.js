@@ -128,7 +128,7 @@ if (typeof GM_addStyle === "undefined") {
 }
 
 if (typeof GM_addScript === "undefined") {
-    function GM_addScript(script, remote, cb, cbonerror){
+    function GM_addScript(script, remote, cb, cbonerror, scope, time){
         var s = document.getElementById(script);
         if (s) {
             if (cbonerror && cb) {
@@ -159,6 +159,9 @@ if (typeof GM_addScript === "undefined") {
                 el.setAttribute("src", script);
                 el.setAttribute("id", script);
                 document.getElementsByTagName("head")[0].appendChild(el);
+				window.setTimeout(function(){
+					cb.call(scope||this);
+				}, time||500);
             }
         }
     }
