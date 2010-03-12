@@ -686,3 +686,53 @@ function isVersionMini(ref){
     }
     return true;
 }
+
+function textareaTab(){
+	//Let handle tab on textarea
+	var areas = document.getElementsByTagName('textarea');
+    if (areas) {
+        for (var i = 0, len = areas.length; i < len; i++) {
+            areas[i].addEventListener('keydown', function(e){
+                var t = e.target;
+                if (e.keyCode == 9) {
+                    e.preventDefault();
+                    var tab = '\t';
+                    var ss = t.selectionStart;
+                    var se = t.selectionEnd;
+                    var currentScroll = t.scrollTop;
+                    
+                    // Indent
+                    if (ss != se && t.value.slice(ss, se).indexOf("\n") != -1) {
+                    
+                        var pre = t.value.slice(0, ss);
+                        var selb = t.value.slice(ss, se);
+                        if (e.shiftKey) {
+                            //un-indent
+                            sel = selb.replace(/^\t/mg, "\n");
+                        } else {
+                            //indent
+                            sel = selb.replace(/\n/g, "\n" + tab);
+                        }
+                        var post = t.value.slice(se, t.value.length);
+                        t.value = pre.concat(tab).concat(sel).concat(post);
+                        t.selectionStart = ss + tab.length;
+                        t.selectionEnd = se + (sel.length - selb.length);
+                    } else {
+                        t.value = t.value.slice(0, ss).concat(tab).concat(t.value.slice(ss, t.value.length));
+                        if (ss == se) {
+                            t.selectionStart = t.selectionEnd = ss + tab.length;
+                        } else {
+                            t.selectionStart = ss + tab.length;
+                            t.selectionEnd = se + tab.length;
+                        }
+                    }
+                    t.scrollTop = currentScroll;
+                    t.focus();
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+        }
+    }
+}
