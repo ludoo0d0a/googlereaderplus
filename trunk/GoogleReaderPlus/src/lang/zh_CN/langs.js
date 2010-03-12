@@ -6,7 +6,7 @@
  * 翻译 : 简体中文 By Jfjj007
  * **************************
  *
- * Version : 0.5
+ * Version : 0.6
  * Date : 03-09-2010
  * @author Jfjj007
  */
@@ -247,6 +247,11 @@ GRP.langs.zh_CN.prefs =
         "link": "链接正则表达式",
         "from": "搜索正则表达式",
         "to": "替换"
+    },
+	"relook": 
+    {
+        "css": "CSS stylesheet",
+        "resize": "Fire resize event to adapt fullscreen"
     },
     "pack": 
     {

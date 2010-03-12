@@ -135,6 +135,11 @@ GRP.langs.en.scripts = [
     desc: "Intuitive menu to add extra capabilites"
 }, */
 {
+    id: "relook",
+    name: "Relook",
+    desc: "Relook your site using custom stylesheets"
+}, 
+{
     id: "aero",
     name: "Google Aero Toolbar",
     desc: "Toolbar using Aero theme"

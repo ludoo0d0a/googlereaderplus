@@ -6,7 +6,7 @@
  * 翻譯 : 繁體中文 By shell9000
  * **************************
  *
- * Version : 0.5
+ * Version : 0.6
  * Date : 03-11-2010
  * @author shell9000
  */
@@ -247,6 +247,11 @@ GRP.langs.zh_TW.prefs =
         "link": "鏈接正則表達式",
         "from": "搜索正則表達式",
         "to": "替換"
+    },
+	"relook": 
+    {
+        "css": "CSS stylesheet",
+        "resize": "Fire resize event to adapt fullscreen"
     },
     "pack": 
     {

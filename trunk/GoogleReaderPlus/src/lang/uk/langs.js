@@ -6,7 +6,7 @@
  * en : English
  * **************************
  *
- * Version : 0.5
+ * Version : 0.6
  * Date : 03-09-2010
  * @author Valente
  */
@@ -247,6 +247,11 @@ GRP.langs.uk.prefs =
         "link": "Link Regex:",
         "from": "Search regex:",
         "to": "Replace:"
+    },
+	"relook": 
+    {
+        "css": "CSS stylesheet",
+        "resize": "Fire resize event to adapt fullscreen"
     },
     "pack": 
     {
