@@ -33,6 +33,9 @@ img {
     font: 90% / 180% "Trebuchet MS", "Lucida Grande", "Bitstream Vera Sans", Arial, Helvetica, sans-serif;
     color: #666666;
 }
+#panels textarea{
+	font-size: .8em !important;
+}
 
 label.lbl, .shortcut label {
     float: left;
@@ -380,3 +383,4 @@ img.favicon {
 .crud_header_remove{
 	width:50px;
 }
+

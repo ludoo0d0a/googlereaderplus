@@ -31,7 +31,6 @@ GRP.scripts = [
 		providerpageicons:false,
 		sidebaronly:false,
 		custom:{xtype:'p'},
-/*		domains: {xtype:'crud', value:'<div id="crud_domains"><ul class="mnu crud" id="favicon_crud"></ul><a id="t_favicons_add" class="add" href="javascript:addfavicon();">Add</a></div>'},*/
 		domains: {xtype:'crud'},
 		tip:{xtype:'p'},
 		manual: false,
@@ -326,6 +325,15 @@ GRP.scripts = [
     desc: "Intuitive menu to add extra capabilites"
 }, */
 {
+    id: "relook",
+    name: "Relook",
+    desc: "Relook yourself GoogleReader using custom stylesheets",
+	options:{
+		resize:false,
+		css:{xtype:'textarea', cls:'code', rows:25, value:'/* This CSS sample alternates green entry, red border */\n/* green entry */\n.entry:nth-child(even) .card-common, \n.entry:nth-child(even) .card-actions, \n#entries .entry:nth-child(even) .collapsed {\n border:1px solid #FFACAC;\n}\n/* red border */\n.entry:nth-child(odd) .card-common, \n.entry:nth-child(odd) .card-actions, \n#entries .entry:nth-child(odd) .collapsed {\n background-color:#C4DFC0;\n}\n'}
+    }
+},
+{
     id: "aero",
     name: "Google Aero Toolbar"
 }, 
@@ -411,6 +419,12 @@ GRP.skins = [
     id: "portal",
     name: "Portal Theme"
 }, 
+/*
+{
+    id: "player",
+    name: "Player Theme"
+}, 
+*/
 {
     id: "osxblue",
     name: "Mac OS X Snow Leopard - Blue"
