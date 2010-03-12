@@ -21,6 +21,7 @@ function applyprefs(){
     form.general_opendirect.checked) {
         form.general.checked = true;
     }
+	
     for (var i in form) {
         var ctrl = form[i];
         if (ctrl && !hasClass(ctrl, 'ignore')) {
@@ -30,7 +31,14 @@ function applyprefs(){
                 prefs[o] = ctrl.key;
             } else if (ctrl.type === "checkbox") {
                 prefs[o] = ctrl.checked || false;
-            } else {
+            } else if (ctrl.nodeName === "TEXTAREA") {
+				if (EDITORS && EDITORS[o]) {
+					prefs[o] = EDITORS[o].getCode();
+					//ctrl.innerHTML=prefs[o];
+				} else {
+					prefs[o] = ctrl.innerHTML;
+				}
+            }else {
                 prefs[o] = ctrl.value;
             }
         }
