@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js">
+        </script>
+        <script src="http://www.appelsiini.net/download/jquery.jeditable.mini.js">
+        </script>
+        <script src="http://jquery-translate.googlecode.com/files/jquery.translate-1.4.4-debug-all.js">
+        </script>
+        <script src="trad.js">
+        </script>
+        <style type="text/css">
+            #translations {
+                margin: 5px auto;
+            }
+            
+            .column{
+                width: 300px;
+                float: left;
+                margin: 5px;
+            }
+        </style>
+        <meta charset=utf-8 />
+    </head>
+    <body>
+        <div id="header">
+            <h1>Translations for <a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="blank">ReaderPlus</a></h1>
+        </div>
+        <div id="translations">
+            <div class="column" id="tin">
+            </div>
+            <div class="column" id="tauto">
+            </div>
+            <div class="column" id="tout">
+            </div>
+        </div>
+    </body>
+</html>
