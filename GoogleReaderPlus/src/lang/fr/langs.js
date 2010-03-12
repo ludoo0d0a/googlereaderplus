@@ -6,7 +6,7 @@
  * fr : Francais
  * **************************
  *
- * Version : 0.5
+ * Version : 0.6
  * Date : 03-09-2010
  * @author Valente
  */
@@ -247,6 +247,11 @@ GRP.langs.fr.prefs =
         "link": "Sites:",
         "from": "Rechercher:",
         "to": "Remplacer par:"
+    },
+	"relook": 
+    {
+        "css": "Feuille de style CSS",
+        "resize": "Utiliser l'évènement 'resize' pour adapter le plein écran"
     },
     "pack": 
     {
