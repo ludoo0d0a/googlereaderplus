@@ -2,7 +2,7 @@
  * @author Valente
  */
 function getText(lang, script, option){
-	var text = false;
+	var text = '';
 	if (GRP.langs[lang] && GRP.langs[lang].texts[script] && GRP.langs[lang].texts[script][option]) {
         text = GRP.langs[lang].texts[script][option];
     }
@@ -10,7 +10,7 @@ function getText(lang, script, option){
 }
 
 function getTextPrefs(lang, script, option){
-	var text = false;
+	var text = '';
 	if (GRP.langs[lang] && GRP.langs[lang].prefs[script] && GRP.langs[lang].prefs[script][option]) {
         text = GRP.langs[lang].prefs[script][option];
     }
@@ -105,7 +105,7 @@ function loadLangs(lang, cb, scope){
         GM_addScript('lang/' + lang + '/langs.js', true, function(){
             //override locale texts
             if (GRP.langs) {
-                merge(GRP, GRP.langs[lang]);
+				merge(GRP, GRP.langs[lang]);
             }
             if (cb) {
                 cb.call(scope||this);
