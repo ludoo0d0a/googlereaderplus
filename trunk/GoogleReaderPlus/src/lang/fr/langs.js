@@ -6,8 +6,8 @@
  * fr : Francais
  * **************************
  *
- * Version : 0.6
- * Date : 03-09-2010
+ * Version : 0.7
+ * Date : 03-17-2010
  * @author Valente
  */
 namespace('GRP.langs.fr');
@@ -149,7 +149,11 @@ GRP.langs.fr.texts =
 	replacer:{
 		nomatch:'Pas de résultat.',
 		loading:'Chargement...'
-	}
+	},
+	lightbox:{
+        text: 'Lumière sur les médias',
+        keyword: 'Light'
+    }
 };
 
 GRP.langs.fr.prefs = 
