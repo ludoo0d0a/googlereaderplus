@@ -4,44 +4,7 @@
 // - on update presets
 
 if (typeof(TopUp) == "undefined") {
-    var scriptElement = (function deriveScriptElement(){
-        //documentt.write changed for head/script
-        var scripts = document.getElementsByTagName('script');
-        for (var i = 0, len = scripts.length; i < len; i++) {
-            var script = scripts[i];
-            if (/top_up(\-min)?\.js/.test(script.src)) {
-                return script;
-            }
-        }
-        return false;
-    }());
-    var scriptHost = (function deriveScriptHost(){
-        if (!scriptElement) {
-            return '';
-        }
-        var src = scriptElement.getAttribute("src");
-        return src.match(/^\w+\:\/\//) ? src.match(/^\w+\:\/\/[^\/]*\//)[0] : "";
-    }());
-    
-    var scriptParams = (function deriveScriptParams(){
-		if (!scriptElement) {
-            return {};
-        }
-		var src = scriptElement.getAttribute("src");
-        var pairs = ((src.match(/([\?]*)\?(.*)+/) || ["", "", ""])[2] || "").replace(/(^[0123456789]+|\.js(\s+)?$)/, "").split("&");
-        var params = {};
-        
-        for (var i = 0; i < pairs.length; i++) {
-            if (pairs[i] !== "") {
-                var key_value = pairs[i].split("=");
-                if (key_value.length == 2) {
-                    params[key_value[0].replace(/^\s+|\s+$/g, "")] = key_value[1].replace(/^\s+|\s+$/g, "");
-                }
-            }
-        }
-        return params;
-    }());
-    
+    var scriptParams = {};
     // *
     // * TopUp 1.7.2 (Uncompressed)
     // * The #1 Javascript Pop Up / Lightbox (http://gettopup.com)
@@ -422,7 +385,7 @@ if (typeof(TopUp) == "undefined") {
             if (store) {
                 result.reference = result.reference ? jQuery(result.reference) : reference;
                 if (!result.type) {
-                    result.type = deriveType(reference);
+				    result.type = deriveType(reference);
                 }
                 if (movieContentDisplayed(result)) {
                     result.resizable = 0;
@@ -1437,7 +1400,7 @@ if (typeof(TopUp) == "undefined") {
         return {
             version: "1.7.2",
             jquery: null,
-            host: scriptParams.host || scriptHost,
+            host: scriptParams.host || "http://gettopup.com/",
             images_path: scriptParams.images_path || "images/top_up/",
             players_path: scriptParams.players_path || "players/",
             data: data,
@@ -1448,7 +1411,6 @@ if (typeof(TopUp) == "undefined") {
                 
                 try {
                     function inittopup(){
-                        alert('TopUp ready');
                         TopUp.jquery = jQuery().jquery;
                         
                         fast_mode = parseInt(scriptParams.fast_mode, 10) == 1;
@@ -1628,42 +1590,4 @@ if (typeof(TopUp) == "undefined") {
         };
     }());
     
-    (function(){
-        var missing_libs = [];
-        
-        if (scriptParams.libs != null) {
-            var libs = scriptParams.libs.replace(/clip|switch/g, "fxc-clip").replace(/resize/g, "uic-resizable").split("+");
-            
-            for (var i = 0; i < libs.length; i++) {
-                if (["all", "core", "fxc-clip", "uic-resizable"].indexOf(libs[i]) != -1) {
-                    if (missing_libs.indexOf(libs[i]) == -1) {
-                        missing_libs.push(libs[i]);
-                    }
-                }
-            }
-        } else {
-            if (typeof(jQuery) == "undefined") {
-                missing_libs.push("all");
-            } else {
-                if (!jQuery.effects || !jQuery.effects.clip) {
-                    missing_libs.push("fxc-clip");
-                }
-                if (!jQuery.ui || !jQuery.ui.resizable) {
-                    missing_libs.push("uic-resizable");
-                }
-            }
-        }
-        
-        //Disable init here
-        if (missing_libs.length == 0) {
-            //TopUp.init();
-        } else {
-            if (scriptElement) {
-				var src = scriptElement.getAttribute("src").replace(/(development\/)?top_up(\-min)?\.js.*$/, "jquery/" + missing_libs.sort().join(".") + ".js");
-				document.write('<script src="' + src + '" type="text/javascript" ' +
-				/*'onload="TopUp.init()" onreadystatechange="TopUp.init()">' +*/
-				'</script>');
-			}
-        }
-    }());
 }
