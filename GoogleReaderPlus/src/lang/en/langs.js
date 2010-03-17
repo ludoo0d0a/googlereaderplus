@@ -6,8 +6,8 @@
  * en : English
  * **************************
  *
- * Version : 0.6
- * Date : 03-09-2010
+ * Version : 0.7
+ * Date : 03-17-2010
  * @author Valente
  */
 namespace('GRP.langs.en');
@@ -52,7 +52,9 @@ GRP.langs.en.texts =
     column: 
     {
         text: 'Display as multi columns layout',
-        keyword: 'Column'
+        keyword: 'Column',
+		summary: 'Add/edit items',
+        desc: 'Manage columns'
     },
     facebook: 
     {
@@ -94,7 +96,9 @@ GRP.langs.en.texts =
     {
         preferences: 'Preferences',
         getfavicon: 'Get favicon',
-        notfoundicon: 'Cannot found favicon for "{0}"'
+        notfoundicon: 'Cannot found favicon for "{0}"',
+		summary: 'Add/edit items',
+        desc: 'Manage favicons'
     },
     filter: 
     {
@@ -109,7 +113,9 @@ GRP.langs.en.texts =
         update: 'Update',
         quickadd: 'Quick Add',
         add: 'Add',
-        close: 'Close'
+        close: 'Close',
+		edit:'Edit',
+		remove:'Remove'
     },
     fitheight: 
     {
@@ -149,7 +155,11 @@ GRP.langs.en.texts =
 	replacer:{
 		nomatch:'No match found.',
 		loading:'Loading ...'
-	}
+	},
+	lightbox:{
+        text: 'Light on the media',
+        keyword: 'Light'
+    }
 };
 
 GRP.langs.en.prefs = 
@@ -188,8 +198,9 @@ GRP.langs.en.prefs =
     "column": 
     {
         "count": "Columns number",
-        "locked": "Feature 'Column' always actived by default",
-        "pagebreak": "Break long articles so long articles can be read page by page like a newspaper."
+        "locked": "Feature 'Column' always actived by default, except for :",
+        "pagebreak": "Break long articles so long articles can be read page by page like a newspaper.",
+		"entersite":"Enter URL of the site"
     },
     "twitter": 
     {
@@ -226,11 +237,11 @@ GRP.langs.en.prefs =
     "preview": 
     {
         "onicon": "Show integrated preview when click on icon right after the title (if not checked, on title)",
-        "locked": "Feature 'Preview' always actived by default"
+        "locked": "Feature 'Preview' always actived by default, except for :"
     },
     "fitheight": 
     {
-        "locked": "Feature 'Fit height' always actived by default"
+        "locked": "Feature 'Fit height' always actived by default, except for :"
     },
     "favicons": 
     {
@@ -240,13 +251,18 @@ GRP.langs.en.prefs =
         "add": "Add",
         "tip": "Tip: You could add it easily using the contextual menu \"Get favicon\" of the left side bar",
         "manual": "Manual favicons for all sites (not recommended ; slower)",
-        "parsing": "This will try to detect favicon by parsing each homepage"
+        "parsing": "This will try to detect favicon by parsing each homepage",
+		"entersite":"Enter URL of the site"
     },
     "replacer": 
     {
         "link": "Link Regex:",
         "from": "Search regex:",
         "to": "Replace:"
+    },
+	"lightbox": 
+    {
+        "locked": "Feature 'Lightbox' always actived by default, except for :"
     },
 	"relook": 
     {
