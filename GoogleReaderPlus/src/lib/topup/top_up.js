@@ -1,26 +1,33 @@
+
 //Hacked by LudoO for ReaderPlus to add dynamically capabilites 
 // - on load after dom loading
 // - on update presets
 
 if (typeof(TopUp) == "undefined") {
     var scriptElement = (function deriveScriptElement(){
-		//documentt.write changed for head/script
-		var scripts = document.getElementsByTagName('script');
-		for (var i=0,  len=scripts.length; i<len; i++){
-			var script = scripts[i];
-			if (/top_up(\-min)?\.js/.test(script.src)){
-				return script;
-			}
-		}
-		return false;
+        //documentt.write changed for head/script
+        var scripts = document.getElementsByTagName('script');
+        for (var i = 0, len = scripts.length; i < len; i++) {
+            var script = scripts[i];
+            if (/top_up(\-min)?\.js/.test(script.src)) {
+                return script;
+            }
+        }
+        return false;
     }());
     var scriptHost = (function deriveScriptHost(){
+        if (!scriptElement) {
+            return '';
+        }
         var src = scriptElement.getAttribute("src");
         return src.match(/^\w+\:\/\//) ? src.match(/^\w+\:\/\/[^\/]*\//)[0] : "";
     }());
-
+    
     var scriptParams = (function deriveScriptParams(){
-        var src = scriptElement.getAttribute("src");
+		if (!scriptElement) {
+            return {};
+        }
+		var src = scriptElement.getAttribute("src");
         var pairs = ((src.match(/([\?]*)\?(.*)+/) || ["", "", ""])[2] || "").replace(/(^[0123456789]+|\.js(\s+)?$)/, "").split("&");
         var params = {};
         
@@ -34,7 +41,7 @@ if (typeof(TopUp) == "undefined") {
         }
         return params;
     }());
-	
+    
     // *
     // * TopUp 1.7.2 (Uncompressed)
     // * The #1 Javascript Pop Up / Lightbox (http://gettopup.com)
@@ -299,7 +306,7 @@ if (typeof(TopUp) == "undefined") {
                 });
             }
             
-            selector = jQuery.merge([".top_up", "[toptions]", coptions.join(",")], jQuery.keys(sets||presets)).join();
+            selector = jQuery.merge([".top_up", "[toptions]", coptions.join(",")], jQuery.keys(sets || presets)).join();
             
             jQuery(selector).live("click", topUpClick);
             jQuery(document).bind("keyup", documentKeyPress);
@@ -694,7 +701,8 @@ if (typeof(TopUp) == "undefined") {
             
             var paramTags = "";
             for (var key in params) {
-                paramTags += " " + createElementTag("param", 
+                paramTags += " " +
+                createElementTag("param", 
                 {
                     name: key,
                     value: params[key]
@@ -1441,7 +1449,7 @@ if (typeof(TopUp) == "undefined") {
                 try {
                     function inittopup(){
                         alert('TopUp ready');
-						TopUp.jquery = jQuery().jquery;
+                        TopUp.jquery = jQuery().jquery;
                         
                         fast_mode = parseInt(scriptParams.fast_mode, 10) == 1;
                         default_preset.resizable = jQuery.ui && jQuery.ui.resizable ? 1 : 0;
@@ -1457,11 +1465,11 @@ if (typeof(TopUp) == "undefined") {
                             func.apply();
                         });
                     }
-					if (force){
-						inittopup();
-					}else{
-						jQuery(document).ready(inittopup);	
-					}
+                    if (force) {
+                        inittopup();
+                    } else {
+                        jQuery(document).ready(inittopup);
+                    }
                     
                     jQuery(window).unload(function(){
                         jQuery("*").unbind();
@@ -1479,11 +1487,11 @@ if (typeof(TopUp) == "undefined") {
                 default_preset = jQuery.extend(default_preset, set);
             },
             addPresets: function(sets){
-				presets = jQuery.extend(presets, sets);
+                presets = jQuery.extend(presets, sets);
             },
-			updatePresets: function(sets){
-				bind(sets);
-				this.addPresets(sets);
+            updatePresets: function(sets){
+                bind(sets);
+                this.addPresets(sets);
             },
             ready: function(func){
                 on_ready.push(func);
@@ -1646,7 +1654,7 @@ if (typeof(TopUp) == "undefined") {
             }
         }
         
-		//Disable init here
+        //Disable init here
         if (missing_libs.length == 0) {
             //TopUp.init();
         } else {
