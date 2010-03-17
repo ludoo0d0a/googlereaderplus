@@ -11,8 +11,8 @@
  * so that 0.3.11 is the 11th translated version of the original v0.3 english version.  
  * 
  * 
- * Version : 0.3
- * Date : 03-11-2010
+ * Version : 0.4
+ * Date : 03-17-2010
  * @author Valente
  */
 namespace('GRP.langs.en');
@@ -134,6 +134,11 @@ GRP.langs.en.scripts = [
     name: "Intuitive menu",
     desc: "Intuitive menu to add extra capabilites"
 }, */
+{
+    id: "lightbox",
+    name: "Lightbox",
+	desc: "Show media in fullscreen"
+}, 
 {
     id: "relook",
     name: "Relook",
