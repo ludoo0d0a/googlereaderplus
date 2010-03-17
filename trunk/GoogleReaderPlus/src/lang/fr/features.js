@@ -6,8 +6,8 @@
  * fr : Francais
  * **************************
  * 
- * Version : 0.2
- * Date : 02-23-2010
+ * Version : 0.4
+ * Date : 03-17-2010
  * @author Valente
  */
 namespace('GRP.langs.fr');
@@ -129,6 +129,15 @@ GRP.langs.fr.scripts = [
     desc: "Menu contextuel pour effectuer des opérations directement sur tous les articles chaque site"
 }, 
 */
+{
+    id: "lightbox",
+    name: "Lightbox"
+}, 
+{
+    id: "relook",
+    name: "Relook",
+    desc: "Relook your site using custom stylesheets"
+}, 
 {
     id: "aero",
     name: "Barre d'outil Aero",
