@@ -1,115 +1,158 @@
 /*
  * Entries
  */
-var stackFeatures = [];
-
+var stackFeatures = [],externals=[];
 function registerFeature(fn, bid, params){
-    params=params||{};
-	params.bid=bid;
-	stackFeatures.push(
+    params = params || {};
+    params.bid = bid;
+    stackFeatures.push(
     {
         fn: fn,
         params: params
     });
+	if (params && params.loader){
+		if (isArray(params.loader)) {
+			externals=externals.concat(params.loader);
+		} else {
+			externals.push(params.loader);
+		}
+	}
     if (params && params.globalFn) {
         params.globalFn.call(this);
     }
 }
 
 function execAll(el, entry, mode, force){
-	window.setTimeout(function(){
-		execAllOffset(el, entry, mode, force);
-	}, 400);
+    window.setTimeout(function(){
+        execAllOffset(el, entry, mode, force);
+    }, 400);
 }
+
 function execAllOffset(el, entry, mode, force){
     for (var i = 0, len = stackFeatures.length; i < len; i++) {
         var p = stackFeatures[i].params;
-        if (el){
+        if (el) {
             //ListView-opened + ExpandedView
-			if (!isTagged(el, p.bid)){
-				stackFeatures[i].fn.call(this, el, entry, mode);
-			}
-        }else{
-			//ListView-closed
-			if (p && p.onlistviewtitle){
-				//only for favcions (onlistviewtitle=true)
-				if (force || !isTagged(entry.firstChild, p.bid)){
-					stackFeatures[i].fn.call(this, el, entry, mode);
-				}
-			}
-		}
+            if (!isTagged(el, p.bid)) {
+                stackFeatures[i].fn.call(this, el, entry, mode);
+            }
+        } else {
+            //ListView-closed
+            if (p && p.onlistviewtitle) {
+                //only for favcions (onlistviewtitle=true)
+                if (force || !isTagged(entry.firstChild, p.bid)) {
+                    stackFeatures[i].fn.call(this, el, entry, mode);
+                }
+            }
+        }
     }
 }
 
 function monitorEntries(el){
-    var root = el||get_id("entries");
+	var root = el || get_id("entries");
 	root.addEventListener('DOMNodeInserted', function(e){
-        checkEntry(e.target, execAll);
-    }, false);
-    catchAllEntries(execAll);
+		checkEntry(e.target, execAll);
+	}, false);
+	catchAllEntries(execAll);
+	loadExternal(function(){
+		catchAllEntries(execAll);
+	});
+}
+
+function loadExternal(cb){
+	var ext = {};
+	if (externals && externals.length > 0) {
+		for (var i = 0, len = externals.length; i < len; i++) {
+			var o = externals[i];
+			ext[i] = o;
+			if (typeof o === "function") {
+				o.call(this, function(){
+					delete ext[i];
+					if (ext.length===0){
+						cb();
+					}
+				});
+			} else if (typeof o === "string") {
+				GM_addScript(o, true);
+			}
+		}
+	}else{
+		cb();
+	}
 }
 
 /*
-//ListView
-entry
--collapsed
-if open{
--entry-container
--entry-comments
--entry-actions
-}
-//ExpandedView
-entry
--card card-common
---card-content
---card-comments
---card-actions card-bottom
----entry-actions
-
-//ListView -closed
-DIV.hidden
-DIV.
-DIV.entry entry-0(*)
-
-//ListView -opened
-DIV.entry-container
-DIV.entry-comments
-DIV.entry-actions(*)
-DIV.entry-title-maximize
-
-//ExpandedView
-DIV.entry entry-0(*)
-DIV.entry-title-maximize
-*/
-
+ //ListView
+ entry
+ -collapsed
+ if open{
+ -entry-container
+ -entry-comments
+ -entry-actions
+ }
+ //ExpandedView
+ entry
+ -card card-common
+ --card-content
+ --card-comments
+ --card-actions card-bottom
+ ---entry-actions
+ //ListView -closed
+ DIV.hidden
+ DIV.
+ DIV.entry entry-0(*)
+ //ListView -opened
+ DIV.entry-container
+ DIV.entry-comments
+ DIV.entry-actions(*)
+ DIV.entry-title-maximize
+ //ExpandedView
+ DIV.entry entry-0(*)
+ DIV.entry-title-maximize
+ */
 function checkEntry(el, fn, params){
     if (el.tagName == "DIV") {
-		if (hasClass(el, 'entry')) {
-			if (hasClass(el.firstChild, 'card')) {
+        if (hasClass(el, 'entry')) {
+            if (hasClass(el.firstChild, 'card')) {
                 // *********** Expanded view
                 //var ea = getFirstElementByClassName(el, 'entry-actions');
-				var ea = el.firstChild.lastChild.firstChild;
-				//console.log("Run as ExpandedView for "+el.tagName + "." + el.className);
+                var ea = el.firstChild.lastChild.firstChild;
+                //console.log("Run as ExpandedView for "+el.tagName + "." + el.className);
                 catchEntry(el, ea, fn, params, false);
             } else {
                 // *********** Closed article in List view
-				//console.log("Run as ListView-closed for "+el.tagName + "." + el.className);
+                //console.log("Run as ListView-closed for "+el.tagName + "." + el.className);
                 catchEntry(el, false, fn, params, true);
             }
-        }else if (hasClass(el, 'entry-actions')) {
+        } else if (hasClass(el, 'entry-actions')) {
             // *********** Expand article in List view
-			//console.log("Run as ListView-opened for "+el.tagName + "." + el.className);
+            //console.log("Run as ListView-opened for "+el.tagName + "." + el.className);
             var entry = findParentNode(el, 'div', 'entry');
-			catchEntry(entry, el, fn, params, true, true);
-        } 
+            catchEntry(entry, el, fn, params, true, true);
+        }
     }
-    
+}
+
+function filterEntry(entry, rx){
+    var o = getEntryLink(entry);
+    return (rx && rx.test(o.url));
+}
+
+function getRegex(urls){
+    if (!urls||urls.length==0){
+		return false;
+	}
+	var escaped = [];
+    for (var i = 0, len = urls.length; i < len; i++) {
+        escaped.push(encodeRE(urls[i]));
+    }
+    return new RegExp(escaped.join("|"), "i");
 }
 
 function forAllEntries(fn){
     var root = document.getElementById('entries');
     //var entries = getElementsByClazzName('entry', 'div', root);
-	var entries = root.getElementsByClassName('entry');
+    var entries = root.getElementsByClassName('entry');
     for (var i = 0; i < entries.length; i++) {
         fn.call(this, entries[i]);
     }
@@ -123,7 +166,7 @@ function catchAllEntries(fn, params){
 
 function catchEntry(entry, el, fn, params, listview, force){
     //var mode = getMode(entry);
-	var mode = (listview)?'list':'expanded';
+    var mode = (listview) ? 'list' : 'expanded';
     fn.call(this, el, entry, mode, force);
 }
 
@@ -131,7 +174,7 @@ function catchEntry(entry, el, fn, params, listview, force){
  * Side bar
  */
 function initCatchSidebars(fn, bid){
-	document.body.addEventListener('DOMNodeInserted', function(e){
+    document.body.addEventListener('DOMNodeInserted', function(e){
         catchSidebarAdded(e, fn, bid);
     }, false);
     catchAllSidebars(fn, bid);
@@ -172,7 +215,7 @@ function getMode(entry){
 
 
 function getOriginalEntryLink(entry){
-	return getFirstElementByClassName(entry, 'entry-title-link');
+    return getFirstElementByClassName(entry, 'entry-title-link');
 }
 
 function getEntrySiteTitle(ent){
@@ -187,7 +230,7 @@ function getEntrySiteTitle(ent){
     if (point) {
         match = point.textContent;
     }
-
+    
     return match;
 }
 
@@ -198,28 +241,31 @@ function getEntryLink(ent){
     var link = getFirstElementByClassName(entry, 'grp-link-url');//'a'
     if (!link) {
         //Normal way
-        link = getFirstElementByClassName(entry,  'entry-title-link');//'a'
+        link = getFirstElementByClassName(entry, 'entry-title-link');//'a'
         if (link) {
             o.url = link.href;
+			o.link = link;
             o.title = link.textContent;
         } else {
             //Feed from html (non RSS page)
-            var etitle = getFirstElementByClassName(entry,  'entry-title');//'h2'
+            var etitle = getFirstElementByClassName(entry, 'entry-title');//'h2'
             if (etitle) {
                 var m = /"(.*)"/.exec(etitle.textContent);
                 if (m) {
                     o.url = m[0];
                 }
                 o.title = etitle.textContent;
+				o.link = null;
             }
         }
     } else {
         //preview on 
-        var link2 = getFirstElementByClassName(entry,  'grp-link-title');//'a'
+        var link2 = getFirstElementByClassName(entry, 'grp-link-title');//'a'
         o = 
         {
             title: link2.textContent,
-            url: link.href
+            url: link.href,
+			link:link
         };
     }
     
@@ -271,23 +317,23 @@ function getWidthEntries(){
 }
 
 function getHeightEntries(){
-    var height=500;
-	var entries = document.getElementById('entries');
-	if (entries) {
-		var offset = 0;
-		var eb = getFirstElementByClassName(entries, 'entry-body');
-		if (eb) {
-			offset += eb.offsetTop;
-		}
-		var ea = getFirstElementByClassName(entries, 'entry-actions');
-		if (ea) {
-			offset += ea.clientHeight;
-		}
-		console.log('offset='+offset);
-		offset = Math.max(110, offset);
-		
-		height = parseInt(entries.style.height.replace('px', ''), 10) - offset; 
-	}
+    var height = 500;
+    var entries = document.getElementById('entries');
+    if (entries) {
+        var offset = 0;
+        var eb = getFirstElementByClassName(entries, 'entry-body');
+        if (eb) {
+            offset += eb.offsetTop;
+        }
+        var ea = getFirstElementByClassName(entries, 'entry-actions');
+        if (ea) {
+            offset += ea.clientHeight;
+        }
+        console.log('offset=' + offset);
+        offset = Math.max(110, offset);
+        
+        height = parseInt(entries.style.height.replace('px', ''), 10) - offset;
+    }
     return height;
 }
 
@@ -352,7 +398,7 @@ function addButton(reference, text, title, fn, position){
 
 function onKey(cls, fn){
     var entry = getCurrentEntry();
-    var btn = getFirstElementByClassName(entry,  cls);//'span'
+    var btn = getFirstElementByClassName(entry, cls);//'span'
     fn.call(this, btn, entry);
 }
 
@@ -395,14 +441,14 @@ function isActive(btn, entry, cls, locked){
 
 function isTagged(entry, cls){
     var tagged = entry.getAttribute(cls);
-	if (!tagged) {
+    if (!tagged) {
         entry.setAttribute(cls, 'true');
     }
-	/*
-	var tagged = hasClass(entry, cls);
-    if (!tagged) {
-        addClass(entry, cls);
-    }*/
+    /*
+     var tagged = hasClass(entry, cls);
+     if (!tagged) {
+     addClass(entry, cls);
+     }*/
     return tagged;
 }
 
