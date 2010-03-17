@@ -232,6 +232,20 @@ function initKey(keys){
     }, false);
 }
 
+function notEmpty(o){
+    if (o) {
+        if (isArray(o) && o.length > 0) {
+            return o;
+        } else if (typeof o === "object" && !isObjectEmpty(o)) {
+            return o;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
 function isObjectEmpty(o){
     if (!o) {
         return true;
@@ -243,6 +257,15 @@ function isObjectEmpty(o){
         return false;
     }
     return true;
+}
+
+function findInArray(a, value){
+    for (var i = 0, len = a.length; i < len; i++) {
+        if (a[i] === value) {
+            return i;
+        }
+    }
+    return false;
 }
 
 function find(o, key, value){
@@ -555,6 +578,22 @@ function foreach(array, fn, scope){
     }
 }
 
+function map2array(o, key, value){
+    var r = [];
+    if (o) {
+        for (var p in o) {
+            if (!hasOwnProperty.call(o, p)) {
+                continue;
+            }
+            var a = {};
+            a[key || 'key'] = p;
+            a[value || 'value'] = o[p];
+            r.push(a);
+        }
+    }
+    return r;
+}
+
 function iterate(o, fn, scope){
     if (o) {
         for (var p in o) {
@@ -597,16 +636,7 @@ function merge(o, c, defaults){
         merge(o, defaults);
     }
     if (typeof o !== "undefined" && typeof c !== "undefined") {
-        if (typeof c === 'object') {
-            for (var p in c) {
-                //console.log(c[p] + ' Omerge['+p+']> ' + o[p]);
-                if (typeof c[p] === 'object' || isArray(c[p])) {
-                    merge(o[p], c[p]);
-                } else {
-                    o[p] = c[p];
-                }
-            }
-        } else if (isArray(c)) {
+        /*if (isArray(c)) {
             for (var i = 0, len = c.length; i < len; i++) {
                 //o[i] = c[i];
                 //console.log(c[i] + ' Amerge['+i+']> ' + o[i]);
@@ -615,8 +645,19 @@ function merge(o, c, defaults){
                 } else {
                     o[i] = c[i];
                 }
-            //console.log('after: ' + c[i] + ' Amerge[' + i + ']> ' + o[i]);
             }
+        //console.log('after: ' + c[i] + ' Amerge[' + i + ']> ' + o[i]);
+        } else */
+		if (typeof c === 'object') {
+            for (var p in c) {
+                //console.log(c[p] + ' Omerge['+p+']> ' + o[p]);
+                if (typeof c[p] === 'object' || isArray(c[p])) {
+                    merge(o[p], c[p]);
+                } else {
+                    o[p] = c[p];
+                }
+            }
+            
         } else {
             //o[p] = c[p];
             //console.log(c + ' -> ' + o);
@@ -677,7 +718,7 @@ function isVersionMini(ref){
     var refs = ref.split('.');
     for (var i = 0, len = version.length; i < len; i++) {
         version[i] = parseInt(version[i], 10);
-        if (i<=refs.length) {
+        if (i <= refs.length) {
             refs[i] = parseInt(refs[i], 10);
             if (version[i] < refs[i]) {
                 return false;
@@ -688,8 +729,8 @@ function isVersionMini(ref){
 }
 
 function textareaTab(){
-	//Let handle tab on textarea
-	var areas = document.getElementsByTagName('textarea');
+    //Let handle tab on textarea
+    var areas = document.getElementsByTagName('textarea');
     if (areas) {
         for (var i = 0, len = areas.length; i < len; i++) {
             areas[i].addEventListener('keydown', function(e){
@@ -734,5 +775,15 @@ function textareaTab(){
                 }
             });
         }
+    }
+}
+
+function waitlib(check, fn, scope){
+    if (check()) {
+        fn.call(scope||this);
+    } else {
+        window.setTimeout(function(){
+            waitlib(check, fn);
+        }, 200);
     }
 }
