@@ -6,8 +6,8 @@
  * 翻译 : 简体中文 By Jfjj007
  * **************************
  * 
- * Version : 0.1.1
- * Date : 2010-03-04
+ * Version : 0.4
+ * Date : 03-17-2010
  * @author Jfjj007
  */
 namespace('GRP.langs.zh_CN');
@@ -137,6 +137,15 @@ GRP.langs.zh_CN.scripts = [
     name: "Intuitive menu",
     desc: "Intuitive menu to add extra capabilites"
 }, */
+{
+    id: "lightbox",
+    name: "Lightbox"
+}, 
+{
+    id: "relook",
+    name: "Relook",
+    desc: "Relook your site using custom stylesheets"
+}, 
 {
     id: "aero",
     name: "Google Aero 工具栏",
