@@ -1658,10 +1658,12 @@ if (typeof(TopUp) == "undefined") {
         if (missing_libs.length == 0) {
             //TopUp.init();
         } else {
-            var src = scriptElement.getAttribute("src").replace(/(development\/)?top_up(\-min)?\.js.*$/, "jquery/" + missing_libs.sort().join(".") + ".js");
-            document.write('<script src="' + src + '" type="text/javascript" ' +
-            /*'onload="TopUp.init()" onreadystatechange="TopUp.init()">' +*/
-            '</script>');
+            if (scriptElement) {
+				var src = scriptElement.getAttribute("src").replace(/(development\/)?top_up(\-min)?\.js.*$/, "jquery/" + missing_libs.sort().join(".") + ".js");
+				document.write('<script src="' + src + '" type="text/javascript" ' +
+				/*'onload="TopUp.init()" onreadystatechange="TopUp.init()">' +*/
+				'</script>');
+			}
         }
     }());
 }
