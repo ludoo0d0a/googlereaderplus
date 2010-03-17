@@ -153,24 +153,22 @@ function renderOptions(body, script){
     });
     body.innerHTML = html;
 }
-var EDITORS={};
+
+var EDITORS = {};
 function extraFeatures(){
     textareaTab();
-	
-    var CODEMIRROR_PATH = 'http://marijn.haverbeke.nl/codemirror';
-    //add script
-    function renderCss(){
-        EDITORS.relook_css=CodeMirror.fromTextArea('relook_css', 
+    
+    //var CODEMIRROR_PATH = 'http://marijn.haverbeke.nl/codemirror';
+    var CODEMIRROR_PATH = 'lib/codemirror';
+    if (CodeMirror && get_id('relook_css')) {
+        EDITORS.relook_css = CodeMirror.fromTextArea('relook_css', 
         {
             parserfile: "parsecss.js",
             stylesheet: [CODEMIRROR_PATH + "/css/csscolors.css", "css/editor.css"],
             path: CODEMIRROR_PATH + "/js/",
-			tabMode:'shift'
+            tabMode: 'shift'
         });
-		
     }
-    GM_addScript(CODEMIRROR_PATH + '/js/codemirror.js', false, renderCss, false, this);
-    
 }
 
 function renderSkins(){
