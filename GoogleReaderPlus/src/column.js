@@ -8,10 +8,11 @@
  */
 GRP.column = function(prefs, langs){
     var SL = langs.column;
-    var locked = false;
+    var locked = prefs.column_locked;
     var cols = 3;
     var maxcolumns = 6; //between 1 and 6
     var entries = get_id('entries');
+	var rx= getRegex(prefs.column_filter);
     
     function addButton(el, entry, mode){
         var text = SL.text + formatShortcut('column', 'columns', prefs); //[c]
@@ -22,8 +23,14 @@ GRP.column = function(prefs, langs){
         onKey('btn-column', columnize);
     }
     
-    function columnize(btn, entry, locked){
-        var active = isActive(btn, entry, 'columnize', locked);
+    function columnize(btn, entry, lcked, e){
+        var locked = (lcked && (typeof e === "undefined"));
+		if (locked && filterEntry(entry, rx)){
+			//Regex filtered
+			return false;
+		}
+		
+		var active = isActive(btn, entry, 'columnize', locked);
         
         var body = getBody(entry);
         var hpage = 0;
@@ -145,12 +152,6 @@ GRP.column = function(prefs, langs){
         var d = parseInt(prefs.column_maxcolumns, 10);
         maxcolumns = Math.max(1, Math.min(6, d));
     }
-    //column_pagebreak
-    //prefs.column_pagebreak
-    //column_locked
-    if (prefs && prefs.column_locked) {
-        locked = prefs.column_locked;
-    }
     
     function getContainer(entry){
         var cwh = 300;
@@ -220,5 +221,5 @@ GRP.column = function(prefs, langs){
     var keycode = getShortcutKey('column', 'columns', prefs); //67 c
     keycode.fn = addKey;
     initKey(keycode);
-    
+
 };

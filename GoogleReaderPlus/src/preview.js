@@ -16,6 +16,7 @@
 GRP.preview = function(prefs, langs){
     var SL = langs.preview;
     var locked = false;
+    var rx = getRegex(prefs.preview_filter);
     
     function addPreviewButton(el, entry, mode){
         // Top link
@@ -29,7 +30,7 @@ GRP.preview = function(prefs, langs){
         var plink;
         if (previewOnIcon) {
             addClass(link, 'grp-link-url');
-			addClass(link, 'grp-link-title');
+            addClass(link, 'grp-link-title');
             //add a button right after the title
             plink = document.createElement('a');
             plink.title = SL.title + keytext; //[Shift+V]
@@ -39,27 +40,21 @@ GRP.preview = function(prefs, langs){
             plink.addEventListener('click', previewTitleClick, false);
         } else {
             //clean current a.href link to keep open link
-            var text = link.textContent;
+            var text = link.innerText;
             link.title = SL.opennewtab;
-			addClass(link, 'grp-link-url');
+            addClass(link, 'grp-link-url');
             link.innerHTML = '<div class="entry-title-maximize"></div>';
             
             //create a second link before the previous one to used as preview
             var title = link.parentNode;// h2.entry-title
             plink = document.createElement('a');
             //plink.className = 'ilink entry-title-link';
-			addClass(plink, 'grp-link-title');
+            addClass(plink, 'grp-link-title');
             plink.href = '#';
             plink.title = SL.title + keytext; //[Shift+V]
             plink.innerText = ' ' + text;
             link.parentNode.insertBefore(plink, link);
             plink.addEventListener('click', previewTitleClick, false);
-            
-        }
-        
-        if (fancybox) {
-            //var link = getEntryLink(entry);
-            setFancyBox(plink);
         }
         
         // Bottom button
@@ -86,7 +81,13 @@ GRP.preview = function(prefs, langs){
         }
     }
     
-    function previewize(btn, entry, locked, e){
+    function previewize(btn, entry, lcked, e){
+        var locked = (lcked && (typeof e === "undefined"));
+        if (locked && filterEntry(entry, rx)) {
+            //Regex filtered
+            return false;
+        }
+        
         var iframe;
         var active = isActive(btn, entry, 'preview', locked);
         
@@ -97,87 +98,86 @@ GRP.preview = function(prefs, langs){
         }
         
         var body = getFirstElementByClassName(entry, 'entry-body');//div
-        var entryBody = getFirstElementByClassName(body,  'entry-enclosure');//div
+        var entryBody = getFirstElementByClassName(body, 'entry-enclosure');//div
         if (!entryBody) {
             entryBody = getFirstElementByClassName(body, 'item-body');//div
         }
         
-        if (fancybox) {
-            //var link = getEntryLink(entry);
-            //setFancyBox(link);
-        } else {
-            iframe = getFirstElementByClassName(entry,  'if-preview');//'iframe'
-            
-            if (active) {
-                // classic mode-> preview mode
-                entryBody.style.display = 'none';
-                if (iframe) {
-                    // iframe already in document, display it
-                    iframe.style.display = 'block';
-                } else {
-                    // iframe not in document, create it
-                    iframe = document.createElement('iframe');
-                    //iframe.id='if-preview';
-                    iframe.setAttribute('width', '100%');
-                    var h = getHeightEntries();
-                    iframe.setAttribute('height', h + 'px');
-					var urlLink = getEntryLink(entry);
-					var url = urlLink.url;
-					var locksite = isSiteLocked(url);
-					if (locksite){
-						GM_xmlhttpRequest({url:url, onload:function(r){
-							iframe.setAttribute('src', cleanHtml(r.responseText, url));
-						}});
-					}else{
-	                    //get url fron hidden link
-						iframe.setAttribute('src', url);
-                   	}
-                    iframe.className = 'if-preview';
-                    body.appendChild(iframe);
-                    
-                    /*if (prefs.preview_adjustframe) {
-                     adjustIframeHeight(iframe, h);
-                     }*/
-                }
-                
-                // Scale article container to fullwidth
-                body.setAttribute('style', 'max-width: 98%');
+        
+        iframe = getFirstElementByClassName(entry, 'if-preview');//'iframe'
+        if (active) {
+            // classic mode-> preview mode
+            entryBody.style.display = 'none';
+            if (iframe) {
+                // iframe already in document, display it
+                iframe.style.display = 'block';
             } else {
-                // preview mode -> classic mode
-                
-                // hide iframe
-                if (iframe) {
-                    iframe.style.display = 'none';
+                // iframe not in document, create it
+                iframe = document.createElement('iframe');
+                //iframe.id='if-preview';
+                iframe.setAttribute('width', '100%');
+                var h = getHeightEntries();
+                iframe.setAttribute('height', h + 'px');
+                var urlLink = getEntryLink(entry);
+                var url = urlLink.url;
+                var locksite = isSiteLocked(url);
+                if (locksite) {
+                    GM_xmlhttpRequest(
+                    {
+                        url: url,
+                        onload: function(r){
+                            iframe.setAttribute('src', cleanHtml(r.responseText, url));
+                        }
+                    });
+                } else {
+                    //get url fron hidden link
+                    iframe.setAttribute('src', url);
                 }
+                iframe.className = 'if-preview';
+                body.appendChild(iframe);
                 
-                // show rss item
-                entryBody.style.display = 'block';
-                body.removeAttribute('style', '');
-                if (!locked) {
-                    jump(entry, true);
-                }
+                //if (prefs.preview_adjustframe) { adjustIframeHeight(iframe, h); }
+            
             }
+            
+            // Scale article container to fullwidth
+            body.setAttribute('style', 'max-width: 98%');
+        } else {
+            // preview mode -> classic mode
+            
+            // hide iframe
+            if (iframe) {
+                iframe.style.display = 'none';
+            }
+            
+            // show rss item
+            entryBody.style.display = 'block';
+            body.removeAttribute('style', '');
+            if (!locked) {
+                jump(entry, true);
+            }
+            
         }
     }
-	function isSiteLocked(url){
-		/*if (/www\.zdnet\.fr/.test(url) || /www\.lefigaro\.fr/.test(url) || /www\.chauffeurdebuzz\.com/.test(url)){
-			return true;
-		}*/
-		return false;
-	}	
-	
-	function cleanHtml(html, url){
-		var base = (/(.*)\//.exec(url))[0];
-		//compress
-		var text=html.replace(/\n\r/,"");
-		//remove scripts
-		text=text.replace(/<script.*<\/script>/gi, '');
-		//add base
-		text=text.replace('<head>', '<head><base href="'+base+'" />');
-		//render html
-		var htmlurl = 'data:text/html;,' + encodeURIComponent(text);
-		return htmlurl;
-	}
+    function isSiteLocked(url){
+        /*if (/www\.zdnet\.fr/.test(url) || /www\.lefigaro\.fr/.test(url) || /www\.chauffeurdebuzz\.com/.test(url)){
+         return true;
+         }*/
+        return false;
+    }
+    
+    function cleanHtml(html, url){
+        var base = (/(.*)\//.exec(url))[0];
+        //compress
+        var text = html.replace(/\n\r/, "");
+        //remove scripts
+        text = text.replace(/<script.*<\/script>/gi, '');
+        //add base
+        text = text.replace('<head>', '<head><base href="' + base + '" />');
+        //render html
+        var htmlurl = 'data:text/html;,' + encodeURIComponent(text);
+        return htmlurl;
+    }
     
     function onResize(height){
         var iframes = getElementsByClazzName('if-preview', 'iframe', document);
@@ -188,54 +188,7 @@ GRP.preview = function(prefs, langs){
             }
         }
     }
-    
-    //var fancybox = prefs.preview_fancybox || false;
-	var fancybox = false;
-    
-    function initFancyBox(){
-        if (fancybox) {
-            GM_addScript("http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js", true);
-            GM_addCss("http://fancybox.net/js/fancybox/jquery.fancybox-1.2.6.css");
-            waitJquery(function(){
-                GM_addScript("http://fancybox.net/js/fancybox/jquery.fancybox-1.2.6.pack.js", true);
-                GM_addScript("http://fancybox.net/js/jquery.easing.1.3.js", true);
-            })
-            
-        }
-    }
-    function waitJquery(fn){
-        window.setTimeout(function(){
-            //wait jquery
-            if (typeof jQuery !== "undefined") {
-                fn.call(this);
-            } else {
-                //console.log('No jquery found '+new Date());
-                waitJquery(fn);
-            }
-        }, 1000);
-    }
-    function runFancyBoxAuto(){
-        if (fancybox) {
-            if ((typeof jQuery !== "undefined") && (typeof jQuery.fn.fancybox !== "undefined")) {
-                jQuery("a.dofbox").removeClass('dofbox').addClass('infbox').fancybox(
-                {
-                     hideOnContentClick: false
-					 /*
-					,title: jQuery(this).text(),
-                    frameWidth: 800,
-                    frameHeight: 600,
-                    enableEscapeButton: true,
-                    showCloseButton: true*/
-                });
-            }
-        }
-    }
-    function setFancyBox(link){
-        if (fancybox) {
-            addClass(link, 'dofbox');
-        }
-    }
-    
+     
     //column_locked
     locked = false;
     if (prefs && prefs.preview_locked) {
@@ -247,12 +200,9 @@ GRP.preview = function(prefs, langs){
     css += ".preview .entry-likers, .preview .entry-annotations, .preview .entry-via, .preview .card-comments{display:none;}";
     GM_addStyle(css);
     
-    //registerFeature(addPreviewButton, 'epreview', runFancyBoxAuto);
-	registerFeature(addPreviewButton, 'epreview');
+    registerFeature(addPreviewButton, 'epreview');
     initResize(onResize);
-    
     var keycode = getShortcutKey('preview', 'prview', prefs); //81 q
     keycode.fn = previewShortcut;
     initKey(keycode);
-    initFancyBox();
 };
