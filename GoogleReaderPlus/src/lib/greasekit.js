@@ -129,7 +129,9 @@ if (typeof GM_addStyle === "undefined") {
 
 if (typeof GM_addScript === "undefined") {
     function GM_addScript(script, remote, cb, cbonerror, scope, time){
-        var s = document.getElementById(script);
+		//var id = script.replace(/[\.:-_\/\\]/g, '');
+		var id = script;
+		var s = document.getElementById(id);
         if (s) {
             if (cbonerror && cb) {
                 cb.call(this);
@@ -141,30 +143,59 @@ if (typeof GM_addScript === "undefined") {
                     method: 'get',
                     url: script,
                     onload: function(r){
-                        eval('' + r.responseText + '');
-                        if (cb) {
-                            cb.call(this);
-                        }
+                        if (remote === 'inline') {
+							GM_addjs(script, true, id, cb, scope);
+						}else{
+							eval(r.responseText);
+							if (cb) {
+	                            cb.call(scope||this);
+	                        }
+						}
                     },
                     onerror: function(r){
                         if (cbonerror && cb) {
-                            cb.call(this);
+                            cb.call(scope||this);
                         }
                         console.error('Error on loading Javascript ' + script);
                     }
                 });
             } else {
-                var el = document.createElement("script");
-                el.setAttribute("type", "text\/javascript");
-                el.setAttribute("src", script);
-                el.setAttribute("id", script);
-                document.getElementsByTagName("head")[0].appendChild(el);
-				window.setTimeout(function(){
-					cb.call(scope||this);
-				}, time||500);
+                GM_addjs(script, false, id, cb, scope);
             }
         }
     }
+	
+	function GM_addjs(script, inline, id, cb, scope){
+		var el = document.createElement("script");
+		el.setAttribute("type", "text\/javascript");
+		if (inline) {
+			el.innerText = script;
+		} else {
+			el.setAttribute("src", script);
+		}
+		if (id) {
+			el.setAttribute("id", id);
+		}
+        document.getElementsByTagName("head")[0].appendChild(el);
+		if (cb) {
+			window.setTimeout(function(){
+				cb.call(scope || this);
+			}, time || 500);
+		}
+	}
+	
+	function GM_loadScript(script, remote, check, cb, scope){
+		function cbwait(){
+        	waitlib(check, cb, scope);
+		}
+		function cbonerror(){
+        	if (cb) {
+				cb.call(scope || this);
+			}
+		}
+		GM_addScript(script, remote, cbwait, cbonerror, scope);
+	}
+	
 }
 
 if (typeof GM_addCss === "undefined") {
