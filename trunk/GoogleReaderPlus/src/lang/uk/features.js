@@ -6,8 +6,8 @@
  * uk : Ukrainian
  * **************************
  * 
- * Version : 0.2.1
- * Date : 02-23-2010
+ * Version : 0.4
+ * Date : 03-17-2010
  * @author G3D
  */
 namespace('GRP.langs.uk');
@@ -129,6 +129,15 @@ GRP.langs.uk.scripts = [
     name: "Інтуїтивне меню",
     desc: "Інтуїтивне меню для максимальних можливостей та зручності"
 }, */
+{
+    id: "lightbox",
+    name: "Lightbox"
+}, 
+{
+    id: "relook",
+    name: "Relook",
+    desc: "Relook your site using custom stylesheets"
+}, 
 {
     id: "aero",
     name: "Панель інструментів Google Aero",
