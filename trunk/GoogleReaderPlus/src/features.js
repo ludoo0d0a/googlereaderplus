@@ -68,10 +68,11 @@ GRP.scripts = [
     name: "Text multi columns",
     options: 
     {
-        locked: false,
         count: 3,
 		/*maxcolumns:6,*/
-		pagebreak:true
+		pagebreak:true,
+		locked: false,
+		filter: {xtype:'crud'}
     },
     shortcuts: 
     {
@@ -93,8 +94,8 @@ GRP.scripts = [
     options: 
     {
         onicon:false,
-		locked: false
-		/*,adjustframe: false*/
+		locked: false,
+		filter: {xtype:'crud'}
     },
     //shortcut: "shift+R",
     shortcuts: 
@@ -324,6 +325,28 @@ GRP.scripts = [
     name: "Intuitive menu",
     desc: "Intuitive menu to add extra capabilites"
 }, */
+{
+    id: "lightbox",
+    name: "Lightbox",
+	options: 
+    {
+		locked: false,
+		filter: {xtype:'crud'}
+    }
+    ,shortcuts: 
+    {
+        'light': 
+        {
+            id: 'light',
+            title: 'Show media fullscreen',
+            key: 
+            {
+                //76 l
+				keyCode: 82
+            }
+        }
+    }
+}, 
 {
     id: "relook",
     name: "Relook",
