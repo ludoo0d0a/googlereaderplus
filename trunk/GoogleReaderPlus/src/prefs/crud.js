@@ -1,52 +1,142 @@
-var tplCrudTableHeader = '<th scope="col" class="crud_header_{text}">{text}</th>';
-var tplCrudTableRow = '<tr><td><a href="{url}" target="_blank"><span><img alt="favicon" class="favicon" title="Preview" src="{icon}" width="16" height="16"/>{text}</span></a></td>' +
-'<td><a class="action" id="t_favicons_edit" href="javascript:add(\'favicons\', \'{id}\');">edit</a></td>' +
-'<td><a class="action" id="t_favicons_remove" href="javascript:remove(\'favicons\', \'{id}\');">remove</a></td>' +
-'</tr>';
-
-function loadCruds(){
-    var tplCruds = 
+var tplCruds={};
+						
+function loadCruds(id){
+	lang=lang||'en';   
+    tplCruds = 
     {
         favicons_domains: 
         {
-            tpl: '<table class="crud rounded" summary="{summary}">' +
-            '<thead><tr>{tpl.headers}</tr></thead>' +
-            '<tfoot><tr><td colspan="{colspan}"><em>{desc}</em></td>' +
-            '<td><a id="t_favicons_add" class="add" href="javascript:add(\'favicons\');">Add</a></td></tr></tfoot>' +
-            '<tbody>{tpl.rows}</tbody></table>',
+            tpl: '{{%IMPLICIT-ITERATOR}}<table class="crud rounded" summary="{{summary}}">' +
+    '<thead><tr>{{#headers}}<th scope="col" class="crud_header_{{.}}">{{.}}</th>{{/headers}}</tr></thead>' +
+    '<tfoot><tr><td colspan="{{colspan}}"><em>{{desc}}</em></td>' +
+    '<td><a id="t_{{$name}}_add" class="add" href="javascript:add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
+    '<tbody>{{#rows}} ' +
+    '<tr><td><a href="{{url}}" target="_blank"><span>{{#ico}}<img alt="favicon" class="favicon" title="Preview" src="{{icon}}" width="16" height="16"/>{{/ico}}{{etext}}</span></a></td>' +
+    '<td><a class="action" id="t_{{$name}}_edit" href="javascript:add(\'{{$name}}\', \'{{url}}\');">{{txt_edit}}</a></td>' +
+    '<td><a class="action" id="t_{{$name}}_remove" href="javascript:remove(\'{{$name}}\', \'{{url}}\');">{{txt_remove}}</a></td>' +
+    '</tr>{{/rows}}</tbody></table>',
             data: 
             {
+                name: 'favicons',
+				ico: true,
                 colspan: 2,
-                summary: 'Add/edit items',
-                desc: 'Manage favicons'
-            },
-            tpls: 
-            {
-                'tpl.headers': 
-                {
-                    tpl: tplCrudTableHeader,
-                    data: ['url', 'edit', 'remove']
+				headers: ['url', 'edit', 'remove'],
+                summary: getText(lang, 'favicons', 'summary'),
+                desc: getText(lang, 'favicons', 'desc'),
+                txt_add: getText(lang, 'filter', 'add'),
+                txt_edit: getText(lang, 'filter', 'edit'),
+                txt_remove: getText(lang, 'filter', 'remove'),
+                url:  function(){
+                    return normalizeUrl(this.url);
                 },
-                'tpl.rows': 
-                {
-                    tpl: tplCrudTableRow,
-                    data: prefs.favicons_domains || {},
-                    formatData: function(url, o){
-                        return {
-                            id: url,
-							url: url,
-                            text: ellipsis(url, 60),
-                            icon: o
-                        };
-                    }
+			    rows:  function(){
+                    return notEmpty(map2array(prefs.favicons_domains, 'url', 'icon'));
+                },
+                etext: function(){
+                    return ellipsis(this.url, 60);
+                }
+            }
+        },
+        column_filter: 
+        {
+            tpl: '{{%IMPLICIT-ITERATOR}}<table class="crud rounded" summary="{{summary}}">' +
+    '<thead><tr>{{#headers}}<th scope="col" class="crud_header_{{.}}">{{.}}</th>{{/headers}}</tr></thead>' +
+    '<tfoot><tr><td colspan="{{colspan}}"><em>{{desc}}</em></td>' +
+    '<td><a id="t_{{$name}}_add" class="add" href="javascript:add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
+    '<tbody>{{#rows}} ' +
+    '<tr><td><a href="{{.}}" target="_blank"><span>{{#ico}}<img alt="favicon" class="favicon" title="Preview" src="{{icon}}" width="16" height="16"/>{{/ico}}{{etext}}</span></a></td>' +
+    '<td><a class="action" id="t_{{$name}}_edit" href="javascript:add(\'{{$name}}\', \'{{.}}\');">{{txt_edit}}</a></td>' +
+    '<td><a class="action" id="t_{{$name}}_remove" href="javascript:remove(\'{{$name}}\', \'{{.}}\');">{{txt_remove}}</a></td>' +
+    '</tr>{{/rows}}</tbody></table>',
+            data: 
+            {
+                name: 'column',
+				ico: false,
+                colspan: 2,
+                headers: ['url', 'edit', 'remove'],
+                summary: getText(lang, 'column', 'summary'),
+                desc: getText(lang, 'column', 'desc'),
+                txt_add: getText(lang, 'filter', 'add'),
+                txt_edit: getText(lang, 'filter', 'edit'),
+                txt_remove: getText(lang, 'filter', 'remove'),
+                rows: function(){
+                    //return notEmpty(map2array(prefs.column_filter, 'url', 'exclude'));
+					return notEmpty(prefs.column_filter);
+                },
+                etext: function(){
+                    return ellipsis(this['.'], 60);
+                }
+            }
+        },
+		preview_filter: 
+        {
+            tpl: '{{%IMPLICIT-ITERATOR}}<table class="crud rounded" summary="{{summary}}">' +
+    '<thead><tr>{{#headers}}<th scope="col" class="crud_header_{{.}}">{{.}}</th>{{/headers}}</tr></thead>' +
+    '<tfoot><tr><td colspan="{{colspan}}"><em>{{desc}}</em></td>' +
+    '<td><a id="t_{{$name}}_add" class="add" href="javascript:add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
+    '<tbody>{{#rows}} ' +
+    '<tr><td><a href="{{.}}" target="_blank"><span>{{#ico}}<img alt="favicon" class="favicon" title="Preview" src="{{icon}}" width="16" height="16"/>{{/ico}}{{etext}}</span></a></td>' +
+    '<td><a class="action" id="t_{{$name}}_edit" href="javascript:add(\'{{$name}}\', \'{{.}}\');">{{txt_edit}}</a></td>' +
+    '<td><a class="action" id="t_{{$name}}_remove" href="javascript:remove(\'{{$name}}\', \'{{.}}\');">{{txt_remove}}</a></td>' +
+    '</tr>{{/rows}}</tbody></table>',
+            data: 
+            {
+                name: 'preview',
+				ico: false,
+                colspan: 2,
+                headers: ['url', 'edit', 'remove'],
+                summary: getText(lang, 'preview', 'summary'),
+                desc: getText(lang, 'preview', 'desc'),
+                txt_add: getText(lang, 'filter', 'add'),
+                txt_edit: getText(lang, 'filter', 'edit'),
+                txt_remove: getText(lang, 'filter', 'remove'),
+                rows: function(){
+					return notEmpty(prefs.preview_filter);
+                },
+                etext: function(){
+                    return ellipsis(this['.'], 60);
+                }
+            }
+        },
+		lightbox_filter: 
+        {
+            tpl: '{{%IMPLICIT-ITERATOR}}<table class="crud rounded" summary="{{summary}}">' +
+    '<thead><tr>{{#headers}}<th scope="col" class="crud_header_{{.}}">{{.}}</th>{{/headers}}</tr></thead>' +
+    '<tfoot><tr><td colspan="{{colspan}}"><em>{{desc}}</em></td>' +
+    '<td><a id="t_{{$name}}_add" class="add" href="javascript:add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
+    '<tbody>{{#rows}} ' +
+    '<tr><td><a href="{{.}}" target="_blank"><span>{{#ico}}<img alt="favicon" class="favicon" title="Preview" src="{{icon}}" width="16" height="16"/>{{/ico}}{{etext}}</span></a></td>' +
+    '<td><a class="action" id="t_{{$name}}_edit" href="javascript:add(\'{{$name}}\', \'{{.}}\');">{{txt_edit}}</a></td>' +
+    '<td><a class="action" id="t_{{$name}}_remove" href="javascript:remove(\'{{$name}}\', \'{{.}}\');">{{txt_remove}}</a></td>' +
+    '</tr>{{/rows}}</tbody></table>',
+            data: 
+            {
+                name: 'lightbox',
+				ico: false,
+                colspan: 2,
+                headers: ['url', 'edit', 'remove'],
+                summary: getText(lang, 'lightbox', 'summary'),
+                desc: getText(lang, 'lightbox', 'desc'),
+                txt_add: getText(lang, 'filter', 'add'),
+                txt_edit: getText(lang, 'filter', 'edit'),
+                txt_remove: getText(lang, 'filter', 'remove'),
+                rows: function(){
+					return notEmpty(prefs.lightbox_filter);
+                },
+                etext: function(){
+                    return ellipsis(this['.'], 60);
                 }
             }
         }
     };
     
-    iterate(tplCruds, function(id, otpl){
-        loadCRUD(id, otpl);
-    });
+	if (id) {
+		loadCRUD(id, tplCruds[id]);
+	} else {
+		iterate(tplCruds, function(id, otpl){
+			loadCRUD(id, otpl);
+		});
+	}
 }
 
 /**
@@ -55,10 +145,14 @@ function loadCruds(){
  * @param {Object} name Name of prefs to get data
  */
 function loadCRUD(id, o){
-    var html = '';
+	var html = '';
+	if (!o){
+		o=tplCruds[id];
+	}
     var el = document.getElementById(id);
     if (el) {
-        html = fillTemplate(o);
+        //html = fillTemplate(o);
+        html = Mustache.to_html(o.tpl, o.data);
         el.innerHTML = html;
     }
 }
@@ -75,10 +169,10 @@ function fillTemplate(o){
         html = iterateFillTpl(v, o.tpl, o.formatData);
     } else if (!isObjectEmpty(v)) {
         if (o.formatData) {
-			html = iterateFillTpl(v, o.tpl, o.formatData);
-		}else{
-			html = fillTpl(o.tpl, v);
-		}
+            html = iterateFillTpl(v, o.tpl, o.formatData);
+        } else {
+            html = fillTpl(o.tpl, v);
+        }
     }
     
     return html;
@@ -88,7 +182,10 @@ function fillTemplate(o){
 function iterateFillTpl(data, tpl, formatData){
     var html = '';
     iterate(data, function(k, o){
-        var v = (formatData) ? formatData.call(this, k, o) : { text: o};
+        var v = (formatData) ? formatData.call(this, k, o) : 
+        {
+            text: o
+        };
         html += fillTpl(tpl, v);
     });
     return html;
@@ -97,51 +194,96 @@ function iterateFillTpl(data, tpl, formatData){
 function remove(id, key){
     if (id === 'favicons') {
         return removefavicon(key);
+    }else if (id === 'column' || id === 'preview' || id === 'lightbox') {
+        return removefiltersites(id, key);
     }
 }
 
 function add(id, key){
     if (id === 'favicons') {
         return addfavicon(key);
+    }else if (id === 'column' || id === 'preview' || id === 'lightbox') {
+        return addfiltersites(id, key);
     }
 }
 
+
 /**
- * CRUD for Favicons
- * 
+ * CRUD for filter sites
+ *
  */
-function addfavicon(urlin){
-	var DEFAULT_SITE = '';
-	var DEFAULT_URL = '';
+function addfiltersites(id, urlin){
+    var DEFAULT_SITE = '';
+    var DEFAULT_URL = '';
     
-	DEFAULT_SITE = 'http://www.lemonde.fr';
-	//DEFAULT_URL = 'http://medias.lemonde.fr/medias/info/favicon.ico';
-		
+    //DEFAULT_SITE = 'http://www.lemonde.fr';
+    //DEFAULT_URL = 'http://medias.lemonde.fr/medias/info/favicon.ico';
+    
 	var url = urlin || DEFAULT_SITE;
-    url = prompt("Enter the site :", url);
+    url = prompt(getText(lang, id, 'entersite'), url);
     if (!url) {
         return;
     }
 
-    var icon = prefs.favicons_domains[url] || getDomain(url)+'/favicon.ico';
-	//icon = prompt("Enter the icon url:", icon);
-    icon = prompt("Enter the icon url (empty to get automatic):", icon);
-	if (icon===''){
-		//go to find
-		chrome.extension.sendRequest({
-	        message: "geticon",
-	        url: url
-	    }, function(a){
-			// ->iconget 
-			addfaviconNext(a.url, a.icon, a.title);
-		});
-	}else{
-		addfaviconNext(url, icon, title);
+
+	if (!prefs[id+'_filter']){
+		//prefs[id+'_filter']={};
+		prefs[id+'_filter']=[];
+	}
+	//prefs[id+'_filter'][url]=true;
+	if (findInArray(prefs[id + '_filter'], url) === false) {
+		prefs[id + '_filter'].push(url);
+		//Refresh
+		loadCRUD(id+'_filter');
 	}
 }
-	
+
+function removefiltersites(id, url){
+	var i = findInArray(prefs[id + '_filter'], url);
+	if (i>=0) {
+		delete prefs[id + '_filter'][i];
+		//Refresh
+    	loadCRUD(id+'_filter');
+	}
+}
+
+/**
+ * CRUD for Favicons
+ *
+ */
+function addfavicon(urlin){
+    var DEFAULT_SITE = '';
+    var DEFAULT_URL = '';
+    
+    //DEFAULT_SITE = 'http://www.lemonde.fr';
+    //DEFAULT_URL = 'http://medias.lemonde.fr/medias/info/favicon.ico';
+    
+    var url = urlin || DEFAULT_SITE;
+    url = prompt(getText(lang, 'favicons', 'entersite'), url);
+    if (!url) {
+        return;
+    }
+    
+    var icon = prefs.favicons_domains[url] || getDomain(url) + '/favicon.ico';
+    //icon = prompt("Enter the icon url:", icon);
+    icon = prompt("Enter the icon url (empty to get automatic):", icon);
+    if (icon === '') {
+        //go to find
+        chrome.extension.sendRequest(
+        {
+            message: "geticon",
+            url: url
+        }, function(a){
+            // ->iconget 
+            addfaviconNext(a.url, a.icon, a.title);
+        });
+    } else {
+        addfaviconNext(url, icon, '');
+    }
+}
+
 function addfaviconNext(url, icon, title){
-	if (!icon) {
+    if (!icon) {
         return;
     }
     
@@ -150,21 +292,22 @@ function addfaviconNext(url, icon, title){
         url: url,
         icon: icon
     };
-    if (urlin && url != urlin) {
+    /*if (urlin && url != urlin) {
         //remove old
         removefavicon(urlin);
-    }
+    }*/
     savefavicon(favicon.url, favicon.icon);
 }
 
+//WARN: used too from background
 function savefavicon(url, icon, title){
     prefs.favicons_domains[url] = icon;
-	//Refresh all
-	loadCruds();
+    //Refresh all
+	loadCRUD('favicons_domains');
 }
 
 function removefavicon(url){
     delete prefs.favicons_domains[url];
-	//Refresh all
-	loadCruds();
+    //Refresh all
+    loadCRUD('favicons_domains');
 }
