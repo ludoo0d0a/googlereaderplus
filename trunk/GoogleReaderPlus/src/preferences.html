@@ -5,6 +5,7 @@
         <link href="css/prefs.css" type="text/css" rel="stylesheet">
         <script type="application/javascript" src="lib/util.js">
         </script>
+
         <script type="application/javascript" src="lib/greasekit.js">
         </script>
         <script type="application/javascript" src="version.js">
@@ -21,6 +22,10 @@
         </script>
 		<script type="application/javascript" src="prefs/shortcuts.js">
         </script>
+		<script type="application/javascript" src="lib/mustacheg.js">
+        </script>		
+		<script type="application/javascript" src="lib/codemirror/js/codemirror.js">
+        </script>		
 		<script type="application/javascript" src="info.js">
         </script>
         <script type="application/javascript">
@@ -30,21 +35,6 @@
                 GRP.setVersion();
                 if (typeof chrome !== "undefined" && chrome.extension) {
                     var me = this;
-					/*
-					myport = chrome.extension.connect(
-                    {
-                        name: "readerplus"
-                    });
-					GRP.myport = myport;
-                    myport.onMessage.addListener(function(a){
-                        if (a.message === "prefs") {
-                            
-                        } else if (a.message === "info") {
-                            createReport(a.report);
-                        } else if (a.message === "iconget") {
-                            savefavicon(a.url, a.icon, a.title);
-                        }
-                    });*/
                     chrome.extension.sendRequest(
                     {
                         message: "getprefs"
