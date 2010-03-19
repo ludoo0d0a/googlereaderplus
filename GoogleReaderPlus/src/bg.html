@@ -600,12 +600,22 @@
 						cb({});
 					}
 			}	
+			
+			//+favicons_providerpageicons
+			function upgrade(){
+				var prefs = getPrefs();
+				if (prefs && prefs.favicons){
+					prefs.favicons_providerpageicons=true;
+					setPrefs(prefs);
+				}
+			}
             
             function initVersion(){
                 var v = localStorage.getItem('grp_version');
                 if (v === null || v !== GRP.VERSION) {
                     localStorage.setItem('grp_version', GRP.VERSION);
-                    /*opentab({ url: "about.html" });*/
+                    upgrade();
+					/*opentab({ url: "about.html" });*/
                 }
             }
         </script>
