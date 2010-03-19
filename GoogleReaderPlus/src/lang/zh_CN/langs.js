@@ -6,8 +6,8 @@
  * 翻译 : 简体中文 By Jfjj007
  * **************************
  *
- * Version : 0.6
- * Date : 03-09-2010
+ * Version : 0.8
+ * Date : 03-19-2010
  * @author Jfjj007
  */
 namespace('GRP.langs.zh_CN');
@@ -21,38 +21,13 @@ GRP.langs.zh_CN.texts =
     },
     colorful: 
     {
-        // pref labels
-        color: "这些项目的颜色:",
-        list: "查看列表标题.",
-        expanded: "进入展开条目视图.",
-        frame: "进入列表条目视图.",
-comment: "Comment view entries.",
-        read: "Read items.",
-        unread: "Unread items.",
-        
-        // pref messages
-        msgWill: "will",
-        msgWillNot: "will not",
-        msgColored: " be colored.",
-        msgList: "List view items ",
-        msgExpanded: "显示条目为展开模式 ",
-        msgFrame: "显示条目为列表模式 ",
-msgComment: "Comment view items ",
-        msgUnread: "Unread items ",
-        msgRead: "Read items ",
-        msgUndef: "未定义的",
-        
-        scheme: "配色方案: ",
-        def: "默认",
-        custom: "习惯",
-        
-        update: "用户脚本更新可用",
-        install: "安装"
     },
     column: 
     {
         text: '显示为多列的布局',
-        keyword: '栏'
+        keyword: '栏',
+summary: 'Add/edit items',
+desc: 'Manage columns'
     },
     facebook: 
     {
@@ -94,7 +69,9 @@ msgComment: "Comment view items ",
     {
         preferences: '偏好',
         getfavicon: '获取Favicon',
-        notfoundicon: '无法找到图标为 "{0}"'
+        notfoundicon: '无法找到图标为 "{0}"',
+summary: 'Add/edit items',
+desc: 'Manage favicons'
     },
     filter: 
     {
@@ -109,7 +86,9 @@ msgComment: "Comment view items ",
         update: '更新',
         quickadd: '快速添加',
         add: '添加',
-        close: '关闭'
+        close: '关闭',
+edit:'Edit',
+remove:'Remove'
     },
     fitheight: 
     {
@@ -149,7 +128,11 @@ msgComment: "Comment view items ",
 	replacer:{
 		nomatch:'未找到相应.',
 		loading:'载入中 ...'
-	}
+	},
+	lightbox:{
+text: 'Light on the media',
+keyword: 'Light'
+    }
 };
 
 GRP.langs.zh_CN.prefs = 
@@ -189,7 +172,8 @@ GRP.langs.zh_CN.prefs =
     {
         "count": "列数",
         "locked": "'专栏'功能始终默认激活",
-        "pagebreak": "Break long articles so long articles can be read page by page like a newspaper."
+        "pagebreak": "Break long articles so long articles can be read page by page like a newspaper.",
+"entersite":"Enter URL of the site"
     },
     "twitter": 
     {
@@ -215,7 +199,9 @@ GRP.langs.zh_CN.prefs =
         "opendirect": "点击图标就会打开Google Reader",
 "secure": "Always force use of secure protocol (https)",
         "icontoolbar_add": "要添加工具栏图标，请点击 <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">下载并安装</a>.",
-        "icontoolbar_text": "<span>为了使按钮自定义添加，我们也开发了另外一个独立的扩展,</span>                                    <br>                                    <span>必须安装reader plus.</span>                                    <br>                                    <span>要添加按钮，点击 <b>Install</b> 在 <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus 工具栏按钮</a> page.</span>                                    <br>                                    <span>要删除按钮，右键点击他，选择禁用.</span>"
+        "icontoolbar_text": "<span>为了使按钮自定义添加，我们也开发了另外一个独立的扩展,</span><br><span>必须安装reader plus.</span><br><span>要添加按钮，点击 <b>Install</b> 在 <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus 工具栏按钮</a> page.</span><br><span>要删除按钮，右键点击他，选择禁用.</span>",
+"importexport_text": "You can now save your preferences using 'export' and reload it later using 'import':",
+"confirmimport": "Are you sure to import this configuration?\nCurrent configuration will be LOST!"
     },
     "removeads": 
     {
@@ -240,13 +226,18 @@ GRP.langs.zh_CN.prefs =
         "add": "添加",
         "tip": "Tip: 你可以很容易的在左侧栏添加使用上下文菜单 \"获取 favicon\" ",
         "manual": "获取所有网站的Favicons (不推荐;慢)",
-        "parsing": "这将试图通过分析检测每个网页Favicon"
+        "parsing": "这将试图通过分析检测每个网页Favicon",
+"entersite":"Enter URL of the site"
     },
     "replacer": 
     {
         "link": "链接正则表达式",
         "from": "搜索正则表达式",
         "to": "替换"
+    },
+	"lightbox": 
+    {
+"locked": "Feature 'Lightbox' always actived by default, except for :"
     },
 	"relook": 
     {
@@ -258,7 +249,8 @@ GRP.langs.zh_CN.prefs =
         "mini": "<span>迷你型</span>开启基本配置阅读功能",
         "ludoo": "<span>特色型</span>适合喜欢在后台阅读的用户",
         "full": "<span>全能型</span>激活所有功能",
-        "reset": "<span>恢复默认</span>重置您的配置(所有功能未激活，并切换到英文版界面)"
+        "reset": "<span>恢复默认</span>重置您的配置(所有功能未激活，并切换到英文版界面)",
+"confirmdel": "This will ERASE and reset all your preferences. Are you sure ?"
     },
     "extshortcuts": 
     {

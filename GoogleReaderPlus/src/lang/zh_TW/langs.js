@@ -21,38 +21,13 @@ GRP.langs.zh_TW.texts =
     },
     colorful: 
     {
-        // pref labels
-        color: "這些項目的顏色:",
-        list: "查看列表標題.",
-        expanded: "進入展開條目視圖.",
-        frame: "進入列表條目視圖.",
-comment: "Comment view entries.",
-        read: "Read items.",
-        unread: "Unread items.",
-        
-        // pref messages
-        msgWill: "will",
-        msgWillNot: "will not",
-        msgColored: " be colored.",
-        msgList: "List view items ",
-        msgExpanded: "顯示條目為展開模式 ",
-        msgFrame: "顯示條目為列表模式 ",
-msgComment: "Comment view items ",
-        msgUnread: "Unread items ",
-        msgRead: "Read items ",
-        msgUndef: "未定義的",
-        
-        scheme: "配色方案: ",
-        def: "默認",
-        custom: "習慣",
-        
-        update: "用戶腳本更新可用",
-        install: "安裝"
     },
     column: 
     {
         text: '顯示為多列的佈局',
-        keyword: '欄'
+        keyword: '欄',
+summary: 'Add/edit items',
+desc: 'Manage columns'
     },
     facebook: 
     {
@@ -215,7 +190,9 @@ GRP.langs.zh_TW.prefs =
         "opendirect": "點擊圖標就會打開Google Reader",
 "secure": "Always force use of secure protocol (https)",
         "icontoolbar_add": "要添加工具欄圖標，請點擊 <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">下載並安裝</a>.",
-        "icontoolbar_text": "<span>為了使按鈕自定義添加，我們也開發了另外一個獨立的擴展,</span>                                    <br>                                    <span>必須安裝reader plus.</span>                                    <br>                                    <span>要添加按鈕，點擊 <b>Install</b> 在 <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus 工具欄按鈕</a> page.</span>                                    <br>                                    <span>要刪除按鈕，右鍵點擊他，選擇禁用.</span>"
+        "icontoolbar_text": "<span>為了使按鈕自定義添加，我們也開發了另外一個獨立的擴展,</span><br><span>必須安裝reader plus.</span><br><span>要添加按鈕，點擊 <b>Install</b> 在 <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus 工具欄按鈕</a> page.</span><br><span>要刪除按鈕，右鍵點擊他，選擇禁用.</span>",
+"importexport_text": "You can now save your preferences using 'export' and reload it later using 'import':",
+"confirmimport": "Are you sure to import this configuration?\nCurrent configuration will be LOST!"
     },
     "removeads": 
     {
@@ -240,13 +217,18 @@ GRP.langs.zh_TW.prefs =
         "add": "添加",
         "tip": "Tip: 你可以很容易的在左側欄添加使用上下文菜單 \"獲取 favicon\" ",
         "manual": "獲取所有網站的Favicons (不推薦;慢)",
-        "parsing": "這將試圖通過分析檢測每個網頁Favicon"
+        "parsing": "這將試圖通過分析檢測每個網頁Favicon",
+"entersite":"Enter URL of the site"
     },
     "replacer": 
     {
         "link": "鏈接正則表達式",
         "from": "搜索正則表達式",
         "to": "替換"
+    },
+    "lightbox": 
+    {
+"locked": "Feature 'Lightbox' always actived by default, except for :"
     },
 	"relook": 
     {

@@ -3,15 +3,15 @@
  * Translation
  *
  * **************************
- * en : English
+ * uk : Ukrainan
  * **************************
  *
- * Version : 0.6
- * Date : 03-09-2010
+ * Version : 0.8
+ * Date : 03-19-2010
  * @author Valente
  */
-namespace('GRP.langs.uk');
-GRP.langs.uk.texts = 
+namespace('GRP.langs.en');
+GRP.langs.en.texts = 
 {
     'version': "version",
     closeentry: 
@@ -21,38 +21,13 @@ GRP.langs.uk.texts =
     },
     colorful: 
     {
-        // pref labels
-        color: "Color these items:",
-        list: "List view headers.",
-        expanded: "Expanded view entry bodies.",
-        frame: "Expanded view entry frames.",
-		comment: "Comment view entries.",
-        read: "Read items.",
-        unread: "Unread items.",
-        
-        // pref messages
-        msgWill: "will",
-        msgWillNot: "will not",
-        msgColored: " be colored.",
-        msgList: "List view items ",
-        msgExpanded: "Expanded view entry bodies ",
-        msgFrame: "Expanded view entry frames ",
-		msgComment: "Comment view items ",
-        msgUnread: "Unread items ",
-        msgRead: "Read items ",
-        msgUndef: "Undefined",
-        
-        scheme: "Color Scheme: ",
-        def: "Default",
-        custom: "Custom",
-        
-        update: "Userscript Update Available",
-        install: "Install"
     },
     column: 
     {
         text: 'Display as multi columns layout',
-        keyword: 'Column'
+        keyword: 'Column',
+		summary: 'Add/edit items',
+        desc: 'Manage columns'
     },
     facebook: 
     {
@@ -94,7 +69,9 @@ GRP.langs.uk.texts =
     {
         preferences: 'Preferences',
         getfavicon: 'Get favicon',
-        notfoundicon: 'Cannot found favicon for "{0}"'
+        notfoundicon: 'Cannot found favicon for "{0}"',
+		summary: 'Add/edit items',
+        desc: 'Manage favicons'
     },
     filter: 
     {
@@ -109,7 +86,9 @@ GRP.langs.uk.texts =
         update: 'Update',
         quickadd: 'Quick Add',
         add: 'Add',
-        close: 'Close'
+        close: 'Close',
+		edit:'Edit',
+		remove:'Remove'
     },
     fitheight: 
     {
@@ -149,10 +128,14 @@ GRP.langs.uk.texts =
 	replacer:{
 		nomatch:'No match found.',
 		loading:'Loading ...'
-	}
+	},
+	lightbox:{
+        text: 'Light on the media',
+        keyword: 'Light'
+    }
 };
 
-GRP.langs.uk.prefs = 
+GRP.langs.en.prefs = 
 {
     "global": 
     {
@@ -188,8 +171,9 @@ GRP.langs.uk.prefs =
     "column": 
     {
         "count": "Columns number",
-        "locked": "Feature 'Column' always actived by default",
-        "pagebreak": "Break long articles so long articles can be read page by page like a newspaper."
+        "locked": "Feature 'Column' always actived by default, except for :",
+        "pagebreak": "Break long articles so long articles can be read page by page like a newspaper.",
+		"entersite":"Enter URL of the site"
     },
     "twitter": 
     {
@@ -215,7 +199,9 @@ GRP.langs.uk.prefs =
         "opendirect": "Click on icon will open GoogleReader",
 		"secure": "Always force use of secure protocol (https)",
         "icontoolbar_add": "To add button with icon in toolbar, please <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">download and install it</a>.",
-        "icontoolbar_text": "<span>To make the button optional, we put him in an another extension as standalone,</span>                                    <br>                                    <span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b>Install</b> on the <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span>                                    <br>                                    <span>To remove the button, right click him and choose Disable.</span>"
+        "icontoolbar_text": "<span>To make the button optional, we put him in an another extension as standalone,</span>                                    <br>                                    <span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b></b> on the <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span><span>To remove the button, right click him and choose Disable.</span>",
+"importexport_text": "You can now save your preferences using 'export' and reload it later using 'import':",
+"confirmimport": "Are you sure to import this configuration?\nCurrent configuration will be LOST!"
     },
     "removeads": 
     {
@@ -226,11 +212,11 @@ GRP.langs.uk.prefs =
     "preview": 
     {
         "onicon": "Show integrated preview when click on icon right after the title (if not checked, on title)",
-        "locked": "Feature 'Preview' always actived by default"
+        "locked": "Feature 'Preview' always actived by default, except for :"
     },
     "fitheight": 
     {
-        "locked": "Feature 'Fit height' always actived by default"
+        "locked": "Feature 'Fit height' always actived by default, except for :"
     },
     "favicons": 
     {
@@ -240,13 +226,18 @@ GRP.langs.uk.prefs =
         "add": "Add",
         "tip": "Tip: You could add it easily using the contextual menu \"Get favicon\" of the left side bar",
         "manual": "Manual favicons for all sites (not recommended ; slower)",
-        "parsing": "This will try to detect favicon by parsing each homepage"
+        "parsing": "This will try to detect favicon by parsing each homepage",
+		"entersite":"Enter URL of the site"
     },
     "replacer": 
     {
         "link": "Link Regex:",
         "from": "Search regex:",
         "to": "Replace:"
+    },
+	"lightbox": 
+    {
+        "locked": "Feature 'Lightbox' always actived by default, except for :"
     },
 	"relook": 
     {
@@ -258,7 +249,8 @@ GRP.langs.uk.prefs =
         "mini": "<span>Package Mini</span>The minimum for best reading",
         "ludoo": "<span>Package LudoO</span>The best features in one click",
         "full": "<span>Package Full</span>All features activated",
-        "reset": "<span>Package Reset</span>Reset your configuration"
+        "reset": "<span>Package Reset</span>Reset your configuration",
+		"confirmdel": "This will ERASE and reset all your preferences. Are you sure ?"
     },
     "extshortcuts": 
     {
@@ -270,7 +262,7 @@ GRP.langs.uk.prefs =
     "thanks": 
     {
         "donators": "Thanks to donators to contribute to this project",
-"translators" : "Thanks to brave translators for their wonderful work",
+		"translators" : "Thanks to brave translators for their wonderful work",
         "authors": "Thanks to authors of original scripts and skins (Greasemonkey and Stylish)"
     }
 };

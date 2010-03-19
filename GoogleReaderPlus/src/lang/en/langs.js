@@ -6,8 +6,8 @@
  * en : English
  * **************************
  *
- * Version : 0.7
- * Date : 03-17-2010
+ * Version : 0.8
+ * Date : 03-19-2010
  * @author Valente
  */
 namespace('GRP.langs.en');
@@ -21,33 +21,6 @@ GRP.langs.en.texts =
     },
     colorful: 
     {
-        // pref labels
-        color: "Color these items:",
-        list: "List view headers.",
-        expanded: "Expanded view entry bodies.",
-        frame: "Expanded view entry frames.",
-		comment: "Comment view entries.",
-        read: "Read items.",
-        unread: "Unread items.",
-        
-        // pref messages
-        msgWill: "will",
-        msgWillNot: "will not",
-        msgColored: " be colored.",
-        msgList: "List view items ",
-        msgExpanded: "Expanded view entry bodies ",
-        msgFrame: "Expanded view entry frames ",
-		msgComment: "Comment view items ",
-        msgUnread: "Unread items ",
-        msgRead: "Read items ",
-        msgUndef: "Undefined",
-        
-        scheme: "Color Scheme: ",
-        def: "Default",
-        custom: "Custom",
-        
-        update: "Userscript Update Available",
-        install: "Install"
     },
     column: 
     {
@@ -226,7 +199,9 @@ GRP.langs.en.prefs =
         "opendirect": "Click on icon will open GoogleReader",
 		"secure": "Always force use of secure protocol (https)",
         "icontoolbar_add": "To add button with icon in toolbar, please <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">download and install it</a>.",
-        "icontoolbar_text": "<span>To make the button optional, we put him in an another extension as standalone,</span>                                    <br>                                    <span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b>Install</b> on the <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span>                                    <br>                                    <span>To remove the button, right click him and choose Disable.</span>"
+        "icontoolbar_text": "<span>To make the button optional, we put him in an another extension as standalone,</span>                                    <br>                                    <span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b></b> on the <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span><span>To remove the button, right click him and choose Disable.</span>",
+		"importexport_text": "You can now save your preferences using 'export' and reload it later using 'import':",
+		"confirmimport": "Are you sure to import this configuration?\nCurrent configuration will be LOST!"
     },
     "removeads": 
     {
@@ -274,7 +249,8 @@ GRP.langs.en.prefs =
         "mini": "<span>Package Mini</span>The minimum for best reading",
         "ludoo": "<span>Package LudoO</span>The best features in one click",
         "full": "<span>Package Full</span>All features activated",
-        "reset": "<span>Package Reset</span>Reset your configuration"
+        "reset": "<span>Package Reset</span>Reset your configuration",
+		"confirmdel": "This will ERASE and reset all your preferences. Are you sure ?"
     },
     "extshortcuts": 
     {

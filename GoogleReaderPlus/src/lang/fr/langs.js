@@ -6,8 +6,8 @@
  * fr : Francais
  * **************************
  *
- * Version : 0.7
- * Date : 03-17-2010
+ * Version : 0.8
+ * Date : 03-19-2010
  * @author Valente
  */
 namespace('GRP.langs.fr');
@@ -21,38 +21,13 @@ GRP.langs.fr.texts =
     },
     colorful: 
     {
-        // pref labels
-        color: "Colorier ces élément:",
-        list: "En tete de la vue liste.",
-        expanded: "Corps des articles en vue 'texte complet'.",
-        frame: "Frames des articles en vue 'texte complet'.",
-		comment: "Commentaires.",
-        read: "Articles lus",
-        unread: "Articles non lus.",
-        
-        // pref messages
-        msgWill: "sera",
-        msgWillNot: "ne sera pas",
-        msgColored: " be colored.",
-        msgList: "En tete de la vue liste ",
-        msgExpanded: "Corps des articles en vue 'texte complet' ",
-        msgFrame: "Frames des articles en vue 'texte complet' ",
-		msgComment: "Commentaires ",
-        msgUnread: "Articles non lus ",
-        msgRead: "Lire les articles",
-        msgUndef: "Indéfini",
-        
-        scheme: "Schema des couleurs: ",
-        def: "Defaut",
-        custom: "Personnalise",
-        
-        update: "Mise à jour disponible",
-        install: "Installation"
     },
     column: 
     {
         text: 'Affichage multi-colonnes (type journal)',
-        keyword: 'Colonnes'
+        keyword: 'Colonnes',
+		summary: 'Ajouter/Editer',
+        desc: 'Gérer les colonnes'
     },
     facebook: 
     {
@@ -94,7 +69,9 @@ GRP.langs.fr.texts =
     {
         preferences: 'Préférences',
         getfavicon: 'Obtenir l\'icône de ce site',
-        notfoundicon: 'Impossible d\'obtenir l\'icône de  "{0}"'
+        notfoundicon: 'Impossible d\'obtenir l\'icône de  "{0}"',
+		summary: 'Ajouter/Editer',
+        desc: 'Gérer les icônes'
     },
     filter: 
     {
@@ -109,7 +86,9 @@ GRP.langs.fr.texts =
         update: 'Mise à jour',
         quickadd: 'Ajout rapide',
         add: 'Ajouter',
-        close: 'Fermer'
+        close: 'Fermer',
+		edit:'Editer',
+		remove:'Effacer'
     },
     fitheight: 
     {
@@ -193,7 +172,8 @@ GRP.langs.fr.prefs =
     {
         "count": "Nombre de colonnes",
         "locked": "Option 'Colonne' toujours activée",
-        "pagebreak": "Ajouter des sauts de page dans les articles longs pour les lire page par page comme un journal."
+        "pagebreak": "Ajouter des sauts de page dans les articles longs pour les lire page par page comme un journal.",
+		"entersite":"Saisissez l'adresse de votre site"
     },
     "twitter": 
     {
@@ -219,7 +199,9 @@ GRP.langs.fr.prefs =
         "opendirect": "Cliquer sur l'icône pour ouvrir GoogleReader",
 		"secure": "Forcer l'utilisiation du protocole sécurisé (https)",
         "icontoolbar_add": "Pour ajouter un bouton avec icône dans la barre d'outil, veuillez <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">télécharger et installer le bouton</a>.",
-        "icontoolbar_text": "<span>Afin de le rendre optionnel, nous fournissons le bouton sous forme d'une extension indépendante,</span><br><span>à installé en plus de ReaderPlus.</span><br><span>Pour ajouter le bouton, cliquer <b>Installer</b> sur la page <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">bouton pour ReaderPlus</a>.</span><br><span>Pour retirer le bouton, un clic droit et choisissez 'Désactiver'.</span>"
+        "icontoolbar_text": "<span>Afin de le rendre optionnel, nous fournissons le bouton sous forme d'une extension indépendante,</span><br><span>à installé en plus de ReaderPlus.</span><br><span>Pour ajouter le bouton, cliquer <b>Installer</b> sur la page <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">bouton pour ReaderPlus</a>.</span><br><span>Pour retirer le bouton, un clic droit et choisissez 'Désactiver'.</span>",
+		"importexport_text": "You can now save your preferences using 'export' and reload it later using 'import':",
+		"confirmimport": "Etes-vous sur de vouloir importer cette configuration?\nLa configuration actuelle sera perdue"
     },
     "removeads": 
     {
@@ -244,13 +226,18 @@ GRP.langs.fr.prefs =
         "add": "Ajouter",
         "tip": "Conseil: Vous pouvez également utiliser le menu contextuel \"Obtenir l'icône de ce site\" sur chaque site dans l'arbre de gauche",
         "manual": "Favicons manuels pour tous les sites (non conseillé car relativement lent)",
-        "parsing": "Les icône sont obtenues en parcourant la page de chaque site."
+        "parsing": "Les icône sont obtenues en parcourant la page de chaque site.",
+        "entersite":"Saisissez l'adresse de votre site"
     },
     "replacer": 
     {
         "link": "Sites:",
         "from": "Rechercher:",
         "to": "Remplacer par:"
+   },
+	"lightbox": 
+    {
+		"locked": "Option 'Adapter hauteur' toujours activée, sauf pour :"
     },
 	"relook": 
     {
@@ -262,9 +249,9 @@ GRP.langs.fr.prefs =
         "mini": "<span>Paquetage Mini</span>Le minimum nécessaire",
         "ludoo": "<span>Paquetage LudoO</span>Les meilleurs options en un clic",
         "full": "<span>Paquetage Complet</span>Toutes les options activées",
-        "reset": "<span>Paquetage Reset</span>Remise à zéro de votre configuration"
+        "reset": "<span>Paquetage Reset</span>Remise à zéro de votre configuration",
+		"confirmdel": "Cette opération va EFFACER et réinitialiser vos préférences. Etes-vous sûr ?"
     },
-	
     "extshortcuts": 
     {
         "custom": "Vos propres raccourcis clavier",
