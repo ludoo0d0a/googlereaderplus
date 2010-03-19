@@ -11,7 +11,9 @@ GRP.scripts = [
 		counter: true,
 		opendirect:false,
 		icontoolbar_add:{xtype:'p'},
-		icontoolbar_text:{xtype:'p'}
+		icontoolbar_text:{xtype:'p'},
+		importexport_text:{xtype:'p'},
+		preferences:{xtype:'html', value:'<input id="ieprefs" type="text" size="30"/><input type="button" id="bimport" value="import" onclick="importprefs();"/><input type="button" id="bexport" value="export" onclick="exportprefs();"/>'}
     }
 },
 {
@@ -330,6 +332,11 @@ GRP.scripts = [
     name: "Lightbox",
 	options: 
     {
+		box: 
+		{
+			xtype: 'select',
+			values: {ceebox:'CeeBox', shadowbox:'ShadowBox', topup:'TopUp', multibox:'MultiBox'}
+		},
 		locked: false,
 		filter: {xtype:'crud'}
     }
