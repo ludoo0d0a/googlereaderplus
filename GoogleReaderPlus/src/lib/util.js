@@ -791,21 +791,29 @@ function waitlib(check, fn, scope){
 function waitImages(images, cb, scope){
     var count = (images) ? images.length : 0;
     if (count <= 0) {
-        cb.call(scope||this, true);
+        cb.call(scope || this, true);
     } else {
         var timeout = window.setTimeout(function(){
-			cb.call(scope||this, false);
-		}, 3000);
-		for (var i = 0, len = images.length; i < len; i++) {
-            var image = images[i];
-            image.addEventListener('load', function(){
-                count--;
-                if (count === 0) {
-                    window.clearTimeout(timeout);
-					console.info("Images are all loaded");
-                    cb.call(scope||this, true);
-                }
-            })
+            console.log("Images are not all loaded: "+count);
+			cb.call(scope || this, false);
+        }, 3000);
+        function check(){
+            if (count === 0) {
+                window.clearTimeout(timeout);
+                cb.call(scope || this, true);
+            }
         }
+        for (var i = 0, len = images.length; i < len; i++) {
+            var image = images[i];
+            if (image.complete) {
+                count--;
+            } else {
+                image.addEventListener('load', function(){
+					count--;
+					check();
+				});
+            }
+        }
+        check();
     }
 }
