@@ -1,4 +1,20 @@
 
+function importprefs(){
+    var r = confirm(getTextPrefs(lang, 'general', 'confirmimport'));
+    if (r) {
+		var el = document.getElementById("ieprefs");
+		if (el && el.value) {
+			prefs = JSON.parse(el.value);
+			saveprefs();
+		}
+	}
+}
+
+function exportprefs(){
+	var el = document.getElementById("ieprefs");
+	el.value=JSON.stringify(prefs);
+}
+
 function initprefs(){
     lang = prefs.language_lang || 'en';
     loadLangs(lang, function(){
