@@ -637,18 +637,18 @@ function merge(o, c, defaults){
     }
     if (typeof o !== "undefined" && typeof c !== "undefined") {
         /*if (isArray(c)) {
-            for (var i = 0, len = c.length; i < len; i++) {
-                //o[i] = c[i];
-                //console.log(c[i] + ' Amerge['+i+']> ' + o[i]);
-                if (typeof c[i] === 'object' || isArray(c[i])) {
-                    merge(o[i], c[i]);
-                } else {
-                    o[i] = c[i];
-                }
-            }
-        //console.log('after: ' + c[i] + ' Amerge[' + i + ']> ' + o[i]);
-        } else */
-		if (typeof c === 'object') {
+ for (var i = 0, len = c.length; i < len; i++) {
+ //o[i] = c[i];
+ //console.log(c[i] + ' Amerge['+i+']> ' + o[i]);
+ if (typeof c[i] === 'object' || isArray(c[i])) {
+ merge(o[i], c[i]);
+ } else {
+ o[i] = c[i];
+ }
+ }
+ //console.log('after: ' + c[i] + ' Amerge[' + i + ']> ' + o[i]);
+ } else */
+        if (typeof c === 'object') {
             for (var p in c) {
                 //console.log(c[p] + ' Omerge['+p+']> ' + o[p]);
                 if (typeof c[p] === 'object' || isArray(c[p])) {
@@ -780,10 +780,32 @@ function textareaTab(){
 
 function waitlib(check, fn, scope){
     if (check()) {
-        fn.call(scope||this);
+        fn.call(scope || this);
     } else {
         window.setTimeout(function(){
             waitlib(check, fn);
         }, 200);
+    }
+}
+
+function waitImages(images, cb, scope){
+    var count = (images) ? images.length : 0;
+    if (count <= 0) {
+        cb.call(scope||this, true);
+    } else {
+        var timeout = window.setTimeout(function(){
+			cb.call(scope||this, false);
+		}, 3000);
+		for (var i = 0, len = images.length; i < len; i++) {
+            var image = images[i];
+            image.addEventListener('load', function(){
+                count--;
+                if (count === 0) {
+                    window.clearTimeout(timeout);
+					console.info("Images are all loaded");
+                    cb.call(scope||this, true);
+                }
+            })
+        }
     }
 }
