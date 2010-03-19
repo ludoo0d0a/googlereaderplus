@@ -175,7 +175,7 @@ GRP.column = function(prefs, langs){
         //var entries = get_id('entries');
         //var cw = getContainer(entries);
         if (cw) {
-            cwh = Math.max(Math.round(cw.clientWidth / cols), 50);
+            cwh = Math.max(Math.round((cw.clientWidth-80) / cols), 150);
         }
         return cwh;
     }
