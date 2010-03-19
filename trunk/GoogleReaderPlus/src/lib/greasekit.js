@@ -184,6 +184,14 @@ if (typeof GM_addScript === "undefined") {
 		}
 	}
 	
+	/**
+	 * Pack for GM_addScript + check + callback
+	 * @param {Object} script
+	 * @param {Object} remote
+	 * @param {Object} check
+	 * @param {Object} cb
+	 * @param {Object} scope
+	 */
 	function GM_loadScript(script, remote, check, cb, scope){
 		function cbwait(){
         	waitlib(check, cb, scope);
