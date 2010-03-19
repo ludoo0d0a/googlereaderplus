@@ -86,7 +86,7 @@ function renderScripts(){
 var tplInput = '<label class="lbl" id="t_{id}" for="{id}">{text}</label><input id="{id}" name="{id}" type="text" value="{value}" {extra}"/><br/>';
 var tplTextarea = '<label class="lbl" id="t_{id}" for="{id}">{text}</label><textarea style="" class="{cls}" id="{id}" name="{id}" cols="{cols}" rows="{rows}" {extra}">{value}</textarea><br/>';
 var tplCheckbox = '<input id="{id}" name="{id}" type="checkbox"/><label class="lbl_checkbox" id="t_{id}" for="{id}">{text}</label><br/>';
-var tplSelect = '<label class="lbl" id="t_{id}">{text}</label><select name="{id}" id="{id}">{options}</select><br/>';
+var tplSelect = '<label class="lbl" id="t_{id}">{text}</label><select name="{id}" id="{id}">{options}</select><br/><br/>';
 var tplSelectOption = '<option value="{id}"{checked}>{value}</option>';
 var tplPara = '<p class="{cls}" id="t_{id}">{text}</p>';
 var tplDiv = '<div class="{cls}" id="{id}"></div>';
@@ -249,7 +249,7 @@ function setpackage(id){
     disableAllScripts();
     if (id === "reset") {
         //Refresh page to reload all options for each script
-        var sure = confirm('This will ERASE and reset all your preferences. Are you sure ?');
+        var sure = confirm(getTextPrefs(lang, 'pack', 'confirmdel'));
         if (sure) {
             prefs = {};
             renderPrefs();
