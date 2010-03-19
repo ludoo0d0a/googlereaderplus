@@ -12,7 +12,7 @@ GRP.column = function(prefs, langs){
     var cols = 3;
     var maxcolumns = 6; //between 1 and 6
     var entries = get_id('entries');
-	var rx= getRegex(prefs.column_filter);
+    var rx = getRegex(prefs.column_filter);
     
     function addButton(el, entry, mode){
         var text = SL.text + formatShortcut('column', 'columns', prefs); //[c]
@@ -25,37 +25,36 @@ GRP.column = function(prefs, langs){
     
     function columnize(btn, entry, lcked, e){
         var locked = (lcked && (typeof e === "undefined"));
-		if (locked && filterEntry(entry, rx)){
-			//Regex filtered
-			return false;
-		}
-		
-		var active = isActive(btn, entry, 'columnize', locked);
+        if (locked && filterEntry(entry, rx)) {
+            //Regex filtered
+            return false;
+        }
+        
+        var active = isActive(btn, entry, 'columnize', locked);
         
         var body = getBody(entry);
         var hpage = 0;
         var divoriginal = body.firstChild;
-        var divwrap = getFirstElementByClassName(entry,  'wrap-container');//div
+        var divwrap = getFirstElementByClassName(entry, 'wrap-container');//div
+        if (divwrap && active && prefs.column_pagebreak) {
+            //already exists but height changed
+            var h = divwrap.firstChild.style['max-height'];
+            if (h) {
+                var oldHeight = parseInt(h.replace('px', ''), 10);
+                hpage = getHeightEntries();
+                if (hpage !== oldHeight) {
+                    divwrap.parentNode.removeChild(divwrap);
+                    divwrap = null;
+                }
+            }
+        }
         
-		if (divwrap && active && prefs.column_pagebreak) {
-			//already exists but height changed
-			var h = divwrap.firstChild.style['max-height'];
-			if (h) {
-				var oldHeight = parseInt(h.replace('px', ''), 10);
-				hpage = getHeightEntries();
-				if (hpage !== oldHeight) {
-					divwrap.parentNode.removeChild(divwrap);
-					divwrap = null;
-				}
-			}
-		}
-		
-        if (!divwrap) {			
-			divoriginal.className = "column-original";
+        if (!divwrap) {
+            divoriginal.className = "column-original";
             divwrap = document.createElement('div');
             divwrap.visibility = "hidden";
             divwrap.className = "wrap-container";
-
+            
             //check height
             if (prefs.column_pagebreak) {
                 hpage = getHeightEntries();
@@ -70,51 +69,11 @@ GRP.column = function(prefs, langs){
             //first append to monitor scrollwidth
             body.appendChild(divwrap);
             
-            var ecw = entries.clientWidth;
-            var div = createDiv(divwrap, hpage);
-            var paras = divoriginal.childNodes;
-            var length = paras.length;
-            var cwh = getColumWidth();
-
-            if (paras && length > 0) {
-                var top, h, tag, line, offset;
-                for (var i = 0; i < length; i++) {
-                    tag = paras[i].nodeName;
-                    line = '';
-                    if (tag === "P") {
-                        line = paras[i].innerHTML + '<br/>';
-                    } else if (tag === "#text") {
-                        line = paras[i].textContent;//nodeValue
-                    } else if (tag === "IFRAME") {
-                        //ignore iframe
-                    } else if (tag === "OBJECT" || tag === "EMBED") {
-                        line = paras[i].innerHTML;
-                    } else if (tag === "DIV") {
-                        line = paras[i].innerHTML;
-                    } else {
-                        line = paras[i].outerHTML;
-                    }
-                    
-                    //line = line.replace(/<br\/?>/, '');
-					line = line.trim();
-                    if (line !== '') {
-                        var para = document.createElement('p');
-                        para.innerHTML = line;
-                        div.appendChild(para);
-                        
-                        //fix it up if width > page.width
-                        if (prefs.column_pagebreak && div.scrollWidth > ecw) {
-                            //new div
-                            var newdiv = createDiv(divwrap, hpage);
-                            newdiv.appendChild(para);
-                            div = newdiv;
-                        }
-                    }
-                }
-                
-            }
-            
-            divwrap.visibility = "visible";
+			//wait images loading
+			var imgs = getElements("img[not(@height)]", divoriginal);
+			waitImages(imgs, function(loaded){
+            	wrapHtml(entries, divwrap, hpage, divoriginal);
+			});
         }
         // toggle to correct body
         divoriginal.style.display = (active) ? "none" : "";
@@ -123,6 +82,54 @@ GRP.column = function(prefs, langs){
         if (!locked) {
             jump(entry, true);
         }
+    }
+    
+    function wrapHtml(entries, divwrap, hpage, divoriginal){
+        var ecw = entries.clientWidth;
+        var div = createDiv(divwrap, hpage);
+        var paras = divoriginal.childNodes;
+        var length = paras.length;
+        var cwh = getColumWidth();
+        
+        if (paras && length > 0) {
+            var top, h, tag, line, offset;
+            for (var i = 0; i < length; i++) {
+                tag = paras[i].nodeName;
+                line = '';
+                if (tag === "P") {
+                    line = paras[i].innerHTML + '<br/>';
+                } else if (tag === "#text") {
+                    line = paras[i].textContent;//nodeValue
+                } else if (tag === "IFRAME") {
+                    //ignore iframe
+                } else if (tag === "OBJECT" || tag === "EMBED" || tag === "VIDEO") {
+                    line = paras[i].innerHTML;
+                } else if (tag === "DIV") {
+                    line = paras[i].innerHTML;
+                } else {
+                    line = paras[i].outerHTML;
+                }
+                
+                //line = line.replace(/<br\/?>/, '');
+                line = line.trim();
+                if (line !== '') {
+                    var para = document.createElement('p');
+                    para.innerHTML = line;
+                    div.appendChild(para);
+                    
+                    //fix it up if width > page.width
+                    if (prefs.column_pagebreak && div.scrollWidth > ecw) {
+                        //new div
+                        var newdiv = createDiv(divwrap, hpage);
+                        newdiv.appendChild(para);
+                        div = newdiv;
+                    }
+                }
+            }
+            
+        }
+        
+        divwrap.visibility = "visible";
     }
     
     function createDiv(parent, hpage){
@@ -155,14 +162,14 @@ GRP.column = function(prefs, langs){
     
     function getContainer(entry){
         var cwh = 300;
-        var cw = getFirstElementByClassName(entry,  'entry-main');//div
+        var cw = getFirstElementByClassName(entry, 'entry-main');//div
         if (!cw) {
             cw = entries; //get_id('entries');
         }
         return cw;
     }
     
-	var cw = getContainer(entries);
+    var cw = getContainer(entries);
     function getColumWidth(){
         var cwh = 300;
         //var entries = get_id('entries');
@@ -221,5 +228,5 @@ GRP.column = function(prefs, langs){
     var keycode = getShortcutKey('column', 'columns', prefs); //67 c
     keycode.fn = addKey;
     initKey(keycode);
-
+    
 };
