@@ -22,10 +22,10 @@ function initprefs(){
         translatePage(lang);
         specialTranslate(lang);
         renderSkins();
-        reportNavigator();
         renderPrefs();
 		var current = window.location.hash.substring(1) || 'theme';
 		showPanel(current);
+		reportNavigator();
     });
 }
 
@@ -52,7 +52,7 @@ function applyprefs(){
 					prefs[o] = EDITORS[o].getCode();
 					//ctrl.innerHTML=prefs[o];
 				} else {
-					prefs[o] = ctrl.innerHTML;
+					prefs[o] = ctrl.value;
 				}
             }else {
                 prefs[o] = ctrl.value;

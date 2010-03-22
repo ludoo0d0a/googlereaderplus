@@ -39,6 +39,12 @@ GRP.replacer = function(prefs, langs){
             el.innerHTML = result;
         } else {
             el.innerHTML = SL.nomatch;
+			//Reset to original
+			el.style.display = 'none';
+			var entryBody = getEntryBody(el.parentNode);
+			if (entryBody){
+				entryBody.style.display='';
+			}
         }
         
     }
@@ -62,7 +68,11 @@ GRP.replacer = function(prefs, langs){
     }
     
     function replacePart(indexes, entry, link){
-        var body = getFirstElementByClassName(entry, 'entry-body');//div
+        if (!indexes || indexes.length===0){
+			return false;
+		}
+		
+		var body = getFirstElementByClassName(entry, 'entry-body');//div
         var entryBody = getEntryBody(body);
         
         entryBody.style.display = 'none';

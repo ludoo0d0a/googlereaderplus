@@ -1,7 +1,9 @@
 var tplCruds={};
 						
 function loadCruds(id){
-	lang=lang||'en';   
+	lang=lang||'en';  
+	var gp = getTextPrefs;
+	  
     tplCruds = 
     {
         favicons_domains: 
@@ -22,7 +24,7 @@ function loadCruds(id){
                 colspan: 2,
 				headers: ['url', 'edit', 'remove'],
                 summary: getText(lang, 'favicons', 'summary'),
-                desc: getText(lang, 'favicons', 'desc'),
+                desc:  getText(lang, 'favicons', 'desc'),
                 txt_add: getText(lang, 'filter', 'add'),
                 txt_edit: getText(lang, 'filter', 'edit'),
                 txt_remove: getText(lang, 'filter', 'remove'),
@@ -128,6 +130,36 @@ function loadCruds(id){
                 }
             }
         }
+		,replacer_items: 
+        {
+            tpl: '{{%IMPLICIT-ITERATOR}}<table class="crud rounded" summary="{{summary}}">' +
+    '<thead><tr>{{#headers}}<th scope="col" class="crud_header_{{.}}">{{.}}</th>{{/headers}}</tr></thead>' +
+    '<tfoot><tr><td colspan="{{colspan}}"><em>{{desc}}</em></td>' +
+    '<td><a id="t_{{$name}}_add" class="add" href="javascript:add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
+    '<tbody>{{#rows}} ' +
+    '<tr><td>{{.}}</td><td><span class="url_replacer">{{url}}</span><br/>{{search}}<br/>{{replace}}</td>' +
+    '<td><a class="action" id="t_{{$name}}_edit" href="javascript:add(\'{{$name}}\', \'{{.}}\');">{{txt_edit}}</a></td>' +
+    '<td><a class="action" id="t_{{$name}}_remove" href="javascript:remove(\'{{$name}}\', \'{{.}}\');">{{txt_remove}}</a></td>' +
+    '</tr>{{/rows}}</tbody></table>',
+            data: 
+            {
+                name: 'replacer',
+				ico: false,
+                colspan: 3,
+                headers: [gp(lang, 'replacer', 'title'),gp(lang, 'replacer', 'link')+'; '+gp(lang, 'replacer', 'from')+'; '+gp(lang, 'replacer', 'to'), 'edit', 'remove'],
+                summary: getText(lang, 'replacer', 'summary'),
+                desc: getText(lang, 'replacer', 'desc'),
+                txt_add: getText(lang, 'filter', 'add'),
+                txt_edit: getText(lang, 'filter', 'edit'),
+                txt_remove: getText(lang, 'filter', 'remove'),
+                rows: function(){
+					//var a = notEmpty(prefs.replacer_items);
+					var a = map2array(prefs.replacer_items, '.', '', true);
+					return a;
+				}
+            }
+        }
+		
     };
     
 	if (id) {
@@ -145,12 +177,12 @@ function loadCruds(id){
  * @param {Object} name Name of prefs to get data
  */
 function loadCRUD(id, o){
-	var html = '';
-	if (!o){
-		o=tplCruds[id];
-	}
     var el = document.getElementById(id);
     if (el) {
+		var html = '';
+		if (!o){
+			o=tplCruds[id];
+		}
         //html = fillTemplate(o);
         html = Mustache.to_html(o.tpl, o.data);
         el.innerHTML = html;
@@ -196,6 +228,8 @@ function remove(id, key){
         return removefavicon(key);
     }else if (id === 'column' || id === 'preview' || id === 'lightbox') {
         return removefiltersites(id, key);
+    }else if (id === 'replacer') {
+        return removeReplacerItems(key);
     }
 }
 
@@ -204,6 +238,8 @@ function add(id, key){
         return addfavicon(key);
     }else if (id === 'column' || id === 'preview' || id === 'lightbox') {
         return addfiltersites(id, key);
+    }else if (id === 'replacer') {
+        return addReplacerItems(id, key);
     }
 }
 
@@ -224,7 +260,6 @@ function addfiltersites(id, urlin){
     if (!url) {
         return;
     }
-
 
 	if (!prefs[id+'_filter']){
 		//prefs[id+'_filter']={};
@@ -265,8 +300,9 @@ function addfavicon(urlin){
     }
     
     var icon = prefs.favicons_domains[url] || getDomain(url) + '/favicon.ico';
-    //icon = prompt("Enter the icon url:", icon);
-    icon = prompt("Enter the icon url (empty to get automatic):", icon);
+    //Enter the icon url
+	var promptUrl = getTextPrefs(lang, 'favicons', 'prompticon');
+    icon = prompt(promptUrl, icon);
     if (icon === '') {
         //go to find
         chrome.extension.sendRequest(
@@ -302,12 +338,60 @@ function addfaviconNext(url, icon, title){
 //WARN: used too from background
 function savefavicon(url, icon, title){
     prefs.favicons_domains[url] = icon;
-    //Refresh all
 	loadCRUD('favicons_domains');
 }
 
 function removefavicon(url){
     delete prefs.favicons_domains[url];
-    //Refresh all
     loadCRUD('favicons_domains');
+}
+
+/**
+ * Replacer
+ * 
+ */
+function addReplacerItems(id, key){
+	var title = key || 'Image site.web';
+    title = prompt(getText(lang, 'replacer', 'prompttitle'), title);
+    if (!title) {
+        return;
+    }
+	if (!key && prefs.replacer_items[title]){
+		//on add, check if key already exists
+		alert(getTextPrefs(lang, 'global', 'alreadyexist'));
+		return;
+	}
+	var def = prefs.replacer_items[key] ||{
+		url: 'htpp://www.site.web',
+		search: '(http://www.site.web/image/[^\"]*)',
+		replace: "<img src='$1'></br>"
+	};
+	
+    url = prompt(getTextPrefs(lang, 'replacer', 'link'), def.url);
+    if (!url) {
+        return;
+    }
+	
+    search = prompt(getTextPrefs(lang, 'replacer', 'from'), def.search);
+    if (!search) {
+        return;
+    }
+	
+    replace = prompt(getTextPrefs(lang, 'replacer', 'to'), def.replace);
+    if (replace) {
+        saveReplacerNext(title, url, search, replace);
+    }
+}
+
+function saveReplacerNext(title, url, search, replace){
+	if (!prefs.replacer_items){
+		prefs.replacer_items={};
+	}
+	prefs.replacer_items[title] = {url:url, search:search, replace:replace};
+	loadCRUD('replacer_items');
+}
+
+function removeReplacerItems(key){
+    delete prefs.replacer_items[key];
+    loadCRUD('replacer_items');
 }
