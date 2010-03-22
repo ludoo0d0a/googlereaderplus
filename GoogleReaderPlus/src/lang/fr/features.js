@@ -6,8 +6,8 @@
  * fr : Francais
  * **************************
  * 
- * Version : 0.4
- * Date : 03-17-2010
+ * Version : 0.5
+ * Date : 03-22-2010
  * @author Valente
  */
 namespace('GRP.langs.fr');
@@ -128,11 +128,11 @@ GRP.langs.fr.scripts = [
     name: "Menu contextuel",
     desc: "Menu contextuel pour effectuer des opérations directement sur tous les articles chaque site"
 }, 
-*/
 {
     id: "lightbox",
     name: "Lightbox"
 }, 
+*/
 {
     id: "relook",
     name: "Relook",
