@@ -216,8 +216,10 @@ function renderSkins(){
 
 function createReport(report){
     var list = document.getElementById('sysinfo');
-    list.innerHTML = '';
-    recurseList(list, report, true);
+    if (list) {
+		list.innerHTML = '';
+		recurseList(list, report, true);
+	}
 }
 
 function recurseList(root, list, first){
