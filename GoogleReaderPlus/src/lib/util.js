@@ -578,19 +578,20 @@ function foreach(array, fn, scope){
     }
 }
 
-function map2array(o, key, value){
+function map2array(o, key, value, flat){
     var r = [];
-    if (o) {
-        for (var p in o) {
-            if (!hasOwnProperty.call(o, p)) {
-                continue;
-            }
+    iterate(o, function(p, o){
             var a = {};
             a[key || 'key'] = p;
-            a[value || 'value'] = o[p];
+			if (flat && typeof o === "object"){
+				iterate(o, function(k, obj){
+					a[k] = obj;
+				});
+			}else{
+				a[value || 'value'] = o;
+			}
             r.push(a);
-        }
-    }
+    });
     return r;
 }
 
