@@ -20,7 +20,7 @@ In progress :
 == Instructions for translators ==
 If you want to participate and contribute to the translations, please follow these steps :
    # Get the English original files in the last version (English is the base language)
-     * _locales/en/ [http://goo.gl/9jqd messages.json]
+     * locales/en/ [http://goo.gl/9jqd messages.json]
      * lang/en/ [http://goo.gl/AY4G features.js]
      * lang/en/ [http://goo.gl/ZGVB langs.js]
    # Change the code 'en' for the new locale. I support [http://code.google.com/chrome/extensions/i18n.html#locales-supported Chrome locales] but i can add any others locales.
