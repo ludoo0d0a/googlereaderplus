@@ -316,9 +316,63 @@ GRP.scripts = [
     name: "Replacer",
     options: 
     {
-        link: {xtype:'textarea', value:'http://feedproxy.google.com/~r/uclick/|http://www.gocomics.com/|http://feeds.gocomics.com/\nhttp://feedproxy.google.com/~r/uclick/|http://www.gocomics.com/|http://feeds.gocomics.com/'},
-        from: {xtype:'textarea', value:"\"(http:\/\/imgsrv.gocomics.com\/dim\/[^\"]*)\"\n<SPAN id='comment_count_display'>(\d*)</SPAN>"},
-        to: {xtype:'textarea', value:"<img src='$1'><br>\nComments: $2"}
+        items:{xtype: 'crud', value:{
+			'Gocomics pictures':{
+				title:'Gocomics pictures',
+				url: "http://feedproxy.google.com/~r/uclick/| http://www.gocomics.com/",
+				search:"\"(http://imgsrv.gocomics.com/dim/[^\"]*)\"",
+				replace:"<img src='$1'><br>"
+			},'Gocomics comments':{
+				title:'Gocomics comments',
+				url:"http://feedproxy.google.com/~r/uclick/| http://www.gocomics.com/| http://feeds.gocomics.com/",
+				search:"<SPAN id='comment_count_display'>(d*)</SPAN>",
+				replace:"Comments: $2\n<img src='$1'><br>"
+			},'Explosm pictures':{
+				title:'Explosm pictures',
+				url:"http://www.explosm.net/",
+				search:"\"(http://www.explosm.net/db/files/Comics/[^\"]*)\"",
+				replace:"<img src='$1'><br>"
+			},'Explosm videos':{
+				title:'Explosm videos',
+				url:"http://www.explosm.net/",
+				search:"(<embed[^>]+>)",
+				replace:"$1"
+			},'Penny-arcade pictures':{
+				title:'Penny-arcade pictures',
+				url:"http://www.penny-arcade.com/| http://feeds.penny-arcade.com",
+				search:"\"(http://art.penny-arcade.com/photos/[^\"]*)\"",
+				replace:"<img src='$1'><br>"
+			},'cad-comic pictures':{
+				title:'cad-comic pictures',
+				url:"http://feedproxy.google.com/~r/cad-comic/",
+				search:"<img src=\"(/comics/[^\"]*)\"",
+				replace:"<img src='http://www.cad-comic.com$1'><br>"
+			},
+			'Chauffeurdebuzz items':{
+				title:'Chauffeurdebuzz items',
+				url:"http://www.chauffeurdebuzz.com/",
+				search:"<table.*?<table.*?<td[^>]*>(.*?)</td>",
+				replace:"<img src='$1'><br>"
+			}
+			}
+		}
+		/*
+		,link: 
+        {
+            xtype: 'textarea',
+            value: "http://feedproxy.google.com/~r/uclick/|http://www.gocomics.com/|http://feeds.gocomics.com/\nhttp://feedproxy.google.com/~r/uclick/|http://www.gocomics.com/|http://feeds.gocomics.com/\nhttp://www.explosm.net/\nhttp://www.explosm.net/\nhttp://www.penny-arcade.com/|http://feeds.penny-arcade.com\nhttp://feedproxy.google.com/~r/cad-comic/\nhttp://www.chauffeurdebuzz.com/"
+        },
+        from: 
+        {
+            xtype: 'textarea',
+            value: "\"(http://imgsrv.gocomics.com/dim/[^\"]*)\"\n<SPAN id='comment_count_display'>(d*)</SPAN>\n\"(http://www.explosm.net/db/files/Comics/[^\"]*)\"\n(<embed[^>]+>)\n\"(http://art.penny-arcade.com/photos/[^\"]*)\"\n<img src=\"(/comics/[^\"]*)\"\n<table.*?<table.*?<td[^>]*>(.*?)</td>"
+        },
+        to: 
+        {
+            xtype: 'textarea',
+            value: "<img src='$1'><br>\nComments: $2\n<img src='$1'><br>\n$1\n<img src='$1'><br>\n<img src='http://www.cad-comic.com$1'><br>\n<img src='$1'><br>"
+        }
+        */
     }
 },
 /*
@@ -326,7 +380,7 @@ GRP.scripts = [
     id: "menu",
     name: "Intuitive menu",
     desc: "Intuitive menu to add extra capabilites"
-}, */
+}, 
 {
     id: "lightbox",
     name: "Lightbox",
@@ -353,7 +407,7 @@ GRP.scripts = [
             }
         }
     }
-}, 
+}, */
 {
     id: "relook",
     name: "Relook",
