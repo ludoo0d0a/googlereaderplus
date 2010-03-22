@@ -340,7 +340,7 @@ img.favicon {
 .crud {
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
     font-size: 12px;
-    width: 480px;
+    /*width: 480px;*/
     text-align: left;
     border-collapse: collapse;
     margin: 20px;
@@ -359,6 +359,9 @@ img.favicon {
     border-top: 1px solid #fff;
     color: #ffffff;
     padding: 8px;
+	word-wrap: break-word;
+	break-word: break-all;
+	overflow: auto;
 }
 .crud tfoot td {
 	background: #1F1E1B;
@@ -378,9 +381,18 @@ img.favicon {
 	width:50px;
 }
 .crud_header_edit{
-	width:50px;
+	width:10px;
 }
 .crud_header_remove{
-	width:50px;
+	width:10px;
 }
 
+/*
+ * 
+ */
+#replacer_items .crud td {
+    padding: 2px;
+}
+.url_replacer{
+	background-color:#5a5a5a;
+}
