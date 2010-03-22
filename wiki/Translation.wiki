@@ -32,14 +32,13 @@ If you want to participate and contribute to the translations, please follow the
    # Do not translate ids and keys, look on an already translated files if you don't know read [http://www.json.org JSON] format.
    # Do not translate anchors such {0}. They are placeholders to insert dynamic data.
    # As encoding, use UTF8 without BOM
+   # Use minor version for yours translations; Major version must be used to set version of original language
+       * for example, 0.3.11 is the 11th version of the translation for the v0.3 english version
+   # Due to upgrades, new additions are inserted without indent to easily find it.
 
-   * Version: 
-       * Please keep original major version for your translations !
-       * Use minor version for yours translations 
-       * ex: 0.3.11 is the 11th translated version of the original v0.3 english version
 
    * Toolbar button: 
-     * Don't forget to translate the [http://goo.gl/6ovh Toolbar Button] [http://goo.gl/8tGY _locales/en/messages.json]
+     * Don't forget to translate the little file for [http://goo.gl/6ovh Toolbar Button] : [http://goo.gl/8tGY messages.json]
 
 Support on translation is done on [http://code.google.com/p/googlereaderplus/issues/detail?id=141 this issue] 
 ---
