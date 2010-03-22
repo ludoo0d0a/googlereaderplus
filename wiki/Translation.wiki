@@ -4,7 +4,6 @@
 
 Help me to translate ReaderPlus in your languages.
 
-
 = Details =
 
 Already available languages are :
@@ -25,18 +24,21 @@ If you want to participate and contribute to the translations, please follow the
      * lang/en/ [http://goo.gl/AY4G features.js]
      * lang/en/ [http://goo.gl/ZGVB langs.js]
    # Change the code 'en' for the new locale. I support [http://code.google.com/chrome/extensions/i18n.html#locales-supported Chrome locales] but i can add any others locales.
-   # > messages.json contains general information about extension
-   # > features.js contains list of features/options. They appears in the menu in preferences page.
-   # > langs.js contains :
+   # messages.json contains general information about extension
+   # features.js contains list of features/options. They appears in the menu in preferences page.
+   # langs.js contains :
      * in the first part (GRP.langs.en.texts), texts displayed in Google Reader
      * in the second part (GRP.langs.en.prefs), texts displayed in preferences page only.
+   # Do not translate ids and keys, look on an already translated files if you don't know read [http://www.json.org JSON] format.
+   # Do not translate anchors such {0}. They are placeholders to insert dynamic data.
+   # As encoding, use UTF8 without BOM
 
-   # Version: 
+   * Version: 
        * Please keep original major version for your translations !
        * Use minor version for yours translations 
        * ex: 0.3.11 is the 11th translated version of the original v0.3 english version
 
-   # Toolbar button: 
+   * Toolbar button: 
      * Don't forget to translate the [http://goo.gl/6ovh Toolbar Button] [http://goo.gl/8tGY _locales/en/messages.json]
 
 Support on translation is done on [http://code.google.com/p/googlereaderplus/issues/detail?id=141 this issue] 
