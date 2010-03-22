@@ -1,0 +1,41 @@
+#summary Translations for ReaderPlus.
+
+= Introduction =
+
+Help me to translate ReaderPlus in your languages.
+
+
+= Details =
+
+Already available languages are :
+  * English
+  * French
+  * Simplified chinese
+  * Traditional chinese
+  * Russian
+
+In progress :
+  * Ukrainan
+  * German
+
+== Instructions for translators ==
+If you want to participate and contribute to the translations, please follow these steps :
+   # Get the English original files in the last version (English is the base language)
+     * [http://goo.gl/9jqd _locales/en/messages.json]
+     * [http://goo.gl/AY4G lang/en/features.js]
+     * [http://goo.gl/ZGVB lang/en/langs.js]
+
+   # Version: 
+       * Please keep original major version for your translations !
+       * Use minor version for yours translations 
+       * ex: 0.3.11 is the 11th translated version of the original v0.3 english version
+
+   # Toolbar button: 
+     * Don't forget to translate the [http://goo.gl/6ovh Toolbar Button] [http://goo.gl/8tGY _locales/en/messages.json]
+
+---
+
+== [http://jsbin.com/uwaka3/14 Google translate tool] ==
+I start to create a tool to help translators by using Google Translator.
+You could use it and may be enhance it :
+http://jsbin.com/uwaka3/14
