@@ -6,8 +6,8 @@
  * fr : Francais
  * **************************
  *
- * Version : 0.8
- * Date : 03-19-2010
+ * Version : 0.9
+ * Date : 03-22-2010
  * @author Valente
  */
 namespace('GRP.langs.fr');
@@ -140,7 +140,8 @@ GRP.langs.fr.prefs =
     "global": 
     {
         "title": "Reader Plus",
-		"val-save":"Sauver"
+		"val-save":"Sauver",
+		"alreadyexist": "Cet élément existe déjà!"
     },
 	"theme": 
     {
@@ -227,13 +228,15 @@ GRP.langs.fr.prefs =
         "tip": "Conseil: Vous pouvez également utiliser le menu contextuel \"Obtenir l'icône de ce site\" sur chaque site dans l'arbre de gauche",
         "manual": "Favicons manuels pour tous les sites (non conseillé car relativement lent)",
         "parsing": "Les icône sont obtenues en parcourant la page de chaque site.",
-        "entersite":"Saisissez l'adresse de votre site"
+        "entersite":"Saisissez l'adresse de votre site",
+		"prompticon":"Saisissez l'adresse de votre icône (laissez vide pour l'obtenir automatiquement):"
     },
     "replacer": 
     {
-        "link": "Sites:",
-        "from": "Rechercher:",
-        "to": "Remplacer par:"
+        "title": "Titre",
+		"link": "Sites",
+        "from": "Rechercher",
+        "to": "Remplacer par"
    },
 	"lightbox": 
     {
