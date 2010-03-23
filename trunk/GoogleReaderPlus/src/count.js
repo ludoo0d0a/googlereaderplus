@@ -86,8 +86,10 @@ GRP.count = function(prefs, langs) {
         
 		//friends unread
 		var elfriend = document.getElementById('friends-tree-item-0-unread-count');
-		var friendcount = parseInt(elfriend.innerText.replace(/\S()/g, ''), 10);
-		total+=friendcount;
+		if (elfriend) {
+			var friendcount = parseInt(elfriend.innerText.replace(/\S()/g, ''), 10);
+			total += friendcount;
+		}
 		
         // untagged items
         var res3 = document.evaluate("//ul[@id='sub-tree']/li/ul/li[not(contains(@class, 'folder')) and contains(@class, 'unread')]/a/span/span[contains(@class, 'unread-count')]", document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
