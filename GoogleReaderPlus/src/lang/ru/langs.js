@@ -6,8 +6,8 @@
  * ru : Russian
  * **************************
  *
- * Version : 0.8
- * Date : 03-21-2010
+ * Version : 0.9
+ * Date : 03-22-2010
  * @author Ruslan Pokatskii
  */
 namespace('GRP.langs.ru');
@@ -141,7 +141,8 @@ GRP.langs.ru.prefs =
     "global": 
     {
         "title": "Reader Plus",
-		"val-save":"Сохранить"
+		"val-save":"Сохранить",
+"alreadyexist": "Item already exists!"
     },
 	"theme": 
     {
@@ -235,7 +236,8 @@ GRP.langs.ru.prefs =
         "tip": "Подсказка: Вы легко можете добавить иконки, используя контекстное меню \"Получить иконку\" в панели навигации",
         "manual": "Настройка иконок вручную для всех сайтов (не рекомендуется, замедляет работу)",
         "parsing": "Будет пытаться найти иконки, анализируя каждую страницу",
-		"entersite":"Введите URL сайта"
+		"entersite":"Введите URL сайта",
+"prompticon":"Enter the icon url (let empty to get it automatically):"
     },
     "replacer": 
     {
