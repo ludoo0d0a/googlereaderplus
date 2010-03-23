@@ -6,8 +6,8 @@
  * 翻译 : 简体中文 By Jfjj007
  * **************************
  *
- * Version : 0.8
- * Date : 03-19-2010
+ * Version : 0.9
+ * Date : 03-22-2010
  * @author Jfjj007
  */
 namespace('GRP.langs.zh_CN');
@@ -140,7 +140,8 @@ GRP.langs.zh_CN.prefs =
     "global": 
     {
         "title": "Reader Plus",
-		"val-save":"保存"
+		"val-save":"保存",
+"alreadyexist": "Item already exists!"
     },
 	"theme": 
     {
@@ -227,7 +228,8 @@ GRP.langs.zh_CN.prefs =
         "tip": "Tip: 你可以很容易的在左侧栏添加使用上下文菜单 \"获取 favicon\" ",
         "manual": "获取所有网站的Favicons (不推荐;慢)",
         "parsing": "这将试图通过分析检测每个网页Favicon",
-"entersite":"Enter URL of the site"
+"entersite":"Enter URL of the site",
+"prompticon":"Enter the icon url (let empty to get it automatically):"
     },
     "replacer": 
     {

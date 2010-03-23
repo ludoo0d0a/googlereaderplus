@@ -6,8 +6,8 @@
  * 翻譯 : 繁體中文 By shell9000
  * **************************
  *
- * Version : 0.6
- * Date : 03-11-2010
+ * Version : 0.9
+ * Date : 03-22-2010
  * @author shell9000
  */
 namespace('GRP.langs.zh_TW');
@@ -132,7 +132,8 @@ GRP.langs.zh_TW.prefs =
     "global": 
     {
         "title": "Reader Plus",
-                "val-save":"保存"
+        "val-save":"保存",
+"alreadyexist": "Item already exists!"
     },
         "theme": 
     {
@@ -218,7 +219,8 @@ GRP.langs.zh_TW.prefs =
         "tip": "Tip: 你可以很容易的在左側欄添加使用上下文菜單 \"獲取 favicon\" ",
         "manual": "獲取所有網站的Favicons (不推薦;慢)",
         "parsing": "這將試圖通過分析檢測每個網頁Favicon",
-"entersite":"Enter URL of the site"
+"entersite":"Enter URL of the site",
+"prompticon":"Enter the icon url (let empty to get it automatically):"
     },
     "replacer": 
     {

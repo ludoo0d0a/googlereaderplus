@@ -6,8 +6,8 @@
  * uk : Ukrainan
  * **************************
  *
- * Version : 0.8
- * Date : 03-19-2010
+ * Version : 0.9
+ * Date : 03-22-2010
  * @author Valente
  */
 namespace('GRP.langs.en');
@@ -140,7 +140,8 @@ GRP.langs.en.prefs =
     "global": 
     {
         "title": "Reader Plus",
-		"val-save":"Save"
+		"val-save":"Save",
+"alreadyexist": "Item already exists!"
     },
 	"theme": 
     {
@@ -227,7 +228,8 @@ GRP.langs.en.prefs =
         "tip": "Tip: You could add it easily using the contextual menu \"Get favicon\" of the left side bar",
         "manual": "Manual favicons for all sites (not recommended ; slower)",
         "parsing": "This will try to detect favicon by parsing each homepage",
-		"entersite":"Enter URL of the site"
+		"entersite":"Enter URL of the site",
+"prompticon":"Enter the icon url (let empty to get it automatically):"
     },
     "replacer": 
     {
