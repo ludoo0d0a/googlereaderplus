@@ -288,7 +288,7 @@ function removeClass(el, classname){
             s[i] = '';
         }
     }
-    el.className = s.join(' ');
+    el.className = s.join(' ').trim();
 //el.className = el.className.replace(classname, '').trim();
 }
 
