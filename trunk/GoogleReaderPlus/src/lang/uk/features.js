@@ -128,11 +128,12 @@ GRP.langs.uk.scripts = [
     id: "menu",
     name: "Інтуїтивне меню",
     desc: "Інтуїтивне меню для максимальних можливостей та зручності"
-}, */
+}, 
 {
     id: "lightbox",
     name: "Lightbox"
 }, 
+*/
 {
     id: "relook",
     name: "Relook",

@@ -136,11 +136,12 @@ GRP.langs.zh_CN.scripts = [
     id: "menu",
     name: "Intuitive menu",
     desc: "Intuitive menu to add extra capabilites"
-}, */
+},
 {
     id: "lightbox",
     name: "Lightbox"
 }, 
+ */
 {
     id: "relook",
     name: "Relook",
