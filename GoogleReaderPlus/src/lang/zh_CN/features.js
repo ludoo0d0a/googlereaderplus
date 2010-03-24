@@ -6,8 +6,8 @@
  * 翻译 : 简体中文 By Jfjj007
  * **************************
  * 
- * Version : 0.4
- * Date : 03-17-2010
+ * Version : 0.5
+ * Date : 03-23-2010
  * @author Jfjj007
  */
 namespace('GRP.langs.zh_CN');
@@ -222,6 +222,10 @@ GRP.langs.zh_CN.skins = [
 {
     id: "portal",
     name: "Portal Theme"
+}, 
+{
+    id: "player",
+    name: "Player Theme"
 }, 
 {
     id: "osxblue",

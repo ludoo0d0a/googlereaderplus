@@ -11,8 +11,8 @@
  * so that 0.3.11 is the 11th translated version of the original v0.3 english version.  
  * 
  * 
- * Version : 0.4.1
- * Date : 03-21-2010
+ * Version : 0.5
+ * Date : 03-23-2010
  * @author Ruslan Pokatskii
  */
 namespace('GRP.langs.ru');
@@ -222,6 +222,10 @@ GRP.langs.ru.skins = [
 {
     id: "portal",
     name: "Portal Theme"
+}, 
+{
+    id: "player",
+    name: "Player Theme"
 }, 
 {
     id: "osxblue",

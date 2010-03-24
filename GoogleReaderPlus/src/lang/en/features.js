@@ -12,7 +12,7 @@
  * 
  * 
  * Version : 0.5
- * Date : 03-22-2010
+ * Date : 03-23-2010
  * @author Valente
  */
 namespace('GRP.langs.en');
@@ -220,6 +220,10 @@ GRP.langs.en.skins = [
 {
     id: "portal",
     name: "Portal Theme"
+}, 
+{
+    id: "player",
+    name: "Player Theme"
 }, 
 {
     id: "osxblue",

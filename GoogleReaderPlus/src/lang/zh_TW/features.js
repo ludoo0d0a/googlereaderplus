@@ -6,8 +6,8 @@
  * 翻譯 : 繁體中文 By shell9000
  * **************************
  * 
- * Version : 0.4
- * Date : 03-17-2010
+ * Version : 0.5
+ * Date : 03-23-2010
  * @author shell9000
  */
 namespace('GRP.langs.zh_TW');
@@ -222,6 +222,10 @@ GRP.langs.zh_TW.skins = [
 {
     id: "portal",
     name: "Portal Theme"
+}, 
+{
+    id: "player",
+    name: "Player Theme"
 }, 
 {
     id: "osxblue",
