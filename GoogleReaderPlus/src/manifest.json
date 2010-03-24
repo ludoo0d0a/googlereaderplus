@@ -23,7 +23,7 @@
 		"preview.js", "openbackground.js", "colorful.js", "filter.js", "count.js", "counticon.js", "readbymouse.js", 
 		"facebook.js", "twitter.js", "instapaper.js", "closeentry.js", "fitheight.js", "replacer.js","relook.js",
 		"skin/aero.js", "skin/air.js", "skin/aircomic.js", "skin/black.js","skin/darkgray.js", "skin/dark.js", "skin/helvetireader.js", 
-		"skin/minimal.js", "skin/optimized.js", "skin/portal.js", "skin/osxblue.js","skin/osxblack.js",
+		"skin/minimal.js", "skin/optimized.js", "skin/portal.js", "skin/osxblue.js","skin/osxblack.js","skin/player.js",
 		"greaderplus.js"]
     }
   ],

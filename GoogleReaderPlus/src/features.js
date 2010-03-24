@@ -503,12 +503,12 @@ GRP.skins = [
     id: "portal",
     name: "Portal Theme"
 }, 
-/*
+
 {
     id: "player",
     name: "Player Theme"
 }, 
-*/
+
 {
     id: "osxblue",
     name: "Mac OS X Snow Leopard - Blue"
