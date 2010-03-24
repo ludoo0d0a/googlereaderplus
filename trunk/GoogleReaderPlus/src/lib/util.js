@@ -309,8 +309,11 @@ function fireResize(){
 function fitHeight(id, bottom){
     var el = document.getElementById(id);
     var h = findTop(el);
-    if (bottom && bottom) {
-        h -= el.clientHeight;
+    if (bottom) {
+        var elb = document.getElementById(bottom);
+		if (elb) {
+			h -= elb.clientHeight;
+		}
     }
     el.style.height = (window.innerHeight - h) + 'px';
 }
