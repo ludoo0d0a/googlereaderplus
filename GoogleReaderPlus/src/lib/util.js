@@ -311,9 +311,9 @@ function fitHeight(id, bottom){
     var h = findTop(el);
     if (bottom) {
         var elb = document.getElementById(bottom);
-		if (elb) {
-			h -= elb.clientHeight;
-		}
+        if (elb) {
+            h -= elb.clientHeight;
+        }
     }
     el.style.height = (window.innerHeight - h) + 'px';
 }
@@ -365,8 +365,7 @@ function unmarshallKey(text){
     var m = /(\d)(\d)(\d)(\d+)/.exec(text || '');
     var key = {};
     if (m) {
-        key = 
-        {
+        key = {
             ctrlKey: (m[1] === '1'),
             altKey: (m[2] === '1'),
             shiftKey: (m[3] === '1'),
@@ -428,8 +427,7 @@ function getGlobal(){
     return (window.GRP = window.GRP || {});
 }
 
-var keycodes = 
-{
+var keycodes = {
     8: 'backspace',
     9: 'tab',
     13: 'enter',
@@ -584,25 +582,28 @@ function foreach(array, fn, scope){
 function map2array(o, key, value, flat){
     var r = [];
     iterate(o, function(p, o){
-            var a = {};
-            a[key || 'key'] = p;
-			if (flat && typeof o === "object"){
-				iterate(o, function(k, obj){
-					a[k] = obj;
-				});
-			}else{
-				a[value || 'value'] = o;
-			}
-            r.push(a);
+        var a = {};
+        a[key || 'key'] = p;
+        if (flat && typeof o === "object") {
+            iterate(o, function(k, obj){
+                a[k] = obj;
+            });
+        } else {
+            a[value || 'value'] = o;
+        }
+        r.push(a);
     });
     return r;
 }
 
-function iterate(o, fn, scope){
+function iterate(o, fn, scope, id){
     if (o) {
         for (var p in o) {
             if (!hasOwnProperty.call(o, p)) {
                 continue;
+            }
+            if (typeof id !== 'undefined') {
+                o[p][(typeof id === "string") ? id : 'id'] = p;
             }
             fn.call(scope || this, p, o[p]);
         }
@@ -672,8 +673,7 @@ function merge(o, c, defaults){
 }
 
 function applyRemoteLang(lang, base, id, o, fn, scope){
-    GM_xmlhttpRequest(
-    {
+    GM_xmlhttpRequest({
         method: 'GET',
         url: base + '_locales/' + lang + '/' + id + '.json',
         onload: function(res){
@@ -798,8 +798,8 @@ function waitImages(images, cb, scope){
         cb.call(scope || this, true);
     } else {
         var timeout = window.setTimeout(function(){
-            console.log("Images are not all loaded: "+count);
-			cb.call(scope || this, false);
+            console.log("Images are not all loaded: " + count);
+            cb.call(scope || this, false);
         }, 3000);
         function check(){
             if (count === 0) {
@@ -813,11 +813,15 @@ function waitImages(images, cb, scope){
                 count--;
             } else {
                 image.addEventListener('load', function(){
-					count--;
-					check();
-				});
+                    count--;
+                    check();
+                });
             }
         }
         check();
     }
+}
+
+function isShown(el){
+	return (el && el.style && el.style.display!=='none' && el.visibility!=='hidden'); 
 }
