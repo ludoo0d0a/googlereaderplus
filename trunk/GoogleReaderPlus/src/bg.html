@@ -242,8 +242,7 @@
             function checkPrefs(prefs){
                 prefs = prefs || {};
                 //set default if not
-                for (var i = 0, len = GRP.scripts.length; i < len; i++) {
-                    var script = GRP.scripts[i];
+                iterate(GRP.scripts, function(id, script){
                     //options
                     iterate(script.options, function(option, o){
                         id = script.id + '_' + option;
@@ -258,8 +257,7 @@
                             prefs[id] = o;
                         }
                     });
-                    
-                }
+                },this, true);
                 
                 //Check domains
                 if (!prefs.favicons_domains) {
@@ -610,7 +608,7 @@
                 if (v === null || v !== GRP.VERSION) {
                     localStorage.setItem('grp_version', GRP.VERSION);
                     //upgrade();
-					opentab({ url: "about.html" });
+					//opentab({ url: "about.html" });
                 }
             }
         </script>
