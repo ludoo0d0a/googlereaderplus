@@ -3,12 +3,13 @@ var PREFIX = "readerplus.";
 //http://groups.google.com/group/greasekit-users/browse_thread/thread/d0ed6e8919bb6b42
 if (typeof GM_getValue === "undefined") {
     GM_getValue = function(name, def){
-        var value = localStorage.getItem(name);
+        //Move old nameing value to new prefixed place
+		var value = localStorage.getItem(name);
 		if (value) {
-			//Move to new prefixed place
-			GM_setValue(name, value);
+			GM_setValue(PREFIX+name, value);
 			localStorage.removeItem(name);//remove old
         }
+		value = localStorage.getItem(PREFIX+name);
         if (value === null && def !== null) {
             value = def;
         }
