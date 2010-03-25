@@ -210,9 +210,12 @@ function catchAllSidebars(fn, bid){
 
 
 function getMode(entry){
-    return hasClass(entry.firstChild, 'collapsed') ? 'list' : 'expanded';
+	if (entry) {
+		return hasClass(entry.firstChild, 'collapsed') ? 'list' : 'expanded';
+	} else {
+		return hasClass(get_id('view-cards'), 'link-selected') ? 'expanded' : 'list';
+	}
 }
-
 
 function getOriginalEntryLink(entry){
     return getFirstElementByClassName(entry, 'entry-title-link');
@@ -251,7 +254,8 @@ function getEntryLink(ent){
             var etitle = getFirstElementByClassName(entry, 'entry-title');//'h2'
             if (etitle) {
                 var m = /"(.*)"/.exec(etitle.textContent);
-                if (m) {
+                o.url='';
+				if (m) {
                     o.url = m[0];
                 }
                 o.title = etitle.textContent;
@@ -316,22 +320,23 @@ function getWidthEntries(){
     return entries.clientWidth;
 }
 
-function getHeightEntries(){
+function getHeightEntries(alone){
     var height = 500;
     var entries = document.getElementById('entries');
     if (entries) {
         var offset = 0;
-        var eb = getFirstElementByClassName(entries, 'entry-body');
-        if (eb) {
-            offset += eb.offsetTop;
-        }
-        var ea = getFirstElementByClassName(entries, 'entry-actions');
-        if (ea) {
-            offset += ea.clientHeight;
-        }
-        console.log('offset=' + offset);
-        offset = Math.max(110, offset);
-        
+        if (!alone) {
+			var eb = getFirstElementByClassName(entries, 'entry-body');
+			if (eb) {
+				offset += eb.offsetTop;
+			}
+			var ea = getFirstElementByClassName(entries, 'entry-actions');
+			if (ea) {
+				offset += ea.clientHeight;
+			}
+			console.log('offset=' + offset);
+			offset = Math.max(110, offset);
+		}
         height = parseInt(entries.style.height.replace('px', ''), 10) - offset;
     }
     return height;
@@ -488,13 +493,14 @@ function getShortcutKey(script, shortcut, prefs){
  * TODO: replace by a map
  */
 function getScriptObject(id){
-    for (var i = 0, len = GRP.scripts.length; i < len; i++) {
+    return GRP.scripts[id];
+	/*for (var i = 0, len = GRP.scripts.length; i < len; i++) {
         var script = GRP.scripts[i];
         if (script.id == id) {
             return script;
         }
     }
-    return null;
+    return null;*/
 }
 
 function toggle(el){
