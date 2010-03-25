@@ -4,26 +4,22 @@ function run_extshortcuts(){
     var tplShorcut = '<li><span>{keytext}</span>{title}</li>';
     var grpshortcuts = document.getElementById('grpshortcuts');
     grpshortcuts.innerHTML = '';
-    for (var i = 0, len = GRP.scripts.length; i < len; i++) {
-        var script = GRP.scripts[i];
-        if (script.shortcuts) {
-            for (var sid in script.shortcuts) {
-                var shortcut = script.shortcuts[sid];
-                if (prefs && prefs[script.id + '_key_' + sid]) {
-                    key = unmarshallKey(prefs[script.id + '_key_' + sid]);
-                } else {
-                    key = shortcut.key;
-                }
-                shortcut.keytext = formatKey(key);
-                html += fillTpl(tplShorcut, shortcut);
+    iterate(GRP.scripts, function(id, script){
+        iterate(script.shortcuts, function(sid, shortcut){
+            if (prefs && prefs[id + '_key_' + sid]) {
+                key = unmarshallKey(prefs[id + '_key_' + sid]);
+            } else {
+                key = shortcut.key;
             }
-        }
-    }
+            shortcut.keytext = formatKey(key);
+            html += fillTpl(tplShorcut, shortcut);
+        });
+    });
     grpshortcuts.innerHTML = html;
 }
 
 function renderShortcuts(el, script){
-	iterate(script.shortcuts, function(sid, shortcut){
+    iterate(script.shortcuts, function(sid, shortcut){
         createShortcut(el, script, shortcut, sid);
     });
 }
@@ -34,7 +30,7 @@ function createShortcut(el, script, shortcut){
     
     var label = document.createElement('label');
     var t = getText(lang, script.id, 'shortcut_' + shortcut.id);
-	if (t) {
+    if (t) {
         shortcut.title = t;
     }
     label.innerHTML = shortcut.title + ':';
@@ -73,13 +69,13 @@ function isShortcutFree(e){
     //custom in prefs
     if (gshortcuts[key]) {
         var warning1 = getTextPrefs(lang, 'extshortcuts', 'alreadyusedprefs');
-		return warning1;
+        return warning1;
     }
     
     //google
     if (GRP.googleshortcuts && GRP.googleshortcuts[text]) {
         var warning2 = getTextPrefs(lang, 'extshortcuts', 'alreadyusedgoogle');
-		return warning2+'<br/>(' + GRP.googleshortcuts[text] + ')';
+        return warning2 + '<br/>(' + GRP.googleshortcuts[text] + ')';
     }
     
     return true;
