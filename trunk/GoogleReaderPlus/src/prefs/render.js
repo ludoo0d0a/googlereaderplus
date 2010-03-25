@@ -45,16 +45,15 @@ function renderScripts(){
     var tplLink = '<li id="l_{id}"><a class="link" href="javascript:showPanel(\'{id}\')"><span class="linkblock">{name}</span><span class="open olink">{dlink}</span></a></li>';
     var tplPanelTitle = '<div class="title"><h2>{name}</h2><div id="paneldesc_{id}" class="desc">{desc}</div></div>';
     var tplPanelIframe = '<div class="title"><h2>{name}</h2><iframe src="{url}" width="700" height="620"></iframe></div>';
-    for (var i = 0, len = GRP.scripts.length; i < len; i++) {
-        var script = GRP.scripts[i];
-        script.dlink = '>';
+    iterate(GRP.scripts, function(id, script){
+		script.dlink = '>';
         var t = (script.link) ? tplLink : tplCheckbox;
         html += fillTpl(t, script);
-        var body, panel = document.getElementById('panel_' + script.id);
+        var body, panel = document.getElementById('panel_' + id);
         if (!panel) {
             //create panels for descritpion
             panel = document.createElement('div');
-            panel.id = "panel_" + script.id;
+            panel.id = "panel_" + id;
             panel.style.display = "none";
             script.shortcut = script.shortcut || '-';
             var tpl = (script.url) ? tplPanelIframe : tplPanelTitle;
@@ -76,7 +75,7 @@ function renderScripts(){
             panel.insertBefore(header, body);
         }
         renderShortcuts(panel, script);
-    }
+    },this, true);
     list.innerHTML = html;
     addClass(list.firstChild, 'first');
     addClass(list.lastChild, 'last');
@@ -175,16 +174,16 @@ function renderSkins(){
     var last;
     var list = document.getElementById('skinlist');
     list.innerHTML = '';
-    for (var i = 0, len = GRP.skins.length; i < len; i++) {
-        var o = GRP.skins[i];
+	iterate(GRP.skins, function(id, o){
+    //for (var i = 0, len = GRP.skins.length; i < len; i++) {
+    //    var o = GRP.skins[i];
         var li = document.createElement('li');
         var a = document.createElement('a');
-        li.id = 'skin_' + o.id;
+        li.id = 'skin_' + id;
         a.innerHTML = o.name;
         a.href = '#';
         li.appendChild(a);
         list.appendChild(li);
-        var id = o.id;
         li.onclick = function(){
             var c = this;
             if (last) {
@@ -209,7 +208,7 @@ function renderSkins(){
             }
             last = c;
         };
-    }
+    });
     addClass(list.firstChild, 'first');
     addClass(list.lastChild, 'last');
 }
@@ -241,10 +240,13 @@ function recurseList(root, list, first){
 }
 
 function disableAllScripts(){
-    for (var i = 0, len = GRP.scripts.length; i < len; i++) {
+    /*for (var i = 0, len = GRP.scripts.length; i < len; i++) {
         var script = GRP.scripts[i];
         prefs[script.id] = false;
-    }
+    }*/
+	iterate(GRP.scripts, function(id, script){
+		prefs[id] = false;
+	});
 }
 
 function setpackage(id){
