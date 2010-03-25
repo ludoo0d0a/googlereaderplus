@@ -1,7 +1,7 @@
 {
   "name": "Reader Plus Toolbar button",
   "_name": "__MSG_extension_name__",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Add a button with icon for Google Reader Plus in Chrome Toolbar",
   "_description": "__MSG_extension_description__",
   "icons": { 
