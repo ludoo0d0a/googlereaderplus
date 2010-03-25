@@ -6,12 +6,13 @@
  * ru : Russian
  * **************************
  *
- * Version : 0.9
- * Date : 03-22-2010
- * @author Ruslan Pokatskii
+ * Version : 1.0
+ * Date : 03-25-2010
+ * @author Ruslan Pokatskii (http://rusik.land.ru)
  */
-namespace('GRP.langs.ru');
-GRP.langs.ru.texts = 
+var locale = 'ru';
+namespace('GRP.langs.'+locale);
+GRP.langs[locale].texts = 
 {
     'version': "Версия",
     closeentry: 
@@ -42,7 +43,7 @@ GRP.langs.ru.texts =
         toolong: "сообщениие слишком длинное!",
         notetoolong: "<b>Сообщать, сколько осталось:</b> (Опционально, осталось {0} знаков)",
         notemax: "<b>Сообщать, сколько доступно:</b> (Опционально, не более 140 знаков)",
-        text_title: 'Заоловок',
+        text_title: 'Заголовок',
         text_tag: 'Тег',
         text_url: 'URL',
 		text_send:'Отпраить',
@@ -97,9 +98,9 @@ GRP.langs.ru.texts =
     },
     jump: 
     {
+        textbottom: 'Перейти к концу записи',
         texttop: 'Перейти к началу записи',
         keywordtop: 'В начало',
-        textbottom: 'Перейти к концу записи',
         keywordbottom: 'В конец'
     },
     openbackground: 
@@ -136,143 +137,137 @@ GRP.langs.ru.texts =
     }
 };
 
-GRP.langs.ru.prefs = 
+GRP.langs[locale].prefs = 
 {
-    "global": 
+    global:
     {
-        "title": "Reader Plus",
+        title:"Reader Plus",
 		"val-save":"Сохранить",
-"alreadyexist": "Item already exists!"
+		alreadyexist:"Запись уже существует!"
     },
-	"theme": 
+	theme:
     {
-        "noborder": "Убрать рамку чтобы отображалось больше записей на странице"
+        noborder:"Убрать рамку, чтобы отображалось больше записей на странице"
     },
-	"about":{
-		"thanks1":'<td><span class="top_right"><img src="images/48.png"></span><h1>Спасибо...</h1>'+
+	about:{
+		thanks1:'<td><span class="top_right"><img src="images/48.png"></span><h1>Спасибо...</h1>'+
 '<p>... что установили (или обновили) последнюю версию <strong>Reader Plus</strong>!</p>'+
 '<p>Откройте <a href="preferences.html" title="Перейти к настройкам"><strong>страницу настройки</strong></a> для настройки расширения.</p>'+
 '<p><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Перейти в Гаерею расширений Google"><strong>Посетите Галерею расширений Google!</strong></a></p>'+
 '<p><a href="http://www.twitter.com/ludoo0d0a"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Следить в Twitter"/></a></p>'+
 '<p></p></td>',
-		"thanks2":'<td><p>Если Вам нравится это расширение и Вы хотите, что бы оно улучшалось, можете подкинуть деньжат.</p>'+
+		thanks2:'<td><p>Если Вам нравится это расширение и Вы хотите, что бы оно улучшалось, можете подкинуть деньжат.</p>'+
 		'<p>Тогда я смогу купить себе вагон кофе и буду программировать круглосуточно без выходных :)</p>'+
         '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img alt="Пожертвовать" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></a></td>'
 	},
-    "link": 
+    link:
     {
-        "reader": "<span>Google Reader</span>Доставка новостей",
-        "issues": "<span>Обратная связь</span>Нашли ошибку или есть предложения?",
-        "download": "<span>Расширения Google</span>Скачать/обновить",
-        "about": "<span>Информация</span>О программе",
-        "site": "<span>Website</span>Мой персональный сайт",
-        "twitter": "<span><img width=\"160\" height=\"27\" src=\"http://twitter-badges.s3.amazonaws.com/follow_me-a.png\" alt=\"Follow ludoo0d0a on Twitter\"></span>Следите за новостями и обновлениями",
-		"donate":'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=US&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Пожертвуйте" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></span>Скиньтесь мне на кофе!</a>',
-		"translate":'<span>Translation</span>Помогите с переводом</a>'
+        reader:"<span>Google Reader</span>Доставка новостей",
+        issues:"<span>Обратная связь</span>Нашли ошибку или есть предложения?",
+        download:"<span>Расширения Google</span>Скачать/обновить",
+        about:"<span>Информация</span>О программе",
+        site:"<span>Website</span>Мой персональный сайт",
+        twitter:"<span><img width=\"160\" height=\"27\" src=\"http://twitter-badges.s3.amazonaws.com/follow_me-a.png\" alt=\"Follow ludoo0d0a on Twitter\"></span>Следите за новостями и обновлениями",
+		donate:'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=US&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Пожертвуйте" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></span>Скиньтесь мне на кофе!</a>',
+		translate:'<span>Translation</span>Помогите с переводом</a>'
     },
-    "column": 
+    column:
     {
-        "count": "Количество колонок",
-        "locked": "Функция 'Колонки' всегда активирована по умолчанию",
-        "pagebreak": "Разрывать длинные сообщения, чтобы читать их постранично, как газету.",
+        count:"Количество колонок",
+        locked:"Активировать функцию 'Колонки' постоянно",
+        pagebreak:"Разрывать длинные сообщения, чтобы читать как газету.",
 		"entersite":"Введите URL сайта"
     },
-    "twitter": 
+    twitter:
     {
-        "shortener": "Shortener",
-        "shortener_bitly": "Настройка BitLy (опционально):",
-        "shortener_login": "Имя",
-        "shortener_apikey": "Ключ",
-        "shortener_pwd": "Пароль"
+        shortener:"Shortener",
+        shortener_bitly:"Настройка BitLy (опционально):",
+        shortener_login:"Имя",
+        shortener_apikey:"Ключ",
+        shortener_pwd:"Пароль"
     },
-    "instapaper": 
+    instapaper:
     {
-        "auth": "Авторизация в Instapaper (опционально):",
-		"username": "Имя пользователя:",
-		"password": "Пароль:"
+        auth:"Авторизация в Instapaper (опционально):",
+		username:"Имя пользователя:",
+		password:"Пароль:"
     },
-    "colorful": 
+    colorful:
     {
-        "tree": "Так же выделять цветом подписки в дереве навигации"
+        tree:"Так же выделять цветом подписки в дереве навигации"
     },
-        "icon": 
+    general:
     {
-        "counter": "Показывать количество непрочитанных на кнопке панели",
-        "opendirect": "Открывать GoogleReader нажатием кнопки",
-        "icontoolbar_add": "Чтобы добавить кнопку в панель Google Chrome нужно <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">скачать и установить её</a>.",
-         "icontoolbar_text": "<span>Мы сделали кнопку отдельным самостоятельным расширением, чтобы можно было устанавливать её отдельно от Reader Plus.</span><br><span>Чтобы добавить кнопку на панель, нажмите <b>Install</b> на странице <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">Reader Plus Toolbar Button</a></span><br><span>Чтобы спрятать кнопку, нажмите на неё правой кнопкой мыши и выберите 'Отключить'</span>"
+        counter:"Показывать количество непрочитанных сообщений в заголовке вкладки",
+        opendirect:"Открыть GoogleReader по нажатию на кнопку",
+		secure:"Всгда использовать защищённое соединение (https)",
+        icontoolbar_add:"Чтобы добавить кнопку на панель Google Chrome, нужно <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">скачать и установить её</a>.",
+        icontoolbar_text:"<span>Мы сделали кнопку опциональной, отдельным расширением,</span><br><span>которое устанавливается независимо от Reader Plus.</span><br><span>Чтобы добавить кнопку, нажмите <b>Install</b> на странице <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">Reader Plus Toolbar button</a>.</span><br><span>Чтобы скрыть кнопку из панели, нажмите на ней правой кнопкой мыши и выберите Отключить.</span>",
+		importexport_text:"Вы можете сохранить ваши настроки, используя 'экспорт' загрузить их позже, используя 'импорт':",
+		confirmimport:"Вы уверены, что хотите импортировать эти настройки?\nТекущие настройки будут утеряны!!!"
     },
-    "general": 
+    removeads:
     {
-        "counter": "Показывать количество непрочитанных сообщений в заголовке вкладки",
-        "opendirect": "Открыть GoogleReader по нажатию на иконку",
-		"secure": "Всгда использовать защищённое соединение (https)",
-        "icontoolbar_add": "Чтобы добавить кнопку на панель Google Chrome, нужно <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">скачать и установить её</a>.",
-        "icontoolbar_text": "<span>Мы сделали кнопку опциональной, отдельным расширением,</span><br><span>которое устанавливается независимо от Reader Plus.</span><br><span>Чтобы добавить кнопку, нажмите <b>Install</b> на странице <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">Reader Plus Toolbar button</a>.</span><br><span>Чтобы скрыть кнопку из панели, нажмите на ней правой кнопкой мыши и выберите Отключить.</span>",
-		"importexport_text": "Вы можете сохранить ваши настроки, используя 'экспорт' загрузить их позже, используя 'импорт':",
-		"confirmimport": "Вы уверены, что хотите импортировать эти настройки?\nТекущие настройки будут утеряны!!!"
+        links:"Фильтр ссылок:",
+        images:"Фильтр картинок:",
+        iframes:"Фильтр Iframe:"
     },
-    "removeads": 
+    preview:
     {
-        "links": "Фильтр ссылок:",
-        "images": "Фильтр картинок:",
-        "iframes": "Фильтр Iframe:"
+        onicon:"Показывать оригинальную страницу по нажатию на иконку справа от заголовка (если не отмечено, показывать по нажатию на заголовок)",
+        locked:"Включить 'Просмотр оригинала' постоянно, кроме лент:"
     },
-    "preview": 
+    fitheight:
     {
-        "onicon": "Показывать оригинальную страницу по нажатию на иконку справа от заголовка (если не отмечено, показывать по нажатию на заголовок)",
-        "locked": "Включить 'Просмотр оригинала' всегда по умолчанию"
+        locked:"Включить 'Растягивание в длинну' постоянно"
     },
-    "fitheight": 
+    favicons:
     {
-        "locked": "Включить 'Растягивание в длинну' всегда по умолчанию"
-    },
-    "favicons": 
-    {
-        "providerpageicons": 'Использовать поставщика <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> (Рекомендуется для успешной загрузки всех иконок)',
-		"sidebaronly": "Показывать иконки только в панели навигации",
-        "custom": "Добавьте свои собственные иконки:",
-        "add": "Добавить",
-        "tip": "Подсказка: Вы легко можете добавить иконки, используя контекстное меню \"Получить иконку\" в панели навигации",
-        "manual": "Настройка иконок вручную для всех сайтов (не рекомендуется, замедляет работу)",
-        "parsing": "Будет пытаться найти иконки, анализируя каждую страницу",
+        providerpageicons:'Использовать поставщика <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> (Рекомендуется для успешной загрузки всех иконок)',
+		sidebaronly:"Показывать иконки только в панели навигации",
+        custom:"Добавьте свои собственные иконки:",
+        add:"Добавить",
+        tip:"Подсказка: Можно легко добавлять иконки, используя контекстное меню \"Получить иконку\" в панели навигации",
+        manual:"Настройка иконок вручную для всех сайтов (не рекомендуется, замедляет работу)",
+        parsing:"Будет пытаться найти иконки, анализируя каждую страницу",
 		"entersite":"Введите URL сайта",
-"prompticon":"Enter the icon url (let empty to get it automatically):"
+		"prompticon":"Введите URL иконки (оставьте пустым для автоматического добавления):"
     },
-    "replacer": 
+    replacer:
     {
-        "link": "Ссылка:",
-        "from": "Найти:",
-        "to": "Заменить на:"
+        title:"Название",
+        link:"Ссылка",
+        from:"Найти",
+        to:"Заменить на"
     },
-	"lightbox": 
+	lightbox:
     {
-        "locked": "Активировать 'Lightbox' всегда по умолчанию, кроме как для:"
+        locked:"Активировать 'Lightbox' постоянно, кроме как для:"
     },
-	"relook": 
+	relook:
     {
-        "css": "Таблица стилей CSS",
-        "resize": "Быстрая адаптация к полноэкранному режиму"
+        css:"Таблица стилей CSS",
+        resize:"Быстрая адаптация к полноэкранному режиму"
     },
-    "pack": 
+    pack:
     {
-        "mini": "<span>Набор Минимальный</span>Минимальный набор для улучшения вида",
-        "ludoo": "<span>Набор LudoO</span>Лучшие возможности одним нажатием",
-        "full": "<span>Набор Полный</span>Активировать все возможности",
-        "reset": "<span>Сброс</span>Сбросить все настройки по умолчанию",
-		"confirmdel": "Будут сброшены все Ваши настройки. Вы уверены???"
+        mini:"<span>Набор Минимальный</span>Минимальный набор для улучшения вида",
+        ludoo:"<span>Набор LudoO</span>Лучшие возможности одним нажатием",
+        full:"<span>Набор Максимальный</span>Активировать все возможности",
+        reset:"<span>Сброс</span>Сбросить все настройки по умолчанию",
+		confirmdel:"Будут сброшены все Ваши настройки. Вы уверены???"
     },
-    "extshortcuts": 
+    extshortcuts:
     {
-        "custom": "Пользовательские сочетания клавиш",
-        "official": "Официальные сочетания клавиш Google Reader",
-		"alreadyusedprefs": "Уже используется в Ваших настройках!",
-		"alreadyusedgoogle": "Уже используется Google!"
+        custom:"Пользовательские сочетания клавиш",
+        official:"Официальные сочетания клавиш Google Reader",
+		alreadyusedprefs:"Уже используется в Ваших настройках!",
+		alreadyusedgoogle:"Уже используется Google!"
     },
-    "thanks": 
+    thanks:
     {
-        "donators": "Благодарю спонсоров за поддержку этого проекта",
-		"translators" : "Благодарю смелых переводчиков за их замечательную работу",
-        "authors": "Благодарю авторов оригинальных скриптов и оболочек (Greasemonkey и Stylish)"
+        donators:"Благодарю спонсоров за поддержку этого проекта",
+		translators:"Благодарю смелых переводчиков за их замечательную работу",
+        authors:"Благодарю авторов оригинальных скриптов и оболочек (Greasemonkey и Stylish)"
     }
 };

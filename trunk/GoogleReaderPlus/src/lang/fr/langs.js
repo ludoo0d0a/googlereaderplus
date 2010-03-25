@@ -6,12 +6,13 @@
  * fr : Francais
  * **************************
  *
- * Version : 0.9
- * Date : 03-22-2010
+ * Version : 1.0
+ * Date : 03-25-2010
  * @author Valente
  */
-namespace('GRP.langs.fr');
-GRP.langs.fr.texts = 
+var locale = 'fr';
+namespace('GRP.langs.'+locale);
+GRP.langs[locale].texts = 
 {
     'version': "version",
     closeentry: 
@@ -135,137 +136,137 @@ GRP.langs.fr.texts =
     }
 };
 
-GRP.langs.fr.prefs = 
+GRP.langs[locale].prefs = 
 {
-    "global": 
+    global:
     {
-        "title": "Reader Plus",
+        title:"Reader Plus",
 		"val-save":"Sauver",
-		"alreadyexist": "Cet élément existe déjà!"
+		alreadyexist:"Cet élément existe déjà!"
     },
-	"theme": 
+	theme:
     {
-        "noborder": "Retirer les bords des articles pour en afficher un maximum sur une page"
+        noborder:"Retirer les bords des articles pour en afficher un maximum sur une page"
     },
 	"about":{
-		"thanks1":'<td><span class="top_right"><img src="images/48.png"></span><h1>Merci...</h1>'+
+		thanks1:'<td><span class="top_right"><img src="images/48.png"></span><h1>Merci...</h1>'+
 '<p>... d\'avoir installé (ou mis à jour) la dernière version de <strong>Reader Plus</strong>!</p>'+
 '<p>Vérifiez bien que vous avez configuré votre extension dans la <a href="preferences.html" title="Aller à la page des préférences"><strong>page des préférences</strong></a>.</p>'+
 '<p><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong>Visitez la galerie des Extensions Google Chrome!</strong></a></p>'+
 '<p><a href="http://www.twitter.com/ludoo0d0a"><img width=\"61\" height=\"23\" src=\"http://twitter-badges.s3.amazonaws.com/twitter-a.png\" alt=\"Suivez ludoo0d0a sur Twitter\"></a></p>'+
 '<p></p></td>',
-		"thanks2":'<td><p>Si vous appréciez cette extension ou que vous avez des idées pour de nouvelles fonctionnalités, n\'hésitez pas à m\'en parler.</p>'+
+		thanks2:'<td><p>Si vous appréciez cette extension ou que vous avez des idées pour de nouvelles fonctionnalités, n\'hésitez pas à m\'en parler.</p>'+
 		'<p>Vous pouvez également me faire un don, de sorte que je puisse m\'acheter une cargaison de café pour tenir le coup pour écrire le code :)</p>'+
         '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=FR&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/fr_FR/i/btn/btn_donate_SM.gif" width="108" height="21"></span></a></td>'
 	},
-    "link": 
+    link:
     {
-        "reader": "<span>Google Reader</span>Mon lecteur RSS",
-        "issues": "<span>Support</span>Un bug ou une idée ?",
-        "download": "<span>Télécharger</span>La galerie Google",
-        "about": "<span>A propos</span>A propos, remerciements,...",
-        "site": "<span>Site web</span>Mon site web",
-        "twitter": "<span><img width=\"61\" height=\"23\" src=\"http://twitter-badges.s3.amazonaws.com/twitter-a.png\" alt=\"Suivez ludoo0d0a sur Twitter\"></span>Suivez les mises à jours",
-		"donate":'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=FR&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/fr_FR/i/btn/btn_donate_SM.gif" width="108" height="21"></span>Offrez moi un café!</a>',
-		"translate":'<span>Traduction</span>Aidez moi à traduire</a>'
+        reader:"<span>Google Reader</span>Mon lecteur RSS",
+        issues:"<span>Support</span>Un bug ou une idée ?",
+        download:"<span>Télécharger</span>La galerie Google",
+        about:"<span>A propos</span>A propos, remerciements,...",
+        site:"<span>Site web</span>Mon site web",
+        twitter:"<span><img width=\"61\" height=\"23\" src=\"http://twitter-badges.s3.amazonaws.com/twitter-a.png\" alt=\"Suivez ludoo0d0a sur Twitter\"></span>Suivez les mises à jours",
+		donate:'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=FR&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/fr_FR/i/btn/btn_donate_SM.gif" width="108" height="21"></span>Offrez moi un café!</a>',
+		translate:'<span>Traduction</span>Aidez moi à traduire</a>'
     },
-    "column": 
+    column:
     {
-        "count": "Nombre de colonnes",
-        "locked": "Option 'Colonne' toujours activée",
-        "pagebreak": "Ajouter des sauts de page dans les articles longs pour les lire page par page comme un journal.",
+        count:"Nombre de colonnes",
+        locked:"Option 'Colonne' toujours activée",
+        pagebreak:"Ajouter des sauts de page dans les articles longs pour les lire page par page comme un journal.",
 		"entersite":"Saisissez l'adresse de votre site"
     },
-    "twitter": 
+    twitter:
     {
-        "shortener": "Urls courtes",
-        "shortener_bitly": "Configuration pour BitLy (optionnel):",
-        "shortener_login": "Utilisateur",
-        "shortener_apikey": "Clé (ApiKey)",
-        "shortener_pwd": "Mot de passe"
+        shortener:"Urls courtes",
+        shortener_bitly:"Configuration pour BitLy (optionnel):",
+        shortener_login:"Utilisateur",
+        shortener_apikey:"Clé (ApiKey)",
+        shortener_pwd:"Mot de passe"
     },
-    "instapaper": 
+    instapaper:
     {
-        "auth": "Authentification de Instapaper (optionnel):",
-		"username": "Username:",
-		"password": "Password:"
+        auth:"Authentification de Instapaper (optionnel):",
+		username:"Username:",
+		password:"Password:"
     },
-    "colorful": 
+    colorful:
     {
-        "tree": "Afficher les titres en couleurs dans l'arbre des sites à gauche"
+        tree:"Afficher les titres en couleurs dans l'arbre des sites à gauche"
     },
-    "general": 
+    general:
     {
-        "counter": "Afficher le compteur dans la barre d'outil",
-        "opendirect": "Cliquer sur l'icône pour ouvrir GoogleReader",
-		"secure": "Forcer l'utilisiation du protocole sécurisé (https)",
-        "icontoolbar_add": "Pour ajouter un bouton avec icône dans la barre d'outil, veuillez <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">télécharger et installer le bouton</a>.",
-        "icontoolbar_text": "<span>Afin de le rendre optionnel, nous fournissons le bouton sous forme d'une extension indépendante,</span><br><span>à installé en plus de ReaderPlus.</span><br><span>Pour ajouter le bouton, cliquer <b>Installer</b> sur la page <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">bouton pour ReaderPlus</a>.</span><br><span>Pour retirer le bouton, un clic droit et choisissez 'Désactiver'.</span>",
-		"importexport_text": "You can now save your preferences using 'export' and reload it later using 'import':",
-		"confirmimport": "Etes-vous sur de vouloir importer cette configuration?\nLa configuration actuelle sera perdue"
+        counter:"Afficher le compteur dans la barre d'outil",
+        opendirect:"Cliquer sur l'icône pour ouvrir GoogleReader",
+		secure:"Forcer l'utilisiation du protocole sécurisé (https)",
+        icontoolbar_add:"Pour ajouter un bouton avec icône dans la barre d'outil, veuillez <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">télécharger et installer le bouton</a>.",
+        icontoolbar_text:"<span>Afin de le rendre optionnel, nous fournissons le bouton sous forme d'une extension indépendante,</span><br><span>à installé en plus de ReaderPlus.</span><br><span>Pour ajouter le bouton, cliquer <b>Installer</b> sur la page <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">bouton pour ReaderPlus</a>.</span><br><span>Pour retirer le bouton, un clic droit et choisissez 'Désactiver'.</span>",
+		importexport_text:"You can now save your preferences using 'export' and reload it later using 'import':",
+		confirmimport:"Etes-vous sur de vouloir importer cette configuration?\nLa configuration actuelle sera perdue"
     },
-    "removeads": 
+    removeads:
     {
-        "links": "Liens:",
-        "images": "Images:",
-        "iframes": "Iframes:"
+        links:"Liens:",
+        images:"Images:",
+        iframes:"Iframes:"
     },
-    "preview": 
+    preview:
     {
-        "onicon": "Utiliser un icone apres le titre pour afficher l'apercu (si non coché, l'apercu apparait lors du clic sur le titre)",
-        "locked": "Option 'Apercu' toujours activée"
+        onicon:"Utiliser un icone apres le titre pour afficher l'apercu (si non coché, l'apercu apparait lors du clic sur le titre)",
+        locked:"Option 'Apercu' toujours activée"
     },
-    "fitheight": 
+    fitheight:
     {
-        "locked": "Option 'Adapter hauteur' toujours activée"
+        locked:"Option 'Adapter hauteur' toujours activée"
     },
-    "favicons": 
+    favicons:
     {
-        "providerpageicons": 'Utiliser le fournisseur d\'icônes <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> pour afficher correctement toutes les icônes des sites (Recommandé)',
-		"sidebaronly": "Afficher favicons in sidebar only",
-        "custom": "Saisissez vos propres favicons :",
-        "add": "Ajouter",
-        "tip": "Conseil: Vous pouvez également utiliser le menu contextuel \"Obtenir l'icône de ce site\" sur chaque site dans l'arbre de gauche",
-        "manual": "Favicons manuels pour tous les sites (non conseillé car relativement lent)",
-        "parsing": "Les icône sont obtenues en parcourant la page de chaque site.",
+        providerpageicons:'Utiliser le fournisseur d\'icônes <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> pour afficher correctement toutes les icônes des sites (Recommandé)',
+		sidebaronly:"Afficher favicons in sidebar only",
+        custom:"Saisissez vos propres favicons :",
+        add:"Ajouter",
+        tip:"Conseil: Vous pouvez également utiliser le menu contextuel \"Obtenir l'icône de ce site\" sur chaque site dans l'arbre de gauche",
+        manual:"Favicons manuels pour tous les sites (non conseillé car relativement lent)",
+        parsing:"Les icône sont obtenues en parcourant la page de chaque site.",
         "entersite":"Saisissez l'adresse de votre site",
 		"prompticon":"Saisissez l'adresse de votre icône (laissez vide pour l'obtenir automatiquement):"
     },
-    "replacer": 
+    replacer:
     {
-        "title": "Titre",
-		"link": "Sites",
-        "from": "Rechercher",
-        "to": "Remplacer par"
+        title:"Titre",
+		link:"Sites",
+        from:"Rechercher",
+        to:"Remplacer par"
    },
-	"lightbox": 
+	lightbox:
     {
-		"locked": "Option 'Adapter hauteur' toujours activée, sauf pour :"
+		locked:"Option 'Adapter hauteur' toujours activée, sauf pour :"
     },
-	"relook": 
+	relook:
     {
-        "css": "Feuille de style CSS",
-        "resize": "Utiliser l'évènement 'resize' pour adapter le plein écran"
+        css:"Feuille de style CSS",
+        resize:"Utiliser l'évènement 'resize' pour adapter le plein écran"
     },
-    "pack": 
+    pack:
     {
-        "mini": "<span>Paquetage Mini</span>Le minimum nécessaire",
-        "ludoo": "<span>Paquetage LudoO</span>Les meilleurs options en un clic",
-        "full": "<span>Paquetage Complet</span>Toutes les options activées",
-        "reset": "<span>Paquetage Reset</span>Remise à zéro de votre configuration",
-		"confirmdel": "Cette opération va EFFACER et réinitialiser vos préférences. Etes-vous sûr ?"
+        mini:"<span>Paquetage Mini</span>Le minimum nécessaire",
+        ludoo:"<span>Paquetage LudoO</span>Les meilleurs options en un clic",
+        full:"<span>Paquetage Complet</span>Toutes les options activées",
+        reset:"<span>Paquetage Reset</span>Remise à zéro de votre configuration",
+		confirmdel:"Cette opération va EFFACER et réinitialiser vos préférences. Etes-vous sûr ?"
     },
-    "extshortcuts": 
+    extshortcuts:
     {
-        "custom": "Vos propres raccourcis clavier",
-        "official": "Les raccourcis clavier officiels de Google Reader",
-		"alreadyusedprefs": "Déjà utilisé dans vos préférences!",
-		"alreadyusedgoogle": "Déjà utilisé par Google!"
+        custom:"Vos propres raccourcis clavier",
+        official:"Les raccourcis clavier officiels de Google Reader",
+		alreadyusedprefs:"Déjà utilisé dans vos préférences!",
+		alreadyusedgoogle:"Déjà utilisé par Google!"
     },
-    "thanks": 
+    thanks:
     {
-        "donators": "Merci aux généreux donateurs pour leurs contributions sur ce projet",
-		"translators" : "Merci aux courageux traducteurs pour leur superbe travail",
-        "authors": "Merci aux auteurs des scripts et skins originaux (Greasemonkey et Stylish)"
+        donators:"Merci aux généreux donateurs pour leurs contributions sur ce projet",
+		translators:"Merci aux courageux traducteurs pour leur superbe travail",
+        authors:"Merci aux auteurs des scripts et skins originaux (Greasemonkey et Stylish)"
     }
 };
