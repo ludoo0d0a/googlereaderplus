@@ -4,13 +4,25 @@
  * based on the Google Player http://www.google.com/reader/play/
  * 
  * Author: 	Ludovic Valente
- * Version:	0.1
- * Date:	03/24/2010
+ * Version:	0.2
+ * Date:	03/25/2010
  */
 
 GRP.player = function(){
-    var css = 'body{background: black;}';
-    css += 'div#current-entry{height:100%;position:absolute!important;width:100%;top:0px;z-index:10;visibility:visible!important;}';
+    var taskcce,lastEntry,lastThumb;
+	var playerOn = true,itl = 0,entries = get_id('entries');
+	
+	//Expanded mode ONLY
+	var mode = getMode();
+    if (mode!=='expanded') {
+		simulateClick(get_id('view-cards'));
+	}
+	
+	var css = 'body{background: black;}';
+
+	var h = getHeightEntries(true);
+    //css += 'div#current-entry{display:inline;height:100%;position:absolute!important;width:100%;top:0px;z-index:10;visibility:visible!important;}';
+	css += 'div.current{display:inline;height:'+h+'px;position:fixed!important;width:99%;top:0px;z-index:10;visibility:visible!important;}';
     
     //adapt main when nav is on
     css += 'body:not(.lhn-hidden) table#chrome-viewer-container{width:auto !important;}';
@@ -23,8 +35,7 @@ GRP.player = function(){
     css += 'div.card-common,div#viewer-container{color:white;background-color: black;}';
     css += '.card{border-color:transparent!important; border-width:0px !important;-webkit-box-shadow:0px 0px black!important;box-shadow:10px 10px 20px black!important;}';
     css += 'a.entry-title-link{color:white !important;text-decoration: none;}';
-    css += 'a,a:visited,.link{color: #AAA !important};';
-    css += '#current-entry{display:inline;}';
+    css += 'a,a:visited,.link{color: #AAA !important;}';
     css += '#chrome-header,#lhn-add-subscription-section{display:none;}';
     css += '#search,#gbh,#logo-container{display:none !important;}';
     css += 'div#main{top:0px;}';
@@ -34,8 +45,9 @@ GRP.player = function(){
     css += '.scroll-tree li a:hover, a:hover .tree-item-action-container, .scroll-tree li a.menu-open, #lhn-selectors .selector:hover{background-color:#DDD !important;}';
     
 	//arrows
-    css += '#entries-up{left:0px;}#entries-down{right:0px;}';
-    css += '#entries-up,#entries-down{z-index:9999;color: #AAA;cursor: pointer;font-size: 200%;font-weight: bold;height: 64px;line-height: 58px;margin-top: -32px;position: fixed;text-align: center;top: 50%;width: 32px;}';
+	css += '#entries-up,#entries-down{display:none;}';
+    //css += '#entries-up{left:0px;}#entries-down{right:0px;}';
+    //css += '#entries-up,#entries-down{z-index:9999;color: #AAA;cursor: pointer;font-size: 200%;font-weight: bold;height: 64px;line-height: 58px;margin-top: -32px;position: fixed;text-align: center;top: 50%;width: 32px;}';
 	
     //Can scroll long articles
     //css += '.entry-body{overflow:auto;}';
@@ -71,14 +83,14 @@ GRP.player = function(){
     
     GM_addStyle(css, 'rps_player');
     
-    var csst = '#navdebug{cursor:pointer;position:fixed;right:200px;bottom:10px;color:#aaa;z-index:99;font-size:23px!important;}';
+    var csst = '#navdebug{cursor:pointer;position:fixed;right:10px;bottom:10px;color:#aaa;z-index:99;font-size:23px!important;}';
     GM_addStyle(csst, 'rps_playert');
     
     
     //nav hidden on load
     addClass(document.body, 'lhn-hidden');
     
-    var body, gup = document.getElementById('entries-up'), gdown = document.getElementById('entries-down');
+/*    var body, gup = document.getElementById('entries-up'), gdown = document.getElementById('entries-down');
     if (gup) {
         body = getFirstElementByClassName(gup, 'goog-button-body');
         body.innerText = '◀';
@@ -87,7 +99,8 @@ GRP.player = function(){
         body = getFirstElementByClassName(gdown, 'goog-button-body');
         body.innerText = '▶';
     }
-    
+  */
+   
     function createArrow(root, left){
         var el = document.createElement('div');
         el.id = (left) ? 'tl-arrow-left' : 'tl-arrow-right';
@@ -101,14 +114,12 @@ GRP.player = function(){
     
     var vf = document.getElementById('viewer-footer');
     
-	/*
-    //Debug toggle
+    //Toggle skin
     var navdebug = document.createElement('div');
     navdebug.id = 'navdebug';
-    
     var eltoggle = document.createElement('a');
-    eltoggle.innerText = 'Toggle';
-    var playerOn = true;
+    eltoggle.innerText = '#';
+	eltoggle.title = 'Toggle skin';
     eltoggle.addEventListener('click', function(e){
         var el = get_id('rps_player');
         if (el) {
@@ -119,16 +130,7 @@ GRP.player = function(){
         playerOn = !el;
     });
     navdebug.appendChild(eltoggle);
-    
-    var elscroll = document.createElement('a');
-    elscroll.innerText = 'Scroll';
-    elscroll.addEventListener('click', function(e){
-        var entries = get_id('entries');
-        entries.scrollTop = entries.scrollHeight - 1;
-    });
-    navdebug.appendChild(elscroll);
     vf.appendChild(navdebug);
-    */
 	
     createArrow(vf, true);
     
@@ -137,55 +139,67 @@ GRP.player = function(){
     var timelineItems = document.createElement('div');
     timelineItems.id = 'tl-items';
     timeline.appendChild(timelineItems);
+	timeline.addEventListener('mousewheel', function(e){
+		timeline.scrollLeft-=event.wheelDelta/2;
+		if (((timeline.scrollLeft + timeline.clientWidth) / timeline.scrollWidth) > 0.5) {
+			scrollNext();
+		}
+	});
+	
     vf.appendChild(timeline);
     
     createArrow(vf, false);
     
-    var lastEntry;
     function checkCurrentEntry(){
         if (!playerOn) {
             return;
         }
-        var current = getCurrentEntry();
+		var current = getCurrentEntry();
         if (!current) {
             current = getFirstElementByClassName(document, 'entry');
-            if (current) {
-                current.id = 'current-entry';
-            }
         }
         if (current) {
             if (!lastEntry || lastEntry !== current) {
-                selectThumb(current);
+                selectEntry(current, true);
+				/*if (lastEntry){
+					removeClass(lastEntry, 'current');
+				}
+				addClass(current, 'current');
+				console.log('Detect change current from '+((lastEntry)?lastEntry.className:'undef')+' to '+current.className);
+				selectThumb(current);
                 adaptSize(current);
-                lastEntry = current;
+                lastEntry = current;*/
             }
-            /*	
-             //timeline not checked
-             var sel = getFirstElementByClassName(document, 'tl-item-sel');
-             if (!sel) {
-             selectThumb(current);
-             }
-             */
         }
     }
     
     function scrollNext(){
-        var entries = get_id('entries');
-        entries.scrollTop = entries.scrollHeight - 1;
+		entries.scrollTop = entries.scrollHeight;
+		window.setTimeout(function(){
+			entries.scrollTop = 0;
+		}, 300);
     }
     
     function selectEntry(entry, selThumb){
-        if (entry) {
-            var current = getCurrentEntry();
+        //if (entry && entry.id !== 'current-entry'){
+		if (entry){
+			if (lastEntry){
+				removeClass(lastEntry, 'current');
+			}
+			console.log('selectEntry:'+entry.className)
+			/*var current = getCurrentEntry();
             if (current) {
                 current.removeAttribute('id');
-            }
-            entry.id = 'current-entry';
+            }*/
+			addClass(entry, 'current');
+            //entry.id = 'current-entry';
             if (selThumb) {
-                selectThumb(entry);
+                console.log('selectEntry+selThumb');
+				selectThumb(entry);
             }
             simulateClick(entry);//mark as read
             adaptSize(entry);
+			lastEntry = entry;
         }
     }
 	
@@ -196,22 +210,34 @@ GRP.player = function(){
 			}
 			return index;
 	}
+	function getThumbIndex(entry){
+		var index=false, m = /tl-item-(\d+)/.exec(entry.id || '');
+            if (m && m[1]) {
+				index = parseInt(m[1], 10);
+			}
+			return index;
+	}	
 	
 	function getThumb(index){
 		return get_id('tl-item-' + index);
 	}
     
     function selectThumb(entry, elThumb){
+		console.log('selectThumb');
 		if (lastThumb) {
             removeClass(lastThumb, 'tl-item-sel');
         }
         if (elThumb) {
             selectEntry(entry);
+			var i = getThumbIndex(elThumb);
+			scrollThumb(i);
         } else {
             //get thumb from entry id
             var index = getEntryIndex(entry);
+			console.log('index from entry:'+index)
             if (index) {
                 elThumb=getThumb(index);
+				console.log('elThumb from index:'+elThumb.className);
                 //center on screen
                 scrollThumb(index);
             }
@@ -240,30 +266,29 @@ GRP.player = function(){
     
     function scrollThumb(index){
         var vf = get_id('viewer-footer');
-        scroll(timeline, (index * 100) - (vf.clientWidth / 2 - 40));
+        //scroll(timeline, (index * 80) - (vf.clientWidth / 2));
+		
+		var el = get_id('tl-item-'+index);
+		var value = (el)?el.offsetLeft:(index * 80);
+		scroll(timeline, value - (vf.clientWidth / 2) + 40 );
     }
-    
     function scroll(el, value, inc, time){
-        el.scrollLeft = value;
-        /*return;
-        console.log('scroll from ' + el.scrollLeft + ' to ' + value);
-        var v0 = el.scrollLeft;
-        var v = v0 + inc || 5;
-        el.scrollLeft = v;
-        console.log('new value = ' + el.scrollLeft);
-        //out if no move
-        if (v0 !== el.scrollLeft) {
-            if (v < value) {
-                window.setTimeout(function(){
-                    scroll(el, value, inc, time);
-                }, time || 50);
-            } else {
-                console.log('scroll finished');
-            }
+		//value=Math.min(Math.max(0,value),el.scrollWidth);
+		//el.scrollLeft = value;
+		var dir = (el.scrollLeft < value);
+		scr(el, value, dir, inc || 2, time || 40);
+	}
+    function scr(el, value, dir, inc, time){
+        //console.log('scroll from ' + el.scrollLeft + ' to ' + value);
+        el.scrollLeft += ((dir)?1:-1)*inc ;
+        //console.log('new value = '+ el.scrollLeft);
+        if ((dir && el.scrollLeft < value) || (!dir && el.scrollLeft > value)) {
+            window.setTimeout(function(){
+                scr(el, value, inc, time);
+            }, time);
         } else {
-            console.log('scroll no move');
+            el.scrollLeft = value;
         }
-        */
     }
     
     function forceSelectEntry(){
@@ -276,16 +301,22 @@ GRP.player = function(){
     
     var heightEntries = getHeightEntries();
     
-    //forceSelectEntry();
-    
-    window.setInterval(function(){
-        checkCurrentEntry();
-    }, 200);
+	function start(){
+	 	console.log('start monitor checkCurrentEntry');
+		taskcce = window.setInterval(function(){
+       	   checkCurrentEntry();
+    	}, 500);
+	}
+	//start();
+	function stop(){
+		console.log('stop monitor checkCurrentEntry');
+		window.clearInterval(taskcce);
+	}
+	
     window.setInterval(function(){
         fillTimeline();
     }, 2000);
-    var lastThumb;
-    var itl = 0;
+
     
     function resetTop(entry){
 		entry.parentNode.scrollTop = 0;//entries top=0
@@ -329,10 +360,13 @@ GRP.player = function(){
             var link = getEntryLink(entry);
             var title = link.title || '';
             var eb = getFirstElementByClassName(entry, 'entry-body');
-            var img = '', images = eb.getElementsByTagName('img');
-            if (images && images[0]) {
-                img = findImage(images, 80, 30);
-            }
+            var img = '', images;
+			if (eb) {
+				images = eb.getElementsByTagName('img');
+				if (images && images[0]) {
+					img = findImage(images, 80, 30);
+				}
+			}
             if (!img) {
                 img = '/reader/ui/1327928375-explore-default-thumbnail.png';
             }
