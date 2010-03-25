@@ -23,7 +23,7 @@ function initprefs(){
         specialTranslate(lang);
         renderSkins();
         renderPrefs();
-		var current = window.location.hash.substring(1) || 'theme';
+		var current = window.location.hash.substring(1) || 'general';
 		showPanel(current);
 		reportNavigator();
     });
