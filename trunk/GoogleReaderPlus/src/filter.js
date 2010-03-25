@@ -42,9 +42,12 @@ GRP.filter = function(prefs, langs){
     var _hideExcluds, _hideDuplicates, _preferHighlights;
     
     function init(){
-        _excludes = JSON.parse(decodeURI("" + trim(GM_getValue("excludes", JSON.stringify(_excludes)))));
-        _highlights = JSON.parse(decodeURI("" + trim(GM_getValue("highlights", JSON.stringify(_highlights)))));
+        //_excludes = JSON.parse(decodeURI("" + trim(GM_getValue("excludes", JSON.stringify(_excludes)))));
+        //_highlights = JSON.parse(decodeURI("" + trim(GM_getValue("highlights", JSON.stringify(_highlights)))));
         
+		_excludes = JSON.parse(GM_getValue("excludes", "[]"));
+		_highlights = JSON.parse(GM_getValue("highlights", "[]"));
+		
         _hideExcluds = +GM_getValue("hideExcluds", 0);
         _hideDuplicates = +GM_getValue("hideDuplicates", 0);
         _preferHighlights = +GM_getValue("preferHighlights", 0);
@@ -302,8 +305,10 @@ GRP.filter = function(prefs, langs){
     }
     
     function saveCollections(update){
-        GM_setValue("excludes", encodeURI(JSON.stringify(_excludes)));
-        GM_setValue("highlights", encodeURI(JSON.stringify(_highlights)));
+        //GM_setValue("excludes", encodeURI(JSON.stringify(_excludes)));
+        //GM_setValue("highlights", encodeURI(JSON.stringify(_highlights)));
+		GM_setValue("excludes", JSON.stringify(_excludes));
+		GM_setValue("highlights", JSON.stringify(_highlights));
         setRegExps();
         updateFilterEntries();
     }
