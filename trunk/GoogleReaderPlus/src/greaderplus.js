@@ -37,15 +37,14 @@
         runExtra: function(){
             var langs = GRP.langs[this.lang].texts;
             var count = 0;
-            if (window.GRP.scripts) {
-                var total = window.GRP.scripts.length;
-                for (var i = 0; i < total; i++) {
-                    var script = window.GRP.scripts[i];
-                    if (script && this.prefs[script.id]) {
+            if (GRP.scripts) {
+				var total = GRP.scripts.length;
+				iterate(GRP.scripts, function(id, script){
+                    if (script && this.prefs[id]) {
                         ++count;
-                        this.run(script.id, langs);
+                        this.run(id, langs);
                     }
-                }
+                },this, true);
                 console.log("ReaderPlus is running with " + count + "/" + total + " features");
                 //Start entries monitoring 
                 monitorEntries();
