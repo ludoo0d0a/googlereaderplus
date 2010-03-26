@@ -32,11 +32,11 @@ GRP.colorful = function(prefs, langs){
     // controls and applies colors
     var theme = 
     {
-        colors: {}, // used to store the calculated colors
-        prefs: "", // pref settings
-        bgColor: null, // theme settings
+        colors: {}, 
+        prefs: "", 
+        bgColor: null, 
         textColor: null,
-        styles: null, // dom node colorizing css will be injected into
+        styles: null, 
         init: function(chrome){
             //this.styles = GM_addStyle("", 'colorful');
             this.prefs = settings.getColorPrefs();
@@ -49,8 +49,8 @@ GRP.colorful = function(prefs, langs){
             chrome.addEventListener("DOMNodeInserted", set, false);
         },
         
-        setup: function(){ // initial setup and toggling of settings
-            this.initConfig(); // put this in here so theme scripts run first
+        setup: function(){ 
+            this.initConfig(); 
             var entries = get_id("entries");
 			
             if (entries) {
