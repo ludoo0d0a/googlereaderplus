@@ -87,7 +87,7 @@ GRP.count = function(prefs, langs) {
 		//friends unread
 		var elfriend = document.getElementById('friends-tree-item-0-unread-count');
 		if (elfriend) {
-			var friendcount = parseInt(elfriend.innerText.replace(/\S()/g, ''), 10);
+			var friendcount = parseInt(elfriend.innerText.replace(/[\s\(\)]*/g, ''), 10);
 			total += friendcount;
 		}
 		
