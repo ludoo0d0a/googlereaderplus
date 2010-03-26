@@ -567,10 +567,6 @@ GRP.skins =
     {
         name: "Air Skin Comic Sans"
     },
-    calibri: 
-    {
-        name: "Calibri Skin"
-    },
     black: 
     {
         name: "Google Enhanced Black"
@@ -599,10 +595,6 @@ GRP.skins =
     {
         name: "Portal Theme"
     },
-    player: 
-    {
-        name: "Player Theme"
-    },
     osxblue: 
     {
         name: "Mac OS X Snow Leopard - Blue"
@@ -610,6 +602,15 @@ GRP.skins =
     osxblack: 
     {
         name: "Mac OS X Snow Leopard - Black"
+    },
+    calibri: 
+    {
+        name: "Calibri Skin",
+		url:''
+    },
+    player: 
+    {
+        name: "Player Theme"
     }
 };
 GRP.googleshortcuts = 
