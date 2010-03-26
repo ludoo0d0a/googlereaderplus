@@ -30,15 +30,15 @@ GRP.darkgray = function() {
 	css += '.trends, {color: #999999 !important;}';
 	css += '.subscribe-button, .goog-button-body {color: #000000 !important;}';
 	//gray
-	css += '#chrome-lhn-toggle, #chrome-header, #chrome-footer, #viewer-header, #viewer-footer, #chrome-view-links, .goog-menu, .scroll-tree li .tree-link-selected  {background-color: #555555 !important;}';
+	css += '#chrome-lhn-toggle, #chrome-footer, #viewer-header, #viewer-footer, #chrome-view-links, .goog-menu, .scroll-tree li .tree-link-selected  {background-color: #555555 !important;}';
+	css += '#chrome-header{background-color: #999999 !important;}';
 	css += '.scroll-tree li a:hover, .goog-menuitem:hover, .scroll-tree li .tree-link-selected:hover , #lhn-selectors .selected, #lhn-selectors .selected:hover, #lhn-selectors .selector:hover, a:hover .tree-item-action-container, .scroll-tree li a.menu-open {background-color: #888888 !important;}';
 	css += '#viewer-page-container {background-color: #333333 !important;}';
 	css += '#chrome-lhn-toggle-icon {border-color:#888888 #333333 #888888 #888888 !important;}';
-			
 	css += '.friend-interruption {background-color:#888888 !important; border-color:#333333 !important;}';
-	
 	css += '#viewer-container, #entries .entry, .entry-likers, .lhn-section, .scroll-tree li, .card-common, .card-common .card-actions {background-color: transparent !important;}';
 	css+='.lhn-section {background: no-repeat scroll 0 0 transparent !important;}';
+	css+='#entries.list .collapsed .entry-main .entry-source-title,#entries.list .collapsed .entry-secondary{color:#333333 !important;}';
 	
 	GM_addStyle(css, 'rps_darkgray');
 	//fireResize();
