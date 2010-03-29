@@ -60,6 +60,18 @@ function getFirstElementByClassName(root, clazz){
     return root.getElementsByClassName(clazz)[0];
 }
 
+function copyAttributes(src, dest){
+	var ats, attr;
+	if (src && dest && src.attributes && src.attributes.length>0){
+		for (var i=0,  len=src.attributes.length; i<len; i++){
+			ats = src.attributes[i];
+			attr = document.createAttribute(ats.nodeName);
+  			attr.value = ats.nodeValue;
+  			dest.attributes.setNamedItem(attr);
+		}
+	}
+}
+
 /**
  *
  * @param {Object} root
