@@ -345,10 +345,15 @@ function getHeightEntries(alone){
 function getBody(entry){
     var body = getFirstElementByClassName(entry, 'item-body');//div
     // why a sub body sometimes ??
-    var subbody = getFirstElementByClassName(body, 'item-body');//div
-    if (subbody) {
-        body = subbody;
-    }
+	if (body) {
+		var subbody = getFirstElementByClassName(body, 'item-body');//div
+		if (subbody) {
+			body = subbody;
+		}
+	}else{
+		//get Snippet in list view
+		body = getFirstElementByClassName(entry, 'snippet');
+	}
     return body;
 }
 
