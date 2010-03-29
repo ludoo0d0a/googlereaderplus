@@ -192,6 +192,9 @@ GRP.langs[locale].prefs = {
     fitheight: {
         locked: "Feature 'Fit height' always actived by default, except for :"
     },
+	filter: {
+        searchbody: "Search inside title and body text"
+    },
     favicons: {
         providerpageicons: 'Use <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> provider (Recommended to load succesfully all icons)',
         sidebaronly: "Show favicons in sidebar only",
