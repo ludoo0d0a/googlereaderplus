@@ -327,12 +327,15 @@ GRP.filter = function(prefs, langs){
         }
         
         // reset the dups list when entries inserted again
-        if (entry.parentNode.id === "entries") {
+        /*if (entry.parentNode.id === "entries") {
             var l = entry.parentNode.childNodes.length;
             if (l <= 2) {
                 _alreadyPrinted = {};
             }
-        }
+        }*/
+		if (!entry.previousElementSibling) {
+			_alreadyPrinted = {};
+		}
         
         if (force) {
             //clean before update
@@ -343,11 +346,16 @@ GRP.filter = function(prefs, langs){
         }
         var link = getEntryLink(entry);
         var title = link.title;
-        //var url = link.url;
-        
         //console.log('>>>>'+active+'--'+title);
         
         var minifiedTitle = minifyTitle(title);
+		if (prefs.filter_searchbody) {
+			var body = getBody(entry);
+			if (body) {
+				minifiedTitle += ' ' + body.innerText;
+			}
+		}
+		
         var escapedTitle = encodeURI(minifiedTitle);
         
         var configure = document.createElement("span");

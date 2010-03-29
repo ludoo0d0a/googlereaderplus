@@ -168,7 +168,11 @@ GRP.scripts =
     },
     filter: 
     {
-        name: "Filter entries"
+        name: "Filter entries",
+        options: 
+        {
+            searchbody: false
+        }
     },
     readbymouse: 
     {
