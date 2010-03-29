@@ -92,30 +92,42 @@ GRP.column = function(prefs, langs){
         var cwh = getColumWidth();
         
         if (paras && length > 0) {
-            var top, h, tag, line, offset;
+            var cp, top, h, tag, line, offset;
             for (var i = 0; i < length; i++) {
                 tag = paras[i].nodeName;
                 line = '';
+				cp=true;
                 if (tag === "P") {
                     line = paras[i].innerHTML + '<br/>';
                 } else if (tag === "#text") {
                     line = paras[i].textContent;//nodeValue
+                    cp=false;
                 } else if (tag === "IFRAME") {
                     //ignore iframe
                 } else if (tag === "OBJECT" || tag === "EMBED" || tag === "VIDEO") {
-                    line = paras[i].innerHTML;
+                    line = paras[i].outerHTML;
+					
                 } else if (tag === "DIV") {
                     line = paras[i].innerHTML;
-                } else {
+                } else if (/^[ABIU]$/.test(tag)) {
+                    line = paras[i].outerHTML;
+					cp=false;
+                }else {
                     line = paras[i].outerHTML;
                 }
                 
-                //line = line.replace(/<br\/?>/, '');
-                line = line.trim();
+                //line = line.trim();
                 if (line !== '') {
-                    var para = document.createElement('p');
-                    para.innerHTML = line;
-                    div.appendChild(para);
+					if (cp){
+						var para = document.createElement('p');
+						para.innerHTML = line;
+						div.appendChild(para);
+					}else{
+						if (div.lastChild) {
+							div.lastChild.innerHTML += line;
+						}
+					}
+					
                     
                     //fix it up if width > page.width
                     if (prefs.column_pagebreak && div.scrollWidth > ecw) {
@@ -126,7 +138,8 @@ GRP.column = function(prefs, langs){
                     }
                 }
             }
-            
+			//ensure videos size();
+			fitAll(true);
         }
         
         divwrap.visibility = "visible";
@@ -182,10 +195,10 @@ GRP.column = function(prefs, langs){
     var cwh = getColumWidth();
     
     var lastcwh = -1;
-    function fitall(){
+    function fitall(force){
         //Images
         var cwh = getColumWidth();
-        if (lastcwh !== cwh) {
+        if (force || lastcwh !== cwh) {
             var css = '.column-wrapped img{max-width:' + cwh + 'px !important;height: auto !important;}';
             GM_addStyle(css, 'column_css_imgfit');
             
@@ -196,7 +209,7 @@ GRP.column = function(prefs, langs){
     }
     
     function fitVideos(width){
-        var objects = entries.querySelectorAll(".column-wrapped OBJECT,.column-wrapped EMBED");
+        var objects = entries.querySelectorAll(".column-wrapped OBJECT,.column-wrapped EMBED,.column-wrapped VIDEO");
         for (var i = 0, len = objects.length; i < len; i++) {
             var o = objects[i];
             if (!o.w) {
