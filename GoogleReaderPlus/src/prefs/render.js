@@ -5,9 +5,9 @@ function loadSkin(){
     if (!li) {
         li = document.getElementById('skin_none');
     }
-    //no theme is no theme
+    //select theme
     if (li) {
-        li.onclick();
+        li.onclick(false, true);
     }
 }
 
@@ -184,7 +184,7 @@ function renderSkins(){
         a.href = '#';
         li.appendChild(a);
         list.appendChild(li);
-        li.onclick = function(){
+        li.onclick = function(e, simulate){
             var c = this;
             if (last) {
                 last.className = "";
@@ -201,10 +201,12 @@ function renderSkins(){
                 thumb.className = "";
                 thumb.src = "skin/img/" + id + ".png";
                 //check theme feature
-                var checktheme = document.getElementById("theme");
-                if (checktheme) {
-                    checktheme.checked = true;
-                }
+				if (!simulate) {
+					var checktheme = document.getElementById("theme");
+					if (checktheme) {
+						checktheme.checked = true;
+					}
+				}
             }
             last = c;
         };
