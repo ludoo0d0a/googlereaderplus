@@ -837,3 +837,21 @@ function waitImages(images, cb, scope){
 function isShown(el){
 	return (el && el.style && el.style.display!=='none' && el.visibility!=='hidden'); 
 }
+
+//http://forums.mozillazine.org/viewtopic.php?f=19&t=1806595
+//http://forums.mozillazine.org/viewtopic.php?f=19&t=1594275
+//https://developer.mozilla.org/En/Code_snippets:HTML_to_DOM
+function loadXml(html, id){
+	var el = document.createElement('div');
+	el.style.display='none';
+	el.innerHTML = (html.split(/<body[^>]*>((?:.|\n)*)<\/body>/i)[1]) || html;
+	return el;
+}
+//Only works with XML well-formed
+function getDocumentXml(html, id){
+	var h = html.replace(/^(.*\n)*.*<html/i, "<html");
+	h = h.replace(/<\/html>(.*\n)*.*$/i, "</html>");
+	var parser = new DOMParser();
+	var dom = parser.parseFromString(t, "text/xml");
+	return dom;
+}
