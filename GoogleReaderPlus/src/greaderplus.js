@@ -54,9 +54,10 @@
         },
         run: function(o, langs){
             if (o && o !== "false") {
-                if (o == 'theme') {
+				if (o == 'theme') {
                     //skin
-                    this.runTheme(langs);
+                    console.log("**** run " + o);
+					GRP.theme(this.prefs, langs, this);
                 } else {
                     if (window.GRP[o]) {
                         console.log("**** run " + o);
@@ -71,21 +72,6 @@
                         console.log("ERROR: can't run " + o);
                     }
                 }
-            }
-        },
-        runTheme: function(o, langs){
-            this.run(this.prefs.theme_skin, langs);
-            if (this.prefs.theme_noborder) {
-                var css = '.card-common,.entry-main{margin:0 !important;}';
-                css += '.entry,.card-content,.entry-actions,.entry-container{padding:0 !important;}';
-                css += '.entry-title{margin-left:20px !important;font-size:120% !important;}';
-                css += '.entry .entry-body{max-width:100% !important;}';
-                css += '.entry-author{display:none;}';
-                css += '.entry,.entry .card, #no-entries-msg{border-width:0 !important;}';
-                css += '.collapsed{background-color:transparent !important;}';
-				css += '.entry:nth-child(odd) .card-common, .entry:nth-child(odd) .card-actions {background-color:#EFEFEF;}';
-				css += '.entry:nth-child(even) .card-actions {background-color:transparent;}';
-                GM_addStyle(css, 'rps_compress');
             }
         }
         /*,fixlang: function(){
