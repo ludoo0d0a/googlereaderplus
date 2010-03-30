@@ -6,8 +6,8 @@
  * fr : Francais
  * **************************
  *
- * Version : 1.0
- * Date : 03-25-2010
+ * Version : 1.1
+ * Date : 03-30-2010
  * @author Valente
  */
 var locale = 'fr';
@@ -234,7 +234,8 @@ GRP.langs[locale].prefs =
     },
     replacer:
     {
-        title:"Titre",
+        intro: 'Vous pouvez utiliser le bookmarklet <a href="http://karmatics.com/aardvark/bookmarklet.html" target="blank">Aardvark</a> pour identifier un xpath au lieu d\'une expression régulière (Prefixer alors par "xpath:")',
+		title:"Titre",
 		link:"Sites",
         from:"Rechercher",
         to:"Remplacer par"
