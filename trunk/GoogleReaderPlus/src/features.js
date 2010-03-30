@@ -383,7 +383,10 @@ GRP.scripts =
         name: "Replacer",
         options: 
         {
-            items: 
+            intro:{
+				xtype: 'p',
+			},
+			items: 
             {
                 xtype: 'crud',
                 value: 
@@ -406,7 +409,7 @@ GRP.scripts =
                     {
                         title: 'Explosm pictures',
                         url: "http://www.explosm.net/",
-                        search: "\"(http://www.explosm.net/db/files/Comics/[^\"]*)\"",
+                        search: "\"(http://www.explosm.net/db/files/[^\"]*)\"",
                         replace: "<img src='$1'><br>"
                     },
                     'Explosm videos': 
@@ -415,6 +418,13 @@ GRP.scripts =
                         url: "http://www.explosm.net/",
                         search: "(<embed[^>]+>)",
                         replace: "$1"
+                    },
+					'Explosm forums': 
+                    {
+                        title: 'Explosm forums',
+                        url: "http://forums.explosm.net/",
+                        search: "xpath://div[@id='posts']",
+                        replace: ""
                     },
                     'Penny-arcade pictures': 
                     {
@@ -434,8 +444,8 @@ GRP.scripts =
                     {
                         title: 'Chauffeurdebuzz items',
                         url: "http://www.chauffeurdebuzz.com/",
-                        search: "<table.*?<table.*?<td[^>]*>(.*?)</td>",
-                        replace: "<img src='$1'><br>"
+                        search: "<table.*?<table.*?<table.*?<table.*?<table.*?<td[^>]*>(.*?)</td>",
+                        replace: "$1"
                     }
                 }
             }

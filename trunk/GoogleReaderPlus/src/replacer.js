@@ -12,21 +12,46 @@ GRP.replacer = function(prefs, langs){
     function initVars(){
 		gp_data={};
 		iterate(prefs.replacer_items, function(title,o){
-			  o.re_url=new RegExp(o.url, "i");
-			  o.re_search=new RegExp(o.search, "i");
+			  o.re_url=new RegExp(o.url, "im");
+			  if (/^xpath\:/.test(o.search)){
+			  	o.xpath=o.search.replace(/^xpath\:/, '');
+				//Ensure relative path
+				if (!(/^\./.test(o.xpath))){
+					if (/^\//.test(o.xpath)) {
+						o.xpath='.'+o.xpath;
+					}else{
+						o.xpath='./'+o.xpath;
+					}
+				}
+			  }else{
+			  	o.re_search=new RegExp(o.search, "im");
+			  }
 			  gp_data[title]=o;
 		});
     }
     
-    function replaceItem(html, matches, partIndex){
-        var result = '';
-       
+    function replaceItem(html, xml, matches, partIndex){
+       var result = '';
 	   iterate(matches, function(title, o){
-            var item = gp_data[title];
-			var m = item.re_search.exec(html);
-            if (m && m[0]) {
-                result += m[0].replace(item.re_search, item.replace);
-            }
+            if (o.xpath) {
+				if (!xml) {
+					xml=loadXml(html);
+				}
+				var els = getElements(o.xpath, xml);
+				foreach(els, function(el){
+					result += el.innerHTML;
+            	});
+				//clean xml
+				document.removeChild(xml);
+			} else {
+				var item = gp_data[title];
+				if (item.re_search) {
+					var m = item.re_search.exec(html);
+					if (m && m[0]) {
+						result += m[0].replace(item.re_search, item.replace);
+					}
+				}
+			}
         });
 		
         var el = document.getElementById(TPL_NAME + partIndex);
@@ -57,7 +82,7 @@ GRP.replacer = function(prefs, langs){
     }
     
     function replacePart(matches, entry, link){
-        if (!matches || matches.length===0){
+        if (isObjectEmpty(matches)){
 			return false;
 		}
 		
@@ -79,7 +104,8 @@ GRP.replacer = function(prefs, langs){
             matches: JSON.stringify(matches),
             onload: function(res, req){
                 var matches = JSON.parse(req.matches);
-                replaceItem(res.responseText, matches, req.partIndex);
+                var text = res.responseText.replace(/[\r\n]+/g, '');
+				replaceItem(text,res.responseXml, matches, req.partIndex);
             }
         });
     }
