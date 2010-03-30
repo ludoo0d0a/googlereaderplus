@@ -22,8 +22,8 @@
 		"general.js","fixlayout.js", "unreadcount.js", "mark.js", "removeads.js", "favicons.js", "column.js","jump.js",
 		"preview.js", "openbackground.js", "filter.js", "count.js", "counticon.js", "readbymouse.js", 
 		"facebook.js", "twitter.js", "instapaper.js", "closeentry.js", "fitheight.js", "replacer.js","relook.js",
-		"skin/aero.js", "skin/air.js", "skin/aircomic.js", "skin/black.js","skin/darkgray.js", "skin/dark.js", "skin/helvetireader.js", 
-		"skin/minimal.js", "skin/optimized.js", "skin/portal.js", "skin/osxblue.js","skin/osxblack.js","skin/player.js","skin/calibri.js",
+		"theme.js","skin/aero.js", "skin/air.js", "skin/aircomic.js", "skin/black.js","skin/darkgray.js", "skin/dark.js", "skin/helvetireader.js", 
+		"skin/minimal.js", "skin/optimized.js", "skin/portal.js", "skin/osxblue.js","skin/osxblack.js","skin/player.js","skin/calibri.js","skin/glassblackgold.js",
 		"colorful.js",
 		"greaderplus.js"]
     }
