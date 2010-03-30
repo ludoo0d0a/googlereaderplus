@@ -39,6 +39,22 @@ GRP.scripts =
             noborder: false
         }
     },
+	relook: 
+    {
+        name: "Relook",
+        desc: "Relook yourself GoogleReader using custom stylesheets",
+        options: 
+        {
+            resize: false,
+            css: 
+            {
+                xtype: 'textarea',
+                cls: 'code',
+                rows: 25,
+                value: '/* This CSS sample alternates green entry, red border */\n/* green entry */\n.entry:nth-child(even) .card-common, \n.entry:nth-child(even) .card-actions, \n#entries .entry:nth-child(even) .collapsed {\n border:1px solid #FFACAC;\n}\n/* red border */\n.entry:nth-child(odd) .card-common, \n.entry:nth-child(odd) .card-actions, \n#entries .entry:nth-child(odd) .collapsed {\n background-color:#C4DFC0;\n}\n'
+            }
+        }
+    },
     favicons: 
     {
         name: "Favicons",
@@ -384,7 +400,7 @@ GRP.scripts =
         options: 
         {
             intro:{
-				xtype: 'p',
+				xtype: 'p'
 			},
 			items: 
             {
@@ -501,22 +517,6 @@ GRP.scripts =
      }
      }
      }}, */
-    relook: 
-    {
-        name: "Relook",
-        desc: "Relook yourself GoogleReader using custom stylesheets",
-        options: 
-        {
-            resize: false,
-            css: 
-            {
-                xtype: 'textarea',
-                cls: 'code',
-                rows: 25,
-                value: '/* This CSS sample alternates green entry, red border */\n/* green entry */\n.entry:nth-child(even) .card-common, \n.entry:nth-child(even) .card-actions, \n#entries .entry:nth-child(even) .collapsed {\n border:1px solid #FFACAC;\n}\n/* red border */\n.entry:nth-child(odd) .card-common, \n.entry:nth-child(odd) .card-actions, \n#entries .entry:nth-child(odd) .collapsed {\n background-color:#C4DFC0;\n}\n'
-            }
-        }
-    },
     aero: 
     {
         name: "Google Aero Toolbar"
@@ -619,8 +619,69 @@ GRP.skins =
     },
     calibri: 
     {
-        name: "Calibri Skin",
-		url:''
+        name: "Calibri Skin"
+    },
+	glassblackgold: 
+    {
+        name: "Glass Black Gold Skin",
+		/*
+		url: 'http://userstyles.org/styles/userjs/26569/Google%20Reader%20-%20Glass%20BlackGold%20.user.js',
+		*/
+		pic:'http://userstyles.org/style_screenshots/26569_after.png',
+		ref:'http://userstyles.org/styles/26569'
+    },
+	simpleclean: 
+    {
+        name: "Simple and Clean Remote Skin",
+		url:'http://userstyles.org/styles/userjs/17120/Google%20Reader%20simple%20and%20clean.user.js',
+		pic:'http://userstyles.org/style_screenshots/17120_after.gif',
+		ref:'http://userstyles.org/styles/17120'
+    },
+	peacockfeather: 
+    {
+        name: "Peacock Feather Remote Skin",
+		url:'http://userstyles.org/styles/userjs/3014/Google%20Reader%20-%20peacock%20feather.user.js',
+		pic:'http://userstyles.org/style_screenshots/3014_after.gif',
+		ref:'http://userstyles.org/styles/3014',
+		resize:true
+    },
+	myowngooglereader: 
+    {
+        name: "My Own Google Reader Remote Skin",
+		url:'http://userstyles.org/styles/userjs/13384/My%20Own%20Google%20Reader.user.js',
+		pic:'http://userstyles.org/style_screenshots/13384_after.png',
+		ref:'http://userstyles.org/styles/13384',
+		resize:true
+    },
+	compactcleantweaked: 
+    {
+        name: "Compact, Clean & Tweaked Remote Skin",
+		url:'http://userstyles.org/styles/userjs/16117/Google%20Reader%20-%20Compact%2C%20Clean%20%26%20Tweaked.user.js',
+		pic:'http://userstyles.org/style_screenshots/16117_after.png',
+		ref:'http://userstyles.org/styles/16117'
+    },
+	/*
+	'31d1remix': 
+    {
+        name: "31d1 remix Remote Skin",
+		url:'http://userstyles.org/styles/userjs/3519/Google%20Reader%20-%2031d1%20remix%20.user.js',
+		pic:'http://userstyles.org/style_screenshots/3519_after.png',
+		ref:'http://userstyles.org/styles/3519'
+    },
+    */
+	absolutelycompact:
+	{
+        name: "Absolutely Compact Remote Skin",
+		url:'http://userstyles.org/styles/userjs/12691/Google%20Reader%20Absolutely%20Compact.user.js',
+		pic:'http://userstyles.org/style_screenshots/12691_after.png',
+		ref:'http://userstyles.org/styles/12691'
+    },
+	darkshinyblue:
+	{
+        name: "Dark Shiny Blue Remote Skin",
+		url:'http://userstyles.org/styles/userjs/8935/iGoogle%2FGoogle%20Dark%20Shiny%20Blue%2C%20transparency.user.js',
+		pic:'http://userstyles.org/style_screenshots/8935_after.jpeg',
+		ref:'http://userstyles.org/styles/8935'
     },
     player: 
     {
