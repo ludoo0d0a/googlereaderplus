@@ -175,6 +175,8 @@ li a.link {
 
 .mnu.navskin {
     margin-left: 100px;
+	height: 300px;
+	overflow: auto;
 }
 
 .mnu.navskin li a {
@@ -183,7 +185,7 @@ li a.link {
 
 .mnu li.on {
     border-color: #dddddd;
-    background-color: #333333;
+    background-color: #444;
 }
 
 .mnu li a:hover {

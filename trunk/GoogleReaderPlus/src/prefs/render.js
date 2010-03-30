@@ -199,7 +199,19 @@ function renderSkins(){
             } else {
                 input.value = id;
                 thumb.className = "";
-                thumb.src = "skin/img/" + id + ".png";
+                thumb.src = o.pic || "skin/img/" + id + ".png";
+				var athumb = document.getElementById("athumb");
+				if (o.ref){
+					athumb.href = o.ref;
+					athumb.target='blank';
+				}else{
+					athumb.href = '#';
+					athumb.target='';
+					athumb.removeAttribute('target');
+				}
+				
+				athumb.title = o.name;
+				
                 //check theme feature
 				if (!simulate) {
 					var checktheme = document.getElementById("theme");
