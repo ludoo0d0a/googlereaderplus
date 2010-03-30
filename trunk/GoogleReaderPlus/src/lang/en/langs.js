@@ -6,8 +6,8 @@
  * en : English
  * **************************
  *
- * Version : 1.0
- * Date : 03-25-2010
+ * Version : 1.1
+ * Date : 03-30-2010
  * @author Valente
  */
 var locale = 'en';
@@ -207,9 +207,9 @@ GRP.langs[locale].prefs = {
         "prompticon": "Enter the icon url (let empty to get it automatically):"
     },
     replacer: {
-        title: "Title",
+        intro: 'You can use <a href="http://karmatics.com/aardvark/bookmarklet.html" target="blank">Aardvark bookmarklet</a> to identify correct xpath instead regex (Use prefix "xpath:")',
         link: "Link Regex",
-        from: "Search regex",
+        from: "Search regex/xpath",
         to: "Replace"
     },
     lightbox: {
