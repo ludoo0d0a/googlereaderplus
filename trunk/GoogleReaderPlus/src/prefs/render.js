@@ -1,10 +1,11 @@
-
 function loadSkin(){
     var input = document.getElementById("theme_skin");
     var li = document.getElementById('skin_' + input.value);
-    if (!li) {
+    
+if (!li) {
         li = document.getElementById('skin_none');
     }
+    
     //select theme
     if (li) {
         li.onclick(false, true);
@@ -13,23 +14,27 @@ function loadSkin(){
 
 var lastPanel, lastLink;
 function showPanel(id){
-    if (typeof window['run_' + id] == "function") {
+    
+if (typeof window['run_' + id] == "function") {
         window['run_' + id].call(this, id);
     }
     var link = document.getElementById('l_' + id);
-    if (lastLink) {
+    
+if (lastLink) {
         lastLink.className = "";
     }
-    if (link) {
+    
+if (link) {
         link.className = "on";
         lastLink = link;
     }
-    
     var panel = document.getElementById('panel_' + id);
-    if (lastPanel) {
+    
+if (lastPanel) {
         lastPanel.style.display = "none";
     }
-    if (panel) {
+    
+if (panel) {
         panel.style.display = "inline";
         lastPanel = panel;
         window.location.hash = '#' + id;
@@ -46,11 +51,12 @@ function renderScripts(){
     var tplPanelTitle = '<div class="title"><h2>{name}</h2><div id="paneldesc_{id}" class="desc">{desc}</div></div>';
     var tplPanelIframe = '<div class="title"><h2>{name}</h2><iframe src="{url}" width="700" height="620"></iframe></div>';
     iterate(GRP.scripts, function(id, script){
-		script.dlink = '>';
+        script.dlink = '>';
         var t = (script.link) ? tplLink : tplCheckbox;
         html += fillTpl(t, script);
         var body, panel = document.getElementById('panel_' + id);
-        if (!panel) {
+        
+if (!panel) {
             //create panels for descritpion
             panel = document.createElement('div');
             panel.id = "panel_" + id;
@@ -62,42 +68,41 @@ function renderScripts(){
             body = document.createElement('div');
             body.className = "body";
             panel.appendChild(body);
-            
             panels.appendChild(panel);
             script.dlink = '&gt;';
-            
-            renderOptions(body, script);
         } else {
             var header = document.createElement('div');
             header.className = 'header';
             header.innerHTML = fillTpl(tplPanelTitle, script);
-            body = getFirstNode(panel);
-            panel.insertBefore(header, body);
+            insertFirst(header, panel);
+            body = getFirstElementByClassName(panel, 'body');
         }
+        renderOptions(body, script);
         renderShortcuts(panel, script);
-    },this, true);
+    }, this, true);
     list.innerHTML = html;
     addClass(list.firstChild, 'first');
     addClass(list.lastChild, 'last');
     extraFeatures();
 }
 
-var tplInput = '<label class="lbl" id="t_{id}" for="{id}">{text}</label><input id="{id}" name="{id}" type="text" value="{value}" {extra}"/><br/>';
-var tplTextarea = '<label class="lbl" id="t_{id}" for="{id}">{text}</label><textarea style="" class="{cls}" id="{id}" name="{id}" cols="{cols}" rows="{rows}" {extra}">{value}</textarea><br/>';
+var tplInput = '<label class="lbl" id="t_{id}" for="{id}">{text}</label><input id="{id}" class="{cls}" name="{id}" type="text" value="{value}"{extra}"/><br/>';
+var tplTextarea = '<label class="lbl" id="t_{id}" for="{id}">{text}</label><textarea style="" class="{cls}" id="{id}" name="{id}" cols="{cols}" rows="{rows}"{extra}">{value}</textarea><br/>';
 var tplCheckbox = '<input id="{id}" name="{id}" type="checkbox"/><label class="lbl_checkbox" id="t_{id}" for="{id}">{text}</label><br/>';
 var tplSelect = '<label class="lbl" id="t_{id}">{text}</label><select name="{id}" id="{id}">{options}</select><br/><br/>';
 var tplSelectOption = '<option value="{id}"{checked}>{value}</option>';
 var tplPara = '<p class="{cls}" id="t_{id}">{text}</p>';
 var tplDiv = '<div class="{cls}" id="{id}"></div>';
-
 function renderOptions(body, script){
-    if (!script.options) {
+    
+if (!script.options) {
+        
         return;
     }
-    
     var cfg, xtype, value, html = '';
     iterate(script.options, function(option, cfg){
-        if (typeof cfg === "object") {
+        
+if (typeof cfg === "object") {
             cfg.value = cfg.value || '';
             value = cfg.value;
             xtype = cfg.xtype || (typeof value);
@@ -105,30 +110,32 @@ function renderOptions(body, script){
             value = cfg;
             xtype = typeof value;
         }
-        
-        var o = 
-        {
+        var o = {
             text: '-', /*getText(lang, script.id, option),*/
             id: script.id + '_' + option,
             value: value,
-            extra: ''
+            extra: '',
+            cls: cfg.cls || ''
         };
-        if (!document.getElementById(o.id)) {
-            if (xtype === "boolean") {
+        
+if (!document.getElementById(o.id)) {
+            
+if (xtype === "boolean") {
                 html += fillTpl(tplCheckbox, o);
             } else if (xtype === "string") {
+                if (cfg.size) {
+                    o.extra = ' size="' + cfg.size + '"';
+                }
                 html += fillTpl(tplInput, o);
             } else if (xtype === "number") {
-                o.size = o.size || 3;
+                o.size = cfg.size || 3;
                 o.extra = ' size="' + o.size + '"';
                 html += fillTpl(tplInput, o);
             } else if (xtype === "textarea") {
                 o.rows = cfg.rows || 5;
                 o.cols = cfg.cols || 70;
-                o.cls = cfg.cls || '';
                 html += fillTpl(tplTextarea, o);
             } else if (xtype === "p") {
-                o.cls = cfg.cls || '';
                 html += fillTpl(tplPara, o);
             } else if (xtype === "html") {
                 html += value;
@@ -136,8 +143,7 @@ function renderOptions(body, script){
                 o.options = '';
                 iterate(cfg.values, function(id, vo){
                     text = ''; //getText(lang, script.id, option+'_'+id);
-                    o.options += fillTpl(tplSelectOption, 
-                    {
+                    o.options += fillTpl(tplSelectOption, {
                         id: id,
                         value: vo.value || vo,
                         checked: (vo.checked ? ' checked="checked"' : '')
@@ -150,22 +156,39 @@ function renderOptions(body, script){
             }
         }
     });
-    body.innerHTML = html;
+    body.innerHTML += html;
 }
 
 var EDITORS = {};
 function extraFeatures(){
     textareaTab();
-    
+    renderpicker();
     //var CODEMIRROR_PATH = 'http://marijn.haverbeke.nl/codemirror';
     var CODEMIRROR_PATH = 'lib/codemirror';
-    if (CodeMirror && get_id('relook_css')) {
-        EDITORS.relook_css = CodeMirror.fromTextArea('relook_css', 
-        {
+    
+if (CodeMirror && get_id('relook_css')) {
+        EDITORS.relook_css = CodeMirror.fromTextArea('relook_css', {
             parserfile: "parsecss.js",
             stylesheet: [CODEMIRROR_PATH + "/css/csscolors.css", "css/editor.css"],
             path: CODEMIRROR_PATH + "/js/",
-            tabMode: 'shift'
+            tabMode: 'shift',
+            height: '500px'
+        });
+    }
+}
+
+function renderpicker(){
+    if (typeof jQuery !== "undefined") {
+        jQuery('.picker').ColorPicker({
+            onSubmit: function(hsb, hex, rgb, el){
+                $(el).val('#'+hex);
+                $(el).ColorPickerHide();
+            },
+            onBeforeShow: function(){
+                $(this).ColorPickerSetColor(this.value.replace('#',''));
+            }
+        }).bind('keyup', function(){
+            $(this).ColorPickerSetColor(this.value);
         });
     }
 }
@@ -174,9 +197,9 @@ function renderSkins(){
     var last;
     var list = document.getElementById('skinlist');
     list.innerHTML = '';
-	iterate(GRP.skins, function(id, o){
-    //for (var i = 0, len = GRP.skins.length; i < len; i++) {
-    //    var o = GRP.skins[i];
+    iterate(GRP.skins, function(id, o){
+        //for (var i = 0, len = GRP.skins.length; i < len; i++) {
+        //    var o = GRP.skins[i];
         var li = document.createElement('li');
         var a = document.createElement('a');
         li.id = 'skin_' + id;
@@ -186,39 +209,42 @@ function renderSkins(){
         list.appendChild(li);
         li.onclick = function(e, simulate){
             var c = this;
-            if (last) {
+            
+if (last) {
                 last.className = "";
             }
             addClass(c, "on");
             var thumb = document.getElementById("thumb");
             var id = c.id.replace('skin_', '');
             var input = document.getElementById("theme_skin");
-            if (id === "none") {
+            
+if (id === "none") {
                 input.value = "";
                 thumb.className = "hidden";
             } else {
                 input.value = id;
                 thumb.className = "";
                 thumb.src = o.pic || "skin/img/" + id + ".png";
-				var athumb = document.getElementById("athumb");
-				if (o.ref){
-					athumb.href = o.ref;
-					athumb.target='blank';
-				}else{
-					athumb.href = '#';
-					athumb.target='';
-					athumb.removeAttribute('target');
-				}
-				
-				athumb.title = o.name;
-				
+                var athumb = document.getElementById("athumb");
+                
+if (o.ref) {
+                    athumb.href = o.ref;
+                    athumb.target = 'blank';
+                } else {
+                    athumb.href = '#';
+                    athumb.target = '';
+                    athumb.removeAttribute('target');
+                }
+                athumb.title = o.name;
+                
                 //check theme feature
-				if (!simulate) {
-					var checktheme = document.getElementById("theme");
-					if (checktheme) {
-						checktheme.checked = true;
-					}
-				}
+                if (!simulate) {
+                    var checktheme = document.getElementById("theme");
+                    
+if (checktheme) {
+                        checktheme.checked = true;
+                    }
+                }
             }
             last = c;
         };
@@ -229,20 +255,23 @@ function renderSkins(){
 
 function createReport(report){
     var list = document.getElementById('sysinfo');
-    if (list) {
-		list.innerHTML = '';
-		recurseList(list, report, true);
-	}
+    
+if (list) {
+        list.innerHTML = '';
+        recurseList(list, report, true);
+    }
 }
 
 function recurseList(root, list, first){
     var ul = document.createElement('ul');
-    if (!first) {
+    
+if (!first) {
         ul.className = "mnu rounded info";
     }
     for (var o in list) {
         var li = document.createElement('li');
-        if (typeof list[o] === "object") {
+        
+if (typeof list[o] === "object") {
             ul.innerHTML += "<span class='info-title'>" + o + "</span>";
             recurseList(ul, list[o]);
         } else {
@@ -255,24 +284,27 @@ function recurseList(root, list, first){
 
 function disableAllScripts(){
     /*for (var i = 0, len = GRP.scripts.length; i < len; i++) {
-        var script = GRP.scripts[i];
-        prefs[script.id] = false;
-    }*/
-	iterate(GRP.scripts, function(id, script){
-		prefs[id] = false;
-	});
+     var script = GRP.scripts[i];
+     prefs[script.id] = false;
+     }*/
+    iterate(GRP.scripts, function(id, script){
+        prefs[id] = false;
+    });
 }
 
 function setpackage(id){
     disableAllScripts();
-    if (id === "reset") {
+    
+if (id === "reset") {
         //Refresh page to reload all options for each script
         var sure = confirm(getTextPrefs(lang, 'pack', 'confirmdel'));
-        if (sure) {
+        
+if (sure) {
             prefs = {};
             renderPrefs();
             saveprefs(true, true);
         }
+        
         return;
     } else {
         for (var i = 0, len = GRP.packages[id].length; i < len; i++) {
