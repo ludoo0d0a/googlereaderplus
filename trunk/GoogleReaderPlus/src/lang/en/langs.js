@@ -127,8 +127,16 @@ GRP.langs[locale].prefs = {
         alreadyexist: "Item already exists!"
     },
     theme: {
-        noborder: "Remove entries borders to display more items on a single page"
+        noborder: "Remove entries borders to display more items on a single page",
+		mytheme: 'Use <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">custom background picture</a> and font color with skin "MyTheme"',
+		url:'Picture URL',
+		color:'Text color',
+		bg:'Background hover color'
     },
+	ig: {
+		theme:'iGoogle theme URL',
+		xsl:'Use XSL to get CSS'
+	},
     about: {
         thanks1: '<td><span class="top_right"><img src="images/48.png"></span><h1>Thank you...</h1>' +
         '<p>... for installing (or updating to) the latest version of <strong>Reader Plus</strong>!</p>' +

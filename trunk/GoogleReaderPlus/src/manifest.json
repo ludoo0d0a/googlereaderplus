@@ -1,7 +1,7 @@
 {
   "_name": "__MSG_extension_name__",
   "name": "Reader Plus",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "_description": "__MSG_extension_description__",
   "description": "Enhance Google Reader by adding missing favicons and a collection of others features",
   "icons": { 
@@ -21,8 +21,8 @@
 		"version.js","features.js",
 		"general.js","fixlayout.js", "unreadcount.js", "mark.js", "removeads.js", "favicons.js", "column.js","jump.js",
 		"preview.js", "openbackground.js", "filter.js", "count.js", "counticon.js", "readbymouse.js", 
-		"facebook.js", "twitter.js", "instapaper.js", "closeentry.js", "fitheight.js", "replacer.js","relook.js",
-		"theme.js","skin/aero.js", "skin/air.js", "skin/aircomic.js", "skin/black.js","skin/darkgray.js", "skin/dark.js", "skin/helvetireader.js", 
+		"facebook.js", "twitter.js", "api/readit.js","readitlater.js","instapaper.js", "closeentry.js", "fitheight.js", "replacer.js","relook.js",
+		"theme.js","skin/mytheme.js", "skin/ig.js", "skin/aero.js","skin/air.js", "skin/aircomic.js", "skin/black.js","skin/darkgray.js", "skin/dark.js", "skin/helvetireader.js", 
 		"skin/minimal.js", "skin/optimized.js", "skin/portal.js", "skin/osxblue.js","skin/osxblack.js","skin/player.js","skin/calibri.js","skin/glassblackgold.js",
 		"colorful.js",
 		"greaderplus.js"]

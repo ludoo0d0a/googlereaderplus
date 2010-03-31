@@ -1,336 +1,287 @@
 /**
  * @author Valente
  */
-GRP.scripts = 
-{
-    general: 
-    {
+GRP.scripts = {
+    general: {
         name: "General",
-        options: 
-        {
+        options: {
             secure: false,
             counter: true,
             opendirect: false,
-            icontoolbar_add: 
-            {
+            icontoolbar_add: {
                 xtype: 'p'
             },
-            icontoolbar_text: 
-            {
+            icontoolbar_text: {
                 xtype: 'p'
             },
-            importexport_text: 
-            {
+            importexport_text: {
                 xtype: 'p'
             },
-            preferences: 
-            {
+            preferences: {
                 xtype: 'html',
                 value: '<input id="ieprefs" type="text" size="30"/><input type="button" id="bimport" value="import" onclick="importprefs();"/><input type="button" id="bexport" value="export" onclick="exportprefs();"/>'
             }
         }
     },
-    theme: 
-    {
+    theme: {
         name: "Theme",
-        options: 
-        {
+        options: {
             skin: '',
-            noborder: false
+            noborder: false,
+            mytheme: {
+                xtype: 'p'
+            },
+            url: {
+                value: 'http://media.smashingmagazine.com/cdn_smash/wp-content/uploads/uploader/wallpapers/march10/march-10-ultimate-sophistication-nocal-1280x1024.jpg',
+                size: 80
+            },
+            color: {
+                value: '#565656',
+                cls: 'picker'
+            },
+            bg: {
+                value: '#FFC',
+                cls: 'picker'
+            }
         }
     },
-	relook: 
-    {
+    relook: {
         name: "Relook",
         desc: "Relook yourself GoogleReader using custom stylesheets",
-        options: 
-        {
+        options: {
             resize: false,
-            css: 
-            {
+            css: {
                 xtype: 'textarea',
                 cls: 'code',
-                rows: 25,
+                rows: 40,
                 value: '/* This CSS sample alternates green entry, red border */\n/* green entry */\n.entry:nth-child(even) .card-common, \n.entry:nth-child(even) .card-actions, \n#entries .entry:nth-child(even) .collapsed {\n border:1px solid #FFACAC;\n}\n/* red border */\n.entry:nth-child(odd) .card-common, \n.entry:nth-child(odd) .card-actions, \n#entries .entry:nth-child(odd) .collapsed {\n background-color:#C4DFC0;\n}\n'
             }
         }
     },
-    favicons: 
-    {
+    ig: {
+        name: "iGoogle Theme",
+        desc: "Use iGoogle Theme in your Google Reader",
+        options: {
+            xsl: false,
+			theme: {
+                value: '',
+                size: 80
+            },
+			themes:{xtype:'html', value:'<div id="ig_themes"></div>'}
+        }
+    },
+    favicons: {
         name: "Favicons",
-        options: 
-        {
+        options: {
             providerpageicons: false,
             sidebaronly: false,
-            custom: 
-            {
+            custom: {
                 xtype: 'p'
             },
-            domains: 
-            {
+            domains: {
                 xtype: 'crud'
             },
-            tip: 
-            {
+            tip: {
                 xtype: 'p'
             },
             manual: false,
-            parsing: 
-            {
+            parsing: {
                 xtype: 'p'
             }
         }
     },
-    unreadcount: 
-    {
+    unreadcount: {
         name: "Show all unread count"
     },
-    fixlayout: 
-    {
+    fixlayout: {
         name: "Fix layout"
     },
-    count: 
-    {
+    count: {
         name: "Fix counter (1000+)"
     },
-    counticon: 
-    {
+    counticon: {
         name: "Icon counter"
     },
-    removeads: 
-    {
+    removeads: {
         name: "Remove ads",
-        options: 
-        {
-            links: 
-            {
+        options: {
+            links: {
                 xtype: 'textarea',
                 value: "da\.feedsportal\.com|res\.feedsportal\.com|doubleclick\.net|/ads"
             },
-            images: 
-            {
+            images: {
                 xtype: 'textarea',
                 value: "feedsportal\.com|doubleclick\.net|/ads"
             },
-            iframes: 
-            {
+            iframes: {
                 xtype: 'textarea',
                 value: "feedsportal\.com|doubleclick\.net|googlesyndication\.com/pagead/ads"
             }
         }
     },
-    column: 
-    {
+    column: {
         name: "Text multi columns",
-        options: 
-        {
+        options: {
             count: 3,
             /*maxcolumns:6,*/
             pagebreak: true,
             locked: false,
-            filter: 
-            {
+            filter: {
                 xtype: 'crud'
             }
         },
-        shortcuts: 
-        {
-            'columns': 
-            {
+        shortcuts: {
+            'columns': {
                 id: 'columns',
                 title: 'Multi columns',
-                key: 
-                {
+                key: {
                     //67 c
                     keyCode: 67
                 }
             }
         }
     },
-    preview: 
-    {
+    preview: {
         name: "Integrated preview",
-        options: 
-        {
+        options: {
             onicon: false,
             locked: false,
-            filter: 
-            {
+            filter: {
                 xtype: 'crud'
             }
         },
         //shortcut: "shift+R",
-        shortcuts: 
-        {
-            'prview': 
-            {
+        shortcuts: {
+            'prview': {
                 id: 'prview',
                 title: 'Entry preview',
-                key: 
-                {
+                key: {
                     //81 q
                     keyCode: 81
                 }
             }
         }
     },
-    colorful: 
-    {
+    colorful: {
         name: "Colorful listview",
-        options: 
-        {
+        options: {
             tree: false
         }
     },
-    filter: 
-    {
+    filter: {
         name: "Filter entries",
-        options: 
-        {
+        options: {
             searchbody: false
         }
     },
-    readbymouse: 
-    {
+    readbymouse: {
         name: "Read by mouse"
     },
-    facebook: 
-    {
+    facebook: {
         name: "Facebook integration",
-        shortcuts: 
-        {
-            'gofacebook': 
-            {
+        shortcuts: {
+            'gofacebook': {
                 id: 'gofacebook',
                 title: 'Post on Facebook',
-                key: 
-                {
+                key: {
                     //70 f
                     keyCode: 70
                 }
             }
         }
     },
-    twitter: 
-    {
+    twitter: {
         name: "Twitter integration",
-        options: 
-        {
-            shortener: 
-            {
+        options: {
+            shortener: {
                 xtype: 'select',
-                values: 
-                {
+                values: {
                     tinyurl: 'TinyUrl',
                     bitly: 'BitLy'
                 }
             },
-            shortener_bitly: 
-            {
+            shortener_bitly: {
                 xtype: 'p',
                 cls: 'subtitle'
             },
-            shortener_login: 
-            {
+            shortener_login: {
                 value: '',
                 size: 20
             },
-            shortener_apikey: 
-            {
+            shortener_apikey: {
                 value: '',
                 size: 30
             }
         },
-        shortcuts: 
-        {
-            'tweet': 
-            {
+        shortcuts: {
+            'tweet': {
                 id: 'tweet',
                 title: 'Post on Twitter',
-                key: 
-                {
+                key: {
                     //87 w
                     keyCode: 87
                 }
             }
         }
     },
-    instapaper: 
-    {
+    instapaper: {
         name: "Instapaper integration",
-        options: 
-        {
-            auth: 
-            {
+        options: {
+            auth: {
                 xtype: 'p',
                 cls: 'subtitle'
             },
             username: '',
             password: ''
         },
-        shortcuts: 
-        {
-            'readitlater': 
-            {
+        shortcuts: {
+            'readitlater': {
                 id: 'readitlater',
                 title: 'Read Later with Instapaper',
-                key: 
-                {
+                key: {
                     //73 i
                     keyCode: 73
                 }
             }
         }
     },
-    mark: 
-    {
+    mark: {
         name: "Mark As Read",
-        shortcuts: 
-        {
-            'markprev': 
-            {
+        shortcuts: {
+            'markprev': {
                 id: 'markprev',
                 title: 'Mark items before As Read',
-                key: 
-                {
+                key: {
                     //87 w
                     keyCode: 87
                 }
             },
-            'marknext': 
-            {
+            'marknext': {
                 id: 'marknext',
                 title: 'Mark items after As Read',
-                key: 
-                {
+                key: {
                     //89 y
                     keyCode: 89
                 }
             }
         }
     },
-    jump: 
-    {
+    jump: {
         name: "Add top/bottom links",
-        shortcuts: 
-        {
-            'goup': 
-            {
+        shortcuts: {
+            'goup': {
                 id: 'goup',
                 title: 'Goto top',
-                key: 
-                {
+                key: {
                     //84 Shift+T
                     keyCode: 84,
                     shiftKey: true
                 }
             },
-            'godown': 
-            {
+            'godown': {
                 id: 'godown',
                 title: 'Goto bottom',
-                key: 
-                {
+                key: {
                     //66 Shift+B
                     keyCode: 66,
                     shiftKey: true
@@ -338,130 +289,110 @@ GRP.scripts =
             }
         }
     },
-    fitheight: 
-    {
+    fitheight: {
         name: "Fit height",
-        options: 
-        {
+        options: {
             locked: false
         },
-        shortcuts: 
-        {
-            'fit': 
-            {
+        shortcuts: {
+            'fit': {
                 id: 'fit',
                 title: 'Fit height',
-                key: 
-                {
+                key: {
                     //72 h
                     keyCode: 72
                 }
             }
         }
     },
-    closeentry: 
-    {
+    closeentry: {
         name: "Close entry",
-        shortcuts: 
-        {
-            'close': 
-            {
+        shortcuts: {
+            'close': {
                 id: 'close',
                 title: 'Close entry',
-                key: 
-                {
+                key: {
                     //88 x
                     keyCode: 88
                 }
             }
         }
-    
     },
-    openbackground: 
-    {
+    openbackground: {
         name: "Open in background",
-        shortcuts: 
-        {
-            'openback': 
-            {
+        shortcuts: {
+            'openback': {
                 id: 'openback',
                 title: 'Open in background tab',
-                key: 
-                {
+                key: {
                     shiftKey: true,
                     keyCode: 86
                 }
             }
         }
     },
-    replacer: 
-    {
+    replacer: {
         name: "Replacer",
-        options: 
-        {
-            intro:{
-				xtype: 'p'
-			},
-			items: 
-            {
+        options: {
+            intro: {
+                xtype: 'p'
+            },
+            items: {
                 xtype: 'crud',
-                value: 
-                {
-                    'Gocomics pictures': 
-                    {
-                        title: 'Gocomics pictures',
-                        url: "http://feedproxy.google.com/~r/uclick/| http://www.gocomics.com/",
-                        search: "\"(http://imgsrv.gocomics.com/dim/[^\"]*)\"",
-                        replace: "<img src='$1'><br>"
+                value: {
+                    "Gocomics pictures": {
+                        "title": "Gocomics pictures",
+                        "url": "http://feedproxy.google.com/~r/uclick/| http://www.gocomics.com/",
+                        "search": "\"(http://imgsrv.gocomics.com/dim/[^\"]*)\"",
+                        "replace": "<img src='$1'><br>"
                     },
-                    'Gocomics comments': 
-                    {
-                        title: 'Gocomics comments',
-                        url: "http://feedproxy.google.com/~r/uclick/| http://www.gocomics.com/| http://feeds.gocomics.com/",
-                        search: "<SPAN id='comment_count_display'>(d*)</SPAN>",
-                        replace: "Comments: $2\n<img src='$1'><br>"
+                    "Gocomics comments": {
+                        "title": "Gocomics comments",
+                        "url": "http://feedproxy.google.com/~r/uclick/| http://www.gocomics.com/| http://feeds.gocomics.com/",
+                        "search": "<SPAN id='comment_count_display'>(d*)</SPAN>",
+                        "replace": "Comments: $2\n<img src='$1'><br>"
                     },
-                    'Explosm pictures': 
-                    {
-                        title: 'Explosm pictures',
-                        url: "http://www.explosm.net/",
-                        search: "\"(http://www.explosm.net/db/files/[^\"]*)\"",
-                        replace: "<img src='$1'><br>"
+                    "Explosm pictures": {
+                        "url": "http://www.explosm.net/",
+                        "search": "\"(http://www.explosm.net/db/files/[^\"]*)\"",
+                        "replace": "<img src='$1'><br>"
                     },
-                    'Explosm videos': 
-                    {
-                        title: 'Explosm videos',
-                        url: "http://www.explosm.net/",
-                        search: "(<embed[^>]+>)",
-                        replace: "$1"
+                    "Explosm videos": {
+                        "title": "Explosm videos",
+                        "url": "http://www.explosm.net/",
+                        "search": "(<embed[^>]+>)",
+                        "replace": "$1"
                     },
-					'Explosm forums': 
-                    {
-                        title: 'Explosm forums',
-                        url: "http://forums.explosm.net/",
-                        search: "xpath://div[@id='posts']",
-                        replace: ""
+                    "Explosm forums": {
+                        "url": "http://forums.explosm.net",
+                        "search": "xpath://div[@id='posts']",
+                        "replace": "$1"
                     },
-                    'Penny-arcade pictures': 
-                    {
-                        title: 'Penny-arcade pictures',
-                        url: "http://www.penny-arcade.com/| http://feeds.penny-arcade.com",
-                        search: "\"(http://art.penny-arcade.com/photos/[^\"]*)\"",
-                        replace: "<img src='$1'><br>"
+                    "Penny-arcade pictures": {
+                        "url": "penny-arcade.com",
+                        "search": "\"(http://art.penny-arcade.com/photos/[^\"]*)\"",
+                        "replace": "<img src='$1'><br>"
                     },
-                    'cad-comic pictures': 
-                    {
-                        title: 'cad-comic pictures',
-                        url: "http://feedproxy.google.com/~r/cad-comic/",
-                        search: "<img src=\"(/comics/[^\"]*)\"",
-                        replace: "<img src='http://www.cad-comic.com$1'><br>"
+                    "Cad-comic pictures": {
+                        "title": "cad-comic pictures",
+                        "url": "http://feedproxy.google.com/~r/cad-comic/",
+                        "search": "<img src=\"(/comics/[^\"]*)\"",
+                        "replace": "<img src='http://www.cad-comic.com$1'><br>"
                     },
-                    'Chauffeurdebuzz items': 
-                    {
-                        title: 'Chauffeurdebuzz items',
-                        url: "http://www.chauffeurdebuzz.com/",
-                        search: "<table.*?<table.*?<table.*?<table.*?<table.*?<td[^>]*>(.*?)</td>",
-                        replace: "$1"
+                    "Giantitp Comics": {
+                        "url": "http://www.giantitp.com/comics/",
+                        "search": "(/comics/images/[^\"]*)",
+                        "replace": "<img src='http://www.giantitp.com$1'></br>"
+                    },
+                    "Userfriendly Comics": {
+                        "url": "userfriendly.org",
+                        "search": "src=\"(http://www.userfriendly.org/cartoons/archives/[^\"]*)",
+                        "replace": "<img src='$1'></br>"
+                    },
+                    "Chauffeurdebuzz items": {
+                        "url": "http://www.chauffeurdebuzz.com/",
+                        "search": "<table.*?<table.*?<table.*?<table.*?<table.*?<td[^>]*>(.*?)</td>",
+                        "replace": "$1"
                     }
                 }
             }
@@ -517,39 +448,30 @@ GRP.scripts =
      }
      }
      }}, */
-    aero: 
-    {
+    aero: {
         name: "Google Aero Toolbar"
     },
-    info: 
-    {
+    info: {
         name: "SysInfo",
         link: true,
-        options: 
-        {
-            sysinfo: 
-            {
+        options: {
+            sysinfo: {
                 xtype: 'html',
                 value: '<div id="sysinfo"></div>'
             }
         }
     },
-    extshortcuts: 
-    {
+    extshortcuts: {
         name: "Shortcuts",
         link: true
     },
-    pack: 
-    {
+    pack: {
         name: "Packages",
         link: true
-    
     },
-    thanks: 
-    {
+    thanks: {
         name: "Thanks",
         link: true
-    
     }
     /*,{
      about:{
@@ -558,138 +480,114 @@ GRP.scripts =
      link: true
      }*/
 };
-
-GRP.packages = 
-{
+GRP.packages = {
     'mini': ['favicons', 'unreadcount', 'fixlayout', 'count', 'counticon', 'removeads'],
     'ludoo': ['favicons', 'unreadcount', 'fixlayout', 'count', 'counticon', 'removeads', 'column', 'mark', 'jump', 'fitheight', 'closeentry', 'openbackground'],
     'full': ['theme', 'favicons', 'unreadcount', 'fixlayout', 'count', 'counticon', 'removeads', 'column', 'mark', 'jump', 'preview', 'colorful', 'filter', 'readbymouse', 'twitter', 'facebook', 'fitheight', 'closeentry', 'openbackground', 'aero']
 };
-
-GRP.skins = 
-{
-    none: 
-    {
+GRP.skins = {
+    none: {
         name: "None"
     },
-    airskin: 
-    {
+    mytheme: {
+        name: "My Theme"
+    },
+    air: {
         name: "Air Skin"
     },
-    
-    aircomic: 
-    {
+    aircomic: {
         name: "Air Skin Comic Sans"
     },
-    black: 
-    {
+    black: {
         name: "Google Enhanced Black"
     },
-    dark: 
-    {
+    dark: {
         name: "Dark Skin"
     },
-    darkgray: 
-    {
+    darkgray: {
         name: "Dark Gray Skin"
     },
-    helvetireader: 
-    {
+    helvetireader: {
         name: "Helvetireader Skin"
     },
-    minimal: 
-    {
+    minimal: {
         name: "Minimalistic Skin"
     },
-    optimized: 
-    {
+    optimized: {
         name: "Optimized Skin"
     },
-    portal: 
-    {
+    portal: {
         name: "Portal Theme"
     },
-    osxblue: 
-    {
+    osxblue: {
         name: "Mac OS X Snow Leopard - Blue"
     },
-    osxblack: 
-    {
+    osxblack: {
         name: "Mac OS X Snow Leopard - Black"
     },
-    calibri: 
-    {
+    calibri: {
         name: "Calibri Skin"
     },
-	glassblackgold: 
-    {
+    glassblackgold: {
         name: "Glass Black Gold Skin",
-		/*
-		url: 'http://userstyles.org/styles/userjs/26569/Google%20Reader%20-%20Glass%20BlackGold%20.user.js',
-		*/
-		pic:'http://userstyles.org/style_screenshots/26569_after.png',
-		ref:'http://userstyles.org/styles/26569'
+        /*
+         url: 'http://userstyles.org/styles/userjs/26569/Google%20Reader%20-%20Glass%20BlackGold%20.user.js',
+         */
+        pic: 'http://userstyles.org/style_screenshots/26569_after.png',
+        ref: 'http://userstyles.org/styles/26569'
     },
-	simpleclean: 
-    {
-        name: "Simple and Clean Remote Skin",
-		url:'http://userstyles.org/styles/userjs/17120/Google%20Reader%20simple%20and%20clean.user.js',
-		pic:'http://userstyles.org/style_screenshots/17120_after.gif',
-		ref:'http://userstyles.org/styles/17120'
+    simpleclean: {
+        name: "Simple and Clean",
+        url: 'http://userstyles.org/styles/userjs/17120/Google%20Reader%20simple%20and%20clean.user.js',
+        pic: 'http://userstyles.org/style_screenshots/17120_after.gif',
+        ref: 'http://userstyles.org/styles/17120'
     },
-	peacockfeather: 
-    {
-        name: "Peacock Feather Remote Skin",
-		url:'http://userstyles.org/styles/userjs/3014/Google%20Reader%20-%20peacock%20feather.user.js',
-		pic:'http://userstyles.org/style_screenshots/3014_after.gif',
-		ref:'http://userstyles.org/styles/3014',
-		resize:true
+    peacockfeather: {
+        name: "Peacock Feather",
+        url: 'http://userstyles.org/styles/userjs/3014/Google%20Reader%20-%20peacock%20feather.user.js',
+        pic: 'http://userstyles.org/style_screenshots/3014_after.gif',
+        ref: 'http://userstyles.org/styles/3014',
+        resize: true
     },
-	myowngooglereader: 
-    {
-        name: "My Own Google Reader Remote Skin",
-		url:'http://userstyles.org/styles/userjs/13384/My%20Own%20Google%20Reader.user.js',
-		pic:'http://userstyles.org/style_screenshots/13384_after.png',
-		ref:'http://userstyles.org/styles/13384',
-		resize:true
+    myowngooglereader: {
+        name: "My Own Google Reader",
+        url: 'http://userstyles.org/styles/userjs/13384/My%20Own%20Google%20Reader.user.js',
+        pic: 'http://userstyles.org/style_screenshots/13384_after.png',
+        ref: 'http://userstyles.org/styles/13384',
+        resize: true
     },
-	compactcleantweaked: 
-    {
-        name: "Compact, Clean & Tweaked Remote Skin",
-		url:'http://userstyles.org/styles/userjs/16117/Google%20Reader%20-%20Compact%2C%20Clean%20%26%20Tweaked.user.js',
-		pic:'http://userstyles.org/style_screenshots/16117_after.png',
-		ref:'http://userstyles.org/styles/16117'
+    compactcleantweaked: {
+        name: "Compact, Clean & Tweaked",
+        url: 'http://userstyles.org/styles/userjs/16117/Google%20Reader%20-%20Compact%2C%20Clean%20%26%20Tweaked.user.js',
+        pic: 'http://userstyles.org/style_screenshots/16117_after.png',
+        ref: 'http://userstyles.org/styles/16117'
     },
-	/*
-	'31d1remix': 
-    {
-        name: "31d1 remix Remote Skin",
-		url:'http://userstyles.org/styles/userjs/3519/Google%20Reader%20-%2031d1%20remix%20.user.js',
-		pic:'http://userstyles.org/style_screenshots/3519_after.png',
-		ref:'http://userstyles.org/styles/3519'
+    /*
+     '31d1remix':
+     {
+     name: "31d1 remix",
+     url:'http://userstyles.org/styles/userjs/3519/Google%20Reader%20-%2031d1%20remix%20.user.js',
+     pic:'http://userstyles.org/style_screenshots/3519_after.png',
+     ref:'http://userstyles.org/styles/3519'
+     },
+     */
+    absolutelycompact: {
+        name: "Absolutely Compact",
+        url: 'http://userstyles.org/styles/userjs/12691/Google%20Reader%20Absolutely%20Compact.user.js',
+        pic: 'http://userstyles.org/style_screenshots/12691_after.png',
+        ref: 'http://userstyles.org/styles/12691'
     },
-    */
-	absolutelycompact:
-	{
-        name: "Absolutely Compact Remote Skin",
-		url:'http://userstyles.org/styles/userjs/12691/Google%20Reader%20Absolutely%20Compact.user.js',
-		pic:'http://userstyles.org/style_screenshots/12691_after.png',
-		ref:'http://userstyles.org/styles/12691'
+    darkshinyblue: {
+        name: "Dark Shiny Blue",
+        url: 'http://userstyles.org/styles/userjs/8935/iGoogle%2FGoogle%20Dark%20Shiny%20Blue%2C%20transparency.user.js',
+        pic: 'http://userstyles.org/style_screenshots/8935_after.jpeg',
+        ref: 'http://userstyles.org/styles/8935'
     },
-	darkshinyblue:
-	{
-        name: "Dark Shiny Blue Remote Skin",
-		url:'http://userstyles.org/styles/userjs/8935/iGoogle%2FGoogle%20Dark%20Shiny%20Blue%2C%20transparency.user.js',
-		pic:'http://userstyles.org/style_screenshots/8935_after.jpeg',
-		ref:'http://userstyles.org/styles/8935'
-    },
-    player: 
-    {
+    player: {
         name: "Player Theme"
     }
 };
-GRP.googleshortcuts = 
-{
+GRP.googleshortcuts = {
     'j': 'item down',
     'k': 'item up',
     'space': 'page down',
@@ -721,4 +619,3 @@ GRP.googleshortcuts =
     'a': 'add a subscription',
     '?': 'help'
 };
-
