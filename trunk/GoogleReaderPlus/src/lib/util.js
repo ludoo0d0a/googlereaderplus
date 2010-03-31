@@ -855,3 +855,17 @@ function getDocumentXml(html, id){
 	var dom = parser.parseFromString(t, "text/xml");
 	return dom;
 }
+function loadXMLDoc(url){
+	var xhr=new XMLHttpRequest();
+	xhr.open("GET",url,false);
+	xhr.send("");
+	return xhr.responseXML;
+}
+function applyXsl(xml, xsl){
+	var oxml=loadXMLDoc(xml);
+	var oxsl=loadXMLDoc(xsl);
+	var xp=new XSLTProcessor();
+	xp.importStylesheet(oxsl);
+	var doc = xp.transformToFragment(oxml,document);
+	return doc;
+}
