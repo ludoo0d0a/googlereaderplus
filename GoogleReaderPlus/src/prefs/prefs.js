@@ -26,6 +26,7 @@ function initprefs(){
 		var current = window.location.hash.substring(1) || 'general';
 		showPanel(current);
 		reportNavigator();
+		renderThemes();
     });
 }
 
@@ -113,7 +114,15 @@ function renderPrefs(){
                             ctrl.value = prefs[o];
                         }
                     } else if (ctrl.nodeName === "TEXTAREA") {
-                        ctrl.value = prefs[o];
+						if (EDITORS && EDITORS[o]) {
+							var ed = EDITORS[o];
+							var p = prefs[o];
+							window.setTimeout(function(){
+								ed.setCode(p);
+							}, 500);
+						} else {
+							ctrl.value = prefs[o];
+						}
                     }
                 }
             }
