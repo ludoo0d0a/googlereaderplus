@@ -13,7 +13,7 @@ GRP.theme = function(prefs, langs, scop){
         scop.run(skin.id, langs);
     }
     function remoteSkin(skin){
-        var c = '';//GM_getValue('theme_' + skin.id);
+        var c = GM_getValue('theme_' + skin.id);
         if (c) {
             GM_addStyle(c, 'rps_' + skin.id);
         } else {
