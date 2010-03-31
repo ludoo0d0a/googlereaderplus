@@ -186,7 +186,7 @@ GRP.player = function(){
 			if (lastEntry){
 				removeClass(lastEntry, 'current');
 			}
-			console.log('selectEntry:'+entry.className)
+			//console.log('selectEntry:'+entry.className)
 			/*var current = getCurrentEntry();
             if (current) {
                 current.removeAttribute('id');
@@ -194,7 +194,7 @@ GRP.player = function(){
 			addClass(entry, 'current');
             //entry.id = 'current-entry';
             if (selThumb) {
-                console.log('selectEntry+selThumb');
+                //console.log('selectEntry+selThumb');
 				selectThumb(entry);
             }
             simulateClick(entry);//mark as read
@@ -223,7 +223,7 @@ GRP.player = function(){
 	}
     
     function selectThumb(entry, elThumb){
-		console.log('selectThumb');
+		//console.log('selectThumb');
 		if (lastThumb) {
             removeClass(lastThumb, 'tl-item-sel');
         }
@@ -234,7 +234,7 @@ GRP.player = function(){
         } else {
             //get thumb from entry id
             var index = getEntryIndex(entry);
-			console.log('index from entry:'+index)
+			//console.log('index from entry:'+index)
             if (index) {
                 elThumb=getThumb(index);
 				console.log('elThumb from index:'+elThumb.className);
@@ -302,14 +302,14 @@ GRP.player = function(){
     var heightEntries = getHeightEntries();
     
 	function start(){
-	 	console.log('start monitor checkCurrentEntry');
+	 	//console.log('start monitor checkCurrentEntry');
 		taskcce = window.setInterval(function(){
        	   checkCurrentEntry();
     	}, 500);
 	}
 	//start();
 	function stop(){
-		console.log('stop monitor checkCurrentEntry');
+		//console.log('stop monitor checkCurrentEntry');
 		window.clearInterval(taskcce);
 	}
 	
