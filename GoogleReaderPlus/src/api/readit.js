@@ -2,9 +2,10 @@
  * Readitlater and instapaper API
  */
 GRP.api_readit = function(prefs, langs, script, api){
-    var SL = langs[script];
+    var SL = langs.readit;
+    SL = apply(SL, langs[script]);
     function addButton(el, entry, mode){
-        var text = SL.text + formatShortcut(script, script, prefs); 
+        var text = SL.text + formatShortcut(script, script, prefs);
         addBottomLink(el, SL.keyword, text, 'btn-' + script + ' item-star star', false, readitlaterClick, false, entry, mode);
     }
     function addKey(){
@@ -71,23 +72,20 @@ GRP.api_readit = function(prefs, langs, script, api){
         });
     }
     function getAuth(){
-        var username = prefs.instapaper_username;
-        var password = prefs.instapaper_password;
-        
-if (typeof username === "undefined" || username === '') {
+        var username = prefs[script+'_username'];
+        var password = prefs[script+'_password'];
+        if (typeof username === "undefined" || username === '') {
             alert(SL.nologin);
-            
             return false;
         }
-        
         return {
             username: username,
             password: password
         };
     }
     function clearAuth(){
-        //GM_setValue('instapaper_username', '');
-        //GM_setValue('instapaper_password', '');
+        //GM_setValue(script+'_username', '');
+        //GM_setValue(script+'_password', '');
     }
     registerFeature(addButton, 'e' + script);
     var keycode = getShortcutKey(script, script, prefs);
