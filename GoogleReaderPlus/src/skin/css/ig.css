@@ -1,0 +1,88 @@
+/*
+ * MyTheme transparent modified for iGoogle Theme + anchors
+ * 
+ * Replace  
+ *  _a_ with { 
+ *  _z_ with }
+ * 
+ */
+html.ig_tiled {
+	background: url(_a_header_tile_z_) _a_bg_color_z_ repeat-x 50% 0%;
+}
+body.ig_fixed {
+	background: url(_a_header_fixe_z_) _a_bg_color_z_ no-repeat fixed top center;
+}
+
+#logo {
+    display: none;
+}
+
+#main{
+	top:140px!important;
+}
+#gbar, #guser{
+	height:175px;
+}
+
+body,#gbar, #guser, .text, .gbh, #explore-promo, #tips, #overview-footer, .viewer-page, 
+#lhn-selectors,#quick-add-success, .friend-interruption, 
+#directory-box .tab-group, #directory-box .tab-contents, #directory-contents .tab-header, 
+.tab-group-contents, #featured-bundles-container, #discover-table td, 
+.bundle-container th, #friends-tree .friends-tree-following-info, 
+#directory-welcome-conversion, .date-tooltip td, .date-tooltip, .text-tooltip, 
+.text-tooltip td {
+    color: _a_text_color_z_ !important;
+    border: 0 !important;
+}
+
+#gbar a, #gbar a:visited, #guser a, #guser a:visited,
+a,.link, #current-entry.read .entry-container .entry-body, .read .entry-container .entry-body, 
+#overview .item-snippet, #team-messages .body, #overview .label, p, dl, multicol, 
+.overview-item-link, address, blockquote, body, caption, center, col, colgroup, dd, dir, 
+div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, hr, html, isindex, li, listing, map, 
+marquee, menu, noframes, ol, p, plaintext, pre, table, tbody, td, tfoot, th, thead, tr, 
+ul, xmp ,#recent-activity #recent-activity-kept-unread h4, 
+#recent-activity #recent-activity-read h4, #explore-promo-new, 
+#recent-activity .recent-stream-title {
+    color: _a_text_color_z_ !important;
+}
+
+.email-active, .item-link-active, .lhn-section, .scroll-tree li, #chrome-header, #viewer-header, 
+#viewer-footer, #chrome, .card-common{
+    background: _a_bg_color_z_ !important;
+    color: _a_text_color_z_ !important;
+    border: 0 !important;
+}
+
+#viewer-container,#entries,#entries .entry,.collapsed,.scroll-tree li a.menu-open:hover,
+ a:hover .tree-item-action-container,.section-button,.section-menubutton,#message-area-inner,
+ .message-area-text,#message-area-outer,#loading-area,#chrome-view-links,
+ #loading,#no-entries-msg,.message-area-text-container,.offscreen,.hover-form,
+ .action-area,.email-this-area, .preview-interruption{
+	background-color: _a_bg_color_z_!important;
+}
+.card-actions,.entry-actions,
+.card-common .card-actions a, .card-common .card-actions .link,
+.tree-link-selected, .tree-link-selected span{
+	background-color: _a_bg_action_z_!important;
+	color: _a_txt_action_z_!important;
+}
+
+
+.entry-container, .card-content, .entry-likers{
+	background-color: _a_entry_color_z_!important;
+}
+
+#entries.list .read .collapsed{
+	border:0 !important;
+}
+
+
+/**
+ * Hover
+ */
+.scroll-tree li a:hover,.scroll-tree li a:hover span, 
+#lhn-selectors .selector:hover, #lhn-selectors .selector:hover span{
+	background-color: _a_bg_menu_z_ !important;
+	color: _a_text_menuhover_z_ !important;
+}
