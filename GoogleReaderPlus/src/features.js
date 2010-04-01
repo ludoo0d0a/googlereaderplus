@@ -29,19 +29,23 @@ GRP.scripts = {
             skin: '',
             noborder: false,
             mytheme: {
-                xtype: 'p'
+                xtype: 'p',
+				parent:'mto'
             },
             url: {
                 value: 'http://media.smashingmagazine.com/cdn_smash/wp-content/uploads/uploader/wallpapers/march10/march-10-ultimate-sophistication-nocal-1280x1024.jpg',
-                size: 80
+                size: 80,
+				parent:'mto'
             },
             color: {
                 value: '#565656',
-                cls: 'picker'
+                cls: 'picker',
+				parent:'mto'
             },
             bg: {
                 value: '#FFC',
-                cls: 'picker'
+                cls: 'picker',
+				parent:'mto'
             }
         }
     },
@@ -60,9 +64,12 @@ GRP.scripts = {
     },
     ig: {
         name: "iGoogle Theme",
-        desc: "Use iGoogle Theme in your Google Reader",
+        desc: "Use iGoogle Theme in your Google Reader (Beta)",
         options: {
-            xsl: false,
+			theme_name:{
+                value: '',
+                size: 80
+            },
 			theme: {
                 value: '',
                 size: 80
@@ -232,7 +239,7 @@ GRP.scripts = {
                 cls: 'subtitle'
             },
             username: '',
-            password: ''
+            password: {input:'password', value:''}
         },
         shortcuts: {
             'readitlater': {
@@ -241,6 +248,27 @@ GRP.scripts = {
                 key: {
                     //73 i
                     keyCode: 73
+                }
+            }
+        }
+    },
+	readitlater: {
+        name: "ReadItLater integration",
+        options: {
+            auth: {
+                xtype: 'p',
+                cls: 'subtitle'
+            },
+            username: '',
+            password: {input:'password', value:''}
+        },
+        shortcuts: {
+            'ril': {
+                id: 'ril',
+                title: 'Read Later with ReadItLater',
+                key: {
+                    //76 l
+                    keyCode: 76
                 }
             }
         }
