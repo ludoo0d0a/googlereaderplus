@@ -3,33 +3,62 @@
  *
  */
 //http://www.google.com/ig/directory?type=themes
+//http://code.google.com/apis/themes/docs/dev_guide.html
 GRP.ig = function(prefs, lang){
-//http://essence-ig-themes.googlecode.com/svn/trunk/lopes/xml/lopes.xml
-//http://igcdn.googlecode.com/svn/trunk/xml/travel_lpspain.xml
+    //var tplCss = '';
     var skin = prefs.ig_theme;
-    
-	if (prefs.ig_xsl) {
-        var css = GM_getValue('theme_ig_' + skin);
-        if (!css) {
-            var xsl = 'xml2css.xsl';
-            var d = applyXsl(skin, xsl);
-            css = d.firstChild.innerText;
-            //cache css
-            GM_setValue('theme_ig_' + skin, css);
-        }
+    var css = ''; //GM_getValue('theme_ig_' + skin);
+    if (css) {
         GM_addStyle(css, 'rps_ig');
     } else {
-        //http://www.google.com/ig/skin_xml_to_css?url=http%3A//www.google.com/ig/tm%3Foutput%3Dxml%26te%3DH4sIAAAAAAAAAF3OXWuDMBQG4F-jNwPzZU0c5CJow1bKGKw3uwp-xMQuVrFxxX-_tGMIy9VzXg7vSW2W2XHr_fQMgLNZYsxkfdKMA1DsxanjaVUHZMAHXPfsk6Qn_ArE35MN0K3wZ31AHRPgijIIgZgmp9WxN9Zf-otR9arm_qvqjU7Ok4mI9IOPSIkpjnDmBxcMH7oFIcx-B3sf6C52oxl5rb-1062aljl0z7qNQ0fvnebvj-Sput8MYbV4O85cJG_6pp2LW31t_u8gLvMSyTwQh-a0qepAsjHlsij2sgjcbbsZL1Ee_hRIOaNEUBHItjTfUgR510HYPc4hXhPSUPoDoKp2-moBAAA&skindx=ix:0&v2=1&v2mcss=1&&hl=en
-		var url = 'http://skins.gmodules.com/ig/skin_xml_to_css?url=' + encodeURIComponent(skin) +
-		 '&skindx=ix:0&hl=en&v2=1';
-		 //&skindx=ix:0&v2mcss=1&&hl=en&v2=1
-		 //&skindx=ix:8&fp=RnSZcwE6cuuzQjBdU&hl=en&v2=1
-		 console.log(url);
-        GM_addCss(url);
-		
-		//Need extra tuning
-		addClass(document.body, 'header_tile_image header_center_image');
-	    var cssover = "#main{top:140px!important;}";
-	    GM_addStyle(cssover, 'rps_ig');
+        loadCss('skin/css/ig.css', function(css){
+            var tplCss = css.replace(/_a_/g, '{').replace(/_z_/g, '}');
+            stylish(tplCss);
+        });
+    }
+
+    function igurl(url){
+        return 'http://skins.gmodules.com/ig/skin_fetch?fp=&type=2&sfkey=' + encodeURIComponent(url.replace(/&amp;/g, '&'));
+    }
+    function stylish(tplCss){
+        GM_xmlhttpRequest({
+            method: 'GET',
+            url: skin,
+            onload: function(r){
+                var text = r.responseText;
+                var colors = {};
+                var reAttrs = /<Attribute\s+name="([^"]+)">([^<]+)<\/Attribute>/g;
+                while ((m = reAttrs.exec(text)) !== null) {
+                    colors[m[1]] = m[2];
+                }
+                //tiled
+                var header_tile = colors['header.tile_image.url'] || '';
+                if (header_tile) {
+                    addClass(document.body.parentNode, 'ig_tiled');//html
+                }
+                //fixed
+                var header_fixe = colors['header.center_image.url'] || '';
+                if (header_fixe) {
+                    addClass(document.body, 'ig_fixed');
+                }
+                apply(colors, {
+                    header_tile: igurl(header_tile),
+                    header_fixe: igurl(header_fixe),
+                    ext_color: colors['gadget_area.tab.selected.text_color'],
+                    bg_color: colors['header.background_color'],
+                    bg_menu: colors['gadget_area.tab.selected.text_color'],
+                    text_menuhover: colors['gadget_area.gadget.header.text_color'],
+                    bg_action: colors['gadget_area.border_color'],
+                    txt_action: colors['gadget_area.gadget.header.text_color'],
+                    entry_color: '#fff'
+                });
+                css = fillTpl(tplCss, colors);
+                GM_addStyle(css, 'rps_ig');
+                //cache css
+                GM_setValue('theme_ig_' + skin, css);
+            }
+        });
     }
 };
+//http://essence-ig-themes.googlecode.com/svn/trunk/lopes/xml/lopes.xml
+//http://igcdn.googlecode.com/svn/trunk/xml/travel_lpspain.xml
