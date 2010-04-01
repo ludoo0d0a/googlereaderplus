@@ -425,6 +425,7 @@ img.favicon {
 .indi_thumbnail img{
 	width:200px;
 	height: 70px;
+	cursor:pointer;
 }
 
 .indi_link{
