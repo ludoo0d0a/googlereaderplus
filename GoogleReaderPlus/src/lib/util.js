@@ -61,15 +61,15 @@ function getFirstElementByClassName(root, clazz){
 }
 
 function copyAttributes(src, dest){
-	var ats, attr;
-	if (src && dest && src.attributes && src.attributes.length>0){
-		for (var i=0,  len=src.attributes.length; i<len; i++){
-			ats = src.attributes[i];
-			attr = document.createAttribute(ats.nodeName);
-  			attr.value = ats.nodeValue;
-  			dest.attributes.setNamedItem(attr);
-		}
-	}
+    var ats, attr;
+    if (src && dest && src.attributes && src.attributes.length > 0) {
+        for (var i = 0, len = src.attributes.length; i < len; i++) {
+            ats = src.attributes[i];
+            attr = document.createAttribute(ats.nodeName);
+            attr.value = ats.nodeValue;
+            dest.attributes.setNamedItem(attr);
+        }
+    }
 }
 
 /**
@@ -196,7 +196,6 @@ function ellipsis(text, max){
 function isArray(obj){
     return (obj && obj.constructor == Array);
 }
-
 
 /**
  * Shortcuts
@@ -335,8 +334,7 @@ function findTop(obj){
     if (obj.offsetParent) {
         do {
             curtop += obj.offsetTop;
-        }
-        while ((obj = obj.offsetParent));
+        } while ((obj = obj.offsetParent));
         return curtop;
     }
 }
@@ -542,7 +540,6 @@ var keycodes = {
     221: 'closebraket',
     222: 'singlequote'
 };
-
 //a.href sometimes truncated
 function getHref(a){
     var url = a.protocol + '//' + a.host + a.pathname + (a.hash || '');
@@ -570,7 +567,6 @@ function adjustIframeHeight(iframe, heightMaxi){
 
 function bind(func, thisArg){
     var args = Array.prototype.slice.call(arguments, 2);
-    
     return function(){
         var bargs = args.concat(Array.prototype.slice.call(arguments));
         func.apply(thisArg, bargs);
@@ -674,7 +670,6 @@ function merge(o, c, defaults){
                     o[p] = c[p];
                 }
             }
-            
         } else {
             //o[p] = c[p];
             //console.log(c + ' -> ' + o);
@@ -699,7 +694,6 @@ function applyRemoteLang(lang, base, id, o, fn, scope){
             if (a && a.url) {
                 console.error(a.url);
             }
-            
             console.error(res);
         }
     });
@@ -757,10 +751,8 @@ function textareaTab(){
                     var ss = t.selectionStart;
                     var se = t.selectionEnd;
                     var currentScroll = t.scrollTop;
-                    
                     // Indent
                     if (ss != se && t.value.slice(ss, se).indexOf("\n") != -1) {
-                    
                         var pre = t.value.slice(0, ss);
                         var selb = t.value.slice(ss, se);
                         if (e.shiftKey) {
@@ -835,37 +827,58 @@ function waitImages(images, cb, scope){
 }
 
 function isShown(el){
-	return (el && el.style && el.style.display!=='none' && el.visibility!=='hidden'); 
+    return (el && el.style && el.style.display !== 'none' && el.visibility !== 'hidden');
 }
 
 //http://forums.mozillazine.org/viewtopic.php?f=19&t=1806595
 //http://forums.mozillazine.org/viewtopic.php?f=19&t=1594275
 //https://developer.mozilla.org/En/Code_snippets:HTML_to_DOM
 function loadXml(html, id){
-	var el = document.createElement('div');
-	el.style.display='none';
-	el.innerHTML = (html.split(/<body[^>]*>((?:.|\n)*)<\/body>/i)[1]) || html;
-	return el;
+    var el = document.createElement('div');
+    el.style.display = 'none';
+    el.innerHTML = (html.split(/<body[^>]*>((?:.|\n)*)<\/body>/i)[1]) || html;
+    return el;
 }
+
+function loadText(url, cb){
+    GM_xmlhttpRequest({
+        method: 'GET',
+        url: url,
+        onload: function(r){
+            var txt = r.responseText;
+            cb(txt);
+        }
+    });
+}
+
+function loadCss(url, cb){
+    loadText(url, function(txt){
+        var css = txt.replace(/[\t\n]/g, '').replace(/\/\*.*?\*\//g, '').replace(/\s+/g, ' ');
+        cb(css);
+    });
+}
+
 //Only works with XML well-formed
 function getDocumentXml(html, id){
-	var h = html.replace(/^(.*\n)*.*<html/i, "<html");
-	h = h.replace(/<\/html>(.*\n)*.*$/i, "</html>");
-	var parser = new DOMParser();
-	var dom = parser.parseFromString(t, "text/xml");
-	return dom;
+    var h = html.replace(/^(.*\n)*.*<html/i, "<html");
+    h = h.replace(/<\/html>(.*\n)*.*$/i, "</html>");
+    var parser = new DOMParser();
+    var dom = parser.parseFromString(t, "text/xml");
+    return dom;
 }
+
 function loadXMLDoc(url){
-	var xhr=new XMLHttpRequest();
-	xhr.open("GET",url,false);
-	xhr.send("");
-	return xhr.responseXML;
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, false);
+    xhr.send("");
+    return xhr.responseXML;
 }
+
 function applyXsl(xml, xsl){
-	var oxml=loadXMLDoc(xml);
-	var oxsl=loadXMLDoc(xsl);
-	var xp=new XSLTProcessor();
-	xp.importStylesheet(oxsl);
-	var doc = xp.transformToFragment(oxml,document);
-	return doc;
+    var oxml = loadXMLDoc(xml);
+    var oxsl = loadXMLDoc(xsl);
+    var xp = new XSLTProcessor();
+    xp.importStylesheet(oxsl);
+    var doc = xp.transformToFragment(oxml, document);
+    return doc;
 }
