@@ -28,7 +28,7 @@ GRP.langs[locale].scripts = {
     },
     ig: {
         name: "iGoogle Theme",
-        desc: "Use iGoogle Theme in your Google Reader (Beta)"
+        desc: "Use <a href='http://www.google.com/ig/directory?type=themes' target='blank'>iGoogle Theme</a> in your Google Reader (Beta)"
 	},
     relook: {
         name: "Relook",
