@@ -11,8 +11,8 @@
  * so that 0.3.11 is the 11th translated version of the original v0.3 english version.
  *
  *
- * Version : 1.0
- * Date : 03-25-2010
+ * Version : 1.2
+ * Date : 04-01-2010
  * @author Valente
  */
 var locale = 'en';
