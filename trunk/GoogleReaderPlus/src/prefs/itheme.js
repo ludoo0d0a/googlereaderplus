@@ -159,7 +159,15 @@ function INDI_cb(o){
 }
 
 function setThemes(data){
-    entries = data.feed || {};
+    entries = data.feed||{};
+	var e2=[];
+	foreach(entries.entry, function(entry){
+		//Ignore special theme such sampler and default, i dont know how to get them
+		if (entry.skin_id && parseInt(entry.skin_id,10)>1000){
+			e2.push(entry);
+		}
+	});
+	entries.entry=e2;
     apply(entries, {
         cats: ig_cats,
         sorts: ig_sorts,
