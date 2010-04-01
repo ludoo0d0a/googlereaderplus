@@ -853,9 +853,13 @@ function loadText(url, cb){
 
 function loadCss(url, cb){
     loadText(url, function(txt){
-        var css = txt.replace(/[\t\n]/g, '').replace(/\/\*.*?\*\//g, '').replace(/\s+/g, ' ');
-        cb(css);
+        var css = compact(txt).replace(/\/\*.*?\*\//g, '');
+		cb(css);
     });
+}
+
+function compact(text){
+	return text.replace(/[\n\t]/g,'').replace(/\s+/g,' ');
 }
 
 //Only works with XML well-formed
