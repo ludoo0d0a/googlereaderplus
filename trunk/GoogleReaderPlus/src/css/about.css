@@ -25,9 +25,9 @@ h1 {
 
 #optionsBox {
     margin: 0 auto;
-    margin-top: 30px;
+    margin-top: 10px;
     text-align: center;
-    width: 500px;
+    width: 80%;
 }
 
 #optionsBox img {
@@ -103,6 +103,7 @@ form {
     position: absolute;
 }
 
-li, h4 {
-    font-size: 85%;
+#lastchange{
+	font-weight:bold;
 }
+
