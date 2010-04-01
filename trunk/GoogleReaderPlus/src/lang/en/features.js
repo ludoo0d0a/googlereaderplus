@@ -26,6 +26,14 @@ GRP.langs[locale].scripts = {
         name: "Theme",
         desc: "Change the look of GoogleReader"
     },
+    ig: {
+        name: "iGoogle Theme",
+        desc: "Use iGoogle Theme in your Google Reader (Beta)"
+	},
+    relook: {
+        name: "Relook",
+        desc: "Relook your site using custom stylesheets"
+    },
     favicons: {
         name: "Favicons",
         desc: "Display favicons for every feed"
@@ -83,6 +91,10 @@ GRP.langs[locale].scripts = {
         name: "Instapaper integration",
         desc: "Add a button to read news later using Instapaper"
     },
+	readitlater: {
+        name: "ReadItLater integration",
+        desc: "Add a button to read news later using ReadItLater"
+    },
     mark: {
         name: "Mark As Read",
         desc: "Mark items before/after current as read"
@@ -117,10 +129,6 @@ GRP.langs[locale].scripts = {
      desc: "Show media in fullscreen"
      },
      */
-    relook: {
-        name: "Relook",
-        desc: "Relook your site using custom stylesheets"
-    },
     aero: {
         name: "Google Aero Toolbar",
         desc: "Toolbar using Aero theme"
