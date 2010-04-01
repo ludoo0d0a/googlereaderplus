@@ -99,9 +99,9 @@ function setShortcut(key, ctrl){
 function fixShortcut(e, input){
     //himself?
     var newKey = marshallKey(e);
-    if (input.key == newKey) {
+    /*if (input.key == newKey) {
         return;
-    }
+    }*/
     var free = isShortcutFree(e);
     var warn = input.nextSibling;
     if (free === true) {
