@@ -6,8 +6,8 @@
  * en : English
  * **************************
  *
- * Version : 1.1
- * Date : 03-30-2010
+ * Version : 1.2
+ * Date : 04-01-2010
  * @author Valente
  */
 var locale = 'en';
@@ -145,6 +145,7 @@ GRP.langs[locale].prefs = {
 	ig: {
 		theme_name:'iGoogle theme name',
 		theme:'iGoogle theme URL',
+		randomtime:'Random skin instead time control for dynamic theme',
 		add:'Add it now',
         next:'Next',
         previous:'Previous',
