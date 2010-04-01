@@ -427,6 +427,9 @@ img.favicon {
 	height: 70px;
 	cursor:pointer;
 }
+.indi_entries{
+	height:450px;
+}
 
 .indi_link{
 	color:#2222ff;
