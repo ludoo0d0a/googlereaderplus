@@ -1,11 +1,9 @@
 function loadSkin(){
     var input = document.getElementById("theme_skin");
     var li = document.getElementById('skin_' + input.value);
-    
-if (!li) {
+    if (!li) {
         li = document.getElementById('skin_none');
     }
-    
     //select theme
     if (li) {
         li.onclick(false, true);
@@ -14,27 +12,22 @@ if (!li) {
 
 var lastPanel, lastLink;
 function showPanel(id){
-    
-if (typeof window['run_' + id] == "function") {
+    if (typeof window['run_' + id] == "function") {
         window['run_' + id].call(this, id);
     }
     var link = document.getElementById('l_' + id);
-    
-if (lastLink) {
+    if (lastLink) {
         lastLink.className = "";
     }
-    
-if (link) {
+    if (link) {
         link.className = "on";
         lastLink = link;
     }
     var panel = document.getElementById('panel_' + id);
-    
-if (lastPanel) {
+    if (lastPanel) {
         lastPanel.style.display = "none";
     }
-    
-if (panel) {
+    if (panel) {
         panel.style.display = "inline";
         lastPanel = panel;
         window.location.hash = '#' + id;
@@ -55,8 +48,7 @@ function renderScripts(){
         var t = (script.link) ? tplLink : tplCheckbox;
         html += fillTpl(t, script);
         var body, panel = document.getElementById('panel_' + id);
-        
-if (!panel) {
+        if (!panel) {
             //create panels for descritpion
             panel = document.createElement('div');
             panel.id = "panel_" + id;
@@ -86,7 +78,7 @@ if (!panel) {
     extraFeatures();
 }
 
-var tplInput = '<label class="lbl" id="t_{id}" for="{id}">{text}</label><input id="{id}" class="{cls}" name="{id}" type="text" value="{value}"{extra}"/><br/>';
+var tplInput = '<label class="lbl" id="t_{id}" for="{id}">{text}</label><input id="{id}" class="{cls}" name="{id}" type="{input}" value="{value}"{extra}"/><br/>';
 var tplTextarea = '<label class="lbl" id="t_{id}" for="{id}">{text}</label><textarea style="" class="{cls}" id="{id}" name="{id}" cols="{cols}" rows="{rows}"{extra}">{value}</textarea><br/>';
 var tplCheckbox = '<input id="{id}" name="{id}" type="checkbox"/><label class="lbl_checkbox" id="t_{id}" for="{id}">{text}</label><br/>';
 var tplSelect = '<label class="lbl" id="t_{id}">{text}</label><select name="{id}" id="{id}">{options}</select><br/><br/>';
@@ -94,15 +86,12 @@ var tplSelectOption = '<option value="{id}"{checked}>{value}</option>';
 var tplPara = '<p class="{cls}" id="t_{id}">{text}</p>';
 var tplDiv = '<div class="{cls}" id="{id}"></div>';
 function renderOptions(body, script){
-    
-if (!script.options) {
-        
+    if (!script.options) {
         return;
     }
     var cfg, xtype, value, html = '';
     iterate(script.options, function(option, cfg){
-        
-if (typeof cfg === "object") {
+        if (typeof cfg === "object") {
             cfg.value = cfg.value || '';
             value = cfg.value;
             xtype = cfg.xtype || (typeof value);
@@ -115,18 +104,26 @@ if (typeof cfg === "object") {
             id: script.id + '_' + option,
             value: value,
             extra: '',
+			input:cfg.input || 'text',
             cls: cfg.cls || ''
         };
-        
-if (!document.getElementById(o.id)) {
-            
-if (xtype === "boolean") {
+        if (!document.getElementById(o.id)) {
+            if (cfg.parent){
+				html += "<div class='"+cfg.parent+"'>";
+			}
+			
+			if (xtype === "boolean") {
                 html += fillTpl(tplCheckbox, o);
             } else if (xtype === "string") {
                 if (cfg.size) {
                     o.extra = ' size="' + cfg.size + '"';
                 }
                 html += fillTpl(tplInput, o);
+			} else if (xtype === "password") {
+                if (cfg.size) {
+                    o.extra = ' size="' + cfg.size + '"';
+                }
+				html += fillTpl(tplPwd, o);
             } else if (xtype === "number") {
                 o.size = cfg.size || 3;
                 o.extra = ' size="' + o.size + '"';
@@ -154,6 +151,10 @@ if (xtype === "boolean") {
                 o.cls = '_crud';
                 html += fillTpl(tplDiv, o);
             }
+			
+			if (cfg.parent){
+				html += "</div>";
+			}
         }
     });
     body.innerHTML += html;
@@ -165,8 +166,7 @@ function extraFeatures(){
     renderpicker();
     //var CODEMIRROR_PATH = 'http://marijn.haverbeke.nl/codemirror';
     var CODEMIRROR_PATH = 'lib/codemirror';
-    
-if (CodeMirror && get_id('relook_css')) {
+    if (CodeMirror && get_id('relook_css')) {
         EDITORS.relook_css = CodeMirror.fromTextArea('relook_css', {
             parserfile: "parsecss.js",
             stylesheet: [CODEMIRROR_PATH + "/css/csscolors.css", "css/editor.css"],
@@ -181,11 +181,11 @@ function renderpicker(){
     if (typeof jQuery !== "undefined") {
         jQuery('.picker').ColorPicker({
             onSubmit: function(hsb, hex, rgb, el){
-                $(el).val('#'+hex);
+                $(el).val('#' + hex);
                 $(el).ColorPickerHide();
             },
             onBeforeShow: function(){
-                $(this).ColorPickerSetColor(this.value.replace('#',''));
+                $(this).ColorPickerSetColor(this.value.replace('#', ''));
             }
         }).bind('keyup', function(){
             $(this).ColorPickerSetColor(this.value);
@@ -209,8 +209,7 @@ function renderSkins(){
         list.appendChild(li);
         li.onclick = function(e, simulate){
             var c = this;
-            
-if (last) {
+            if (last) {
                 last.className = "";
             }
             addClass(c, "on");
@@ -218,7 +217,14 @@ if (last) {
             var id = c.id.replace('skin_', '');
             var input = document.getElementById("theme_skin");
             
-if (id === "none") {
+			var mtos = document.getElementsByClassName('mto');
+            if (mtos && mtos.length>0) {
+                foreach(mtos, function(mto){
+					addClassIf(mto, 'hidden', (id !== "mytheme"));
+				});
+            }
+			
+            if (id === "none") {
                 input.value = "";
                 thumb.className = "hidden";
             } else {
@@ -226,8 +232,7 @@ if (id === "none") {
                 thumb.className = "";
                 thumb.src = o.pic || "skin/img/" + id + ".png";
                 var athumb = document.getElementById("athumb");
-                
-if (o.ref) {
+                if (o.ref) {
                     athumb.href = o.ref;
                     athumb.target = 'blank';
                 } else {
@@ -236,12 +241,10 @@ if (o.ref) {
                     athumb.removeAttribute('target');
                 }
                 athumb.title = o.name;
-                
                 //check theme feature
                 if (!simulate) {
                     var checktheme = document.getElementById("theme");
-                    
-if (checktheme) {
+                    if (checktheme) {
                         checktheme.checked = true;
                     }
                 }
@@ -255,8 +258,7 @@ if (checktheme) {
 
 function createReport(report){
     var list = document.getElementById('sysinfo');
-    
-if (list) {
+    if (list) {
         list.innerHTML = '';
         recurseList(list, report, true);
     }
@@ -264,14 +266,12 @@ if (list) {
 
 function recurseList(root, list, first){
     var ul = document.createElement('ul');
-    
-if (!first) {
+    if (!first) {
         ul.className = "mnu rounded info";
     }
     for (var o in list) {
         var li = document.createElement('li');
-        
-if (typeof list[o] === "object") {
+        if (typeof list[o] === "object") {
             ul.innerHTML += "<span class='info-title'>" + o + "</span>";
             recurseList(ul, list[o]);
         } else {
@@ -294,17 +294,14 @@ function disableAllScripts(){
 
 function setpackage(id){
     disableAllScripts();
-    
-if (id === "reset") {
+    if (id === "reset") {
         //Refresh page to reload all options for each script
         var sure = confirm(getTextPrefs(lang, 'pack', 'confirmdel'));
-        
-if (sure) {
+        if (sure) {
             prefs = {};
             renderPrefs();
             saveprefs(true, true);
         }
-        
         return;
     } else {
         for (var i = 0, len = GRP.packages[id].length; i < len; i++) {
