@@ -6,29 +6,72 @@
 //http://code.google.com/apis/themes/docs/dev_guide.html
 GRP.ig = function(prefs, lang){
     //var tplCss = '';
-    var skin = prefs.ig_theme;
-    var css = ''; //GM_getValue('theme_ig_' + skin);
+    var url_skin = prefs.ig_theme;
+    var css = ''; //GM_getValue('theme_ig_' + url_skin);
     if (css) {
-        GM_addStyle(css, 'rps_ig');
+        GM_addStyle(css, 'theme_ig');
     } else {
         loadCss('skin/css/ig.css', function(css){
             var tplCss = css.replace(/_a_/g, '{').replace(/_z_/g, '}');
             stylish(tplCss);
         });
     }
-
     function igurl(url){
         return 'http://skins.gmodules.com/ig/skin_fetch?fp=&type=2&sfkey=' + encodeURIComponent(url.replace(/&amp;/g, '&'));
+    }
+    function convertHours(h){
+        var t = 0;
+        if (/am$/.test(h)) {
+            //am
+            t = 12;
+        } else {
+            //pm
+            t = 0;
+        }
+        t += parseInt(h.replace('/[apm]/g', ''), 10);
+        return t;
     }
     function stylish(tplCss){
         GM_xmlhttpRequest({
             method: 'GET',
-            url: skin,
+            url: url_skin,
             onload: function(r){
-                var text = r.responseText;
+                var text = compact(r.responseText);
                 var colors = {};
+                var skins = [], metadata, skin, ms, reSkins = /<ConfigMap\s+type="Skin">(.*?)<\/ConfigMap>/g;
+                var f = 0;
+                while ((ms = reSkins.exec(text)) !== null) {
+                    if (f > 0) {
+                        skins.push(ms[0]);
+                    } else {
+                        //first is metadata
+                        metadata = ms[0];
+                    }
+                    f++;
+                }
+                if (prefs.ig_randomtime) {
+                    var index = Math.floor(Math.random() * skins.length);
+                    skin = skins[index];
+                } else {
+                    var hc = (new Date()).getHours();
+                    var i = 0;
+                    var reTrait = /<Trait\s+name="TimeOfDay">([^<]+)<\/Trait>/;
+                    for (var i = 0, len = skins.length; i < len; i++) {
+                        var skin = skins[i];
+                        //Check time
+                        var mt = reTrait.exec(skin);
+                        if (mt && mt[1]) {
+                            var h = mt[1].split('-');
+                            h[0] = convertHours(h[0]);
+                            h[1] = convertHours(h[1]);
+                            if (hc >= h[0] && hc <= h[1]) {
+                                break;
+                            }
+                        }
+                    }
+                }
                 var reAttrs = /<Attribute\s+name="([^"]+)">([^<]+)<\/Attribute>/g;
-                while ((m = reAttrs.exec(text)) !== null) {
+                while ((m = reAttrs.exec(skin)) !== null) {
                     colors[m[1]] = m[2];
                 }
                 //tiled
@@ -55,7 +98,7 @@ GRP.ig = function(prefs, lang){
                 css = fillTpl(tplCss, colors);
                 GM_addStyle(css, 'rps_ig');
                 //cache css
-                GM_setValue('theme_ig_' + skin, css);
+                GM_setValue('theme_ig', css);
             }
         });
     }
