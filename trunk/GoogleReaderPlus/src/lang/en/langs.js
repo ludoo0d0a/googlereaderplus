@@ -45,19 +45,28 @@ GRP.langs[locale].texts = {
         text_shortener: 'Url courte',
         shortfailed: "Sorry, an error occured on trying to use short url!\n\r{0}"
     },
-    instapaper: {
-        text: 'Read Later with Instapaper',
-        keyword: 'Instapaper',
-        plslogin: 'Please login to Instapaper',
-        login: 'Email or username:',
+	readit: {
         password: 'Password, if you have one:',
         wronglogin: 'Wrong username or password, please check it!!',
-        nologin: 'Instapaper needs a username, please set preferences!!',
+nologin: 'This feature requires a username, please set preferences!!',
         error: 'The service encountered an error. Please try again later.',
         badrequest: 'Bad request. Probably missing a required parameter, such as url.',
         saving: 'Saving',
         shortcut_readitlater: 'Read Later with Instapaper'
     },
+    instapaper: {
+        text: 'Read Later with Instapaper',
+        keyword: 'Instapaper',
+        plslogin: 'Please login to Instapaper',
+        login: 'Email or username:'
+	},
+	readitlater: {
+        text: 'Read Later with ReadItLater',
+        keyword: 'ReadItLater',
+        plslogin: 'Please login to ReadItLater',
+		rateexceeded:'Rate limit exceeded, please wait a little bit before resubmitting',
+		maintenance:'Read It Later\'s sync server is down for scheduled maintenance'
+	},
     favicons: {
         preferences: 'Preferences',
         getfavicon: 'Get favicon',
@@ -134,8 +143,13 @@ GRP.langs[locale].prefs = {
 		bg:'Background hover color'
     },
 	ig: {
+		theme_name:'iGoogle theme name',
 		theme:'iGoogle theme URL',
-		xsl:'Use XSL to get CSS'
+		add:'Add it now',
+        next:'Next',
+        previous:'Previous',
+		random:'Random',
+        search:'Search themes'
 	},
     about: {
         thanks1: '<td><span class="top_right"><img src="images/48.png"></span><h1>Thank you...</h1>' +
@@ -172,10 +186,15 @@ GRP.langs[locale].prefs = {
         shortener_pwd: "Password"
     },
     instapaper: {
-        auth: "Instapaper authentication (optional):",
+auth: "Instapaper authentication:",
         username: "Username:",
-        password: "Password:"
+password: "Password (optional):"
     },
+readitlater: {
+	auth: "ReadItLater <a href='http://readitlaterlist.com/signup' target='blank'>authentication</a> (required):",
+	username: "Username:",
+	password: "Password:"
+},
     colorful: {
         tree: "Show label colors in the left navigation tree"
     },
