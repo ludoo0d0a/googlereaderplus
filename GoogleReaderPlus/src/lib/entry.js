@@ -367,7 +367,7 @@ function getEntryBody(body){
 
 
 function initResize(fn){
-    document.body.addEventListener('resize', function(e){
+    window.addEventListener('resize', function(e){
         if (typeof fn === "function") {
             fn.call(this);
         }
