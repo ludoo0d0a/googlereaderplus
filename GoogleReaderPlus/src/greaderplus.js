@@ -8,43 +8,42 @@
  * ChangeLog: cf about.html
  */
 (function(){
-
-    var ReaderPlus = 
-    {
+    var ReaderPlus = {
         init: function(){
             console.log("Starts ReaderPlus");
             window.GRP = window.GRP || {};
             GRP.language = function(){
                 //dummy
             };
+			GRP.IMAGES_PATH = 'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/src/images';
             this.prefs = {};
             var me = this;
-            chrome.extension.sendRequest(
-            {
+            chrome.extension.sendRequest({
                 message: "getprefs"
             }, function(a){
-				me.prefs = a.prefs;
+                me.prefs = a.prefs;
                 me.initprefs.call(me);
-			});
+            });
         },
         initprefs: function(){
             this.lang = this.prefs.language_lang || 'en';
-			loadLangs(this.lang, function(){
-				console.log("ReaderPlus in "+this.lang);
-	            this.runExtra(this.lang);
-			}, this);
+            loadLangs(this.lang, function(){
+                console.log("ReaderPlus in " + this.lang);
+                this.runExtra(this.lang);
+                this.fixMenu();
+            }, this);
         },
         runExtra: function(){
             var langs = GRP.langs[this.lang].texts;
             var count = 0;
             if (GRP.scripts) {
-				var total = GRP.scripts.length;
-				iterate(GRP.scripts, function(id, script){
+                var total = GRP.scripts.length;
+                iterate(GRP.scripts, function(id, script){
                     if (script && this.prefs[id]) {
                         ++count;
                         this.run(id, langs);
                     }
-                },this, true);
+                }, this, true);
                 console.log("ReaderPlus is running with " + count + "/" + total + " features");
                 //Start entries monitoring 
                 monitorEntries();
@@ -54,18 +53,17 @@
         },
         run: function(o, langs){
             if (o && o !== "false") {
-				if (o == 'theme') {
+                if (o == 'theme') {
                     //skin
                     console.log("**** run " + o);
-					GRP.theme(this.prefs, langs, this);
+                    GRP.theme(this.prefs, langs, this);
                 } else {
                     if (window.GRP[o]) {
                         console.log("**** run " + o);
                         try {
                             //console.log("myport(run) "+this.myport.portId_);
-							window.GRP[o].call(window, this.prefs, langs);
-                        } 
-                        catch (e) {
+                            window.GRP[o].call(window, this.prefs, langs);
+                        } catch (e) {
                             console.error(e);
                         }
                     } else {
@@ -73,6 +71,26 @@
                     }
                 }
             }
+        },
+        fixMenu: function(){
+            dh('gbg', 'a', {
+                href: '#',
+                cls: 'gb2',
+                text: 'Reader+ preferences'
+            }, {
+                click: function(){
+                    GM_openInTab('chrome-extension://' + GUID_CORE + '/preferences.html');
+                }
+            });
+            dh('gbg', 'a', {
+                href: '#',
+                cls: 'gb2',
+                text: 'Reader+ Theme'
+            }, {
+                click: function(){
+                    GM_openInTab('chrome-extension://' + GUID_CORE + '/preferences.html#ig');
+                }
+            });
         }
         /*,fixlang: function(){
          this.lang = this.prefs.language_lang || 'en';
@@ -94,7 +112,5 @@
          cb(-1);
          }*/
     };
-    
     ReaderPlus.init();
-    
 })();
