@@ -153,6 +153,7 @@ GRP.scripts = {
         name: "Integrated preview",
         options: {
             onicon: false,
+			overlay: false,
             locked: false,
             filter: {
                 xtype: 'crud'
