@@ -429,6 +429,7 @@ img.favicon {
 }
 .indi_entries{
 	height:450px;
+	overflow-y:auto;
 }
 
 .indi_link{
