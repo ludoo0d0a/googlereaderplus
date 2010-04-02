@@ -854,12 +854,12 @@ function loadText(url, cb){
 function loadCss(url, cb){
     loadText(url, function(txt){
         var css = compact(txt).replace(/\/\*.*?\*\//g, '');
-		cb(css);
+        cb(css);
     });
 }
 
 function compact(text){
-	return text.replace(/[\n\t]/g,'').replace(/\s+/g,' ');
+    return text.replace(/[\n\t]/g, '').replace(/\s+/g, ' ');
 }
 
 //Only works with XML well-formed
@@ -885,4 +885,51 @@ function applyXsl(xml, xsl){
     xp.importStylesheet(oxsl);
     var doc = xp.transformToFragment(oxml, document);
     return doc;
+}
+
+var tmaps = {
+    id: 'id',
+    cls: 'className',
+    href: 'href',
+    text: 'innerText',
+    html: 'innerHTML'
+};
+function dh(root, tag, attrs, events){
+    if (!root) {
+        root = document.body;
+    } else if (typeof root == "string") {
+        root = get_id(root);
+    }
+    if (!root) {
+        return false;
+    }
+    var el = document.createElement(tag || 'div');
+    iterate(attrs, function(k, o){
+        if (typeof o !== 'undefined') {
+			if (tmaps[k]) {
+				el[tmaps[k]] = o;
+			} else {
+				var attr = document.createAttribute(k);
+				attr.value = o;
+				el.attributes.setNamedItem(attr);
+			}
+		}
+    });
+    iterate(events, function(event, fn){
+        el.addEventListener(event, fn, false);
+    });
+    root.appendChild(el);
+    return el;
+}
+
+function newel(id, cls){
+    var el = get_id(id);
+	if (el) {
+		return el;
+	} else {
+		return dh('', 'div', {
+			id: id,
+			cls: cls
+		});
+	}
 }
