@@ -18,7 +18,7 @@ var tpl_ig_skin_block = '{{%IMPLICIT-ITERATOR}}' +
 '<div class="indi_entry_title_wrap"><div class="indi_entry_title">{{title}}</div></div>' +
 '<div class="indi_thumbnail"><img src="http://skins.gmodules.com/ig/skin_fetch?type=4&sfkey={{dthumbnail}}" onclick="javascript:setTheme(\'{{skin_id}}\')"/></div>' +
 '</div>{{/entry}}</div>';
-var entries={}, ig_cat, ig_q = '', ig_pos = 0, ig_page = 12, ig_sort = 'popular';
+var entries={}, ig_cat, ig_q = '', ig_pos = 0, ig_page = 4*12, ig_sort = 'popular';
 var ig_cats = [{
     id: '',
     name: 'All'
