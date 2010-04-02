@@ -5,7 +5,6 @@
 //http://www.google.com/ig/directory?type=themes
 //http://code.google.com/apis/themes/docs/dev_guide.html
 GRP.ig = function(prefs, lang){
-    //var tplCss = '';
     var url_skin = prefs.ig_theme;
     var css = ''; //GM_getValue('theme_ig_' + url_skin);
     if (css) {
@@ -70,10 +69,13 @@ GRP.ig = function(prefs, lang){
                         }
                     }
                 }
-                var reAttrs = /<Attribute\s+name="([^"]+)">([^<]+)<\/Attribute>/g;
+                var debug='',reAttrs = /<Attribute\s+name="([^"]+)">([^<]+)<\/Attribute>/g;
                 while ((m = reAttrs.exec(skin)) !== null) {
                     colors[m[1]] = m[2];
+					//debug+='<input size="50" value="'+m[1]+'" style="background-color:'+m[2]+'"/><br/>';
                 }
+				//dh('', 'div', {id:'debug', html:debug, style:'position:absolute;top:40px;right:100px;z-index:9999;background-color:white;'});
+				
                 //tiled
                 var header_tile = colors['header.tile_image.url'] || '';
                 if (header_tile) {
@@ -89,8 +91,10 @@ GRP.ig = function(prefs, lang){
                     header_fixe: igurl(header_fixe),
                     ext_color: colors['gadget_area.tab.selected.text_color'],
                     bg_color: colors['header.background_color'],
-                    bg_menu: colors['gadget_area.tab.selected.text_color'],
-                    text_menuhover: colors['gadget_area.gadget.header.text_color'],
+                    //bg_menu: colors['gadget_area.tab.selected.text_color'],
+					bg_menu: colors['gadget_area.tab.selected.background_color'],
+                    //text_menuhover: colors['gadget_area.gadget.header.text_color'],
+					text_menuhover: colors['gadget_area.tab.selected.text_color'],
                     bg_action: colors['gadget_area.border_color'],
                     txt_action: colors['gadget_area.gadget.header.text_color'],
                     entry_color: '#fff'
@@ -105,3 +109,6 @@ GRP.ig = function(prefs, lang){
 };
 //http://essence-ig-themes.googlecode.com/svn/trunk/lopes/xml/lopes.xml
 //http://igcdn.googlecode.com/svn/trunk/xml/travel_lpspain.xml
+
+
+

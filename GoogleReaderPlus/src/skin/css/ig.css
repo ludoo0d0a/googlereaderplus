@@ -47,11 +47,18 @@ ul, xmp ,#recent-activity #recent-activity-kept-unread h4,
     color: _a_text_color_z_ !important;
 }
 
-.email-active, .item-link-active, .lhn-section, .scroll-tree li, #chrome-header, #viewer-header, 
-#viewer-footer, #chrome, .card-common{
+#chrome,#chrome-header{
+	 background: transparent !important;
+}
+
+.email-active, .item-link-active, .lhn-section, .scroll-tree li, #chrome-title, #viewer-header, 
+#viewer-footer, .card-common{
     background: _a_bg_color_z_ !important;
     color: _a_text_color_z_ !important;
     border: 0 !important;
+}
+#chrome-title{
+	display:inline!important;
 }
 
 #viewer-container,#entries,#entries .entry,.collapsed,.scroll-tree li a.menu-open:hover,
@@ -82,7 +89,7 @@ ul, xmp ,#recent-activity #recent-activity-kept-unread h4,
  * Hover
  */
 .scroll-tree li a:hover,.scroll-tree li a:hover span, 
-#lhn-selectors .selector:hover, #lhn-selectors .selector:hover span{
+#lhn-selectors .selected, #lhn-selectors .selector:hover, #lhn-selectors .selector:hover span{
 	background-color: _a_bg_menu_z_ !important;
 	color: _a_text_menuhover_z_ !important;
 }
