@@ -116,8 +116,8 @@ GRP.langs[locale].scripts = {
         desc: "Add a 'open in background' button on each entry"
     },
     replacer: {
-        name: "Entry replacer",
-        desc: "Replace entry with a part of the original page. currently used to get comic strips from gocomics.com. <br/>Thanks to jolan78 for its original idea and script."
+        name: "Replacer",
+        desc: "Replace entry with a part of the original page. Currently used to get comic strips.<br/>Thanks to jolan78 for its original idea and script."
     },
     /*
      menu:{
