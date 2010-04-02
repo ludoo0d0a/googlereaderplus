@@ -21,7 +21,7 @@
         </script>
         <script type="application/javascript" src="prefs/shortcuts.js">
         </script>
-		<script type="application/javascript" src="prefs/itheme.js">
+        <script type="application/javascript" src="prefs/itheme.js">
         </script>
         <script type="application/javascript" src="lib/mustacheg.js">
         </script>
@@ -43,8 +43,7 @@
             var lang = 'en', prefs = {}, gshortcuts = {};
             function init(){
                 GRP.setVersion();
-                
-            if (typeof chrome !== "undefined" && chrome.extension) {
+                if (typeof chrome !== "undefined" && chrome.extension) {
                     var me = this;
                     chrome.extension.sendRequest({
                         message: "getprefs"
@@ -74,14 +73,18 @@
             
             function specialTranslate(lang){
                 var el = document.getElementById("t_link_about");
-                
-            if (el) {
+                if (el) {
                     el.href = "about.html?lang=" + lang;
                 }
             }
             
             function reportNavigator(){
                 createReport(getInfo());
+            }
+            
+            function hashchange(){
+				var script = location.hash;
+				showPanel(script);
             }
             
             window.onload = init;
