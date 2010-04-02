@@ -107,7 +107,10 @@ nologin: 'This feature requires a username, please set preferences!!',
         text: 'Integrated preview of the news',
         title: 'Open as preview',
         opennewtab: 'Open in a new window',
-        keyword: 'Preview'
+        keyword: 'Preview',
+overlay_next: 'Next',
+overlay_previous: 'Previous',
+overlay_close: 'Close'
     },
     readbymouse: {
         middleclick: 'Middle click',
