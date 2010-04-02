@@ -27,7 +27,7 @@ GRP.favicons = function(prefs, langs){
 	//FAVICON_TPL_URL = 'http://getfavicons.appspot.com?domain=';
 	
     //var LOADING_IMAGE = "chrome-extension://'+GUID_CORE+'/images/loading.gif";
-    var LOADING_IMAGE = "http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/src/images/loading.gif";
+    var LOADING_IMAGE = GRP.IMAGES_PATH+"/loading.gif";
 	
     var RSS = getElements('id("sub-tree-item-0-main")/ul/li/ul/li').length;
     var FOLDER = getElements('id("sub-tree-item-0-main")/ul/li').length;
