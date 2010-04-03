@@ -7,10 +7,10 @@
 GRP.ig = function(prefs, lang){
     var xml_skin = prefs.ig_theme;
 	var skin_name = prefs.ig_theme_name;
-    var css = GM_getValue('theme_ig');
+    var css = ''; //GM_getValue('theme_ig'+name???);
 	setcss(css, xml_skin);
 	
-	if (prefs.ig_randomthemes){
+	if (prefs.ig_userandomthemes){
 		var t = parseInt(prefs.ig_randomthemes,10)||30;
 		window.setInterval(function(){
 			var data =  {
@@ -95,14 +95,14 @@ GRP.ig = function(prefs, lang){
 				
                 //tiled
                 var header_tile = colors['header.tile_image.url'] || '';
-                if (header_tile) {
+                /*if (header_tile) {
                     addClass(document.body.parentNode, 'ig_tiled');//html
-                }
+                }*/
                 //fixed
                 var header_fixe = colors['header.center_image.url'] || '';
-                if (header_fixe) {
+                /*if (header_fixe) {
                     addClass(document.body, 'ig_fixed');
-                }
+                }*/
                 apply(colors, {
                     header_tile: igurl(header_tile),
                     header_fixe: igurl(header_fixe),

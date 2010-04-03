@@ -6,10 +6,10 @@
  *  _z_ with }
  * 
  */
-html.ig_tiled {
+html/*.ig_tiled*/ {
 	background: url(_a_header_tile_z_) _a_bg_color_z_ repeat-x 50% 0%;
 }
-body.ig_fixed {
+body/*.ig_fixed*/ {
 	background: url(_a_header_fixe_z_) _a_bg_color_z_ no-repeat fixed top center;
 }
 
