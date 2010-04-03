@@ -130,6 +130,11 @@ overlay_close: 'Close'
     lightbox: {
         text: 'Light on the media',
         keyword: 'Light'
+    },
+	ig: {
+        menu_prefs: 'Reader+ preferences',
+        menu_theme: 'Theme configuration',
+		menu_randomtheme: 'Random theme'
     }
 };
 GRP.langs[locale].prefs = {
@@ -149,6 +154,7 @@ GRP.langs[locale].prefs = {
 		theme_name:'iGoogle theme name',
 		theme:'iGoogle theme URL',
 		randomtime:'Random skin instead time control for dynamic theme',
+		randomthemes:'Theme is automatically switched randomly every (minutes)',
 		add:'Add it now',
         next:'Next',
         previous:'Previous',

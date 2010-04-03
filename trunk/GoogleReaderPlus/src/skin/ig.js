@@ -5,16 +5,33 @@
 //http://www.google.com/ig/directory?type=themes
 //http://code.google.com/apis/themes/docs/dev_guide.html
 GRP.ig = function(prefs, lang){
-    var url_skin = prefs.ig_theme;
-    var css = ''; //GM_getValue('theme_ig_' + url_skin);
-    if (css) {
-        GM_addStyle(css, 'theme_ig');
-    } else {
-        loadCss('skin/css/ig.css', function(css){
-            var tplCss = css.replace(/_a_/g, '{').replace(/_z_/g, '}');
-            stylish(tplCss);
-        });
-    }
+    var xml_skin = prefs.ig_theme;
+	var skin_name = prefs.ig_theme_name;
+    var css = GM_getValue('theme_ig');
+	setcss(css, xml_skin);
+	
+	if (prefs.ig_randomthemes){
+		var t = parseInt(prefs.ig_randomthemes,10)||30;
+		window.setInterval(function(){
+			var data =  {
+	            message:'igtheme',
+				type:'random'
+	        };
+			chrome.extension.sendRequest(data, function(entry){
+				setcss('', entry.link);
+			});
+		},t*60000);
+	}
+	function setcss(css, xml){
+		if (css) {
+			GM_addStyle(css, 'theme_ig');
+		} else {
+			loadCss('skin/css/ig.css', function(css){
+				var tplCss = css.replace(/_a_/g, '{').replace(/_z_/g, '}');
+				stylish(tplCss, xml);
+			});
+		}
+	}
     function igurl(url){
         return 'http://skins.gmodules.com/ig/skin_fetch?fp=&type=2&sfkey=' + encodeURIComponent(url.replace(/&amp;/g, '&'));
     }
@@ -30,10 +47,10 @@ GRP.ig = function(prefs, lang){
         t += parseInt(h.replace('/[apm]/g', ''), 10);
         return t;
     }
-    function stylish(tplCss){
+    function stylish(tplCss, xml){
         GM_xmlhttpRequest({
             method: 'GET',
-            url: url_skin,
+            url: xml,
             onload: function(r){
                 var text = compact(r.responseText);
                 var colors = {};

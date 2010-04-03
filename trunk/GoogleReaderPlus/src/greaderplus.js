@@ -29,15 +29,15 @@
             this.lang = this.prefs.language_lang || 'en';
             loadLangs(this.lang, function(){
                 console.log("ReaderPlus in " + this.lang);
-                this.runExtra(this.lang);
+				this.runExtra();
                 this.fixMenu();
             }, this);
         },
         runExtra: function(){
-            var langs = GRP.langs[this.lang].texts;
             var count = 0;
             if (GRP.scripts) {
-                var total = GRP.scripts.length;
+                var langs = GRP.langs[this.lang].texts;
+				var total = GRP.scripts.length;
                 iterate(GRP.scripts, function(id, script){
                     if (script && this.prefs[id]) {
                         ++count;
@@ -72,11 +72,11 @@
                 }
             }
         },
-        fixMenu: function(){
+        fixMenu: function(langs){
             dh('gbg', 'a', {
                 href: '#',
                 cls: 'gb2',
-                text: 'Reader+ preferences'
+                text: getText(this.lang, 'ig', 'menu_prefs')||'Reader+ preferences'
             }, {
                 click: function(){
                     GM_openInTab('chrome-extension://' + GUID_CORE + '/preferences.html');
@@ -85,7 +85,17 @@
             dh('gbg', 'a', {
                 href: '#',
                 cls: 'gb2',
-                text: 'Reader+ Theme'
+                text: getText(this.lang, 'ig', 'menu_theme')||'Theme configuration'
+            }, {
+                click: function(){
+                    GM_openInTab('chrome-extension://' + GUID_CORE + '/preferences.html#ig');
+                }
+            });
+			dh('gbg', 'a', {
+                href: '#',
+                id:'grp_ch_theme',
+				cls: 'gb2',
+                text: getText(this.lang, 'ig', 'menu_randomtheme')||'Random theme'
             }, {
                 click: function(){
                     GM_openInTab('chrome-extension://' + GUID_CORE + '/preferences.html#ig');

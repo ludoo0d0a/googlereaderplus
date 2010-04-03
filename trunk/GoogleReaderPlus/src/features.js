@@ -75,6 +75,7 @@ GRP.scripts = {
                 size: 80
             },
 			randomtime:true,
+			randomthemes:30,
 			themes:{xtype:'html', value:'<div id="ig_themes"></div>'}
         }
     },
