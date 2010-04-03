@@ -90,6 +90,10 @@ GRP.preview = function(prefs, langs){
         if (!entryBody) {
             entryBody = getFirstElementByClassName(body, 'item-body');//div
         }
+		//TODO/ big work here todo
+		//open iframe close it
+		//go next items, open preview again : same old iframe!!!
+		
         iframe = getFirstElementByClassName(entry, 'if-preview');//'iframe'
         if (active) {
             // classic mode-> preview mode
