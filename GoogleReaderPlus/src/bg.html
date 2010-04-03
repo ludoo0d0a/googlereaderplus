@@ -9,6 +9,8 @@
         </script>
         <script type="application/javascript" src="features.js">
         </script>
+		<script type="application/javascript" src="prefs/itheme.js">
+        </script>
         <script type="application/javascript">
             var READING_LIST_RE_ = new RegExp('user/[\\d]+/state/com\\.google/reading-list');
             chrome.extension.onRequest.addListener(onRequest);
@@ -46,6 +48,8 @@
                     monitorIcon();
                 } else if (a.message == "request") {
                     request(a, false, cb);
+                }else if (a.message == "igtheme") {
+                    igtheme(a, cb);
                 }
             }
             
@@ -570,6 +574,17 @@
                     url: "preferences.html"
                 });
             }
+			
+			function igtheme(o, cb){
+                if (o.type==='random'){
+					//random theme
+					getRandomTheme(function(entry){
+						cb(entry);
+					});
+				}
+            }
+			
+			
             
             function sendResponse(a, cb){
                 if (cb) {
