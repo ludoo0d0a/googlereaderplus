@@ -6,8 +6,8 @@
  * en : English
  * **************************
  *
- * Version : 1.2
- * Date : 04-01-2010
+ * Version : 1.3
+ * Date : 04-05-2010
  * @author Valente
  */
 var locale = 'en';
