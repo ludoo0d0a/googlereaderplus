@@ -5,33 +5,41 @@
 //http://www.google.com/ig/directory?type=themes
 //http://code.google.com/apis/themes/docs/dev_guide.html
 GRP.ig = function(prefs, lang){
-    var xml_skin = prefs.ig_theme;
-	var skin_name = prefs.ig_theme_name;
+    var xml_skin = prefs.ig_skin_url;
+    var skin_name = prefs.ig_skin_name;
+    var ig_debug = prefs.ig_debug;
     var css = ''; //GM_getValue('theme_ig'+name???);
-	setcss(css, xml_skin);
-	
-	if (prefs.ig_userandomthemes){
-		var t = parseInt(prefs.ig_randomthemes,10)||30;
-		window.setInterval(function(){
-			var data =  {
-	            message:'igtheme',
-				type:'random'
-	        };
-			chrome.extension.sendRequest(data, function(entry){
-				setcss('', entry.link);
-			});
-		},t*60000);
-	}
-	function setcss(css, xml){
-		if (css) {
-			GM_addStyle(css, 'theme_ig');
-		} else {
-			loadCss('skin/css/ig.css', function(css){
-				var tplCss = css.replace(/_a_/g, '{').replace(/_z_/g, '}');
-				stylish(tplCss, xml);
-			});
-		}
-	}
+    if (prefs.ig_userandomthemes) {
+        var t = parseInt(prefs.ig_randomthemes, 10) || 5;
+        window.setInterval(function(){
+            rndskin();
+        }, t * 60000);
+        rndskin();
+    }
+    else {
+        setcss(css, xml_skin);
+    }
+    function rndskin(){
+        var data = {
+            message: 'igtheme',
+            type: 'random'
+        };
+        chrome.extension.sendRequest(data, function(entry){
+            setcss('', entry.link);
+        });
+    }
+    
+    function setcss(css, xml){
+        if (css) {
+            GM_addStyle(css, 'theme_ig');
+        }
+        else {
+            loadCss('skin/css/ig.css', function(css){
+                var tplCss = css.replace(/_a_/g, '{').replace(/_z_/g, '}');
+                stylish(tplCss, xml);
+            });
+        }
+    }
     function igurl(url){
         return 'http://skins.gmodules.com/ig/skin_fetch?fp=&type=2&sfkey=' + encodeURIComponent(url.replace(/&amp;/g, '&'));
     }
@@ -40,7 +48,8 @@ GRP.ig = function(prefs, lang){
         if (/am$/.test(h)) {
             //am
             t = 12;
-        } else {
+        }
+        else {
             //pm
             t = 0;
         }
@@ -59,7 +68,8 @@ GRP.ig = function(prefs, lang){
                 while ((ms = reSkins.exec(text)) !== null) {
                     if (f > 0) {
                         skins.push(ms[0]);
-                    } else {
+                    }
+                    else {
                         //first is metadata
                         metadata = ms[0];
                     }
@@ -68,7 +78,8 @@ GRP.ig = function(prefs, lang){
                 if (prefs.ig_randomtime) {
                     var index = Math.floor(Math.random() * skins.length);
                     skin = skins[index];
-                } else {
+                }
+                else {
                     var hc = (new Date()).getHours();
                     var i = 0;
                     var reTrait = /<Trait\s+name="TimeOfDay">([^<]+)<\/Trait>/;
@@ -86,32 +97,39 @@ GRP.ig = function(prefs, lang){
                         }
                     }
                 }
-                var debug='',reAttrs = /<Attribute\s+name="([^"]+)">([^<]+)<\/Attribute>/g;
+                var debug = '', reAttrs = /<Attribute\s+name="([^"]+)">([^<]+)<\/Attribute>/g;
                 while ((m = reAttrs.exec(skin)) !== null) {
                     colors[m[1]] = m[2];
-					//debug+='<input size="50" value="'+m[1]+'" style="background-color:'+m[2]+'"/><br/>';
+                    if (ig_debug) {
+                        debug += '<input size="50" value="' + m[1] + '" style="background-color:' + m[2] + '"/><br/>';
+                    }
                 }
-				//dh('', 'div', {id:'debug', html:debug, style:'position:absolute;top:40px;right:100px;z-index:9999;background-color:white;'});
-				
+                if (ig_debug) {
+                    dh('', 'div', {
+                        id: 'debug',
+                        html: debug,
+                        style: 'position:absolute;top:40px;right:100px;z-index:9999;background-color:white;'
+                    });
+                }
                 //tiled
                 var header_tile = colors['header.tile_image.url'] || '';
                 /*if (header_tile) {
-                    addClass(document.body.parentNode, 'ig_tiled');//html
-                }*/
+                 addClass(document.body.parentNode, 'ig_tiled');//html
+                 }*/
                 //fixed
                 var header_fixe = colors['header.center_image.url'] || '';
                 /*if (header_fixe) {
-                    addClass(document.body, 'ig_fixed');
-                }*/
+                 addClass(document.body, 'ig_fixed');
+                 }*/
                 apply(colors, {
                     header_tile: igurl(header_tile),
                     header_fixe: igurl(header_fixe),
                     ext_color: colors['gadget_area.tab.selected.text_color'],
                     bg_color: colors['header.background_color'],
                     //bg_menu: colors['gadget_area.tab.selected.text_color'],
-					bg_menu: colors['gadget_area.tab.selected.background_color'],
+                    bg_menu: colors['gadget_area.tab.selected.background_color'],
                     //text_menuhover: colors['gadget_area.gadget.header.text_color'],
-					text_menuhover: colors['gadget_area.tab.selected.text_color'],
+                    text_menuhover: colors['gadget_area.tab.selected.text_color'],
                     bg_action: colors['gadget_area.border_color'],
                     txt_action: colors['gadget_area.gadget.header.text_color'],
                     entry_color: '#fff'

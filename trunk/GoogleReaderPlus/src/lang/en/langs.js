@@ -42,7 +42,7 @@ GRP.langs[locale].texts = {
         text_send: 'Send',
         text_count: 'Count',
         text_cancel: 'Cancel',
-        text_shortener: 'Url courte',
+        text_shortener: 'Short url',
         shortfailed: "Sorry, an error occured on trying to use short url!\n\r{0}"
     },
 	readit: {
@@ -151,8 +151,9 @@ GRP.langs[locale].prefs = {
 		bg:'Background hover color'
     },
 	ig: {
-		theme_name:'iGoogle theme name',
-		theme:'iGoogle theme URL',
+		skin_name:'iGoogle theme name',
+		skin_url:'iGoogle theme URL',
+		debug:'Debug mode (For debugging only)',
 		randomtime:'Random skin instead time control for dynamic theme',
 		userandomthemes:'Theme is automatically switched randomly',
 		randomthemes:'Toggle theme every (min.)',

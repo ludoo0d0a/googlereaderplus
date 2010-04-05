@@ -9,7 +9,9 @@
         </script>
         <script type="application/javascript" src="features.js">
         </script>
-		<script type="application/javascript" src="prefs/itheme.js">
+        <script type="application/javascript" src="lib/greasekit.js">
+        </script>
+        <script type="application/javascript" src="prefs/itheme.js">
         </script>
         <script type="application/javascript">
             var READING_LIST_RE_ = new RegExp('user/[\\d]+/state/com\\.google/reading-list');
@@ -48,7 +50,7 @@
                     monitorIcon();
                 } else if (a.message == "request") {
                     request(a, false, cb);
-                }else if (a.message == "igtheme") {
+                } else if (a.message == "igtheme") {
                     igtheme(a, cb);
                 }
             }
@@ -484,12 +486,12 @@
                     }
                 }
             }
-			
-			//Try to find opened tab before open it
+            
+            //Try to find opened tab before open it
             function open_tab(a){
                 if (a.search) {
-                    
-					var o = {
+                
+                    var o = {
                         search: new RegExp(a.search.replace(/^https?/, 'https?').replace(/#.*$/, '')),
                         url: a.url
                     };
@@ -512,11 +514,11 @@
                     if (tab) {
                         if (select) {
                             chrome.tabs.update(tab.id, {
-                                url:a.url,
-								selected: true
-                            },function(tab){
-								chrome.tabs.executeScript(tab.id, 'hashchange();');
-							});
+                                url: a.url,
+                                selected: true
+                            }, function(tab){
+                                chrome.tabs.executeScript(tab.id, 'hashchange();');
+                            });
                         }
                     } else {
                         if (create) {
@@ -559,14 +561,14 @@
             
             function opentab(a){
                 chrome.tabs.getSelected(null, function(tab){
-					var o = {
-	                    url: a.url,
-	                    selected: (a.selected || typeof a.selected === "undefined"),
-	                    windowId: a.windowId,
-	                    index: a.index||(tab.index+1)
-	                };
-	                chrome.tabs.create(o);
-				});				
+                    var o = {
+                        url: a.url,
+                        selected: (a.selected || typeof a.selected === "undefined"),
+                        windowId: a.windowId,
+                        index: a.index || (tab.index + 1)
+                    };
+                    chrome.tabs.create(o);
+                });
             }
             
             function open_preferences(){
@@ -574,17 +576,21 @@
                     url: "preferences.html"
                 });
             }
-			
-			function igtheme(o, cb){
-                if (o.type==='random'){
-					//random theme
-					getRandomTheme(function(entry){
-						cb(entry);
-					});
-				}
+            
+            function igtheme(o, cb){
+                if (o.type === 'random') {
+                    //random theme
+                    getRandomTheme(function(entry){
+                        prefs=getPrefs();
+						console.log(entry);
+						prefs.ig_skin_name = entry.title;
+                        prefs.ig_skin_id = entry.skin_id;
+                        prefs.ig_skin_url = entry.link;
+                        setPrefs(prefs);
+                        cb(entry);
+                    }, true);
+                }
             }
-			
-			
             
             function sendResponse(a, cb){
                 if (cb) {

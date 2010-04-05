@@ -94,25 +94,25 @@ function igprevious(){
 }
 
 var randomCallback;
-function getRandomTheme(cb){
-    ig_cat = ig_cats[Math.round(Math.random() * ig_cats.length)].id;
-    ig_sort = ig_sorts[Math.round(Math.random() * ig_sorts.length)].id;
+function getRandomTheme(cb, inBg){
+    ig_cat = randomItem(ig_cats).id;
+    ig_sort = randomItem(ig_sorts).id;
     ig_pos = 0;
     var o = {
-        cat: cat,
-        pos: pos,
-        sort: sort,
-        q: q
+        cat: ig_cat,
+        pos: ig_pos,
+        sort: ig_sort,
+        q: ''
     };
     randomCallback = cb;//global way
-    callApi('randomTheme', o);
+    callApi('randomTheme', o, inBg);
 }
 
 function randomTheme(data){
     if (randomCallback) {
         var entries = data.feed.entry;
         if (entries && entries.length > 0) {
-			entry = ig_sorts[Math.round(Math.random() * entries.length)];
+			entry = randomItem(entries);
 			if (checkSkin(entry)) {
 				randomCallback(entry);
 			}
@@ -121,9 +121,9 @@ function randomTheme(data){
 }
 
 function igrnd(){
-    ig_cat = ig_cats[Math.round(Math.random() * ig_cats.length)].id;
-    ig_sort = ig_sorts[Math.round(Math.random() * ig_sorts.length)].id;
-    ig_pos = Math.round(Math.random() * 10);
+    ig_cat = randomItem(ig_cats).id;
+    ig_sort = randomItem(ig_sorts).id;
+    ig_pos = Math.round(Math.random() * 10)-1;
     renderThemes(ig_cat, ig_pos, ig_sort);
 }
 
@@ -143,11 +143,11 @@ function setTheme(id){
     if (!entry) {
         return;
     }
-    var el = get_id('ig_theme_name');
+    var el = get_id('ig_skin_name');
     if (el) {
         el.value = entry.title;
     }
-    el = get_id('ig_theme');
+    el = get_id('ig_skin_url');
     if (el) {
         var link = entry.link;
         if (!(/^http(s)?:/i.test(link))) {
@@ -160,7 +160,7 @@ function setTheme(id){
     }
 }
 
-function callApi(callback, o){
+function callApi(callback, o, inBg){
     lang = o.lang || 'en';
     ig_cat = o.cat || '';
     ig_pos = o.pos || 0;
@@ -170,7 +170,7 @@ function callApi(callback, o){
     if (ig_q) {
         api += '&q=' + ig_q;
     }
-    GM_xmlhttpRequest({
+	var a = {
         url: api,
         onload: function(xhr){
             var txt = xhr.responseText;
@@ -179,7 +179,12 @@ function callApi(callback, o){
                 eval(txt);
             }
         }
-    });
+    };
+    if (inBg){
+		request(a, true);
+	}else{
+		GM_xmlhttpRequest(a);
+	}
 }
 
 function renderThemes(cat, pos, sort, q){
