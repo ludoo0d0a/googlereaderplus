@@ -15,7 +15,7 @@
             GRP.language = function(){
                 //dummy
             };
-			GRP.IMAGES_PATH = 'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/src/images';
+            GRP.IMAGES_PATH = 'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/src/images';
             this.prefs = {};
             var me = this;
             chrome.extension.sendRequest({
@@ -29,7 +29,7 @@
             this.lang = this.prefs.language_lang || 'en';
             loadLangs(this.lang, function(){
                 console.log("ReaderPlus in " + this.lang);
-				this.runExtra();
+                this.runExtra();
                 this.fixMenu();
             }, this);
         },
@@ -37,7 +37,7 @@
             var count = 0;
             if (GRP.scripts) {
                 var langs = GRP.langs[this.lang].texts;
-				var total = GRP.scripts.length;
+                var total = GRP.scripts.length;
                 iterate(GRP.scripts, function(id, script){
                     if (script && this.prefs[id]) {
                         ++count;
@@ -76,7 +76,7 @@
             dh('gbg', 'a', {
                 href: '#',
                 cls: 'gb2',
-                text: getText(this.lang, 'ig', 'menu_prefs')||'Reader+ preferences'
+                text: getText(this.lang, 'ig', 'menu_prefs') || 'Reader+ preferences'
             }, {
                 click: function(){
                     GM_openInTab('chrome-extension://' + GUID_CORE + '/preferences.html');
@@ -85,17 +85,7 @@
             dh('gbg', 'a', {
                 href: '#',
                 cls: 'gb2',
-                text: getText(this.lang, 'ig', 'menu_theme')||'Theme configuration'
-            }, {
-                click: function(){
-                    GM_openInTab('chrome-extension://' + GUID_CORE + '/preferences.html#ig');
-                }
-            });
-			dh('gbg', 'a', {
-                href: '#',
-                id:'grp_ch_theme',
-				cls: 'gb2',
-                text: getText(this.lang, 'ig', 'menu_randomtheme')||'Random theme'
+                text: getText(this.lang, 'ig', 'menu_theme') || 'Theme configuration'
             }, {
                 click: function(){
                     GM_openInTab('chrome-extension://' + GUID_CORE + '/preferences.html#ig');
