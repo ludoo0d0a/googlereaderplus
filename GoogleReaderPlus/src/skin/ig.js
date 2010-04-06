@@ -11,7 +11,6 @@ GRP.ig = function(prefs, lang){
     var menu_item;
     var css = ''; //GM_getValue('theme_ig'+name???);
     fixMenu();
-    
     if (prefs.ig_userandomthemes) {
         var t = parseInt(prefs.ig_randomthemes, 10) || 5;
         window.setInterval(function(){
@@ -21,13 +20,12 @@ GRP.ig = function(prefs, lang){
     } else {
         setcss(css, xml_skin);
     }
-    
     function fixMenu(){
         menu_item = dh('gbg', 'a', {
             href: '#',
             id: 'grp_ch_theme',
             cls: 'gb2',
-            html: (getText(lang, 'ig', 'menu_randomtheme') || 'Random theme') + ' <span id="th_cur">' + skin_name + '</span>'
+            html: (getText(lang, 'ig', 'menu_randomtheme') || 'Change theme :') + ' <span id="th_cur">' + skin_name + '</span>'
         }, {
             click: function(){
                 rndskin();
@@ -47,14 +45,13 @@ GRP.ig = function(prefs, lang){
             }
         });
     }
-    
-    function setcss(css, xml){
+    function setcss(css, xml, entry){
         if (css) {
             GM_addStyle(css, 'theme_ig');
         } else {
             loadCss('skin/css/ig.css', function(css){
                 var tplCss = css.replace(/_a_/g, '{').replace(/_z_/g, '}');
-                stylish(tplCss, xml);
+                stylish(tplCss, xml, entry);
             });
         }
     }
@@ -73,8 +70,7 @@ GRP.ig = function(prefs, lang){
         t += parseInt(h.replace('/[apm]/g', ''), 10);
         return t;
     }
-    
-    function stylish(tplCss, xml){
+    function stylish(tplCss, xml, entry){
         GM_xmlhttpRequest({
             method: 'GET',
             url: xml,
@@ -98,13 +94,10 @@ GRP.ig = function(prefs, lang){
                 } else {
                     var hc = (new Date()).getHours();
                     var i = 0;
-                    var reTrait = /<Trait\s+name="TimeOfDay">([^<]+)<\/Trait>/;
+                    var reTrait = /<Trait\s+name="TimeOfDay">([^<]+)<\/Trait>/g;
                     function checkTime(skin){
                         var mt;
-						//while ((mt = reTrait.exec(skin)) !== null) {
-						//Why dont work
-						//Good eats - http://igoog.googlecode.com/svn/trunk/xml/artist_altonbrown.xml
-						if ((mt = reTrait.exec(skin)) !== null) {
+                        while ((mt = reTrait.exec(skin)) !== null) {
                             if (mt && mt[1]) {
                                 var h = mt[1].split('-');
                                 var a = convertHours(h[0]);
@@ -115,47 +108,52 @@ GRP.ig = function(prefs, lang){
                             }
                         }
                     }
-                    
                     for (var i = 0, len = skins.length; i < len; i++) {
                         skin = skins[i];
                         if (checkTime(skin)) {
                             break;
                         }
-                        
                     }
                 }
                 var debug = '', reAttrs = /<Attribute\s+name="([^"]+)">([^<]+)<\/Attribute>/g;
+				if (ig_debug) {
+					var entry_name = (entry)?entry.title:skin_name;
+					debug += '<a href="http://www.google.com/ig/directory?q=' + encodeURIComponent(entry_name) + '&type=themes" target="igtheme">' + entry_name + '</a><br/>';
+				}
                 while ((m = reAttrs.exec(skin)) !== null) {
                     colors[m[1]] = m[2];
                     if (ig_debug) {
-                        debug += '<input size="50" value="' + m[1] + '" style="background-color:' + m[2] + '"/><br/>';
+						debug += '<input size="50" value="' + m[1] + '" style="background-color:' + m[2] + '"/><br/>';
                     }
                 }
                 if (ig_debug) {
-                    dh('', 'div', {
-                        id: 'debug',
-                        html: debug,
-                        style: 'position:absolute;top:40px;right:100px;z-index:9999;background-color:white;'
-                    });
+                    var eldbg = get_id('debug');
+					if (eldbg) {
+						eldbg.innerHTML=debug;
+					} else {
+						dh('', 'div', {
+							id: 'debug',
+							html: debug,
+							style: 'position:absolute;top:40px;right:400px;z-index:9999;background-color:white;'
+						});
+					}
                 }
                 //tiled
                 var header_tile = colors['header.tile_image.url'] || '';
-                /*if (header_tile) {
-                 addClass(document.body.parentNode, 'ig_tiled');//html
-                 }*/
+                if (header_tile) {
+					addClassChecked(document.body.parentNode, 'ig_tiled');//html
+                }
                 //fixed
                 var header_fixe = colors['header.center_image.url'] || '';
-                /*if (header_fixe) {
-                 addClass(document.body, 'ig_fixed');
-                 }*/
+                if (header_fixe) {
+                    addClassChecked(document.body, 'ig_fixed');
+                }
                 apply(colors, {
                     header_tile: igurl(header_tile),
                     header_fixe: igurl(header_fixe),
-                    ext_color: colors['gadget_area.tab.selected.text_color'],
+                    text_color: colors['gadget_area.tab.selected.text_color'],
                     bg_color: colors['header.background_color'],
-                    //bg_menu: colors['gadget_area.tab.selected.text_color'],
                     bg_menu: colors['gadget_area.tab.selected.background_color'],
-                    //text_menuhover: colors['gadget_area.gadget.header.text_color'],
                     text_menuhover: colors['gadget_area.tab.selected.text_color'],
                     bg_action: colors['gadget_area.border_color'],
                     txt_action: colors['gadget_area.gadget.header.text_color'],
@@ -171,6 +169,3 @@ GRP.ig = function(prefs, lang){
 };
 //http://essence-ig-themes.googlecode.com/svn/trunk/lopes/xml/lopes.xml
 //http://igcdn.googlecode.com/svn/trunk/xml/travel_lpspain.xml
-
-
-
