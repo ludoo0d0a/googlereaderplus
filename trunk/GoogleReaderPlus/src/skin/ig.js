@@ -56,7 +56,11 @@ GRP.ig = function(prefs, lang){
         }
     }
     function igurl(url){
-        return 'http://skins.gmodules.com/ig/skin_fetch?fp=&type=2&sfkey=' + encodeURIComponent(url.replace(/&amp;/g, '&'));
+        if (/googlecode\.com/.test(url)) {
+            return 'http://skins.gmodules.com/ig/skin_fetch?fp=&type=2&sfkey=' + encodeURIComponent(url.replace(/&amp;/g, '&'));
+        } else {
+            return url;
+        }
     }
     function convertHours(h){
         var t = 0;
@@ -116,32 +120,32 @@ GRP.ig = function(prefs, lang){
                     }
                 }
                 var debug = '', reAttrs = /<Attribute\s+name="([^"]+)">([^<]+)<\/Attribute>/g;
-				if (ig_debug) {
-					var entry_name = (entry)?entry.title:skin_name;
-					debug += '<a href="http://www.google.com/ig/directory?q=' + encodeURIComponent(entry_name) + '&type=themes" target="igtheme">' + entry_name + '</a><br/>';
-				}
+                if (ig_debug) {
+                    var entry_name = (entry) ? entry.title : skin_name;
+                    debug += '<a href="http://www.google.com/ig/directory?q=' + encodeURIComponent(entry_name) + '&type=themes" target="igtheme">' + entry_name + '</a><br/>';
+                }
                 while ((m = reAttrs.exec(skin)) !== null) {
                     colors[m[1]] = m[2];
                     if (ig_debug) {
-						debug += '<input size="50" value="' + m[1] + '" style="background-color:' + m[2] + '"/><br/>';
+                        debug += '<input size="50" value="' + m[1] + '" style="background-color:' + m[2] + '"/><br/>';
                     }
                 }
                 if (ig_debug) {
                     var eldbg = get_id('debug');
-					if (eldbg) {
-						eldbg.innerHTML=debug;
-					} else {
-						dh('', 'div', {
-							id: 'debug',
-							html: debug,
-							style: 'position:absolute;top:40px;right:400px;z-index:9999;background-color:white;'
-						});
-					}
+                    if (eldbg) {
+                        eldbg.innerHTML = debug;
+                    } else {
+                        dh('', 'div', {
+                            id: 'debug',
+                            html: debug,
+                            style: 'position:absolute;top:40px;right:400px;z-index:9999;background-color:white;'
+                        });
+                    }
                 }
                 //tiled
                 var header_tile = colors['header.tile_image.url'] || '';
                 if (header_tile) {
-					addClassChecked(document.body.parentNode, 'ig_tiled');//html
+                    addClassChecked(document.body.parentNode, 'ig_tiled');//html
                 }
                 //fixed
                 var header_fixe = colors['header.center_image.url'] || '';
