@@ -64,6 +64,10 @@ GRP.theme = function(prefs, langs, scop){
         css += '.entry:nth-child(even) .card-actions {background-color:transparent;}';
         GM_addStyle(css, 'rps_compress');
     }
+	/*
+	if (prefs.theme_hidenav) {
+		addClass(document.body, 'lhn-hidden');
+	}*/
 	if (skin.resize) {
 		fireResize();
 	}
