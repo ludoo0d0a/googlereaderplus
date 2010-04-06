@@ -49,19 +49,6 @@ GRP.scripts = {
             }
         }
     },
-    relook: {
-        name: "Relook",
-        desc: "Relook yourself GoogleReader using custom stylesheets",
-        options: {
-            resize: false,
-            css: {
-                xtype: 'textarea',
-                cls: 'code',
-                rows: 40,
-                value: '/* This CSS sample alternates green entry, red border */\n/* green entry */\n.entry:nth-child(even) .card-common, \n.entry:nth-child(even) .card-actions, \n#entries .entry:nth-child(even) .collapsed {\n border:1px solid #FFACAC;\n}\n/* red border */\n.entry:nth-child(odd) .card-common, \n.entry:nth-child(odd) .card-actions, \n#entries .entry:nth-child(odd) .collapsed {\n background-color:#C4DFC0;\n}\n'
-            }
-        }
-    },
     ig: {
         name: "iGoogle Theme",
         desc: "Use iGoogle Theme in your Google Reader (Beta)",
@@ -80,6 +67,19 @@ GRP.scripts = {
 			userandomthemes:false,
 			randomthemes:30,
 			themes:{xtype:'html', value:'<div id="ig_themes"></div>'}
+        }
+    },
+    relook: {
+        name: "Relook",
+        desc: "Relook yourself GoogleReader using custom stylesheets",
+        options: {
+            resize: false,
+            css: {
+                xtype: 'textarea',
+                cls: 'code',
+                rows: 40,
+                value: '/* This CSS sample alternates green entry, red border */\n/* green entry */\n.entry:nth-child(even) .card-common, \n.entry:nth-child(even) .card-actions, \n#entries .entry:nth-child(even) .collapsed {\n border:1px solid #FFACAC;\n}\n/* red border */\n.entry:nth-child(odd) .card-common, \n.entry:nth-child(odd) .card-actions, \n#entries .entry:nth-child(odd) .collapsed {\n background-color:#C4DFC0;\n}\n'
+            }
         }
     },
     favicons: {
