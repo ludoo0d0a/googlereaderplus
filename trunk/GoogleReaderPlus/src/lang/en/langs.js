@@ -133,8 +133,8 @@ overlay_close: 'Close'
     },
 	ig: {
         menu_prefs: 'Reader+ preferences',
-        menu_theme: 'Theme configuration',
-		menu_randomtheme: 'Random theme'
+        menu_theme: 'Reader+ theme',
+		menu_randomtheme: 'Change theme :'
     }
 };
 GRP.langs[locale].prefs = {
@@ -154,7 +154,7 @@ GRP.langs[locale].prefs = {
 		skin_name:'iGoogle theme name',
 		skin_url:'iGoogle theme URL',
 		debug:'Debug mode (For debugging only)',
-		randomtime:'Random skin instead time control for dynamic theme',
+		randomtime:'Dynamic theme toggles randomly instead time control',
 		userandomthemes:'Theme is automatically switched randomly',
 		randomthemes:'Toggle theme every (min.)',
 		add:'Add it now',
