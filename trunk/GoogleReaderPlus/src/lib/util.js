@@ -13,6 +13,12 @@ function addClass(el, clazz){
     el.className = (el.className || '') + ' ' + clazz;
 }
 
+function addClassChecked(el, clazz){
+	if (!hasClass(el, clazz)){
+		addClass(el, clazz);
+	}
+}
+
 function addClassIf(el, cls, status){
     if (status) {
         addClass(el, cls);
@@ -353,6 +359,16 @@ function simulateClick(node){
  node);
  */
     node.dispatchEvent(event);
+}
+
+function simulateKeypress(node, keycode){
+    var event = node.ownerDocument.createEvent("KeyboardEvent");
+    if (typeof keycode === "string") {
+        keycode = keycode.charCodeAt(0);
+    }
+    event.initKeyEvent("keypress", true, true, window, 0, 0, 0, 0, 0, keycode);
+    //event.initKeyboardEvent('keypress', true, true, window, "U+0041");
+    node.dispatchEvent(evt);
 }
 
 /**
@@ -906,14 +922,14 @@ function dh(root, tag, attrs, events){
     var el = document.createElement(tag || 'div');
     iterate(attrs, function(k, o){
         if (typeof o !== 'undefined') {
-			if (tmaps[k]) {
-				el[tmaps[k]] = o;
-			} else {
-				var attr = document.createAttribute(k);
-				attr.value = o;
-				el.attributes.setNamedItem(attr);
-			}
-		}
+            if (tmaps[k]) {
+                el[tmaps[k]] = o;
+            } else {
+                var attr = document.createAttribute(k);
+                attr.value = o;
+                el.attributes.setNamedItem(attr);
+            }
+        }
     });
     iterate(events, function(event, fn){
         el.addEventListener(event, fn, false);
@@ -924,14 +940,14 @@ function dh(root, tag, attrs, events){
 
 function newel(id, cls){
     var el = get_id(id);
-	if (el) {
-		return el;
-	} else {
-		return dh('', 'div', {
-			id: id,
-			cls: cls
-		});
-	}
+    if (el) {
+        return el;
+    } else {
+        return dh('', 'div', {
+            id: id,
+            cls: cls
+        });
+    }
 }
 
 function randomItem(items){
