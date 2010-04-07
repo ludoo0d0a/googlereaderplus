@@ -35,14 +35,15 @@ GRP.ig = function(prefs, lang){
     function rndskin(){
         var data = {
             message: 'igtheme',
-            type: 'random'
+            type: 'random',
+			current:skin_name
         };
         chrome.extension.sendRequest(data, function(entry){
-            setcss('', entry.link);
-            var item = get_id('th_cur');
-            if (item) {
-                item.innerHTML = entry.title;
-            }
+				setcss('', entry.link);
+				var item = get_id('th_cur');
+				if (item) {
+					item.innerHTML = entry.title;
+				}
         });
     }
     function setcss(css, xml, entry){
@@ -56,11 +57,7 @@ GRP.ig = function(prefs, lang){
         }
     }
     function igurl(url){
-        if (/googlecode\.com/.test(url)) {
-            return 'http://skins.gmodules.com/ig/skin_fetch?fp=&type=2&sfkey=' + encodeURIComponent(url.replace(/&amp;/g, '&'));
-        } else {
-            return url;
-        }
+        return 'http://skins.gmodules.com/ig/skin_fetch?fp=&type=2&sfkey=' + encodeURIComponent(url.replace(/&amp;/g, '&'));
     }
     function convertHours(h){
         var t = 0;
@@ -119,48 +116,61 @@ GRP.ig = function(prefs, lang){
                         }
                     }
                 }
-                var debug = '', reAttrs = /<Attribute\s+name="([^"]+)">([^<]+)<\/Attribute>/g;
-                if (ig_debug) {
-                    var entry_name = (entry) ? entry.title : skin_name;
-                    debug += '<a href="http://www.google.com/ig/directory?q=' + encodeURIComponent(entry_name) + '&type=themes" target="igtheme">' + entry_name + '</a><br/>';
-                }
+				if (entry) {
+					skin_name = entry.title;
+					xml_skin = entry.link;
+				}
+				
+				var debug = '', reAttrs = /<Attribute\s+name="([^"]+)">([^<]+)<\/Attribute>/g;
+				if (ig_debug) {
+					debug += '<a href="http://www.google.com/ig/directory?q=' + encodeURIComponent(skin_name) + '&type=themes" target="igtheme">' + skin_name + '</a><br/>';
+				}
                 while ((m = reAttrs.exec(skin)) !== null) {
                     colors[m[1]] = m[2];
                     if (ig_debug) {
-                        debug += '<input size="50" value="' + m[1] + '" style="background-color:' + m[2] + '"/><br/>';
+						debug += '<input size="50" value="' + m[1] + '" style="background-color:' + m[2] + '"/><br/>';
                     }
                 }
                 if (ig_debug) {
                     var eldbg = get_id('debug');
-                    if (eldbg) {
-                        eldbg.innerHTML = debug;
-                    } else {
-                        dh('', 'div', {
-                            id: 'debug',
-                            html: debug,
-                            style: 'position:absolute;top:40px;right:400px;z-index:9999;background-color:white;'
-                        });
-                    }
+					if (eldbg) {
+						eldbg.innerHTML=debug;
+					} else {
+						dh('', 'div', {
+							id: 'debug',
+							html: debug,
+							style: 'position:absolute;top:200px;right:400px;z-index:9999;height:600px;overflow:auto;background-color:white;'
+						});
+					}
                 }
                 //tiled
                 var header_tile = colors['header.tile_image.url'] || '';
-                if (header_tile) {
-                    addClassChecked(document.body.parentNode, 'ig_tiled');//html
-                }
+                addClassIf(document.body.parentNode, 'ig_tiled', header_tile);//html
+                
                 //fixed
                 var header_fixe = colors['header.center_image.url'] || '';
-                if (header_fixe) {
-                    addClassChecked(document.body, 'ig_fixed');
-                }
+                addClassIf(document.body, 'ig_fixed', header_fixe);
                 apply(colors, {
                     header_tile: igurl(header_tile),
                     header_fixe: igurl(header_fixe),
-                    text_color: colors['gadget_area.tab.selected.text_color'],
-                    bg_color: colors['header.background_color'],
-                    bg_menu: colors['gadget_area.tab.selected.background_color'],
-                    text_menuhover: colors['gadget_area.tab.selected.text_color'],
-                    bg_action: colors['gadget_area.border_color'],
+					header_link_color: colors['header.link_color'],
+					header_bg_color: colors['header.background_color'],
+
+                    header_text_color: colors['header.text_color'],
+					text_color: colors['gadget_area.tab.unselected.text_color']||colors['gadget_area.tab.selected.text_color'],
+					link_color: colors['gadget_area.gadget.body.link_color'],
+
+					nav_bg_color: colors['navbar.background_color'],
+					nav_text_color: colors['navbar.tab.selected.link_color']||colors['navbar.tab.unselected.link_color'],
+					
+					nav_bg_color_hover: colors['gadget_area.tab.selected.background_color']||colors['gadget_area.tab.unselected.background_color'],
+					nav_text_color_hover: colors['gadget_area.tab.selected.text_color']||colors['gadget_area.tab.unselected.text_color'],
+					nav_border_color_hover: colors['gadget_area.gadget.hover.border_color'],
+					
+					border_color: colors['gadget_area.border_color']||colors['gadget_area.gadget.border_color'],
+					bg_action: colors['gadget_area.gadget.header.background_color'],
                     txt_action: colors['gadget_area.gadget.header.text_color'],
+					
                     entry_color: '#fff'
                 });
                 css = fillTpl(tplCss, colors);

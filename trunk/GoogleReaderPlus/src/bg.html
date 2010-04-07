@@ -580,7 +580,7 @@
             function igtheme(o, cb){
                 if (o.type === 'random') {
                     //random theme
-                    getRandomTheme(function(entry){
+                    getRandomTheme(o.current,function(entry){
                         prefs=getPrefs();
 						console.log(entry);
 						prefs.ig_skin_name = entry.title;

@@ -93,8 +93,8 @@ function igprevious(){
     renderThemes(ig_cat, ig_pos);
 }
 
-var randomCallback;
-function getRandomTheme(cb, inBg){
+var randomCallback, lastSkin;
+function getRandomTheme(current, cb, inBg){
     ig_cat = randomItem(ig_cats).id;
     ig_sort = randomItem(ig_sorts).id;
     ig_pos = 0;
@@ -104,6 +104,7 @@ function getRandomTheme(cb, inBg){
         sort: ig_sort,
         q: ''
     };
+	lastSkin=current;
     randomCallback = cb;//global way
     callApi('randomTheme', o, inBg);
 }
@@ -113,8 +114,11 @@ function randomTheme(data){
         var entries = data.feed.entry;
         if (entries && entries.length > 0) {
 			entry = randomItem(entries);
-			if (checkSkin(entry)) {
+			if (checkSkin(entry, lastSkin)) {
 				randomCallback(entry);
+			}else{
+				//retry
+				getRandomTheme(lastSkin, randomCallback, true);
 			}
         }
     }
@@ -197,8 +201,8 @@ function renderThemes(cat, pos, sort, q){
     callApi('setThemes', o);
 }
 
-function checkSkin(entry){
-	return (entry && entry.skin_id && parseInt(entry.skin_id, 10) > 1000);
+function checkSkin(entry, lastSkin){
+	return (entry && entry.skin_id && parseInt(entry.skin_id, 10) > 1000 && entry.title!==lastSkin);
 }
 function setThemes(data){
     entries = data.feed || {};
