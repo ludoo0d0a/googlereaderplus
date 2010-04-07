@@ -141,7 +141,7 @@ GRP.preview = function(prefs, langs){
             }
             if (overlay.subtitle) {
                 var d = getSelectedDir();
-                var p = getPosition(entry);
+                var p = getIndex(entry);
                 overlay.subtitle.innerHTML = SL.overlay_category + ' : ' + d.text + ' - ' + p + '/' + d.count;
             }
         }
@@ -223,7 +223,7 @@ GRP.preview = function(prefs, langs){
                 html: '<a href="' + urlLink.url + '">' + urlLink.title + '</a>'
             });
             var d = getSelectedDir();
-            var p = getPosition(entry);
+            var p = getIndex(entry);
             overlay.subtitle = dh(overlay.root, 'div', {
                 id: 'pov_subtitle',
                 html: SL.overlay_category + ' : ' + d.text + ' - ' + p + '/' + d.count

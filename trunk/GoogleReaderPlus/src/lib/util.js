@@ -61,12 +61,25 @@ function getFirstNode(el){
     return o;
 }
 
-function getPosition(el){
+function getIndex(el){
 	var pos=0,o = el;
     while ((o = o.previousSibling)) {
 		pos++;
     }
     return (pos+1);
+}
+
+function getPos(obj) {
+	var output = {};
+	var mytop=0, myleft=0;
+	while( obj) {
+		mytop+= obj.offsetTop;
+		myleft+= obj.offsetLeft;
+		obj= obj.offsetParent;
+	}
+	output.left = myleft;
+	output.top = mytop;
+	return output;
 }
 
 //native getElementsByClassName
@@ -757,8 +770,13 @@ function urlDecode(string){
     return obj;
 }
 
-function getDomain(url){
-    return url.split(/\/|\?/)[2];
+function getDomain(url, withProtocol){
+    var m = url.split(/\/|\?/);
+	if (withProtocol) {
+		return m[0]+'/'+m[1]+'/'+m[2];
+	} else {
+		return m[2];
+	}
 }
 
 function isVersionMini(ref){
@@ -868,6 +886,14 @@ function waitImages(images, cb, scope){
 function isShown(el){
     return (el && el.style && el.style.display !== 'none' && el.visibility !== 'hidden');
 }
+function show(el){
+    el.style.display= 'block';
+}
+
+function hide(el){
+    el.style.display= 'none';
+}
+
 
 //http://forums.mozillazine.org/viewtopic.php?f=19&t=1806595
 //http://forums.mozillazine.org/viewtopic.php?f=19&t=1594275
@@ -929,6 +955,7 @@ function applyXsl(xml, xsl){
 var tmaps = {
     id: 'id',
     cls: 'className',
+	style:'style',
     href: 'href',
 	alt: 'alt',
 	title: 'title',

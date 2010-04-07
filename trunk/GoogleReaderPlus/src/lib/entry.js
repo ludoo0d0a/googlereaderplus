@@ -48,7 +48,7 @@ function execAllOffset(el, entry, mode, force){
 }
 
 function monitorEntries(el){
-    var root = el || get_id("entries");
+    var root = el || get_id('entries');
     root.addEventListener('DOMNodeInserted', function(e){
         checkEntry(e.target, execAll);
     }, false);
@@ -149,7 +149,7 @@ function getRegex(urls){
 }
 
 function forAllEntries(fn){
-    var root = document.getElementById('entries');
+    var root = get_id('entries');
     //var entries = getElementsByClazzName('entry', 'div', root);
     var entries = root.getElementsByClassName('entry');
     for (var i = 0; i < entries.length; i++) {
@@ -295,7 +295,7 @@ function jump(entry, dirtop){
     if (!entry) {
         return false;
     }
-    var entries = document.getElementById('entries');
+    var entries = get_id('entries');
     var height = parseInt(entries.style.height.replace('px', ''), 10);
     var top = 0;
     if (dirtop) {
@@ -309,13 +309,13 @@ function jump(entry, dirtop){
 }
 
 function getWidthEntries(){
-    var entries = document.getElementById('entries');
+    var entries = get_id('entries');
     return entries.clientWidth;
 }
 
 function getHeightEntries(alone){
     var height = 500;
-    var entries = document.getElementById('entries');
+    var entries = get_id('entries');
     if (entries) {
         var offset = 0;
         if (!alone) {
@@ -327,7 +327,6 @@ function getHeightEntries(alone){
             if (ea) {
                 offset += ea.clientHeight;
             }
-            console.log('offset=' + offset);
             offset = Math.max(110, offset);
         }
         height = parseInt(entries.style.height.replace('px', ''), 10) - offset;
@@ -506,14 +505,6 @@ function toggle(el){
     }
 }
 
-function hide(el){
-    el.style.display = "none";
-}
-
-function show(el){
-    delete el.style.display;
-}
-
 function createMenu(items){
     var menu = document.createElement('div');
     menu.className = "goog-menu goog-menu-vertical";
@@ -579,7 +570,8 @@ function getSelectedDir(){
     if (el) {
         o = {
             text: getElementText(el, 'name-text'),
-            count: getElementText(el, 'unread-count').replace(/[\(\)]/g, '')
+            count: getElementText(el, 'unread-count').replace(/[\(\)]/g, ''),
+			url:el.href
         };
     } else {
         //div.selector.selected
@@ -587,9 +579,21 @@ function getSelectedDir(){
         if (el) {
             o = {
                 text: getElementText(el, 'text', false, true),
-                count: getElementText(el, 'unread-count').replace(/[\(\)]/g, '')
+                count: getElementText(el, 'unread-count').replace(/[\(\)]/g, ''),
+				url:el.href
             };
         }
     }
     return o;
+}
+
+function getMetadata(){
+	var s = document.head.getElementsByTagName('script')[0];
+	var c = s.innerHTML;
+	var m,re=/([_A-Z]+)\s+=\s+([^,]+),/g;
+	var metadata = {};
+	while ((m = re.exec(c)) !== null) {
+		metadata[m[1]]=m[2].replace(/^"|"$/g,'');
+	}
+	return metadata;
 }
