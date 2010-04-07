@@ -136,7 +136,10 @@ overlay_category: 'Category'
         menu_prefs: 'Reader+ preferences',
         menu_theme: 'Reader+ theme',
 		menu_randomtheme: 'Change theme :'
-    }
+    },
+	menu:{
+        label: 'Extra'
+	}
 };
 GRP.langs[locale].prefs = {
     global: {

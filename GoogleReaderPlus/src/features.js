@@ -30,22 +30,22 @@ GRP.scripts = {
             noborder: false,
             mytheme: {
                 xtype: 'p',
-				parent:'mto'
+                parent: 'mto'
             },
             url: {
                 value: 'http://media.smashingmagazine.com/cdn_smash/wp-content/uploads/uploader/wallpapers/march10/march-10-ultimate-sophistication-nocal-1280x1024.jpg',
                 size: 80,
-				parent:'mto'
+                parent: 'mto'
             },
             color: {
                 value: '#565656',
                 cls: 'picker',
-				parent:'mto'
+                parent: 'mto'
             },
             bg: {
                 value: '#FFC',
                 cls: 'picker',
-				parent:'mto'
+                parent: 'mto'
             }
         }
     },
@@ -53,21 +53,32 @@ GRP.scripts = {
         name: "iGoogle Theme",
         desc: "Use iGoogle Theme in your Google Reader (Beta)",
         options: {
-			warning:{xtype: 'p',cls:'warning center'},
-			skin_name:{
+            warning: {
+                xtype: 'p',
+                cls: 'warning center'
+            },
+            skin_name: {
                 value: '',
                 size: 80
             },
-			skin_url: {
+            skin_url: {
                 value: '',
                 size: 80
             },
-			skin_id:{xtype:'hidden'},
-			debug:false,
-			randomtime:true,
-			userandomthemes:false,
-			randomthemes:{value:30,lcls:'large'},
-			themes:{xtype:'html', value:'<div id="ig_themes"></div>'}
+            skin_id: {
+                xtype: 'hidden'
+            },
+            debug: false,
+            randomtime: true,
+            userandomthemes: false,
+            randomthemes: {
+                value: 30,
+                lcls: 'large'
+            },
+            themes: {
+                xtype: 'html',
+                value: '<div id="ig_themes"></div>'
+            }
         }
     },
     relook: {
@@ -158,7 +169,7 @@ GRP.scripts = {
         name: "Integrated preview",
         options: {
             onicon: false,
-			overlay: false,
+            overlay: false,
             locked: false,
             filter: {
                 xtype: 'crud'
@@ -246,7 +257,10 @@ GRP.scripts = {
                 cls: 'subtitle'
             },
             username: '',
-            password: {input:'password', value:''}
+            password: {
+                input: 'password',
+                value: ''
+            }
         },
         shortcuts: {
             'readitlater': {
@@ -259,7 +273,7 @@ GRP.scripts = {
             }
         }
     },
-	readitlater: {
+    readitlater: {
         name: "ReadItLater integration",
         options: {
             auth: {
@@ -267,7 +281,10 @@ GRP.scripts = {
                 cls: 'subtitle'
             },
             username: '',
-            password: {input:'password', value:''}
+            password: {
+                input: 'password',
+                value: ''
+            }
         },
         shortcuts: {
             'ril': {
@@ -450,39 +467,10 @@ GRP.scripts = {
              */
         }
     },
-    /*
-     {
-     menu:{
-     name: "Intuitive menu",
-     desc: "Intuitive menu to add extra capabilites"
-     },
-     {
-     lightbox:{
-     name: "Lightbox",
-     options:
-     {
-     box:
-     {
-     xtype: 'select',
-     values: {ceebox:'CeeBox', shadowbox:'ShadowBox', topup:'TopUp', multibox:'MultiBox'}
-     },
-     locked: false,
-     filter: {xtype:'crud'}
-     }
-     ,shortcuts:
-     {
-     'light':
-     {
-     id: 'light',
-     title: 'Show media fullscreen',
-     key:
-     {
-     //76 l
-     keyCode: 82
-     }
-     }
-     }
-     }}, */
+    menu: {
+        name: "Intuitive menu",
+        desc: "Intuitive menu to add extra capabilites"
+    },
     aero: {
         name: "Google Aero Toolbar"
     },
