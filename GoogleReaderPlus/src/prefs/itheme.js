@@ -9,10 +9,11 @@ var tpl_ig_skin_block = '{{%IMPLICIT-ITERATOR}}' +
 '<div class="indi_sort">{{#sorts}}' +
 '<span class="indi_link" onclick="javascript:igsort(\'{{id}}\')">{{name}}</span> - ' +
 '{{/sorts}}</div>' +
-'<span class="indi_link" onclick="javascript:igprevious()">{{txt_previous}}</span> - ' +
+'<form onsubmit="javascript:igsearch();return false;"><input type="text" value="{{q}}" size="20" id="igq"><input type="submit" value="{{txt_search}}">' +
+'&nbsp;<span class="indi_link" onclick="javascript:igprevious()">{{txt_previous}}</span> - ' +
 '<span class="indi_link" onclick="javascript:ignext()">{{txt_next}}</span> - ' +
-'<span class="indi_link" onclick="javascript:igrnd()">{{txt_random}}</span>  ' +
-'<form onsubmit="javascript:igsearch();return false;"><input type="text" value="{{q}}" size="20" id="igq"><input type="submit" value="{{txt_search}}"></form>' +
+'<span class="indi_link" onclick="javascript:igrnd()">{{txt_random}}</span>' +
+'</form>' +
 '<div class="indi_entries">' +
 '{{#entry}}<div class="indi_entry">' +
 '<div class="indi_entry_title_wrap"><div class="indi_entry_title">{{title}}</div></div>' +

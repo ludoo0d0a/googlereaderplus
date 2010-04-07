@@ -78,10 +78,10 @@ function renderScripts(){
     extraFeatures();
 }
 
-var tplInput = '<label class="lbl" id="t_{id}" for="{id}">{text}</label><input id="{id}" class="{cls}" name="{id}" type="{input}" value="{value}"{extra}"/><br/>';
-var tplTextarea = '<label class="lbl" id="t_{id}" for="{id}">{text}</label><textarea style="" class="{cls}" id="{id}" name="{id}" cols="{cols}" rows="{rows}"{extra}">{value}</textarea><br/>';
+var tplInput = '<label class="lbl {lcls}" id="t_{id}" for="{id}">{text}</label><input id="{id}" class="{cls}" name="{id}" type="{input}" value="{value}"{extra}"/><br/>';
+var tplTextarea = '<label class="lbl {lcls}" id="t_{id}" for="{id}">{text}</label><textarea style="" class="{cls}" id="{id}" name="{id}" cols="{cols}" rows="{rows}"{extra}">{value}</textarea><br/>';
 var tplCheckbox = '<input id="{id}" name="{id}" type="checkbox"/><label class="lbl_checkbox" id="t_{id}" for="{id}">{text}</label><br/>';
-var tplSelect = '<label class="lbl" id="t_{id}">{text}</label><select name="{id}" id="{id}">{options}</select><br/><br/>';
+var tplSelect = '<label class="lbl {lcls}" id="t_{id}">{text}</label><select name="{id}" id="{id}">{options}</select><br/><br/>';
 var tplSelectOption = '<option value="{id}"{checked}>{value}</option>';
 var tplPara = '<p class="{cls}" id="t_{id}">{text}</p>';
 var tplDiv = '<div class="{cls}" id="{id}"></div>';
@@ -104,6 +104,7 @@ function renderOptions(body, script){
             id: script.id + '_' + option,
             value: value,
             extra: '',
+			lcls:cfg.lcls || '',
 			input:cfg.input || 'text',
             cls: cfg.cls || ''
         };

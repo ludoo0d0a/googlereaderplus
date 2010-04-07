@@ -110,7 +110,8 @@ nologin: 'This feature requires a username, please set preferences!!',
         keyword: 'Preview',
 overlay_next: 'Next',
 overlay_previous: 'Previous',
-overlay_close: 'Close'
+overlay_close: 'Close',
+overlay_category: 'Category'
     },
     readbymouse: {
         middleclick: 'Middle click',
@@ -151,6 +152,7 @@ GRP.langs[locale].prefs = {
 		bg:'Background hover color'
     },
 	ig: {
+		warning:'Some themes could be displayed incorrectly ; this is a Beta feature!',
 		skin_name:'iGoogle theme name',
 		skin_url:'iGoogle theme URL',
 		debug:'Debug mode (For debugging only)',
@@ -226,7 +228,8 @@ readitlater: {
     },
     preview: {
         onicon: "Show integrated preview when click on icon right after the title (if not checked, on title)",
-        locked: "Feature 'Preview' always actived by default, except for :"
+        locked: "Feature 'Preview' always actived by default, except for :",
+overlay:'Fullscreen preview (Lightbox)'
     },
     fitheight: {
         locked: "Feature 'Fit height' always actived by default, except for :"

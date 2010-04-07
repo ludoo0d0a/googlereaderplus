@@ -26,7 +26,7 @@ img {
 /**
  * Pretty form
  */
-#panels input, #panels textarea, #panels select {
+#panels input[type='text'], #panels textarea, #panels select {
     border: 0;
     margin: 3px;
     padding: 0px 3px;
@@ -43,7 +43,9 @@ label.lbl, .shortcut label {
     width: 130px;
     display: block;
 }
-
+label.large{
+	width: 250px;
+}
 /**
  * Skeleton
  */
@@ -301,16 +303,15 @@ span.olink {
 /**
  * Shortcuts
  */
-div.warning {
+.warning {
     background-color: #dd2222;
     color: #ffffff;
     border: 1px solid #ff0000;
-    width: 250px;
-    float: right;
 }
 
-input.warning {
-    background-color: #dd2222;
+div.warning{
+    width: 250px;
+    float: right;
 }
 
 .shortcut {
@@ -431,7 +432,10 @@ img.favicon {
 	height:400px;
 	overflow-y:auto;
 }
-
+.indi_sort{
+	float:right;
+	text-align:right;
+}
 .indi_link{
 	color:#2222ff;
 	text-decoration:underline;
@@ -440,4 +444,8 @@ img.favicon {
 
 .bc{
 	clear:both;
+}
+
+.center{
+	text-align:center;
 }
