@@ -53,6 +53,7 @@ GRP.scripts = {
         name: "iGoogle Theme",
         desc: "Use iGoogle Theme in your Google Reader (Beta)",
         options: {
+			warning:{xtype: 'p',cls:'warning center'},
 			skin_name:{
                 value: '',
                 size: 80
@@ -65,7 +66,7 @@ GRP.scripts = {
 			debug:false,
 			randomtime:true,
 			userandomthemes:false,
-			randomthemes:30,
+			randomthemes:{value:30,lcls:'large'},
 			themes:{xtype:'html', value:'<div id="ig_themes"></div>'}
         }
     },

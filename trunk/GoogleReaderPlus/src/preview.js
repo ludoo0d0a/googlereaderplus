@@ -16,6 +16,7 @@
 GRP.preview = function(prefs, langs){
     var SL = langs.preview;
     var locked = false;
+    var overlay;
     var rx = getRegex(prefs.preview_filter);
     function addPreviewButton(el, entry, mode){
         // Top link
@@ -78,81 +79,90 @@ GRP.preview = function(prefs, langs){
             //Regex filtered
             return false;
         }
-        var iframe;
-        var active = isActive(btn, entry, 'preview', locked);
         // Need to scroll before changing entry-body, because scrolling repaints
         // article from scratch (list view only)
         if (!locked) {
             jump(entry, true);
         }
-        var body = getFirstElementByClassName(entry, 'entry-body');//div
-        var entryBody = getFirstElementByClassName(body, 'entry-enclosure');//div
+        var ebody = getFirstElementByClassName(entry, 'entry-body');//div
+        var entryBody = getFirstElementByClassName(ebody, 'entry-enclosure');//div
         if (!entryBody) {
-            entryBody = getFirstElementByClassName(body, 'item-body');//div
+            entryBody = getFirstElementByClassName(ebody, 'item-body');//div
         }
-		//TODO/ big work here todo
-		//open iframe close it
-		//go next items, open preview again : same old iframe!!!
-		
-        iframe = getFirstElementByClassName(entry, 'if-preview');//'iframe'
-        if (active) {
-            // classic mode-> preview mode
-            if (iframe) {
-                // iframe already in document, display it
-                iframe.style.display = 'block';
-            } else {
-                // iframe not in document, create it
-                iframe = document.createElement('iframe');
-                //iframe.id='if-preview';
-                updateFrame(iframe, entry);
-                iframe.className = 'if-preview';
-                if (prefs.preview_overlay) {
-					renderoverlay(iframe, entry);
-                } else {
-                    entryBody.style.display = 'none';
-					iframe.setAttribute('width', '100%');
-                    var h = getHeightEntries();
-                    iframe.setAttribute('height', h + 'px');
-                    body.appendChild(iframe);
-                }
-                //if (prefs.preview_adjustframe) { adjustIframeHeight(iframe, h); }
+        var iframe, active;
+        if (prefs.preview_overlay) {
+            renderoverlay(entry);
+            if (overlay) {
+                updateFrame(overlay.iframe, entry);
             }
-            // Scale article container to fullwidth
-            body.setAttribute('style', 'max-width: 98%');
         } else {
-            // preview mode -> classic mode
-            // hide iframe
-            if (iframe) {
-                iframe.style.display = 'none';
-            }
-            // show rss item
-            entryBody.style.display = 'block';
-            body.removeAttribute('style', '');
-            if (!locked) {
-                jump(entry, true);
+            //toggle button only when not overlay
+            active = isActive(btn, entry, 'preview', locked);
+            iframe = getFirstElementByClassName(entry, 'if-preview');//'iframe'
+            if (active) {
+                // classic mode-> preview mode
+                if (iframe) {
+                    // iframe already in document, display it
+                    updateFrame(iframe, entry);
+                    iframe.style.display = 'block';
+                } else {
+                    // iframe not in document, create it
+                    iframe = document.createElement('iframe');
+                    iframe.className = 'if-preview';
+                    updateFrame(iframe, entry);
+                    entryBody.style.display = 'none';
+                    setIframesize(iframe);
+                    ebody.appendChild(iframe);
+                    //if (prefs.preview_adjustframe) { adjustIframeHeight(iframe, h); }
+                }
+                // Scale article container to fullwidth
+                ebody.setAttribute('style', 'max-width: 98%');
+            } else {
+                // preview mode -> classic mode
+                // hide iframe
+                if (iframe) {
+                    iframe.style.display = 'none';
+                }
+                // show rss item
+                entryBody.style.display = 'block';
+                ebody.removeAttribute('style', '');
+                if (!locked) {
+                    jump(entry, true);
+                }
             }
         }
     }
-	function updateFrame(iframe, entry){
-		var urlLink = getEntryLink(entry);
-		var url = urlLink.url;
-		if (overlay && overlay.title){
-			overlay.title.innerHTML = '<a href="'+urlLink.url+'">'+urlLink.title+'</a>';
-		}
-		var locksite = isSiteLocked(url);
-		if (locksite) {
-			GM_xmlhttpRequest({
-				url: url,
-				onload: function(r){
-					iframe.setAttribute('src', cleanHtml(r.responseText, url));
-				}
-			});
-		} else {
-			//get url fron hidden link
-			iframe.setAttribute('src', url);
-		}
-	}
-				
+    function updateFrame(iframe, entry){
+        var urlLink = getEntryLink(entry);
+        var url = urlLink.url;
+        if (overlay) {
+            if (overlay.title) {
+                overlay.title.innerHTML = '<a href="' + urlLink.url + '">' + urlLink.title + '</a>';
+            }
+            if (overlay.subtitle) {
+                var d = getSelectedDir();
+                var p = getPosition(entry);
+                overlay.subtitle.innerHTML = SL.overlay_category + ' : ' + d.text + ' - ' + p + '/' + d.count;
+            }
+        }
+        var locksite = isSiteLocked(url);
+        if (locksite) {
+            GM_xmlhttpRequest({
+                url: url,
+                onload: function(r){
+                    iframe.setAttribute('src', cleanHtml(r.responseText, url));
+                }
+            });
+        } else {
+            //get url fron hidden link
+            iframe.setAttribute('src', '');
+            iframe.setAttribute('src', url);
+        }
+        if (overlay) {
+            jump(overlay.entry, true);
+            simulateClick(overlay.entry);//mark as read
+        }
+    }
     function isSiteLocked(url){
         /*if (/www\.zdnet\.fr/.test(url) || /www\.lefigaro\.fr/.test(url) || /www\.chauffeurdebuzz\.com/.test(url)){
          return true;
@@ -171,81 +181,100 @@ GRP.preview = function(prefs, langs){
         var htmlurl = 'data:text/html;,' + encodeURIComponent(text);
         return htmlurl;
     }
-	var overlay={};
-    function renderoverlay(iframe, entry){
-        if (overlay.root) {
+    function renderoverlay(entry){
+		if (overlay && overlay.root) {
 			overlay.root.style.display = '';
-		}else{
-			var urlLink = getEntryLink(entry);
-			overlay.root = newel('pov');
-			overlay.mask = dh(overlay.root,'div',{
-				id: 'pov_mask'
-			});
-			overlay.btn_next = dh(overlay.root,'div',{
-				id: 'pov_next',
-				title:SL.overlay_next
-			},{click:function(){
-				siblingentry(iframe, true);
-			}});
-			overlay.btn_previous = dh(overlay.root,'div',{
-				id: 'pov_previous',
-				title:SL.overlay_previous
-			},{click:function(){
-				siblingentry(iframe, false);
-			}});
-			overlay.btn_close = dh(overlay.root,'div',{
-				id: 'pov_close',
-				title:SL.overlay_close
-			},{click:function(){
-				hideoverlay();
-			}});
-			overlay.title = dh(overlay.root,'div',{
-				id: 'pov_title',
-				html: '<a href="'+urlLink.url+'">'+urlLink.title+'</a>'
-			});	
-			overlay.content = dh(overlay.root,'div',{
-				id: 'pov_content'
-			});		
-			overlay.content.appendChild(iframe);	
-		}
-		overlay.entry=entry;
-		overlay.iframe=iframe;
-        overlay.content.style.height = (window.innerWidth-40) + 'px';
-        overlay.content.style.width =(window.innerHeight-40) + 'px';
-        iframe.setAttribute('width', (window.innerWidth-40)+'px');
-        iframe.setAttribute('height', (window.innerHeight-80) + 'px');
-    }
-	function hideoverlay(){
-		overlay.root.style.display='none';
-	}
-	function siblingentry(iframe, next){
-		var entry;
-		if (next){
-			entry = overlay.entry.previousSibling;
-		}else{
-			entry = overlay.entry.nextSibling;
-		}
+        } else {
+            overlay = {};
+            var urlLink = getEntryLink(entry);
+            overlay.root = newel('pov');
+            overlay.mask = dh(overlay.root, 'div', {
+                id: 'pov_mask'
+            });
+            overlay.btn_next = dh(overlay.root, 'div', {
+                id: 'pov_next',
+				alt:'Next',
+                title: SL.overlay_next
+            }, {
+                click: function(){
+                    siblingentry(true);
+                }
+            });
+            overlay.btn_previous = dh(overlay.root, 'div', {
+                id: 'pov_previous',
+				alt:'Previous',
+                title: SL.overlay_previous
+            }, {
+                click: function(){
+                    siblingentry(false);
+                }
+            });
+            overlay.btn_close = dh(overlay.root, 'div', {
+                id: 'pov_close',
+				alt:'Close',
+                title: SL.overlay_close
+            }, {
+                click: function(){
+                    hideoverlay();
+                }
+            });
+            overlay.title = dh(overlay.root, 'div', {
+                id: 'pov_title',
+                html: '<a href="' + urlLink.url + '">' + urlLink.title + '</a>'
+            });
+            var d = getSelectedDir();
+            var p = getPosition(entry);
+            overlay.subtitle = dh(overlay.root, 'div', {
+                id: 'pov_subtitle',
+                html: SL.overlay_category + ' : ' + d.text + ' - ' + p + '/' + d.count
+            });
+            overlay.content = dh(overlay.root, 'div', {
+                id: 'pov_content'
+            });
+            overlay.iframe = dh(overlay.content, 'iframe', {
+                cls: 'if-preview',
+                src: ''
+            });
+        }
 		if (entry) {
-			overlay.entry=entry;
-			updateFrame(iframe, entry);
-			jump(entry, true);
-			simulateClick(entry);//mark as read
+			overlay.entry = entry;
 		}
-	}
-	
+        overlay.content.style.height = (window.innerWidth - 40) + 'px';
+        overlay.content.style.width = (window.innerHeight - 40) + 'px';
+        overlay.iframe.setAttribute('width', (window.innerWidth - 40) + 'px');
+        overlay.iframe.setAttribute('height', (window.innerHeight - 80) + 'px');
+    }
+    function hideoverlay(){
+        overlay.root.style.display = 'none';
+    }
+    function siblingentry(next){
+        var entry;
+        if (next) {
+            entry = overlay.entry.nextSibling;
+        } else {
+            entry = overlay.entry.previousSibling;
+        }
+        if (entry) {
+            overlay.entry = entry;
+            updateFrame(overlay.iframe, overlay.entry);
+        }
+    }
     function onResize(height){
         if (prefs.preview_overlay) {
-			//Resize overlay
-			if (overlay.root) {
-				renderoverlay(overlay.iframe, overlay.entry);
-			}
-		} else {
-			var iframes = getElementsByClazzName('if-preview', 'iframe', document);
-			var h = getHeightEntries();
-			foreach(iframes, function(iframe){
-				iframe.setAttribute('height', h + 'px');
-			});
-		}
+            //Resize overlay
+            renderoverlay();
+        } else {
+            var iframes = getElementsByClazzName('if-preview', 'iframe', document);
+            var h = getHeightEntries();
+            foreach(iframes, function(iframe){
+                iframe.setAttribute('height', h + 'px');
+            });
+        }
+    }
+    function setIframesize(iframe){
+        iframe.setAttribute('width', '100%');
+        var h = getHeightEntries();
+        iframe.setAttribute('height', h + 'px');
     }
     //column_locked
     locked = false;
@@ -255,16 +284,16 @@ GRP.preview = function(prefs, langs){
     var css = ".entry-title-maximize {margin-left: 4px;padding-left:16px;width:14px;height:14px;background-repeat:no-repeat;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEAMIAzwDxOt8TMwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9kMERYGFfecphMAAAIYSURBVDjLjVK/a1NRGD3fffcleUlaSRpjiylBCTV0FTc3cXXRDkVB0bGDUnRxqCB2VKE4qCDSwcGt/4G66GBBpEOt1RolsTHBJLT58X7ez6H58fLU6lk+Lufe75zvfJewD0zbm9nYtuYsmzUiH8EACBg1hEP4B9qme3t1vTUPIBbkdEmr0rS8Ez9qzknFTK6rmIgAIijFGDugy2hELhQrZn6rZJ3b0x2AAMhPRXOxtuOeZuYBQQRB+JrLGHd2Wu7jdx9bM3+zKk1bxSZS+kouYywFFGqVhnPmw5fOeSKAAaaAAwCQABDWRZ2IXvQzYhb1pntvo9C56rNLg/j6FeJPthq77t21zfZlZoAIHOSz4+EVAC0G6LcG1Ya9uPa5fQ3ASHd1PUUAcKePGMuHD4XOHs/Hl0I6WXJY2Xn4frN9YS/Igc0ecpnI/eSofN3sqIXRmLzZtrwrwje3UarYKRBigVkZgJXPGo8mUqGnb9ebt75XbQcAomHtiRhsjjrTR6Oz6YR8TsTE3G9C+ayxfDChzwFIWDZPaVpgC0TQul0cpdR1Zqhq3Z1lwJmajDxIJ0PzXZfw5TFo4KsQQhSV517yPA6lk6HddEK/sd9XlwCgCRoKU2jSVkpdFEK0Avdd9n9ZAJIIXmHbOlat2888xV6PqNQdlH9aQ6+/lc04EY2QbzlyMh1+VShbp7ZKZg7/gbghXo6P6W9651+wUN+npzFYbAAAAABJRU5ErkJggg==);}";
     css += ".entry-title-preview {margin-left: 4px;padding-left:16px;width:14px;height:14px;background-repeat:no-repeat;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oCAQg3C7TLiegAAAB3SURBVCjPYzx0/uN/BnIBuZoPnf/4nwXB+fCLgYHxAQMDAxMuDf8Z/v9jZGBQsDMUYGNgYGBgQUgxPrAz5FcjwsZbMDayLUxEupiJVA34TRnVTLrmf8Rp+Q9Xh5RI/itAEwBu1/z//4+BgVEBQzMsyZECGCnJVQB9eSYmMdOF/wAAAABJRU5ErkJggg==);}";
     css += ".preview .entry-likers, .preview .entry-annotations, .preview .entry-via, .preview .card-comments{display:none;}";
-    css += "#pov_mask{position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:15000;background-color:#333;opacity:0.6;}";
+    css += "#pov_mask{position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:15000;background-color:#333;opacity:0.8;}";
     css += "#pov_content{position:absolute;top:0px;left:0px;margin:20px;text-align:center;vertical-align:middle;z-index:15001;color:#ddd;opacity:1;}";
-	css += "#pov_content iframe{padding-top:40px;}";
-	css += "#pov_title{position:absolute;width:95%;left: 20px;top:5px;height:50px;text-align:center;z-index:15002;}";
-	css += "#pov_title a,#pov_title a:visited{color:#ddd;text-decoration:none;font-size:20px;}";
-	css += "#pov_next{position:absolute;right:70px;top:45px;background:url("+GRP.IMAGES_PATH+"/next.png);width:24px;height:24px;z-index:15002;cursor:pointer;}";
-	css += "#pov_previous{position:absolute;right:40px;top:45px;background:url("+GRP.IMAGES_PATH+"/previous.png);width:24px;height:24px;z-index:15002;cursor:pointer;}";
-	css += "#pov_close{position:absolute;right:8px;top:45px;background:url("+GRP.IMAGES_PATH+"/close2.png);width:24px;height:24px;z-index:15002;cursor:pointer;}";
-	//css += "#pov_close{position:absolute;right:10px;top:45px;background:url("+GRP.IMAGES_PATH+"/close.png);width:22px;height:22px;z-index:15002;cursor:pointer;}";
-	
+    css += "#pov_content iframe{padding-top:40px;}";
+    css += "#pov_title{position:absolute;width:95%;left: 20px;top:5px;height:40px;text-align:center;z-index:15002;}";
+    css += "#pov_subtitle{position:absolute;width:95%;left:20px;top:40px;height:10px;text-align:left;z-index:15002;color:#ddd;}";
+    css += "#pov_title a,#pov_title a:visited{color:#ddd !important;text-decoration:none;font-size:20px;}";
+    css += "#pov_next{position:absolute;right:40px;top:45px;background:url(" + GRP.IMAGES_PATH + "/next1.png);width:24px;height:24px;z-index:15002;cursor:pointer;}";
+    css += "#pov_previous{position:absolute;right:70px;top:45px;background:url(" + GRP.IMAGES_PATH + "/prev1.png);width:24px;height:24px;z-index:15002;cursor:pointer;}";
+    css += "#pov_close{position:absolute;right:8px;top:45px;background:url(" + GRP.IMAGES_PATH + "/close2.png);width:24px;height:24px;z-index:15002;cursor:pointer;}";
+    //css += "#pov_close{position:absolute;right:10px;top:45px;background:url("+GRP.IMAGES_PATH+"/close.png);width:22px;height:22px;z-index:15002;cursor:pointer;}";
     GM_addStyle(css);
     registerFeature(addPreviewButton, 'epreview');
     initResize(onResize);

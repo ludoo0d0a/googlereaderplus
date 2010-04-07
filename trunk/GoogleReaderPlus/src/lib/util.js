@@ -61,9 +61,32 @@ function getFirstNode(el){
     return o;
 }
 
+function getPosition(el){
+	var pos=0,o = el;
+    while ((o = o.previousSibling)) {
+		pos++;
+    }
+    return (pos+1);
+}
+
 //native getElementsByClassName
 function getFirstElementByClassName(root, clazz){
     return root.getElementsByClassName(clazz)[0];
+}
+
+function getElementText(root,cls,html,firstchild){
+	var txt='', el = getFirstElementByClassName(root||document, cls);
+	if (el){
+		if (firstchild){
+			el=el.firstChild;
+		}
+		if (html){
+			txt=el.innerHTML;
+		}else{
+			txt=el.innerText||el.textContent;
+		}
+	}
+	return txt;
 }
 
 function copyAttributes(src, dest){
@@ -907,6 +930,8 @@ var tmaps = {
     id: 'id',
     cls: 'className',
     href: 'href',
+	alt: 'alt',
+	title: 'title',
     text: 'innerText',
     html: 'innerHTML'
 };
@@ -953,3 +978,4 @@ function newel(id, cls){
 function randomItem(items){
 	return items[Math.round(Math.random() * items.length)-1];
 }
+

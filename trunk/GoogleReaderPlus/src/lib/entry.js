@@ -1,22 +1,21 @@
 /*
  * Entries
  */
-var stackFeatures = [],externals=[];
+var stackFeatures = [], externals = [];
 function registerFeature(fn, bid, params){
     params = params || {};
     params.bid = bid;
-    stackFeatures.push(
-    {
+    stackFeatures.push({
         fn: fn,
         params: params
     });
-	if (params && params.loader){
-		if (isArray(params.loader)) {
-			externals=externals.concat(params.loader);
-		} else {
-			externals.push(params.loader);
-		}
-	}
+    if (params && params.loader) {
+        if (isArray(params.loader)) {
+            externals = externals.concat(params.loader);
+        } else {
+            externals.push(params.loader);
+        }
+    }
     if (params && params.globalFn) {
         params.globalFn.call(this);
     }
@@ -49,36 +48,36 @@ function execAllOffset(el, entry, mode, force){
 }
 
 function monitorEntries(el){
-	var root = el || get_id("entries");
-	root.addEventListener('DOMNodeInserted', function(e){
-		checkEntry(e.target, execAll);
-	}, false);
-	catchAllEntries(execAll);
-	loadExternal(function(){
-		catchAllEntries(execAll);
-	});
+    var root = el || get_id("entries");
+    root.addEventListener('DOMNodeInserted', function(e){
+        checkEntry(e.target, execAll);
+    }, false);
+    catchAllEntries(execAll);
+    loadExternal(function(){
+        catchAllEntries(execAll);
+    });
 }
 
 function loadExternal(cb){
-	var ext = {};
-	if (externals && externals.length > 0) {
-		for (var i = 0, len = externals.length; i < len; i++) {
-			var o = externals[i];
-			ext[i] = o;
-			if (typeof o === "function") {
-				o.call(this, function(){
-					delete ext[i];
-					if (ext.length===0){
-						cb();
-					}
-				});
-			} else if (typeof o === "string") {
-				GM_addScript(o, true);
-			}
-		}
-	}else{
-		cb();
-	}
+    var ext = {};
+    if (externals && externals.length > 0) {
+        for (var i = 0, len = externals.length; i < len; i++) {
+            var o = externals[i];
+            ext[i] = o;
+            if (typeof o === "function") {
+                o.call(this, function(){
+                    delete ext[i];
+                    if (ext.length === 0) {
+                        cb();
+                    }
+                });
+            } else if (typeof o === "string") {
+                GM_addScript(o, true);
+            }
+        }
+    } else {
+        cb();
+    }
 }
 
 /*
@@ -139,10 +138,10 @@ function filterEntry(entry, rx){
 }
 
 function getRegex(urls){
-    if (!urls||urls.length==0){
-		return false;
-	}
-	var escaped = [];
+    if (!urls || urls.length == 0) {
+        return false;
+    }
+    var escaped = [];
     for (var i = 0, len = urls.length; i < len; i++) {
         escaped.push(encodeRE(urls[i]));
     }
@@ -200,21 +199,18 @@ function forAllSidebars(fn){
 
 function catchAllSidebars(fn, bid){
     forAllSidebars(function(el){
-        catchSidebarAdded(
-        {
+        catchSidebarAdded({
             target: el
         }, fn, bid);
     });
 }
 
-
-
 function getMode(entry){
-	if (entry) {
-		return hasClass(entry.firstChild, 'collapsed') ? 'list' : 'expanded';
-	} else {
-		return hasClass(get_id('view-cards'), 'link-selected') ? 'expanded' : 'list';
-	}
+    if (entry) {
+        return hasClass(entry.firstChild, 'collapsed') ? 'list' : 'expanded';
+    } else {
+        return hasClass(get_id('view-cards'), 'link-selected') ? 'expanded' : 'list';
+    }
 }
 
 function getOriginalEntryLink(entry){
@@ -233,7 +229,6 @@ function getEntrySiteTitle(ent){
     if (point) {
         match = point.textContent;
     }
-    
     return match;
 }
 
@@ -247,32 +242,30 @@ function getEntryLink(ent){
         link = getFirstElementByClassName(entry, 'entry-title-link');//'a'
         if (link) {
             o.url = link.href;
-			o.link = link;
+            o.link = link;
             o.title = link.textContent;
         } else {
             //Feed from html (non RSS page)
             var etitle = getFirstElementByClassName(entry, 'entry-title');//'h2'
             if (etitle) {
                 var m = /"(.*)"/.exec(etitle.textContent);
-                o.url='';
-				if (m) {
+                o.url = '';
+                if (m) {
                     o.url = m[0];
                 }
                 o.title = etitle.textContent;
-				o.link = null;
+                o.link = null;
             }
         }
     } else {
         //preview on 
         var link2 = getFirstElementByClassName(entry, 'grp-link-title');//'a'
-        o = 
-        {
+        o = {
             title: link2.textContent,
             url: link.href,
-			link:link
+            link: link
         };
     }
-    
     return o;
 }
 
@@ -326,17 +319,17 @@ function getHeightEntries(alone){
     if (entries) {
         var offset = 0;
         if (!alone) {
-			var eb = getFirstElementByClassName(entries, 'entry-body');
-			if (eb) {
-				offset += eb.offsetTop;
-			}
-			var ea = getFirstElementByClassName(entries, 'entry-actions');
-			if (ea) {
-				offset += ea.clientHeight;
-			}
-			console.log('offset=' + offset);
-			offset = Math.max(110, offset);
-		}
+            var eb = getFirstElementByClassName(entries, 'entry-body');
+            if (eb) {
+                offset += eb.offsetTop;
+            }
+            var ea = getFirstElementByClassName(entries, 'entry-actions');
+            if (ea) {
+                offset += ea.clientHeight;
+            }
+            console.log('offset=' + offset);
+            offset = Math.max(110, offset);
+        }
         height = parseInt(entries.style.height.replace('px', ''), 10) - offset;
     }
     return height;
@@ -345,15 +338,15 @@ function getHeightEntries(alone){
 function getBody(entry){
     var body = getFirstElementByClassName(entry, 'item-body');//div
     // why a sub body sometimes ??
-	if (body) {
-		var subbody = getFirstElementByClassName(body, 'item-body');//div
-		if (subbody) {
-			body = subbody;
-		}
-	}else{
-		//get Snippet in list view
-		body = getFirstElementByClassName(entry, 'snippet');
-	}
+    if (body) {
+        var subbody = getFirstElementByClassName(body, 'item-body');//div
+        if (subbody) {
+            body = subbody;
+        }
+    } else {
+        //get Snippet in list view
+        body = getFirstElementByClassName(entry, 'snippet');
+    }
     return body;
 }
 
@@ -364,7 +357,6 @@ function getEntryBody(body){
     }
     return entryBody;
 }
-
 
 function initResize(fn){
     window.addEventListener('resize', function(e){
@@ -462,7 +454,6 @@ function isTagged(entry, cls){
     return tagged;
 }
 
-
 function formatShortcut(script, shortcut, prefs){
     var t = '';
     if (prefs) {
@@ -486,8 +477,7 @@ function getShortcutKey(script, shortcut, prefs){
         try {
             var s = getScriptObject(script);
             key = s.shortcuts[shortcut];
-        } 
-        catch (e) {
+        } catch (e) {
             console.error("Failed to get default shortcut " + shortcut + " for script " + script);
         }
     }
@@ -499,13 +489,13 @@ function getShortcutKey(script, shortcut, prefs){
  */
 function getScriptObject(id){
     return GRP.scripts[id];
-	/*for (var i = 0, len = GRP.scripts.length; i < len; i++) {
-        var script = GRP.scripts[i];
-        if (script.id == id) {
-            return script;
-        }
-    }
-    return null;*/
+    /*for (var i = 0, len = GRP.scripts.length; i < len; i++) {
+     var script = GRP.scripts[i];
+     if (script.id == id) {
+     return script;
+     }
+     }
+     return null;*/
 }
 
 function toggle(el){
@@ -579,6 +569,27 @@ function getLanguage(){
             lang = m[1];//en
         }
     }
-    
     return lang;
+}
+
+function getSelectedDir(){
+    var o = {};
+    //a.tree-link-selected
+    var el = getFirstElementByClassName(document, 'tree-link-selected');
+    if (el) {
+        o = {
+            text: getElementText(el, 'name-text'),
+            count: getElementText(el, 'unread-count').replace(/[\(\)]/g, '')
+        };
+    } else {
+        //div.selector.selected
+        el = getFirstElementByClassName(document, 'selected');
+        if (el) {
+            o = {
+                text: getElementText(el, 'text', false, true),
+                count: getElementText(el, 'unread-count').replace(/[\(\)]/g, '')
+            };
+        }
+    }
+    return o;
 }
