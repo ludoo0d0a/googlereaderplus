@@ -10,7 +10,11 @@ function hasClass(el, clazz){
 }
 
 function addClass(el, clazz){
-    el.className = (el.className || '') + ' ' + clazz;
+    if (el) {
+		el.className = (el.className || '') + ' ' + clazz;
+	}else{
+		console.log('el null');
+	}
 }
 
 function addClassChecked(el, clazz){
@@ -327,6 +331,18 @@ function find(o, key, value){
             continue;
         }
         if (o[p][key] === value) {
+            return o[p];
+        }
+    }
+    return false;
+}
+
+function findre(o, key, re){
+    for (var p in o) {
+        if (!hasOwnProperty.call(o, p)) {
+            continue;
+        }
+        if (re.test(o[p][key])) {
             return o[p];
         }
     }
@@ -845,7 +861,9 @@ function textareaTab(){
 
 function waitlib(check, fn, scope){
     if (check()) {
-        fn.call(scope || this);
+        if (fn) {
+			fn.call(scope || this);
+		}
     } else {
         window.setTimeout(function(){
             waitlib(check, fn);
@@ -1006,3 +1024,10 @@ function randomItem(items){
 	return items[Math.round(Math.random() * items.length)-1];
 }
 
+    
+function loadjQuery(cb, version){
+	version=version||'1';
+	GM_loadScript('http://ajax.googleapis.com/ajax/libs/jquery/'+version+'/jquery.min.js', false, function(){
+        return (typeof jQuery !== "undefined");
+    }, cb);
+}

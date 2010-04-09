@@ -24,6 +24,9 @@ GRP.preview = function(prefs, langs){
         var previewOnIcon = prefs.preview_onicon || false;
         var keytext = formatShortcut('preview', 'prview', prefs);
         var link = getOriginalEntryLink(entry);
+		if (!link){
+			return;
+		}
         //addClass(link, 'iframe');
         var plink;
         if (previewOnIcon) {
@@ -145,9 +148,10 @@ GRP.preview = function(prefs, langs){
                 overlay.subtitle.innerHTML = SL.overlay_category + ' : ' + d.text + ' - ' + p + '/' + d.count;
             }
         }
+		iframe.setAttribute('src', '');
         var locksite = isSiteLocked(url);
         if (locksite) {
-            GM_xmlhttpRequest({
+			GM_xmlhttpRequest({
                 url: url,
                 onload: function(r){
                     iframe.setAttribute('src', cleanHtml(r.responseText, url));
@@ -155,7 +159,6 @@ GRP.preview = function(prefs, langs){
             });
         } else {
             //get url fron hidden link
-            iframe.setAttribute('src', '');
             iframe.setAttribute('src', url);
         }
         if (overlay) {

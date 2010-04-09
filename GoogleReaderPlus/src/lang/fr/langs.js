@@ -6,8 +6,8 @@
  * fr : Francais
  * **************************
  *
- * Version : 1.1
- * Date : 03-30-2010
+ * Version : 1.3
+ * Date : 04-09-2010
  * @author Valente
  */
 var locale = 'fr';
@@ -157,7 +157,8 @@ GRP.langs[locale].prefs =
 '<p></p></td>',
 		thanks2:'<td><p>Si vous appréciez cette extension ou que vous avez des idées pour de nouvelles fonctionnalités, n\'hésitez pas à m\'en parler.</p>'+
 		'<p>Vous pouvez également me faire un don, de sorte que je puisse m\'acheter une cargaison de café pour tenir le coup pour écrire le code :)</p>'+
-        '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=FR&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/fr_FR/i/btn/btn_donate_SM.gif" width="108" height="21"></span></a></td>'
+        '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=FR&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/fr_FR/i/btn/btn_donate_SM.gif" width="108" height="21"></span></a></td>',
+		whatsnew:'<td><h2>Quoi de neuf!!</h2><ul><li>Essayer les nouveaux thèmes</li><li>ou utiliser une image personnalisée ave le nouveau thème configurable "MyTheme"</li><li>ou choisissez un thème aléatoire parmi les thèmes <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a></li><li>Aperçu plein ecran façon "lightbox"</li><li>Partager vos lectures avec <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li><li>Le panneau des actions comme fenêtre volante (onglet Général)</li></ul></td>'
 	},
     link:
     {

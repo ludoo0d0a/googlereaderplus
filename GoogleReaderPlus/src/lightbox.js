@@ -249,12 +249,6 @@ GRP.lightbox = function(prefs, langs){
             TopUp.init(true);
         }
     }
-    
-	function loadjQuery(cb){
-		GM_loadScript('http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', true, function(){
-            return (typeof jQuery !== "undefined");
-        }, cb);
-	}
 	
     var css = ".lighton{ border: 1px solid red;}.lightlinks{ border: 1px solid green;}.lightmedias{ border: 1px solid yellow;} ";
     GM_addStyle(css);

@@ -6,20 +6,28 @@
  * fr : Francais
  * **************************
  *
- * Version : 1.0
- * Date : 03-25-2010
+ * Version : 1.3
+ * Date : 04-09-2010
  * @author Valente
  */
 var locale = 'fr';
 namespace('GRP.langs.' + locale);
 GRP.langs[locale].scripts = {
     general: {
-        name: "General",
+        name: "Général",
         desc: "Configuration générale"
     },
     theme: {
-        name: "Theme",
+        name: "Thème",
         desc: "Changer l'apparence de GoogleReader"
+    },
+    ig: {
+        name: "Thème iGoogle",
+        desc: "Use <a href='http://www.google.com/ig/directory?type=themes' target='blank'>iGoogle Theme</a> in your Google Reader (Beta)"
+	},
+    relook: {
+        name: "Relook",
+        desc: "Relooker votre reader en appliauant vos propres styles CSS"
     },
     favicons: {
         name: "Favicons",
@@ -77,6 +85,10 @@ GRP.langs[locale].scripts = {
         name: "Instapaper",
         desc: "partager et lire plus tard vos articles via Instapaper"
     },
+	readitlater: {
+        name: "ReadItLater",
+        desc: "partager et lire plus tard vos articles via ReadItLater"
+    },
     mark: {
         name: "Marquer comme lus",
         desc: "Marquer tous les articles précédents ou suivants comme lus"
@@ -101,27 +113,13 @@ GRP.langs[locale].scripts = {
         name: "Remplacement",
         desc: "Remplace un élément avec une partie de la page originale. Actuellement utilisé pour afficher les bandes dessinées de gocomics.com. Merci à jolan78 pour son idée originale et son script."
     },
-    /*
-     menu:{
-     name: "Menu contextuel",
-     desc: "Menu contextuel pour effectuer des opérations directement sur tous les articles chaque site"
-     },
-     lightbox:{
-     name: "Lightbox"
-     },
-     */
-    relook: {
-        name: "Relook",
-        desc: "Relook your site using custom stylesheets"
-    },
     aero: {
         name: "Barre d'outil Aero",
         desc: "Barre d'outil utilisant le theme Aero de Windows Vista"
     },
     info: {
         name: "SysInfo",
-        desc: "Information sur le système",
-        link: true
+        desc: "Information sur le système"
     },
     extshortcuts: {
         name: "Raccourcis",
@@ -137,8 +135,7 @@ GRP.langs[locale].scripts = {
     },
     about: {
         name: "A propos",
-        desc: "A propos de ReaderPlus",
-        url: 'about.html'
+        desc: "A propos de ReaderPlus"
     }
 };
 GRP.langs[locale].skins = {

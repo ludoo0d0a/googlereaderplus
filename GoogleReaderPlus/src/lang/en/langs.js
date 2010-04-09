@@ -7,7 +7,7 @@
  * **************************
  *
  * Version : 1.3
- * Date : 04-05-2010
+ * Date : 04-09-2010
  * @author Valente
  */
 var locale = 'en';
@@ -177,7 +177,8 @@ GRP.langs[locale].prefs = {
         '<p></p></td>',
         thanks2: '<td><p>If you like this extension and want more features, feel free to make a donation.</p>' +
         '<p>In this way, I could buy a truck of coffee so that i can stay awake to write all the code :)</p>' +
-        '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></a></td>'
+        '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></a></td>',
+		whatsnew:'<td><h2>What\'s new!!</h2><ul><li>Try the new themes</li><li>or use a custom background with the new theme "MyTheme"</li><li>or use a random <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a> theme</li><li>Preview as lightbox</li><li>Share items using <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li><li>Entry actions as floating window (general)</li></ul></td>'
     },
     link: {
         reader: "<span>Google Reader</span>Your RSS reader",
@@ -219,6 +220,8 @@ readitlater: {
         counter: "Display unread counter in the toolbar icon",
         opendirect: "Click on icon will open GoogleReader",
         secure: "Always force use of secure protocol (https)",
+topcurrent: "Current entry always on top",
+floatactions: "Entry actions are displayed as a floating window for current entry only",
         icontoolbar_add: "To add button with icon in toolbar, please <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">download and install it</a>.",
         icontoolbar_text: "<span>To make the button optional, we put him in an another extension as standalone,</span>                                    <br>                                    <span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b></b> on the <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span><span>To remove the button, right click him and choose Disable.</span>",
         importexport_text: "You can now save your preferences using 'export' and reload it later using 'import':",
