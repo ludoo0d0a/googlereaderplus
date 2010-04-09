@@ -145,7 +145,7 @@ if (typeof GM_addScript === "undefined") {
                     url: script,
                     onload: function(r){
                         if (remote === 'inline') {
-							GM_addjs(script, true, id, cb, scope);
+							GM_addjs(script, true, id, cb, scope, time);
 						}else{
 							eval(r.responseText);
 							if (cb) {
@@ -161,12 +161,12 @@ if (typeof GM_addScript === "undefined") {
                     }
                 });
             } else {
-                GM_addjs(script, false, id, cb, scope);
+                GM_addjs(script, false, id, cb, scope, time);
             }
         }
     }
 	
-	function GM_addjs(script, inline, id, cb, scope){
+	function GM_addjs(script, inline, id, cb, scope, time){
 		var el = document.createElement("script");
 		el.setAttribute("type", "text\/javascript");
 		if (inline) {
