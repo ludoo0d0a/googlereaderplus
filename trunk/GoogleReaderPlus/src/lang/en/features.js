@@ -11,8 +11,8 @@
  * so that 0.3.11 is the 11th translated version of the original v0.3 english version.
  *
  *
- * Version : 1.2
- * Date : 04-01-2010
+ * Version : 1.3
+ * Date : 04-09-2010
  * @author Valente
  */
 var locale = 'en';
@@ -76,23 +76,22 @@ GRP.langs[locale].scripts = {
     },
     readbymouse: {
         name: "Read by mouse",
-        desc: "Middle click not available on Windows",
         desc: "Next/previous item using right/left mouse click"
     },
     facebook: {
-        name: "Facebook integration",
+        name: "Facebook",
         desc: "Add a button to share news using Facebook"
     },
     twitter: {
-        name: "Twitter integration",
+        name: "Twitter",
         desc: "Add a button to share news using Twitter"
     },
     instapaper: {
-        name: "Instapaper integration",
+        name: "Instapaper",
         desc: "Add a button to read news later using Instapaper"
     },
 	readitlater: {
-        name: "ReadItLater integration",
+        name: "ReadItLater",
         desc: "Add a button to read news later using ReadItLater"
     },
     mark: {
@@ -119,16 +118,6 @@ GRP.langs[locale].scripts = {
         name: "Replacer",
         desc: "Replace entry with a part of the original page. Currently used to get comic strips.<br/>Thanks to jolan78 for its original idea and script."
     },
-    /*
-     menu:{
-     name: "Intuitive menu",
-     desc: "Intuitive menu to add extra capabilites"
-     },
-     lightbox:{
-     name: "Lightbox",
-     desc: "Show media in fullscreen"
-     },
-     */
     aero: {
         name: "Google Aero Toolbar",
         desc: "Toolbar using Aero theme"

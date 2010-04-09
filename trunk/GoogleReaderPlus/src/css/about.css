@@ -107,3 +107,16 @@ form {
 	font-weight:bold;
 }
 
+.whatsnew{
+	font-size:150%;
+}
+
+.whatsnew ul{
+	width:60%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.whatsnew h2,.thanks1,.thanks2{
+	text-align:center;
+}

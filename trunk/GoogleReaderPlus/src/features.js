@@ -6,6 +6,8 @@ GRP.scripts = {
         name: "General",
         options: {
             secure: false,
+			topcurrent: false,
+			floatactions: false, 
             counter: true,
             opendirect: false,
             icontoolbar_add: {
@@ -28,7 +30,7 @@ GRP.scripts = {
         options: {
             skin: '',
             noborder: false,
-            mytheme: {
+			mytheme: {
                 xtype: 'p',
                 parent: 'mto'
             },
@@ -448,23 +450,6 @@ GRP.scripts = {
                     }
                 }
             }
-            /*
-             ,link:
-             {
-             xtype: 'textarea',
-             value: "http://feedproxy.google.com/~r/uclick/|http://www.gocomics.com/|http://feeds.gocomics.com/\nhttp://feedproxy.google.com/~r/uclick/|http://www.gocomics.com/|http://feeds.gocomics.com/\nhttp://www.explosm.net/\nhttp://www.explosm.net/\nhttp://www.penny-arcade.com/|http://feeds.penny-arcade.com\nhttp://feedproxy.google.com/~r/cad-comic/\nhttp://www.chauffeurdebuzz.com/"
-             },
-             from:
-             {
-             xtype: 'textarea',
-             value: "\"(http://imgsrv.gocomics.com/dim/[^\"]*)\"\n<SPAN id='comment_count_display'>(d*)</SPAN>\n\"(http://www.explosm.net/db/files/Comics/[^\"]*)\"\n(<embed[^>]+>)\n\"(http://art.penny-arcade.com/photos/[^\"]*)\"\n<img src=\"(/comics/[^\"]*)\"\n<table.*?<table.*?<td[^>]*>(.*?)</td>"
-             },
-             to:
-             {
-             xtype: 'textarea',
-             value: "<img src='$1'><br>\nComments: $2\n<img src='$1'><br>\n$1\n<img src='$1'><br>\n<img src='http://www.cad-comic.com$1'><br>\n<img src='$1'><br>"
-             }
-             */
         }
     },
     menu: {

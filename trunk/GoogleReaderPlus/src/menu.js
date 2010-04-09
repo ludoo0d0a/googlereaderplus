@@ -10,37 +10,54 @@
 GRP.menu = function(prefs, langs){
     var SL = langs.menu;
     var menu;
+	/*
+    function jq_xmlhttpRequest(o){
+        jQuery.ajax({
+            type: o.method || 'GET',
+            url: o.url,
+            data: o.parameters,
+            success: function(m){
+				alert(m);
+				o.onload();
+			},error:function(m){
+				alert('error xhr');
+			}
+        });
+    }
+    loadjQuery();
+    */
     function createButtonMenu(entry){
         var eactions = getFirstElementByClassName(entry, 'entry-actions');
+        var ent = entry;
         var el = dh(eactions, 'span', {
             cls: 'item-link grp-item-link-menu link unselectable',
             html: '<wbr><span class="entry-link-action-title">' + (SL.label || 'Extra') + '</span><div class="item-link-drop-down-arrow"></div>'
         }, {
             click: function(e){
-				e.stopPropagation();
-				var em = get_id('grpm_menu');
+                e.stopPropagation();
+                var em = get_id('grpm_menu');
                 if (!em) {
                     em = createMenu(document.body, [{
                         icon: '',
-						cls:'read-state-kept-unread',
+                        cls: 'read-state-kept-unread',
                         text: 'Mark site as read',
                         fn: function(){
-                            markreadsite(entry);
+                            markreadsite(ent);
                         }
                     }]);
                 }
                 var p = getPos(el);
-				var entries = get_id('entries');
+                var entries = get_id('entries');
                 em.style.left = p.left + 'px';
-                em.style.top = (p.top - entries.scrollTop  + 15) + 'px';
-				show(em);
+                em.style.top = (p.top - entries.scrollTop + 15) + 'px';
+                show(em);
                 window.setTimeout(function(){
                     hide(em);
                 }, 8000);
-				var listener = function(e){
-				 e.stopPropagation();
-				 hide(em);
-                 document.removeEventListener('click', listener, false);
+                var listener = function(e){
+                    e.stopPropagation();
+                    hide(em);
+                    document.removeEventListener('click', listener, false);
                 };
                 var eventMenu = document.addEventListener('click', listener, false);
             }
@@ -62,7 +79,7 @@ GRP.menu = function(prefs, langs){
                 cls: 'goog-menuitem-content'
             });
             var sp = dh(content, 'span', {
-                cls: 'item-link-menuitem '+item.cls,
+                cls: 'item-link-menuitem ' + item.cls,
                 html: '<img src="' + item.icon + '" alt="" class="item-link-menuitem-image">' + item.text
             }, {
                 click: function(){
@@ -98,48 +115,60 @@ GRP.menu = function(prefs, langs){
      }
      */
     function markreadsite(entry){
+        console.log('entry: ' + entry.className);
         var url, text;
-        //from entry
         var a = getFirstElementByClassName(entry, 'entry-source-title');//a
-        console.log('entry-source-title: '+a.href);
-		
-		var domain = getDomain(window.location.href, true);
-		
-		url = '/feed/'+(decodeURIComponent(a.href).replace(/.*?\/feed\//, ''));
-        text = a.innerText;
-        //From nav
-        /*
-         var d = getSelectedDir();
-         url = d.url.replace('/reader/view', '');
-         text = d.text;
-         */
-		
-		var metadata = getMetadata();
-		console.log('_COMMAND_TOKEN: '+metadata._COMMAND_TOKEN);
-		console.log('url: '+url);
-		console.log('text: '+text);
-		console.log('domain: '+domain);
-		GM_xmlhttpRequest({
+        if (a) {
+            console.log('entry-source-title: ' + a.href);
+            url = 'feed/' + (decodeURIComponent(a.href).replace(/.*?\/feed\//, ''));
+            //url = 'feed/' + (a.href.replace(/.*?\/feed\//, ''));
+            text = a.innerText;
+        } else {
+            //No link found -> get from nav
+            var d = getSelectedDir();
+            url = d.url.replace('/reader/view', '');
+            text = d.text;
+        }
+        var domain = getDomain(window.location.href, true);
+        var metadata = getMetadata();
+        console.log('_COMMAND_TOKEN: ' + metadata._COMMAND_TOKEN);
+        console.log('url: ' + url);
+        console.log('text: ' + text);
+        console.log('domain: ' + domain);
+        var params = {
+            T: metadata._COMMAND_TOKEN,
+            s: url,
+            t: text,
+            ts: 1000 * (new Date()).getTime() + 999
+        };
+        var urlpost = domain + '/reader/api/0/mark-all-as-read?client=scroll';
+        console.log('url: ' + urlpost);
+        console.log('params: ' + JSON.stringify(params));
+        GM_xmlhttpRequest({
+		//jq_xmlhttpRequest({
             method: 'POST',
-            url: domain+'/reader/api/0/mark-all-as-read?client=scroll',
-            parameters: {
-                T: metadata._COMMAND_TOKEN,
-                s: url,
-                t: text
-                //,ts:1270635309243999
+            headers: {
+                Origin: domain,
+                Referer: domain + '/reader/view/'
             },
+            url: urlpost,
+            parameters: params,
             onload: function(r){
-                if (r.status==200 && r.responsText === 'OK') {
+                if (r.status == 200 && r.responsText === 'OK') {
                     console.log('Mark all as read done');
-                }else{
-					console.error(r);
-					alert(r.status +':'+r.statusText);
-				}
+                } else {
+                    console.error(r);
+                    alert(r.status + ':' + r.statusText);
+                }
+            },
+            onerror: function(r){
+                console.error(r);
+                alert(r.status + ':' + r.statusText);
             }
         });
     }
     var css = '.grp-item-link-menu item-link-drop-down-arrow{visibility:visible;}.grp-item-link-menu:hover item-link-drop-down-arrow{visibility:hidden !important;}';
-	css +='.goog-menuitem:hover {background-color:#BECDEE;}' 
+    css += '.goog-menuitem:hover {background-color:#BECDEE;}'
     GM_addStyle(css);
     registerFeature(addJumpButtons, 'ejump');
     //var keycodeDown = getShortcutKey('jump', 'godown', prefs); //66 Shift+B
