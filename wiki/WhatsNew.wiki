@@ -4,10 +4,17 @@
 
 Overview of last features.
 
+= Features =
 
-= Details =
+  * Try the new themes
+  * or use a custom background with the new theme 'MyTheme'
+  * or use a random [http://www.google.com/ig/directory?type=themes iGoogle] theme
+  * Preview as lightbox
+  * Share items using [http://www.readitlater.com ReadItLater]
+  * Entry actions as floating window
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+
+= Roadmap =
+
+  * Personas theme integration
+  * Translation tool for translators
