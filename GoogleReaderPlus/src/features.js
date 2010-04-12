@@ -10,6 +10,7 @@ GRP.scripts = {
 			floatactions: false, 
             counter: true,
             opendirect: false,
+			noupdatepopup:false,
             icontoolbar_add: {
                 xtype: 'p'
             },
@@ -452,10 +453,10 @@ GRP.scripts = {
             }
         }
     },
-    menu: {
+    /*menu: {
         name: "Intuitive menu",
         desc: "Intuitive menu to add extra capabilites"
-    },
+    },*/
     aero: {
         name: "Google Aero Toolbar"
     },
@@ -500,6 +501,27 @@ GRP.skins = {
     mytheme: {
         name: "My Theme"
     },
+	player: {
+        name: "Player Theme"
+    },
+    osxblue: {
+        name: "Mac OS X Snow Leopard - Blue"
+    },
+    osxblack: {
+        name: "Mac OS X Snow Leopard - Black"
+    },
+    portal: {
+        name: "Portal Theme"
+    },
+    helvetireader: {
+        name: "Helvetireader Skin"
+    },
+    minimal: {
+        name: "Minimalistic Skin"
+    },
+    optimized: {
+        name: "Optimized Skin"
+    },
     air: {
         name: "Air Skin"
     },
@@ -515,24 +537,6 @@ GRP.skins = {
     darkgray: {
         name: "Dark Gray Skin"
     },
-    helvetireader: {
-        name: "Helvetireader Skin"
-    },
-    minimal: {
-        name: "Minimalistic Skin"
-    },
-    optimized: {
-        name: "Optimized Skin"
-    },
-    portal: {
-        name: "Portal Theme"
-    },
-    osxblue: {
-        name: "Mac OS X Snow Leopard - Blue"
-    },
-    osxblack: {
-        name: "Mac OS X Snow Leopard - Black"
-    },
     calibri: {
         name: "Calibri Skin"
     },
@@ -542,19 +546,22 @@ GRP.skins = {
          url: 'http://userstyles.org/styles/userjs/26569/Google%20Reader%20-%20Glass%20BlackGold%20.user.js',
          */
         pic: 'http://userstyles.org/style_screenshots/26569_after.png',
-        ref: 'http://userstyles.org/styles/26569'
+        ref: 'http://userstyles.org/styles/26569',
+		desc: 'userstyles.org'
     },
     simpleclean: {
         name: "Simple and Clean",
         url: 'http://userstyles.org/styles/userjs/17120/Google%20Reader%20simple%20and%20clean.user.js',
         pic: 'http://userstyles.org/style_screenshots/17120_after.gif',
-        ref: 'http://userstyles.org/styles/17120'
+        ref: 'http://userstyles.org/styles/17120',
+		desc: 'userstyles.org'
     },
     peacockfeather: {
         name: "Peacock Feather",
         url: 'http://userstyles.org/styles/userjs/3014/Google%20Reader%20-%20peacock%20feather.user.js',
         pic: 'http://userstyles.org/style_screenshots/3014_after.gif',
         ref: 'http://userstyles.org/styles/3014',
+		desc: 'userstyles.org',
         resize: true
     },
     myowngooglereader: {
@@ -562,13 +569,15 @@ GRP.skins = {
         url: 'http://userstyles.org/styles/userjs/13384/My%20Own%20Google%20Reader.user.js',
         pic: 'http://userstyles.org/style_screenshots/13384_after.png',
         ref: 'http://userstyles.org/styles/13384',
+		desc: 'userstyles.org',
         resize: true
     },
     compactcleantweaked: {
         name: "Compact, Clean & Tweaked",
         url: 'http://userstyles.org/styles/userjs/16117/Google%20Reader%20-%20Compact%2C%20Clean%20%26%20Tweaked.user.js',
         pic: 'http://userstyles.org/style_screenshots/16117_after.png',
-        ref: 'http://userstyles.org/styles/16117'
+        ref: 'http://userstyles.org/styles/16117',
+		desc: 'userstyles.org'
     },
     /*
      '31d1remix':
@@ -576,24 +585,25 @@ GRP.skins = {
      name: "31d1 remix",
      url:'http://userstyles.org/styles/userjs/3519/Google%20Reader%20-%2031d1%20remix%20.user.js',
      pic:'http://userstyles.org/style_screenshots/3519_after.png',
-     ref:'http://userstyles.org/styles/3519'
+     ref:'http://userstyles.org/styles/3519',
+		desc: 'userstyles.org'
      },
      */
     absolutelycompact: {
         name: "Absolutely Compact",
         url: 'http://userstyles.org/styles/userjs/12691/Google%20Reader%20Absolutely%20Compact.user.js',
         pic: 'http://userstyles.org/style_screenshots/12691_after.png',
-        ref: 'http://userstyles.org/styles/12691'
+        ref: 'http://userstyles.org/styles/12691',
+		desc: 'userstyles.org'
     },
     darkshinyblue: {
         name: "Dark Shiny Blue",
         url: 'http://userstyles.org/styles/userjs/8935/iGoogle%2FGoogle%20Dark%20Shiny%20Blue%2C%20transparency.user.js',
         pic: 'http://userstyles.org/style_screenshots/8935_after.jpeg',
-        ref: 'http://userstyles.org/styles/8935'
-    },
-    player: {
-        name: "Player Theme"
+        ref: 'http://userstyles.org/styles/8935',
+		desc: 'userstyles.org'
     }
+    
 };
 GRP.googleshortcuts = {
     'j': 'item down',

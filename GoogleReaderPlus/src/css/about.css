@@ -117,6 +117,10 @@ form {
 	margin-right: auto;
 }
 
-.whatsnew h2,.thanks1,.thanks2{
+.nopopup{
+	font-style:italic;
+}
+
+.whatsnew h2,.thanks1,.thanks2,.nopopup{
 	text-align:center;
 }

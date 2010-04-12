@@ -1,19 +1,25 @@
 /**
  * @author Valente
  */
-function getText(lang, script, option){
+function getText(lang, script, option, deflang){
 	var text = '';
 	if (GRP.langs[lang] && GRP.langs[lang].texts[script] && GRP.langs[lang].texts[script][option]) {
         text = GRP.langs[lang].texts[script][option];
     }
+	if (!text && deflang){
+		text=getText(deflang, script, option);
+	}
 	return text;
 }
 
-function getTextPrefs(lang, script, option){
+function getTextPrefs(lang, script, option, deflang){
 	var text = '';
 	if (GRP.langs[lang] && GRP.langs[lang].prefs[script] && GRP.langs[lang].prefs[script][option]) {
         text = GRP.langs[lang].prefs[script][option];
     }
+	if (!text && deflang){
+		text=getTextPrefs(deflang, script, option);
+	}
 	return text;
 }
 
