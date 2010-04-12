@@ -11,27 +11,47 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
 
 = Features =
 
+== Skin/Theme ==
+  * Theme
+  * iGoogle Theme
+  * Relook (custom CSS)
+  * Google Aero Toolbar
+
+== Look ==
   * Favicons 
-  * Fix missing enclosures 
-  * Show all unread count 
-  * Fix width of text entry 
-  * Fix counter (1000+) 
-  * Counter as image in icon 
-  * Remove ads 
-  * Text in 3 columns Integrated preview 
-  * Colorful listview 
-  * Filter entries 
-  * Read by mouse 
-  * Facebook integration 
-  * Twitter integration 
-  * Mark Until Current As Read 
+  * Fix layout
+  * Fit height
+
+== Skin/Theme ==
+  * Integrated preview 
+  * Entry actions are displayed as a floating window
+  * Unread counter in the toolbar icon
+
+== Counter ==
+  * Show all unread count
+  * Fix counter (1000+)
+  * Icon counter
+
+== Layout ==
+  * Text multi columns
+  * Replacer (update content like comic strips, missing items, uncomplete entries)
+
+== Share ==
+  * Facebook
+  * Twitter
+  * Instapaper
+  * ReadItLater
+
+== Navigation / Reading ==
+  * Remove ads
+  * Integrated preview
+  * Colorful listview
+  * Filter entries
+  * Read by mouse
   * Add top/bottom links
-
-= Fixes =
-
-  * Google Aero Toolbar 
-  * Mac OS X Snow Leopard Fixes Skin 
-  * Another Mac OS X fixer
+  * Mark All As Read
+  * Close entry
+  * Open in background
 
 = Skins =
 
