@@ -13,6 +13,7 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
 
 == Skin/Theme ==
   * Theme
+  * custom MyTheme []
   * iGoogle Theme
   * Relook (custom CSS)
   * Google Aero Toolbar
@@ -23,8 +24,8 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
   * Fit height
 
 == Skin/Theme ==
-  * Integrated preview 
-  * Entry actions are displayed as a floating window
+  * Integrated preview [http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/preview.png ...]
+  * Entry actions are displayed as a floating window [http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/floating-actions.png ...]
   * Unread counter in the toolbar icon
 
 == Counter ==
@@ -37,15 +38,15 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
   * Replacer (update content like comic strips, missing items, uncomplete entries)
 
 == Share ==
-  * Facebook
-  * Twitter
+  * Facebook [http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/facebook.png ...]
+  * Twitter [http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/twitter.png ...]
   * Instapaper
   * ReadItLater
 
 == Navigation / Reading ==
   * Remove ads
   * Integrated preview
-  * Colorful listview
+  * Colorful listview [http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/colorful.png ...]
   * Filter entries
   * Read by mouse
   * Add top/bottom links
@@ -54,15 +55,20 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
   * Open in background
 
 = Skins =
+  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/player.jpg Player Theme] (mimic Reader Player)
+  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/mytheme.png My Theme] (customizable theme with background picture)
 
-  * Theme
-  * Air Skin
-  * Air Skin Comic Sans
-  * Google Enhanced Black
-  * Dark Skin
-  * Dark Gray Skin
-  * Helvetireader Skin
-  * Minimalistic Skin
-  * Optimized Skin
-  * Mac OS X Snow Leopard - Blue
-  * Mac OS X Snow Leopard - Black
+  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/aero.jpg Aero]
+  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/air.jpg Air]
+  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/aircomic.jpg Air Skin Comic Sans]
+  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/black.jpg Google Enhanced Black]
+  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/calibri.jpg Calibri]
+  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/dark.jpg Dark]
+  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/darkgray.jpg Dark Gray]
+  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/glassblackgold.jpg Calibri]
+  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/helvetireader.jpg Helvetireader]
+  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/minimal.jpg Minimalistic ]
+  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/optimized.jpg Optimized]
+  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/osxblack.jpg Mac OS X Snow Leopard - Black]
+  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/osxblue.jpg Mac OS X Snow Leopard - Blue]
+  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/portal.jpg Portal]
