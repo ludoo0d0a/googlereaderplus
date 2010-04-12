@@ -42,9 +42,9 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
 
 == Share ==
   * Facebook 
-<img height="80" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/facebook.png"/>
+<img height="80" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/facebook.jpg"/>
   * Twitter 
-<img height="80" src=" http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/twitter.png"/>
+<img height="80" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/twitter.png"/>
   * Instapaper
   * ReadItLater
 
