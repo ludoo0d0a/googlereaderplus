@@ -13,7 +13,7 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
 
 == Skin/Theme ==
   * Theme
-  * custom MyTheme []
+  * custom MyTheme [http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/mytheme.png http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/mytheme.png ]
   * iGoogle Theme
   * Relook (custom CSS)
   * Google Aero Toolbar
@@ -24,8 +24,8 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
   * Fit height
 
 == Skin/Theme ==
-  * Integrated preview [http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/preview.png ...]
-  * Entry actions are displayed as a floating window [http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/floating-actions.png ...]
+  * Integrated preview [ttp://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/preview.png ttp://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/preview.png ]
+  * Entry actions are displayed as a floating window [ttp://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/floating-actions.png ttp://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/floating-actions.png]
   * Unread counter in the toolbar icon
 
 == Counter ==
@@ -38,8 +38,8 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
   * Replacer (update content like comic strips, missing items, uncomplete entries)
 
 == Share ==
-  * Facebook [http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/facebook.png ...]
-  * Twitter [http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/twitter.png ...]
+  * Facebook [ttp://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/facebook.png ttp://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/facebook.png]
+  * Twitter [ttp://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/twitter.png ttp://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/twitter.png]
   * Instapaper
   * ReadItLater
 
