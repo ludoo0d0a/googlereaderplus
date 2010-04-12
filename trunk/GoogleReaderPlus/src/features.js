@@ -71,7 +71,7 @@ GRP.scripts = {
             skin_id: {
                 xtype: 'hidden'
             },
-            debug: false,
+            /*debug: false,*/
             randomtime: true,
             userandomthemes: false,
             randomthemes: {
