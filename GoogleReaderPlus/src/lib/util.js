@@ -1021,7 +1021,7 @@ function newel(id, cls){
 }
 
 function randomItem(items){
-	return items[Math.round(Math.random() * items.length)-1];
+	return items[Math.round(Math.random() * (items.length-1))];
 }
 
     
