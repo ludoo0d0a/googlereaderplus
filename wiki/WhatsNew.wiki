@@ -2,7 +2,7 @@
 
 = Introduction =
 
-Overview of last features.
+Overview of last features in 3.1.0
 
 = Features =
 
@@ -17,4 +17,5 @@ Overview of last features.
 = Roadmap =
 
   * Personas theme integration
+  * Extra menu (more actions on entries)
   * Translation tool for translators
