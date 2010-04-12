@@ -578,11 +578,10 @@
             }
             
             function igtheme(o, cb){
-                if (o.type === 'random') {
-                    //random theme
+				if (o.type === 'random') {
+					//random theme
                     getRandomTheme(o.current,function(entry){
-                        prefs=getPrefs();
-						console.log(entry);
+						prefs=getPrefs();
 						prefs.ig_skin_name = entry.title;
                         prefs.ig_skin_id = entry.skin_id;
                         prefs.ig_skin_url = entry.link;
