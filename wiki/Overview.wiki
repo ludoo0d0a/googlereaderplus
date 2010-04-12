@@ -28,8 +28,7 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
   * Integrated preview 
 <img height="80" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/preview.png"/>
   * Entry actions are displayed as a floating window 
-<img height="80" src="
-  http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/floating-actions.png"/>
+<img height="80" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/floating-actions.png"/>
   * Unread counter in the toolbar icon
 
 == Counter ==
@@ -63,19 +62,34 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
 
 = Skins =
   * Player Theme (mimic Reader Player) 
-<img height="80" src="http://googlereaderplus.googlecode.com//svn/trunk/GoogleReaderPlus/screenshots/skins/player.jpg"/>
-  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/mytheme.png My Theme] (customizable theme with background picture)
-  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/aero.jpg Aero]
-  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/air.jpg Air]
-  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/aircomic.jpg Air Skin Comic Sans]
-  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/black.jpg Google Enhanced Black]
-  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/calibri.jpg Calibri]
-  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/dark.jpg Dark]
-  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/darkgray.jpg Dark Gray]
-  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/glassblackgold.jpg Calibri]
-  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/helvetireader.jpg Helvetireader]
-  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/minimal.jpg Minimalistic ]
-  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/optimized.jpg Optimized]
-  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/osxblack.jpg Mac OS X Snow Leopard - Black]
-  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/osxblue.jpg Mac OS X Snow Leopard - Blue]
-  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/portal.jpg Portal]
+<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/player.jpg"/>
+  * My Theme (customizable theme with background picture)
+<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/mytheme.png"/>
+  * Aero
+<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/aero.jpg"/>
+  * Air
+<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/air.jpg"/>
+  * Air Skin Comic Sans
+<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/aircomic.jpg"/>
+  * Google Enhanced Black
+<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/black.jpg"/>
+  * Calibri
+<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/calibri.jpg"/>
+  * Dark
+<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/dark.jpg"/>
+  * Dark Gray
+<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/darkgray.jpg"/>
+  * Calibri
+<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/glassblackgold.jpg"/>
+  * Helvetireader
+<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/helvetireader.jpg"/>
+  * Minimalistic
+<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/minimal.jpg"/>
+  * Optimized
+<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/optimized.jpg"/>
+  * Mac OS X Snow Leopard - Black
+<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/osxblack.jpg"/>
+  * Mac OS X Snow Leopard - Blue
+<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/osxblue.jpg"/>
+  * Portal
+<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/portal.jpg"/>
