@@ -80,7 +80,9 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
   * Dark Gray
 <img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/darkgray.jpg"/>
   * Calibri
-<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/glassblackgold.jpg"/>
+<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/calibri.jpg"/>
+  * Glass Black gold
+<img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/glassblackgold.png"/>
   * Helvetireader
 <img height="120" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/helvetireader.jpg"/>
   * Minimalistic
