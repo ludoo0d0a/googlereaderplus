@@ -46,7 +46,7 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
 == Navigation / Reading ==
   * Remove ads
   * Integrated preview
-  * Colorful listview [http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/colorful.png pic]
+  * Colorful listview [http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/colorful.png ...]
   * Filter entries
   * Read by mouse
   * Add top/bottom links
