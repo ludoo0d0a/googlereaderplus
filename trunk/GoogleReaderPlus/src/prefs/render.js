@@ -100,7 +100,7 @@ function renderOptions(body, script){
             xtype = typeof value;
         }
         var o = {
-            text: '-', /*getText(lang, script.id, option),*/
+            text: getTextPrefs(lang, script.id, option, 'en') || ('-'+option+'-'),
             id: script.id + '_' + option,
             value: value,
             extra: '',
@@ -140,7 +140,7 @@ function renderOptions(body, script){
             } else if (xtype === "select") {
                 o.options = '';
                 iterate(cfg.values, function(id, vo){
-                    text = ''; //getText(lang, script.id, option+'_'+id);
+                    text = ''; //getTextPrefs(lang, script.id, option+'_'+id);
                     o.options += fillTpl(tplSelectOption, {
                         id: id,
                         value: vo.value || vo,
@@ -241,6 +241,10 @@ function renderSkins(){
                     athumb.target = '';
                     athumb.removeAttribute('target');
                 }
+				var skindesc = document.getElementById("skindesc");
+				if (skindesc){
+					skindesc.innerHTML=(o.desc)?(o.name+' - '+o.desc):o.name;
+				}
                 athumb.title = o.name;
                 //check theme feature
                 if (!simulate) {

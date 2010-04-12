@@ -257,7 +257,7 @@ GRP.preview = function(prefs, langs){
         } else {
             entry = overlay.entry.previousSibling;
         }
-        if (entry) {
+        if (entry && entry.id!=='scroll-filler') {
             overlay.entry = entry;
             updateFrame(overlay.iframe, overlay.entry);
         }

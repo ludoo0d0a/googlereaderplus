@@ -13,7 +13,7 @@
 
 var GUID_CORE = 'hhcknjkmaaeinhdjgimjnophgpbdgfmg';
 var GUID_ICON = 'ecpcafinfpjgabomoamkhkgnpgpmdmeo';
-var env = 'unpacked';
+var env = '';
 if (env && env == 'home') {
 	GUID_CORE = 'njidamgjohnfbkeagfbnkllfkdnlpjhi';
 	GUID_ICON = 'aencokegfecfkpckmiklpcklhdblkdgj';
