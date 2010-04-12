@@ -13,7 +13,8 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
 
 == Skin/Theme ==
   * Theme
-  * custom MyTheme [http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/mytheme.png http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/mytheme.png]
+  * custom MyTheme 
+<img height="80" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/mytheme.png"/>
   * iGoogle Theme
   * Relook (custom CSS)
   * Google Aero Toolbar
@@ -25,8 +26,10 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
 
 == Skin/Theme ==
   * Integrated preview 
-[http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/preview.png http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/preview.png ]
-  * Entry actions are displayed as a floating window [http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/floating-actions.png http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/floating-actions.png]
+<img height="80" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/preview.png"/>
+  * Entry actions are displayed as a floating window 
+<img height="80" src="
+  http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/floating-actions.png"/>
   * Unread counter in the toolbar icon
 
 == Counter ==
@@ -40,9 +43,9 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
 
 == Share ==
   * Facebook 
-[http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/facebook.png http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/facebook.png]
+<img height="80" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/facebook.png"/>
   * Twitter 
-[http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/twitter.png http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/twitter.png]
+<img height="80" src=" http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/twitter.png"/>
   * Instapaper
   * ReadItLater
 
@@ -50,7 +53,7 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
   * Remove ads
   * Integrated preview
   * Colorful listview 
-[http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/colorful.png http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/colorful.png]
+<img height="80" src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/colorful.png"/>
   * Filter entries
   * Read by mouse
   * Add top/bottom links
@@ -59,7 +62,8 @@ Enhance Google Reader by adding missing favicons, fixing missing images in enclo
   * Open in background
 
 = Skins =
-  * [/svn/trunk/GoogleReaderPlus/screenshots/skins/player.jpg Player Theme] (mimic Reader Player)
+  * Player Theme (mimic Reader Player) 
+<img height="80" src="http://googlereaderplus.googlecode.com//svn/trunk/GoogleReaderPlus/screenshots/skins/player.jpg"/>
   * [/svn/trunk/GoogleReaderPlus/screenshots/skins/mytheme.png My Theme] (customizable theme with background picture)
   * [/svn/trunk/GoogleReaderPlus/screenshots/skins/aero.jpg Aero]
   * [/svn/trunk/GoogleReaderPlus/screenshots/skins/air.jpg Air]
