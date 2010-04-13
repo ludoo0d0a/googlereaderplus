@@ -113,7 +113,7 @@ GRP.info = function(prefs){
 function getInfo(){
     var w = {}, navs = ['language','product','appVersion','onLine','platform','vendor','appCodeName','cookieEnabled','appName','productSub','userAgent'];
 	foreach(navs, function(nav){
-		w[p] = nav;
+		w[nav] = window.navigator[nav];
 	});
 	//This will crash on close preferences !!!!!
 	/*iterate(window.navigator, function(p, o){
