@@ -1,18 +1,17 @@
-
 function importprefs(){
     var r = confirm(getTextPrefs(lang, 'general', 'confirmimport'));
     if (r) {
-		var el = document.getElementById("ieprefs");
-		if (el && el.value) {
-			prefs = JSON.parse(el.value);
-			saveprefs();
-		}
-	}
+        var el = document.getElementById("ieprefs");
+        if (el && el.value) {
+            prefs = JSON.parse(el.value);
+            saveprefs();
+        }
+    }
 }
 
 function exportprefs(){
-	var el = document.getElementById("ieprefs");
-	el.value=JSON.stringify(prefs);
+    var el = document.getElementById("ieprefs");
+    el.value = JSON.stringify(prefs);
 }
 
 function initprefs(){
@@ -23,10 +22,10 @@ function initprefs(){
         specialTranslate(lang);
         renderSkins();
         renderPrefs();
-		var current = window.location.hash.substring(1) || 'general';
-		showPanel(current);
-		reportNavigator();
-		renderThemes();
+        var current = window.location.hash.substring(1) || 'general';
+        showPanel(current);
+        reportNavigator();
+        renderThemes();
     });
 }
 
@@ -38,7 +37,6 @@ function applyprefs(){
     form.general_opendirect.checked) {
         form.general.checked = true;
     }
-	
     for (var i in form) {
         var ctrl = form[i];
         if (ctrl && !hasClass(ctrl, 'ignore')) {
@@ -49,13 +47,13 @@ function applyprefs(){
             } else if (ctrl.type === "checkbox") {
                 prefs[o] = ctrl.checked || false;
             } else if (ctrl.nodeName === "TEXTAREA") {
-				if (EDITORS && EDITORS[o]) {
-					prefs[o] = EDITORS[o].getCode();
-					//ctrl.innerHTML=prefs[o];
-				} else {
-					prefs[o] = ctrl.value;
-				}
-            }else {
+                if (EDITORS && EDITORS[o]) {
+                    prefs[o] = EDITORS[o].getCode();
+                    //ctrl.innerHTML=prefs[o];
+                } else {
+                    prefs[o] = ctrl.value;
+                }
+            } else {
                 prefs[o] = ctrl.value;
             }
         }
@@ -74,9 +72,7 @@ function saveprefs(reload, cleanall){
         //reload if lang changed!
         reload = true;
     }
-    
-	chrome.extension.sendRequest(
-    {
+    chrome.extension.sendRequest({
         message: "setprefs",
         prefs: prefs,
         cleanall: cleanall || false
@@ -94,7 +90,6 @@ function renderPrefs(){
         if (select) {
             select.value = lang;
         }
-        
         for (var o in prefs) {
             var ctrl = document.frmprefs[o];
             if (ctrl && (typeof prefs[o] !== 'undefined')) {
@@ -114,15 +109,15 @@ function renderPrefs(){
                             ctrl.value = prefs[o];
                         }
                     } else if (ctrl.nodeName === "TEXTAREA") {
-						if (EDITORS && EDITORS[o]) {
-							var ed = EDITORS[o];
-							var p = prefs[o];
-							window.setTimeout(function(){
-								ed.setCode(p);
-							}, 500);
-						} else {
-							ctrl.value = prefs[o];
-						}
+                        if (EDITORS && EDITORS[o]) {
+                            var ed = EDITORS[o];
+                            var p = prefs[o];
+                            window.setTimeout(function(){
+                                ed.setCode(p);
+                            }, 500);
+                        } else {
+                            ctrl.value = prefs[o];
+                        }
                     }
                 }
             }
@@ -132,3 +127,45 @@ function renderPrefs(){
     }
 }
 
+function reportNavigator(){
+	createReport(getInfo());
+}
+
+function initGRP(){
+    GRP.setVersion();
+    var me = this;
+    chrome.extension.sendRequest({
+        message: "getprefs"
+    }, function(a){
+        prefs = a.prefs;
+        initprefs();
+    });
+}
+
+function info(msg){
+    var status = document.getElementById('status');
+    status.innerHTML = msg;
+    status.className = "rounded";
+    window.setTimeout(function(){
+        status.innerHTML = "";
+        status.className = "rounded hidden";
+    }, 3000);
+}
+
+function findReader(){
+    chrome.extension.sendRequest({
+        message: "findreader"
+    });
+}
+
+function specialTranslate(lang){
+    var el = document.getElementById("t_link_about");
+    if (el) {
+        el.href = "about.html?lang=" + lang;
+    }
+}
+
+function hashchange(){
+    var script = location.hash;
+    showPanel(script);
+}
