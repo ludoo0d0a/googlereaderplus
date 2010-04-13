@@ -16,7 +16,7 @@ body{
 	background: transparent;
 }
 body.ig_fixed {
-	background: url(_a_header_fixe_z_) _a_header_bg_color_z_ no-repeat fixed top center;
+	background: url(_a_header_fixe_z_) _a_body_bg_color_z_ no-repeat fixed top center;
 }
 
 #logo {
@@ -84,11 +84,16 @@ ul, xmp ,#recent-activity #recent-activity-kept-unread h4,
 	display:inline!important;
 }
 
-#viewer-container,.collapsed,#message-area-inner,
- .message-area-text,#message-area-outer,#loading-area,#chrome-view-links,
- #loading,#no-entries-msg,.message-area-text-container,.offscreen,.hover-form,
+#viewer-container,.collapsed,
+#chrome-view-links, 
+#loading,#loading-area,
+#no-entries-msg,.message-area-text-container,.offscreen,.hover-form,
  .action-area,.email-this-area, .preview-interruption{
 	background-color: _a_header_bg_color_z_!important;
+}
+
+.message-area-text-container{
+	background-color: transparent !important;
 }
 
 /*
