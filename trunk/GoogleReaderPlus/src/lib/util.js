@@ -11,16 +11,16 @@ function hasClass(el, clazz){
 
 function addClass(el, clazz){
     if (el) {
-		el.className = (el.className || '') + ' ' + clazz;
-	}else{
-		console.log('el null');
-	}
+        el.className = (el.className || '') + ' ' + clazz;
+    } else {
+        console.log('el null');
+    }
 }
 
 function addClassChecked(el, clazz){
-	if (!hasClass(el, clazz)){
-		addClass(el, clazz);
-	}
+    if (!hasClass(el, clazz)) {
+        addClass(el, clazz);
+    }
 }
 
 function addClassIf(el, cls, status){
@@ -66,24 +66,24 @@ function getFirstNode(el){
 }
 
 function getIndex(el){
-	var pos=0,o = el;
+    var pos = 0, o = el;
     while ((o = o.previousSibling)) {
-		pos++;
+        pos++;
     }
-    return (pos+1);
+    return (pos + 1);
 }
 
-function getPos(obj) {
-	var output = {};
-	var mytop=0, myleft=0;
-	while( obj) {
-		mytop+= obj.offsetTop;
-		myleft+= obj.offsetLeft;
-		obj= obj.offsetParent;
-	}
-	output.left = myleft;
-	output.top = mytop;
-	return output;
+function getPos(obj){
+    var output = {};
+    var mytop = 0, myleft = 0;
+    while (obj) {
+        mytop += obj.offsetTop;
+        myleft += obj.offsetLeft;
+        obj = obj.offsetParent;
+    }
+    output.left = myleft;
+    output.top = mytop;
+    return output;
 }
 
 //native getElementsByClassName
@@ -91,19 +91,19 @@ function getFirstElementByClassName(root, clazz){
     return root.getElementsByClassName(clazz)[0];
 }
 
-function getElementText(root,cls,html,firstchild){
-	var txt='', el = getFirstElementByClassName(root||document, cls);
-	if (el){
-		if (firstchild){
-			el=el.firstChild;
-		}
-		if (html){
-			txt=el.innerHTML;
-		}else{
-			txt=el.innerText||el.textContent;
-		}
-	}
-	return txt;
+function getElementText(root, cls, html, firstchild){
+    var txt = '', el = getFirstElementByClassName(root || document, cls);
+    if (el) {
+        if (firstchild) {
+            el = el.firstChild;
+        }
+        if (html) {
+            txt = el.innerHTML;
+        } else {
+            txt = el.innerText || el.textContent;
+        }
+    }
+    return txt;
 }
 
 function copyAttributes(src, dest){
@@ -397,6 +397,14 @@ function findTop(obj){
     }
 }
 
+function getStyle(el, property){
+    if (el && el.style && el.style[property]) {
+        return parseInt(el.style[property].replace('px', ''), 10);
+    } else {
+        return 0;
+    }
+}
+
 function simulateClick(node){
     var event = node.ownerDocument.createEvent("MouseEvents");
     event.initMouseEvent("click", true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
@@ -457,9 +465,13 @@ function marshallKey(e){
     return ((e.ctrlKey) ? '1' : '0') + ((e.altKey) ? '1' : '0') + ((e.shiftKey) ? '1' : '0') + e.keyCode;
 }
 
-function formatKey(e){
+function formatKey(e, keyFirst){
     var keyLetter = getStringFromCharCode(e.keyCode);
-    return ((e.ctrlKey) ? 'ctrl+' : '') + ((e.altKey) ? 'alt+' : '') + ((e.shiftKey) ? 'shift+' : '') + keyLetter;
+    if (keyFirst){
+		return keyLetter +((e.ctrlKey) ? '+ctrl' : '') + ((e.altKey) ? '+alt' : '') + ((e.shiftKey) ? '+shift' : '');
+	}else{
+		return ((e.ctrlKey) ? 'ctrl+' : '') + ((e.altKey) ? 'alt+' : '') + ((e.shiftKey) ? 'shift+' : '')+keyLetter;
+	}
 }
 
 /**
@@ -566,21 +578,21 @@ var keycodes = {
     91: 'leftwindowkey',
     92: 'rightwindowkey',
     93: 'selectkey',
-    96: 'numpad0',
-    97: 'numpad1',
-    98: 'numpad2',
-    99: 'numpad3',
-    100: 'numpad4',
-    101: 'numpad5',
-    102: 'numpad6',
-    103: 'numpad7',
-    104: 'numpad8',
-    105: 'numpad9',
-    106: 'multiply',
-    107: 'add',
-    109: 'subtract',
-    110: 'decimalpoint',
-    111: 'divide',
+    96: '0 pad',
+    97: '1 pad',
+    98: '2 pad',
+    99: '3 pad',
+    100: '4 pad',
+    101: '5 pad',
+    102: '6 pad',
+    103: '7 pad',
+    104: '8 pad',
+    105: '9 pad',
+    106: '*',
+    107: '+',
+    109: '-',
+    110: '.',
+    111: '/',
     112: 'f1',
     113: 'f2',
     114: 'f3',
@@ -597,16 +609,16 @@ var keycodes = {
     145: 'scrolllock',
     182: 'MyComputer',
     183: 'MyCalculator',
-    186: 'semicolon',
-    187: 'equalsign',
-    188: 'comma',
+    186: ';',
+    187: '=',
+    188: ',',
     189: 'dash',
     190: 'period',
-    191: 'forwardslash',
-    219: 'openbracket',
-    220: 'backslash',
-    221: 'closebraket',
-    222: 'singlequote'
+    191: '/',
+    219: '(',
+    220: '\\',
+    221: ')',
+    222: '\''
 };
 //a.href sometimes truncated
 function getHref(a){
@@ -788,11 +800,11 @@ function urlDecode(string){
 
 function getDomain(url, withProtocol){
     var m = url.split(/\/|\?/);
-	if (withProtocol) {
-		return m[0]+'/'+m[1]+'/'+m[2];
-	} else {
-		return m[2];
-	}
+    if (withProtocol) {
+        return m[0] + '/' + m[1] + '/' + m[2];
+    } else {
+        return m[2];
+    }
 }
 
 function isVersionMini(ref){
@@ -862,8 +874,8 @@ function textareaTab(){
 function waitlib(check, fn, scope){
     if (check()) {
         if (fn) {
-			fn.call(scope || this);
-		}
+            fn.call(scope || this);
+        }
     } else {
         window.setTimeout(function(){
             waitlib(check, fn);
@@ -904,14 +916,14 @@ function waitImages(images, cb, scope){
 function isShown(el){
     return (el && el.style && el.style.display !== 'none' && el.visibility !== 'hidden');
 }
+
 function show(el){
-    el.style.display= 'block';
+    el.style.display = 'block';
 }
 
 function hide(el){
-    el.style.display= 'none';
+    el.style.display = 'none';
 }
-
 
 //http://forums.mozillazine.org/viewtopic.php?f=19&t=1806595
 //http://forums.mozillazine.org/viewtopic.php?f=19&t=1594275
@@ -973,10 +985,10 @@ function applyXsl(xml, xsl){
 var tmaps = {
     id: 'id',
     cls: 'className',
-	style:'style',
+    style: 'style',
     href: 'href',
-	alt: 'alt',
-	title: 'title',
+    alt: 'alt',
+    title: 'title',
     text: 'innerText',
     html: 'innerHTML'
 };
@@ -1004,7 +1016,13 @@ function dh(root, tag, attrs, events){
     iterate(events, function(event, fn){
         el.addEventListener(event, fn, false);
     });
-    root.appendChild(el);
+	if (attrs && attrs.position==='after'){
+			insertAfter(el, root);
+	}else if(attrs && attrs.position==='before'){
+			insertBefore(el, root);
+	} else {
+		root.appendChild(el);
+	}
     return el;
 }
 
@@ -1021,13 +1039,21 @@ function newel(id, cls){
 }
 
 function randomItem(items){
-	return items[Math.round(Math.random() * (items.length-1))];
+    return items[Math.round(Math.random() * (items.length - 1))];
 }
 
-    
 function loadjQuery(cb, version){
-	version=version||'1';
-	GM_loadScript('http://ajax.googleapis.com/ajax/libs/jquery/'+version+'/jquery.min.js', false, function(){
+    version = version || '1';
+    GM_loadScript('http://ajax.googleapis.com/ajax/libs/jquery/' + version + '/jquery.min.js', false, function(){
         return (typeof jQuery !== "undefined");
     }, cb);
+}
+
+function runfn(fn, id, priority, delay){
+    GRP.fns.push({
+        fn: fn,
+        id: id,
+		delay: delay,
+        priority: priority
+    });
 }
