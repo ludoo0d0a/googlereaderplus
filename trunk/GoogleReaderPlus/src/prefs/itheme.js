@@ -4,7 +4,7 @@
 // 
 var tpl_ig_skin_block = '{{%IMPLICIT-ITERATOR}}' +
 '<div class="indi_cats">{{#cats}}' +
-'<span class="indi_link" onclick="javascript:igcat(\'{{id}}\')">{{name}}</span> - ' +
+'<span class="indi_link" onclick="javascript:igcat(\'{{id}}\')">{{name}}</span> ' +
 '{{/cats}}</div>' +
 '<div class="indi_sort">{{#sorts}}' +
 '<span class="indi_link" onclick="javascript:igsort(\'{{id}}\')">{{name}}</span> - ' +
@@ -170,7 +170,7 @@ function callApi(callback, o, inBg){
     ig_cat = o.cat || '';
     ig_pos = o.pos || 0;
     ig_sort = o.sort || ig_sort;
-    ig_q = o.q || ig_q;
+    ig_q = (typeof o.q === 'undefined')?ig_q:o.q;
     var api = 'http://www.google.com/ig/directory?type=themes&output=json&callback=' + callback + '&sort=' + ig_sort + '&cat=' + ig_cat + '&gl=us&hl=en&start=' + ig_pos + '&num=' + ig_page;
     if (ig_q) {
         api += '&q=' + ig_q;
@@ -197,7 +197,7 @@ function renderThemes(cat, pos, sort, q){
         cat: cat,
         pos: pos,
         sort: sort,
-        q: q
+        q: q||''
     };
     callApi('setThemes', o);
 }

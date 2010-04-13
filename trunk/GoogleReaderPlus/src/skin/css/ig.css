@@ -70,8 +70,9 @@ ul, xmp ,#recent-activity #recent-activity-kept-unread h4,
 	 background: transparent !important;
 }
 
-.email-active, .item-link-active, .lhn-section, .scroll-tree li, #chrome-title, #viewer-header, 
-#viewer-footer, .card-common{
+.email-active, .item-link-active, .lhn-section, 
+.scroll-tree li, .scroll-tree li a .name,.scroll-tree li a .name-unread
+#chrome-title, #viewer-header, #viewer-footer, .card-common{
     background: _a_nav_bg_color_z_ !important;
     color: _a_nav_text_color_z_ !important;
 }
