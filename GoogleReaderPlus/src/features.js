@@ -82,6 +82,17 @@ GRP.scripts = {
                 xtype: 'html',
                 value: '<div id="ig_themes"></div>'
             }
+        },
+		shortcuts: {
+            'random': {
+                id: 'random',
+                title: 'Random theme',
+                key: {
+                    //82 r
+                    keyCode: 82,
+					shiftKey:true
+                }
+            }
         }
     },
     relook: {
@@ -606,34 +617,45 @@ GRP.skins = {
     
 };
 GRP.googleshortcuts = {
-    'j': 'item down',
-    'k': 'item up',
-    'space': 'page down',
-    'shift+space': 'page up',
-    'n': 'scan down',
-    'p': 'scan up',
-    'shift+n': 'navigation down',
-    'shift+p': 'navigation up',
-    'shift+x': 'navigation expand/collapse',
-    'o': 'open/close item',
-    'enter': 'open/close item',
-    'shift+o': 'navigation open subscription',
-    '-': 'zoom out',
-    '=': 'zoom in',
-    's': 'toggle star',
-    'shift+s': 'toggle share',
-    'shift+d': 'share with note',
-    'v': 'view original',
-    't': 'tag an item',
-    'm': 'mark as read/unread',
-    'shift+a': 'mark all as read',
-    'e': 'email item',
-    'g': 'go to...',
-    'r': 'refresh',
-    'u': 'toggle full screen mode',
-    '1': 'expanded view',
-    '2': 'list view',
-    '/': 'search',
-    'a': 'add a subscription',
-    '?': 'help'
+'j':{text: 'item down : selects the next item in the list',key:{keyCode:74}},
+'k':{text: 'item up : selects the previous item in the list',key:{keyCode:75}},
+'space':{text: 'page down : moves the page down',key:{keyCode:32}},
+'shift+space':{text: 'page up : moves the page up',key:{keyCode:32,shiftKey: true}},
+'n':{text: 'scan down : in list view, selects the next item without opening it',key:{keyCode:78}},
+'p':{text: 'scan up : in list view, selects the next item without opening it',key:{keyCode:80}},
+'shift+n':{text: 'navigation down : selects the next subscription or folder in the navigation',key:{keyCode:78,shiftKey: true}},
+'shift+p':{text: 'navigation up : selects the previous subscription or folder in the navigation',key:{keyCode:80,shiftKey: true}},
+'shift+x':{text: 'navigation expand/collapse : expands or collapses a folder selected in the navigation',key:{keyCode:88,shiftKey: true}},
+'o':{text: 'open/close item : in list view, expands or collapses the selected item',key:{keyCode:79}},
+'enter':{text: 'open/close item : in list view, expands or collapses the selected item',key:{keyCode:13}},
+'shift+o':{text: 'navigation open subscription : opens the subscription or folder currently selected in the navigation',key:{keyCode:79,shiftKey: true}},
+'-':{text: 'zoom out : decreases the font size of the current item',key:{keyCode:109}},
+'=':{text: 'zoom in : increases the font size of the current item',key:{keyCode:187}},
+'s':{text: 'toggle star : stars or un-stars the selected item',key:{keyCode:83}},
+'shift+s':{text: 'toggle share : shares or un-shares the selected item',key:{keyCode:83,shiftKey: true}},
+'shift+d':{text: 'share with note : shares the selected item with a note',key:{keyCode:68,shiftKey: true}},
+'v':{text: 'view original : opens the original source for this article in a new window',key:{keyCode:86}},
+'t':{text: 'tag an item : opens the tagging field for the selected item',key:{keyCode:84}},
+'m':{text: 'mark as read/unread : switches the read status of the selected item',key:{keyCode:77}},
+'shift+a':{text: 'mark all as read : marks all items in the current view as read',key:{keyCode:65,shiftKey: true}},
+'e':{text: 'email item : opens the email form to send an item to a friend',key:{keyCode:69}},
+'g then h':{text: 'go to home : goes to the Google Reader homepage',key:{keyCode:71}},
+'g then a':{text: 'go to all items : goes to the "All items" view',key:{keyCode:71}},
+'g then s':{text: 'go to starred items : goes to the "Starred items" view',key:{keyCode:71}},
+'g then shift-s':{text: 'go to shared items : goes to the "Your shared items" view',key:{keyCode:71}},
+'g then u':{text: 'go to subscription : allows you to navigate to a subscription by entering the subscription name',key:{keyCode:71}},
+'g then t':{text: 'go to tag : allows you to navigate to a tag by entering the tag name',key:{keyCode:71}},
+'g then f':{text: 'go to friend : allows you to navigate to a friend\'s shared items by entering the friend\'s name',key:{keyCode:71}},
+'g then shift-f':{text: 'go to all friends\' shared items : shows all of your friends\' shared items',key:{keyCode:71}},
+'g then shift-t':{text: 'go to trends : goes to the "Trends" view',key:{keyCode:71}},
+'g then d':{text: 'go to feed discovery : shows the recommendations page, or the browse page if there are no recommendations',key:{keyCode:71}},
+'r':{text: 'refresh : refreshes the unread counts in the navigation',key:{keyCode:82}},
+'u':{text: 'toggle full screen mode : hides or shows the list of subscriptions',key:{keyCode:85}},
+'1':{text: 'expanded view : displays the subscription as expanded items',key:{keyCode:49}},
+'2': {text: 'list view : displays the subscription as a list of headlines',key: {keyCode: 50}},
+'1 pad':{text: 'expanded view : displays the subscription as expanded items',key:{keyCode:97}},
+'2 pad': {text: 'list view : displays the subscription as a list of headlines',key: {keyCode: 98}},
+'/':{text: 'search : moves your cursor to the search box',key:{keyCode:111}},
+'a':{text: 'add a subscription : opens the "Add a subscription" box in the sidebar',key:{keyCode:65}},
+'?':{text: 'keyboard shortcuts help : displays a quick guide to all of Reader\'s shortcuts',key:{keyCode:219}}
 };
