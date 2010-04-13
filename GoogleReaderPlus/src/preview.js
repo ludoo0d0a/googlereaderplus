@@ -13,7 +13,7 @@
  * http://userscripts.org/scripts/show/12352
  * http://userscripts.org/scripts/show/9455
  */
-GRP.preview = function(prefs, langs){
+GRP.preview = function(prefs, langs, ID){
     var SL = langs.preview;
     var locked = false;
     var overlay;
@@ -186,7 +186,7 @@ GRP.preview = function(prefs, langs){
     }
     function renderoverlay(entry){
 		if (overlay && overlay.root) {
-			overlay.root.style.display = '';
+			showoverlay();
         } else {
             overlay = {};
             var urlLink = getEntryLink(entry);
@@ -249,6 +249,11 @@ GRP.preview = function(prefs, langs){
     }
     function hideoverlay(){
         overlay.root.style.display = 'none';
+		overlay.visible=false;
+    }
+	function showoverlay(){
+        overlay.root.style.display = '';
+		overlay.visible=true;
     }
     function siblingentry(next){
         var entry;
@@ -264,8 +269,10 @@ GRP.preview = function(prefs, langs){
     }
     function onResize(height){
         if (prefs.preview_overlay) {
-            //Resize overlay
-            renderoverlay();
+            if (overlay && overlay.visible){
+				//Resize overlay
+	            renderoverlay();
+			}
         } else {
             var iframes = getElementsByClazzName('if-preview', 'iframe', document);
             var h = getHeightEntries();
