@@ -78,7 +78,7 @@ var ig_sorts = [{
 }];
 function igsearch(){
     var q = get_id('igq');
-    if (q && q.value) {
+    if (q) {
         ig_q = q.value;
         renderThemes(ig_cat, ig_pos, ig_sort, ig_q);
     }
@@ -107,10 +107,18 @@ function getRandomTheme(current, cb, inBg){
     };
 	lastSkin=current;
     randomCallback = cb;//global way
-    callApi('randomTheme', o, inBg);
+    if (inBg) {
+		callApi('randomThemeBg', o, inBg);
+	} else {
+		callApi('randomTheme', o, inBg);
+	}
 }
 
-function randomTheme(data){
+function randomThemeBg(data){
+	randomTheme(data, true);
+}
+
+function randomTheme(data, inBg){
     if (randomCallback) {
         var entries = data.feed.entry;
         if (entries && entries.length > 0) {
@@ -119,7 +127,7 @@ function randomTheme(data){
 				randomCallback(entry);
 			}else{
 				//retry
-				getRandomTheme(lastSkin, randomCallback, true);
+				getRandomTheme(lastSkin, randomCallback, inBg);
 			}
         }
     }
@@ -194,9 +202,9 @@ function callApi(callback, o, inBg){
 
 function renderThemes(cat, pos, sort, q){
     var o = {
-        cat: cat,
-        pos: pos,
-        sort: sort,
+        cat: cat||'',
+        pos: pos||0,
+        sort: sort||'',
         q: q||''
     };
     callApi('setThemes', o);
