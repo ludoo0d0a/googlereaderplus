@@ -4,9 +4,9 @@
  */
 //http://www.google.com/ig/directory?type=themes
 //http://code.google.com/apis/themes/docs/dev_guide.html
-GRP.ig = function(prefs, lang){
-    var xml_skin = prefs.ig_skin_url;
-    var skin_name = prefs.ig_skin_name;
+GRP.ig = function(prefs, langs, ID, SL, lang){
+    var skin_url = prefs.ig_skin_url;
+    var skin_name = prefs.ig_skin_name||'';
     var ig_debug = prefs.ig_debug;
     var menu_item;
     var css = ''; //GM_getValue('theme_ig'+name???);
@@ -18,7 +18,7 @@ GRP.ig = function(prefs, lang){
         }, t * 60000);
         rndskin();
     } else {
-        setcss(css, xml_skin);
+        setcss(css, skin_url);
     }
     function fixMenu(){
         menu_item = dh('gbg', 'a', {
@@ -89,6 +89,11 @@ GRP.ig = function(prefs, lang){
                     }
                     f++;
                 }
+				if (skins.length===0){
+					console.error('Not XML valid for iGoogle Theme:'+ xml);
+					return;
+				}
+				
                 if (prefs.ig_randomtime) {
                     var index = Math.floor(Math.random() * skins.length);
                     skin = skins[index];
@@ -118,7 +123,7 @@ GRP.ig = function(prefs, lang){
                 }
 				if (entry) {
 					skin_name = entry.title;
-					xml_skin = entry.link;
+					skin_url = entry.link;
 				}
 				
 				var debug = '', reAttrs = /<Attribute\s+name="([^"]+)">([^<]+)<\/Attribute>/g;
@@ -154,6 +159,7 @@ GRP.ig = function(prefs, lang){
                     header_tile: igurl(header_tile),
                     header_fixe: igurl(header_fixe),
 					header_link_color: colors['header.link_color'],
+					body_bg_color: (header_tile && header_fixe)?'transparent':colors['header.background_color'],
 					header_bg_color: colors['header.background_color'],
 
                     header_text_color: colors['header.text_color'],
@@ -173,13 +179,18 @@ GRP.ig = function(prefs, lang){
 					
                     entry_color: '#fff'
                 });
-                css = fillTpl(tplCss, colors);
+                css = '/* '+skin_name+' */'+fillTpl(tplCss, colors);
                 GM_addStyle(css, 'rps_ig');
                 //cache css
                 GM_setValue('theme_ig', css);
             }
         });
     }
+	
+    var keycode = getShortcutKey(ID, 'random', prefs); //shift+r
+    keycode.fn = rndskin;
+    initKey(keycode);
+	
 };
 //http://essence-ig-themes.googlecode.com/svn/trunk/lopes/xml/lopes.xml
 //http://igcdn.googlecode.com/svn/trunk/xml/travel_lpspain.xml
