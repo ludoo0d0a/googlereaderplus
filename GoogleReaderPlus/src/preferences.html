@@ -33,62 +33,14 @@
         </script>
         <script type="application/javascript" src="lang/en/langs.js">
         </script>
-        <script type="application/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+        <script type="application/javascript" src="lib/jquery.min.js">
         </script>
-        <link rel="stylesheet" media="screen" type="text/css" href="http://eyecon.ro/colorpicker/css/colorpicker.css" />
-        <script type="text/javascript" src="lib/colorpicker.js">
+        <link rel="stylesheet" media="screen" type="text/css" href="lib/colorpicker/css/colorpicker.css" />
+        <script type="text/javascript" src="lib/colorpicker/colorpicker.js">
         </script>
         <script type="application/javascript">
-            //(function(){
             var lang = 'en', prefs = {}, gshortcuts = {};
-            function init(){
-                GRP.setVersion();
-                if (typeof chrome !== "undefined" && chrome.extension) {
-                    var me = this;
-                    chrome.extension.sendRequest({
-                        message: "getprefs"
-                    }, function(a){
-                        //scripts = a.scripts;
-                        prefs = a.prefs;
-                        me.initprefs.call(me);
-                    });
-                }
-            }
-            
-            function info(msg){
-                var status = document.getElementById('status');
-                status.innerHTML = msg;
-                status.className = "rounded";
-                window.setTimeout(function(){
-                    status.innerHTML = "";
-                    status.className = "rounded hidden";
-                }, 3000);
-            }
-            
-            function findReader(){
-                chrome.extension.sendRequest({
-                    message: "findreader"
-                });
-            }
-            
-            function specialTranslate(lang){
-                var el = document.getElementById("t_link_about");
-                if (el) {
-                    el.href = "about.html?lang=" + lang;
-                }
-            }
-            
-            function reportNavigator(){
-                createReport(getInfo());
-            }
-            
-            function hashchange(){
-				var script = location.hash;
-				showPanel(script);
-            }
-            
-            window.onload = init;
-            //}());
+            window.onload = initGRP;
         </script>
     </head>
     <body>
@@ -159,9 +111,7 @@
                                     <input id="theme_skin" name="theme_skin" type="hidden" value=""/>
                                     <ul class="mnu rounded navskin" id="skinlist">
                                     </ul>
-                                    <a id="athumb" href="#"><img alt="thumb" id="thumb" src="" width="400" height="243" class="hidden"/>
-									<span id="skindesc" class="desc"></span>
-									</a>
+                                    <a id="athumb" href="#"><img alt="thumb" id="thumb" src="" width="400" height="243" class="hidden"/><span id="skindesc" class="desc"></span></a>
                                 </div>
                             </div>
                         </div>
@@ -177,8 +127,11 @@
                         </div>
                         <div id="panel_extshortcuts" style="display:none;">
                             <div class="body">
-                                <p><a id="t_extshortcuts_official" href="http://www.google.com/support/reader/bin/answer.py?hl=en&amp;answer=69973" target="_blank">Google Reader official shortcuts</a></p>
-                                <ul id="grpshortcuts" class="mnu shortcut"></ul>
+                                <p>
+                                    <a id="t_extshortcuts_official" href="http://www.google.com/support/reader/bin/answer.py?hl=en&amp;answer=69973" target="_blank">Google Reader official shortcuts</a>
+                                </p>
+                                <ul id="grpshortcuts" class="mnu shortcut">
+                                </ul>
                             </div>
                         </div>
                         <div id="panel_thanks" style="display:none;">
@@ -189,11 +142,11 @@
                                     <li><!--10--><a href="http://www.webslinky.com/" target="blank"><span>Lee Murawski</span></a></li>
                                     <li><!--5--><a href="javascript:void();"><span>Parker Harrington</span></a></li>
                                     <li><!--5--><a href="javascript:void();"><span>Darren Lynn</span></a></li>
-									<li><!--4--><a href="javascript:void();"><span>William M Moldrup</span></a></li>
-									<li><!--3--><a href="javascript:void();"><span>Feng Gao</span></a></li>
-									<li><!--3--><a href="javascript:void();"><span>Ally Akbarzadeh</span></a></li>
+                                    <li><!--4--><a href="javascript:void();"><span>William M Moldrup</span></a></li>
+                                    <li><!--3--><a href="javascript:void();"><span>Feng Gao</span></a></li>
+                                    <li><!--3--><a href="javascript:void();"><span>Ally Akbarzadeh</span></a></li>
                                     <li><!--2--><a href="javascript:void();"><span>Timo Ruppell</span></a></li>
-									<li class="last"><!--1--><a href="javascript:void();"><span>Shane Lange</span></a></li>
+                                    <li class="last"><!--1--><a href="javascript:void();"><span>Shane Lange</span></a></li>
                                 </ul>
                                 <span id="t_thanks_translators">Thanks to translators</span>:
                                 <ul class="rounded mnu thanks">

@@ -111,22 +111,25 @@ GRP.info = function(prefs){
 
 
 function getInfo(){
-    var n = window.navigator;
-    var w = {};
-    for (var p in n) {
-        if (typeof n[p] === "string" || typeof n[p] === "boolean") {
-            w[p] = n[p];
+    var w = {}, navs = ['language','product','appVersion','onLine','platform','vendor','appCodeName','cookieEnabled','appName','productSub','userAgent'];
+	foreach(navs, function(nav){
+		w[p] = nav;
+	});
+	//This will crash on close preferences !!!!!
+	/*iterate(window.navigator, function(p, o){
+        if (p && o && typeof o === "string" || typeof o === "boolean") {
+            w[p] = o;
         }
-    }
-    var chromeVersion = extractInfo('Chrome', n.appVersion);
-    var webkitVersion = extractInfo('AppleWebKit', n.appVersion);
+    });*/
+    var chromeVersion = extractInfo('Chrome', w.appVersion);
+    var webkitVersion = extractInfo('AppleWebKit', w.appVersion);
     
     var o = 
     {
         version: chromeVersion,
         webkit: webkitVersion,
-        os: n.platform,
-        lang: n.language,
+        os: w.platform,
+        lang: w.language,
         resolution: screen.width + 'x' + screen.height
     };
     return {
