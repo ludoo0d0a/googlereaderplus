@@ -15,6 +15,7 @@
             GRP.language = function(){
                 //dummy
             };
+            GRP.fns = [];
             GRP.IMAGES_PATH = 'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/src/images';
             this.prefs = {};
             var me = this;
@@ -47,6 +48,22 @@
                 console.log("ReaderPlus is running with " + count + "/" + total + " features");
                 //Start entries monitoring 
                 monitorEntries();
+                if (GRP.fns && GRP.fns.length > 0) {
+                    function priorityfns(a, b){
+                        return (a.priority - b.priority);
+                    }
+                    GRP.fns.sort(priorityfns);
+                    foreach(GRP.fns, function(o){
+                        if (o.fn) {
+                            console.log('Run priority ' + o.id + ' - ' + o.priority);
+                            if (o.delay) {
+								window.setTimeout(o.fn, o.delay);
+							} else {
+								o.fn();
+							}
+                        }
+                    });
+                }
             } else {
                 console.error("ReaderPlus failed to load any features!!");
             }
@@ -62,7 +79,7 @@
                         console.log("**** run " + o);
                         try {
                             //console.log("myport(run) "+this.myport.portId_);
-                            window.GRP[o].call(window, this.prefs, langs);
+                            window.GRP[o].call(window, this.prefs, langs, o, langs[o], this.lang);
                         } catch (e) {
                             console.error(e);
                         }
