@@ -141,10 +141,10 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
 					if (eldbg) {
 						eldbg.innerHTML=debug;
 					} else {
-						dh('', 'div', {
+						GM_addStyle('#debug{position:absolute;top:200px;right:400px;z-index:9999;height:600px;overflow:auto;background-color:white;}', 'rps_debug');
+						var e = dh('', 'div', {
 							id: 'debug',
-							html: debug,
-							style: 'position:absolute;top:200px;right:400px;z-index:9999;height:600px;overflow:auto;background-color:white;'
+							html: debug
 						});
 					}
                 }
@@ -167,7 +167,7 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
 					link_color: colors['gadget_area.gadget.body.link_color'],
 
 					nav_bg_color: colors['navbar.background_color'],
-					nav_text_color: colors['navbar.tab.selected.link_color']||colors['navbar.tab.unselected.link_color'],
+					nav_text_color:colors['navbar.tab.unselected.link_color']||colors['navbar.tab.selected.link_color'],
 					
 					nav_bg_color_hover: colors['gadget_area.tab.selected.background_color']||colors['gadget_area.tab.unselected.background_color'],
 					nav_text_color_hover: colors['gadget_area.tab.selected.text_color']||colors['gadget_area.tab.unselected.text_color'],
