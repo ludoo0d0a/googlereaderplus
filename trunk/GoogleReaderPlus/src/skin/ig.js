@@ -163,7 +163,8 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
 					header_bg_color: colors['header.background_color'],
 
                     header_text_color: colors['header.text_color'],
-					text_color: colors['gadget_area.tab.unselected.text_color']||colors['gadget_area.tab.selected.text_color'],
+					//text_color: colors['gadget_area.tab.unselected.text_color']||colors['gadget_area.tab.selected.text_color'],
+					text_color: colors['gadget_area.gadget.body.link_color'],
 					link_color: colors['gadget_area.gadget.body.link_color'],
 
 					nav_bg_color: colors['navbar.background_color'],
