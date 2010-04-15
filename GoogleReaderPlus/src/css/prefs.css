@@ -425,11 +425,14 @@ img.favicon {
 	padding:5px;
 }
 
-.indi_thumbnail img{
-	width:200px;
-	height: 70px;
+.indi_img{
 	cursor:pointer;
 }
+
+.indi_image{
+	width:200px;
+	height: 70px;
+}	
 .indi_entries{
 	height:400px;
 	overflow-y:auto;
