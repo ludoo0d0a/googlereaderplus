@@ -1,6 +1,6 @@
 /**
  * Multi column layout
- * @version  0.1
+ * @version  0.2
  * @date 2010
  *
  * Display entry using multi colum layout
@@ -10,6 +10,7 @@ GRP.column = function(prefs, langs){
     var SL = langs.column;
     var locked = prefs.column_locked;
     var cols = 3;
+	var hpage = getHeightEntries();
     var maxcolumns = 6; //between 1 and 6
     var entries = get_id('entries');
     var rx = getRegex(prefs.column_filter);
@@ -33,15 +34,19 @@ GRP.column = function(prefs, langs){
         var active = isActive(btn, entry, 'columnize', locked);
         
         var body = getBody(entry);
-        var hpage = 0;
+        
         var divoriginal = body.firstChild;
         var divwrap = getFirstElementByClassName(entry, 'wrap-container');//div
+        
+		if (divwrap && hasClass(divwrap, 'canceled')){
+			//abort
+			return false;
+		}
         if (divwrap && active && prefs.column_pagebreak) {
             //already exists but height changed
             var h = divwrap.firstChild.style['max-height'];
             if (h) {
                 var oldHeight = parseInt(h.replace('px', ''), 10);
-                hpage = getHeightEntries();
                 if (hpage !== oldHeight) {
                     divwrap.parentNode.removeChild(divwrap);
                     divwrap = null;
@@ -51,43 +56,56 @@ GRP.column = function(prefs, langs){
         
         if (!divwrap) {
             divoriginal.className = "column-original";
-            divwrap = document.createElement('div');
+            
+			divwrap = document.createElement('div');
             divwrap.visibility = "hidden";
             divwrap.className = "wrap-container";
             
             //check height
+			/*
             if (prefs.column_pagebreak) {
                 hpage = getHeightEntries();
-                /*
-                 if (prefs && prefs.column_maxcolumns) {
-                 var colsCount = Math.ceil(divoriginal.clientHeight / hpage);
-                 if (colsCount < maxcolumns) {
-                 divwrap.style['-webkit-column-count'] = colsCount;
-                 }
-                 }*/
+                // if (prefs && prefs.column_maxcolumns) {
+                // var colsCount = Math.ceil(divoriginal.clientHeight / hpage);
+                // if (colsCount < maxcolumns) {
+                // divwrap.style['-webkit-column-count'] = colsCount;
+                // }
+                // }
             }
+			*/
             //first append to monitor scrollwidth
             body.appendChild(divwrap);
             
 			//wait images loading
 			var imgs = getElements("img[not(@height)]", divoriginal);
 			waitImages(imgs, function(loaded){
-            	wrapHtml(entries, divwrap, hpage, divoriginal);
+            	var wrapped = wrapHtml(entries, divwrap, hpage, divoriginal);
+				if (!wrapped){
+					//cancel
+					addClass(divwrap, 'canceled');
+					hide(divwrap);
+					show(divoriginal);
+					return false;
+				}
 			});
         }
         // toggle to correct body
-        divoriginal.style.display = (active) ? "none" : "";
-        divwrap.style.display = (active) ? "" : "none";
-        
+		showas(divoriginal, active);
+		showas(divwrap, !active);
         if (!locked) {
             jump(entry, true);
         }
     }
     
     function wrapHtml(entries, divwrap, hpage, divoriginal){
-        var ecw = entries.clientWidth;
-        var div = createDiv(divwrap, hpage);
         var paras = divoriginal.childNodes;
+		if (paras<5 /*prefs.column_miniparas*/){
+			//too little
+			return false;
+		}
+		
+		var ecw = entries.clientWidth;
+        var div = createDiv(divwrap, hpage);
         var length = paras.length;
         var cwh = getColumWidth();
         
@@ -128,7 +146,6 @@ GRP.column = function(prefs, langs){
 						}
 					}
 					
-                    
                     //fix it up if width > page.width
                     if (prefs.column_pagebreak && div.scrollWidth > ecw) {
                         //new div
@@ -139,10 +156,11 @@ GRP.column = function(prefs, langs){
                 }
             }
 			//ensure videos size();
-			fitAll(true);
+			fitall(true);
         }
         
         divwrap.visibility = "visible";
+		return true;
     }
     
     function createDiv(parent, hpage){
@@ -229,6 +247,10 @@ GRP.column = function(prefs, langs){
     }, 2000);
     fitall();
     
+	function onResize(height){
+		hpage = getHeightEntries();
+	}
+	
     // copy of fixwidth to fit content
     GM_addStyle(".entry .entry-body, .entry .entry-title{ display: inline !important; max-width: 100% !important; }");
     
@@ -241,5 +263,6 @@ GRP.column = function(prefs, langs){
     var keycode = getShortcutKey('column', 'columns', prefs); //67 c
     keycode.fn = addKey;
     initKey(keycode);
+	initResize(onResize);
     
 };
