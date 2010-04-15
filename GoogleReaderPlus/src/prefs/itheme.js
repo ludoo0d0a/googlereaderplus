@@ -17,7 +17,7 @@ var tpl_ig_skin_block = '{{%IMPLICIT-ITERATOR}}' +
 '<div class="indi_entries">' +
 '{{#entry}}<div class="indi_entry">' +
 '<div class="indi_entry_title_wrap"><div class="indi_entry_title">{{title}}</div></div>' +
-'<div class="indi_thumbnail"><img src="http://skins.gmodules.com/ig/skin_fetch?type=4&sfkey={{dthumbnail}}" onclick="javascript:setTheme(\'{{skin_id}}\')"/></div>' +
+'<div class="indi_thumbnail"><img class="indi_img" src="http://skins.gmodules.com/ig/skin_fetch?type=4&sfkey={{dthumbnail}}" onclick="javascript:setTheme(\'{{skin_id}}\')"/></div>' +
 '</div>{{/entry}}</div>';
 var entries = {}, ig_cat, ig_q = '', ig_pos = 0, ig_page = 4 * 12, ig_sort = 'popular';
 var ig_cats = [{
@@ -105,30 +105,30 @@ function getRandomTheme(current, cb, inBg){
         sort: ig_sort,
         q: ''
     };
-	lastSkin=current;
+    lastSkin = current;
     randomCallback = cb;//global way
     if (inBg) {
-		callApi('randomThemeBg', o, inBg);
-	} else {
-		callApi('randomTheme', o, inBg);
-	}
+        callApi('randomThemeBg', o, inBg);
+    } else {
+        callApi('randomTheme', o, inBg);
+    }
 }
 
 function randomThemeBg(data){
-	randomTheme(data, true);
+    randomTheme(data, true);
 }
 
 function randomTheme(data, inBg){
     if (randomCallback) {
         var entries = data.feed.entry;
         if (entries && entries.length > 0) {
-			entry = randomItem(entries);
-			if (checkSkin(entry, lastSkin)) {
-				randomCallback(entry);
-			}else{
-				//retry
-				getRandomTheme(lastSkin, randomCallback, inBg);
-			}
+            entry = randomItem(entries);
+            if (checkSkin(entry, lastSkin)) {
+                randomCallback(entry);
+            } else {
+                //retry
+                getRandomTheme(lastSkin, randomCallback, inBg);
+            }
         }
     }
 }
@@ -136,7 +136,7 @@ function randomTheme(data, inBg){
 function igrnd(){
     ig_cat = randomItem(ig_cats).id;
     ig_sort = randomItem(ig_sorts).id;
-    ig_pos = Math.round(Math.random() * 10)-1;
+    ig_pos = Math.round(Math.random() * 10) - 1;
     renderThemes(ig_cat, ig_pos, ig_sort);
 }
 
@@ -178,12 +178,12 @@ function callApi(callback, o, inBg){
     ig_cat = o.cat || '';
     ig_pos = o.pos || 0;
     ig_sort = o.sort || ig_sort;
-    ig_q = (typeof o.q === 'undefined')?ig_q:o.q;
+    ig_q = (typeof o.q === 'undefined') ? ig_q : o.q;
     var api = 'http://www.google.com/ig/directory?type=themes&output=json&callback=' + callback + '&sort=' + ig_sort + '&cat=' + ig_cat + '&gl=us&hl=en&start=' + ig_pos + '&num=' + ig_page;
     if (ig_q) {
         api += '&q=' + ig_q;
     }
-	var a = {
+    var a = {
         url: api,
         onload: function(xhr){
             var txt = xhr.responseText;
@@ -193,26 +193,27 @@ function callApi(callback, o, inBg){
             }
         }
     };
-    if (inBg){
-		request(a, true);
-	}else{
-		GM_xmlhttpRequest(a);
-	}
+    if (inBg) {
+        request(a, true);
+    } else {
+        GM_xmlhttpRequest(a);
+    }
 }
 
 function renderThemes(cat, pos, sort, q){
     var o = {
-        cat: cat||'',
-        pos: pos||0,
-        sort: sort||'',
-        q: q||''
+        cat: cat || '',
+        pos: pos || 0,
+        sort: sort || '',
+        q: q || ''
     };
     callApi('setThemes', o);
 }
 
 function checkSkin(entry, lastSkin){
-	return (entry && entry.skin_id && parseInt(entry.skin_id, 10) > 1000 && entry.title!==lastSkin);
+    return (entry && entry.skin_id && parseInt(entry.skin_id, 10) > 1000 && entry.title !== lastSkin);
 }
+
 function setThemes(data){
     entries = data.feed || {};
     var e2 = [];
@@ -241,7 +242,27 @@ function setThemes(data){
         var html = Mustache.to_html(tpl_ig_skin_block, entries);
         //console.log(html);
         el.innerHTML = html;
+        checkImages(el);
     }
+}
+
+function checkImages(el){
+    window.setTimeout(function(){
+        var retry = false, imgs = el.getElementsByClassName('indi_img');
+        foreach(imgs, function(img){
+            if (img.complete) {
+                if (img.width < 50) {
+                    img.src = img.src.replace('type=4', 'type=2');
+                }
+                addClass(img, 'indi_image');
+            } else {
+                retry = true;
+            }
+        });
+        if (retry) {
+            checkImages(el);
+        }
+    }, 500);
 }
 
 function dblQuote(txt){
