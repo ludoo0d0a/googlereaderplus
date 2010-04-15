@@ -495,24 +495,24 @@
                         search: new RegExp(a.search.replace(/^https?/, 'https?').replace(/#.*$/, '')),
                         url: a.url
                     };
-                    selecttab(o, a.select || true, a.create || true, a.fn);
+                    selecttab(o, a.selected, a.create || true, a.fn);
                 } else {
                     opentab(a);
                 }
             }
             
-            function findreader(select, create, fn){
+            function findreader(selected, create, fn){
                 var o = {
                     search: /https?\:\/\/www.google.com\/reader\/view\//,
                     url: 'http://www.google.com/reader/view/'
                 };
-                selecttab(o, select, create, fn);
+                selecttab(o, selected, create, fn);
             }
             
-            function selecttab(a, select, create, fn){
+            function selecttab(a, selected, create, fn){
                 findtab(a, function(tab){
                     if (tab) {
-                        if (select) {
+                        if (selected) {
                             chrome.tabs.update(tab.id, {
                                 url: a.url,
                                 selected: true
@@ -522,7 +522,8 @@
                         }
                     } else {
                         if (create) {
-                            opentab(a);
+                            a.selected=selected;
+							opentab(a);
                         }
                     }
                     if (fn && typeof fn === "function") {
