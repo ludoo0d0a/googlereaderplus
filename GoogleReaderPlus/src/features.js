@@ -471,9 +471,9 @@ GRP.scripts = {
     aero: {
         name: "Google Aero Toolbar"
     },
-	hover: {
+	/*hover: {
         name: "Hover selection"
-    },
+    },*/
     info: {
         name: "SysInfo",
         link: true,
