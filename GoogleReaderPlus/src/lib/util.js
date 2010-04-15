@@ -918,11 +918,19 @@ function isShown(el){
 }
 
 function show(el){
-    el.style.display = 'block';
+	el.style.display = '';
 }
 
 function hide(el){
     el.style.display = 'none';
+}
+
+function showas(el, hideme){
+	if (hideme){
+		hide(el);
+	}else{
+		show(el);
+	}
 }
 
 //http://forums.mozillazine.org/viewtopic.php?f=19&t=1806595
