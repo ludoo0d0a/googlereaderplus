@@ -471,6 +471,9 @@ GRP.scripts = {
     aero: {
         name: "Google Aero Toolbar"
     },
+	hover: {
+        name: "Hover selection"
+    },
     info: {
         name: "SysInfo",
         link: true,
@@ -493,12 +496,6 @@ GRP.scripts = {
         name: "Thanks",
         link: true
     }
-    /*,{
-     about:{
-     name: "About",
-     url: 'about.html',
-     link: true
-     }*/
 };
 GRP.packages = {
     'mini': ['favicons', 'unreadcount', 'fixlayout', 'count', 'counticon', 'removeads'],
