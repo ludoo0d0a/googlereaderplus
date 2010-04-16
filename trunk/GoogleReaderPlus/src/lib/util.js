@@ -209,6 +209,11 @@ function insertFirst(el, ref){
     }
 }
 
+function remove(el){
+	if (el && el.parentNode){
+		el.parentNode.removeChild(el);
+	}
+}
 /**
  * Strings
  */
