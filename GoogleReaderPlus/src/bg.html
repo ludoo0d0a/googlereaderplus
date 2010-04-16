@@ -621,7 +621,12 @@
                     localStorage.setItem('grp_version', GRP.VERSION);
                     //upgrade();
 					if (!prefs.general_noupdatepopup) {
-						opentab({ url: "about.html" });
+						//no popup on minor updates
+						if (isVersionMajorUpdated(v, GRP.VERSION)) {
+							opentab({
+								url: "about.html"
+							});
+						}
 					}
                 }
             }

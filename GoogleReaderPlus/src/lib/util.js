@@ -806,21 +806,36 @@ function getDomain(url, withProtocol){
         return m[2];
     }
 }
-
-function isVersionMini(ref){
-    var version = /Chrome\/([\d\.]+)/.exec(window.navigator.appVersion);
-    version = version[1].split('.');
+/*
+isChromeVersionMini('5.0.342.1')
+compareVersion('5.1', '5.0.342.1');->=true
+compareVersion('5.0.100', '5.0.342.1');->=false
+*/
+//Chrome mini version required
+function isChromeVersionMini(ref){
+	var version = /Chrome\/([\d\.]+)/.exec(window.navigator.appVersion);
+	return (compareVersion(version[1], ref)>=0);
+}
+//compare 2 first segments
+function isVersionMajorUpdated(oldVersion, newVersion){
+	return (compareVersion(newVersion, oldVersion, 2)>0);
+}
+function compareVersion(version, ref, count){
+    var versions = version.split('.');
     var refs = ref.split('.');
-    for (var i = 0, len = version.length; i < len; i++) {
-        version[i] = parseInt(version[i], 10);
+	count=count||versions.length;
+    for (var i = 0, len = count; i < len; i++) {
+        versions[i] = parseInt(versions[i], 10);
         if (i <= refs.length) {
             refs[i] = parseInt(refs[i], 10);
-            if (version[i] < refs[i]) {
-                return false;
+            if (versions[i] < refs[i]) {
+                return -1;
+            }else if (versions[i] > refs[i]) {
+                return 1;
             }
         }
     }
-    return true;
+    return 0;
 }
 
 function textareaTab(){
