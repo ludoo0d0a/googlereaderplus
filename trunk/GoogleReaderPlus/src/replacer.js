@@ -32,17 +32,24 @@ GRP.replacer = function(prefs, langs){
     
     function replaceItem(html, xml, matches, partIndex){
        var result = '';
+	   var el = document.getElementById(TPL_NAME + partIndex);
+	   /*if (item.keeptext){
+	   		var eb = getEntryBody(el.parentNode);
+			result = eb.innerHTML+'<br/>';
+	   }*/
 	   iterate(matches, function(title, o){
             if (o.xpath) {
 				if (!xml) {
 					xml=loadXml(html);
 				}
-				var els = getElements(o.xpath, xml);
-				foreach(els, function(el){
-					result += el.innerHTML;
-            	});
-				//clean xml
-				document.removeChild(xml);
+				if (xml) {
+					var els = getElements(o.xpath, xml);
+					foreach(els, function(el){
+						result += el.outerHTML;
+					});
+					//clean xml
+					remove(xml);
+				}
 			} else {
 				var item = gp_data[title];
 				if (item.re_search) {
@@ -54,16 +61,16 @@ GRP.replacer = function(prefs, langs){
 			}
         });
 		
-        var el = document.getElementById(TPL_NAME + partIndex);
         if (result !== '') {
             el.innerHTML = result;
+			//show(el);
         } else {
             el.innerHTML = SL.nomatch;
 			//Reset to original
-			el.style.display = 'none';
+			hide(el);
 			var entryBody = getEntryBody(el.parentNode);
 			if (entryBody){
-				entryBody.style.display='';
+				show(entryBody);
 			}
         }
     }
@@ -89,8 +96,14 @@ GRP.replacer = function(prefs, langs){
 		var body = getFirstElementByClassName(entry, 'entry-body');//div
         var entryBody = getEntryBody(body);
         
-        entryBody.style.display = 'none';
+        hide(entryBody);
         var el = document.createElement('div');
+		/*if (matches[0].keeptext) {
+			hide(el);
+		}else{
+			hide(entryBody);
+		}*/
+			
         partIndex++;
         el.id = TPL_NAME + partIndex;
         el.innerHTML = SL.loading;
