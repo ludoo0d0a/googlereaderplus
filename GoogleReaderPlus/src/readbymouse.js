@@ -26,7 +26,7 @@ GRP.readbymouse = function(prefs, langs){
     var ua = navigator.userAgent.toLowerCase();
     var isWindows = /windows|win32/.test(ua);
 		
-	var isMClick = (!isWindows || (isWindows && isVersionMini('5.0.342.1')));
+	var isMClick = (!isWindows || (isWindows && isChromeVersionMini('5.0.342.1')));
     
     // Get the element our new button goes by
     var nearNewButton = document.getElementById('entries-down');
