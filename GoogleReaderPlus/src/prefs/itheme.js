@@ -174,7 +174,7 @@ function setTheme(id){
 }
 
 function callApi(callback, o, inBg){
-    lang = o.lang || 'en';
+    lang = o.lang || lang || 'en';
     ig_cat = o.cat || '';
     ig_pos = o.pos || 0;
     ig_sort = o.sort || ig_sort;
