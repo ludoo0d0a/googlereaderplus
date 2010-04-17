@@ -630,6 +630,13 @@ GRP.skins = {
         pic: 'http://userstyles.org/style_screenshots/8935_after.jpeg',
         ref: 'http://userstyles.org/styles/8935',
         desc: 'userstyles.org'
+    },
+	persian: {
+        name: "Optimized Persian",
+        url: 'http://userstyles.org//styles/userjs/2375/Optimized%20Persian%20Google%20Reader%20.user.js',
+        pic: 'http://userstyles.org/style_screenshots/2375_after.png',
+        ref: 'http://userstyles.org/styles/2375',
+        desc: 'userstyles.org'
     }
 };
 GRP.googleshortcuts = {
