@@ -6,8 +6,8 @@
 * ru : Russian
  * **************************
  *
- * Version : 1.2.1
- * Date : 04-03-2010
+ * Version : 1.3.1
+ * Date : 04-17-2010
  * @author Ruslan Pokatskii (http://rusik.land.ru)
  */
 var locale = 'ru';
@@ -107,7 +107,11 @@ GRP.langs[locale].texts = {
         text: 'Встроенный просмотр оригинальных сраниц',
         title: 'Показать оригинал',
         opennewtab: 'Открыть оригинал в новой вкладке',
-        keyword: 'Просмотр оригинала'
+        keyword: 'Просмотр оригинала',
+		overlay_next: 'Следующее',
+		overlay_previous: 'Предыдущее',
+		overlay_close: 'Закрыть',
+		overlay_category: 'Категория'
     },
     readbymouse: {
         middleclick: 'Средняя кнопка',
@@ -127,7 +131,15 @@ GRP.langs[locale].texts = {
     lightbox: {
         text: 'Подсвечивать медиа',
         keyword: 'Подсветка'
-    }
+    },
+	ig: {
+        menu_prefs: 'Настройки Reader+',
+        menu_theme: 'Темы Reader+',
+		menu_randomtheme: 'Изменить тему:'
+    },
+	menu:{
+        label: 'Extra'
+	}
 };
 GRP.langs[locale].prefs = {
     global: {
@@ -143,9 +155,13 @@ GRP.langs[locale].prefs = {
 		bg: 'Цвет фона'
     },
 	ig: {
-		theme_name: 'Имя темы iGoogle',
-		theme: 'URL темы iGoogle',
-		randomtime: 'Случайная тема вместо динамической',
+		warning:'Некоторые темы могут отображаться некорректно; это экспериментальная функция!',
+		skin_name:'Имя темы iGoogle',
+		skin_url:'URL темы iGoogle',
+		debug:'Режим отладки (только для отладки)',
+		randomtime: 'Переключение динамической темы случайно, а не по времени',
+		userandomthemes:'Автоматическая смена темы в случайном порядке',
+		randomthemes:'Смена темы каждые (мин.)',
 		add: 'Добавить',
         next: 'Следующая',
         previous: 'Предыдущая',
@@ -154,14 +170,16 @@ GRP.langs[locale].prefs = {
 	},
     about: {
 		thanks1: '<td><span class="top_right"><img src="images/48.png"></span><h1>Спасибо...</h1>'+
-		'<p>... что установили (или обновили) последнюю версию <strong>Reader Plus</strong>!</p>'+
+		'<p>... что используете последнюю версию <strong>Reader Plus</strong>!</p>'+
 		'<p>Откройте <a href="preferences.html" title="Перейти к настройкам"><strong>страницу настройки</strong></a> для настройки расширения.</p>'+
 		'<p><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Перейти в Гаерею расширений Google"><strong>Посетите Галерею расширений Google!</strong></a></p>'+
 		'<p><a href="http://www.twitter.com/ludoo0d0a"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Следить в Twitter"/></a></p>'+
 		'<p></p></td>',
 		thanks2: '<td><p>Если Вам нравится это расширение и Вы хотите, что бы оно улучшалось, можете подкинуть деньжат.</p>'+
 		'<p>Тогда я смогу купить себе вагон кофе и буду программировать круглосуточно без выходных :)</p>'+
-        '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img alt="Пожертвовать" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></a></td>'
+        '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img alt="Пожертвовать" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></a></td>',
+		whatsnew: '<td><h2>Обновления:</h2><ul><li>Новые темы</li><li>Настраиваемая тема "MyTheme"</li><li>Случайное переключение тем <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a></li><li>Предпросмотр lightbox</li><li>Отправка записей в <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li><li>Действия над сообщениями в плавающем окне</li></ul></td>',
+		nopopup: '<p>Если Вы не хотите получать сообщение об обновлении версии, включите опцию "Не сообщать об обновлениях" в <a href="preferences.html#general">Основных настройках</a>.</p>'
 	},
 	link: {
         reader: "<span>Google Reader</span>Доставка новостей",
@@ -197,15 +215,18 @@ GRP.langs[locale].prefs = {
 		password: "Пароль:"
 	},
     colorful: {
-        tree: "Так же выделять цветом подписки в дереве навигации"
+        tree: "Также выделять цветом подписки в панели навигации"
     },
     general: {
         counter: "Показывать количество непрочитанных сообщений в заголовке вкладки",
         opendirect: "Открывать GoogleReader по нажатию на кнопку",
         secure: "Всгда использовать защищённое соединение (https)",
+		topcurrent: "Текущее сообщение всегда вверху страницы",
+		floatactions: "Показывать кнопки действий в плавающем окне",
+		noupdatepopup: "Не сообщать об обновлениях",
         icontoolbar_add: "Чтобы добавить кнопку на панель Google Chrome, нужно <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">скачать и установить её</a>.",
         icontoolbar_text: "<span>Кнопка сделана в виде отдельного расширения,</span><br><span>которое устанавливается независимо от Reader Plus.</span><br><span>Чтобы добавить кнопку, нажмите <b>Install</b> на странице <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">Reader Plus Toolbar button</a>.</span><br><span>Чтобы скрыть кнопку из панели, нажмите на ней правой кнопкой мыши и выберите Отключить.</span>",
-        importexport_text: "Вы можете сохранить ваши настроки, используя 'экспорт' загрузить их позже, используя 'импорт':",
+	    importexport_text: "Вы можете сохранить ваши настроки, используя 'экспорт', и загрузить их позже, используя 'импорт':",
         confirmimport: "Вы уверены, что хотите импортировать эти настройки?\nТекущие настройки будут утеряны!!!"
     },
     removeads: {
@@ -215,7 +236,8 @@ GRP.langs[locale].prefs = {
     },
     preview: {
         onicon: "Показывать оригинальную страницу по нажатию на иконку справа от заголовка (если не отмечено, показывать по нажатию на заголовок)",
-        locked: "Включить 'Просмотр оригинала' постоянно, кроме подписок:"
+        locked: "Включить 'Просмотр оригинала' постоянно, кроме подписок:",
+		overlay:'Полноэкранный предпросмотр (Lightbox)'
     },
     fitheight: {
         locked: "Включить 'Растягивание в длинну' постоянно, кроме подписок:"
