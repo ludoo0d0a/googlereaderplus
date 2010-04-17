@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ReaderPlus
  * Translation for features
  *
@@ -7,20 +7,26 @@
  * **************************
  *
  * Version : 1.0
- * Date : 03-25-2010
+ * Date : 2010-04-17
  * @author Jfjj007
  */
 var locale = 'zh_CN';
 namespace('GRP.langs.' + locale);
 GRP.langs[locale].scripts = {
     general: {
-        name: "General",
-        desc: "General configuration"
+        name: "常规选项",
+        desc: "一般配置"
     },
     theme: {
         name: "主题",
         desc: "更改Google Reader界面皮肤"
     },
+	
+	    ig: {
+        name: "iGoogle主题",
+        desc: "在您的谷歌阅读器 使用 <a href='http://www.google.com/ig/directory?type=themes' target='blank'>iGoogle 主题</a> (Beta)"
+	},
+	
     /*
      language_lang:{
      name: "语言",
@@ -85,6 +91,12 @@ GRP.langs[locale].scripts = {
         name: "发送到Instapaper",
         desc: "添加一个按钮,发送到Instapaper.<br>【中文解释:留着以后阅读】详情可以参考官网 http://goo.gl/yip4"
     },
+	
+		readitlater: {
+        name: "发送到ReadItLater",
+        desc: "添加一个按钮，使用ReadItLater进行稍后阅读"
+    },
+	
     mark: {
         name: "标记已读",
         desc: "快捷键控制当前阅读的前/后条目为已读状态"
@@ -119,8 +131,8 @@ GRP.langs[locale].scripts = {
      },
      */
     relook: {
-        name: "Relook",
-        desc: "Relook your site using custom stylesheets"
+        name: "CSS样式表",
+        desc: "自定义网站CSS样式表"
     },
     aero: {
         name: "Google Aero 工具栏",

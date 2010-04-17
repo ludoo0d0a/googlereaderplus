@@ -11,8 +11,8 @@
  * so that 0.3.11 is the 11th translated version of the original v0.3 english version.
  *
  *
- * Version : 1.2.1
- * Date : 04-02-2010
+ * Version : 1.3.1
+ * Date : 04-17-2010
  * @author Ruslan Pokatskii (http://rusik.land.ru)
  */
 var locale = 'ru';
@@ -76,7 +76,6 @@ GRP.langs[locale].scripts = {
     },
     readbymouse: {
         name: "Чтение мышью",
-        desc: "Средняя кнопка не доступна в Windows",
         desc: "Переход к следующему/предыдущему сообщению правой/левой кнопками мыши"
     },
     facebook: {
@@ -119,16 +118,6 @@ GRP.langs[locale].scripts = {
         name: "Заменитель сообщений",
         desc: "Замена оригинального сообщения на комиксы с gocomics.com. <br/>Спасибо jolan78 за его оригинальную идею и скрипт."
     },
-    /*
-     menu:{
-     name: "Intuitive menu",
-     desc: "Intuitive menu to add extra capabilites"
-     },
-     lightbox:{
-     name: "Lightbox",
-     desc: "Show media in fullscreen"
-     },
-     */
     aero: {
         name: "Панель Google Aero",
         desc: "Использование панели Google Aero"
