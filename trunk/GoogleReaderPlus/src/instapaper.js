@@ -13,9 +13,9 @@
  */
 GRP.instapaper = function(prefs, langs){
     var api = {
-        add: 'https://readitlaterlist.com/v2/add',
-        auth: 'https://readitlaterlist.com/v2/auth',
-		successCode:201,
+        add: 'https://www.instapaper.com/api/add',
+        auth: 'https://www.instapaper.com/api/authenticate',
+		successCode:200,
 		errors: {
 	        //400: Bad request. Probably missing a required parameter, such as url.
 	        400: 'badrequest',
@@ -25,5 +25,5 @@ GRP.instapaper = function(prefs, langs){
 	        500: 'error'
 	    }
 	};
-    GRP.sharereadit(prefs, langs, 'readitlater', api);
+    GRP.api_readit(prefs, langs, 'instapaper', api);
 };
