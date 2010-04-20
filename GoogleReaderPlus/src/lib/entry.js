@@ -279,6 +279,15 @@ function getCurrentEntry(){
     return document.getElementById('current-entry');
 }
 
+function selectCurrentEntry(el){
+	if (el) {
+		var cur = getCurrentEntry();
+		if (cur) {
+			delete cur.id;
+		}
+		el.id = 'current-entry';
+	}
+}
 function getEntry(e){
     var el = (e && e.target) ? e.target : (e.localName ? e : null);
     var entry;
