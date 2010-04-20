@@ -354,6 +354,17 @@ function findre(o, key, re){
     return false;
 }
 
+function getCount(o){
+    var count=0;
+	for (var p in o) {
+        if (!hasOwnProperty.call(o, p)) {
+            continue;
+        }
+        count++;
+    }
+    return count;
+}
+
 function removeClass(el, classname){
     //todo: use regex word boundary
     var s = (el.className || '').split(' ');
@@ -937,8 +948,8 @@ function isShown(el){
     return (el && el.style && el.style.display !== 'none' && el.visibility !== 'hidden');
 }
 
-function show(el){
-	el.style.display = '';
+function show(el, value){
+	el.style.display = value||'';
 }
 
 function hide(el){

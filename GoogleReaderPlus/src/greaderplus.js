@@ -38,14 +38,13 @@
             var count = 0;
             if (GRP.scripts) {
                 var langs = GRP.langs[this.lang].texts;
-                var total = GRP.scripts.length;
                 iterate(GRP.scripts, function(id, script){
                     if (script && this.prefs[id]) {
                         ++count;
                         this.run(id, langs);
                     }
                 }, this, true);
-                console.log("ReaderPlus is running with " + count + "/" + total + " features");
+                console.log("ReaderPlus is running with " + count + "/" + getCount(GRP.scripts) + " features");
                 //Start entries monitoring 
                 monitorEntries();
                 if (GRP.fns && GRP.fns.length > 0) {
