@@ -83,23 +83,25 @@ GRP.column = function(prefs, langs){
 				if (!wrapped){
 					//cancel
 					addClass(divwrap, 'canceled');
-					hide(divwrap);
-					show(divoriginal);
-					return false;
 				}
 			});
         }
-        // toggle to correct body
-		showas(divoriginal, active);
-		showas(divwrap, !active);
-        if (!locked) {
-            jump(entry, true);
-        }
+		if (hasClass(divwrap, 'canceled')) {
+			hide(divwrap);
+			show(divoriginal);
+		} else {
+			// toggle to correct body
+			showas(divoriginal, active);
+			showas(divwrap, !active);
+			if (!locked) {
+				jump(entry, true);
+			}
+		}
     }
     
     function wrapHtml(entries, divwrap, hpage, divoriginal){
         var paras = divoriginal.childNodes;
-		if (paras<5 /*prefs.column_miniparas*/){
+		if (paras.length<10 /*prefs.column_miniparas*/){
 			//too little
 			return false;
 		}
@@ -124,7 +126,6 @@ GRP.column = function(prefs, langs){
                     //ignore iframe
                 } else if (tag === "OBJECT" || tag === "EMBED" || tag === "VIDEO") {
                     line = paras[i].outerHTML;
-					
                 } else if (tag === "DIV") {
                     line = paras[i].innerHTML;
                 } else if (/^[ABIU]$/.test(tag)) {
@@ -136,14 +137,12 @@ GRP.column = function(prefs, langs){
                 
                 //line = line.trim();
                 if (line !== '') {
-					if (cp){
+					if (!cp && div.lastChild){
+						div.lastChild.innerHTML += line;
+					}else{
 						var para = document.createElement('p');
 						para.innerHTML = line;
 						div.appendChild(para);
-					}else{
-						if (div.lastChild) {
-							div.lastChild.innerHTML += line;
-						}
 					}
 					
                     //fix it up if width > page.width
