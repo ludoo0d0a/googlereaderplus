@@ -5,11 +5,14 @@ GRP.scripts = {
     general: {
         name: "General",
         options: {
-            secure: false,
-            topcurrent: false,
-            floatactions: false,
             counter: true,
-            opendirect: false,
+			secure: false,
+			opendirect: false,
+            topcurrent: false,
+			floatactions: false,
+			slidewindow: false,
+			slidewindowmini:30,
+			slidewindowmaxi:200,
             noupdatepopup: false,
             icontoolbar_add: {
                 xtype: 'p'
