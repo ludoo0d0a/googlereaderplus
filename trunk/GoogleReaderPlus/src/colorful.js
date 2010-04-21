@@ -9,10 +9,7 @@
  * kepp
  * http://userscripts.org/scripts/show/8782
  */
-GRP.colorful = function(prefs, langs){
-    var STRINGS = langs.colorful;
-    
-    // CSS to allow items to be colored
+GRP.colorful = function(prefs, langs, ID, SL, lang){    
     const BASE_CSS = "#entries.list .entry-likers,#entries.list .collapsed .entry-source-title,#entries.list .collapsed .entry-secondary,#entries.list .collapsed .entry-title{background-color:transparent!important}.gm-color-lv .collapsed /* list view headers */{border-color:transparent!important}#entries.list.gm-color-lv #current-entry .collapsed{border:2px solid #8181DC!important}#entries.list.gm-color-lv #current-entry.expanded .collapsed{border-bottom-color:transparent!important;border-width:2px 0!important}#entries .entry{padding:5px 0}#entries.list .collapsed{line-height:2.4ex!important}";
 
     var settings = 
@@ -68,8 +65,13 @@ GRP.colorful = function(prefs, langs){
         
         // determine what color theme to use by looking at the header colors
         initConfig: function(){
-            var header = get_id("chrome-header");
-            var bg = getComputedStyle(header, null).getPropertyValue("background-color");
+            var bg, color;
+			var header = get_id("chrome-header");
+			if (prefs.colorful_usebasecolor) {
+				bg = (prefs.colorful_background||'').toLowerCase();
+			} else {
+				bg = getComputedStyle(header, null).getPropertyValue("background-color");
+			}
             
             bg = this.rgbToHsl(bg);
             
@@ -82,7 +84,12 @@ GRP.colorful = function(prefs, langs){
                 lt: Math.max(bg[2], 32)
             };
             
-            var color = getComputedStyle(header, null).getPropertyValue("color");
+			if (prefs.colorful_usebasecolor) {
+				color = (prefs.colorful_color||'').toLowerCase();
+			} else {
+				color = getComputedStyle(header, null).getPropertyValue("color");
+			}
+            
             color = this.rgbToHsl(color);
             this.textColor = 
             {
@@ -444,10 +451,7 @@ GRP.colorful = function(prefs, langs){
         }
     };
     
-    
     //=============================================================================
-    
-	
     var chrome = get_id("chrome");
     theme.init(chrome);
 
