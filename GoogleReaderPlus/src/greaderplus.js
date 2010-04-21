@@ -78,7 +78,7 @@
                         console.log("**** run " + o);
                         try {
                             //console.log("myport(run) "+this.myport.portId_);
-                            window.GRP[o].call(window, this.prefs, langs, o, langs[o], this.lang);
+                            window.GRP[o].call(window, this.prefs, langs, o, langs[o]||{}, this.lang);
                         } catch (e) {
                             console.error(e);
                         }

@@ -11,7 +11,7 @@
  *
  * see API docs: http://www.instapaper.com/api
  */
-GRP.instapaper = function(prefs, langs){
+GRP.instapaper = function(prefs, langs, ID, SL, lang){
     var api = {
         add: 'https://www.instapaper.com/api/add',
         auth: 'https://www.instapaper.com/api/authenticate',
