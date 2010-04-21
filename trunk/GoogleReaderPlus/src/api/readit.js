@@ -6,7 +6,7 @@ GRP.api_readit = function(prefs, langs, script, api){
     SL = apply(SL, langs[script]);
     function addButton(el, entry, mode){
         var text = SL.text + formatShortcut(script, script, prefs);
-        addBottomLink(el, SL.keyword, text, 'btn-' + script + ' item-star star', false, readitlaterClick, false, entry, mode);
+        addBottomLink(el, SL.keyword, text, script, 'item-star star', false, readitlaterClick, false, entry, mode);
     }
     function addKey(){
         onKey('btn-' + script, readitlaterClick);
