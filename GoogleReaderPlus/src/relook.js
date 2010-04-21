@@ -1,6 +1,6 @@
 //relook custom theme
 
-GRP.relook = function(prefs, langs) {
+GRP.relook = function(prefs, langs, ID, SL, lang){
 
 	if (prefs.relook_css) {
 		var css = prefs.relook_css.replace(/\n/g, '').replace(/\t/g, ' ').replace(/\/\*.*?\*\//g, '');

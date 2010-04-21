@@ -13,11 +13,9 @@
  * http://userscripts.org/scripts/show/9594
  */
 
-GRP.facebook = function(prefs, langs) {
-	var SL = langs.facebook; 
-
+GRP.facebook = function(prefs, langs, ID, SL, lang){
 	function addButton(el, entry, mode) {
-		var text = SL.text + formatShortcut('facebook', 'gofacebook', prefs); //[b]
+		var text = SL.text + formatShortcut(ID, 'gofacebook', prefs); //[b]
 		addBottomLink(el,SL.keyword, text, 'btn-facebook', false, facebookShare, false, entry, mode);
 	}
 
@@ -80,8 +78,8 @@ GRP.facebook = function(prefs, langs) {
 		entryBody : 'max-width: 98%'
 	};
 
-	registerFeature(addButton, 'efacebook');
-	var keycode = getShortcutKey('facebook', 'gofacebook', prefs); //66 b
+	registerFeature(addButton, ID);
+	var keycode = getShortcutKey(ID, 'gofacebook', prefs); //66 b
 	keycode.fn = addKey;
 	initKey(keycode);
 };

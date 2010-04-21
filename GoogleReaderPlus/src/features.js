@@ -45,12 +45,12 @@ GRP.scripts = {
             },
             color: {
                 value: '#565656',
-                cls: 'picker',
+                xtype: 'picker',
                 parent: 'mto'
             },
             bg: {
                 value: '#FFC',
-                cls: 'picker',
+                xtype: 'picker',
                 parent: 'mto'
             }
         }
@@ -207,7 +207,16 @@ GRP.scripts = {
     colorful: {
         name: "Colorful listview",
         options: {
-            tree: false
+            tree: false,
+			usebasecolor:false,
+			background: {
+                value: '#BCBCBC',
+                xtype: 'picker'
+            },
+            color: {
+                value: '#000000',
+                xtype: 'picker'
+            }
         }
     },
     filter: {
@@ -400,6 +409,23 @@ GRP.scripts = {
             }
         }
     },
+	translate: {
+        name: "Translate",
+		options: {
+            lang: 'en'
+		},
+		shortcuts: {
+            'translate': {
+                id: 'translate',
+                title: 'Translate entry',
+                key: {
+                    //84 alt+T
+                    keyCode: 84,
+                    altKey: true
+                }
+            }
+        }
+	},
     replacer: {
         name: "Replacer",
         options: {
@@ -463,14 +489,15 @@ GRP.scripts = {
                         "search": "<table.*?<table.*?<table.*?<table.*?<table.*?<td[^>]*>(.*?)</td>",
                         "replace": "$1"
                     },
-                    "Image lessentiel.lu": {
+					"Image lessentiel.lu": {
                         "url": "http://www.lessentiel.lu",
-                        "search": "xpath://img[@class='leadbild']",
+                        "search": "xpath://div[@class='leadbildbox']",
                         "replace": "$1<br/>"
                     },
                     "Textes lessentiel.lu": {
                         "url": "http://www.lessentiel.lu",
                         "search": "story_lead\">([^<]*)</h2>",
+						/*"search": "xpath://div[@id='content']",*/
                         "replace": "$1"
                     },
 					"Images lesfrontaliers.lu": {
@@ -521,9 +548,9 @@ GRP.scripts = {
     }
 };
 GRP.packages = {
-    'mini': ['favicons', 'unreadcount', 'fixlayout', 'count', 'counticon', 'removeads'],
-    'ludoo': ['favicons', 'unreadcount', 'fixlayout', 'count', 'counticon', 'removeads', 'column', 'mark', 'jump', 'fitheight', 'closeentry', 'openbackground'],
-    'full': ['theme', 'favicons', 'unreadcount', 'fixlayout', 'count', 'counticon', 'removeads', 'column', 'mark', 'jump', 'preview', 'colorful', 'filter', 'readbymouse', 'twitter', 'facebook', 'fitheight', 'closeentry', 'openbackground', 'aero']
+    'mini': {favicons:true, unreadcount:true, fixlayout:true, count:true, counticon:true, removeads:true},
+    'ludoo': {general:{secure: true, counter:false},favicons:true, unreadcount:true, fixlayout:true, count:true, counticon:true, removeads:true, column:true, mark:true, jump:true, fitheight:true, closeentry:true, openbackground:true, replacer:true, preview:{onicon:true,overlay:true}},
+    'full': {theme:{skin:'osxblack'}, favicons:true, unreadcount:true, fixlayout:true, count:true, counticon:true, removeads:true, column:true, mark:true, jump:true, preview:true, colorful:true, filter:true, readbymouse:true, twitter:true, facebook:true, fitheight:true, closeentry:true, openbackground:true, aero:true}
 };
 GRP.skins = {
     none: {

@@ -7,8 +7,7 @@
  * Add a menu for each entry about its site
  *
  */
-GRP.menu = function(prefs, langs){
-    var SL = langs.menu;
+GRP.menu = function(prefs, langs, ID, SL, lang){
     var menu;
 	/*
     function jq_xmlhttpRequest(o){
@@ -170,8 +169,8 @@ GRP.menu = function(prefs, langs){
     var css = '.grp-item-link-menu item-link-drop-down-arrow{visibility:visible;}.grp-item-link-menu:hover item-link-drop-down-arrow{visibility:hidden !important;}';
     css += '.goog-menuitem:hover {background-color:#BECDEE;}'
     GM_addStyle(css);
-    registerFeature(addJumpButtons, 'ejump');
-    //var keycodeDown = getShortcutKey('jump', 'godown', prefs); //66 Shift+B
+    registerFeature(addJumpButtons, ID);
+    //var keycodeDown = getShortcutKey(ID, 'godown', prefs); //66 Shift+B
     //keycodeDown.fn = gotobottom;
     //initKey(keycodeDown);
 };

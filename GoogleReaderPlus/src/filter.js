@@ -10,8 +10,7 @@
  * http://userscripts.org/scripts/show/23671
  *
  */
-GRP.filter = function(prefs, langs){
-    var SL = langs.filter;
+GRP.filter = function(prefs, langs, ID, SL, lang){
     var locked = false;
     
     function addButton(el, entry, mode){
@@ -59,7 +58,7 @@ GRP.filter = function(prefs, langs){
         
         setRegExps();
 		
-        registerFeature(filterEntries, 'efilter', {onlistviewtitle: true});
+        registerFeature(filterEntries, ID, {onlistviewtitle: true});
     }
     
     var _rxExcludes, _rxHighlights;

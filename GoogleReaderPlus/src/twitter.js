@@ -10,8 +10,7 @@
  * http://userscripts.org/scripts/show/10169
  */
 
-GRP.twitter = function(prefs, langs) {
-	var SL = langs.twitter; 
+GRP.twitter = function(prefs, langs, ID, SL, lang){
 	// Constants
 	// NORMALIZE=false leaves the tags alone
 	// NORMALIZE=true converts tags to proper case and replaces -'s with spaces,
@@ -105,8 +104,8 @@ GRP.twitter = function(prefs, langs) {
 	var mode;
 	
 	function addTwitterButton(el, entry, mode){
-		var text = SL.text + formatShortcut('twitter', 'tweet', prefs); //[b]
-        addBottomLink(el, SL.keyword, text, 'btn-twitter item-star star link', false, postBookmark, false, entry, mode);
+		var text = SL.text + formatShortcut(ID, 'tweet', prefs); //[b]
+        addBottomLink(el, SL.keyword, text, ID, 'item-star star link', false, postBookmark, false, entry, mode);
 	}
 	function addKey() {
 		onKey('btn-twitter', postBookmark);
@@ -307,9 +306,9 @@ GRP.twitter = function(prefs, langs) {
 		return len;
 	}
 
-	registerFeature(addTwitterButton, 'etwitter');
+	registerFeature(addTwitterButton, ID);
 	
-	var keycode = getShortcutKey('twitter', 'tweet', prefs); //68 d
+	var keycode = getShortcutKey(ID, 'tweet', prefs); //68 d
 	keycode.fn = addKey;
 	initKey(keycode);
 };

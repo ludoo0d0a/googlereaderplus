@@ -6,8 +6,7 @@
  * Display entry using multi colum layout
  *
  */
-GRP.column = function(prefs, langs){
-    var SL = langs.column;
+GRP.column = function(prefs, langs, ID, SL, lang){
     var locked = prefs.column_locked;
     var cols = 3;
 	var hpage = getHeightEntries();
@@ -16,8 +15,8 @@ GRP.column = function(prefs, langs){
     var rx = getRegex(prefs.column_filter);
     
     function addButton(el, entry, mode){
-        var text = SL.text + formatShortcut('column', 'columns', prefs); //[c]
-        addBottomLink(el, SL.keyword, text, 'btn-column', true, columnize, locked, entry, mode);
+        var text = SL.text + formatShortcut(ID, 'columns', prefs); //[c]
+        addBottomLink(el, SL.keyword, text, ID, '', true, columnize, locked, entry, mode);
     }
     
     function addKey(){
@@ -258,8 +257,8 @@ GRP.column = function(prefs, langs){
     GM_addStyle(css);
     
     
-    registerFeature(addButton, 'ecolumn');
-    var keycode = getShortcutKey('column', 'columns', prefs); //67 c
+    registerFeature(addButton, ID);
+    var keycode = getShortcutKey(ID, 'columns', prefs); //67 c
     keycode.fn = addKey;
     initKey(keycode);
 	initResize(onResize);

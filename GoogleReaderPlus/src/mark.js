@@ -10,10 +10,8 @@
  * http://userscripts.org/scripts/show/24955
  */
 
-GRP.mark = function(prefs, langs) {
-	 
+GRP.mark = function(prefs, langs, ID, SL, lang){
 	var currentElement, modeList=false;
-
 	function setConfig(){
 		currentElement = getCurrentEntry();
 		modeList=(getMode(currentElement)==='list');

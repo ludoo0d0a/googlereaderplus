@@ -22,7 +22,7 @@ GRP.preview = function(prefs, langs, ID){
         // Top link
         //[preview as text] [maximize as icon]
         var previewOnIcon = prefs.preview_onicon || false;
-        var keytext = formatShortcut('preview', 'prview', prefs);
+        var keytext = formatShortcut(ID, 'prview', prefs);
         var link = getOriginalEntryLink(entry);
 		if (!link){
 			return;
@@ -305,9 +305,9 @@ GRP.preview = function(prefs, langs, ID){
     css += "#pov_close{position:absolute;right:8px;top:45px;background:url(" + GRP.IMAGES_PATH + "/close2.png);width:24px;height:24px;z-index:15002;cursor:pointer;}";
     //css += "#pov_close{position:absolute;right:10px;top:45px;background:url("+GRP.IMAGES_PATH+"/close.png);width:22px;height:22px;z-index:15002;cursor:pointer;}";
     GM_addStyle(css);
-    registerFeature(addPreviewButton, 'epreview');
+    registerFeature(addPreviewButton, ID);
     initResize(onResize);
-    var keycode = getShortcutKey('preview', 'prview', prefs); //81 q
+    var keycode = getShortcutKey(ID, 'prview', prefs); //81 q
     keycode.fn = previewShortcut;
     initKey(keycode);
 };
