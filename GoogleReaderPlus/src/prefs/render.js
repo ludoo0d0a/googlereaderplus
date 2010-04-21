@@ -149,8 +149,14 @@ function renderOptions(body, script){
                 });
                 html += fillTpl(tplSelect, o);
             } else if (xtype === "crud") {
-                o.cls = '_crud';
+				o.cls = '_crud'+((o.cls)?(' '+o.cls):'');
                 html += fillTpl(tplDiv, o);
+            }else if (xtype === "picker") {
+                o.cls = 'picker'+((o.cls)?(' '+o.cls):'');
+				if (cfg.size) {
+                    o.extra = ' size="' + cfg.size + '"';
+                }
+                html += fillTpl(tplInput, o);
             }
 			
 			if (cfg.parent){
@@ -309,11 +315,14 @@ function setpackage(id){
         }
         return;
     } else {
-        for (var i = 0, len = GRP.packages[id].length; i < len; i++) {
-            var o = GRP.packages[id][i];
-            prefs[o] = true;
-            prefs[o + '_skin'] = 'osxblack';
-        }
+        iterate(GRP.packages[id], function(i, data){
+			prefs[i] = true;
+			if (data && (typeof data ==='object')) {
+				iterate(data, function(k, o){
+					prefs[i + '_' + k] = o;
+				});
+			}
+		});
     }
     renderPrefs();//update
 }
