@@ -21,6 +21,7 @@ if (env && env == 'home') {
 	GUID_CORE = 'cmkepfncdncbdpmdfnkbpenhfbmmnebm';
 	GUID_ICON = 'lomblngfikeinenjgnkcnhbdgchkaeai';
 }
+var LOCALPATH = 'chrome-extension://'+GUID_CORE;
 
 function call_icon(message, options, callback){
 	external_call(GUID_ICON, message, options, callback);
