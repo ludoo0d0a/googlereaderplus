@@ -10,8 +10,7 @@
  * ucnv
  * http://userscripts.org/scripts/show/26383
  */
-GRP.prefetch = function(prefs, langs){
-
+GRP.prefetch = function(prefs, langs, ID, SL, lang){
     var first = 25; // default is 5
     var next = 15; // default is 1
     var list = 60; // default is 20

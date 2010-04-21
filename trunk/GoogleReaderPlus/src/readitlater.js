@@ -3,7 +3,7 @@
  * @param {Object} prefs
  * @param {Object} langs
  */
-GRP.readitlater = function(prefs, langs){
+GRP.readitlater = function(prefs, langs, ID, SL, lang){
     var api = {
         key:'e6cg2d3cp4431Y55aKT0V06R29AWr21b',
 		add: 'https://readitlaterlist.com/v2/add',

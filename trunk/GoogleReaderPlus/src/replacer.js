@@ -6,7 +6,7 @@
  * Replace entries with part of the original article
  *
  */
-GRP.replacer = function(prefs, langs){
+GRP.replacer = function(prefs, langs, ID, SL, lang){
     var locked = false, SL = langs.replacer, partIndex = 0, gp_data={}, TPL_NAME = "replacer_result_";
     
     function initVars(){
@@ -61,17 +61,16 @@ GRP.replacer = function(prefs, langs){
 			}
         });
 		
+		var entryBody = getEntryBody(el.parentNode);
         if (result !== '') {
             el.innerHTML = result;
-			//show(el);
+			show(el);
+			hide(entryBody);
         } else {
             el.innerHTML = SL.nomatch;
 			//Reset to original
 			hide(el);
-			var entryBody = getEntryBody(el.parentNode);
-			if (entryBody){
-				show(entryBody);
-			}
+			show(entryBody);
         }
     }
     
@@ -96,7 +95,7 @@ GRP.replacer = function(prefs, langs){
 		var body = getFirstElementByClassName(entry, 'entry-body');//div
         var entryBody = getEntryBody(body);
         
-        hide(entryBody);
+        //hide(entryBody);
         var el = document.createElement('div');
 		/*if (matches[0].keeptext) {
 			hide(el);
@@ -107,6 +106,7 @@ GRP.replacer = function(prefs, langs){
         partIndex++;
         el.id = TPL_NAME + partIndex;
         el.innerHTML = SL.loading;
+		hide(el);
         body.appendChild(el);
         //console.log('request '+partIndex+' - '+link.url);
         GM_xmlhttpRequest(
@@ -125,5 +125,5 @@ GRP.replacer = function(prefs, langs){
     
     
     initVars();
-    registerFeature(doreplacer, 'ereplacer');
+    registerFeature(doreplacer, ID);
 };

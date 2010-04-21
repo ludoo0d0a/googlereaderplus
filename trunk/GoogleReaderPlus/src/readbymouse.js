@@ -14,9 +14,7 @@
  * Ryan Williams <ryanbot at gmail>
  * http://userscripts.org/scripts/show/8843
  */
-GRP.readbymouse = function(prefs, langs){
-    var SL = langs.readbymouse;
-    
+GRP.readbymouse = function(prefs, langs, ID, SL, lang){
     var btn = document.getElementById('btn-readbymouse');
     if (btn) {
         return;

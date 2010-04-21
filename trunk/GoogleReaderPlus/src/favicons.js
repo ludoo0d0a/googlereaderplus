@@ -11,9 +11,7 @@
  *
  * +Google Reader Favicon ++ v1.5.0 (LudoO)
  */
-GRP.favicons = function(prefs, langs){
-    var SL = langs.favicons;
-    
+GRP.favicons = function(prefs, langs, ID, SL, lang){
     var GRP_INFO = JSON.parse(GM_getValue('grp_favicons', '{}'));
     var FAVICON = GRP_INFO.icon || (GRP_INFO.icon = {});
     updateFavicons();
@@ -65,7 +63,7 @@ GRP.favicons = function(prefs, langs){
     
     function initFavicons(){
         if (!prefs.favicons_sidebaronly) {
-            registerFeature(addFaviconEntry, 'efavicons', 
+            registerFeature(addFaviconEntry, ID, 
             {
                 onlistviewtitle: true
             });
