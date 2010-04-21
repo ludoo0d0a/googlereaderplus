@@ -11,7 +11,7 @@
  * http://userscripts.org/scripts/show/46615
  */
 GRP = GRP || {};
-GRP.counticon = function(prefs, langs){
+GRP.counticon = function(prefs, langs, ID, SL, lang){
     var self = this;
     
     this.construct = function(){
