@@ -1081,9 +1081,10 @@ function randomItem(items){
     return items[Math.round(Math.random() * (items.length - 1))];
 }
 
-function loadjQuery(cb, version){
+function loadjQuery(cb, version, local){
     version = version || '1';
-    GM_loadScript('http://ajax.googleapis.com/ajax/libs/jquery/' + version + '/jquery.min.js', false, function(){
+	var url = (local)?(LOCALPATH+'lib/jquery.min.js'):('http://ajax.googleapis.com/ajax/libs/jquery/' + version + '/jquery.min.js');
+    GM_loadScript(url, false, function(){
         return (typeof jQuery !== "undefined");
     }, cb);
 }
