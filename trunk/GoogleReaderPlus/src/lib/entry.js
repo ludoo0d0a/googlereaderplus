@@ -4,7 +4,7 @@
 var stackFeatures = [], externals = [];
 function registerFeature(fn, bid, params){
     params = params || {};
-    params.bid = bid;
+    params.bid = 'e'+bid;
     stackFeatures.push({
         fn: fn,
         params: params
@@ -244,6 +244,7 @@ function getEntryLink(ent){
             o.url = link.href;
             o.link = link;
             o.title = link.textContent;
+			o.eltitle=link;
         } else {
             //Feed from html (non RSS page)
             var etitle = getFirstElementByClassName(entry, 'entry-title');//'h2'
@@ -254,6 +255,7 @@ function getEntryLink(ent){
                     o.url = m[0];
                 }
                 o.title = etitle.textContent;
+				o.eltitle=etitle;
                 o.link = null;
             }
         }
@@ -262,6 +264,7 @@ function getEntryLink(ent){
         var link2 = getFirstElementByClassName(entry, 'grp-link-title');//'a'
         o = {
             title: link2.textContent,
+			eltitle:link2,
             url: link.href,
             link: link
         };
@@ -412,9 +415,9 @@ function onKey(cls, fn){
     fn.call(this, btn, entry);
 }
 
-function addBottomLink(el, text, title, cls, button, callback, locked, entry, mode){
-    var span = document.createElement('span');
-    span.className = cls + (button ? ' read-state-not-kept-unread read-state' : '') + ' link unselectable';
+function addBottomLink(el, text, title, script, cls, button, callback, locked, entry, mode){
+	var span = document.createElement('span');
+    span.className = 'btn-'+script + ' ' + cls + (button ? ' read-state-not-kept-unread read-state' : '') + ' link unselectable';
     span.innerHTML = text;
     span.title = title;
     el.appendChild(span);
@@ -427,7 +430,9 @@ function addBottomLink(el, text, title, cls, button, callback, locked, entry, mo
     span.addEventListener('click', onClick, false);
     if (locked) {
         //activate it
-        callback(span, entry, true);
+		if (callback) {
+			callback(span, entry, true);
+		}
     }
 }
 
