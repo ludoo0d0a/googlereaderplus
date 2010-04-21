@@ -4,7 +4,7 @@
  * @date 2010
  *
  */
-GRP.general = function(prefs, langs){
+GRP.general = function(prefs, langs, ID, SL, lang){
     var CLS_CURRENT = 'grp_current';
     if (prefs.general_secure) {
         if (/^http\:/.test(window.location.href)) {

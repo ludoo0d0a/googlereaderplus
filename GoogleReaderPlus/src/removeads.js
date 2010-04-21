@@ -8,7 +8,7 @@
  *
  */
 
-GRP.removeads = function(prefs, langs) {
+GRP.removeads = function(prefs, langs, ID, SL, lang){
 	function removeAds() {
 		var i,re, link;
 

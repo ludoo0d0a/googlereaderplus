@@ -9,7 +9,7 @@
  * Angus http://angusdev.mysinablog.com/
  */
 
-GRP.count = function(prefs, langs) {
+GRP.count = function(prefs, langs, ID, SL, lang){
     var unreadCountElement = null;
     
     // Wait for the dom ready

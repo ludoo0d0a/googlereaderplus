@@ -8,7 +8,7 @@
  * Aug 8, 2007
  * 
  */
-GRP.gbookmark = function(prefs, langs){
+GRP.gbookmark = function(prefs, langs, ID, SL, lang){
     var api = {
         add: 'http://www.google.com/bookmarks/mark'
 	};
