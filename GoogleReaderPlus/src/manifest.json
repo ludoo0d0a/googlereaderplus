@@ -24,7 +24,7 @@
 		"general.js","fixlayout.js", "unreadcount.js", "mark.js", "removeads.js", "favicons.js", 
 		"column.js","jump.js","preview.js", "openbackground.js", "filter.js", "count.js", 
 		"counticon.js", "readbymouse.js","menu.js", "facebook.js", "twitter.js", 
-		"readitlater.js","instapaper.js", "closeentry.js", "fitheight.js", 
+		"readitlater.js","instapaper.js", "closeentry.js", "fitheight.js", "slidewindow.js",
 		"replacer.js","relook.js","translate.js",
 		"theme.js","skin/mytheme.js", "skin/ig.js", "skin/aero.js","skin/air.js", "skin/aircomic.js", 
 		"skin/black.js","skin/darkgray.js", "skin/dark.js", "skin/helvetireader.js", 
