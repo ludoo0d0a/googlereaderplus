@@ -3,17 +3,37 @@
  *
  */
 GRP.api_entry = function(prefs, langs, ID, SL, lang, edata){
-    var locked = false;
-    if (prefs && prefs[ID + '_locked']) {
-        locked = prefs[ID + '_locked'];
-    }
+    var locked = getPref('locked');
+	var rx = getRegex(getPref('filter'));
+	
+	function getPref(name){
+		if (prefs && prefs[ID + '_' + name]) {
+			return prefs[ID + '_' + name];
+		}else{
+			return false;
+		}
+	}
+	
     function addButton(el, entry, mode){
         var text = (SL.text || ID) + formatShortcut(ID, edata.action, prefs); //[x]
-        addBottomLink(el, SL.keyword || ID, text, ID, '', false, edata.cb, locked, entry, mode);
+        addBottomLink(el, SL.keyword || ID, text, ID, '', true, filterize, locked, entry, mode);
     }
+	
+	function filterize(btn, entry, lcked, e){
+		var locked = (lcked && (typeof e === "undefined"));
+        if (locked && filterEntry(entry, rx)) {
+            //Regex filtered
+            return false;
+        }
+		var active = isActive(btn, entry, '', locked);
+		if (active && edata.cb){
+			edata.cb(btn, entry, lcked, e);
+		} 
+	}
+	
     function addKey(e){
         var entry = getEntry(e);
-        cbentry('btn-' + ID, entry);
+        filterize('btn-' + ID, entry);
     }
     if (edata.css) {
         var css;
