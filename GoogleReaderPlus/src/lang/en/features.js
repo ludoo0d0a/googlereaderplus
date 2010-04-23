@@ -11,12 +11,23 @@
  * so that 0.3.11 is the 11th translated version of the original v0.3 english version.
  *
  *
- * Version : 1.3
- * Date : 04-09-2010
+ * Version : 1.4
+ * Date : 04-22-2010
  * @author Valente
  */
 var locale = 'en';
 namespace('GRP.langs.' + locale);
+GRP.langs[locale].categories = {
+	main: 'Main',
+	theme: 'Theme/skins',
+	icons:'Icons',
+	counter:'Counter',
+	layout: 'Layout',
+	navigation: 'Navigation',
+	share: 'Share',
+	action: 'Action',
+	content: 'Content'
+};
 GRP.langs[locale].scripts = {
     general: {
         name: "General",
