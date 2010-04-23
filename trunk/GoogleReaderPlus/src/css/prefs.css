@@ -60,7 +60,7 @@ label.large{
     height: 500px;
     width: 240px;
     padding: 7px;
-    margin: 0 7px;
+    /*margin: 0 7px;*/
 }
 
 .container1 .large {
@@ -72,7 +72,7 @@ label.large{
     width: 220px;
     /* height */
     height: 700px;
-    /*padding: 7px;*/
+    padding: 7px;
     margin: 0 7px;
 }
 
@@ -160,6 +160,18 @@ li a.link {
     font-family: 'trebuchet ms', Verdana, Arial, Helvetica, sans-serif;
 }
 
+ul.wrap{
+	padding-left:0;
+	margin-left:0;
+}
+
+.bullet{
+	font-size:20px;
+	margin-right:3px;
+}
+.linkblock{
+	margin-left:20px;
+}
 .mnu.crud li a {
     display: inline;
 }
@@ -246,15 +258,19 @@ span.olink {
 
 .logo {
     text-align: center;
-    margin-bottom: 10px;
+    margin-top: 10px;
+	height:75px;
 }
 
-.logo .txt {
+.logo .text{
+	padding-top:50px;
+}
+
+.txt {
     font-family: arial, sans-serif;
     font-size: 1.1em;
     font-weight: bold;
     color: #dddddd;
-    margin: 0;
 }
 
 .title {
