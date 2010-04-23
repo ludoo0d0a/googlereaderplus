@@ -210,10 +210,11 @@ function insertFirst(el, ref){
 }
 
 function remove(el){
-	if (el && el.parentNode){
-		el.parentNode.removeChild(el);
-	}
+    if (el && el.parentNode) {
+        el.parentNode.removeChild(el);
+    }
 }
+
 /**
  * Strings
  */
@@ -244,6 +245,30 @@ function ellipsis(text, max){
     return match;
 }
 
+String.prototype.toMaj = function(){
+    return this.replace(/(^\w)/, function(m){
+        return m.toUpperCase();
+    });
+};
+
+//To Camel Case
+String.prototype.toCamel = function(){
+    return this.replace(/(\-[a-z])/g, function($1){
+        return $1.toUpperCase().replace('-', '');
+    });
+};
+//To Dashed from Camel Case
+String.prototype.toDash = function(){
+    return this.replace(/([A-Z])/g, function($1){
+        return "-" + $1.toLowerCase();
+    });
+};
+//To Underscore from Camel Case
+String.prototype.toUnderscore = function(){
+    return this.replace(/([A-Z])/g, function($1){
+        return "_" + $1.toLowerCase();
+    });
+};
 function isArray(obj){
     return (obj && obj.constructor == Array);
 }
@@ -355,8 +380,8 @@ function findre(o, key, re){
 }
 
 function getCount(o){
-    var count=0;
-	for (var p in o) {
+    var count = 0;
+    for (var p in o) {
         if (!hasOwnProperty.call(o, p)) {
             continue;
         }
@@ -483,11 +508,11 @@ function marshallKey(e){
 
 function formatKey(e, keyFirst){
     var keyLetter = getStringFromCharCode(e.keyCode);
-    if (keyFirst){
-		return keyLetter +((e.ctrlKey) ? '+ctrl' : '') + ((e.altKey) ? '+alt' : '') + ((e.shiftKey) ? '+shift' : '');
-	}else{
-		return ((e.ctrlKey) ? 'ctrl+' : '') + ((e.altKey) ? 'alt+' : '') + ((e.shiftKey) ? 'shift+' : '')+keyLetter;
-	}
+    if (keyFirst) {
+        return keyLetter + ((e.ctrlKey) ? '+ctrl' : '') + ((e.altKey) ? '+alt' : '') + ((e.shiftKey) ? '+shift' : '');
+    } else {
+        return ((e.ctrlKey) ? 'ctrl+' : '') + ((e.altKey) ? 'alt+' : '') + ((e.shiftKey) ? 'shift+' : '') + keyLetter;
+    }
 }
 
 /**
@@ -775,6 +800,18 @@ function merge(o, c, defaults){
     return o;
 }
 
+function group(a, name){
+    var r = {};
+    iterate(a, function(id, o){
+        var val = o[name] || 'other';
+        if (!r[val]) {
+            r[val] = {};
+        }
+        r[val][id] = o;
+    });
+    return r;
+}
+
 function applyRemoteLang(lang, base, id, o, fn, scope){
     GM_xmlhttpRequest({
         method: 'GET',
@@ -822,31 +859,34 @@ function getDomain(url, withProtocol){
         return m[2];
     }
 }
+
 /*
-isChromeVersionMini('5.0.342.1')
-compareVersion('5.1', '5.0.342.1');->=true
-compareVersion('5.0.100', '5.0.342.1');->=false
-*/
+ isChromeVersionMini('5.0.342.1')
+ compareVersion('5.1', '5.0.342.1');->=true
+ compareVersion('5.0.100', '5.0.342.1');->=false
+ */
 //Chrome mini version required
 function isChromeVersionMini(ref){
-	var version = /Chrome\/([\d\.]+)/.exec(window.navigator.appVersion);
-	return (compareVersion(version[1], ref)>=0);
+    var version = /Chrome\/([\d\.]+)/.exec(window.navigator.appVersion);
+    return (compareVersion(version[1], ref) >= 0);
 }
+
 //compare 2 first segments
 function isVersionMajorUpdated(oldVersion, newVersion){
-	return (compareVersion(newVersion, oldVersion, 2)>0);
+    return (compareVersion(newVersion, oldVersion, 2) > 0);
 }
+
 function compareVersion(version, ref, count){
     var versions = version.split('.');
     var refs = ref.split('.');
-	count=count||versions.length;
+    count = count || versions.length;
     for (var i = 0, len = count; i < len; i++) {
         versions[i] = parseInt(versions[i], 10);
         if (i <= refs.length) {
             refs[i] = parseInt(refs[i], 10);
             if (versions[i] < refs[i]) {
                 return -1;
-            }else if (versions[i] > refs[i]) {
+            } else if (versions[i] > refs[i]) {
                 return 1;
             }
         }
@@ -949,19 +989,27 @@ function isShown(el){
 }
 
 function show(el, value){
-	el.style.display = value||'';
+    el.style.display = value || '';
 }
 
 function hide(el){
     el.style.display = 'none';
 }
 
+function toggle(el){
+    if (isShown(el)) {
+        hide(el);
+    } else {
+        show(el);
+    }
+}
+
 function showas(el, hideme){
-	if (hideme){
-		hide(el);
-	}else{
-		show(el);
-	}
+    if (hideme) {
+        hide(el);
+    } else {
+        show(el);
+    }
 }
 
 //http://forums.mozillazine.org/viewtopic.php?f=19&t=1806595
@@ -1032,36 +1080,70 @@ var tmaps = {
     html: 'innerHTML'
 };
 function dh(root, tag, attrs, events){
-    if (!root) {
-        root = document.body;
-    } else if (typeof root == "string") {
-        root = get_id(root);
+    var config = attrs;
+    if (root) {
+        config.root = root;
     }
-    if (!root) {
+    if (tag) {
+        config.tag = tag;
+    }
+    if (events) {
+        config.events = events;
+    }
+    return dhc(config);
+}
+
+function dhc(config){
+    if (!config) {
         return false;
     }
-    var el = document.createElement(tag || 'div');
-    iterate(attrs, function(k, o){
+    var root = config.root;
+    if (!root) {
+        root = document.body;
+    } else if (typeof config.root == "string") {
+        root = get_id(config.root);
+        if (!root) {
+            return false;
+        }
+    }
+    var excepts = {
+        root: 1,
+        tag: 1,
+        events: 1,
+        el: 1
+    };
+    var el = document.createElement(config.tag || 'div');
+    iterate(config, function(k, o){
         if (typeof o !== 'undefined') {
-            if (tmaps[k]) {
-                el[tmaps[k]] = o;
-            } else {
-                var attr = document.createAttribute(k);
-                attr.value = o;
-                el.attributes.setNamedItem(attr);
+            if (excepts[k] !== 1) {
+                if (tmaps[k]) {
+                    el[tmaps[k]] = o;
+                } else {
+                    var attr = document.createAttribute(k);
+                    attr.value = o;
+                    el.attributes.setNamedItem(attr);
+                }
             }
         }
     });
-    iterate(events, function(event, fn){
+    iterate(config.events, function(event, fn){
         el.addEventListener(event, fn, false);
     });
-	if (attrs && attrs.position==='after'){
-			insertAfter(el, root);
-	}else if(attrs && attrs.position==='before'){
-			insertBefore(el, root);
-	} else {
-		root.appendChild(el);
-	}
+    if (config.el) {
+        //recurse
+        var cfg = config.el;
+        cfg.root = el;
+        dhc(cfg);
+    }
+    if (config.position) {
+        if (config.position === 'before') {
+            insertBefore(el, root);
+        } else {
+            insertAfter(el, root);
+        }
+    } else {
+        root.appendChild(el);
+    }
     return el;
 }
 
@@ -1083,7 +1165,7 @@ function randomItem(items){
 
 function loadjQuery(cb, version, local){
     version = version || '1';
-	var url = (local)?(LOCALPATH+'lib/jquery.min.js'):('http://ajax.googleapis.com/ajax/libs/jquery/' + version + '/jquery.min.js');
+    var url = (local) ? (LOCALPATH + 'lib/jquery.min.js') : ('http://ajax.googleapis.com/ajax/libs/jquery/' + version + '/jquery.min.js');
     GM_loadScript(url, false, function(){
         return (typeof jQuery !== "undefined");
     }, cb);
@@ -1093,7 +1175,7 @@ function runfn(fn, id, priority, delay){
     GRP.fns.push({
         fn: fn,
         id: id,
-		delay: delay,
+        delay: delay,
         priority: priority
     });
 }
