@@ -33,6 +33,7 @@ GRP.scripts = {
     theme: {
         name: "Theme",
 		category:'theme',
+		status:'updated',
         options: {
             skin: '',
             noborder: false,
@@ -219,6 +220,7 @@ GRP.scripts = {
     colorful: {
         name: "Colorful listview",
 		category:'layout',
+		status:'updated',
         options: {
             tree: false,
 			usebasecolor:false,
@@ -320,6 +322,7 @@ GRP.scripts = {
     readitlater: {
         name: "ReadItLater integration",
 		category:'share',
+		status:'new',
         options: {
             auth: {
                 xtype: 'p',
@@ -436,6 +439,7 @@ GRP.scripts = {
 	translate: {
         name: "Translate",
 		category:'content',
+		status:'new',
 		options: {
             lang: 'en',
 			locked:false
@@ -452,9 +456,19 @@ GRP.scripts = {
             }
         }
 	},
+	slidewindow:{
+		name: "Slidewindow",
+		category:'navigation',
+		status:'new',
+		options: {
+            mini:30,
+			maxi:200
+		}
+	},
     replacer: {
         name: "Replacer",
 		category:'content',
+		status:'updated',
         options: {
             intro: {
                 xtype: 'p'
