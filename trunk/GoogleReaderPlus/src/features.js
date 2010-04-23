@@ -4,6 +4,7 @@
 GRP.scripts = {
     general: {
         name: "General",
+		category:'main',
         options: {
             counter: true,
 			secure: false,
@@ -31,6 +32,7 @@ GRP.scripts = {
     },
     theme: {
         name: "Theme",
+		category:'theme',
         options: {
             skin: '',
             noborder: false,
@@ -57,6 +59,7 @@ GRP.scripts = {
     },
     ig: {
         name: "iGoogle Theme",
+		category:'theme',
         desc: "Use iGoogle Theme in your Google Reader (Beta)",
         options: {
             warning: {
@@ -100,6 +103,7 @@ GRP.scripts = {
     },
     relook: {
         name: "Relook",
+		category:'theme',
         desc: "Relook yourself GoogleReader using custom stylesheets",
         options: {
             resize: false,
@@ -113,6 +117,7 @@ GRP.scripts = {
     },
     favicons: {
         name: "Favicons",
+		category:'icons',
         options: {
             providerpageicons: false,
             sidebaronly: false,
@@ -132,19 +137,24 @@ GRP.scripts = {
         }
     },
     unreadcount: {
-        name: "Show all unread count"
+        category:'counter',
+		name: "Show all unread count"
     },
     fixlayout: {
-        name: "Fix layout"
+        category:'layout',
+		name: "Fix layout"
     },
     count: {
-        name: "Fix counter (1000+)"
+        category:'counter',
+		name: "Fix counter (1000+)"
     },
     counticon: {
-        name: "Icon counter"
+        category:'counter',
+		name: "Icon counter"
     },
     removeads: {
         name: "Remove ads",
+		category:'content',
         options: {
             links: {
                 xtype: 'textarea',
@@ -162,6 +172,7 @@ GRP.scripts = {
     },
     column: {
         name: "Text multi columns",
+		category:'layout',
         options: {
             count: 3,
             /*maxcolumns:6,*/
@@ -184,6 +195,7 @@ GRP.scripts = {
     },
     preview: {
         name: "Integrated preview",
+		category:'layout',
         options: {
             onicon: false,
             overlay: false,
@@ -206,6 +218,7 @@ GRP.scripts = {
     },
     colorful: {
         name: "Colorful listview",
+		category:'layout',
         options: {
             tree: false,
 			usebasecolor:false,
@@ -221,15 +234,18 @@ GRP.scripts = {
     },
     filter: {
         name: "Filter entries",
+		category:'layout',
         options: {
             searchbody: false
         }
     },
     readbymouse: {
-        name: "Read by mouse"
+		name: "Read by mouse",
+		category:'navigation'
     },
     facebook: {
         name: "Facebook integration",
+		category:'share',
         shortcuts: {
             'gofacebook': {
                 id: 'gofacebook',
@@ -243,6 +259,7 @@ GRP.scripts = {
     },
     twitter: {
         name: "Twitter integration",
+		category:'share',
         options: {
             shortener: {
                 xtype: 'select',
@@ -277,6 +294,7 @@ GRP.scripts = {
     },
     instapaper: {
         name: "Instapaper integration",
+		category:'share',
         options: {
             auth: {
                 xtype: 'p',
@@ -301,6 +319,7 @@ GRP.scripts = {
     },
     readitlater: {
         name: "ReadItLater integration",
+		category:'share',
         options: {
             auth: {
                 xtype: 'p',
@@ -325,6 +344,7 @@ GRP.scripts = {
     },
     mark: {
         name: "Mark As Read",
+		category:'navigation',
         shortcuts: {
             'markprev': {
                 id: 'markprev',
@@ -346,6 +366,7 @@ GRP.scripts = {
     },
     jump: {
         name: "Add top/bottom links",
+		category:'navigation',
         shortcuts: {
             'goup': {
                 id: 'goup',
@@ -369,6 +390,7 @@ GRP.scripts = {
     },
     fitheight: {
         name: "Fit height",
+		category:'layout',
         options: {
             locked: false
         },
@@ -385,6 +407,7 @@ GRP.scripts = {
     },
     closeentry: {
         name: "Close entry",
+		category:'action',
         shortcuts: {
             'close': {
                 id: 'close',
@@ -398,6 +421,7 @@ GRP.scripts = {
     },
     openbackground: {
         name: "Open in background",
+		category:'action',
         shortcuts: {
             'openback': {
                 id: 'openback',
@@ -411,8 +435,10 @@ GRP.scripts = {
     },
 	translate: {
         name: "Translate",
+		category:'content',
 		options: {
-            lang: 'en'
+            lang: 'en',
+			locked:false
 		},
 		shortcuts: {
             'translate': {
@@ -428,6 +454,7 @@ GRP.scripts = {
 	},
     replacer: {
         name: "Replacer",
+		category:'content',
         options: {
             intro: {
                 xtype: 'p'
@@ -491,7 +518,7 @@ GRP.scripts = {
                     },
 					"Image lessentiel.lu": {
                         "url": "http://www.lessentiel.lu",
-                        "search": "xpath://div[@class='leadbildbox']",
+                        "search": "xpath://img[@class='leadbild']",
                         "replace": "$1<br/>"
                     },
                     "Textes lessentiel.lu": {
@@ -519,7 +546,8 @@ GRP.scripts = {
      desc: "Intuitive menu to add extra capabilites"
      },*/
     aero: {
-        name: "Google Aero Toolbar"
+        name: "Google Aero Toolbar",
+		category:'theme'
     },
     /*hover: {
      name: "Hover selection"
