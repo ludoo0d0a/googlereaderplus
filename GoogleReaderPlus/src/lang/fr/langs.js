@@ -146,7 +146,8 @@ GRP.langs[locale].prefs = {
         title: "Reader Plus",
         "val-save": "Sauver",
         alreadyexist: "Cet élément existe déjà!",
-		neew:'nouveau!'
+		snew:'Nouveau!',
+		supdated:'Mis à jour!'
     },
     theme: {
         noborder: "Retirer les bords des articles pour en afficher un maximum sur une page",
