@@ -21,6 +21,7 @@ function showPanel(id){
     }
     if (link) {
         link.className = "on";
+        showcat(link);
         lastLink = link;
     }
     var panel = document.getElementById('panel_' + id);
@@ -34,48 +35,97 @@ function showPanel(id){
     }
 }
 
+function showcat(el, fromoutside){
+    var wrap;
+	if (fromoutside){
+		wrap = getFirstElementByClassName(el, 'wrap');
+	}else{
+		wrap=findParentNode(el, 'ul', 'wrap');
+	}
+    if (lastCat) {
+        hide(lastCat);
+    }
+    show(wrap);
+    lastCat = wrap;
+}
+
+var lastCat;
 function renderScripts(){
-    var list = document.getElementById('scriptlist');
+    var list = document.getElementById('scriptlist');//ul#scriptlist
     var panels = document.getElementById('panels');
-    list.innerHTML = 'In progress...';
-    var html = '';
-    var tplCheckbox = '<li id="l_{id}"><a href="javascript:showPanel(\'{id}\')"><input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{desc}">{name}</label><span class="open">{dlink}</span></a></li>';
+    var tplCheckbox = '<li id="l_{id}"><a href="javascript:showPanel(\'{id}\')"><input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{desc}">{name}{neew}</label><span class="open">{dlink}</span></a></li>';
     var tplLink = '<li id="l_{id}"><a class="link" href="javascript:showPanel(\'{id}\')"><span class="linkblock">{name}</span><span class="open olink">{dlink}</span></a></li>';
     var tplPanelTitle = '<div class="title"><h2>{name}</h2><div id="paneldesc_{id}" class="desc">{desc}</div></div>';
     var tplPanelIframe = '<div class="title"><h2>{name}</h2><iframe src="{url}" width="700" height="620"></iframe></div>';
-    iterate(GRP.scripts, function(id, script){
-        script.dlink = '>';
-        var t = (script.link) ? tplLink : tplCheckbox;
-        html += fillTpl(t, script);
-        var body, panel = document.getElementById('panel_' + id);
-        if (!panel) {
-            //create panels for descritpion
-            panel = document.createElement('div');
-            panel.id = "panel_" + id;
-            panel.style.display = "none";
-            script.shortcut = script.shortcut || '-';
-            var tpl = (script.url) ? tplPanelIframe : tplPanelTitle;
-            panel.innerHTML = fillTpl(tpl, script);
-            //+body
-            body = document.createElement('div');
-            body.className = "body";
-            panel.appendChild(body);
-            panels.appendChild(panel);
-            script.dlink = '&gt;';
+    var categories = group(GRP.scripts, 'category');
+    iterate(categories, function(category, scripts){
+        var ulcat;
+		//var incat = (category !== 'other');
+		var incat=true;
+        if (incat) {
+            var licat = dh(list, 'li', {
+                cls: 'category'
+            });
+            var acat = dh(licat, 'a', {
+                //text: getCategory(lang, category),
+				html: '<span class="bullet">•</span><span>'+getCategory(lang, category)+'</span>',
+                href: '#'
+            }, {
+                click: function(e){
+                    var li=findParentNode(e.target, 'li', 'category');
+					showcat(li, true);
+                }
+            });
+            ulcat = dh(licat, 'ul', {
+                cls: 'wrap'
+            });
+            hide(ulcat);
+        }else{
+			ulcat = list;
+		}
+        var html = '';
+		var textNew = getTextPrefs(lang, 'new') || 'new!';
+        iterate(scripts, function(id, script){
+            script.dlink = '>';
+			script.desc = script.desc||'';
+			script.neew=(script.neew)?'<span class="new">'+textNew+'!</span>':'';
+            var t = (script.link) ? tplLink : tplCheckbox;
+            html += fillTpl(t, script);
+            var body, panel = document.getElementById('panel_' + id);
+            if (!panel) {
+                //create panels for descritpion
+                panel = document.createElement('div');
+                panel.id = "panel_" + id;
+                panel.style.display = "none";
+                script.shortcut = script.shortcut || '-';
+                var tpl = (script.url) ? tplPanelIframe : tplPanelTitle;
+                panel.innerHTML = fillTpl(tpl, script);
+                //+body
+                body = document.createElement('div');
+                body.className = "body";
+                panel.appendChild(body);
+                panels.appendChild(panel);
+                script.dlink = '&gt;';
+            } else {
+                var header = document.createElement('div');
+                header.className = 'header';
+                header.innerHTML = fillTpl(tplPanelTitle, script);
+                insertFirst(header, panel);
+                body = getFirstElementByClassName(panel, 'body');
+            }
+            renderOptions(body, script);
+            renderShortcuts(panel, script);
+        }, this, true);
+        if (incat) {
+            ulcat.innerHTML = html;
         } else {
-            var header = document.createElement('div');
-            header.className = 'header';
-            header.innerHTML = fillTpl(tplPanelTitle, script);
-            insertFirst(header, panel);
-            body = getFirstElementByClassName(panel, 'body');
+            ulcat.innerHTML += html;
         }
-        renderOptions(body, script);
-        renderShortcuts(panel, script);
-    }, this, true);
-    list.innerHTML = html;
-    addClass(list.firstChild, 'first');
-    addClass(list.lastChild, 'last');
+    });
+    addClass(list.firstElementChild, 'first');
+    addClass(list.lastElementChild, 'last');
     extraFeatures();
+    showcat(list, true);
 }
 
 var tplInput = '<label class="lbl {lcls}" id="t_{id}" for="{id}">{text}</label><input id="{id}" class="{cls}" name="{id}" type="{input}" value="{value}"{extra}"/><br/>';
@@ -100,31 +150,30 @@ function renderOptions(body, script){
             xtype = typeof value;
         }
         var o = {
-            text: getTextPrefs(lang, script.id, option, 'en') || ('-'+option+'-'),
+            text: getTextPrefs(lang, script.id, option, 'en') || ('-' + option + '-'),
             id: script.id + '_' + option,
             value: value,
             extra: '',
-			lcls:cfg.lcls || '',
-			input:cfg.input || 'text',
+            lcls: cfg.lcls || '',
+            input: cfg.input || 'text',
             cls: cfg.cls || ''
         };
         if (!document.getElementById(o.id)) {
-            if (cfg.parent){
-				html += "<div class='"+cfg.parent+"'>";
-			}
-			
-			if (xtype === "boolean") {
+            if (cfg.parent) {
+                html += "<div class='" + cfg.parent + "'>";
+            }
+            if (xtype === "boolean") {
                 html += fillTpl(tplCheckbox, o);
             } else if (xtype === "string") {
                 if (cfg.size) {
                     o.extra = ' size="' + cfg.size + '"';
                 }
                 html += fillTpl(tplInput, o);
-			} else if (xtype === "password") {
+            } else if (xtype === "password") {
                 if (cfg.size) {
                     o.extra = ' size="' + cfg.size + '"';
                 }
-				html += fillTpl(tplPwd, o);
+                html += fillTpl(tplPwd, o);
             } else if (xtype === "number") {
                 o.size = cfg.size || 3;
                 o.extra = ' size="' + o.size + '"';
@@ -149,19 +198,18 @@ function renderOptions(body, script){
                 });
                 html += fillTpl(tplSelect, o);
             } else if (xtype === "crud") {
-				o.cls = '_crud'+((o.cls)?(' '+o.cls):'');
+                o.cls = '_crud' + ((o.cls) ? (' ' + o.cls) : '');
                 html += fillTpl(tplDiv, o);
-            }else if (xtype === "picker") {
-                o.cls = 'picker'+((o.cls)?(' '+o.cls):'');
-				if (cfg.size) {
+            } else if (xtype === "picker") {
+                o.cls = 'picker' + ((o.cls) ? (' ' + o.cls) : '');
+                if (cfg.size) {
                     o.extra = ' size="' + cfg.size + '"';
                 }
                 html += fillTpl(tplInput, o);
             }
-			
-			if (cfg.parent){
-				html += "</div>";
-			}
+            if (cfg.parent) {
+                html += "</div>";
+            }
         }
     });
     body.innerHTML += html;
@@ -223,14 +271,12 @@ function renderSkins(){
             var thumb = document.getElementById("thumb");
             var id = c.id.replace('skin_', '');
             var input = document.getElementById("theme_skin");
-            
-			var mtos = document.getElementsByClassName('mto');
-            if (mtos && mtos.length>0) {
+            var mtos = document.getElementsByClassName('mto');
+            if (mtos && mtos.length > 0) {
                 foreach(mtos, function(mto){
-					addClassIf(mto, 'hidden', (id !== "mytheme"));
-				});
+                    addClassIf(mto, 'hidden', (id !== "mytheme"));
+                });
             }
-			
             if (id === "none") {
                 input.value = "";
                 thumb.className = "hidden";
@@ -247,10 +293,10 @@ function renderSkins(){
                     athumb.target = '';
                     athumb.removeAttribute('target');
                 }
-				var skindesc = document.getElementById("skindesc");
-				if (skindesc){
-					skindesc.innerHTML=(o.desc)?(o.name+' - '+o.desc):o.name;
-				}
+                var skindesc = document.getElementById("skindesc");
+                if (skindesc) {
+                    skindesc.innerHTML = (o.desc) ? (o.name + ' - ' + o.desc) : o.name;
+                }
                 athumb.title = o.name;
                 //check theme feature
                 if (!simulate) {
@@ -316,13 +362,13 @@ function setpackage(id){
         return;
     } else {
         iterate(GRP.packages[id], function(i, data){
-			prefs[i] = true;
-			if (data && (typeof data ==='object')) {
-				iterate(data, function(k, o){
-					prefs[i + '_' + k] = o;
-				});
-			}
-		});
+            prefs[i] = true;
+            if (data && (typeof data === 'object')) {
+                iterate(data, function(k, o){
+                    prefs[i + '_' + k] = o;
+                });
+            }
+        });
     }
     renderPrefs();//update
 }
