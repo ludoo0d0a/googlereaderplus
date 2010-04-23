@@ -19,10 +19,7 @@
 GRP.translate = function(prefs, langs, ID, SL, lang){
     var langDest = prefs.translate_lang || lang;
 
-    function translateEntry(el, entry, mode){
-        console.log('translation into '+langDest);
-		console.log(entry.innerText);
-		
+    function translateEntry(btn, entry, locked, e){
 		var body = getBody(entry),
 		l = getEntryLink(entry);
 		
@@ -52,17 +49,19 @@ GRP.translate = function(prefs, langs, ID, SL, lang){
 				text: txt,
 				to: langDest
 			}, function(a){
-				if (mode==='html') {
-					el.innerHTML = a.translation;
-				} else if (mode==='direct') {
-					el = a.translation;
-				} else if (mode==='text') {
-					if (el.innerText) {
-						el.innerText = a.translation;
-					} else if (el.textContent){
-						el.textContent = a.translation;
-					}else {
+				if (a.detectedSourceLanguage !== langDest) {
+					if (mode === 'html') {
+						el.innerHTML = a.translation;
+					} else if (mode === 'direct') {
 						el = a.translation;
+					} else if (mode === 'text') {
+						if (el.innerText) {
+							el.innerText = a.translation;
+						} else if (el.textContent) {
+							el.textContent = a.translation;
+						} else {
+							el = a.translation;
+						}
 					}
 				}
 			});
