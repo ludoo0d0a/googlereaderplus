@@ -6,12 +6,23 @@
  * fr : Francais
  * **************************
  *
- * Version : 1.3
- * Date : 04-09-2010
+ * Version : 1.4
+ * Date : 04-22-2010
  * @author Valente
  */
 var locale = 'fr';
 namespace('GRP.langs.' + locale);
+GRP.langs[locale].categories = {
+	main: 'Principal',
+	theme: 'Theme',
+	icons:'Icônes',
+	counter:'Compteur',
+	layout: 'Mise en page',
+	navigation: 'Navigation',
+	share: 'Partage',
+	action: 'Action',
+	content: 'Contenu'
+};
 GRP.langs[locale].scripts = {
     general: {
         name: "Général",
