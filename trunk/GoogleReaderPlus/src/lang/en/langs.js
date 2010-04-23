@@ -145,7 +145,8 @@ GRP.langs[locale].prefs = {
     global: {
         title: "Reader Plus",
         "val-save": "Save",
-        alreadyexist: "Item already exists!"
+        alreadyexist: "Item already exists!",
+		neew:'new!'
     },
     theme: {
         noborder: "Remove entries borders to display more items on a single page",
