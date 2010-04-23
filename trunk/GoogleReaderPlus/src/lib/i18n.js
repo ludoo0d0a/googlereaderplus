@@ -12,6 +12,21 @@ function getText(lang, script, option, deflang){
 	return text;
 }
 
+function getCategory(lang, name, deflang){
+	var text = '';
+	if (GRP.langs[lang] && GRP.langs[lang].categories[name]) {
+        text = GRP.langs[lang].categories[name];
+    }
+	if (!text && deflang){
+		text=getCategory(deflang, name);
+	}
+	if (!text && !deflang) {
+		text=name.toMaj();
+	}
+	return text;
+}
+
+
 function getTextPrefs(lang, script, option, deflang){
 	var text = '';
 	if (GRP.langs[lang] && GRP.langs[lang].prefs[script] && GRP.langs[lang].prefs[script][option]) {
