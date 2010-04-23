@@ -277,6 +277,16 @@ span.olink {
     margin-bottom: 8px;
 }
 
+span.new{
+	margin-left:5px !important;
+	color:red !important;
+}
+
+span.updated{
+	margin-left:5px !important;
+	color:yellow !important;
+}
+
 /**
  * Centering items
  */
