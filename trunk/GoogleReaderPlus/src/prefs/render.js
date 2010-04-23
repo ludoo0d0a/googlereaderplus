@@ -53,7 +53,7 @@ var lastCat;
 function renderScripts(){
     var list = document.getElementById('scriptlist');//ul#scriptlist
     var panels = document.getElementById('panels');
-    var tplCheckbox = '<li id="l_{id}"><a href="javascript:showPanel(\'{id}\')"><input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{desc}">{name}{neew}</label><span class="open">{dlink}</span></a></li>';
+    var tplCheckbox = '<li id="l_{id}"><a href="javascript:showPanel(\'{id}\')"><input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{desc}">{name}{status}</label><span class="open">{dlink}</span></a></li>';
     var tplLink = '<li id="l_{id}"><a class="link" href="javascript:showPanel(\'{id}\')"><span class="linkblock">{name}</span><span class="open olink">{dlink}</span></a></li>';
     var tplPanelTitle = '<div class="title"><h2>{name}</h2><div id="paneldesc_{id}" class="desc">{desc}</div></div>';
     var tplPanelIframe = '<div class="title"><h2>{name}</h2><iframe src="{url}" width="700" height="620"></iframe></div>';
@@ -84,11 +84,17 @@ function renderScripts(){
 			ulcat = list;
 		}
         var html = '';
-		var textNew = getTextPrefs(lang, 'new') || 'new!';
+		
         iterate(scripts, function(id, script){
             script.dlink = '>';
 			script.desc = script.desc||'';
-			script.neew=(script.neew)?'<span class="new">'+textNew+'!</span>':'';
+			if (script.status){
+				var stat = getTextPrefs(lang, 'global', 's'+script.status) || script.status;
+				script.status='<span class="'+script.status+'">'+stat+'</span>';
+			}else{
+				script.status='';
+			}
+			
             var t = (script.link) ? tplLink : tplCheckbox;
             html += fillTpl(t, script);
             var body, panel = document.getElementById('panel_' + id);
