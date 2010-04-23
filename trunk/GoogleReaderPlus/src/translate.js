@@ -19,7 +19,7 @@
 GRP.translate = function(prefs, langs, ID, SL, lang){
     var langDest = prefs.translate_lang || lang;
 
-    function translateEntry(btn, entry, locked, e){
+    function translateEntry(entry, active, btn, e){
 		var body = getBody(entry),
 		l = getEntryLink(entry);
 		

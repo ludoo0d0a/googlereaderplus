@@ -27,8 +27,8 @@ GRP.api_entry = function(prefs, langs, ID, SL, lang, edata){
         }
 		var active = isActive(btn, entry, '', locked);
 		if (active && edata.cb){
-			edata.cb(btn, entry, lcked, e);
-		} 
+			edata.cb(entry, active, btn, e);
+		}
 	}
 	
     function addKey(e){
