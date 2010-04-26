@@ -99,50 +99,52 @@ function isShortcutFree(e){
     //google
     if (GRP.googleshortcuts && GRP.googleshortcuts[text]) {
         var warning2 = getTextPrefs(lang, 'extshortcuts', 'alreadyusedgoogle');
-        return warning2 + '<br/>(' + GRP.googleshortcuts[text] + ')';
+        var w = warning2;
+		if (GRP.googleshortcuts[text]){
+			w += '<br/>(' + GRP.googleshortcuts[text].text + ')';
+		}
+		return w;
     }
     return true;
 }
 
 function setShortcut(key, ctrl){
-    if (!key.keyCode) {
+    //remove old
+	clearShortcut(key, ctrl);
+	
+	if (!key.keyCode) {
         //error
         return;
     }
-    //remove old
-    delete gshortcuts[ctrl.key];
     ctrl.value = formatKey(key);
     ctrl.key = marshallKey(key);
     //add new
     gshortcuts[ctrl.key] = key;
     prefs[ctrl.id] = ctrl.key;
+	//console.log(ctrl.id+'=='+ctrl.key);
 }
-
-//function fixShortcut(e, hidden, input){
+function clearShortcut(key, ctrl){
+	delete gshortcuts[ctrl.key];
+}
 function fixShortcut(e, input){
-    //himself?
     var newKey = marshallKey(e);
-    /*if (input.key == newKey) {
-     return;
-     }*/
     var free = isShortcutFree(e);
-    var warn = input.nextSibling;
+    var warn = getFirstElementMatchingClassName(input.parentNode, 'div', 'warning');//div.warning
+    if (!warn) {
+        warn = document.createElement('div');
+        warn.className = 'warning';
+        insertAfter(warn, input);
+    }
     if (free === true) {
-        if (warn) {
-            warn.className = 'warning hidden';
-        }
+		warn.className = 'warning hidden';
+		warn.innerHTML = '';
         input.className = '';
         setShortcut(e, input);
     } else {
-        //Already set
-        if (!hasClass(warn, 'warning')) {
-            warn = document.createElement('div');
-            warn.className = 'warning';
-            insertAfter(warn, input);
-        }
-        warn.className = 'warning';
         input.value = formatKey(e);
         input.className = 'warning';
-        warn.innerHTML = free;
+        warn.className = 'warning';
+		warn.innerHTML = free;
+		clearShortcut(e, input);
     }
 }
