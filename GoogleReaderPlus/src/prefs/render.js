@@ -139,6 +139,7 @@ var tplTextarea = '<label class="lbl {lcls}" id="t_{id}" for="{id}">{text}</labe
 var tplCheckbox = '<input id="{id}" name="{id}" type="checkbox"/><label class="lbl_checkbox" id="t_{id}" for="{id}">{text}</label><br/>';
 var tplSelect = '<label class="lbl {lcls}" id="t_{id}">{text}</label><select name="{id}" id="{id}">{options}</select><br/><br/>';
 var tplSelectOption = '<option value="{id}"{checked}>{value}</option>';
+var tplButton = '<button value="{value}" name="{name}" id="{id}" onclick="javascript:{action}();return false;">{text}</option>';
 var tplPara = '<p class="{cls}" id="t_{id}">{text}</p>';
 var tplDiv = '<div class="{cls}" id="{id}"></div>';
 function renderOptions(body, script){
@@ -203,6 +204,11 @@ function renderOptions(body, script){
                     });
                 });
                 html += fillTpl(tplSelect, o);
+            } else if (xtype === "button") {
+                o.value= o.value||'';
+				o.name= o.name||o.id;
+				o.action= cfg.action||'void';
+				html += fillTpl(tplButton, o);
             } else if (xtype === "crud") {
                 o.cls = '_crud' + ((o.cls) ? (' ' + o.cls) : '');
                 html += fillTpl(tplDiv, o);
