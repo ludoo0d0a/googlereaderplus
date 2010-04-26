@@ -1,18 +1,18 @@
 /**
  * Readitlater and instapaper API
  */
-GRP.api_readit = function(prefs, langs, script, api){
-    var SL = langs.readit;
-    SL = apply(SL, langs[script]);
+GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
+    var o = apply({}, langs.readit);
+	var SL = apply(o, scriptlangs);
     function addButton(el, entry, mode){
-        var text = SL.text + formatShortcut(script, script, prefs);
-        addBottomLink(el, SL.keyword, text, script, 'item-star star', false, readitlaterClick, false, entry, mode);
+        var text = SL.text + formatShortcut(ID, ID, prefs);
+        addBottomLink(el, SL.keyword, text, ID, 'item-star star', false, readitlaterClick, false, entry, mode);
     }
     function addKey(){
-        onKey('btn-' + script, readitlaterClick);
+        onKey('btn-' + ID, readitlaterClick);
     }
     function readitlaterClick(btn, entry, locked){
-        //var active = isActive(btn, entry, script, locked);
+        //var active = isActive(btn, entry, ID, locked);
         readitlater(entry, btn);
     }
     function readitlater(entry, btn){
@@ -72,8 +72,8 @@ GRP.api_readit = function(prefs, langs, script, api){
         });
     }
     function getAuth(){
-        var username = prefs[script+'_username'];
-        var password = prefs[script+'_password'];
+        var username = prefs[ID+'_username'];
+        var password = prefs[ID+'_password'];
         if (typeof username === "undefined" || username === '') {
             alert(SL.nologin);
             return false;
@@ -84,11 +84,11 @@ GRP.api_readit = function(prefs, langs, script, api){
         };
     }
     function clearAuth(){
-        //GM_setValue(script+'_username', '');
-        //GM_setValue(script+'_password', '');
+        //GM_setValue(ID+'_username', '');
+        //GM_setValue(ID+'_password', '');
     }
-    registerFeature(addButton, 'e' + script);
-    var keycode = getShortcutKey(script, script, prefs);
+    registerFeature(addButton, ID);
+    var keycode = getShortcutKey(ID, 'share', prefs);
     keycode.fn = addKey;
     initKey(keycode);
 };

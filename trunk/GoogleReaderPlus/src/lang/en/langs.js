@@ -207,12 +207,12 @@ nopopup:'<p>If you don\'t want to be alerted on new version updates, check optio
         shortener_pwd: "Password"
     },
     instapaper: {
-auth: "Instapaper authentication:",
+auth: "<a href='http://www.instapaper.com' target='blank'>Instapaper</a> authentication:",
         username: "Username:",
 password: "Password (optional):"
     },
 readitlater: {
-	auth: "ReadItLater <a href='http://readitlaterlist.com/signup' target='blank'>authentication</a> (required):",
+	auth: "<a href='http://www.readitlaterlist.com' target='blank'>ReadItLater</a> <a href='http://readitlaterlist.com/signup' target='blank'>authentication</a> (required):",
 	username: "Username:",
 	password: "Password:"
 },

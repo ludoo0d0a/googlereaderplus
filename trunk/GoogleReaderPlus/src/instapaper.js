@@ -15,7 +15,7 @@ GRP.instapaper = function(prefs, langs, ID, SL, lang){
     var api = {
         add: 'https://www.instapaper.com/api/add',
         auth: 'https://www.instapaper.com/api/authenticate',
-		successCode:200,
+		successCode:201,
 		errors: {
 	        //400: Bad request. Probably missing a required parameter, such as url.
 	        400: 'badrequest',
@@ -25,5 +25,5 @@ GRP.instapaper = function(prefs, langs, ID, SL, lang){
 	        500: 'error'
 	    }
 	};
-    GRP.api_readit(prefs, langs, 'instapaper', api);
+    GRP.api_readit(prefs, langs, ID, SL, lang, api);
 };

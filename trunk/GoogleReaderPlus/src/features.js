@@ -309,8 +309,8 @@ GRP.scripts = {
             }
         },
         shortcuts: {
-            'readitlater': {
-                id: 'readitlater',
+            'share': {
+                id: 'share',
                 title: 'Read Later with Instapaper',
                 key: {
                     //73 i
@@ -335,8 +335,8 @@ GRP.scripts = {
             }
         },
         shortcuts: {
-            'ril': {
-                id: 'ril',
+            'share': {
+                id: 'share',
                 title: 'Read Later with ReadItLater',
                 key: {
                     //76 l
