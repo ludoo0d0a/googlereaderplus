@@ -85,6 +85,10 @@ GRP.langs[locale].scripts = {
         name: "Filter entries",
         desc: "Filter entries by removing or highligting items based on user terms"
     },
+	limit: {
+        name: "Limit entries",
+        desc: "Limit entries number in one page. Read items are removed to fit in a range"
+    },
     readbymouse: {
         name: "Read by mouse",
         desc: "Next/previous item using right/left mouse click"
