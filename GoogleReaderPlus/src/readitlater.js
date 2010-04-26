@@ -22,5 +22,5 @@ GRP.readitlater = function(prefs, langs, ID, SL, lang){
 	        503: 'maintenance'
 	    }
     };
-    GRP.api_readit(prefs, langs, 'readitlater', api);
+    GRP.api_readit(prefs, langs, ID, SL, lang, api);
 };
