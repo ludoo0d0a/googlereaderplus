@@ -14,7 +14,7 @@
         <script type="application/javascript" src="prefs/itheme.js">
         </script>
         <script type="text/javascript" src="http://www.google.com/jsapi">
-        </script>            
+        </script>
         <script type="application/javascript">
             var READING_LIST_RE_ = new RegExp('user/[\\d]+/state/com\\.google/reading-list');
             chrome.extension.onRequest.addListener(onRequest);
@@ -54,12 +54,12 @@
                     request(a, false, cb);
                 } else if (a.message == "igtheme") {
                     igtheme(a, cb);
-                }else if (a.message == "translate") {
+                } else if (a.message == "translate") {
                     translate(a, cb);
                 }
             }
-			
-			
+            
+
             
             /**
              * Icon monitor for unreead count
@@ -496,7 +496,6 @@
             //Try to find opened tab before open it
             function open_tab(a){
                 if (a.search) {
-                
                     var o = {
                         search: new RegExp(a.search.replace(/^https?/, 'https?').replace(/#.*$/, '')),
                         url: a.url
@@ -528,8 +527,8 @@
                         }
                     } else {
                         if (create) {
-                            a.selected=selected;
-							opentab(a);
+                            a.selected = selected;
+                            opentab(a);
                         }
                     }
                     if (fn && typeof fn === "function") {
@@ -585,11 +584,11 @@
             }
             
             function igtheme(o, cb){
-				if (o.type === 'random') {
-					//random theme
-                    getRandomTheme(o.current,function(entry){
-						prefs=getPrefs();
-						prefs.ig_skin_name = entry.title;
+                if (o.type === 'random') {
+                    //random theme
+                    getRandomTheme(o.current, function(entry){
+                        prefs = getPrefs();
+                        prefs.ig_skin_name = entry.title;
                         prefs.ig_skin_id = entry.skin_id;
                         prefs.ig_skin_url = entry.link;
                         setPrefs(prefs);
@@ -597,19 +596,20 @@
                     }, true);
                 }
             }
-			
-			
-			function translate(o, cb){
-				function trad(){
-					google.language.translate(o.text, o.from||'', o.to, function(a){
-						cb(a);
-					});
-				}
-				if (!google.language){
-					google.load("language", "1", {"callback" : trad});
-				}else{
-					trad();
-				}
+            
+            function translate(o, cb){
+                function trad(){
+                    google.language.translate(o.text, o.from || '', o.to, function(a){
+                        cb(a);
+                    });
+                }
+                if (!google.language) {
+                    google.load("language", "1", {
+                        "callback": trad
+                    });
+                } else {
+                    trad();
+                }
             }
             
             function sendResponse(a, cb){
@@ -640,14 +640,14 @@
                 if (v === null || v !== GRP.VERSION) {
                     localStorage.setItem('grp_version', GRP.VERSION);
                     //upgrade();
-					if (!prefs.general_noupdatepopup) {
-						//no popup on minor updates
-						if (isVersionMajorUpdated(v, GRP.VERSION)) {
-							opentab({
-								url: "about.html"
-							});
-						}
-					}
+                    if (!prefs.general_noupdatepopup) {
+                        //no popup on minor updates
+                        if (isVersionMajorUpdated(v, GRP.VERSION)) {
+                            opentab({
+                                url: "about.html"
+                            });
+                        }
+                    }
                 }
             }
         </script>
