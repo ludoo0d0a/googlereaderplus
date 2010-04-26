@@ -268,3 +268,4 @@ function checkImages(el){
 function dblQuote(txt){
     return txt.replace(/\"/g, "%#22").replace(/'/g, "\"").replace(/%#22/g, "\"");
 }
+

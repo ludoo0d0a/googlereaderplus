@@ -9,7 +9,7 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
     var skin_name = prefs.ig_skin_name||'';
     var ig_debug = prefs.ig_debug;
     var menu_item;
-    var css = ''; //GM_getValue('theme_ig'+name???);
+    var css = GM_getValue('cache_ig_'+skin_name);
     fixMenu();
     if (prefs.ig_userandomthemes) {
         var t = parseInt(prefs.ig_randomthemes, 10) || 5;
@@ -183,7 +183,7 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
                 css = '/* '+skin_name+' */'+fillTpl(tplCss, colors);
                 GM_addStyle(css, 'rps_ig');
                 //cache css
-                GM_setValue('theme_ig', css);
+                GM_setValue('cache_ig_'+skin_name, css);
             }
         });
     }
