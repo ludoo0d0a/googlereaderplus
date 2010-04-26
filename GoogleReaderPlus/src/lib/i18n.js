@@ -1,13 +1,16 @@
 /**
  * @author Valente
  */
-function getText(lang, script, option, deflang){
+function getText(lang, script, option, deflang, deftext){
 	var text = '';
 	if (GRP.langs[lang] && GRP.langs[lang].texts[script] && GRP.langs[lang].texts[script][option]) {
         text = GRP.langs[lang].texts[script][option];
     }
 	if (!text && deflang){
-		text=getText(deflang, script, option);
+		text=getText(deflang, script, option, false, deftext);
+	}
+	if (!text && !deflang) {
+		text=deftext||'';
 	}
 	return text;
 }
@@ -27,14 +30,17 @@ function getCategory(lang, name, deflang){
 }
 
 
-function getTextPrefs(lang, script, option, deflang){
+function getTextPrefs(lang, script, option, deflang, deftext){
 	var text = '';
 	if (GRP.langs[lang] && GRP.langs[lang].prefs[script] && GRP.langs[lang].prefs[script][option]) {
         text = GRP.langs[lang].prefs[script][option];
     }
 	if (!text && deflang){
-		text=getTextPrefs(deflang, script, option);
+		text=getTextPrefs(deflang, script, option, false, deftext);
 	}
+	if (!text && !deflang) {
+		text=deftext||'';
+	}	
 	return text;
 }
 
