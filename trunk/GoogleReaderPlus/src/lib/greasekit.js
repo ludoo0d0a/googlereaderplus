@@ -4,12 +4,12 @@ var PREFIX = "readerplus.";
 if (typeof GM_getValue === "undefined") {
     GM_getValue = function(name, def){
         //Move old nameing value to new prefixed place
-		var value = localStorage.getItem(name);
-		if (value) {
-			GM_setValue(PREFIX+name, value);
-			localStorage.removeItem(name);//remove old
+        var value = localStorage.getItem(name);
+        if (value) {
+            GM_setValue(PREFIX + name, value);
+            localStorage.removeItem(name);//remove old
         }
-		value = localStorage.getItem(PREFIX+name);
+        value = localStorage.getItem(PREFIX + name);
         if (value === null && def !== null) {
             value = def;
         }
@@ -39,9 +39,8 @@ if (typeof GM_getCookieValue === "undefined") {
 if (typeof GM_setValue === "undefined") {
     GM_setValue = function(name, value, options){
         try {
-            localStorage.setItem(PREFIX+name, value);
-        } 
-        catch (e) {
+            localStorage.setItem(PREFIX + name, value);
+        } catch (e) {
             console.log('error on GM_setValue[' + name + ']=' + value);
         }
     };
@@ -65,6 +64,16 @@ if (typeof GM_setCookieValue === "undefined") {
         document.cookie = curCookie;
     };
 }
+function clearcache(){
+    var name, v;
+    for (var i = 0; i <= localStorage.length - 1; i++) {
+        name = localStorage.key(i);
+        if ((/^readerplus\.theme_/.test(name)) || (/^readerplus\.cache/.test(name))) {
+            localStorage.removeItem(name);
+        }
+    }
+	info(getTextPrefs(lang, 'global', 'cachecleared', 'en', "Cache cleared"));
+}
 
 function sendMessage(message, o, callback){
     var a = clone(o) || {};
@@ -80,7 +89,7 @@ function sendMessage(message, o, callback){
 
 if (typeof GM_xmlhttpRequest === "undefined") {
     GM_xmlhttpRequest = function(o){
-		o.method = (o.method)?o.method.toUpperCase():"GET";
+        o.method = (o.method) ? o.method.toUpperCase() : "GET";
         if (!o.url) {
             throw ("GM_xmlhttpRequest requires an URL.");
         }
@@ -105,57 +114,54 @@ if (typeof GM_xmlhttpRequest === "undefined") {
         });
     };
 }
-
 if (typeof GM_addStyle === "undefined") {
     function GM_addStyle(/* String */styles, id){
         var el;
-		if (id) {
-			el = document.getElementById(id);
-		}
-		if (!el) {
-			el = document.createElement("style");
-			el.setAttribute("type", "text\/css");
-			if (id) {
-				el.id = id;
-			}
-			el.appendChild(document.createTextNode(styles));
-			document.getElementsByTagName("head")[0].appendChild(el);
-		}else{
-			//update
-			el.innerText=styles;//textContent??
-		}
-		return el;
+        if (id) {
+            el = document.getElementById(id);
+        }
+        if (!el) {
+            el = document.createElement("style");
+            el.setAttribute("type", "text\/css");
+            if (id) {
+                el.id = id;
+            }
+            el.appendChild(document.createTextNode(styles));
+            document.getElementsByTagName("head")[0].appendChild(el);
+        } else {
+            //update
+            el.innerText = styles;//textContent??
+        }
+        return el;
     }
 }
-
 if (typeof GM_addScript === "undefined") {
     function GM_addScript(script, remote, cb, cbonerror, scope, time){
-		//var id = script.replace(/[\.:-_\/\\]/g, '');
-		var id = script;
-		var s = document.getElementById(id);
+        //var id = script.replace(/[\.:-_\/\\]/g, '');
+        var id = script;
+        var s = document.getElementById(id);
         if (s) {
             if (cbonerror && cb) {
                 cb.call(this);
             }
         } else {
             if (remote) {
-                GM_xmlhttpRequest(
-                {
+                GM_xmlhttpRequest({
                     method: 'get',
                     url: script,
                     onload: function(r){
                         if (remote === 'inline') {
-							GM_addjs(script, true, id, cb, scope, time);
-						}else{
-							eval(r.responseText);
-							if (cb) {
-	                            cb.call(scope||this);
-	                        }
-						}
+                            GM_addjs(script, true, id, cb, scope, time);
+                        } else {
+                            eval(r.responseText);
+                            if (cb) {
+                                cb.call(scope || this);
+                            }
+                        }
                     },
                     onerror: function(r){
                         if (cbonerror && cb) {
-                            cb.call(scope||this);
+                            cb.call(scope || this);
                         }
                         console.error('Error on loading Javascript ' + script);
                     }
@@ -165,48 +171,44 @@ if (typeof GM_addScript === "undefined") {
             }
         }
     }
-	
-	function GM_addjs(script, inline, id, cb, scope, time){
-		var el = document.createElement("script");
-		el.setAttribute("type", "text\/javascript");
-		if (inline) {
-			el.innerText = script;
-		} else {
-			el.setAttribute("src", script);
-		}
-		if (id) {
-			el.setAttribute("id", id);
-		}
+    function GM_addjs(script, inline, id, cb, scope, time){
+        var el = document.createElement("script");
+        el.setAttribute("type", "text\/javascript");
+        if (inline) {
+            el.innerText = script;
+        } else {
+            el.setAttribute("src", script);
+        }
+        if (id) {
+            el.setAttribute("id", id);
+        }
         document.getElementsByTagName("head")[0].appendChild(el);
-		if (cb) {
-			window.setTimeout(function(){
-				cb.call(scope || this);
-			}, time || 500);
-		}
-	}
-	
-	/**
-	 * Pack for GM_addScript + check + callback
-	 * @param {Object} script
-	 * @param {Object} remote
-	 * @param {Object} check
-	 * @param {Object} cb
-	 * @param {Object} scope
-	 */
-	function GM_loadScript(script, remote, check, cb, scope){
-		function cbwait(){
-        	waitlib(check, cb, scope);
-		}
-		function cbonerror(){
-        	if (cb) {
-				cb.call(scope || this);
-			}
-		}
-		GM_addScript(script, remote, cbwait, cbonerror, scope);
-	}
-	
+        if (cb) {
+            window.setTimeout(function(){
+                cb.call(scope || this);
+            }, time || 500);
+        }
+    }
+    /**
+     * Pack for GM_addScript + check + callback
+     * @param {Object} script
+     * @param {Object} remote
+     * @param {Object} check
+     * @param {Object} cb
+     * @param {Object} scope
+     */
+    function GM_loadScript(script, remote, check, cb, scope){
+        function cbwait(){
+            waitlib(check, cb, scope);
+        }
+        function cbonerror(){
+            if (cb) {
+                cb.call(scope || this);
+            }
+        }
+        GM_addScript(script, remote, cbwait, cbonerror, scope);
+    }
 }
-
 if (typeof GM_addCss === "undefined") {
     function GM_addCss(css){
         var el = document.createElement("link");
@@ -216,61 +218,52 @@ if (typeof GM_addCss === "undefined") {
         document.getElementsByTagName("head")[0].appendChild(el);
     }
 }
-
 if (typeof GM_log === "undefined") {
     function GM_log(log){
         console.log(log);
     }
 }
-
 if (typeof GM_registerMenuCommand === "undefined") {
     function GM_registerMenuCommand(a, b){
         //
     }
 }
-
 if (typeof GM_openInTab === "undefined") {
     GM_openInTab = function(url, selected, search, index, windowId){
         //send request port to bg
         if (typeof selected == "undefined") {
             selected = true;
         }
-        var data = 
-        {
-            message:'opentab',
-			url: url,
-			search:search||url,
+        var data = {
+            message: 'opentab',
+            url: url,
+            search: search || url,
             selected: selected,
             index: index,
             windowId: windowId
         };
-		chrome.extension.sendRequest(data);
+        chrome.extension.sendRequest(data);
     };
 }
-
 if (typeof unsafeWindow === "undefined") {
     unsafeWindow = window;
 }
-
 if (typeof(this['clone']) !== 'function') {
     clone = function(o){
         try {
             return eval(uneval(o));
-        } 
-        catch (e) {
+        } catch (e) {
             throw (e);
         }
     };
 }
-
 /**
  * uneval for prefetch !!
  */
 if (typeof(this['uneval']) !== 'function') {
     var hasOwnProperty = Object.prototype.hasOwnProperty;
     var protos = [];
-    var char2esc = 
-    {
+    var char2esc = {
         '\t': 't',
         '\n': 'n',
         '\v': 'v',
@@ -281,8 +274,7 @@ if (typeof(this['uneval']) !== 'function') {
         '\\': '\\'
     };
     var escapeChar = function(c){
-        if (c in char2esc) 
-            return '\\' + char2esc[c];
+        if (c in char2esc) return '\\' + char2esc[c];
         var ord = c.charCodeAt(0);
         return ord < 0x20 ? '\\x0' + ord.toString(16) : ord < 0x7F ? '\\' + c : ord < 0x100 ? '\\x' + ord.toString(16) : ord < 0x1000 ? '\\u0' + ord.toString(16) : '\\u' + ord.toString(16);
     };
@@ -290,8 +282,7 @@ if (typeof(this['uneval']) !== 'function') {
         return o.toString();
     };
     /* predefine objects where typeof(o) != 'object' */
-    var name2uneval = 
-    {
+    var name2uneval = {
         'boolean': uneval_asis,
         'number': uneval_asis,
         'string': function(o){
@@ -304,23 +295,19 @@ if (typeof(this['uneval']) !== 'function') {
         },
         'function': uneval_asis
     };
-    
     var uneval_default = function(o, np){
         var src = []; // a-ha!
         for (var p in o) {
-            if (!hasOwnProperty.call(o, p)) 
-                continue;
+            if (!hasOwnProperty.call(o, p)) continue;
             src[src.length] = uneval(p) + ':' + uneval(o[p], 1);
         }
         // parens needed to make eval() happy
         return np ? '{' + src.toString() + '}' : '({' + src.toString() + '})';
     };
-    
     uneval_set = function(proto, name, func){
         protos[protos.length] = [proto, name];
         name2uneval[name] = func || uneval_default;
     };
-    
     uneval_set(Array, 'array', function(o){
         var src = [];
         for (var i = 0, l = o.length; i < l; i++) 
@@ -331,24 +318,19 @@ if (typeof(this['uneval']) !== 'function') {
     uneval_set(Date, 'date', function(o){
         return '(new Date(' + o.valueOf() + '))';
     });
-    
     var typeName = function(o){
         // if (o === null) return 'null';
         var t = typeof o;
-        if (t != 'object') 
-            return t;
+        if (t != 'object') return t;
         // we have to lenear-search. sigh.
         for (var i = 0, l = protos.length; i < l; i++) {
-            if (o instanceof protos[i][0]) 
-                return protos[i][1];
+            if (o instanceof protos[i][0]) return protos[i][1];
         }
         return 'object';
     };
-    
     uneval = function(o, np){
         // if (o.toSource) return o.toSource();
-        if (o === null) 
-            return 'null';
+        if (o === null) return 'null';
         var func = name2uneval[typeName(o)] || uneval_default;
         return func(o, np);
     };
