@@ -4,6 +4,7 @@
  */
 GRP.api_entry = function(prefs, langs, ID, SL, lang, edata){
     var locked = getPref('locked');
+	var include = getPref('include');//CRUD for include/exclude
 	var rx = getRegex(getPref('filter'));
 	
 	function getPref(name){
@@ -16,15 +17,25 @@ GRP.api_entry = function(prefs, langs, ID, SL, lang, edata){
 	
     function addButton(el, entry, mode){
         var text = (SL.text || ID) + formatShortcut(ID, edata.action, prefs); //[x]
-        addBottomLink(el, SL.keyword || ID, text, ID, '', true, filterize, locked, entry, mode);
+        addBottomLink(el, SL.keyword || ID, text, ID, '', true, filterize, locked||include, entry, mode);
     }
 	
 	function filterize(btn, entry, lcked, e){
-		var locked = (lcked && (typeof e === "undefined"));
-        if (locked && filterEntry(entry, rx)) {
-            //Regex filtered
-            return false;
-        }
+        if (typeof e === "undefined") {
+			//auto
+			if (locked) {
+				if (filterEntry(entry, rx)) {
+					//In exclusion list
+					return false;
+				}
+			}
+			if (include) {
+				if (!filterEntry(entry, rx)) {
+					//Not in inclusion list
+					return false;
+				}
+			}
+		}
 		var active = isActive(btn, entry, '', locked);
 		if (active && edata.cb){
 			edata.cb(entry, active, btn, e);
