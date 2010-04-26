@@ -80,6 +80,10 @@ GRP.langs[locale].scripts = {
         name: "Filtrage",
         desc: "Filtrer les articles en le supprimant ou en les mettant em surbrillance grâce à vos mots clés"
     },
+	limit: {
+        name: "Limitation",
+        desc: "Limiter le nombre d'aticles dans une page. Les articles lus sont retirés pour rester avec un nombre raisonnable d'éléments."
+    },	
     readbymouse: {
         name: "Lecture par souris",
         desc: "Lire les articles avec votre souris. Clid croit ou gauche pour aller sur l'élément suivant pour précédent"
