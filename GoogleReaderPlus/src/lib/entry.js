@@ -134,7 +134,7 @@ function checkEntry(el, fn, params){
 
 function filterEntry(entry, rx){
     var o = getEntryLink(entry);
-    return (rx && rx.test(o.url));
+    return (rx && (rx.test(o.url) || (o.feed && rx.test(o.feed))));
 }
 
 function getRegex(urls){
@@ -143,7 +143,9 @@ function getRegex(urls){
     }
     var escaped = [];
     for (var i = 0, len = urls.length; i < len; i++) {
-        escaped.push(encodeRE(urls[i]));
+        if (urls[i]) {
+			escaped.push(encodeRE(urls[i]));
+		}
     }
     return new RegExp(escaped.join("|"), "i");
 }
@@ -235,7 +237,7 @@ function getEntrySiteTitle(ent){
 function getEntryLink(ent){
     //<a class="ilink entry-title-link" href="#" title="Open as preview [q]"> Il écope de 5 ans pour avoir parlé de sexe à la télé</a>
     //<a class="entry-title-link iframe title-link-url" target="_blank" href="http://www.lessentiel.lu/news/monde/story/17066269" title="Open in a new window"><div class="entry-title-maximize"></div></a>	
-    var o = {}, entry = ent || getCurrentEntry();
+    var o = {feed:''}, entry = ent || getCurrentEntry();
     var link = getFirstElementByClassName(entry, 'grp-link-url');//'a'
     if (!link) {
         //Normal way
@@ -245,6 +247,7 @@ function getEntryLink(ent){
             o.link = link;
             o.title = link.textContent;
 			o.eltitle=link;
+			
         } else {
             //Feed from html (non RSS page)
             var etitle = getFirstElementByClassName(entry, 'entry-title');//'h2'
@@ -269,7 +272,28 @@ function getEntryLink(ent){
             link: link
         };
     }
+	//
+	o.feed=getFeedEntry(entry);
+	
     return o;
+}
+
+function getFeedEntry(entry){
+	var url; 
+	var est = getFirstElementByClassName(entry, 'entry-source-title');//'a'
+	if (est) {
+		url = decodeURIComponent(est.href.replace(/^.*?view\/feed\//, ''));
+	}
+	
+	if (!url) {
+		//Find using current selected nav item 
+		var nav=get_id('nav'), tls = getFirstElementByClassName(nav, 'tree-link-selected');//'a'
+		if (tls) {
+			url = decodeURIComponent(tls.href.replace(/^.*?view\/feed\//, ''));
+		}
+	}
+	
+	return url;
 }
 
 function openEntryInNewTab(entry, selected){
