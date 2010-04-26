@@ -12,10 +12,11 @@
  */
 //TODO: 
 // - walk inside text nodes ONLY
-// - locked + CRUD (within API) 
 // - web feeds
 // - check compatibility with features (preview, column...)
 // - Add a back to original (2 divs like columns,replacer ??)
+// - Translate into mylanguage already exist -> Can we be better ?
+// - Translate feed title too
 GRP.translate = function(prefs, langs, ID, SL, lang){
     var langDest = prefs.translate_lang || lang;
 
@@ -50,17 +51,18 @@ GRP.translate = function(prefs, langs, ID, SL, lang){
 				to: langDest
 			}, function(a){
 				if (a.detectedSourceLanguage !== langDest) {
+					var t = (a.translation||'').replace('&#39;', "'");
 					if (mode === 'html') {
-						el.innerHTML = a.translation;
+						el.innerHTML = t;
 					} else if (mode === 'direct') {
 						el = a.translation;
 					} else if (mode === 'text') {
 						if (el.innerText) {
-							el.innerText = a.translation;
+							el.innerText = t;
 						} else if (el.textContent) {
-							el.textContent = a.translation;
+							el.textContent = t;
 						} else {
-							el = a.translation;
+							el = t;
 						}
 					}
 				}
