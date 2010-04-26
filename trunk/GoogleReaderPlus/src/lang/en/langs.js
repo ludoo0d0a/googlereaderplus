@@ -147,14 +147,17 @@ GRP.langs[locale].prefs = {
         "val-save": "Save",
         alreadyexist: "Item already exists!",
 		snew:'new!',
-		supdated:'Updated!'
+		supdated:'Updated!',
+prefssaved:"Preferences saved!",
+cachecleared:"Cache cleared!"
     },
     theme: {
         noborder: "Remove entries borders to display more items on a single page",
 		mytheme: 'Use <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">custom background picture</a> and font color with skin "MyTheme"',
 		url:'Picture URL',
 		color:'Text color',
-		bg:'Background color'
+		bg:'Background color',
+clearcache:'Clear cache'
     },
 	ig: {
 		warning:'Some themes could be displayed incorrectly ; this is a Beta feature!',
@@ -195,9 +198,15 @@ nopopup:'<p>If you don\'t want to be alerted on new version updates, check optio
     },
     column: {
         count: "Columns number",
-        locked: "Feature 'Column' always actived by default, except for :",
+        locked: "Always actived, except following feeds:",
         pagebreak: "Break long articles so long articles can be read page by page like a newspaper.",
-        "entersite": "Enter URL of the site"
+        entersite: "Enter URL of the site"
+    },
+	translate: {
+        lang:"Translate content into ",
+		locked: "Always actived, except for:",
+        include:"Only include following feeds:",
+		entersite: "Enter URL of the site"
     },
     twitter: {
         shortener: "Shortener",
@@ -241,11 +250,11 @@ slidewindowmaxi: "Maximum items",
     },
     preview: {
         onicon: "Show integrated preview when click on icon right after the title (if not checked, on title)",
-        locked: "Feature 'Preview' always actived by default, except for :",
+        locked: "Always actived, except following feeds:",
 overlay:'Fullscreen preview (Lightbox)'
     },
     fitheight: {
-        locked: "Feature 'Fit height' always actived by default, except for :"
+        locked: "Always actived, except following feeds:"
     },
 	filter: {
         searchbody: "Search inside title and body text"
@@ -258,17 +267,18 @@ overlay:'Fullscreen preview (Lightbox)'
         tip: "Tip: You could add it easily using the contextual menu \"Get favicon\" of the left side bar",
         manual: "Manual favicons for all sites (not recommended ; slower)",
         parsing: "This will try to detect favicon by parsing each homepage",
-        "entersite": "Enter URL of the site",
-        "prompticon": "Enter the icon url (let empty to get it automatically):"
+        entersite: "Enter URL of the site",
+        prompticon: "Enter the icon url (let empty to get it automatically):"
     },
     replacer: {
         intro: 'You can use <a href="http://karmatics.com/aardvark/bookmarklet.html" target="blank">Aardvark bookmarklet</a> to identify correct xpath instead regex (Use prefix "xpath:")',
         link: "Link Regex",
         from: "Search regex/xpath",
-        to: "Replace"
+        to: "Replace",
+		prompttitle: "Title for this filter"
     },
     lightbox: {
-        locked: "Feature 'Lightbox' always actived by default, except for :"
+        locked: "Always actived, except following feeds:"
     },
     relook: {
         css: "CSS stylesheet",
