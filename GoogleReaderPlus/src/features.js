@@ -11,9 +11,6 @@ GRP.scripts = {
 			opendirect: false,
             topcurrent: false,
 			floatactions: false,
-			slidewindow: false,
-			slidewindowmini:30,
-			slidewindowmaxi:200,
             noupdatepopup: false,
             icontoolbar_add: {
                 xtype: 'p'
@@ -461,9 +458,9 @@ GRP.scripts = {
             }
         }
 	},
-	slidewindow:{
-		name: "Slidewindow",
-		category:'navigation',
+	limit:{
+		name: "Limit",
+		category:'layout',
 		status:'new',
 		options: {
             mini:30,
