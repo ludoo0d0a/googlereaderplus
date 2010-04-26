@@ -37,6 +37,7 @@ GRP.scripts = {
         options: {
             skin: '',
             noborder: false,
+			clearcache:{xtype:'button',action:'clearcache'},
             mytheme: {
                 xtype: 'p',
                 parent: 'mto'
@@ -442,7 +443,11 @@ GRP.scripts = {
 		status:'new',
 		options: {
             lang: 'en',
-			locked:false
+			locked:false,
+			include:false,
+			filter: {
+                xtype: 'crud'
+            }
 		},
 		shortcuts: {
             'translate': {
@@ -654,6 +659,7 @@ GRP.skins = {
         url: 'http://userstyles.org/styles/userjs/17120/Google%20Reader%20simple%20and%20clean.user.js',
         pic: 'http://userstyles.org/style_screenshots/17120_after.gif',
         ref: 'http://userstyles.org/styles/17120',
+		fix:'.entry-actions{height: auto!important;}',
         desc: 'userstyles.org'
     },
     peacockfeather: {
