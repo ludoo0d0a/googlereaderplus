@@ -78,7 +78,7 @@ function saveprefs(reload, cleanall){
         cleanall: cleanall || false
     });
     run_extshortcuts();
-    info("Preferences saved");
+    info(getTextPrefs(lang, 'global', 'prefssaved', 'en', "Preferences saved"));
     if (reload) {
         window.location.reload();
     }
