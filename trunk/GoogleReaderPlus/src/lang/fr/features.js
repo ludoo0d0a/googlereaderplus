@@ -83,7 +83,7 @@ GRP.langs[locale].scripts = {
 	limit: {
         name: "Limitation",
         desc: "Limiter le nombre d'aticles dans une page. Les articles lus sont retirés pour rester avec un nombre raisonnable d'éléments."
-    },	
+    },
     readbymouse: {
         name: "Lecture par souris",
         desc: "Lire les articles avec votre souris. Clid croit ou gauche pour aller sur l'élément suivant pour précédent"
@@ -98,11 +98,11 @@ GRP.langs[locale].scripts = {
     },
     instapaper: {
         name: "Instapaper",
-        desc: "partager et lire plus tard vos articles via Instapaper"
+        desc: "Partager et lire plus tard vos articles via Instapaper"
     },
 	readitlater: {
         name: "ReadItLater",
-        desc: "partager et lire plus tard vos articles via ReadItLater"
+        desc: "Partager et lire plus tard vos articles via ReadItLater"
     },
     mark: {
         name: "Marquer comme lus",
@@ -192,5 +192,32 @@ GRP.langs[locale].skins = {
     },
     osxblack: {
         name: "Mac OS X Snow Leopard - Noir"
-    }
+    },
+	calibri: {
+        name: "Calibri"
+    },
+	glassblackgold: {
+        name: "Or foncé brillant"
+    },
+    simpleclean: {
+        name: "Simple et propre"
+    },
+    peacockfeather: {
+        name: "Plume de paon"
+    },
+    myowngooglereader: {
+        name: "Mon Google Reader"
+    },
+    compactcleantweaked: {
+        name: "Compact, propre & amélioré"
+    },
+    absolutelycompact: {
+        name: "Absolutement compact"
+    },
+    darkshinyblue: {
+        name: "Bleu foncé brillant"
+    },
+	persian: {
+        name: "Perse optimisé"
+	}
 };
