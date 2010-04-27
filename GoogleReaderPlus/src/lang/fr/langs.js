@@ -207,12 +207,12 @@ nopopup:'<p>Si vous ne voulez plus être averties des mises à jour, cocher l\'o
         shortener_pwd: "Mot de passe"
     },
     instapaper: {
-        auth: "Authentification de Instapaper (optionnel):",
+        auth: "Authentification de <a href='http://www.instapaper.com' target='blank'>Instapaper</a> (optionnel):",
         username: "Utilisateur:",
         password: "Mot de passe:"
     },
     readitlater: {
-		auth: "<a href='http://readitlaterlist.com/signup' target='blank'>Authentification</a> pour ReadItLater (obligatoire):",
+		auth: "<a href='http://readitlaterlist.com/signup' target='blank'>Authentification</a> pour <a href='http://readitlaterlist.com' target='blank'>ReadItLater</a> (obligatoire):",
 		username: "Utilisateur:",
 		password: "Mot de passe:"
 	},
@@ -228,7 +228,7 @@ floatactions: "Menu 'actions' est affiché dans une fenêtre volante",
 noupdatepopup: "Plus de popup lors des mises à jour",
         icontoolbar_add: "Pour ajouter un bouton avec icône dans la barre d'outil, veuillez <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">télécharger et installer le bouton</a>.",
         icontoolbar_text: "<span>Afin de le rendre optionnel, nous fournissons le bouton sous forme d'une extension indépendante,</span><br><span>à installé en plus de ReaderPlus.</span><br><span>Pour ajouter le bouton, cliquer <b>Installer</b> sur la page <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">bouton pour ReaderPlus</a>.</span><br><span>Pour retirer le bouton, un clic droit et choisissez 'Désactiver'.</span>",
-        importexport_text: "You can now save your preferences using 'export' and reload it later using 'import':",
+importexport_text: "Vous pouvez sauver vos préférences avec la fonction 'export' et les rechqrger plus tard avec 'import', mais assurez vous de la <a href='http://jsonformatter.curiousconcept.com/' target='blank'>validité du format JSON</a>:",
         confirmimport: "Etes-vous sur de vouloir importer cette configuration?\nLa configuration actuelle sera perdue"
     },
     removeads: {
