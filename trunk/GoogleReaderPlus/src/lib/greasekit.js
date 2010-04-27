@@ -72,7 +72,7 @@ function clearcache(){
             localStorage.removeItem(name);
         }
     }
-	info(getTextPrefs(lang, 'global', 'cachecleared', 'en', "Cache cleared"));
+    info(getTextPrefs(lang, 'global', 'cachecleared', 'en', "Cache cleared"));
 }
 
 function sendMessage(message, o, callback){
@@ -133,6 +133,18 @@ if (typeof GM_addStyle === "undefined") {
             el.innerText = styles;//textContent??
         }
         return el;
+    }
+}
+if (typeof GM_addCss === "undefined") {
+    function GM_addCss(css, id){
+        var el = document.createElement("link");
+        el.setAttribute("rel", "stylesheet");
+        el.setAttribute("type", "text\/css");
+        el.setAttribute("href", css);
+        if (id) {
+            el.id = id;
+        }
+        document.getElementsByTagName("head")[0].appendChild(el);
     }
 }
 if (typeof GM_addScript === "undefined") {
@@ -207,15 +219,6 @@ if (typeof GM_addScript === "undefined") {
             }
         }
         GM_addScript(script, remote, cbwait, cbonerror, scope);
-    }
-}
-if (typeof GM_addCss === "undefined") {
-    function GM_addCss(css){
-        var el = document.createElement("link");
-        el.setAttribute("rel", "stylesheet");
-        el.setAttribute("type", "text\/css");
-        el.setAttribute("href", css);
-        document.getElementsByTagName("head")[0].appendChild(el);
     }
 }
 if (typeof GM_log === "undefined") {
