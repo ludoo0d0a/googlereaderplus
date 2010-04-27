@@ -247,10 +247,12 @@
                 iterate(GRP.scripts, function(id, script){
                     //options
                     iterate(script.options, function(option, o){
-                        id = script.id + '_' + option;
-                        if (typeof prefs[id] === "undefined") {
-                            prefs[id] = getTypedValue(o);
-                        }
+                        if (!(o && typeof o === 'object' && o.label)) {
+							id = script.id + '_' + option;
+							if (typeof prefs[id] === "undefined") {
+								prefs[id] = getTypedValue(o);
+							}
+						}
                     });
                     //shortcuts
                     iterate(script.shortcuts, function(shortcut, o){
