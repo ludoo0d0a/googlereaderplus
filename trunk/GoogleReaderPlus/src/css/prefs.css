@@ -301,6 +301,10 @@ span.updated{
     padding: 5px;
 }
 
+#status.error{
+	background-color: #EE1111;
+}
+
 /**
  * Theme
  */
