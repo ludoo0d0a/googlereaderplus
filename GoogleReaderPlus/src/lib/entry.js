@@ -281,15 +281,15 @@ function getEntryLink(ent){
 function getFeedEntry(entry){
 	var url; 
 	var est = getFirstElementByClassName(entry, 'entry-source-title');//'a'
-	if (est) {
+	//TODO/ listview=span but no href (could we use text label to match in nav tree?)
+	if (est && est.href) {
 		url = decodeURIComponent(est.href.replace(/^.*?view\/feed\//, ''));
-	}
-	
-	if (!url) {
-		//Find using current selected nav item 
-		var nav=get_id('nav'), tls = getFirstElementByClassName(nav, 'tree-link-selected');//'a'
-		if (tls) {
-			url = decodeURIComponent(tls.href.replace(/^.*?view\/feed\//, ''));
+		if (!url) {
+			//Find using current selected nav item 
+			var nav = get_id('nav'), tls = getFirstElementByClassName(nav, 'tree-link-selected');//'a'
+			if (tls) {
+				url = decodeURIComponent(tls.href.replace(/^.*?view\/feed\//, ''));
+			}
 		}
 	}
 	
