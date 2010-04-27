@@ -31,7 +31,7 @@ GRP.jump = function(prefs, langs, ID, SL, lang){
         }
         
         var text =  SL.texttop + formatShortcut(ID, 'goup', prefs); //[Shift+T]
-        addBottomLink(el, SL.keywordtop, text, 'item-go-to-top', false, gototop, false, entry, mode);
+        addBottomLink(el, SL.keywordtop, text, ID, 'item-go-to-top', false, gototop, false, entry, mode);
     }
     
     function gototop(e){

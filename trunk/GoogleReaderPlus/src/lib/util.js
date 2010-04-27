@@ -32,7 +32,7 @@ function addClassIf(el, cls, status){
 }
 
 function addAttr(el, name, value){
-	var attr = document.createAttribute(name);
+    var attr = document.createAttribute(name);
     attr.value = value;
     el.attributes.setNamedItem(attr);
 }
@@ -881,11 +881,11 @@ function isVersionMajorUpdated(oldVersion, newVersion){
 }
 
 function compareVersion(version, ref, count){
-    if (!ref){
-		//new version, no previous version
-		return 1;
-	}
-	var versions = version.split('.');
+    if (!ref) {
+        //new version, no previous version
+        return 1;
+    }
+    var versions = version.split('.');
     var refs = ref.split('.');
     count = count || versions.length;
     for (var i = 0, len = count; i < len; i++) {
@@ -997,11 +997,15 @@ function isShown(el){
 }
 
 function show(el, value){
-    el.style.display = value || '';
+    if (el) {
+        el.style.display = value || '';
+    }
 }
 
 function hide(el){
-    el.style.display = 'none';
+    if (el) {
+        el.style.display = 'none';
+    }
 }
 
 function toggle(el){
@@ -1187,8 +1191,9 @@ function runfn(fn, id, priority, delay){
 }
 
 function encodeu(el){
-	return escape(encodeURIComponent(el));
+    return escape(encodeURIComponent(el));
 }
+
 function decodeu(el){
-	return decodeURIComponent(unescape(el));
+    return decodeURIComponent(unescape(el));
 }
