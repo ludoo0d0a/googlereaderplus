@@ -881,7 +881,11 @@ function isVersionMajorUpdated(oldVersion, newVersion){
 }
 
 function compareVersion(version, ref, count){
-    var versions = version.split('.');
+    if (!ref){
+		//new version, no previous version
+		return 1;
+	}
+	var versions = version.split('.');
     var refs = ref.split('.');
     count = count || versions.length;
     for (var i = 0, len = count; i < len; i++) {
