@@ -57,7 +57,7 @@ GRP.preview = function(prefs, langs, ID){
             plink.addEventListener('click', previewTitleClick, false);
         }
         // Bottom button
-        addBottomLink(el, SL.keyword, SL.text + keytext, 'btn-preview', true, previewize, locked, entry, mode);
+        addBottomLink(el, SL.keyword, SL.text + keytext, ID, '', true, previewize, locked, entry, mode);
     }
     function previewShortcut(){
         onKey('btn-preview', previewize);
@@ -107,27 +107,23 @@ GRP.preview = function(prefs, langs, ID){
                 if (iframe) {
                     // iframe already in document, display it
                     updateFrame(iframe, entry);
-                    iframe.style.display = 'block';
                 } else {
                     // iframe not in document, create it
                     iframe = document.createElement('iframe');
                     iframe.className = 'if-preview';
                     updateFrame(iframe, entry);
-                    entryBody.style.display = 'none';
                     setIframesize(iframe);
                     ebody.appendChild(iframe);
                     //if (prefs.preview_adjustframe) { adjustIframeHeight(iframe, h); }
                 }
+				show(iframe);
+				hide(entryBody);
                 // Scale article container to fullwidth
                 ebody.setAttribute('style', 'max-width: 98%');
             } else {
                 // preview mode -> classic mode
-                // hide iframe
-                if (iframe) {
-                    iframe.style.display = 'none';
-                }
-                // show rss item
-                entryBody.style.display = 'block';
+                hide(iframe);
+                show(entryBody);
                 ebody.removeAttribute('style', '');
                 if (!locked) {
                     jump(entry, true);
