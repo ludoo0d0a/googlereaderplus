@@ -640,7 +640,7 @@
                 if (v === null || v !== GRP.VERSION) {
                     localStorage.setItem('grp_version', GRP.VERSION);
                     //upgrade();
-                    if (!prefs.general_noupdatepopup) {
+                    if (prefs && prefs.general_noupdatepopup===false) {
                         //no popup on minor updates
                         if (isVersionMajorUpdated(v, GRP.VERSION)) {
                             opentab({
