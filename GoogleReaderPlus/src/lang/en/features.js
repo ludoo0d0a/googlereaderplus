@@ -197,5 +197,32 @@ GRP.langs[locale].skins = {
     },
     osxblack: {
         name: "Mac OS X Snow Leopard - Black"
+    },
+	calibri: {
+        name: "Calibri Skin"
+    },
+    glassblackgold: {
+        name: "Glass Black Gold Skin"
+    },
+    simpleclean: {
+        name: "Simple and Clean"
+    },
+    peacockfeather: {
+        name: "Peacock Feather"
+    },
+    myowngooglereader: {
+        name: "My Own Google Reader"
+    },
+    compactcleantweaked: {
+        name: "Compact, Clean & Tweaked"
+    },
+    absolutelycompact: {
+        name: "Absolutely Compact"
+    },
+    darkshinyblue: {
+        name: "Dark Shiny Blue"
+    },
+	persian: {
+        name: "Optimized Persian"
     }
 };
