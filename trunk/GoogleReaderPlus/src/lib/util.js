@@ -31,6 +31,12 @@ function addClassIf(el, cls, status){
     }
 }
 
+function addAttr(el, name, value){
+	var attr = document.createAttribute(name);
+    attr.value = value;
+    el.attributes.setNamedItem(attr);
+}
+
 function findParentNode(eel, etag, clazz){
     var tag = etag.toUpperCase();
     var el = eel.parentNode;
@@ -107,13 +113,11 @@ function getElementText(root, cls, html, firstchild){
 }
 
 function copyAttributes(src, dest){
-    var ats, attr;
+    var ats;
     if (src && dest && src.attributes && src.attributes.length > 0) {
         for (var i = 0, len = src.attributes.length; i < len; i++) {
             ats = src.attributes[i];
-            attr = document.createAttribute(ats.nodeName);
-            attr.value = ats.nodeValue;
-            dest.attributes.setNamedItem(attr);
+            addAttr(dest, ats.nodeName, ats.nodeValue);
         }
     }
 }
@@ -1119,9 +1123,7 @@ function dhc(config){
                 if (tmaps[k]) {
                     el[tmaps[k]] = o;
                 } else {
-                    var attr = document.createAttribute(k);
-                    attr.value = o;
-                    el.attributes.setNamedItem(attr);
+                    addAttr(el, k, o);
                 }
             }
         }
@@ -1178,4 +1180,11 @@ function runfn(fn, id, priority, delay){
         delay: delay,
         priority: priority
     });
+}
+
+function encodeu(el){
+	return escape(encodeURIComponent(el));
+}
+function decodeu(el){
+	return decodeURIComponent(unescape(el));
 }
