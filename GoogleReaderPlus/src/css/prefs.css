@@ -278,11 +278,13 @@ span.olink {
 }
 
 span.new{
+	font-size:9px;
 	margin-left:5px !important;
 	color:red !important;
 }
 
 span.updated{
+	font-size:9px;
 	margin-left:5px !important;
 	color:yellow !important;
 }
