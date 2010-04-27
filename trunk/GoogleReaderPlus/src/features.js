@@ -13,17 +13,21 @@ GRP.scripts = {
 			floatactions: false,
             noupdatepopup: false,
             icontoolbar_add: {
-                xtype: 'p'
+                xtype: 'p',
+				label:true
             },
             icontoolbar_text: {
-                xtype: 'p'
+                xtype: 'p',
+				label:true
             },
             importexport_text: {
-                xtype: 'p'
+                xtype: 'p',
+				label:true
             },
             preferences: {
                 xtype: 'html',
-                value: '<input id="ieprefs" type="text" size="30"/><input type="button" id="bimport" value="import" onclick="importprefs();"/><input type="button" id="bexport" value="export" onclick="exportprefs();"/>'
+				label:true,
+                value: '<input id="ieprefs" class="ignore" type="text" size="30"/><input type="button" id="bimport" value="import" onclick="importprefs();"/><input type="button" id="bexport" value="export" onclick="exportprefs();"/>'
             }
         }
     },
@@ -37,6 +41,7 @@ GRP.scripts = {
 			clearcache:{xtype:'button',action:'clearcache'},
             mytheme: {
                 xtype: 'p',
+				label:true,
                 parent: 'mto'
             },
             url: {
@@ -63,6 +68,7 @@ GRP.scripts = {
         options: {
             warning: {
                 xtype: 'p',
+				label:true,
                 cls: 'warning center'
             },
             skin_name: {
@@ -85,6 +91,7 @@ GRP.scripts = {
             },
             themes: {
                 xtype: 'html',
+				label:true,
                 value: '<div id="ig_themes"></div>'
             }
         },
@@ -121,17 +128,20 @@ GRP.scripts = {
             providerpageicons: false,
             sidebaronly: false,
             custom: {
-                xtype: 'p'
+                xtype: 'p',
+				label:true
             },
             domains: {
                 xtype: 'crud'
             },
             tip: {
-                xtype: 'p'
+                xtype: 'p',
+				label:true
             },
             manual: false,
             parsing: {
-                xtype: 'p'
+                xtype: 'p',
+				label:true
             }
         }
     },
@@ -270,6 +280,7 @@ GRP.scripts = {
             },
             shortener_bitly: {
                 xtype: 'p',
+				label:true,
                 cls: 'subtitle'
             },
             shortener_login: {
@@ -298,6 +309,7 @@ GRP.scripts = {
         options: {
             auth: {
                 xtype: 'p',
+				label:true,
                 cls: 'subtitle'
             },
             username: '',
@@ -324,6 +336,7 @@ GRP.scripts = {
         options: {
             auth: {
                 xtype: 'p',
+				label:true,
                 cls: 'subtitle'
             },
             username: '',
@@ -473,7 +486,8 @@ GRP.scripts = {
 		status:'updated',
         options: {
             intro: {
-                xtype: 'p'
+                xtype: 'p',
+				label:true
             },
             items: {
                 xtype: 'crud',
@@ -574,6 +588,7 @@ GRP.scripts = {
         options: {
             sysinfo: {
                 xtype: 'html',
+				label:true,
                 value: '<div id="sysinfo"></div>'
             }
         }
@@ -594,7 +609,7 @@ GRP.scripts = {
 GRP.packages = {
     'mini': {favicons:true, unreadcount:true, fixlayout:true, count:true, counticon:true, removeads:true},
     'ludoo': {general:{secure: true, counter:false},favicons:true, unreadcount:true, fixlayout:true, count:true, counticon:true, removeads:true, column:true, mark:true, jump:true, fitheight:true, closeentry:true, openbackground:true, replacer:true, preview:{onicon:true,overlay:true}},
-    'full': {theme:{skin:'osxblack'}, favicons:true, unreadcount:true, fixlayout:true, count:true, counticon:true, removeads:true, column:true, mark:true, jump:true, preview:true, colorful:true, filter:true, readbymouse:true, twitter:true, facebook:true, fitheight:true, closeentry:true, openbackground:true, aero:true}
+    'full': {theme:{skin:'osxblack'}, favicons:true, unreadcount:true, fixlayout:true, count:true, counticon:true, removeads:true, column:true, mark:true, jump:true, preview:true, colorful:true, filter:true, readbymouse:true, twitter:true, facebook:true, fitheight:true, closeentry:true,openbackground:true,aero:true,instapaper:true,readitlater:true,translate:true,replacer:true,limit:true}
 };
 GRP.skins = {
     none: {

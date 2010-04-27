@@ -3,15 +3,26 @@ function importprefs(){
     if (r) {
         var el = document.getElementById("ieprefs");
         if (el && el.value) {
-            prefs = JSON.parse(el.value);
-            saveprefs();
+		   try {
+				prefs = JSON.parse(el.value);
+				saveprefs(true, true);
+				info(getTextPrefs(lang, 'global', 'prefsimportedok', 'en', "Preferences imported!"));
+			}catch(e){
+				info(getTextPrefs(lang, 'global', 'prefsimportfailed', 'en', "Import failed!")+' : '+e, 'error');
+			}
         }
     }
 }
 
 function exportprefs(){
     var el = document.getElementById("ieprefs");
-    el.value = JSON.stringify(prefs);
+    var p = {};
+	iterate(prefs, function(i, pref){
+		if (i && pref && !(/password/.test(i))){
+			p[i]=pref;
+		}
+	});
+	el.value =  JSON.stringify(p)
 }
 
 function initprefs(){
@@ -39,7 +50,7 @@ function applyprefs(){
     }
     for (var i in form) {
         var ctrl = form[i];
-        if (ctrl && !hasClass(ctrl, 'ignore')) {
+        if (ctrl && ctrl.name && !hasClass(ctrl, 'ignore')) {
             var o = ctrl.name;
             if (typeof ctrl.key !== "undefined") {
                 //shortcut code
@@ -142,10 +153,10 @@ function initGRP(){
     });
 }
 
-function info(msg){
+function info(msg, cls){
     var status = document.getElementById('status');
     status.innerHTML = msg;
-    status.className = "rounded";
+    status.className = "rounded "+(cls||'');
     window.setTimeout(function(){
         status.innerHTML = "";
         status.className = "rounded hidden";
