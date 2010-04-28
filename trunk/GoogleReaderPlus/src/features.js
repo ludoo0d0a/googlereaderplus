@@ -38,7 +38,6 @@ GRP.scripts = {
         options: {
             skin: '',
             noborder: false,
-			clearcache:{xtype:'button',action:'clearcache'},
             mytheme: {
                 xtype: 'p',
 				label:true,
@@ -664,6 +663,7 @@ GRP.skins = {
          */
         pic: 'http://userstyles.org/style_screenshots/26569_after.png',
         ref: 'http://userstyles.org/styles/26569',
+		fix:'#chrome-view-links,#lhn-selectors .selected,#lhn-selectors .selected:hover{background-color: transparent !important;}',
         desc: 'userstyles.org'
     },
     simpleclean: {

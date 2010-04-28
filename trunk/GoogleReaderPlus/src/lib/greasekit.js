@@ -64,15 +64,15 @@ if (typeof GM_setCookieValue === "undefined") {
         document.cookie = curCookie;
     };
 }
-function clearcache(){
+function clearcache(lang){
     var name, v;
     for (var i = 0; i <= localStorage.length - 1; i++) {
         name = localStorage.key(i);
-        if ((/^readerplus\.theme_/.test(name)) || (/^readerplus\.cache/.test(name))) {
+        if ((/^readerplus\.theme_/.test(name)) || (/^readerplus\.rps_/.test(name)) || (/^readerplus\.cache/.test(name))) {
             localStorage.removeItem(name);
         }
     }
-    info(getTextPrefs(lang, 'global', 'cachecleared', 'en', "Cache cleared"));
+    alert(getTextPrefs(lang, 'global', 'cachecleared', 'en', "Cache cleared"));
 }
 
 function sendMessage(message, o, callback){
