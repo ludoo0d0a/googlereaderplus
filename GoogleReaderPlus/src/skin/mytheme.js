@@ -2,7 +2,7 @@
 //Customizable theme with background picture
 //
 GRP.mytheme = function(prefs){
-    var css = GM_getValue('mytheme_css');
+    var css = GM_getValue('theme_mytheme');
     if (css) {
         GM_addStyle(css, 'rps_mytheme');
     } else {
@@ -12,13 +12,13 @@ GRP.mytheme = function(prefs){
     }
     function stylish(tplCss){
         var o = {
-            bg: (prefs.theme_url) ? ('background:url(' + prefs.theme_url + ') no-repeat fixed top center!important;') : '',
+            image: prefs.theme_url || '',
             color: prefs.theme_color || '#aaa',
             bg: prefs.theme_bg || '#ffc'
         };
         var css = fillTpl(tplCss, o);
         GM_addStyle(css, 'rps_mytheme');
         //cache css
-        GM_setValue('mytheme_css', css);
+        GM_setValue('theme_mytheme', css);
     }
 };
