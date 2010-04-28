@@ -89,24 +89,32 @@
             }
         },
         fixMenu: function(langs){
-            dh('gbg', 'a', {
-                href: '#',
-                cls: 'gb2',
-                text: getText(this.lang, 'ig', 'menu_prefs') || 'Reader+ preferences'
-            }, {
-                click: function(){
+            function addItem(text, cb){
+				dh('gbg', 'a', {
+	                href: '#',
+	                cls: 'gb2',
+	                text: text
+	            }, {
+	                click: cb
+	            });
+			}
+			
+			//dh('gbg', 'br', {cls: 'brmenu'});
+			addItem(getText(this.lang, 'ig', 'menu_prefs', 'en', 'Reader+ preferences'), 
+                function(){
                     GM_openInTab('chrome-extension://' + GUID_CORE + '/preferences.html');
                 }
-            });
-            dh('gbg', 'a', {
-                href: '#',
-                cls: 'gb2',
-                text: getText(this.lang, 'ig', 'menu_theme') || 'Theme configuration'
-            }, {
-                click: function(){
+            );
+            addItem(getText(this.lang, 'ig', 'menu_theme', 'en', 'Theme configuration'), 
+                function(){
                     GM_openInTab('chrome-extension://' + GUID_CORE + '/preferences.html#ig');
                 }
-            });
+            );
+			addItem(getText(this.lang, 'general', 'menu_clearcache', 'en', 'Clear cache'), 
+                function(){
+                    clearcache(this.lang);
+                }
+            );
         }
         /*,fixlang: function(){
          this.lang = this.prefs.language_lang || 'en';
