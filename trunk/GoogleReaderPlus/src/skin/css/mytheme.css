@@ -3,7 +3,7 @@
  * Transparent Theme + background image
  */
 body {
-	background: url(http://i40.tinypic.com/161ksk.jpg) no-repeat fixed top center !important;
+	background: url({image}) no-repeat fixed top center !important;
     background-size: 100% !important;
 }
 
@@ -18,7 +18,7 @@ body,#gbar, #guser, .text, .gbh, #explore-promo, #tips, #overview-footer, .viewe
 .bundle-container th, #friends-tree .friends-tree-following-info, 
 #directory-welcome-conversion, .date-tooltip td, .date-tooltip, .text-tooltip, 
 .text-tooltip td {
-    color: #bbb !important;
+    color: {color} !important;
     border: 0 !important;
 }
 
@@ -31,13 +31,13 @@ marquee, menu, noframes, ol, p, plaintext, pre, table, tbody, td, tfoot, th, the
 ul, xmp ,#recent-activity #recent-activity-kept-unread h4, 
 #recent-activity #recent-activity-read h4, #explore-promo-new, 
 #recent-activity .recent-stream-title {
-    color: #bbb !important
+    color: {color} !important
 }
 
 .email-active, .item-link-active, .entry-likers, .tree-link-selected,.lhn-section, .scroll-tree li, #chrome-header, #viewer-header, 
 #viewer-footer, #chrome, .card-common, span.name-text, .name {
     background: transparent !important;
-    color: #bbb !important;
+    color: {color} !important;
     border: 0 !important;
 }
 
@@ -58,7 +58,7 @@ ul, xmp ,#recent-activity #recent-activity-kept-unread h4,
  * Hover
  */
 .scroll-tree li a:hover,#lhn-selectors .selector:hover{
-	background-color: #231001 !important;
+	background-color: {bg} !important;
 }
 
 /*
