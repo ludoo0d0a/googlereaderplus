@@ -1,0 +1,17 @@
+{
+  "extension_name": {
+    "message": "Reader Plus"
+  },
+  "extension_description": {
+    "message": "增加谷歌阅读器丢失的Favicon的和收藏共享功能"
+  },
+  "extension_summary": {
+	"message": "加强谷歌阅读器加入favicon的失踪，失踪的外壳固定的图像，更好地读计数器，更好更广泛的屏幕，全屏，预览彩色列表视图，过滤，多列的显示，跳跃顶部底部，关闭输入，适合高度，打开查看背景选项卡上，通过鼠标阅读，在Facebook，Twitter的，Instapaper，标记为共享新闻阅读，简单的广告剂，替代品的连环画项目.---你可以选择在不同的可用的皮肤你最喜欢的主题.---捷径可很容易地定制.---这扩展支持翻译（英语，法语).---不要犹豫，帮助我在您的语言翻译[http://goo.gl/HjiG ]\n\n您可以添加铬工具栏上的按钮，这里可选：\nhttps://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo"
+  },
+  "extension_language": {
+    "message": "简体中文"
+  },
+  "browser_action_tooltip_default": {
+    "message": "Reader Plus 偏好"
+  } 
+}
