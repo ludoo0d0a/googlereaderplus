@@ -17,7 +17,7 @@ function getText(lang, script, option, deflang, deftext){
 
 function getCategory(lang, name, deflang){
 	var text = '';
-	if (GRP.langs[lang] && GRP.langs[lang].categories[name]) {
+	if (GRP.langs[lang] && GRP.langs[lang].categories && GRP.langs[lang].categories[name]) {
         text = GRP.langs[lang].categories[name];
     }
 	if (!text && deflang){
