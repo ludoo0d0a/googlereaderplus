@@ -1197,3 +1197,6 @@ function encodeu(el){
 function decodeu(el){
     return decodeURIComponent(unescape(el));
 }
+function getBoolean(val){
+	return (val && (val===true || val.toLowerCase()==='true'));
+}

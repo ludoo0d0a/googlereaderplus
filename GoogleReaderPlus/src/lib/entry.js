@@ -4,7 +4,7 @@
 var stackFeatures = [], externals = [];
 function registerFeature(fn, bid, params){
     params = params || {};
-    params.bid = 'e'+bid;
+    params.bid = 'e' + bid;
     stackFeatures.push({
         fn: fn,
         params: params
@@ -144,8 +144,8 @@ function getRegex(urls){
     var escaped = [];
     for (var i = 0, len = urls.length; i < len; i++) {
         if (urls[i]) {
-			escaped.push(encodeRE(urls[i]));
-		}
+            escaped.push(encodeRE(urls[i]));
+        }
     }
     return new RegExp(escaped.join("|"), "i");
 }
@@ -237,7 +237,9 @@ function getEntrySiteTitle(ent){
 function getEntryLink(ent){
     //<a class="ilink entry-title-link" href="#" title="Open as preview [q]"> Il écope de 5 ans pour avoir parlé de sexe à la télé</a>
     //<a class="entry-title-link iframe title-link-url" target="_blank" href="http://www.lessentiel.lu/news/monde/story/17066269" title="Open in a new window"><div class="entry-title-maximize"></div></a>	
-    var o = {feed:''}, entry = ent || getCurrentEntry();
+    var o = {
+        feed: ''
+    }, entry = ent || getCurrentEntry();
     var link = getFirstElementByClassName(entry, 'grp-link-url');//'a'
     if (!link) {
         //Normal way
@@ -246,8 +248,8 @@ function getEntryLink(ent){
             o.url = link.href;
             o.link = link;
             o.title = link.textContent;
-			o.eltitle=link;
-			
+            o.eltitle = link;
+            
         } else {
             //Feed from html (non RSS page)
             var etitle = getFirstElementByClassName(entry, 'entry-title');//'h2'
@@ -258,7 +260,7 @@ function getEntryLink(ent){
                     o.url = m[0];
                 }
                 o.title = etitle.textContent;
-				o.eltitle=etitle;
+                o.eltitle = etitle;
                 o.link = null;
             }
         }
@@ -267,33 +269,33 @@ function getEntryLink(ent){
         var link2 = getFirstElementByClassName(entry, 'grp-link-title');//'a'
         o = {
             title: link2.textContent,
-			eltitle:link2,
+            eltitle: link2,
             url: link.href,
             link: link
         };
     }
-	//
-	o.feed=getFeedEntry(entry);
-	
+    //
+    o.feed = getFeedEntry(entry);
+    
     return o;
 }
 
 function getFeedEntry(entry){
-	var url; 
-	var est = getFirstElementByClassName(entry, 'entry-source-title');//'a'
-	//TODO/ listview=span but no href (could we use text label to match in nav tree?)
-	if (est && est.href) {
-		url = decodeURIComponent(est.href.replace(/^.*?view\/feed\//, ''));
-		if (!url) {
-			//Find using current selected nav item 
-			var nav = get_id('nav'), tls = getFirstElementByClassName(nav, 'tree-link-selected');//'a'
-			if (tls) {
-				url = decodeURIComponent(tls.href.replace(/^.*?view\/feed\//, ''));
-			}
-		}
-	}
-	
-	return url;
+    var url;
+    var est = getFirstElementByClassName(entry, 'entry-source-title');//'a'
+    //TODO/ listview=span but no href (could we use text label to match in nav tree?)
+    if (est && est.href) {
+        url = decodeURIComponent(est.href.replace(/^.*?view\/feed\//, ''));
+        if (!url) {
+            //Find using current selected nav item 
+            var nav = get_id('nav'), tls = getFirstElementByClassName(nav, 'tree-link-selected');//'a'
+            if (tls) {
+                url = decodeURIComponent(tls.href.replace(/^.*?view\/feed\//, ''));
+            }
+        }
+    }
+    
+    return url;
 }
 
 function openEntryInNewTab(entry, selected){
@@ -307,14 +309,15 @@ function getCurrentEntry(){
 }
 
 function selectCurrentEntry(el){
-	if (el) {
-		var cur = getCurrentEntry();
-		if (cur) {
-			delete cur.id;
-		}
-		el.id = 'current-entry';
-	}
+    if (el) {
+        var cur = getCurrentEntry();
+        if (cur) {
+            delete cur.id;
+        }
+        el.id = 'current-entry';
+    }
 }
+
 function getEntry(e){
     var el = (e && e.target) ? e.target : (e.localName ? e : null);
     var entry;
@@ -440,8 +443,8 @@ function onKey(cls, fn){
 }
 
 function addBottomLink(el, text, title, script, cls, button, callback, locked, entry, mode){
-	var span = document.createElement('span');
-    span.className = 'btn-'+script + ' ' + cls + (button ? ' read-state-not-kept-unread read-state' : '') + ' link unselectable';
+    var span = document.createElement('span');
+    span.className = 'btn-' + script + ' ' + cls + (button ? ' read-state-not-kept-unread read-state' : '') + ' link unselectable';
     span.innerHTML = text;
     span.title = title;
     el.appendChild(span);
@@ -454,9 +457,9 @@ function addBottomLink(el, text, title, script, cls, button, callback, locked, e
     span.addEventListener('click', onClick, false);
     if (locked) {
         //activate it
-		if (callback) {
-			callback(span, entry, true);
-		}
+        if (callback) {
+            callback(span, entry, true);
+        }
     }
 }
 
@@ -527,12 +530,31 @@ function getShortcutKey(script, shortcut, prefs){
 function getScriptObject(id){
     return GRP.scripts[id];
     /*for (var i = 0, len = GRP.scripts.length; i < len; i++) {
+    
+     
+    
      var script = GRP.scripts[i];
+    
+     
+    
      if (script.id == id) {
+    
+     
+    
      return script;
+    
+     
+    
      }
+    
+     
+    
      }
+    
+     
+    
      return null;*/
+    
 }
 
 function toggle(el){
@@ -572,6 +594,16 @@ function addMenuItems(menu, items){
     }
 }
 
+function addReaderMenuItem(text, cb){
+    dh('gbg', 'a', {
+        href: '#',
+        cls: 'gb2',
+        text: text
+    }, {
+        click: cb
+    });
+}
+
 function toggleCheckMenu(el){
     if (hasClass(el, 'goog-option-selected')) {
         removeClass(el, 'goog-option-selected');
@@ -609,7 +641,7 @@ function getSelectedDir(){
         o = {
             text: getElementText(el, 'name-text'),
             count: getElementText(el, 'unread-count').replace(/[\(\)]/g, ''),
-			url:el.href
+            url: el.href
         };
     } else {
         //div.selector.selected
@@ -618,7 +650,7 @@ function getSelectedDir(){
             o = {
                 text: getElementText(el, 'text', false, true),
                 count: getElementText(el, 'unread-count').replace(/[\(\)]/g, ''),
-				url:el.href
+                url: el.href
             };
         }
     }
@@ -626,12 +658,14 @@ function getSelectedDir(){
 }
 
 function getMetadata(){
-	var s = document.head.getElementsByTagName('script')[0];
-	var c = s.innerHTML;
-	var m,re=/([_A-Z]+)\s+=\s+([^,]+),/g;
-	var metadata = {};
-	while ((m = re.exec(c)) !== null) {
-		metadata[m[1]]=m[2].replace(/^"|"$/g,'');
-	}
-	return metadata;
+    var s = document.head.getElementsByTagName('script')[0];
+    var c = s.innerHTML;
+    var m, re = /([_A-Z]+)\s+=\s+([^,]+),/g;
+    var metadata = {};
+    while ((m = re.exec(c)) !== null) {
+        metadata[m[1]] = m[2].replace(/^"|"$/g, '');
+    }
+    return metadata;
 }
+
+
