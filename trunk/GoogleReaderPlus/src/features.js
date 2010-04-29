@@ -11,6 +11,7 @@ GRP.scripts = {
 			opendirect: false,
             topcurrent: false,
 			floatactions: false,
+			antisocial:true,
             noupdatepopup: false,
             icontoolbar_add: {
                 xtype: 'p',
@@ -578,6 +579,13 @@ GRP.scripts = {
         name: "Google Aero Toolbar",
 		category:'theme'
     },
+	antisocial:{
+		name: "Antisocial",
+		category:'layout',
+		options: {
+		 	status: false
+		 }
+	},
     /*hover: {
      name: "Hover selection"
      },*/
