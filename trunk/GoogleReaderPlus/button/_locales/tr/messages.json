@@ -1,0 +1,11 @@
+{
+  "extension_name": {
+    "message": "Reader Plus Araç çubuðu butonu"
+  },
+  "extension_description": {
+    "message": "Chrome Araç Çubuðuna Reader Plus için ikonlu bir buton ekle"
+  },
+  "browser_action_tooltip_default": {
+    "message": "Reader Plus araç çubuðu butonu"
+  } 
+}
