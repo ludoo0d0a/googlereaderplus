@@ -582,6 +582,7 @@ GRP.scripts = {
 	antisocial:{
 		name: "Antisocial",
 		category:'layout',
+		status:'new',
 		options: {
 		 	status: false
 		 }

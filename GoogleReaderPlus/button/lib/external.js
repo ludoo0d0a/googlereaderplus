@@ -15,12 +15,15 @@ var GUID_CORE = 'hhcknjkmaaeinhdjgimjnophgpbdgfmg';
 var GUID_ICON = 'ecpcafinfpjgabomoamkhkgnpgpmdmeo';
 var env = '';
 if (env && env == 'home') {
-	GUID_CORE = 'njidamgjohnfbkeagfbnkllfkdnlpjhi';
-	GUID_ICON = 'aencokegfecfkpckmiklpcklhdblkdgj';
+	//home unpacked
+	GUID_CORE = 'opagdjpmfbkomgechhdfhcalbfakdcgc';
+	GUID_ICON = 'ihejemglamcpmehbcdbielbafnbflgdk';
 } else if (env && env == 'unpacked') {
 	GUID_CORE = 'cmkepfncdncbdpmdfnkbpenhfbmmnebm';
 	GUID_ICON = 'lomblngfikeinenjgnkcnhbdgchkaeai';
 }
+GUID_CORE = getGUID();
+var LOCALPATH = 'chrome-extension://'+GUID_CORE;
 
 function call_icon(message, options, callback){
 	external_call(GUID_ICON, message, options, callback);
