@@ -15,10 +15,11 @@ var GUID_CORE = 'hhcknjkmaaeinhdjgimjnophgpbdgfmg';
 var GUID_ICON = 'ecpcafinfpjgabomoamkhkgnpgpmdmeo';
 var env = '';
 if (env && env == 'home') {
-	//GUID_CORE = 'njidamgjohnfbkeagfbnkllfkdnlpjhi';
-	GUID_ICON = 'aencokegfecfkpckmiklpcklhdblkdgj';
+	//home unpacked
+	GUID_CORE = 'opagdjpmfbkomgechhdfhcalbfakdcgc';
+	GUID_ICON = 'ihejemglamcpmehbcdbielbafnbflgdk';
 } else if (env && env == 'unpacked') {
-	//GUID_CORE = 'cmkepfncdncbdpmdfnkbpenhfbmmnebm';
+	GUID_CORE = 'cmkepfncdncbdpmdfnkbpenhfbmmnebm';
 	GUID_ICON = 'lomblngfikeinenjgnkcnhbdgchkaeai';
 }
 GUID_CORE = getGUID();

@@ -16,13 +16,25 @@
         <script type="text/javascript" src="http://www.google.com/jsapi">
         </script>
         <script type="application/javascript">
-            var READING_LIST_RE_ = new RegExp('user/[\\d]+/state/com\\.google/reading-list');
+            //var READING_LIST_RE_ = new RegExp('user/[\\d]+/state/com\\.google/reading-list');
+			var reReader = {
+                    reading:/user\/[\d]+\/state\/com\.google\/reading\-list/,
+					search: /https?\:\/\/www.google.com\/reader\/view\//,
+                    url: 'http://www.google.com/reader/view/'
+             };
             chrome.extension.onRequest.addListener(onRequest);
             chrome.extension.onRequestExternal.addListener(function(request, sender, sendResponse){
                 if (sender.id === GUID_ICON) {
                     onMessageReceived(request, false, sendResponse);
                 }
             });
+            function checkForValidUrl(tabId, changeInfo, tab){
+                if (reReader.search.test(tab.url)) {
+                    chrome.pageAction.show(tabId);
+                }
+            };
+            chrome.tabs.onUpdated.addListener(checkForValidUrl);
+            
             monitorIcon();
             sendPrefsToIcon();
             function onRequest(request, sender, callback){
@@ -59,7 +71,7 @@
                 }
             }
             
-
+            
             
             /**
              * Icon monitor for unreead count
@@ -67,7 +79,7 @@
             var monitorId;
             function monitorIcon(){
                 var prefs = getPrefs();
-                if (prefs && prefs.icon && prefs.icon_counter) {
+                if (prefs && prefs.general_counter) {
                     getUnreadCount();
                     if (monitorId) {
                         window.clearInterval(monitorId);
@@ -190,7 +202,7 @@
                 for (var i = 0, len = o.unreadcounts.length; i < len; i++) {
                     var f = o.unreadcounts[i];
                     //count += parseInt(f.count, 10);
-                    if (READING_LIST_RE_.test(f.id)) {
+                    if (reReader.reading.test(f.id)) {
                         count = f.count;
                         continue;
                     }
@@ -248,11 +260,11 @@
                     //options
                     iterate(script.options, function(option, o){
                         if (!(o && typeof o === 'object' && o.label)) {
-							id = script.id + '_' + option;
-							if (typeof prefs[id] === "undefined") {
-								prefs[id] = getTypedValue(o);
-							}
-						}
+                            id = script.id + '_' + option;
+                            if (typeof prefs[id] === "undefined") {
+                                prefs[id] = getTypedValue(o);
+                            }
+                        }
                     });
                     //shortcuts
                     iterate(script.shortcuts, function(shortcut, o){
@@ -509,11 +521,7 @@
             }
             
             function findreader(selected, create, fn){
-                var o = {
-                    search: /https?\:\/\/www.google.com\/reader\/view\//,
-                    url: 'http://www.google.com/reader/view/'
-                };
-                selecttab(o, selected, create, fn);
+                selecttab(reReader, selected, create, fn);
             }
             
             function selecttab(a, selected, create, fn){
@@ -642,8 +650,8 @@
                 if (v === null || v !== GRP.VERSION) {
                     localStorage.setItem('grp_version', GRP.VERSION);
                     //upgrade();
-					var prefs = getPrefs();
-                    if (prefs.general_noupdatepopup===false) {
+                    var prefs = getPrefs();
+                    if (prefs.general_noupdatepopup === false) {
                         //no popup on minor updates
                         if (isVersionMajorUpdated(v, GRP.VERSION)) {
                             opentab({
