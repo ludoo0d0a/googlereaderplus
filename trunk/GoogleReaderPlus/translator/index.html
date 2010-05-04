@@ -66,8 +66,16 @@
         <input type="text" name="search" value=""/><input type="text" name="replace" value=""/><input type="button" id="sr" value="Replace"/>
     </div>
     <div id="translations">
-        <div id="table">
+        <div id="filter">
+			<select id="filter_category">
+                 <option value="">All</option>
+			</select>
+			<select id="filter_module">
+                 <option value="">All</option>
+			</select>
+			<input type="button" id="gofilter" value="Filter"/>
         </div>
+		<div id="table"></div>
     </div>
     <div id="footer">
         <a id="close" href="#">Close</a>

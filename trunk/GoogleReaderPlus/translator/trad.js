@@ -83,18 +83,19 @@ $(document).ready(function(){
 		console.log('->'+lang+'='+filesLoaded+','+data+','+id);
 		datas[id]=data||{};
 		if (filesLoaded<=0){
-			renderTexts(datas, lin.val(), lout.val(), isin);
+			renderTexts(datas);
 		}
 	}
     
-	function renderTexts(datas, lang, langout, isin){
-	    console.log('renderTexts');
+	function renderTexts(datas){
+	    var lang = lin.val();
+		console.log('renderTexts');
 		if (GRP && GRP.langs && GRP.langs[lang]){
 	        langs[lang]=true;
 	        GRP.langs[lang].messages = datas.messages;
 	    }
-		var items = GRP.langs;
-		renderTable(items, lang, langout);
+		var filters = {category: '', module:''};
+		renderTable(filters);
 		$('.edit').editable('save.php');
 	}
 	function translate(){
@@ -114,20 +115,26 @@ $(document).ready(function(){
         });
 		
     }
-   
-	function renderTable(res, lang, langout){
+	var filterInit=false;
+	
+	function renderTable(filters){
+		var res = GRP.langs;
+		var lang=lin.val(), langout=lout.val();
 		console.log('renderTable');
+		$('#table').html('');
 		var t = $('<table class="lang_' + lang + '"><thead><tr></tr></thead><tbody></tbody></table>');
 		t.appendTo($('#table'));
 		var trh = t.find('thead > tr'),tb= t.find('tbody');
 		trh.append('<th class="row_cat">Category</th><th class="row_mod">module</th><th class="row_id">id</th><th>'+lang+'</th>');
 		trh.append('<th>' + langout + '</th>');
-		//trh.append('<th>Google translation</th>');
-		$('<a href="#">Translation</a>').click(translate).appendTo($('<th></th>').appendTo(trh));
+		$('<a href="#">Translation</a>').click(translate).appendTo($('<th></th>').appendTo(trh));		
+		var categories=[], modules=[];
 		$.each(res[lang], function(category, items){
-			if (items) {
+			if (items && (!filters.category || filters.category===category)) {
+				categories.push(category);
 				$.each(items, function(module, mod){
-					if (mod) {
+					if (mod && (!filters.module || filters.module===module)) {
+						modules.push(module);
 						if (typeof mod === 'string') {
 							mod = [mod];
 						}
@@ -148,7 +155,29 @@ $(document).ready(function(){
 				});
 			}
 		});
+		if (!filterInit) {
+			function loopFilter(el, values){
+				var html = '';
+				$.each(values, function(i, item){
+					html += '<option value="' + item + '">' + item + '</option>';
+				});
+				$(el).append(html);
+			}
+			loopFilter('#filter_category', categories);
+			loopFilter('#filter_module', modules);
+			$('#gofilter').click(function(){
+				var filters = {category: $('#filter_category').val(), module:$('#filter_module').val()};
+				renderTable(filters);
+			});
+			filterInit = true;
+		}
     }
+	
+	
+	
+	/*
+	 * Main
+	 */
     $.translate(function(){
         $('<input type="button" value="OK" />').prependTo('body').click(loadall);
 		lout = $.translate.ui({
