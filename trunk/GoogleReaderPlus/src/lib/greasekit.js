@@ -19,7 +19,7 @@ if (typeof GM_getValue === "undefined") {
 if (typeof GM_getCookieValue === "undefined") {
     GM_getCookieValue = function(name, def){
         var value;
-        var nameEQ = escape("_greasekit" + name) + "=", ca = document.cookie.split(';');
+        var nameEQ = escape(name) + "=", ca = document.cookie.split(';');
         for (var i = 0, c; i < ca.length; i++) {
             c = ca[i];
             while (c.charAt(0) == ' ') {
@@ -53,7 +53,7 @@ if (typeof GM_setCookieValue === "undefined") {
             today.setFullYear(today.getFullYear() + 1, today.getMonth, today.getDay());
             options.expires = today;
         }
-        var curCookie = escape("_greasekit" + name) +
+        var curCookie = escape(name) +
         "=" +
         escape(value) +
         ((options.expires) ? "; expires=" +
