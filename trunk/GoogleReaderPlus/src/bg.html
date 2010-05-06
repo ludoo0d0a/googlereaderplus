@@ -28,12 +28,16 @@
                     onMessageReceived(request, false, sendResponse);
                 }
             });
-            function checkForValidUrl(tabId, changeInfo, tab){
+            
+			
+			/*
+			function addAction(tabId, changeInfo, tab){
                 if (reReader.search.test(tab.url)) {
                     chrome.pageAction.show(tabId);
                 }
-            };
-            chrome.tabs.onUpdated.addListener(checkForValidUrl);
+            }
+            chrome.tabs.onUpdated.addListener(addAction);
+            */
             
             monitorIcon();
             sendPrefsToIcon();
