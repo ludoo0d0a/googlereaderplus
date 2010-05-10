@@ -58,7 +58,18 @@ GRP.scripts = {
                 value: '#FFC',
                 xtype: 'picker',
                 parent: 'mto'
+            },
+			repeat: {
+                value: false,
+                parent: 'mto'
+            },
+			gmailtheme: {
+                value:'',
+				values: {none:'',coldshower:'coldshower',lapinscretins:'lapinscretins'},
+                xtype: 'select',
+                parent: 'mto'
             }
+			
         }
     },
     ig: {
@@ -623,8 +634,11 @@ GRP.skins = {
     none: {
         name: "None"
     },
-    mytheme: {
+    mytheme:{
         name: "My Theme"
+    },
+	nativecompact:{
+        name: "Native compact"
     },
     player: {
         name: "Player Theme"
