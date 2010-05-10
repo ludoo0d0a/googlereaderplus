@@ -3,8 +3,8 @@
  * Transparent Theme + background image
  */
 body {
-	background: url({image}) no-repeat fixed top center !important;
-    background-size: 100% !important;
+	/*--bg1>--*//*background: url({image}) repeat !important;*//*--<bg1--*/
+	/*--bg2>--*/background: url({image}) no-repeat fixed top center !important;background-size: 100% !important;/*--<bg2--*/
 }
 
 #logo {
