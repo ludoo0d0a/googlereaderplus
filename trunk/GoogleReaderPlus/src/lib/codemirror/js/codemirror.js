@@ -90,7 +90,8 @@ var CodeMirror = (function(){
     frame.style.height = '100%';
     // display: block occasionally suppresses some Firefox bugs, so we
     // always add it, redundant as it sounds.
-    frame.style.display = "block";
+    //@LUDOO
+	//frame.style.display = "block";
 
     var div = this.wrapping = document.createElement("DIV");
     div.style.position = "relative";
