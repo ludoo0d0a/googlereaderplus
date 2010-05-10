@@ -3,13 +3,14 @@ function importprefs(){
     if (r) {
         var el = document.getElementById("ieprefs");
         if (el && el.value) {
-		   try {
-				prefs = JSON.parse(el.value);
-				saveprefs(true, true);
-				info(getTextPrefs(lang, 'global', 'prefsimportedok', 'en', "Preferences imported!"));
-			}catch(e){
-				info(getTextPrefs(lang, 'global', 'prefsimportfailed', 'en', "Import failed!")+' : '+e, 'error');
-			}
+            try {
+                prefs = JSON.parse(el.value);
+                saveprefs(true, true);
+                info(getTextPrefs(lang, 'global', 'prefsimportedok', 'en', "Preferences imported!"));
+            } 
+            catch (e) {
+                info(getTextPrefs(lang, 'global', 'prefsimportfailed', 'en', "Import failed!") + ' : ' + e, 'error');
+            }
         }
     }
 }
@@ -17,12 +18,12 @@ function importprefs(){
 function exportprefs(){
     var el = document.getElementById("ieprefs");
     var p = {};
-	iterate(prefs, function(i, pref){
-		if (i && pref && !(/password/.test(i))){
-			p[i]=pref;
-		}
-	});
-	el.value =  JSON.stringify(p)
+    iterate(prefs, function(i, pref){
+        if (i && pref && !(/password/.test(i))) {
+            p[i] = pref;
+        }
+    });
+    el.value = JSON.stringify(p)
 }
 
 function initprefs(){
@@ -112,13 +113,12 @@ function renderPrefs(){
                             setShortcut(key, ctrl);
                         } else if (ctrl.type === "checkbox") {
                             ctrl.checked = (prefs[o] === true);
-                        } else if (ctrl.type === "text") {
-                            ctrl.value = prefs[o];
-                        } else if (ctrl.type === "password") {
-                            ctrl.value = prefs[o];
-                        } else if (ctrl.type === "hidden") {
+                        } else {
+                            //text,password,hidden
                             ctrl.value = prefs[o];
                         }
+                    } else if (ctrl.nodeName === "SELECT") {
+                        ctrl.value = prefs[o];
                     } else if (ctrl.nodeName === "TEXTAREA") {
                         if (EDITORS && EDITORS[o]) {
                             var ed = EDITORS[o];
@@ -139,7 +139,7 @@ function renderPrefs(){
 }
 
 function reportNavigator(){
-	createReport(getInfo());
+    createReport(getInfo());
 }
 
 function initGRP(){
@@ -156,7 +156,7 @@ function initGRP(){
 function info(msg, cls){
     var status = document.getElementById('status');
     status.innerHTML = msg;
-    status.className = "rounded "+(cls||'');
+    status.className = "rounded " + (cls || '');
     window.setTimeout(function(){
         status.innerHTML = "";
         status.className = "rounded hidden";

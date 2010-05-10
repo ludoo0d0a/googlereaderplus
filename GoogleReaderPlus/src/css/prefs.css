@@ -118,10 +118,10 @@ ul.mnu, .mnu li {
     text-shadow: 0 0 0 #3E3A37;
 }
 
-.mnu iframe{
+iframe.ifbook{
 	border:none;
 	overflow:hidden;
-	width:200px;
+	width:130px;
 	height:30px;
 	padding-left: 60px;
 	margin:5px;
