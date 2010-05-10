@@ -467,6 +467,7 @@
                 }
                 //a['onload']=true;//force onload
                 var fns = ['readystatechange', 'error', 'load'];
+				var xpath = a.xpath;
                 for (var i = 0, len = fns.length; i < len; i++) {
                     var name = fns[i];
                     if (a['on' + name]) {
@@ -477,7 +478,7 @@
                                 if (local && typeof a['on' + f] === "function") {
                                     a['on' + f].call(this, xhr);
                                 } else {
-                                    sendResponse({
+                                    var res ={
                                         message: a.callback || "requestdone",
                                         action: f,
                                         responseXML: null, //xhr.responseXML,
@@ -486,7 +487,11 @@
                                         status: xhr.status,
                                         statusText: xhr.statusText,
                                         request: a
-                                    }, cb);
+                                    }; 
+									if (xpath && xhr.responseXML) {
+										res.xml=serializeXml(getElements(xpath, xhr.responseXML));
+									};
+									sendResponse(res, cb);
                                 }
                             }
                         };
