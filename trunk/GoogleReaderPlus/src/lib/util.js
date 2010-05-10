@@ -172,6 +172,14 @@ function getElements(xpath, context){
     return res;
 }
 
+function serializeXml(nodes){
+	var html='';
+	forEach(nodes, function(node){
+		html+=node.outerHTML;	
+	});
+	return html;
+}
+
 function get_id(id){
     return document.getElementById(id);
 }
@@ -1045,9 +1053,15 @@ function loadText(url, cb){
     });
 }
 
-function loadCss(url, cb){
+function loadCss(url, cb, option){
     loadText(url, function(txt){
-        var css = compact(txt).replace(/\/\*.*?\*\//g, '');
+        var css = txt;
+		if (!option || option.compact){
+			css=compact(css);
+		}
+		if (!option || option.clean){
+			css=css.replace(/\/\*.*?\*\//g, '');
+		}
         cb(css);
     });
 }
