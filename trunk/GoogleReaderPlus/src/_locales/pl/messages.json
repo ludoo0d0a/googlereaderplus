@@ -1,0 +1,17 @@
+{
+   "browser_action_tooltip_default": {
+      "message": "Ustawienia Czytnika Plus"
+   },
+   "extension_description": {
+      "message": "Ulepsz Czytnik Google przez dodanie brakujących favikonek i kolekcję dodatkowych możliwości"
+   },
+   "extension_language": {
+      "message": "Polish - Polski"
+   },
+   "extension_name": {
+      "message": "Czytnik Plus"
+   },
+   "extension_summary": {
+      "message": "Ulepsz Czytnik Google przez dodanie brakujących favikonek, naprawianie brakujących obrazków w załącznikach, lepszy licznik wiadomości, lepsze przeglądanie na panoramicznych ekranach, tryb pełnoekranowy, podgląd, kolorowanie listy, filtrowanie, wyświetlanie wielokolumnowe, skok na dół strony, zamykanie wpisu, dopasowanie wysokości, otwieranie w tle, czytanie myszką, dzielenie się wpisem na Facebooku, Twitterze, Instapaper, ReadItLater, oznaczenie wszystkich jako przeczytane, proste usuwanie reklam, podmianą treści wpisu, automatyczne tłumaczenie oraz dużo więcej....\nMożesz wybrać swój ulubiony wygląd spośród wielu gotowych styli, użycie własnego tła lub stylu z iGoogle.\nSkróty mogą być łatwo dostosować.\nTo rozszerzenie wspiera tłumaczenia (angielski, francuski, rosyjski, chiński, polski).\nNie miej oprów w pomaganiu mi przetłumaczyć do Twojego języka [http://goo.gl/HjiG]\n\nMożesz zainstalować również opcjonalnie przycisk na pasku narzędzi tutaj: \nhttps://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo""
+   }
+}
