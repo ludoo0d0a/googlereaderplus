@@ -340,8 +340,8 @@ function savefavicon(url, icon, title){
 }
 
 function removefavicon(url){
-    //delete prefs.favicons_domains[url];
-	prefs.favicons_domains.splice(url,1);
+    delete prefs.favicons_domains[url];
+	//prefs.favicons_domains.splice(url,1);
     loadCRUD('favicons_domains');
 }
 
