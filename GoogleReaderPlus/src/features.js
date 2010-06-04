@@ -11,7 +11,7 @@ GRP.scripts = {
 			opendirect: false,
             topcurrent: false,
 			floatactions: false,
-			antisocial:true,
+			/*antisocial:true,*/
             noupdatepopup: false,
             icontoolbar_add: {
                 xtype: 'p',
