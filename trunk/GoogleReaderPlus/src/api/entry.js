@@ -65,7 +65,7 @@ GRP.api_entry = function(prefs, langs, ID, SL, lang, edata){
         }
     }
     registerFeature(addButton, ID);
-    var keycode = getShortcutKey(ID, edata.action, prefs); //88//x
+    var keycode = getShortcutKey(ID, edata.action, prefs); 
     if (keycode) {
         keycode.fn = addKey;
         initKey(keycode);
