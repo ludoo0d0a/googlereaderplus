@@ -86,9 +86,11 @@ GRP.count = function(prefs, langs, ID, SL, lang){
         
 		//friends unread
 		var elfriend = document.getElementById('friends-tree-item-0-unread-count');
-		if (elfriend) {
+		if (elfriend && elfriend.innerText) {
 			var friendcount = parseInt(elfriend.innerText.replace(/[\s\(\)]*/g, ''), 10);
-			total += friendcount;
+			if (friendcount && friendcount > 0) {
+				total += friendcount;
+			}
 		}
 		
         // untagged items
