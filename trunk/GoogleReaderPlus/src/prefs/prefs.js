@@ -27,7 +27,7 @@ function exportprefs(){
 }
 
 function initprefs(){
-    lang = prefs.language_lang || 'en';
+	lang = prefs.language_lang || 'en';
     loadLangs(lang, function(){
         renderScripts();
         translatePage(lang);
@@ -143,12 +143,12 @@ function reportNavigator(){
 }
 
 function initGRP(){
-    GRP.setVersion();
+	GRP.setVersion();
     var me = this;
-    chrome.extension.sendRequest({
+    mycore.extension.sendRequest({
         message: "getprefs"
     }, function(a){
-        prefs = a.prefs;
+		prefs = a.prefs;
         initprefs();
     });
 }

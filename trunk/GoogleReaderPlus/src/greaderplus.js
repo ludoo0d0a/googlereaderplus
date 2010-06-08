@@ -19,7 +19,7 @@
             GRP.IMAGES_PATH = 'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/src/images';
             this.prefs = {};
             var me = this;
-            chrome.extension.sendRequest({
+            mycore.extension.sendRequest({
                 message: "getprefs"
             }, function(a){
                 me.prefs = a.prefs;
@@ -92,12 +92,12 @@
 			//dh('gbg', 'br', {cls: 'brmenu'});
 			addReaderMenuItem(getText(this.lang, 'ig', 'menu_prefs', 'en', 'Reader+ preferences'), 
                 function(){
-                    GM_openInTab('chrome-extension://' + GUID_CORE + '/preferences.html');
+                    GM_openInTab(mycore.getUrl('/preferences.html'));
                 }
             );
             addReaderMenuItem(getText(this.lang, 'ig', 'menu_theme', 'en', 'Theme configuration'), 
                 function(){
-                    GM_openInTab('chrome-extension://' + GUID_CORE + '/preferences.html#ig');
+                    GM_openInTab(mycore.getUrl('/preferences.html#ig'));
                 }
             );
 			addReaderMenuItem(getText(this.lang, 'general', 'menu_clearcache', 'en', 'Clear cache'), 
@@ -106,25 +106,6 @@
                 }
             );
         }
-        /*,fixlang: function(){
-         this.lang = this.prefs.language_lang || 'en';
-         this.stack = ['texts', 'scripts', 'skins', 'googleshortcuts'];
-         var base = 'chrome://extensions/'+GUID_CORE+'/';
-         this.runExtra();
-         this.i18n(this.lang, this.runExtra, this.stack, base, this);
-         },*/
-        /*i18n: function(lang, fn, stack, base, scope){
-         var cb = function(i){
-         i++;
-         if (i < stack.length) {
-         applyRemoteLang(lang, base, stack[i], GRP, cb, scope);
-         } else {
-         //get out
-         fn.call(scope || this, []);
-         }
-         };
-         cb(-1);
-         }*/
     };
     ReaderPlus.init();
 })();

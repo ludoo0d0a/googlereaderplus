@@ -1006,7 +1006,10 @@ function isShown(el){
 
 function show(el, value){
     if (el) {
-        el.style.display = value || '';
+        if (!el.style){
+			el.style={};
+		}
+		el.style.display = value || '';
     }
 }
 

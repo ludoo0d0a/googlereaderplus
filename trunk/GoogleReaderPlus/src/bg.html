@@ -3,6 +3,8 @@
         <title>readerplus Background</title>
         <script type="application/javascript" src="version.js">
         </script>
+		<script type="application/javascript" src="lib/cross.js">
+        </script>
         <script type="application/javascript" src="lib/util.js">
         </script>
         <script type="application/javascript" src="lib/external.js">
@@ -22,13 +24,12 @@
 					search: /https?\:\/\/www.google.com\/reader\/view\//,
                     url: 'http://www.google.com/reader/view/'
              };
-            chrome.extension.onRequest.addListener(onRequest);
-            chrome.extension.onRequestExternal.addListener(function(request, sender, sendResponse){
+            mycore.extension.onRequest.addListener(onMessageReceived);
+            mycore.extension.onRequestExternal.addListener(function(request, sender, sendResponse){
                 if (sender.id === GUID_ICON) {
                     onMessageReceived(request, false, sendResponse);
                 }
             });
-            
 			
 			/*
 			function addAction(tabId, changeInfo, tab){
@@ -41,10 +42,8 @@
             
             monitorIcon();
             sendPrefsToIcon();
-            function onRequest(request, sender, callback){
-                onMessageReceived(request, sender, callback);
-            }
             
+            //request, sender, callback
             function onMessageReceived(a, p, cb){
                 if (a.message == "loadicons") {
                     loadIcons(a, cb);
@@ -120,7 +119,7 @@
             monitorCloseTab();
             function monitorCloseTab(){
                 //Check if greader were closed
-                chrome.tabs.onRemoved.addListener(function(tabId){
+                mycore.tabs.onRemoved.addListener(function(tabId){
                     if (lastTabReader && tabId == lastTabReader.id) {
                         lastTabReader = false;
                     }
@@ -186,7 +185,7 @@
             
             function parseTabtitle(tb, cb){
                 //Needs update data 
-                chrome.tabs.get(tb.id, function(tab){
+                mycore.tabs.get(tb.id, function(tab){
                     var checkurl = /^https?:\/\/www\.google\.com\/reader\/view/.test(tab.url);
                     if (checkurl) {
                         var m = /\((\d+)\+?\)/.exec(tab.title);
@@ -537,11 +536,11 @@
                 findtab(a, function(tab){
                     if (tab) {
                         if (selected) {
-                            chrome.tabs.update(tab.id, {
+                            mycore.tabs.update(tab.id, {
                                 url: a.url,
                                 selected: true
                             }, function(tab){
-                                chrome.tabs.executeScript(tab.id, 'hashchange();');
+                                mycore.tabs.executeScript(tab.id, 'hashchange();');
                             });
                         }
                     } else {
@@ -557,7 +556,7 @@
             }
             
             function findtab(a, fn){
-                chrome.windows.getAll({
+                mycore.windows.getAll({
                     populate: true
                 }, function(windows){
                     var tab = false, found = false;
@@ -585,14 +584,14 @@
             }
             
             function opentab(a){
-                chrome.tabs.getSelected(null, function(tab){
+                mycore.tabs.getSelected(null, function(tab){
                     var o = {
                         url: a.url,
                         selected: (a.selected || typeof a.selected === "undefined"),
                         windowId: a.windowId,
                         index: a.index || (tab.index + 1)
                     };
-                    chrome.tabs.create(o);
+                    mycore.tabs.create(o);
                 });
             }
             

@@ -58,6 +58,7 @@ function renderScripts(){
     var tplPanelTitle = '<div class="title"><h2>{name}</h2><div id="paneldesc_{id}" class="desc">{desc}</div></div>';
     var tplPanelIframe = '<div class="title"><h2>{name}</h2><iframe src="{url}" width="700" height="620"></iframe></div>';
     var categories = group(GRP.scripts, 'category');
+	var firstcat=true;
     iterate(categories, function(category, scripts){
         var ulcat;
 		//var incat = (category !== 'other');
@@ -66,9 +67,14 @@ function renderScripts(){
             var licat = dh(list, 'li', {
                 cls: 'category'
             });
-            var acat = dh(licat, 'a', {
+            var html = '<span class="bullet">•</span><span>'+getCategory(lang, category)+'</span>';
+			if (firstcat){
+				firstcat=false;
+				html+='<div id="expandall">All</div>';
+			}
+			var acat = dh(licat, 'a', {
                 //text: getCategory(lang, category),
-				html: '<span class="bullet">•</span><span>'+getCategory(lang, category)+'</span>',
+				html: html,
                 href: '#'
             }, {
                 click: function(e){
@@ -132,6 +138,28 @@ function renderScripts(){
     addClass(list.lastElementChild, 'last');
     extraFeatures();
     showcat(list, true);
+	
+	//expand all 
+	var eall = get_id('expandall');
+	if (eall){
+		eall.onclick=function(e){
+			if (hasClass(eall, 'expanded')){
+				removeClass(eall, 'expanded');
+				toggleCategories(false);
+			}else{
+				addClass(eall, 'expanded');
+				toggleCategories(true);
+			}
+		};
+	}
+}
+
+function toggleCategories(expand){
+	var s = get_id('scriptlist');
+	var uls = s.getElementsByClassName('wrap');
+	iterate(uls, function(id, ul){
+		showas(ul, expand);
+	});
 }
 
 var tplInput = '<label class="lbl {lcls}" id="t_{id}" for="{id}">{text}</label><input id="{id}" class="{cls}" name="{id}" type="{input}" value="{value}"{extra}"/><br/>';

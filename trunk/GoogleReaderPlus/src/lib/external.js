@@ -11,7 +11,7 @@
 //home crx : aencokegfecfkpckmiklpcklhdblkdgj
 //unpacked : lomblngfikeinenjgnkcnhbdgchkaeai
 
-var GUID_CORE = getGUID();
+var GUID_CORE = mycore.getGUID();
 var GUID_ICON = 'ecpcafinfpjgabomoamkhkgnpgpmdmeo';
 var env = ''; //readCookie('env');
 if (env) {
@@ -27,7 +27,7 @@ if (env && env == 'home') {
 }
 console.log('GUID_CORE=' + GUID_CORE);
 console.log('GUID_ICON=' + GUID_ICON);
-var LOCALPATH = 'chrome-extension://'+GUID_CORE;
+var LOCALPATH = mycore.getLocalPath();
 
 function call_icon(message, options, callback){
 	external_call(GUID_ICON, message, options, callback);
@@ -38,7 +38,7 @@ function call_core(message, options, callback){
 function external_call(guid, message, options, callback){
     var emptyFn = function(){
     };
-    chrome.extension.sendRequest(guid, 
+    mycore.extension.sendRequest(guid, 
     {
         message: message,
         options: options || {}
@@ -46,8 +46,4 @@ function external_call(guid, message, options, callback){
     //console.log('send "' + message + '" on ' + guid);
 	//console.log(options);
 }
-function getGUID(){
-	var url = chrome.extension.getURL('bg.html');
-	var m = /:\/\/(\w+)/.exec(url);
-	return m[1];
-}
+
