@@ -495,3 +495,8 @@ img.favicon {
 .center{
 	text-align:center;
 }
+
+#expandall{
+	float:right;
+	margin-right:4px;
+}

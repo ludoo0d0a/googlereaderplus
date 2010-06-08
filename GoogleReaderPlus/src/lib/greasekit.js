@@ -4,12 +4,12 @@ var PREFIX = "readerplus.";
 if (typeof GM_getValue === "undefined") {
     GM_getValue = function(name, def){
         //Move old nameing value to new prefixed place
-        var value = localStorage.getItem(name);
+        var value = mycore.storage.getItem(name);
         if (value) {
             GM_setValue(PREFIX + name, value);
-            localStorage.removeItem(name);//remove old
+            mycore.storage.removeItem(name);//remove old
         }
-        value = localStorage.getItem(PREFIX + name);
+        value = mycore.storage.getItem(PREFIX + name);
         if (value === null && def !== null) {
             value = def;
         }
@@ -39,7 +39,7 @@ if (typeof GM_getCookieValue === "undefined") {
 if (typeof GM_setValue === "undefined") {
     GM_setValue = function(name, value, options){
         try {
-            localStorage.setItem(PREFIX + name, value);
+            mycore.storage.setItem(PREFIX + name, value);
         } catch (e) {
             console.log('error on GM_setValue[' + name + ']=' + value);
         }
@@ -66,10 +66,10 @@ if (typeof GM_setCookieValue === "undefined") {
 }
 function clearcache(lang){
     var name, v;
-    for (var i = 0; i <= localStorage.length - 1; i++) {
-        name = localStorage.key(i);
+    for (var i = 0; i <= mycore.storage.getLength() - 1; i++) {
+        name = mycore.storage.key(i);
         if ((/^readerplus\.theme_/.test(name)) || (/^readerplus\.rps_/.test(name)) || (/^readerplus\.cache/.test(name))) {
-            localStorage.removeItem(name);
+            mycore.storage.removeItem(name);
         }
     }
     alert(getTextPrefs(lang, 'global', 'cachecleared', 'en', "Cache cleared"));
@@ -84,7 +84,7 @@ function sendMessage(message, o, callback){
             a[fns[i]] = true;
         }
     }
-    chrome.extension.sendRequest(a, callback);
+    mycore.extension.sendRequest(a, callback);
 }
 
 if (typeof GM_xmlhttpRequest === "undefined") {
@@ -245,7 +245,7 @@ if (typeof GM_openInTab === "undefined") {
             index: index,
             windowId: windowId
         };
-        chrome.extension.sendRequest(data);
+        mycore.extension.sendRequest(data);
     };
 }
 if (typeof unsafeWindow === "undefined") {

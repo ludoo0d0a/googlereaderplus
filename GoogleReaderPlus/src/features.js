@@ -49,6 +49,11 @@ GRP.scripts = {
                 size: 80,
                 parent: 'mto'
             },
+			repeat: {
+                value: false,
+				xtype: 'boolean',
+                parent: 'mto'
+            },
             color: {
                 value: '#565656',
                 xtype: 'picker',
@@ -59,17 +64,12 @@ GRP.scripts = {
                 xtype: 'picker',
                 parent: 'mto'
             },
-			repeat: {
-                value: false,
-                parent: 'mto'
-            },
 			gmailtheme: {
                 value:'',
 				values: {none:'',coldshower:'coldshower',lapinscretins:'lapinscretins'},
                 xtype: 'select',
                 parent: 'mto'
             }
-			
         }
     },
     ig: {
@@ -627,7 +627,7 @@ GRP.scripts = {
 };
 GRP.packages = {
     'mini': {favicons:true, unreadcount:true, fixlayout:true, count:true, counticon:true, removeads:true},
-    'ludoo': {general:{secure: true, counter:false},favicons:true, unreadcount:true, fixlayout:true, count:true, counticon:true, removeads:true, column:true, mark:true, jump:true, fitheight:true, closeentry:true, openbackground:true, replacer:true, preview:{onicon:true,overlay:true}},
+    'ludoo': {general:{secure: true, counter:false},favicons:true, unreadcount:true, fixlayout:true, count:true, counticon:true, removeads:true, column:true, mark:true, jump:true, fitheight:true, closeentry:true, openbackground:true, replacer:true, preview:{onicon:true,overlay:true}, theme:{gmailtheme:'coldshower'}},
     'full': {theme:{skin:'osxblack'}, favicons:true, unreadcount:true, fixlayout:true, count:true, counticon:true, removeads:true, column:true, mark:true, jump:true, preview:true, colorful:true, filter:true, readbymouse:true, twitter:true, facebook:true, fitheight:true, closeentry:true,openbackground:true,aero:true,instapaper:true,readitlater:true,translate:true,replacer:true,limit:true}
 };
 GRP.skins = {

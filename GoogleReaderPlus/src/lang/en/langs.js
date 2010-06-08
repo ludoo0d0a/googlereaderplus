@@ -45,10 +45,10 @@ GRP.langs[locale].texts = {
         text_shortener: 'Short url',
         shortfailed: "Sorry, an error occured on trying to use short url!\n\r{0}"
     },
-	readit: {
+    readit: {
         password: 'Password, if you have one:',
         wronglogin: 'Wrong username or password, please check it!!',
-nologin: 'This feature requires a username, please set preferences!!',
+        nologin: 'This feature requires a username, please set preferences!!',
         error: 'The service encountered an error. Please try again later.',
         badrequest: 'Bad request. Probably missing a required parameter, such as url.',
         saving: 'Saving',
@@ -59,14 +59,14 @@ nologin: 'This feature requires a username, please set preferences!!',
         keyword: 'Instapaper',
         plslogin: 'Please login to Instapaper',
         login: 'Email or username:'
-	},
-	readitlater: {
+    },
+    readitlater: {
         text: 'Read Later with ReadItLater',
         keyword: 'ReadItLater',
         plslogin: 'Please login to ReadItLater',
-		rateexceeded:'Rate limit exceeded, please wait a little bit before resubmitting',
-		maintenance:'Read It Later\'s sync server is down for scheduled maintenance'
-	},
+        rateexceeded: 'Rate limit exceeded, please wait a little bit before resubmitting',
+        maintenance: 'Read It Later\'s sync server is down for scheduled maintenance'
+    },
     favicons: {
         preferences: 'Preferences',
         getfavicon: 'Get favicon',
@@ -108,10 +108,10 @@ nologin: 'This feature requires a username, please set preferences!!',
         title: 'Open as preview',
         opennewtab: 'Open in a new window',
         keyword: 'Preview',
-overlay_next: 'Next',
-overlay_previous: 'Previous',
-overlay_close: 'Close',
-overlay_category: 'Category'
+        overlay_next: 'Next',
+        overlay_previous: 'Previous',
+        overlay_close: 'Close',
+        overlay_category: 'Category'
     },
     readbymouse: {
         middleclick: 'Middle click',
@@ -132,47 +132,48 @@ overlay_category: 'Category'
         text: 'Light on the media',
         keyword: 'Light'
     },
-	ig: {
+    ig: {
         menu_prefs: 'Reader+ preferences',
         menu_theme: 'Reader+ theme',
-		menu_randomtheme: 'Change theme :'
+        menu_randomtheme: 'Change theme :'
     },
-	menu:{
+    menu: {
         label: 'Extra'
-	}
+    }
 };
 GRP.langs[locale].prefs = {
     global: {
         title: "Reader Plus",
         "val-save": "Save",
         alreadyexist: "Item already exists!",
-		snew:'new!',
-		supdated:'Updated!',
-prefssaved:"Preferences saved!",
-cachecleared:"Cache cleared!"
+        snew: 'new!',
+        supdated: 'Updated!',
+        prefssaved: "Preferences saved!",
+        cachecleared: "Cache cleared!"
     },
     theme: {
         noborder: "Remove entries borders to display more items on a single page",
-		mytheme: 'Use <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">custom background picture</a> and font color with skin "MyTheme"',
-		url:'Picture URL',
-		color:'Text color',
-		bg:'Background color',
-clearcache:'Clear cache'
+        mytheme: 'Use <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">custom background picture</a> and font color with skin "MyTheme"',
+        url: 'Picture URL',
+        color: 'Text color',
+        bg: 'Background color',
+repeat: 'Tiled Picture ',
+gmailtheme: 'Gmail theme'
     },
-	ig: {
-		warning:'Some themes could be displayed incorrectly ; this is a Beta feature!',
-		skin_name:'iGoogle theme name',
-		skin_url:'iGoogle theme URL',
-		debug:'Debug mode (For debugging only)',
-		randomtime:'Dynamic theme toggles randomly instead time control',
-		userandomthemes:'Theme is automatically switched randomly',
-		randomthemes:'Toggle theme every (min.)',
-		add:'Add it now',
-        next:'Next',
-        previous:'Previous',
-		random:'Random',
-        search:'Search themes'
-	},
+    ig: {
+        warning: 'Some themes could be displayed incorrectly ; this is a Beta feature!',
+        skin_name: 'iGoogle theme name',
+        skin_url: 'iGoogle theme URL',
+        debug: 'Debug mode (For debugging only)',
+        randomtime: 'Dynamic theme toggles randomly instead time control',
+        userandomthemes: 'Theme is automatically switched randomly',
+        randomthemes: 'Toggle theme every (min.)',
+        add: 'Add it now',
+        next: 'Next',
+        previous: 'Previous',
+        random: 'Random',
+        search: 'Search themes'
+    },
     about: {
         thanks1: '<td><span class="top_right"><img src="images/48.png"></span><h1>Thank you...</h1>' +
         '<p>... for installing (or updating to) the latest version of <strong>Reader Plus</strong>!</p>' +
@@ -183,8 +184,8 @@ clearcache:'Clear cache'
         thanks2: '<td><p>If you like this extension and want more features, feel free to make a donation.</p>' +
         '<p>In this way, I could buy a truck of coffee so that i can stay awake to write all the code :)</p>' +
         '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></a></td>',
-		whatsnew:'<td><h2>What\'s new!!</h2><ul><li>Try the new themes</li><li>or use a custom background with the new theme "MyTheme"</li><li>or use a random <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a> theme</li><li>Preview as lightbox</li><li>Share items using <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li><li>Entry actions as floating window (general)</li><li>Translate news</li></ul></td>',
-nopopup:'<p>If you don\'t want to be alerted on new version updates, check option "No popup on updates" in <a href="preferences.html#general">General section</a>.</p>'
+        whatsnew: '<td><h2>What\'s new!!</h2><ul><li>Try the new themes</li><li>or use a custom background with the new theme "MyTheme"</li><li>or use a random <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a> theme</li><li>Preview as lightbox</li><li>Share items using <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li><li>Entry actions as floating window (general)</li><li>Translate news</li></ul></td>',
+        nopopup: '<p>If you don\'t want to be alerted on new version updates, check option "No popup on updates" in <a href="preferences.html#general">General section</a>.</p>'
     },
     link: {
         reader: "<span>Google Reader</span>Your RSS reader",
@@ -202,11 +203,11 @@ nopopup:'<p>If you don\'t want to be alerted on new version updates, check optio
         pagebreak: "Break long articles so long articles can be read page by page like a newspaper.",
         entersite: "Enter URL of the site"
     },
-	translate: {
-        lang:"Translate content into ",
-		locked: "Always actived, except for:",
-        include:"Only include following feeds:",
-		entersite: "Enter URL of the site"
+    translate: {
+        lang: "Translate content into ",
+        locked: "Always actived, except for:",
+        include: "Only include following feeds:",
+        entersite: "Enter URL of the site"
     },
     twitter: {
         shortener: "Shortener",
@@ -216,15 +217,15 @@ nopopup:'<p>If you don\'t want to be alerted on new version updates, check optio
         shortener_pwd: "Password"
     },
     instapaper: {
-auth: "<a href='http://www.instapaper.com' target='blank'>Instapaper</a> authentication:",
+        auth: "<a href='http://www.instapaper.com' target='blank'>Instapaper</a> authentication:",
         username: "Username:",
-password: "Password (optional):"
+        password: "Password (optional):"
     },
-readitlater: {
-	auth: "<a href='http://www.readitlaterlist.com' target='blank'>ReadItLater</a> <a href='http://readitlaterlist.com/signup' target='blank'>authentication</a> (required):",
-	username: "Username:",
-	password: "Password:"
-},
+    readitlater: {
+        auth: "<a href='http://www.readitlaterlist.com' target='blank'>ReadItLater</a> <a href='http://readitlaterlist.com/signup' target='blank'>authentication</a> (required):",
+        username: "Username:",
+        password: "Password:"
+    },
     colorful: {
         tree: "Show label colors in the left navigation tree"
     },
@@ -232,19 +233,19 @@ readitlater: {
         counter: "Display unread counter in the toolbar icon",
         opendirect: "Click on icon will open GoogleReader",
         secure: "Always force use of secure protocol (https)",
-topcurrent: "Current entry always on top",
-floatactions: "Entry actions are displayed as a floating window",
-noupdatepopup: "No popup on updates",
+        topcurrent: "Current entry always on top",
+        floatactions: "Entry actions are displayed as a floating window",
+        noupdatepopup: "No popup on updates",
         icontoolbar_add: "To add button with icon in toolbar, please <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">download and install it</a>.",
         icontoolbar_text: "<span>To make the button optional, we put him in an another extension as standalone,</span>                                    <br>                                    <span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b></b> on the <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span><span>To remove the button, right click him and choose Disable.</span>",
         importexport_text: "You can now save your preferences using 'export' and reload it later using 'import', but be sure data are <a href='http://jsonformatter.curiousconcept.com/' target='blank'>JSON compliant</a>:",
         confirmimport: "Are you sure to import this configuration?\nCurrent configuration will be LOST!"
     },
-	limit:{
-		slidewindow: "Slidewindow - limit entries number",
-		mini: "Minimum items",
-		maxi: "Maximum items"
-	},
+    limit: {
+        slidewindow: "Slidewindow - limit entries number",
+        mini: "Minimum items",
+        maxi: "Maximum items"
+    },
     removeads: {
         links: "Link filter:",
         images: "Image filter:",
@@ -253,12 +254,12 @@ noupdatepopup: "No popup on updates",
     preview: {
         onicon: "Show integrated preview when click on icon right after the title (if not checked, on title)",
         locked: "Always actived, except following feeds:",
-overlay:'Fullscreen preview (Lightbox)'
+        overlay: 'Fullscreen preview (Lightbox)'
     },
     fitheight: {
         locked: "Always actived, except following feeds:"
     },
-	filter: {
+    filter: {
         searchbody: "Search inside title and body text"
     },
     favicons: {
@@ -277,7 +278,7 @@ overlay:'Fullscreen preview (Lightbox)'
         link: "Link Regex",
         from: "Search regex/xpath",
         to: "Replace",
-		prompttitle: "Title for this filter"
+        prompttitle: "Title for this filter"
     },
     lightbox: {
         locked: "Always actived, except following feeds:"

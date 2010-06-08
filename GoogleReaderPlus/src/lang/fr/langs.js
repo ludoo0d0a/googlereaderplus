@@ -45,7 +45,7 @@ GRP.langs[locale].texts = {
         text_shortener: 'Short URL',
         shortfailed: "Désolé, une erreur est survenue pour obtenir une url courte!\n\r{0}"
     },
-	readit: {
+    readit: {
         password: 'Mot de passe, si vous en avez un:',
         wronglogin: 'Mauvais mot de passe ou nom d\'utilisateur, merci de vérifier!!',
         nologin: 'Cette fonctionnalité a besoin d\'un nom d\'utilisateur, merci de le renseigner dans la page des préférences!!',
@@ -60,13 +60,13 @@ GRP.langs[locale].texts = {
         plslogin: 'Merci de vous connecter Instapaper',
         login: 'Email ou nom d\'utilisateur:'
     },
-	readitlater: {
+    readitlater: {
         text: 'Lire plus tard avec ReadItLater',
         keyword: 'ReadItLater',
         plslogin: 'Merci de vous connecter à ReadItLater',
-		rateexceeded:'Trafic dépassé, merci d\'attendre avant de recommencer',
-		maintenance:'Maintenance en cours, revenz plus tard !'
-	},
+        rateexceeded: 'Trafic dépassé, merci d\'attendre avant de recommencer',
+        maintenance: 'Maintenance en cours, revenz plus tard !'
+    },
     favicons: {
         preferences: 'Préférences',
         getfavicon: 'Obtenir l\'icône de ce site',
@@ -108,10 +108,10 @@ GRP.langs[locale].texts = {
         title: 'Aperçu de la nouvelle',
         opennewtab: 'Ouvrir dans une nouvelle fenêtre',
         keyword: 'Aperçu',
-overlay_next: 'Suivant',
-overlay_previous: 'Précédent',
-overlay_close: 'Fermer',
-overlay_category: 'Catégorie'
+        overlay_next: 'Suivant',
+        overlay_previous: 'Précédent',
+        overlay_close: 'Fermer',
+        overlay_category: 'Catégorie'
     },
     readbymouse: {
         middleclick: 'Clic bouton du milieu',
@@ -135,41 +135,43 @@ overlay_category: 'Catégorie'
     ig: {
         menu_prefs: 'Reader+ préférences',
         menu_theme: 'Reader+ thème',
-		menu_randomtheme: 'Changer le thème :'
+        menu_randomtheme: 'Changer le thème :'
     },
-	menu:{
+    menu: {
         label: 'Extra'
-	}
+    }
 };
 GRP.langs[locale].prefs = {
     global: {
         title: "Reader Plus",
         "val-save": "Sauver",
         alreadyexist: "Cet élément existe déjà!",
-		snew:'Nouveau!',
-		supdated:'Mis à jour!'
+        snew: 'Nouveau!',
+        supdated: 'Mis à jour!'
     },
     theme: {
         noborder: "Retirer les bords des articles pour en afficher un maximum sur une page",
-		mytheme: 'Utilisez <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">une image de fond </a> et des couleurs personnaliséees avec le thème "MyTheme"',
-		url:'URL de l\'image',
-		color:'Couleur du text',
-		bg:'Couleur du fond du texte'
+        mytheme: 'Utilisez <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">une image de fond </a> et des couleurs personnaliséees avec le thème "MyTheme"',
+        url: 'URL de l\'image',
+        color: 'Couleur du text',
+        bg: 'Couleur du fond du texte',
+repeat: 'Tiled Picture ',
+gmailtheme: 'Gmail theme'
     },
-	ig: {
-		warning:'Some themes could be displayed incorrectly ; this is a Beta feature!',
-		skin_name:'iGoogle theme name',
-		skin_url:'iGoogle theme URL',
-		debug:'Debug mode (For debugging only)',
-		randomtime:'Dynamic theme toggles randomly instead time control',
-		userandomthemes:'Theme is automatically switched randomly',
-		randomthemes:'Toggle theme every (min.)',
-		add:'Add it now',
-        next:'Next',
-        previous:'Previous',
-		random:'Random',
-        search:'Search themes'
-	},
+    ig: {
+        warning: 'Some themes could be displayed incorrectly ; this is a Beta feature!',
+        skin_name: 'iGoogle theme name',
+        skin_url: 'iGoogle theme URL',
+        debug: 'Debug mode (For debugging only)',
+        randomtime: 'Dynamic theme toggles randomly instead time control',
+        userandomthemes: 'Theme is automatically switched randomly',
+        randomthemes: 'Toggle theme every (min.)',
+        add: 'Add it now',
+        next: 'Next',
+        previous: 'Previous',
+        random: 'Random',
+        search: 'Search themes'
+    },
     about: {
         thanks1: '<td><span class="top_right"><img src="images/48.png"></span><h1>Merci...</h1>' +
         '<p>... d\'avoir installé (ou mis à jour) la dernière version de <strong>Reader Plus</strong>!</p>' +
@@ -181,7 +183,7 @@ GRP.langs[locale].prefs = {
         '<p>Vous pouvez également me faire un don, de sorte que je puisse m\'acheter une cargaison de café pour tenir le coup pour écrire le code :)</p>' +
         '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=FR&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/fr_FR/i/btn/btn_donate_SM.gif" width="108" height="21"></span></a></td>',
         whatsnew: '<td><h2>Quoi de neuf!!</h2><ul><li>Essayer les nouveaux thèmes</li><li>ou utiliser une image personnalisée ave le nouveau thème configurable "MyTheme"</li><li>ou choisissez un thème aléatoire parmi les thèmes <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a></li><li>Aperçu plein ecran façon "lightbox"</li><li>Partager vos lectures avec <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li><li>Le panneau des actions comme fenêtre volante (onglet Général)</li><li>Traduction des articles</li></ul></td>',
-nopopup:'<p>Si vous ne voulez plus être averties des mises à jour, cocher l\'option "Plus de popup lors des mises à jour" dans <a href="preferences.html#general">la section Générale</a>.</p>'
+        nopopup: '<p>Si vous ne voulez plus être averties des mises à jour, cocher l\'option "Plus de popup lors des mises à jour" dans <a href="preferences.html#general">la section Générale</a>.</p>'
     },
     link: {
         reader: "<span>Google Reader</span>Mon lecteur RSS",
@@ -212,10 +214,10 @@ nopopup:'<p>Si vous ne voulez plus être averties des mises à jour, cocher l\'o
         password: "Mot de passe:"
     },
     readitlater: {
-		auth: "<a href='http://readitlaterlist.com/signup' target='blank'>Authentification</a> pour <a href='http://readitlaterlist.com' target='blank'>ReadItLater</a> (obligatoire):",
-		username: "Utilisateur:",
-		password: "Mot de passe:"
-	},
+        auth: "<a href='http://readitlaterlist.com/signup' target='blank'>Authentification</a> pour <a href='http://readitlaterlist.com' target='blank'>ReadItLater</a> (obligatoire):",
+        username: "Utilisateur:",
+        password: "Mot de passe:"
+    },
     colorful: {
         tree: "Afficher les titres en couleurs dans l'arbre des sites à gauche"
     },
@@ -223,12 +225,12 @@ nopopup:'<p>Si vous ne voulez plus être averties des mises à jour, cocher l\'o
         counter: "Afficher le compteur dans la barre d'outil",
         opendirect: "Cliquer sur l'icône pour ouvrir GoogleReader",
         secure: "Forcer l'utilisiation du protocole sécurisé (https)",
-topcurrent: "Forcer l'affcihage de l'article courant toujours en haut de l'écran",
-floatactions: "Menu 'actions' est affiché dans une fenêtre volante",
-noupdatepopup: "Plus de popup lors des mises à jour",
+        topcurrent: "Forcer l'affcihage de l'article courant toujours en haut de l'écran",
+        floatactions: "Menu 'actions' est affiché dans une fenêtre volante",
+        noupdatepopup: "Plus de popup lors des mises à jour",
         icontoolbar_add: "Pour ajouter un bouton avec icône dans la barre d'outil, veuillez <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">télécharger et installer le bouton</a>.",
         icontoolbar_text: "<span>Afin de le rendre optionnel, nous fournissons le bouton sous forme d'une extension indépendante,</span><br><span>à installé en plus de ReaderPlus.</span><br><span>Pour ajouter le bouton, cliquer <b>Installer</b> sur la page <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">bouton pour ReaderPlus</a>.</span><br><span>Pour retirer le bouton, un clic droit et choisissez 'Désactiver'.</span>",
-importexport_text: "Vous pouvez sauver vos préférences avec la fonction 'export' et les rechqrger plus tard avec 'import', mais assurez vous de la <a href='http://jsonformatter.curiousconcept.com/' target='blank'>validité du format JSON</a>:",
+        importexport_text: "Vous pouvez sauver vos préférences avec la fonction 'export' et les rechqrger plus tard avec 'import', mais assurez vous de la <a href='http://jsonformatter.curiousconcept.com/' target='blank'>validité du format JSON</a>:",
         confirmimport: "Etes-vous sur de vouloir importer cette configuration?\nLa configuration actuelle sera perdue"
     },
     removeads: {
@@ -239,7 +241,7 @@ importexport_text: "Vous pouvez sauver vos préférences avec la fonction 'expor
     preview: {
         onicon: "Utiliser un icone apres le titre pour afficher l'apercu (si non coché, l'apercu apparait lors du clic sur le titre)",
         locked: "Option 'Apercu' toujours activée",
-        overlay:'Aperçu plein écran (Lightbox)'
+        overlay: 'Aperçu plein écran (Lightbox)'
     },
     fitheight: {
         locked: "Option 'Adapter hauteur' toujours activée"
