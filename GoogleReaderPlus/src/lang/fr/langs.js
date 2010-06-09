@@ -6,8 +6,8 @@
  * fr : Francais
  * **************************
  *
- * Version : 1.3
- * Date : 04-12-2010
+ * Version : 1.3.1
+ * Date : 06-09-2010
  * @author Valente
  */
 var locale = 'fr';
@@ -224,10 +224,10 @@ gmailtheme: 'Gmail theme'
     general: {
         counter: "Afficher le compteur dans la barre d'outil",
         opendirect: "Cliquer sur l'icône pour ouvrir GoogleReader",
-        secure: "Forcer l'utilisiation du protocole sécurisé (https)",
-        topcurrent: "Forcer l'affcihage de l'article courant toujours en haut de l'écran",
-        floatactions: "Menu 'actions' est affiché dans une fenêtre volante",
-        noupdatepopup: "Plus de popup lors des mises à jour",
+        secure: "Forcer l'utilisation du protocole sécurisé (https)",
+topcurrent: "Forcer l'affichage de l'article courant toujours en haut de l'écran",
+floatactions: "Menu 'actions' est affiché dans une fenêtre volante",
+noupdatepopup: "Plus de popup lors des mises à jour",
         icontoolbar_add: "Pour ajouter un bouton avec icône dans la barre d'outil, veuillez <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">télécharger et installer le bouton</a>.",
         icontoolbar_text: "<span>Afin de le rendre optionnel, nous fournissons le bouton sous forme d'une extension indépendante,</span><br><span>à installé en plus de ReaderPlus.</span><br><span>Pour ajouter le bouton, cliquer <b>Installer</b> sur la page <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">bouton pour ReaderPlus</a>.</span><br><span>Pour retirer le bouton, un clic droit et choisissez 'Désactiver'.</span>",
         importexport_text: "Vous pouvez sauver vos préférences avec la fonction 'export' et les rechqrger plus tard avec 'import', mais assurez vous de la <a href='http://jsonformatter.curiousconcept.com/' target='blank'>validité du format JSON</a>:",
