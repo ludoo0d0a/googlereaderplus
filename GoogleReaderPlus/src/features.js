@@ -4,44 +4,44 @@
 GRP.scripts = {
     general: {
         name: "General",
-		category:'main',
+        category: 'main',
         options: {
             counter: true,
-			secure: false,
-			opendirect: false,
+            secure: false,
+            opendirect: false,
             topcurrent: false,
-			floatactions: false,
-			/*antisocial:true,*/
+            floatactions: false,
+            /*antisocial:true,*/
             noupdatepopup: false,
             icontoolbar_add: {
                 xtype: 'p',
-				label:true
+                label: true
             },
             icontoolbar_text: {
                 xtype: 'p',
-				label:true
+                label: true
             },
             importexport_text: {
                 xtype: 'p',
-				label:true
+                label: true
             },
             preferences: {
                 xtype: 'html',
-				label:true,
+                label: true,
                 value: '<input id="ieprefs" class="ignore" type="text" size="30"/><input type="button" id="bimport" value="import" onclick="importprefs();"/><input type="button" id="bexport" value="export" onclick="exportprefs();"/>'
             }
         }
     },
     theme: {
         name: "Theme",
-		category:'theme',
-		status:'updated',
+        category: 'theme',
+        status: 'updated',
         options: {
             skin: '',
             noborder: false,
             mytheme: {
                 xtype: 'p',
-				label:true,
+                label: true,
                 parent: 'mto'
             },
             url: {
@@ -49,9 +49,9 @@ GRP.scripts = {
                 size: 80,
                 parent: 'mto'
             },
-			repeat: {
+            repeat: {
                 value: false,
-				xtype: 'boolean',
+                xtype: 'boolean',
                 parent: 'mto'
             },
             color: {
@@ -64,9 +64,34 @@ GRP.scripts = {
                 xtype: 'picker',
                 parent: 'mto'
             },
-			gmailtheme: {
-                value:'',
-				values: {none:'',coldshower:'coldshower',lapinscretins:'lapinscretins'},
+            gmailtheme: {
+                value: '',
+                values: {
+                    none: '',
+                    gmail_coldshower: 'Gmail coldshower',
+					gmail_mountains: 'Gmail mountains',
+					gmail_planets: 'Gmail planets',
+					gmail_beach: 'Gmail beach',
+                    gmail_lapinscretins1: 'Gmail lapinscretins1',
+                    gmail_lapinscretins2: 'Gmail lapinscretins2',
+                    gmail_lapinscretins3: 'Gmail lapinscretins3',
+					gmail_steel: 'Gmail steel',
+					gmail_assasinscreed2: 'Gmail assasinscreed2',
+					gmail_turf: 'Gmail turf',
+					gmail_highscore: 'Gmail highscore',
+					gmail_orcasisland: 'Gmail orcasisland',
+					gmail_cherryblossom: 'Gmail cherryblossom',
+					gmail_nightshade: 'Gmail nightshade',
+					gmail_marina: 'Gmail marina',
+					gmail_dusk: 'Gmail dusk',
+					gmail_sunset: 'Gmail sunset',
+					gmail_shiny: 'Gmail shiny',
+					gmail_desk: 'Gmail desk',
+					/* editors_picks */
+"5478752472500006610":"editor_5478752472500006610","5478752827007585634":"editor_5478752827007585634","5478752842710333378":"editor_5478752842710333378","5478753114195988130":"editor_5478753114195988130","5478753075316627266":"editor_5478753075316627266","5478753460334726146":"editor_5478753460334726146","5478752501519603442":"editor_5478752501519603442","5478753089633816370":"editor_5478753089633816370","5478752819223180210":"editor_5478752819223180210","5478753117486370930":"editor_5478753117486370930","5478752835087677362":"editor_5478752835087677362","5478752493997894098":"editor_5478752493997894098","5478752822146891810":"editor_5478752822146891810","5478753058608504226":"editor_5478753058608504226","5480987905094465154":"editor_5480987905094465154","5480987906200029490":"editor_5480987906200029490","5480998621006856338":"editor_5480998621006856338","5480987916726984130":"editor_5480987916726984130","5480987917979934498":"editor_5480987917979934498","5480987925727076290":"editor_5480987925727076290","5480988005113749330":"editor_5480988005113749330","5480988012864676114":"editor_5480988012864676114","5478753466167683746":"editor_5478753466167683746","5478753483552159554":"editor_5478753483552159554","5478755559461692018":"editor_5478755559461692018","5478755572322259650":"editor_5478755572322259650","5478753799989312658":"editor_5478753799989312658","5478753813630017442":"editor_5478753813630017442","5478753819961634386":"editor_5478753819961634386","5478752511525657170":"editor_5478752511525657170","5478753832267149810":"editor_5478753832267149810","5480997862386069170":"editor_5480997862386069170","5480997893054118498":"editor_5480997893054118498","5480998186992651026":"editor_5480998186992651026","5478769425598313058":"editor_5478769425598313058","5478769428183578882":"editor_5478769428183578882","5478769428473291154":"editor_5478769428473291154","5478769530404012082":"editor_5478769530404012082","5478769535168997586":"editor_5478769535168997586","5480596593254567266":"editor_5480596593254567266",
+/* public_gallery */
+"5468005866288280370":"public_EricasJoys/HorizontalMambo","5480525382039743330":"public_116086157836169916177/Favorites","5469661666160577106":"public_114728257341600814985/PicasaWebPublicPictures","5464847589870262818":"public_juliantoledo/Best","5468620555541748930":"public_bdowney/ClassicPlus","5465726438613138322":"public_EricasJoys/HorizontalMambo","5480525372525642866":"public_116086157836169916177/Favorites","5468095309182211138":"public_climent/Travels","5467968585789456354":"public_max.braun/Homepage","5467968606322662898":"public_max.braun/Homepage","5394978350593597026":"public_bluan01/JiuZhaiGouYellowDragonNationalParks","5468030760630111442":"public_109244757320221408388/Test2006","5461268259373019506":"public_jclilot/Portfolio_Flowers","5418083111186176690":"public_fkarpelevitch/200806","5465064542962429986":"public_snoozy.koala/Images","5465267981519769410":"public_magdalar/Backgrounds","5464637264209516562":"public_brettw/Taiwan","5469816275349772930":"public_max.braun/Homepage","5405276903498929458":"public_jclilot/Portfolio_Nature","5464602659331416274":"public_maeve.mara/FeaturedPhotos","5468081125425097026":"public_michos.conradt/Public","5480525380508846738":"public_116086157836169916177/Favorites","5465064395281172466":"public_snoozy.koala/Images","5427875955486466754":"public_sandysroom/VerdugoNorthTraverse","5480525385832476034":"public_116086157836169916177/Favorites","5464721817854022450":"public_mjwiacek/PhotosILike","5468499236979512002":"public_uffishmpk/SelectedFavourites","5465811371224046274":"public_103752943986656263237/Night","5468499251879550482":"public_uffishmpk/SelectedFavourites","5468011240643552594":"public_sweth.c/ForGoogle","5464721917635140242":"public_mjwiacek/PhotosILike","5465963404565598994":"public_arendsf/ThomasFavoriteShared","5464886839716494226":"public_mariusm/ILikeThese","5464644514748019778":"public_simon.tong/Wallpapers","5465825398133839090":"public_103752943986656263237/Background","5467921205742594898":"public_TenSafeFrogs/Favorites","5436863789388960962":"public_marius.schilder/Trona","5464721845849026242":"public_mjwiacek/PhotosILike","5467928286294729906":"public_merciniebres/HelloWorld","5469782237294118322":"public_peter.norvig/Pictures","5463830940035733394":"public_mattgundersen/LandmarksOfTahoe","5470258900410180098":"public_kevin.cantrell/PublicAlbum","5467976005541355106":"public_romain.guy/Wallpapers","5467975931636282290":"public_romain.guy/Wallpapers","5467936023478442338":"public_TenSafeFrogs/Favorites","5468630655462131890":"public_RussHaig/SFNightD40","5468499216650860930":"public_uffishmpk/SelectedFavourites","5464708695072547106":"public_pawliger/Homepage","5464721937652197202":"public_mjwiacek/PhotosILike","5464593346215231826":"public_arendsf/ThomasFavoriteShared"
+                },
                 xtype: 'select',
                 parent: 'mto'
             }
@@ -74,12 +99,12 @@ GRP.scripts = {
     },
     ig: {
         name: "iGoogle Theme",
-		category:'theme',
+        category: 'theme',
         desc: "Use iGoogle Theme in your Google Reader (Beta)",
         options: {
             warning: {
                 xtype: 'p',
-				label:true,
+                label: true,
                 cls: 'warning center'
             },
             skin_name: {
@@ -102,7 +127,7 @@ GRP.scripts = {
             },
             themes: {
                 xtype: 'html',
-				label:true,
+                label: true,
                 value: '<div id="ig_themes"></div>'
             }
         },
@@ -120,7 +145,7 @@ GRP.scripts = {
     },
     relook: {
         name: "Relook",
-		category:'theme',
+        category: 'theme',
         desc: "Relook yourself GoogleReader using custom stylesheets",
         options: {
             resize: false,
@@ -134,47 +159,47 @@ GRP.scripts = {
     },
     favicons: {
         name: "Favicons",
-		category:'icons',
+        category: 'icons',
         options: {
             providerpageicons: false,
             sidebaronly: false,
             custom: {
                 xtype: 'p',
-				label:true
+                label: true
             },
             domains: {
                 xtype: 'crud'
             },
             tip: {
                 xtype: 'p',
-				label:true
+                label: true
             },
             manual: false,
             parsing: {
                 xtype: 'p',
-				label:true
+                label: true
             }
         }
     },
     unreadcount: {
-        category:'counter',
-		name: "Show all unread count"
+        category: 'counter',
+        name: "Show all unread count"
     },
     fixlayout: {
-        category:'layout',
-		name: "Fix layout"
+        category: 'layout',
+        name: "Fix layout"
     },
     count: {
-        category:'counter',
-		name: "Fix counter (1000+)"
+        category: 'counter',
+        name: "Fix counter (1000+)"
     },
     counticon: {
-        category:'counter',
-		name: "Icon counter"
+        category: 'counter',
+        name: "Icon counter"
     },
     removeads: {
         name: "Remove ads",
-		category:'content',
+        category: 'content',
         options: {
             links: {
                 xtype: 'textarea',
@@ -192,7 +217,7 @@ GRP.scripts = {
     },
     column: {
         name: "Text multi columns",
-		category:'layout',
+        category: 'layout',
         options: {
             count: 3,
             /*maxcolumns:6,*/
@@ -215,7 +240,7 @@ GRP.scripts = {
     },
     preview: {
         name: "Integrated preview",
-		category:'layout',
+        category: 'layout',
         options: {
             onicon: false,
             overlay: false,
@@ -238,12 +263,12 @@ GRP.scripts = {
     },
     colorful: {
         name: "Colorful listview",
-		category:'layout',
-		status:'updated',
+        category: 'layout',
+        status: 'updated',
         options: {
             tree: false,
-			usebasecolor:false,
-			background: {
+            usebasecolor: false,
+            background: {
                 value: '#BCBCBC',
                 xtype: 'picker'
             },
@@ -255,18 +280,18 @@ GRP.scripts = {
     },
     filter: {
         name: "Filter entries",
-		category:'layout',
+        category: 'layout',
         options: {
             searchbody: false
         }
     },
     readbymouse: {
-		name: "Read by mouse",
-		category:'navigation'
+        name: "Read by mouse",
+        category: 'navigation'
     },
     facebook: {
         name: "Facebook integration",
-		category:'share',
+        category: 'share',
         shortcuts: {
             'gofacebook': {
                 id: 'gofacebook',
@@ -280,7 +305,7 @@ GRP.scripts = {
     },
     twitter: {
         name: "Twitter integration",
-		category:'share',
+        category: 'share',
         options: {
             shortener: {
                 xtype: 'select',
@@ -291,7 +316,7 @@ GRP.scripts = {
             },
             shortener_bitly: {
                 xtype: 'p',
-				label:true,
+                label: true,
                 cls: 'subtitle'
             },
             shortener_login: {
@@ -316,11 +341,11 @@ GRP.scripts = {
     },
     instapaper: {
         name: "Instapaper integration",
-		category:'share',
+        category: 'share',
         options: {
             auth: {
                 xtype: 'p',
-				label:true,
+                label: true,
                 cls: 'subtitle'
             },
             username: '',
@@ -342,12 +367,12 @@ GRP.scripts = {
     },
     readitlater: {
         name: "ReadItLater integration",
-		category:'share',
-		status:'new',
+        category: 'share',
+        status: 'new',
         options: {
             auth: {
                 xtype: 'p',
-				label:true,
+                label: true,
                 cls: 'subtitle'
             },
             username: '',
@@ -369,7 +394,7 @@ GRP.scripts = {
     },
     mark: {
         name: "Mark As Read",
-		category:'navigation',
+        category: 'navigation',
         shortcuts: {
             'markprev': {
                 id: 'markprev',
@@ -391,7 +416,7 @@ GRP.scripts = {
     },
     jump: {
         name: "Add top/bottom links",
-		category:'navigation',
+        category: 'navigation',
         shortcuts: {
             'goup': {
                 id: 'goup',
@@ -415,7 +440,7 @@ GRP.scripts = {
     },
     fitheight: {
         name: "Fit height",
-		category:'layout',
+        category: 'layout',
         options: {
             locked: false
         },
@@ -432,7 +457,7 @@ GRP.scripts = {
     },
     closeentry: {
         name: "Close entry",
-		category:'action',
+        category: 'action',
         shortcuts: {
             'close': {
                 id: 'close',
@@ -446,7 +471,7 @@ GRP.scripts = {
     },
     openbackground: {
         name: "Open in background",
-		category:'action',
+        category: 'action',
         shortcuts: {
             'openback': {
                 id: 'openback',
@@ -458,19 +483,19 @@ GRP.scripts = {
             }
         }
     },
-	translate: {
+    translate: {
         name: "Translate",
-		category:'content',
-		status:'new',
-		options: {
+        category: 'content',
+        status: 'new',
+        options: {
             lang: 'en',
-			locked:false,
-			include:false,
-			filter: {
+            locked: false,
+            include: false,
+            filter: {
                 xtype: 'crud'
             }
-		},
-		shortcuts: {
+        },
+        shortcuts: {
             'translate': {
                 id: 'translate',
                 title: 'Translate entry',
@@ -481,24 +506,24 @@ GRP.scripts = {
                 }
             }
         }
-	},
-	limit:{
-		name: "Limit",
-		category:'layout',
-		status:'new',
-		options: {
-            mini:30,
-			maxi:200
-		}
-	},
+    },
+    limit: {
+        name: "Limit",
+        category: 'layout',
+        status: 'new',
+        options: {
+            mini: 30,
+            maxi: 200
+        }
+    },
     replacer: {
         name: "Replacer",
-		category:'content',
-		status:'updated',
+        category: 'content',
+        status: 'updated',
         options: {
             intro: {
                 xtype: 'p',
-				label:true
+                label: true
             },
             items: {
                 xtype: 'crud',
@@ -557,7 +582,7 @@ GRP.scripts = {
                         "search": "<table.*?<table.*?<table.*?<table.*?<table.*?<td[^>]*>(.*?)</td>",
                         "replace": "$1"
                     },
-					"Image lessentiel.lu": {
+                    "Image lessentiel.lu": {
                         "url": "http://www.lessentiel.lu",
                         "search": "xpath://img[@class='leadbild']",
                         "replace": "$1<br/>"
@@ -565,15 +590,15 @@ GRP.scripts = {
                     "Textes lessentiel.lu": {
                         "url": "http://www.lessentiel.lu",
                         "search": "story_lead\">([^<]*)</h2>",
-						/*"search": "xpath://div[@id='content']",*/
+                        /*"search": "xpath://div[@id='content']",*/
                         "replace": "$1"
                     },
-					"Images lesfrontaliers.lu": {
+                    "Images lesfrontaliers.lu": {
                         "url": "http://www.lesfrontaliers.lu",
                         "search": "<img class=\"editos_one_big_img\" src=\"([^\"]*)\"[^>]*>",
                         "replace": "<img src='http://www.lesfrontaliers.lu/$1'><br/>"
                     },
-					"Articles lesfrontaliers.lu": {
+                    "Articles lesfrontaliers.lu": {
                         "url": "http://www.lesfrontaliers.lu",
                         "search": "xpath://div[@id='content_edit']",
                         "replace": "$1"
@@ -588,16 +613,16 @@ GRP.scripts = {
      },*/
     aero: {
         name: "Google Aero Toolbar",
-		category:'theme'
+        category: 'theme'
     },
-	antisocial:{
-		name: "Antisocial",
-		category:'layout',
-		status:'new',
-		options: {
-		 	status: false
-		 }
-	},
+    antisocial: {
+        name: "Antisocial",
+        category: 'layout',
+        status: 'new',
+        options: {
+            status: false
+        }
+    },
     /*hover: {
      name: "Hover selection"
      },*/
@@ -607,7 +632,7 @@ GRP.scripts = {
         options: {
             sysinfo: {
                 xtype: 'html',
-				label:true,
+                label: true,
                 value: '<div id="sysinfo"></div>'
             }
         }
@@ -626,18 +651,78 @@ GRP.scripts = {
     }
 };
 GRP.packages = {
-    'mini': {favicons:true, unreadcount:true, fixlayout:true, count:true, counticon:true, removeads:true},
-    'ludoo': {general:{secure: true, counter:false},favicons:true, unreadcount:true, fixlayout:true, count:true, counticon:true, removeads:true, column:true, mark:true, jump:true, fitheight:true, closeentry:true, openbackground:true, replacer:true, preview:{onicon:true,overlay:true}, theme:{gmailtheme:'coldshower'}},
-    'full': {theme:{skin:'osxblack'}, favicons:true, unreadcount:true, fixlayout:true, count:true, counticon:true, removeads:true, column:true, mark:true, jump:true, preview:true, colorful:true, filter:true, readbymouse:true, twitter:true, facebook:true, fitheight:true, closeentry:true,openbackground:true,aero:true,instapaper:true,readitlater:true,translate:true,replacer:true,limit:true}
+    'mini': {
+        favicons: true,
+        unreadcount: true,
+        fixlayout: true,
+        count: true,
+        counticon: true,
+        removeads: true
+    },
+    'ludoo': {
+        general: {
+            secure: true,
+            counter: false
+        },
+        favicons: true,
+        unreadcount: true,
+        fixlayout: true,
+        count: true,
+        counticon: true,
+        removeads: true,
+        column: true,
+        mark: true,
+        jump: true,
+        fitheight: true,
+        closeentry: true,
+        openbackground: true,
+        replacer: true,
+        preview: {
+            onicon: true,
+            overlay: true
+        },
+        theme: {
+            gmailtheme: 'coldshower'
+        }
+    },
+    'full': {
+        theme: {
+            skin: 'osxblack'
+        },
+        favicons: true,
+        unreadcount: true,
+        fixlayout: true,
+        count: true,
+        counticon: true,
+        removeads: true,
+        column: true,
+        mark: true,
+        jump: true,
+        preview: true,
+        colorful: true,
+        filter: true,
+        readbymouse: true,
+        twitter: true,
+        facebook: true,
+        fitheight: true,
+        closeentry: true,
+        openbackground: true,
+        aero: true,
+        instapaper: true,
+        readitlater: true,
+        translate: true,
+        replacer: true,
+        limit: true
+    }
 };
 GRP.skins = {
     none: {
         name: "None"
     },
-    mytheme:{
+    mytheme: {
         name: "My Theme"
     },
-	nativecompact:{
+    nativecompact: {
         name: "Native compact"
     },
     player: {
@@ -686,7 +771,7 @@ GRP.skins = {
          */
         pic: 'http://userstyles.org/style_screenshots/26569_after.png',
         ref: 'http://userstyles.org/styles/26569',
-		fix:'#chrome-view-links,#lhn-selectors .selected,#lhn-selectors .selected:hover{background-color: transparent !important;}',
+        fix: '#chrome-view-links,#lhn-selectors .selected,#lhn-selectors .selected:hover{background-color: transparent !important;}',
         desc: 'userstyles.org'
     },
     simpleclean: {
@@ -694,7 +779,7 @@ GRP.skins = {
         url: 'http://userstyles.org/styles/userjs/17120/Google%20Reader%20simple%20and%20clean.user.js',
         pic: 'http://userstyles.org/style_screenshots/17120_after.gif',
         ref: 'http://userstyles.org/styles/17120',
-		fix:'.entry-actions{height: auto!important;}',
+        fix: '.entry-actions{height: auto!important;}',
         desc: 'userstyles.org'
     },
     peacockfeather: {
@@ -744,7 +829,7 @@ GRP.skins = {
         ref: 'http://userstyles.org/styles/8935',
         desc: 'userstyles.org'
     },
-	persian: {
+    persian: {
         name: "Optimized Persian",
         url: 'http://userstyles.org//styles/userjs/2375/Optimized%20Persian%20Google%20Reader%20.user.js',
         pic: 'http://userstyles.org/style_screenshots/2375_after.png',
