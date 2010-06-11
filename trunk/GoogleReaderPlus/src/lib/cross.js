@@ -8,37 +8,64 @@ var isChrome = (typeof chrome !== "undefined");
 var isSafari = (typeof safari !== "undefined");
 
 var mycore = {
-    extension: {
-        sendRequest: function(){
+    application:{
+		sendRequest: function(a, fn, b){
 			if (isChrome) {
-				var guid, a, fn, l = arguments.length;
-				if (l>2){
-					guid=arguments[0];
-					a=arguments[1];
-					fn=arguments[2];
-					chrome.extension.sendRequest(guid, a, fn);
+				
+            }
+            else if (isSafari) {
+				safari.application.addEventListener(a.message,fn,false);
+            }
+        }
+		
+	},
+	extension: {
+        sendRequest: function(){
+			//to bg
+			var guid=false, a, fn, l = arguments.length;
+			if (l>2){
+				guid=arguments[0];
+				a=arguments[1];
+				fn=arguments[2];
+			}else{
+				a=arguments[0];
+				fn=arguments[1];
+			}
+				
+			if (isChrome) {
+				if (guid){
+					if (fn) {
+						chrome.extension.sendRequest(guid,a, fn);
+					}else{
+						chrome.extension.sendRequest(guid,a);
+					}
 				}else{
-					a=arguments[0];
-					fn=arguments[1];
-					chrome.extension.sendRequest(a, fn);
+					if (fn) {
+						chrome.extension.sendRequest(a, fn);
+					}else{
+						chrome.extension.sendRequest(a);
+					}
 				}
 				//chrome.extension.sendRequest(arguments);
             }
             else if (isSafari) {
-                safari.self.addEventListener("message", function(e){
-                    fn(e);
+				safari.self.addEventListener('crossaction', function(e){
+					var a = e;
+					a.message = a.name;
+					delete a.name;
+					fn(a);
                 }, false);
-                safari.self.tab.dispatchMessage(a.message, a);
+				safari.self.tab.dispatchMessage('crossaction', a);
             }
         },
-		
         onRequest:{
 			addListener: function(fn){
-                if (isChrome) {
+               //from bg
+			   if (isChrome) {
                     chrome.extension.onRequest.addListener(fn);
                 }
                 else if (isSafari) {
-                    //safari.self.tab.dispatchMessage(a.message, a);
+					safari.application.addEventListener('crossaction',fn,false);
                 }
             }
         },
@@ -48,7 +75,7 @@ var mycore = {
                     chrome.extension.onRequestExternal.addListener(fn);
                 }
                 else if (isSafari) {
-                    //safari.self.tab.dispatchMessage(a.message, a);
+                    safari.application.addEventListener('crossaction',fn,false);
                 }
             }
         }
@@ -160,7 +187,8 @@ var mycore = {
             return 'chrome-extension://' + mycore.getGUID() + path;
         }
         else if (isSafari) {
-            return 'safari-extension://' + mycore.getGUID() + path;
+            return safari.extension.baseURI;
+			//return 'safari-extension://' + mycore.getGUID() + path;
         }
     },
     getGUID: function(){
