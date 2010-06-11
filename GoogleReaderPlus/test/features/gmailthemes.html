@@ -1,0 +1,87 @@
+<html>
+<head>
+	  <script src="gmailthemes.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var html='', res = {}, names = {};
+        function filter(img){
+			var m = /muc_|emoticons|aim_|ls_icons6|stars\.gif|compose|bidi_controls|checkmarks|cleardot|superstars|searchbutton|close_box|eventheader|icons_ns8|triangle|toolbar3|view\=dim|gmail_icon|tasks|blue_ghost|\/up\/|\/cv\/|card-ex|grippy|rc\/\?|im\//.test(img);
+			return !m;
+		}
+		
+		function parsed(e, name, key){
+            res = {};
+            names = {};
+			var count = 0;
+            $.each(gmailthemes, function(id, o){
+                count++;
+				
+				if (count<3){
+					return;
+				}
+				
+				var k = o[0];
+				var css = o[1][1];
+				console.log(id);
+				//console.log(css);
+				
+				html += '<h1>'+id+'</h1>';
+				/*
+				var re=/\.cP[^}]*}/g; 
+				while ((m=re.exec(css))) {
+					$.each(m, function(i, n){
+						//console.log(i+'-'+n);
+					});
+				}
+				console.log('-');
+				*/
+				
+				var imgs={}, rei=/url([^\)]*)/g; 
+				while ((m=rei.exec(css))) {
+					$.each(m, function(i, n){
+						n=n.replace(/^url/,'').replace(/[\(\)]/g,'');
+						if (filter(n)) {
+							imgs[n] = n;
+						}
+					});
+				}
+				
+				$.each(imgs, function(i, img){
+					html+='<li class="'+id+'">'+img
+					+'<img class="img" src="https://mail.google.com/mail/'+img+'"/>'+
+					'</li>';
+				});
+				
+				//console.log('-----');
+				
+            });
+            
+			html= '<ul>'+html+'</ul>';
+			$('#c').html(html);
+        }
+        
+        $(document).ready(function(){
+            parsed(gmailthemes, 'gmail_themes', 'gmail_');
+			
+			$('#check').click(function(){
+				$('.img').each(function(i, img){
+					if (img.width<50 && img.height<50){
+						$(img).parents('li:parent').remove();
+					}
+				});
+			});
+        });
+    </script>
+</head>
+</head>
+<body>
+	<button id="check">Check</button>
+	<div id="c"></div>
+	<hr/>
+    mytheme.js:<br/>
+	<textarea id="r" rows="10" cols="120"></textarea><br/>
+	features.js:<br/>
+	<textarea id="n" rows="10" cols="120"></textarea><br/>
+
+</body>
+</html>
