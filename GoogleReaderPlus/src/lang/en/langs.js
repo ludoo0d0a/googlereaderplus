@@ -158,7 +158,7 @@ GRP.langs[locale].prefs = {
         color: 'Text color',
         bg: 'Background color',
 repeat: 'Tiled Picture ',
-gmailtheme: 'Gmail theme'
+gmailtheme: 'Google/Gmail theme'
     },
     ig: {
         warning: 'Some themes could be displayed incorrectly ; this is a Beta feature!',
