@@ -3,9 +3,54 @@
  * Transparent Theme + background image
  */
 body {
-	/*--bg1>--*//*background: url({image}) repeat !important;*//*--<bg1--*/
-	/*--bg2>--*/background: url({image}) no-repeat fixed top center !important;background-size: 100% !important;/*--<bg2--*/
+/*--bgr>--*//*background: url({image}) repeat !important;*//*--<bgr--*/
+/*--bg>--*//*background: url({image}) no-repeat fixed top center !important;background-size: 100% !important;background-color: {bg} !important;*//*--<bg--*/
+	height:100%;
 }
+#rp-cs {
+	position:absolute;
+	top:0px;
+	left:0px;
+	min-height: 100%;
+	width: 100%;
+	margin: 0 auto;
+	z-index:-9999;
+}
+
+#rp-h, #rp-rh,  #rp-hr,  #rp-hl, #rp-f, #rp-fr, #rp-fl {
+	height:100%;
+	position:absolute;
+	width:100%;
+}
+
+/*--rh>--*//*
+#rp-rh{background:url({rh}) repeat-x scroll 0 0 transparent;}
+*//*--<rh--*/
+
+/*--h>--*//*
+#rp-h{background:url({h}) no-repeat scroll 50% 0 transparent;}
+*//*--<h--*/
+
+/*--hr>--*//*
+#rp-hr{background:url({hr}) no-repeat scroll right 0 transparent;}
+*//*--<hr--*/
+
+/*--hl>--*//*
+#rp-hl{background:url({hl}) no-repeat scroll 0 0 transparent;}
+*//*--<hl--*/
+
+/*--f>--*//*
+#rp-f{	background:url({f}) no-repeat scroll 50% bottom transparent;}
+*//*--<f--*/
+
+/*--fr>--*//*
+#rp-f{background:url({fr}) no-repeat scroll right bottom transparent;}
+*//*--<fr--*/
+
+/*--fl>--*//*
+#rp-fl{	background:url({fl}) no-repeat scroll 0 bottom transparent;}
+*//*--<fl--*/
+
 
 #logo {
     display: none;
