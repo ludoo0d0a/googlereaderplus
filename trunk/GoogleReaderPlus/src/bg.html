@@ -23,7 +23,7 @@
                     reading:/user\/[\d]+\/state\/com\.google\/reading\-list/,
 					search: /https?\:\/\/www.google.com\/reader\/view\//,
                     url: 'http://www.google.com/reader/view/'
-             };
+             };				
             mycore.extension.onRequest.addListener(onMessageReceived);
             mycore.extension.onRequestExternal.addListener(function(request, sender, sendResponse){
                 if (sender.id === GUID_ICON) {
