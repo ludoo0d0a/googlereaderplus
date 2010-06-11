@@ -97,7 +97,7 @@
             );
             addReaderMenuItem(getText(this.lang, 'ig', 'menu_theme', 'en', 'Theme configuration'), 
                 function(){
-                    GM_openInTab(mycore.getUrl('/preferences.html#ig'));
+                    GM_openInTab(mycore.getUrl('/preferences.html#theme'));
                 }
             );
 			addReaderMenuItem(getText(this.lang, 'general', 'menu_clearcache', 'en', 'Clear cache'), 
