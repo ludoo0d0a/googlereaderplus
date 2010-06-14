@@ -13,9 +13,12 @@ To create an entry, just add the 4 informations :
  * link regex/xpath: {a regular expression or an xpath expression to locate data to retrieve ; if xpath it should be prefixed by xpath:}
  * replace expression: {the new replaced expression, $n are the captured group of the regex ; not used if xpath}
 
-[http://www.google.com/search?q=regular+expression+javascript Regular expression guides]
-
-[http://www.google.com/search?q=xpath+tutorial Xpath tutorials]
+= Useful links =
+ * [http://www.google.com/search?q=regular+expression+javascript Regular expression guides]
+ * [http://www.google.com/search?q=xpath+tutorial Xpath tutorials]
+ * Chrome Console (right clikc "inspect element")
+ * [http://www.getfirebug.com Firebug]
+ * [http://karmatics.com/aardvark/bookmarklet.html Aardvark bookmarklet]
 
 = Samples =
 == Sample1 ==
