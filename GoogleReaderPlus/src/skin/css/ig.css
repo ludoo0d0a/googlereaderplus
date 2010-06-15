@@ -41,8 +41,8 @@ body,#gbar, #guser, .text, .gbh, #explore-promo, #tips, #overview-footer, .viewe
     border: 0 !important;
 }
 
-#gbar a, #gbar a:visited, #guser a, #guser a:visited{
-	color: _a_header_link_color_z_;
+a.gb1, a.gb3, a.gb4, {
+	color: _a_header_link_color_z_ !important;
 }
 a.gb1, a.gb2, a.gb3, a.gb4, #gbg a, #gbg a:visited{
 	color: _a_link_color_z_ !important;
