@@ -281,8 +281,8 @@ function addfiltersites(id, urlin){
 function removefiltersites(id, url){
     var i = findInArray(prefs[id + '_filter'], url);
     if (i!==false && i>=0) {
-        //delete prefs[id + '_filter'][i];
-		prefs[id + '_filter'].splice(i,1);
+        delete prefs[id + '_filter'][i];
+		//prefs[id + '_filter'].splice(i,1);
         //Refresh
         loadCRUD(id + '_filter');
     }
@@ -393,7 +393,7 @@ function saveReplacerNext(title, url, search, replace){
 }
 
 function removeReplacerItems(key){
-    //delete prefs.replacer_items[key];
-	prefs.replacer_items.splice(key,1);
+    delete prefs.replacer_items[key];
+	//prefs.replacer_items.splice(key,1);
     loadCRUD('replacer_items');
 }

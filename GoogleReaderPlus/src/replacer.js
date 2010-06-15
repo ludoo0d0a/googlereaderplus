@@ -93,7 +93,7 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
 		}
 		
 		var body = getFirstElementByClassName(entry, 'entry-body');//div
-        var entryBody = getEntryBody(body);
+        //var entryBody = getEntryBody(body);
         
         //hide(entryBody);
         var el = document.createElement('div');

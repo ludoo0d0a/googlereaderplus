@@ -15,42 +15,46 @@ body {
 	width: 100%;
 	margin: 0 auto;
 	z-index:-9999;
+	background-color:{bg2};
 }
 
-#rp-h, #rp-rh,  #rp-hr,  #rp-hl, #rp-f, #rp-fr, #rp-fl {
+#rp-h, #rp-rh,  #rp-hr, #rp-hl, #rp-rf, #rp-f, #rp-fr, #rp-fl {
 	height:100%;
 	position:absolute;
 	width:100%;
 }
 
 /*--rh>--*//*
-#rp-rh{background:url({rh}) repeat-x scroll 0 0 transparent;}
+#rp-rh{background:url({rh}) repeat-x scroll left top transparent;}
 *//*--<rh--*/
 
 /*--h>--*//*
-#rp-h{background:url({h}) no-repeat scroll 50% 0 transparent;}
+#rp-h{background:url({h}) no-repeat scroll center top transparent;}
 *//*--<h--*/
 
 /*--hr>--*//*
-#rp-hr{background:url({hr}) no-repeat scroll right 0 transparent;}
+#rp-hr{background:url({hr}) no-repeat scroll right top transparent;}
 *//*--<hr--*/
 
 /*--hl>--*//*
-#rp-hl{background:url({hl}) no-repeat scroll 0 0 transparent;}
+#rp-hl{background:url({hl}) no-repeat scroll left top transparent;}
 *//*--<hl--*/
+
+/*--rf>--*//*
+#rp-rf{	background:url({rf}) repeat-x scroll left bottom transparent;}
+*//*--<rf--*/
 
 /*--f>--*//*
 #rp-f{	background:url({f}) no-repeat scroll 50% bottom transparent;}
 *//*--<f--*/
 
 /*--fr>--*//*
-#rp-f{background:url({fr}) no-repeat scroll right bottom transparent;}
+#rp-fr{background:url({fr}) no-repeat scroll right bottom transparent;}
 *//*--<fr--*/
 
 /*--fl>--*//*
 #rp-fl{	background:url({fl}) no-repeat scroll 0 bottom transparent;}
 *//*--<fl--*/
-
 
 #logo {
     display: none;

@@ -402,6 +402,31 @@ function getCount(o){
     return count;
 }
 
+function returnItemAtPosition(o,i){
+    var count = 0;
+    for (var p in o) {
+        if (!hasOwnProperty.call(o, p)) {
+            continue;
+        }
+		if (count==i){
+			return o;
+		}
+    }
+    return false;
+}
+
+function randomselect(ar){
+	if (isArray(ar)) {
+		return ar[Math.round(Math.random() * (ar.length-1))];
+	}else if (typeof ar == 'object'){
+		var i = Math.round(Math.random() * (getCount(ar)-1));
+		return returnItemAtPosition(ar, i);
+	}else{
+		return false;
+	}
+	
+}
+
 function removeClass(el, classname){
     //todo: use regex word boundary
     var s = (el.className || '').split(' ');

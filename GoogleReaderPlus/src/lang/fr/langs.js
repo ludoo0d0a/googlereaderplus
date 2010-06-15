@@ -261,7 +261,7 @@ noupdatepopup: "Plus de popup lors des mises à jour",
         "prompticon": "Saisissez l'adresse de votre icône (laissez vide pour l'obtenir automatiquement):"
     },
     replacer: {
-        intro: 'Vous pouvez utiliser le bookmarklet <a href="http://karmatics.com/aardvark/bookmarklet.html" target="blank">Aardvark</a> pour identifier un xpath au lieu d\'une expression régulière (Prefixer alors par "xpath:")',
+intro: '<a href="http://code.google.com/p/googlereaderplus/wiki/ReplacerHowto" target="blank">Aide sur l\'utilisation de replacer</a>',
         link: "Sites",
         from: "Rechercher",
         to: "Remplacer par"
