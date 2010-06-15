@@ -71,8 +71,8 @@ body,#gbar, #guser, .text, .gbh, #explore-promo, #tips, #overview-footer, .viewe
     border: 0 !important;
 }
 
-#gbar a, #gbar a:visited, #guser a, #guser a:visited,
-a,.link, #current-entry.read .entry-container .entry-body, .read .entry-container .entry-body, 
+a.gb1, a.gb3, a.gb4,
+.link, #current-entry.read .entry-container .entry-body, .read .entry-container .entry-body, 
 #overview .item-snippet, #team-messages .body, #overview .label, p, dl, multicol, 
 .overview-item-link, address, blockquote, body, caption, center, col, colgroup, dd, dir, 
 div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, hr, html, isindex, li, listing, map, 
@@ -80,7 +80,7 @@ marquee, menu, noframes, ol, p, plaintext, pre, table, tbody, td, tfoot, th, the
 ul, xmp ,#recent-activity #recent-activity-kept-unread h4, 
 #recent-activity #recent-activity-read h4, #explore-promo-new, 
 #recent-activity .recent-stream-title {
-    color: {color} !important
+    color: {color} !important;
 }
 
 .email-active, .item-link-active, .entry-likers, .tree-link-selected,.lhn-section, .scroll-tree li, #chrome-header, #viewer-header, 
@@ -99,7 +99,7 @@ ul, xmp ,#recent-activity #recent-activity-kept-unread h4,
 	background-color: transparent!important;
 }
 
-#entries.list .read .collapsed{
+#entries.list .entry .collapsed{
 	border:0 !important;
 }
 
