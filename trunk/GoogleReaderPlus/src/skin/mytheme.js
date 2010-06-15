@@ -18,7 +18,8 @@
  */
 GRP.mytheme = function(prefs){
     var urlgmail = window.location.protocol + '//mail.google.com/mail/';
-    var daycodes = ['mon', 'tue', 'thi', 'wed', 'fri', 'sat', 'sun'];
+    var daycodes = ['mon', 'tue', 'thu', 'wed', 'fri', 'sat', 'sun'];
+	var fulldaycodes = ['monday', 'tuesday', 'thursday', 'wednesday', 'friday', 'saturday', 'sunday'];
     var daytimes = {
         0: 'midnight',
         2: '2am',
@@ -145,7 +146,7 @@ GRP.mytheme = function(prefs){
                 selector: 'day',
                 mon: urlgmail + 'images/2/5/mountains/mon/monday1.jpg',
                 tue: [urlgmail + 'images/2/5/mountains/tue/tuesday1.jpg', urlgmail + 'images/2/5/mountains/tue/tuesday3.jpg'],
-                thi: urlgmail + 'images/2/5/mountains/thu/thursday1.jpg',
+                thu: urlgmail + 'images/2/5/mountains/thu/thursday1.jpg',
                 wed: urlgmail + 'images/2/5/mountains/wed/wednesday.jpg',
                 fri: urlgmail + 'images/2/5/mountains/fri/friday1.jpg',
                 sat: urlgmail + 'images/2/5/mountains/sat/saturday1.jpg',
@@ -176,7 +177,7 @@ GRP.mytheme = function(prefs){
                 selector: 'day',
                 mon: urlgmail + 'images/2/5/graffiti/monday_bg1.jpg',
                 tue: urlgmail + 'images/2/5/graffiti/tuesday_bg1.jpg',
-                thi: urlgmail + 'images/2/5/graffiti/thursday_bg1.jpg',
+                thu: urlgmail + 'images/2/5/graffiti/thursday_bg1.jpg',
                 wed: urlgmail + 'images/2/5/graffiti/wednesday_bg1.jpg',
                 fri: urlgmail + 'images/2/5/graffiti/friday_bg1.jpg',
                 sat: urlgmail + 'images/2/5/graffiti/saturday_bg.jpg',
@@ -245,75 +246,35 @@ GRP.mytheme = function(prefs){
         gmail_orcasisland: {
             bg: '#5e7056',
             color: '#000',
-            hl: {
-                selector: 'day',
-                mon: [urlgmail + 'images/2/5/orcasisland/monday_01.jpg', urlgmail + 'images/2/5/orcasisland/monday_02.jpg'],
-                tue: [urlgmail + 'images/2/5/orcasisland/tuesday_01.jpg', urlgmail + 'images/2/5/orcasisland/tuesday_02.jpg'],
-                thi: [urlgmail + 'images/2/5/orcasisland/thursday_01.jpg', urlgmail + 'images/2/5/orcasisland/thursday_02.jpg'],
-                wed: [urlgmail + 'images/2/5/orcasisland/wednesday_01.jpg', urlgmail + 'images/2/5/orcasisland/wednesday_02.jpg'],
-                fri: [urlgmail + 'images/2/5/orcasisland/friday_01.jpg', urlgmail + 'images/2/5/orcasisland/friday_02.jpg'],
-                sat: [urlgmail + 'images/2/5/orcasisland/saturday_01.jpg', urlgmail + 'images/2/5/orcasisland/saturday_02.jpg'],
-                sun: [urlgmail + 'images/2/5/orcasisland/sunday_01.jpg', urlgmail + 'images/2/5/orcasisland/sunday_02.jpg']
-            }
+            hl: [
+				urlgmail + 'images/2/5/orcasisland/{fullday}_01.jpg', 
+				urlgmail + 'images/2/5/orcasisland/{fullday}_02.jpg'
+			]
         },
         gmail_highscore: {
             bg: '#090',
             bg2: '#47B3DA',
             color: '#fff',
-            hl: {
-                selector: 'daytime',
-                'midnight': urlgmail + 'images/2/5/highscore/night_background.png',
-                '2am': urlgmail + 'images/2/5/highscore/night_background.png',
-                '4am': urlgmail + 'images/2/5/highscore/night_background.png',
-                '6am': urlgmail + 'images/2/5/highscore/day_background.png',
-                '8am': urlgmail + 'images/2/5/highscore/day_background.png',
-                '10am': urlgmail + 'images/2/5/highscore/day_background.png',
-                'noon': urlgmail + 'images/2/5/highscore/day_background.png',
-                '2pm': urlgmail + 'images/2/5/highscore/day_background.png',
-                '4pm': urlgmail + 'images/2/5/highscore/day_background.png',
-                '6pm': urlgmail + 'images/2/5/highscore/day_background.png',
-                '8pm': urlgmail + 'images/2/5/highscore/night_background.png',
-                '10pm': urlgmail + 'images/2/5/highscore/night_background.png'
-            },
-            rf: {
-                selector: 'daytime',
-                'midnight': urlgmail + 'images/2/5/highscore/night_hills_footer.png',
-                '2am': urlgmail + 'images/2/5/highscore/night_hills_footer.png',
-                '4am': urlgmail + 'images/2/5/highscore/night_hills_footer.png',
-                '6am': urlgmail + 'images/2/5/highscore/day_hills_footer.png',
-                '8am': urlgmail + 'images/2/5/highscore/day_hills_footer.png',
-                '10am': urlgmail + 'images/2/5/highscore/day_hills_footer.png',
-                'noon': urlgmail + 'images/2/5/highscore/day_hills_footer.png',
-                '2pm': urlgmail + 'images/2/5/highscore/day_hills_footer.png',
-                '4pm': urlgmail + 'images/2/5/highscore/day_hills_footer.png',
-                '6pm': urlgmail + 'images/2/5/highscore/day_hills_footer.png',
-                '8pm': urlgmail + 'images/2/5/highscore/night_hills_footer.png',
-                '10pm': urlgmail + 'images/2/5/highscore/night_hills_footer.png'
-            }
+            hl: urlgmail + 'images/2/5/highscore/{daynight}_background.png',
+            rf: urlgmail + 'images/2/5/highscore/{daynight}_hills_footer.png'
         },
         gmail_turf: {
             bg: '#254a14',
             color: '#fff',
             hl: urlgmail + 'images/2/5/turf/header_tile.jpg'
         },
-        
-        
-        gmail_lapinscretins1: {
-            bg: '#3275AC',
+        gmail_lapinscretins: {
+            vars:{
+				numero:[1,2,3]
+			},
+			bg: {
+				selector:'numero',
+				1:'#3275AC',
+				2:'#31669A',
+				3:'#B7E0E4'
+			},
             color: '#fff',
-            image: urlgmail + 'images/2/5/lapinscretins/rabbids_header1_final.png',
-            repeat: false
-        },
-        gmail_lapinscretins2: {
-            bg: '#31669A',
-            color: '#fff',
-            image: urlgmail + 'images/2/5/lapinscretins/rabbids_header2_final.png',
-            repeat: false
-        },
-        gmail_lapinscretins3: {
-            bg: '#B7E0E4',
-            color: '#fff',
-            image: urlgmail + 'images/2/5/lapinscretins/rabbids_header3_final.png',
+            image: urlgmail + 'images/2/5/lapinscretins/rabbids_header{numero}_final.png',
             repeat: false
         },
         gmail_assasinscreed2: {
@@ -421,7 +382,6 @@ GRP.mytheme = function(prefs){
         "5464708695072547106": "http://lh6.ggpht.com/_s60pF2QNbck/S9aLmtrJoSI/AAAAAAAAeOo/cPMni36CmMk/",
         "5464721937652197202": "http://lh4.ggpht.com/_7V85eCJY_fg/S9aXpiILJ1I/AAAAAAAAMsU/m2f6UsfQfEA/",
         "5464593346215231826": "http://lh4.ggpht.com/_4HzkBj4VmKw/S9YishsfQVI/AAAAAAAAy3w/2Hg6_XEPri4/"
-    
     };
     
     var css = ''; //GM_getValue('theme_mytheme');
@@ -465,13 +425,14 @@ GRP.mytheme = function(prefs){
             daytime = daytimes[current_time];
             //day
             var day = (new Date()).getDay();
-            var current_day = daycodes[day - 1];
             
             //placeholders replacement
             var holders = {
-                day: current_day,
+                day: daycodes[day - 1],
+				fullday: fulldaycodes[day - 1],
                 time: current_time,
-                daytime: daytime
+                daytime: daytime,
+				daynight:((current_time<8 || current_time>20)?'night':'day')
             };
             if (o.vars) {
                 iterate(o.vars, function(varname, varvalues){
