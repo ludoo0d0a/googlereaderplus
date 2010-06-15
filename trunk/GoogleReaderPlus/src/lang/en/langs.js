@@ -274,7 +274,7 @@ gmailtheme: 'Google/Gmail theme'
         prompticon: "Enter the icon url (let empty to get it automatically):"
     },
     replacer: {
-        intro: 'You can use <a href="http://karmatics.com/aardvark/bookmarklet.html" target="blank">Aardvark bookmarklet</a> to identify correct xpath instead regex (Use prefix "xpath:")',
+intro: '<a href="http://code.google.com/p/googlereaderplus/wiki/ReplacerHowto" target="blank">Help on how to use replacer</a>',
         link: "Link Regex",
         from: "Search regex/xpath",
         to: "Replace",
