@@ -153,7 +153,7 @@ GRP.langs[locale].prefs = {
     },
     theme: {
         noborder: "Remove entries borders to display more items on a single page",
-        mytheme: 'Use <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">custom background picture</a> and font color with skin "MyTheme"',
+        mytheme: 'Use <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">custom background picture</a> and font color with skin "MyTheme" (<a href="http://code.google.com/p/googlereaderplus/wiki/Themes" target="blank">Preview</a>)',
 /*url: 'Picture URL',*/
         color: 'Text color',
 		bg: 'Background color',

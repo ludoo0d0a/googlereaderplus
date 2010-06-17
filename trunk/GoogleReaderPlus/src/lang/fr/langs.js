@@ -151,7 +151,7 @@ GRP.langs[locale].prefs = {
     },
     theme: {
         noborder: "Retirer les bords des articles pour en afficher un maximum sur une page",
-        mytheme: 'Utilisez <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">une image de fond </a> et des couleurs personnaliséees avec le thème "MyTheme"',
+        mytheme: 'Utilisez <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">une image de fond </a> et des couleurs personnaliséees avec le thème "MyTheme" (<a href="http://code.google.com/p/googlereaderplus/wiki/Themes" target="blank">Aperçu</a>)',
 /*url: 'URL de l\'image',*/
         color: 'Couleur du text',
         bg: 'Couleur du fond du texte',
