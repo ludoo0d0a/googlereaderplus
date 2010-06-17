@@ -3,8 +3,6 @@
  * Transparent Theme + background image
  */
 body {
-/*--bgr>--*//*background: url({image}) repeat !important;*//*--<bgr--*/
-/*--bg>--*//*background: url({image}) no-repeat fixed top center !important;background-size: 100% !important;background-color: {bg} !important;*//*--<bg--*/
 	height:100%;
 }
 #rp-cs {
@@ -18,11 +16,19 @@ body {
 	background-color:{bg2};
 }
 
-#rp-h, #rp-rh,  #rp-hr, #rp-hl, #rp-rf, #rp-f, #rp-fr, #rp-fl {
+#rp-rbg, #rp-sbg, #rp-h, #rp-rh,  #rp-hr, #rp-hl, #rp-rf, #rp-f, #rp-fr, #rp-fl {
 	height:100%;
 	position:absolute;
 	width:100%;
 }
+
+/*--rbg>--*//*
+#rp-rbg{background:url({rbg}) repeat scroll transparent;background-color: transparent !important;}
+*//*--<rbg--*/
+
+/*--sbg>--*//*
+#rp-sbg{background:url({sbg}) no-repeat fixed top center;background-size: 100% 100% !important;}
+*//*--<sbg--*/
 
 /*--rh>--*//*
 #rp-rh{background:url({rh}) repeat-x scroll left top transparent;}
@@ -60,34 +66,38 @@ body {
     display: none;
 }
 
-body,#gbar, #guser, .text, .gbh, #explore-promo, #tips, #overview-footer, .viewer-page, 
-#lhn-selectors,#quick-add-success, .friend-interruption, 
-#directory-box .tab-group, #directory-box .tab-contents, #directory-contents .tab-header, 
-.tab-group-contents, #featured-bundles-container, #discover-table td, 
-.bundle-container th, #friends-tree .friends-tree-following-info, 
-#directory-welcome-conversion, .date-tooltip td, .date-tooltip, .text-tooltip, 
-.text-tooltip td {
+/*body,*/#gbar, #guser, .text, .gbh, #explore-promo, #tips, #overview-footer, 
+/*.viewer-page, */
+#lhn-selectors,#quick-add-success, 
+/*#directory-box .tab-group, #directory-box .tab-contents, #directory-contents .tab-header, 
+.tab-group-contents, */
+#featured-bundles-container, .bundle-container th,  
+.friend-interruption, #friends-tree .friends-tree-following-info,
+/*#discover-table td, #directory-welcome-conversion,*/
+.date-tooltip td, .date-tooltip, .text-tooltip, .text-tooltip td {
     color: {color} !important;
     border: 0 !important;
 }
 
-a.gb1, a.gb3, a.gb4, a.link, 
+a.gb1, a.gb3, a.gb4, #entries a, #entries a:visited, 
+a.entry-title-link, .entry-date, /*.link,*/
 #current-entry.read .entry-container .entry-body, .read .entry-container .entry-body, 
-/*#overview .item-snippet,*/ #team-messages .body, #overview .label, p, dl, multicol, 
-/*.overview-item-link,*/ address, blockquote, body, caption, center, col, colgroup, dd, dir, 
-div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, hr, html, isindex, li, listing, map, 
-marquee, menu, noframes, ol, p, plaintext, pre, table, tbody, td, tfoot, th, thead, tr, 
-ul, xmp ,#recent-activity #recent-activity-kept-unread h4, 
-#recent-activity #recent-activity-read h4, #explore-promo-new, 
-#recent-activity .recent-stream-title, #chrome-view-links, #chrome-view-links .link {
+.entry .entry-author, .entry-comments .comment-time, .entry .entry-date,
+#viewer-top-controls,#viewer-top-controls .link,#viewer-top-controls .link-selected, 
+#chrome-view-links,#chrome-view-links .link,#chrome-view-links .link-selected,
+.entry-actions,.entry-actions .link,.entry-actions .link-selected,
+#entries .collapsed .entry-title,
+#entries.list .collapsed .entry-secondary
+{
     color: {color} !important;
 }
 .fr-modal-dialog-content{
     color: black !important;
 }
 
-.email-active, .item-link-active, .entry-likers, .tree-link-selected,.lhn-section, .scroll-tree li, #chrome-header, #viewer-header, 
-#viewer-footer, #chrome, .card-common, span.name-text, .name {
+.email-active, .item-link-active, .entry-likers, .tree-link-selected,.lhn-section, .scroll-tree li, 
+/*#chrome, */#chrome-header, #viewer-header, #viewer-footer, 
+.card-common, span.name-text, .name {
     background: transparent !important;
     color: {color} !important;
     border: 0 !important;
@@ -112,40 +122,3 @@ ul, xmp ,#recent-activity #recent-activity-kept-unread h4,
 .scroll-tree li a:hover,#lhn-selectors .selector:hover{
 	background-color: {bg} !important;
 }
-
-/*
- * Gradients and shadows
- * for GlassBlackGold
- */
-/*
-.card-common, #chrome-view-links {
-    -webkit-border-radius: 3px 3px 3px 3px !important;
-    -webkit-box-shadow: 1px 1px 2em 2px #000 !important;
-    border-width: 0 !important;
-}
-
-.card-content {
-    -webkit-border-radius: 3px 3px 3px 3px !important;
-    -webkit-box-shadow: 0 0 2em 2px #000 !important;
-}
-
-#nav {
-    -webkit-border-radius: 7px 7px 7px 7px !important;
-    -webkit-box-shadow: inset 1px 1px 2em 2px #000 !important
-}
-
-tr {
-    -webkit-border-radius: 7px 7px 7px 7px !important;
-    -webkit-box-shadow: inset 0 0 3em 3px #999 !important;
-}
-.posting-form .textarea {
-    -webkit-border-radius: 7px 7px 7px 7px !important;
-    -webkit-box-shadow: inset 0 0 1em 1px #000 !important;
-    border-width: 0 !important;
-    margin: 3px !important;
-}
-#entries .entry, #entries.list .entry-container, #current-entry, #no-entries-msg, .interruption {
-    -webkit-border-radius: 3px 3px 3px 3px !important;
-    -webkit-box-shadow: inset 0 0 2em 4px #999 !important;
-}
-*/

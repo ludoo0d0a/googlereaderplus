@@ -36,11 +36,17 @@ img {
 #panels textarea{
 	font-size: .8em !important;
 }
+#panel_theme{
+	width:720px;
+}
+.mto{
+	width:720px;
+}
 
 label.lbl, .shortcut label {
     float: left;
     margin: 5px;
-    width: 130px;
+    width: 140px;
     display: block;
 }
 label.large{
@@ -499,4 +505,14 @@ img.favicon {
 #expandall{
 	float:right;
 	margin-right:4px;
+}
+
+#imgprview{
+	width:65px;
+	height:65px;
+}
+
+#thprview{
+	width:120px;
+	float:right;
 }

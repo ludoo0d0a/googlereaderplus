@@ -37,6 +37,7 @@ function initprefs(){
         var current = window.location.hash.substring(1) || 'general';
         showPanel(current);
         reportNavigator();
+		renderPreviewTheme();
         renderThemes();
     });
 }

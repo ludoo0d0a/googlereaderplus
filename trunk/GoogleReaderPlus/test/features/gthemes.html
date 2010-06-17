@@ -1,24 +1,26 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-<head>
-    <script>
-
-    </script>
+	<head>
+		<!-- é -->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <script src="googgle_themes.js" type="text/javascript"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         var res = {}, names = {};
-        function parsed(e, name, key){
+        function parsed(e, name, key, thumbsize){
             res = {};
             names = {};
             $.each(e.response.docs, function(i, o){
                 var id = o.id;
-                var url = o.thumb.u;
+                var thumb, url = o.thumb.u;
                 /*
                  var a = {
                  name: o.af[0].afd.authors[0].name,
                  url: o.thumb.u
                  };*/
                 if (url) {
-                    var m = /(.*){size}/.exec(url);
+                    //thumb = url.replace(/{size}/, thumbsize);
+					var m = /(.*){size}/.exec(url);
                     url = m[1];
                 }
                 else {
@@ -30,10 +32,10 @@
                     id =  s[1];
                 }
 				if (s && (key === 'public_')) {
-					lid = key + s[0];
+					lid = 'Google, '+s[0];
 				}
 				else {
-					lid = key + id;
+					lid = 'Google, '+o.description+', '+o.name;
 				}
 				
                 res[id] = url;
@@ -51,8 +53,8 @@
         
         
         $(document).ready(function(){
-            parsed(editors_picks, 'editors_picks', 'editor_');
-            parsed(public_gallery, 'public_gallery', 'public_');
+            parsed(editors_picks, 'editors_picks', 'editor_', 's144');
+            parsed(public_gallery, 'public_gallery', 'public_', 's104');
         });
     </script>
 </head>

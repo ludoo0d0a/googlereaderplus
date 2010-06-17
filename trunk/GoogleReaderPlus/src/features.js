@@ -44,27 +44,7 @@ GRP.scripts = {
                 label: true,
                 parent: 'mto'
             },
-            url: {
-                value: 'http://media.smashingmagazine.com/cdn_smash/wp-content/uploads/uploader/wallpapers/march10/march-10-ultimate-sophistication-nocal-1280x1024.jpg',
-                size: 80,
-                parent: 'mto'
-            },
-            repeat: {
-                value: false,
-                xtype: 'boolean',
-                parent: 'mto'
-            },
-            color: {
-                value: '#565656',
-                xtype: 'picker',
-                parent: 'mto'
-            },
-            bg: {
-                value: '#FFC',
-                xtype: 'picker',
-                parent: 'mto'
-            },
-            gmailtheme: {
+            externaltheme: {
                 value: '',
                 values: {
                     none: '',
@@ -102,18 +82,65 @@ GRP.scripts = {
 					gmail_orcasisland: 'Gmail Orcas Island',
 					gmail_highscore: 'Gmail Highscore',
 					gmail_turf: 'Gmail Turf',
-					
-					gmail_lapinscretins1: 'Gmail lapinscretins1',
-                    gmail_lapinscretins2: 'Gmail lapinscretins2',
-                    gmail_lapinscretins3: 'Gmail lapinscretins3',
+					gmail_lapinscretins: 'Gmail lapinscretins',
 					gmail_assasinscreed2: 'Gmail assasinscreed2',				
-					
-					/* editors_picks */
-"5478752472500006610":"editor_5478752472500006610","5478752827007585634":"editor_5478752827007585634","5478752842710333378":"editor_5478752842710333378","5478753114195988130":"editor_5478753114195988130","5478753075316627266":"editor_5478753075316627266","5478753460334726146":"editor_5478753460334726146","5478752501519603442":"editor_5478752501519603442","5478753089633816370":"editor_5478753089633816370","5478752819223180210":"editor_5478752819223180210","5478753117486370930":"editor_5478753117486370930","5478752835087677362":"editor_5478752835087677362","5478752493997894098":"editor_5478752493997894098","5478752822146891810":"editor_5478752822146891810","5478753058608504226":"editor_5478753058608504226","5480987905094465154":"editor_5480987905094465154","5480987906200029490":"editor_5480987906200029490","5480998621006856338":"editor_5480998621006856338","5480987916726984130":"editor_5480987916726984130","5480987917979934498":"editor_5480987917979934498","5480987925727076290":"editor_5480987925727076290","5480988005113749330":"editor_5480988005113749330","5480988012864676114":"editor_5480988012864676114","5478753466167683746":"editor_5478753466167683746","5478753483552159554":"editor_5478753483552159554","5478755559461692018":"editor_5478755559461692018","5478755572322259650":"editor_5478755572322259650","5478753799989312658":"editor_5478753799989312658","5478753813630017442":"editor_5478753813630017442","5478753819961634386":"editor_5478753819961634386","5478752511525657170":"editor_5478752511525657170","5478753832267149810":"editor_5478753832267149810","5480997862386069170":"editor_5480997862386069170","5480997893054118498":"editor_5480997893054118498","5480998186992651026":"editor_5480998186992651026","5478769425598313058":"editor_5478769425598313058","5478769428183578882":"editor_5478769428183578882","5478769428473291154":"editor_5478769428473291154","5478769530404012082":"editor_5478769530404012082","5478769535168997586":"editor_5478769535168997586","5480596593254567266":"editor_5480596593254567266",
+/* editors_picks */
+"5478752472500006610":"Google, artist, Dale Chihuly, 01_chihuly_06.jpg","5478752827007585634":"Google, artist, Dale Chihuly, 08_chihuly_02.jpg","5478752842710333378":"Google, artist, Dale Chihuly, 10_chihuly_05.jpg","5478753114195988130":"Google, artist, Dale Chihuly, 14_chihuly_01.jpg","5478753075316627266":"Google, artist, Dale Chihuly, 12_chihuly_03.jpg","5478753460334726146":"Google, artist, Dale Chihuly, 16_chihuly_07.jpg","5478752501519603442":"Google, © Jeff Koons, 04_koons_02.jpg","5478753089633816370":"Google, © Jeff Koons, 13_koons_01.jpg","5478752819223180210":"Google, Polly Apfelbaum, 06_apfelbaum_01.jpg","5478753117486370930":"Google, Polly Apfelbaum, 15_apfelbaum_03.jpg","5478752835087677362":"Google, Polly Apfelbaum, 09_apfelbaum_02.jpg","5478752493997894098":"Google, © Tom Otterness, 03_otterness_02.jpg","5478752822146891810":"Google, © Tom Otterness, 07_otterness_03.jpg","5478753058608504226":"Google, © Tom Otterness, 11_otterness_01.jpg","5480987905094465154":"Google, © Kengo Kuma (???), kengo_kuma.jpg","5480987906200029490":"Google, © Tord Boontje, tord_boontje.jpg","5480998621006856338":"Google, © Kwon, Ki-soo (???), ki_soo_kwon.jpg","5480987916726984130":"Google, © Yann Arthus-Bertrand, y_a_b_01.jpg","5480987917979934498":"Google, © Yann Arthus-Bertrand, y_a_b_02.jpg","5480987925727076290":"Google, © Yann Arthus-Bertrand, y_a_b_03.jpg","5480988005113749330":"Google, © Yann Arthus-Bertrand, y_a_b_04.jpg","5480988012864676114":"Google, © Yann Arthus-Bertrand, y_a_b_05.jpg","5478753466167683746":"Google, National Geographic Stock, natgeo_01.jpg","5478753483552159554":"Google, National Geographic Stock, natgeo_02.jpg","5478755559461692018":"Google, National Geographic Stock, natgeo_03.jpg","5478755572322259650":"Google, National Geographic Stock, natgeo_04.jpg","5478753799989312658":"Google, National Geographic Stock, natgeo_06.jpg","5478753813630017442":"Google, National Geographic Stock, natgeo_07.jpg","5478753819961634386":"Google, National Geographic Stock, natgeo_08.jpg","5478752511525657170":"Google, National Geographic Stock, 05_natgeo_10.jpg","5478753832267149810":"Google, National Geographic Stock, natgeo_09.jpg","5480997862386069170":"Google, National Geographic Stock, NationalGeographic_1143826.jpg","5480997893054118498":"Google, National Geographic Stock, NationalGeographic_1146940.jpg","5480998186992651026":"Google, National Geographic Stock, NationalGeographic_1223429.jpg","5478769425598313058":"Google, Blue, Color_Google_blue.jpg","5478769428183578882":"Google, Green, Color_Google_green.jpg","5478769428473291154":"Google, Grey, Color_Google_grey.jpg","5478769530404012082":"Google, Red, Color_Google_red.jpg","5478769535168997586":"Google, Yellow-Orange, Color_Google_yelloworange.jpg","5480596593254567266":"Google, White, white-2000x1500.jpg",
 /* public_gallery */
-"5468005866288280370":"public_EricasJoys/HorizontalMambo","5480525382039743330":"public_116086157836169916177/Favorites","5469661666160577106":"public_114728257341600814985/PicasaWebPublicPictures","5464847589870262818":"public_juliantoledo/Best","5468620555541748930":"public_bdowney/ClassicPlus","5465726438613138322":"public_EricasJoys/HorizontalMambo","5480525372525642866":"public_116086157836169916177/Favorites","5468095309182211138":"public_climent/Travels","5467968585789456354":"public_max.braun/Homepage","5467968606322662898":"public_max.braun/Homepage","5394978350593597026":"public_bluan01/JiuZhaiGouYellowDragonNationalParks","5468030760630111442":"public_109244757320221408388/Test2006","5461268259373019506":"public_jclilot/Portfolio_Flowers","5418083111186176690":"public_fkarpelevitch/200806","5465064542962429986":"public_snoozy.koala/Images","5465267981519769410":"public_magdalar/Backgrounds","5464637264209516562":"public_brettw/Taiwan","5469816275349772930":"public_max.braun/Homepage","5405276903498929458":"public_jclilot/Portfolio_Nature","5464602659331416274":"public_maeve.mara/FeaturedPhotos","5468081125425097026":"public_michos.conradt/Public","5480525380508846738":"public_116086157836169916177/Favorites","5465064395281172466":"public_snoozy.koala/Images","5427875955486466754":"public_sandysroom/VerdugoNorthTraverse","5480525385832476034":"public_116086157836169916177/Favorites","5464721817854022450":"public_mjwiacek/PhotosILike","5468499236979512002":"public_uffishmpk/SelectedFavourites","5465811371224046274":"public_103752943986656263237/Night","5468499251879550482":"public_uffishmpk/SelectedFavourites","5468011240643552594":"public_sweth.c/ForGoogle","5464721917635140242":"public_mjwiacek/PhotosILike","5465963404565598994":"public_arendsf/ThomasFavoriteShared","5464886839716494226":"public_mariusm/ILikeThese","5464644514748019778":"public_simon.tong/Wallpapers","5465825398133839090":"public_103752943986656263237/Background","5467921205742594898":"public_TenSafeFrogs/Favorites","5436863789388960962":"public_marius.schilder/Trona","5464721845849026242":"public_mjwiacek/PhotosILike","5467928286294729906":"public_merciniebres/HelloWorld","5469782237294118322":"public_peter.norvig/Pictures","5463830940035733394":"public_mattgundersen/LandmarksOfTahoe","5470258900410180098":"public_kevin.cantrell/PublicAlbum","5467976005541355106":"public_romain.guy/Wallpapers","5467975931636282290":"public_romain.guy/Wallpapers","5467936023478442338":"public_TenSafeFrogs/Favorites","5468630655462131890":"public_RussHaig/SFNightD40","5468499216650860930":"public_uffishmpk/SelectedFavourites","5464708695072547106":"public_pawliger/Homepage","5464721937652197202":"public_mjwiacek/PhotosILike","5464593346215231826":"public_arendsf/ThomasFavoriteShared"
-                },
+"5468005866288280370":"Google, EricasJoys/HorizontalMambo","5480525382039743330":"Google, 116086157836169916177/Favorites","5469661666160577106":"Google, 114728257341600814985/PicasaWebPublicPictures","5464847589870262818":"Google, juliantoledo/Best","5468620555541748930":"Google, bdowney/ClassicPlus","5465726438613138322":"Google, EricasJoys/HorizontalMambo","5480525372525642866":"Google, 116086157836169916177/Favorites","5468095309182211138":"Google, climent/Travels","5467968585789456354":"Google, max.braun/Homepage","5467968606322662898":"Google, max.braun/Homepage","5394978350593597026":"Google, bluan01/JiuZhaiGouYellowDragonNationalParks","5468030760630111442":"Google, 109244757320221408388/Test2006","5461268259373019506":"Google, jclilot/Portfolio_Flowers","5418083111186176690":"Google, fkarpelevitch/200806","5465064542962429986":"Google, snoozy.koala/Images","5465267981519769410":"Google, magdalar/Backgrounds","5464637264209516562":"Google, brettw/Taiwan","5469816275349772930":"Google, max.braun/Homepage","5405276903498929458":"Google, jclilot/Portfolio_Nature","5464602659331416274":"Google, maeve.mara/FeaturedPhotos","5468081125425097026":"Google, michos.conradt/Public","5480525380508846738":"Google, 116086157836169916177/Favorites","5465064395281172466":"Google, snoozy.koala/Images","5427875955486466754":"Google, sandysroom/VerdugoNorthTraverse","5480525385832476034":"Google, 116086157836169916177/Favorites","5464721817854022450":"Google, mjwiacek/PhotosILike","5468499236979512002":"Google, uffishmpk/SelectedFavourites","5465811371224046274":"Google, 103752943986656263237/Night","5468499251879550482":"Google, uffishmpk/SelectedFavourites","5468011240643552594":"Google, sweth.c/ForGoogle","5464721917635140242":"Google, mjwiacek/PhotosILike","5465963404565598994":"Google, arendsf/ThomasFavoriteShared","5464886839716494226":"Google, mariusm/ILikeThese","5464644514748019778":"Google, simon.tong/Wallpapers","5465825398133839090":"Google, 103752943986656263237/Background","5467921205742594898":"Google, TenSafeFrogs/Favorites","5436863789388960962":"Google, marius.schilder/Trona","5464721845849026242":"Google, mjwiacek/PhotosILike","5467928286294729906":"Google, merciniebres/HelloWorld","5469782237294118322":"Google, peter.norvig/Pictures","5463830940035733394":"Google, mattgundersen/LandmarksOfTahoe","5470258900410180098":"Google, kevin.cantrell/PublicAlbum","5467976005541355106":"Google, romain.guy/Wallpapers","5467975931636282290":"Google, romain.guy/Wallpapers","5467936023478442338":"Google, TenSafeFrogs/Favorites","5468630655462131890":"Google, RussHaig/SFNightD40","5468499216650860930":"Google, uffishmpk/SelectedFavourites","5464708695072547106":"Google, pawliger/Homepage","5464721937652197202":"Google, mjwiacek/PhotosILike","5464593346215231826":"Google, arendsf/ThomasFavoriteShared"					
+},
                 xtype: 'select',
+                parent: 'mto'
+            },
+			color: {
+                value: '#565656',
+                xtype: 'picker',
+                parent: 'mto'
+            },
+            bg: {
+                value: '#FFC',
+                xtype: 'picker',
+                parent: 'mto'
+            },
+			imgsbg: {
+                value: '',
+                size: 80,
+                parent: 'mto'
+            }, imgrbg: {
+                value: '',
+                size: 80,
+                parent: 'mto'
+            },imgrh: {
+                value: '',
+                size: 80,
+                parent: 'mto'
+            }, imgh: {
+                value: '',
+                size: 80,
+                parent: 'mto'
+            }, imghr: {
+                value: '',
+                size: 80,
+                parent: 'mto'
+            }, imghl: {
+                value: '',
+                size: 80,
+                parent: 'mto'
+            }, imgrf: {
+                value: '',
+                size: 80,
+                parent: 'mto'
+            }, imgf: {
+                value: '',
+                size: 80,
+                parent: 'mto'
+            }, imgfr: {
+                value: '',
+                size: 80,
+                parent: 'mto'
+            }, imgfl: {
+                value: '',
+                size: 80,
                 parent: 'mto'
             }
         }
