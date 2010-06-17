@@ -145,10 +145,10 @@ function renderScripts(){
 		eall.onclick=function(e){
 			if (hasClass(eall, 'expanded')){
 				removeClass(eall, 'expanded');
-				toggleCategories(false);
+				toggleCategories(true);
 			}else{
 				addClass(eall, 'expanded');
-				toggleCategories(true);
+				toggleCategories(false);
 			}
 		};
 	}
@@ -415,7 +415,7 @@ function setpackage(id){
 var externalthemes={};
 function renderPreviewTheme(){
 	externalthemes = GRP.getExternalThemes();
-	var theme = document.getElementById('theme_gmailtheme');
+	var theme = document.getElementById('theme_externaltheme');
 	theme.addEventListener('change', previewtheme, false);
 	theme.addEventListener('click', previewtheme, false);
 	theme.addEventListener('keyup', previewtheme, false);
@@ -425,7 +425,7 @@ var reGmailTheme = /^gmail_/;
 var reGooglePublicTheme = /^public_/;
 var reGoogleEditorTheme = /^editor_/;
 function previewtheme(){
-	var theme = document.getElementById('theme_gmailtheme');
+	var theme = document.getElementById('theme_externaltheme');
 	var prview = document.getElementById('thprview');
 	if (!prview) {
 		dh(theme, 'div', {
@@ -435,22 +435,20 @@ function previewtheme(){
 		});
 	}
 	var imgprview = document.getElementById('imgprview');
-	var otheme = externalthemes[code];
 	var code = theme.value;
+	var otheme = externalthemes[code];
 	if (reGmailTheme.test(code)) {
 		code=code.replace(reGmailTheme, '');
 		imgprview.src = "https://mail.google.com/mail/images/2/5/" + code + "/preview1.png";
 		removeClass(imgprview, 'hidden');
 	}else if (reGooglePublicTheme.test(code)) {
-		code=code.replace(reGooglePublicTheme, '');
 		imgprview.src = otheme + "s104/";
 		removeClass(imgprview, 'hidden');
 	}else if (reGoogleEditorTheme.test(code)) {
-		code=code.replace(reGoogleEditorTheme, '');
 		imgprview.src = otheme + "s144/";
 		removeClass(imgprview, 'hidden');
 	}else{
-		addClass(imgprview, 'hidden');
+		addClass(imgprview, 'hidden', true);
 		imgprview.src = "";
 	}
 }

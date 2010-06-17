@@ -32,9 +32,11 @@
                     id =  s[1];
                 }
 				if (s && (key === 'public_')) {
+					id = 'public_'+id;
 					lid = 'Google, '+s[0];
 				}
 				else {
+					id = 'editor_'+id;
 					lid = 'Google, '+o.description+', '+o.name;
 				}
 				

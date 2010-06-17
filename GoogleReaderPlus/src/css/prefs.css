@@ -507,11 +507,13 @@ img.favicon {
 	margin-right:4px;
 }
 
+#theme_externaltheme{
+	width:400px;
+}
 #imgprview{
 	width:65px;
 	height:65px;
 }
-
 #thprview{
 	width:120px;
 	float:right;
