@@ -152,11 +152,21 @@ GRP.langs[locale].prefs = {
     theme: {
         noborder: "Retirer les bords des articles pour en afficher un maximum sur une page",
         mytheme: 'Utilisez <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">une image de fond </a> et des couleurs personnaliséees avec le thème "MyTheme"',
-        url: 'URL de l\'image',
+/*url: 'URL de l\'image',*/
         color: 'Couleur du text',
         bg: 'Couleur du fond du texte',
-repeat: 'Tiled Picture ',
-gmailtheme: 'Gmail theme'
+/*repeat: 'Tiled Picture ',*/
+externaltheme: 'Gmail theme',
+imgrbg:'Image répétée',
+imgsbg:'Image',
+imgrh:'Entête répété',
+imgh:'Entête',
+imghr:'Entête droit',
+imghl:'Entête gauche',
+imgrf:'Pied de page répété',
+imgf:'Pied de page',
+imgfr:'Pied de page droit',
+imgfl:'Pied de page gauche'
     },
     ig: {
         warning: 'Some themes could be displayed incorrectly ; this is a Beta feature!',

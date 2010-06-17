@@ -1164,7 +1164,8 @@ function dhc(config){
         root: 1,
         tag: 1,
         events: 1,
-        el: 1
+        el: 1,
+		position:1
     };
     var el = document.createElement(config.tag || 'div');
     iterate(config, function(k, o){
@@ -1188,7 +1189,7 @@ function dhc(config){
         dhc(cfg);
     }
     if (config.position) {
-        if (config.position === 'before') {
+		if (config.position === 'before') {
             insertBefore(el, root);
         } else {
             insertAfter(el, root);

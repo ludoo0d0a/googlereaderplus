@@ -154,11 +154,21 @@ GRP.langs[locale].prefs = {
     theme: {
         noborder: "Remove entries borders to display more items on a single page",
         mytheme: 'Use <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">custom background picture</a> and font color with skin "MyTheme"',
-        url: 'Picture URL',
+/*url: 'Picture URL',*/
         color: 'Text color',
-        bg: 'Background color',
-repeat: 'Tiled Picture ',
-gmailtheme: 'Google/Gmail theme'
+		bg: 'Background color',
+/*repeat: 'Tiled Picture ',*/
+externaltheme: 'Google/Gmail theme',
+imgrbg:'Repeated background',
+imgsbg:'Background',
+imgrh:'Repeated header',
+imgh:'Header',
+imghr:'Right header',
+imghl:'Left header',
+imgrf:'Repeated footer',
+imgf:'Footer',
+imgfr:'Right footer',
+imgfl:'Left footer'
     },
     ig: {
         warning: 'Some themes could be displayed incorrectly ; this is a Beta feature!',

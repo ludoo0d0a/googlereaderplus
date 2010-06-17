@@ -17,9 +17,8 @@
  -.wo=fr footer right
  */
 GRP.mytheme = function(prefs){
-    var urlgmail = window.location.protocol + '//mail.google.com/mail/';
     var daycodes = ['mon', 'tue', 'thu', 'wed', 'fri', 'sat', 'sun'];
-	var fulldaycodes = ['monday', 'tuesday', 'thursday', 'wednesday', 'friday', 'saturday', 'sunday'];
+    var fulldaycodes = ['monday', 'tuesday', 'thursday', 'wednesday', 'friday', 'saturday', 'sunday'];
     var daytimes = {
         0: 'midnight',
         2: '2am',
@@ -35,8 +34,156 @@ GRP.mytheme = function(prefs){
         22: '10pm'
     };
     
+    var css = ''; //GM_getValue('theme_mytheme');
+    if (css) {
+        GM_addStyle(css, 'rps_mytheme');
+    }
+    else {
+        loadCss('skin/css/mytheme.css', function(css){
+            stylish(css);
+        }, {
+            compact: true,
+            clean: false
+        });
+    }
     
-    var gmailthemes = {
+    function stylish(tplCss){
+        //rbg : Repeated image background
+        //sbg : Single image background
+        //hr : header right
+        //h: header
+        //rh : repeated header
+        //f: footer
+        //fr: footer right
+        //fl: footer left
+        //rf: repeated footer
+        var items = ['rbg', 'sbg', 'rh', 'h', 'hr', 'hl', 'rf', 'f', 'fr', 'fl'];
+        
+        var o = {};
+        
+		var externalthemes = GRP.getExternalThemes();
+		
+        if (prefs.theme_externaltheme && externalthemes && externalthemes[prefs.theme_externaltheme]) {
+            o = externalthemes[prefs.theme_externaltheme];
+            o.bg2 = o.bg2 || o.bg;
+            if (o.rbg) {
+                //repeated image background
+                o.bg2 = 'transparent';
+            }
+            if (typeof o === 'string') {
+                o = {
+	                color: prefs.theme_color || '#000',
+	                bg: prefs.theme_bg || '#fff',
+                    hl: o
+                };
+            }
+            
+            //current_time
+            var current_time = (new Date()).getHours();
+            current_time = current_time - current_time % 2;//pair number
+            daytime = daytimes[current_time];
+            //day
+            var day = (new Date()).getDay();
+            
+            //placeholders replacement
+            var holders = {
+                day: daycodes[day - 1],
+                fullday: fulldaycodes[day - 1],
+                time: current_time,
+                daytime: daytime,
+                daynight: ((current_time < 8 || current_time > 20) ? 'night' : 'day')
+            };
+            if (o.vars) {
+                iterate(o.vars, function(varname, varvalues){
+                    var variable = false;
+                    //random choice
+                    variable = randomselect(varvalues);
+                    holders[varname] = variable;
+                });
+            }
+            
+            
+            //choose random image if multiples...
+            iterate(o, function(key, a){
+                if (key !== 'vars') {
+                    if (isArray(a)) {
+                        o[key] = randomselect(a);
+                    }
+                    else if (typeof a === 'object') {
+                        var k = holders[a.selector]; //selector specific (day...)
+                        if (k && k !== 'random') {
+                            o[key] = o[key][k];
+                        }
+                        else {
+                            delete a.selector;
+                            //multiple images per day possible
+                            o[key] = randomselect(a);
+                        }
+                    }
+                }
+            });
+            
+            //placeholders replacement
+            if (holders) {
+                iterate(holders, function(name, value){
+                    iterate(o, function(key, a){
+                        if (typeof a === 'string') {
+                            o[key] = a.replace('{' + name + '}', value);
+                        }
+                    });
+                });
+            }
+            
+        }
+        else {
+            //custom
+            o = {
+                color: prefs.theme_color || '#aaa',
+                bg: prefs.theme_bg || '#ffc'
+            };
+			
+			foreach(items, function(itm){
+	            if (prefs['theme_img'+itm]) {
+	                o[itm]=prefs['theme_'+itm];
+	            }
+	        });
+		
+        }
+        
+        var css = fillTpl(tplCss, o);
+        
+        
+        var html = '';
+        
+        foreach(items, function(itm){
+            html += '<div id="rp-' + itm + '"></div>';
+            if (o[itm]) {
+                css = cleancss(css, itm);
+            }
+        });
+        
+        var c = dh(document.body, 'div', {
+            id: 'rp-cs',
+            html: html
+        });
+        
+        GM_addStyle(css, 'rps_mytheme');
+        //cache css
+        GM_setValue('theme_mytheme', css);
+        
+        if (o.resize) {
+            fireResize();
+        }
+    }
+    
+    function cleancss(css, id){
+        return css.replace('/*--' + id + '>--*//*', '').replace('*//*--<' + id + '--*/', '');
+    }
+};
+
+GRP.getExternalThemes = function(){
+     var urlgmail = window.location.protocol + '//mail.google.com/mail/';
+	 return {
         gmail_blodblue: {
             bg: '#fff',
             color: '#2a5db0'
@@ -52,8 +199,7 @@ GRP.mytheme = function(prefs){
         gmail_coldshower: {
             bg: '#99b1c3',
             color: '#333944',
-            image: urlgmail + 'images/2/5/coldshower/blue-tile.png',
-            repeat: true
+            rbg: urlgmail + 'images/2/5/coldshower/blue-tile.png'
         },
         gmail_steel: {
             bg: '#fff',
@@ -76,8 +222,7 @@ GRP.mytheme = function(prefs){
         gmail_cherryblossom: {
             bg: '#fff',
             color: '#942e06',
-            image: urlgmail + 'images/2/5/cherry/bg-main.png',
-            repeat: true
+            rbg: urlgmail + 'images/2/5/cherry/bg-main.png'
         },
         gmail_nightshade: {
             bg: '#55688a',
@@ -117,7 +262,7 @@ GRP.mytheme = function(prefs){
         gmail_desk: {
             bg: '#000',
             color: '#fff',
-            image: urlgmail + 'images/2/5/desk/canvas_bg.jpg',
+            sbg: urlgmail + 'images/2/5/desk/canvas_bg.jpg',
             hl: [ /* .wp */urlgmail + 'images/2/5/desk/logo_splatter.png', urlgmail + 'images/2/5/desk/logo_splatter_pencil.png'],
             hr: [ /* .wq */urlgmail + 'images/2/5/desk/header_bg_padpins.png', urlgmail + 'images/2/5/desk/header_bg_sharpenerenvelope.png', urlgmail + 'images/2/5/desk/header_bg_ruler.png', urlgmail + 'images/2/5/desk/header_bg_tape.png', urlgmail + 'images/2/5/desk/header_bg_vase.png'],
             fl: [ /* .wn */urlgmail + 'images/2/5/desk/footer_bg_paperclips.png', urlgmail + 'images/2/5/desk/footer_bg_applecalendar1.png', urlgmail + 'images/2/5/desk/footer_bg_postcard.png', urlgmail + 'images/2/5/desk/footer_bg_envelopebusstop1.png', urlgmail + 'images/2/5/desk/footer_bg_photos1.png'],
@@ -136,8 +281,7 @@ GRP.mytheme = function(prefs){
             rh: urlgmail + 'images/2/5/beach/{daytime}/headertile_bg.jpg',
             h: urlgmail + 'images/2/5/beach/{daytime}/header_bg.jpg',
             f: urlgmail + 'images/2/5/beach/{daytime}/footer_bg.jpg',
-            image: urlgmail + 'images/2/5/beach/{daytime}/canvastile_bg.jpg',
-            repeat: true
+            rbg: urlgmail + 'images/2/5/beach/{daytime}/canvastile_bg.jpg'
         },
         gmail_mountains: {
             bg: '#6D6C68',
@@ -189,8 +333,7 @@ GRP.mytheme = function(prefs){
             bg: '#0c1319',
             color: '#fff',
             hl: [urlgmail + 'images/2/5/planets/sun/sun.jpg', urlgmail + 'images/2/5/planets/moon/moon.jpg', urlgmail + 'images/2/5/planets/mercury/mercury.jpg', urlgmail + 'images/2/5/planets/venus/venus.jpg', urlgmail + 'images/2/5/planets/mars/mars.jpg', urlgmail + 'images/2/5/planets/jupiter/jupiter.jpg', urlgmail + 'images/2/5/planets/saturn/saturn.jpg', urlgmail + 'images/2/5/planets/uranus/uranus.jpg', urlgmail + 'images/2/5/planets/neptune/neptune.jpg'],
-            image: urlgmail + 'images/2/5/planets/base/star_tile.gif',
-            repeat: true
+            rbg: urlgmail + 'images/2/5/planets/base/star_tile.gif'
         },
         gmail_zoozimps: {
             bg: '#fff',
@@ -203,8 +346,7 @@ GRP.mytheme = function(prefs){
             hl: urlgmail + 'images/2/5/candy/header_bg.gif',
             hr: urlgmail + 'images/2/5/candy/headertile_bg.gif',
             fl: urlgmail + 'images/2/5/candy/footer_bg.gif',
-            image: urlgmail + 'images/2/5/candy/canvastile_bg.gif',
-            repeat: true
+            rbg: urlgmail + 'images/2/5/candy/canvastile_bg.gif'
         },
         gmail_busstop: {
             bg: '#78726b',
@@ -236,8 +378,7 @@ GRP.mytheme = function(prefs){
             rh: urlgmail + 'images/2/5/teahouse/{daytime}/headertile_bg.jpg',
             fl: urlgmail + 'images/2/5/teahouse/{daytime}/footer_bg.jpg',
             rf: urlgmail + 'images/2/5/teahouse/{daytime}/footertile_bg.jpg',
-            image: urlgmail + 'images/2/5/teahouse/{daytime}/canvastile_bg.jpg',
-            repeat: true
+            rbg: urlgmail + 'images/2/5/teahouse/{daytime}/canvastile_bg.jpg'
         },
         gmail_terminal: {
             bg: '#000',
@@ -246,10 +387,7 @@ GRP.mytheme = function(prefs){
         gmail_orcasisland: {
             bg: '#5e7056',
             color: '#000',
-            hl: [
-				urlgmail + 'images/2/5/orcasisland/{fullday}_01.jpg', 
-				urlgmail + 'images/2/5/orcasisland/{fullday}_02.jpg'
-			]
+            hl: [urlgmail + 'images/2/5/orcasisland/{fullday}_01.jpg', urlgmail + 'images/2/5/orcasisland/{fullday}_02.jpg']
         },
         gmail_highscore: {
             bg: '#090',
@@ -264,263 +402,28 @@ GRP.mytheme = function(prefs){
             hl: urlgmail + 'images/2/5/turf/header_tile.jpg'
         },
         gmail_lapinscretins: {
-            vars:{
-				numero:[1,2,3]
-			},
-			bg: {
-				selector:'numero',
-				1:'#3275AC',
-				2:'#31669A',
-				3:'#B7E0E4'
-			},
+            vars: {
+                numero: [1, 2, 3]
+            },
+            bg: {
+                selector: 'numero',
+                1: '#3275AC',
+                2: '#31669A',
+                3: '#B7E0E4'
+            },
             color: '#fff',
-            image: urlgmail + 'images/2/5/lapinscretins/rabbids_header{numero}_final.png',
-            repeat: false
+            sbg: urlgmail + 'images/2/5/lapinscretins/rabbids_header{numero}_final.png'
         },
         gmail_assasinscreed2: {
-            bg: '#000',
+            bg: '#3C4844',
             color: '#fff',
-            hl: [
-				urlgmail + 'images/2/5/assassinscreed2/ac2_header1_final.png',
-				urlgmail + 'images/2/5/assassinscreed2/ac2_header2_final.png',
-				urlgmail + 'images/2/5/assassinscreed2/ac2_header3_final.png',
-				urlgmail + 'images/2/5/assassinscreed2/ac2_header4_final.png',
-				urlgmail + 'images/2/5/assassinscreed2/ac2_header5_final.png',
-				urlgmail + 'images/2/5/assassinscreed2/ac2_header6_final.png'
-			]
+            sbg: [urlgmail + 'images/2/5/assassinscreed2/ac2_header1_final.png', urlgmail + 'images/2/5/assassinscreed2/ac2_header2_final.png', urlgmail + 'images/2/5/assassinscreed2/ac2_header3_final.png', urlgmail + 'images/2/5/assassinscreed2/ac2_header4_final.png', urlgmail + 'images/2/5/assassinscreed2/ac2_header5_final.png', urlgmail + 'images/2/5/assassinscreed2/ac2_header6_final.png']
         },
         
-        /* editors_picks */
-        "5478752472500006610": "http://lh4.ggpht.com/_fxkujw2mA9U/TAhwWJen7tI/AAAAAAAAAIY/QNQcTiWN9l8/",
-        "5478752827007585634": "http://lh4.ggpht.com/_fxkujw2mA9U/TAhwqyH0TWI/AAAAAAAAAI8/APTtF3_y2cI/",
-        "5478752842710333378": "http://lh4.ggpht.com/_fxkujw2mA9U/TAhwrsnpN8I/AAAAAAAAAJE/ym-TNB-ipDU/",
-        "5478753114195988130": "http://lh5.ggpht.com/_fxkujw2mA9U/TAhw7f-3jqI/AAAAAAAAAJc/YGO5_ldyj-Y/",
-        "5478753075316627266": "http://lh4.ggpht.com/_fxkujw2mA9U/TAhw5PJTl0I/AAAAAAAAAJU/rS6YK1WW8-A/",
-        "5478753460334726146": "http://lh4.ggpht.com/_fxkujw2mA9U/TAhxPpcxjAI/AAAAAAAAAJs/URghLUy99YA/",
-        "5478752501519603442": "http://lh3.ggpht.com/_fxkujw2mA9U/TAhwX1lb1vI/AAAAAAAAAIk/Ksf6-SnvVPo/",
-        "5478753089633816370": "http://lh3.ggpht.com/_fxkujw2mA9U/TAhw6EeyjzI/AAAAAAAAAJY/BDvPIiaoi2U/",
-        "5478752819223180210": "http://lh5.ggpht.com/_fxkujw2mA9U/TAhwqVH3s7I/AAAAAAAAAI0/xhmZlouBW6Q/",
-        "5478753117486370930": "http://lh5.ggpht.com/_fxkujw2mA9U/TAhw7sPW0HI/AAAAAAAAAJg/wiRaz9nNtUw/",
-        "5478752835087677362": "http://lh6.ggpht.com/_fxkujw2mA9U/TAhwrQOQt7I/AAAAAAAAAJA/H6GQMElt9Jg/",
-        "5478752493997894098": "http://lh5.ggpht.com/_fxkujw2mA9U/TAhwXZkHqdI/AAAAAAAAAIg/PR_JvDoSUUo/",
-        "5478752822146891810": "http://lh3.ggpht.com/_fxkujw2mA9U/TAhwqgA8ACI/AAAAAAAAAI4/mBFPhy-c3Dg/",
-        "5478753058608504226": "http://lh3.ggpht.com/_fxkujw2mA9U/TAhw4Q5x3aI/AAAAAAAAAJQ/CnTyXr3Q8uQ/",
-        "5480987905094465154": "http://lh4.ggpht.com/_fxkujw2mA9U/TBBhdc1eNoI/AAAAAAAAAPg/VL7O_YocFWY/",
-        "5480987906200029490": "http://lh6.ggpht.com/_fxkujw2mA9U/TBBhdg9DyTI/AAAAAAAAAPk/1jXNNml5Fvs/",
-        "5480998621006856338": "http://lh6.ggpht.com/_fxkujw2mA9U/TBBrNMuFAJI/AAAAAAAAARU/52PQOquzhC8/",
-        "5480987916726984130": "http://lh5.ggpht.com/_fxkujw2mA9U/TBBheIK4XcI/AAAAAAAAAPo/BR4cS1ib3xM/",
-        "5480987917979934498": "http://lh3.ggpht.com/_fxkujw2mA9U/TBBheM1m3yI/AAAAAAAAAPs/uKFlfn704Q8/",
-        "5480987925727076290": "http://lh5.ggpht.com/_fxkujw2mA9U/TBBhepsq38I/AAAAAAAAAPw/Ida0LeDX0fE/",
-        "5480988005113749330": "http://lh5.ggpht.com/_fxkujw2mA9U/TBBhjRb7X1I/AAAAAAAAAP4/TUTmK3R2KAE/",
-        "5480988012864676114": "http://lh4.ggpht.com/_fxkujw2mA9U/TBBhjuT5IRI/AAAAAAAAAP8/3zSixI6EFwM/",
-        "5478753466167683746": "http://lh5.ggpht.com/_fxkujw2mA9U/TAhxP_LdaqI/AAAAAAAAAJw/D3WLPN6-uhk/",
-        "5478753483552159554": "http://lh3.ggpht.com/_fxkujw2mA9U/TAhxQ_8Pd0I/AAAAAAAAAJ0/IuvA0kBkziw/",
-        "5478755559461692018": "http://lh5.ggpht.com/_fxkujw2mA9U/TAhzJ1TpInI/AAAAAAAAAL4/SRH8g8xRsRE/",
-        "5478755572322259650": "http://lh4.ggpht.com/_fxkujw2mA9U/TAhzKlN10sI/AAAAAAAAAL8/B-akepWsw9Q/",
-        "5478753799989312658": "http://lh5.ggpht.com/_fxkujw2mA9U/TAhxjawvPJI/AAAAAAAAAKE/Uo0oCE22FnM/",
-        "5478753813630017442": "http://lh4.ggpht.com/_fxkujw2mA9U/TAhxkNk736I/AAAAAAAAAKI/cbq956vqL7o/",
-        "5478753819961634386": "http://lh3.ggpht.com/_fxkujw2mA9U/TAhxklKgrlI/AAAAAAAAAKM/a95O10f-NEg/",
-        "5478752511525657170": "http://lh6.ggpht.com/_fxkujw2mA9U/TAhwYa3EGlI/AAAAAAAAAIo/Wi7XY2Bxgrc/",
-        "5478753832267149810": "http://lh5.ggpht.com/_fxkujw2mA9U/TAhxlTAX8fI/AAAAAAAAAKQ/pfQT3foJPRs/",
-        "5480997862386069170": "http://lh3.ggpht.com/_fxkujw2mA9U/TBBqhCoybrI/AAAAAAAAAQs/IRrOw-q56ig/",
-        "5480997893054118498": "http://lh3.ggpht.com/_fxkujw2mA9U/TBBqi04numI/AAAAAAAAAQw/dEVESx_pvBs/",
-        "5480998186992651026": "http://lh5.ggpht.com/_fxkujw2mA9U/TBBqz75ByxI/AAAAAAAAARE/CAq1-arltkE/",
-        "5478769425598313058": "http://lh6.ggpht.com/_fxkujw2mA9U/TAh_w8sO8mI/AAAAAAAAAMs/E5kjeXUIQOc/",
-        "5478769428183578882": "http://lh3.ggpht.com/_fxkujw2mA9U/TAh_xGUm-QI/AAAAAAAAAMw/TlYQUgOsAOs/",
-        "5478769428473291154": "http://lh4.ggpht.com/_fxkujw2mA9U/TAh_xHZroZI/AAAAAAAAAM0/fZ8ZGI4gEHs/",
-        "5478769530404012082": "http://lh4.ggpht.com/_fxkujw2mA9U/TAh_3DH3ADI/AAAAAAAAAM4/09PbIsWavv4/",
-        "5478769535168997586": "http://lh4.ggpht.com/_fxkujw2mA9U/TAh_3U366NI/AAAAAAAAAM8/fUctF4T897M/",
-        "5480596593254567266": "http://lh6.ggpht.com/_fxkujw2mA9U/TA79kGonjWI/AAAAAAAAAO8/wgt1U7ogm0k/",
-        /* public_gallery */
-        "5468005866288280370": "http://lh5.ggpht.com/_W6mjt7mDgno/S-JCXVndczI/AAAAAAAA3y0/fQWo9r8k0ks/",
-        "5480525382039743330": "http://lh4.ggpht.com/_3rqotzCU1sY/TA68zEL9q2I/AAAAAAAAA80/cZhz0pxQSM0/",
-        "5469661666160577106": "http://lh5.ggpht.com/_Z4rK3Ss0bFg/S-gkTk0SilI/AAAAAAAAADw/DDTeQLjTfWA/",
-        "5464847589870262818": "http://lh6.ggpht.com/_rfAz5DWHZYs/S9cJ7dHd2iI/AAAAAAAAcg8/kx3xyB7P6fc/",
-        "5468620555541748930": "http://lh3.ggpht.com/_0YSlK3HfZDQ/S-Rxa9h3HMI/AAAAAAAAXiI/fStJVANexYc/",
-        "5465726438613138322": "http://lh6.ggpht.com/_W6mjt7mDgno/S9opPLz_O5I/AAAAAAAA3yw/yYZekAKroI4/",
-        "5480525372525642866": "http://lh5.ggpht.com/_3rqotzCU1sY/TA68ygvoBHI/AAAAAAAAA9c/k7jhmLYmw78/",
-        "5468095309182211138": "http://lh6.ggpht.com/__75Y1wEu2H0/S-KTtmXJFEI/AAAAAAAAAFA/JzlqhzF7Vt4/",
-        "5467968585789456354": "http://lh5.ggpht.com/_aIZoxdfNfNk/S-IgdU75v-I/AAAAAAAAB7A/jL1VMOt7DgM/",
-        "5467968606322662898": "http://lh6.ggpht.com/_aIZoxdfNfNk/S-IgehbZnfI/AAAAAAAAB7E/v_h-Pq9AqeU/",
-        "5394978350593597026": "http://lh5.ggpht.com/_A5ssqXnsoMw/St7QOd4N3mI/AAAAAAAAE98/xKvtFXjUN_U/",
-        "5468030760630111442": "http://lh4.ggpht.com/_daORpSs2nxc/S-JZAYRETNI/AAAAAAAAAFA/kuOmpgEENNU/",
-        "5461268259373019506": "http://lh5.ggpht.com/_KFSyWTTuLjA/S8pSi_8LcXI/AAAAAAAAWTA/Ne49ieWVSV8/",
-        "5418083111186176690": "http://lh6.ggpht.com/_unJLPNmBC1U/SzDl4iXLmrI/AAAAAAABWv4/kkFFBMpXvdM/",
-        "5465064542962429986": "http://lh6.ggpht.com/_3UYvaY5uN7E/S9fPPyXbsCI/AAAAAAAAAbc/w9YyUMXol5k/",
-        "5465267981519769410": "http://lh3.ggpht.com/_Z6STI8lIz68/S9iIReDNT0I/AAAAAAAAVn8/1VWscVg0VHI/",
-        "5464637264209516562": "http://lh4.ggpht.com/_yjAEkPM8eKE/S9ZKo4-SGBI/AAAAAAAAExM/Yolg3yv48ZE/",
-        "5469816275349772930": "http://lh4.ggpht.com/_aIZoxdfNfNk/S-iw7A7fmoI/AAAAAAAAB7I/uX8etH_Zh8s/",
-        "5405276903498929458": "http://lh5.ggpht.com/_KFSyWTTuLjA/SwNmtJGtVTI/AAAAAAAAWS8/m3yzK6SE-9k/",
-        "5464602659331416274": "http://lh3.ggpht.com/_mlwpgEPyjKM/S9YrKnwaoNI/AAAAAAAAL8o/qERJYeK9SOY/",
-        "5468081125425097026": "http://lh5.ggpht.com/_LgRsf0mgy_M/S-KGz_v7KUI/AAAAAAAABNU/GYTn-LSj3lw/",
-        "5480525380508846738": "http://lh4.ggpht.com/_3rqotzCU1sY/TA68y-e-CpI/AAAAAAAAA8g/Fb18jqd2T18/",
-        "5465064395281172466": "http://lh6.ggpht.com/_3UYvaY5uN7E/S9fPHMNeh_I/AAAAAAAAAbY/teuqnGf7uT8/",
-        "5427875955486466754": "http://lh3.ggpht.com/_K29ox9DWiaM/S1OwbGOnosI/AAAAAAAASqs/Wg5OAoix0tk/",
-        "5480525385832476034": "http://lh6.ggpht.com/_3rqotzCU1sY/TA68zSUOLYI/AAAAAAAAA9I/JpGyEL5lx9s/",
-        "5464721817854022450": "http://lh5.ggpht.com/_7V85eCJY_fg/S9aXij2EEzI/AAAAAAAAMsc/rUXq7chzQZo/",
-        "5468499236979512002": "http://lh6.ggpht.com/_RXIvzqFA_h8/S-QDFSqoksI/AAAAAAAABss/q8Hs_Y6Ojco/",
-        "5465811371224046274": "http://lh3.ggpht.com/_7SB5-VS6jYo/S9p2e6cZmsI/AAAAAAAAAPk/CdITAmRcDNU/",
-        "5468499251879550482": "http://lh6.ggpht.com/_RXIvzqFA_h8/S-QDGKLFHhI/AAAAAAAABso/mMXhQIO_rIY/",
-        "5468011240643552594": "http://lh5.ggpht.com/_q82cg6OMtCs/S-JHQKpm5VI/AAAAAAAAQDs/eQKsBn336_w/",
-        "5464721917635140242": "http://lh3.ggpht.com/_7V85eCJY_fg/S9aXoXjvGpI/AAAAAAAAMsg/8LweEHXvC8E/",
-        "5465963404565598994": "http://lh3.ggpht.com/_4HzkBj4VmKw/S9sAwaxq0xI/AAAAAAAAy3s/595Du9f3xbQ/",
-        "5464886839716494226": "http://lh6.ggpht.com/_as1xi-WX02U/S9ctoGMCO5I/AAAAAAAAC2o/G348G26qKR0/",
-        "5464644514748019778": "http://lh5.ggpht.com/_dAaguGcsRfA/S9ZRO7VXtEI/AAAAAAAAENA/jQ1y0m7u7FE/",
-        "5465825398133839090": "http://lh3.ggpht.com/_7SB5-VS6jYo/S9qDPYwTVPI/AAAAAAAAANo/39f76y32uiA/",
-        "5467921205742594898": "http://lh3.ggpht.com/_aDwLqnCx5xE/S-H1Xcgc61I/AAAAAAAACAQ/zmy2_wM2j4Y/",
-        "5436863789388960962": "http://lh5.ggpht.com/_uqT1DECwpD8/S3Oez4q2lMI/AAAAAAAAO6c/aGrJoPQEzbY/",
-        "5464721845849026242": "http://lh4.ggpht.com/_7V85eCJY_fg/S9aXkMIl7sI/AAAAAAAAMsY/hbwwd2lB1ns/",
-        "5467928286294729906": "http://lh4.ggpht.com/_6NwUsKnkxdc/S-H7zlnoZLI/AAAAAAAAJ2Y/qYD_7yeqVOw/",
-        "5469782237294118322": "http://lh3.ggpht.com/_iGI-XCxGLew/S-iR9vSoRbI/AAAAAAAABLQ/n5Ix1uZx1qc/",
-        "5463830940035733394": "http://lh4.ggpht.com/_1rL3G0Y32aQ/S9NtSpWeV5I/AAAAAAAAJd4/wJdXRCWA-_c/",
-        "5470258900410180098": "http://lh5.ggpht.com/_n8uHgnu6KsU/S-pDfLxeIgI/AAAAAAAAAZY/uPP45av8Tls/",
-        "5467976005541355106": "http://lh5.ggpht.com/_loGyjar4MMI/S-InNNqm3mI/AAAAAAAAB9s/XKcK0UhQhHk/",
-        "5467975931636282290": "http://lh6.ggpht.com/_loGyjar4MMI/S-InI6WQ87I/AAAAAAAACEs/WaRxi6D4WCs/",
-        "5467936023478442338": "http://lh4.ggpht.com/_aDwLqnCx5xE/S-IC183-mWI/AAAAAAAACAU/x5M3XSm-z38/",
-        "5468630655462131890": "http://lh5.ggpht.com/_vegCfczOoKA/S-R6m2qhyLI/AAAAAAAAIJg/VbgtlWc1YVs/",
-        "5468499216650860930": "http://lh6.ggpht.com/_RXIvzqFA_h8/S-QDEG75-YI/AAAAAAAABsw/qbL5p3ubU8U/",
-        "5464708695072547106": "http://lh6.ggpht.com/_s60pF2QNbck/S9aLmtrJoSI/AAAAAAAAeOo/cPMni36CmMk/",
-        "5464721937652197202": "http://lh4.ggpht.com/_7V85eCJY_fg/S9aXpiILJ1I/AAAAAAAAMsU/m2f6UsfQfEA/",
-        "5464593346215231826": "http://lh4.ggpht.com/_4HzkBj4VmKw/S9YishsfQVI/AAAAAAAAy3w/2Hg6_XEPri4/"
+/* editors_picks */
+"5478752472500006610":"http://lh4.ggpht.com/_fxkujw2mA9U/TAhwWJen7tI/AAAAAAAAAIY/QNQcTiWN9l8/","5478752827007585634":"http://lh4.ggpht.com/_fxkujw2mA9U/TAhwqyH0TWI/AAAAAAAAAI8/APTtF3_y2cI/","5478752842710333378":"http://lh4.ggpht.com/_fxkujw2mA9U/TAhwrsnpN8I/AAAAAAAAAJE/ym-TNB-ipDU/","5478753114195988130":"http://lh5.ggpht.com/_fxkujw2mA9U/TAhw7f-3jqI/AAAAAAAAAJc/YGO5_ldyj-Y/","5478753075316627266":"http://lh4.ggpht.com/_fxkujw2mA9U/TAhw5PJTl0I/AAAAAAAAAJU/rS6YK1WW8-A/","5478753460334726146":"http://lh4.ggpht.com/_fxkujw2mA9U/TAhxPpcxjAI/AAAAAAAAAJs/URghLUy99YA/","5478752501519603442":"http://lh3.ggpht.com/_fxkujw2mA9U/TAhwX1lb1vI/AAAAAAAAAIk/Ksf6-SnvVPo/","5478753089633816370":"http://lh3.ggpht.com/_fxkujw2mA9U/TAhw6EeyjzI/AAAAAAAAAJY/BDvPIiaoi2U/","5478752819223180210":"http://lh5.ggpht.com/_fxkujw2mA9U/TAhwqVH3s7I/AAAAAAAAAI0/xhmZlouBW6Q/","5478753117486370930":"http://lh5.ggpht.com/_fxkujw2mA9U/TAhw7sPW0HI/AAAAAAAAAJg/wiRaz9nNtUw/","5478752835087677362":"http://lh6.ggpht.com/_fxkujw2mA9U/TAhwrQOQt7I/AAAAAAAAAJA/H6GQMElt9Jg/","5478752493997894098":"http://lh5.ggpht.com/_fxkujw2mA9U/TAhwXZkHqdI/AAAAAAAAAIg/PR_JvDoSUUo/","5478752822146891810":"http://lh3.ggpht.com/_fxkujw2mA9U/TAhwqgA8ACI/AAAAAAAAAI4/mBFPhy-c3Dg/","5478753058608504226":"http://lh3.ggpht.com/_fxkujw2mA9U/TAhw4Q5x3aI/AAAAAAAAAJQ/CnTyXr3Q8uQ/","5480987905094465154":"http://lh4.ggpht.com/_fxkujw2mA9U/TBBhdc1eNoI/AAAAAAAAAPg/VL7O_YocFWY/","5480987906200029490":"http://lh6.ggpht.com/_fxkujw2mA9U/TBBhdg9DyTI/AAAAAAAAAPk/1jXNNml5Fvs/","5480998621006856338":"http://lh6.ggpht.com/_fxkujw2mA9U/TBBrNMuFAJI/AAAAAAAAARU/52PQOquzhC8/","5480987916726984130":"http://lh5.ggpht.com/_fxkujw2mA9U/TBBheIK4XcI/AAAAAAAAAPo/BR4cS1ib3xM/","5480987917979934498":"http://lh3.ggpht.com/_fxkujw2mA9U/TBBheM1m3yI/AAAAAAAAAPs/uKFlfn704Q8/","5480987925727076290":"http://lh5.ggpht.com/_fxkujw2mA9U/TBBhepsq38I/AAAAAAAAAPw/Ida0LeDX0fE/","5480988005113749330":"http://lh5.ggpht.com/_fxkujw2mA9U/TBBhjRb7X1I/AAAAAAAAAP4/TUTmK3R2KAE/","5480988012864676114":"http://lh4.ggpht.com/_fxkujw2mA9U/TBBhjuT5IRI/AAAAAAAAAP8/3zSixI6EFwM/","5478753466167683746":"http://lh5.ggpht.com/_fxkujw2mA9U/TAhxP_LdaqI/AAAAAAAAAJw/D3WLPN6-uhk/","5478753483552159554":"http://lh3.ggpht.com/_fxkujw2mA9U/TAhxQ_8Pd0I/AAAAAAAAAJ0/IuvA0kBkziw/","5478755559461692018":"http://lh5.ggpht.com/_fxkujw2mA9U/TAhzJ1TpInI/AAAAAAAAAL4/SRH8g8xRsRE/","5478755572322259650":"http://lh4.ggpht.com/_fxkujw2mA9U/TAhzKlN10sI/AAAAAAAAAL8/B-akepWsw9Q/","5478753799989312658":"http://lh5.ggpht.com/_fxkujw2mA9U/TAhxjawvPJI/AAAAAAAAAKE/Uo0oCE22FnM/","5478753813630017442":"http://lh4.ggpht.com/_fxkujw2mA9U/TAhxkNk736I/AAAAAAAAAKI/cbq956vqL7o/","5478753819961634386":"http://lh3.ggpht.com/_fxkujw2mA9U/TAhxklKgrlI/AAAAAAAAAKM/a95O10f-NEg/","5478752511525657170":"http://lh6.ggpht.com/_fxkujw2mA9U/TAhwYa3EGlI/AAAAAAAAAIo/Wi7XY2Bxgrc/","5478753832267149810":"http://lh5.ggpht.com/_fxkujw2mA9U/TAhxlTAX8fI/AAAAAAAAAKQ/pfQT3foJPRs/","5480997862386069170":"http://lh3.ggpht.com/_fxkujw2mA9U/TBBqhCoybrI/AAAAAAAAAQs/IRrOw-q56ig/","5480997893054118498":"http://lh3.ggpht.com/_fxkujw2mA9U/TBBqi04numI/AAAAAAAAAQw/dEVESx_pvBs/","5480998186992651026":"http://lh5.ggpht.com/_fxkujw2mA9U/TBBqz75ByxI/AAAAAAAAARE/CAq1-arltkE/","5478769425598313058":"http://lh6.ggpht.com/_fxkujw2mA9U/TAh_w8sO8mI/AAAAAAAAAMs/E5kjeXUIQOc/","5478769428183578882":"http://lh3.ggpht.com/_fxkujw2mA9U/TAh_xGUm-QI/AAAAAAAAAMw/TlYQUgOsAOs/","5478769428473291154":"http://lh4.ggpht.com/_fxkujw2mA9U/TAh_xHZroZI/AAAAAAAAAM0/fZ8ZGI4gEHs/","5478769530404012082":"http://lh4.ggpht.com/_fxkujw2mA9U/TAh_3DH3ADI/AAAAAAAAAM4/09PbIsWavv4/","5478769535168997586":"http://lh4.ggpht.com/_fxkujw2mA9U/TAh_3U366NI/AAAAAAAAAM8/fUctF4T897M/","5480596593254567266":"http://lh6.ggpht.com/_fxkujw2mA9U/TA79kGonjWI/AAAAAAAAAO8/wgt1U7ogm0k/",
+/* public_gallery */
+"5468005866288280370":"http://lh5.ggpht.com/_W6mjt7mDgno/S-JCXVndczI/AAAAAAAA3y0/fQWo9r8k0ks/","5480525382039743330":"http://lh4.ggpht.com/_3rqotzCU1sY/TA68zEL9q2I/AAAAAAAAA80/cZhz0pxQSM0/","5469661666160577106":"http://lh5.ggpht.com/_Z4rK3Ss0bFg/S-gkTk0SilI/AAAAAAAAADw/DDTeQLjTfWA/","5464847589870262818":"http://lh6.ggpht.com/_rfAz5DWHZYs/S9cJ7dHd2iI/AAAAAAAAcg8/kx3xyB7P6fc/","5468620555541748930":"http://lh3.ggpht.com/_0YSlK3HfZDQ/S-Rxa9h3HMI/AAAAAAAAXiI/fStJVANexYc/","5465726438613138322":"http://lh6.ggpht.com/_W6mjt7mDgno/S9opPLz_O5I/AAAAAAAA3yw/yYZekAKroI4/","5480525372525642866":"http://lh5.ggpht.com/_3rqotzCU1sY/TA68ygvoBHI/AAAAAAAAA9c/k7jhmLYmw78/","5468095309182211138":"http://lh6.ggpht.com/__75Y1wEu2H0/S-KTtmXJFEI/AAAAAAAAAFA/JzlqhzF7Vt4/","5467968585789456354":"http://lh5.ggpht.com/_aIZoxdfNfNk/S-IgdU75v-I/AAAAAAAAB7A/jL1VMOt7DgM/","5467968606322662898":"http://lh6.ggpht.com/_aIZoxdfNfNk/S-IgehbZnfI/AAAAAAAAB7E/v_h-Pq9AqeU/","5394978350593597026":"http://lh5.ggpht.com/_A5ssqXnsoMw/St7QOd4N3mI/AAAAAAAAE98/xKvtFXjUN_U/","5468030760630111442":"http://lh4.ggpht.com/_daORpSs2nxc/S-JZAYRETNI/AAAAAAAAAFA/kuOmpgEENNU/","5461268259373019506":"http://lh5.ggpht.com/_KFSyWTTuLjA/S8pSi_8LcXI/AAAAAAAAWTA/Ne49ieWVSV8/","5418083111186176690":"http://lh6.ggpht.com/_unJLPNmBC1U/SzDl4iXLmrI/AAAAAAABWv4/kkFFBMpXvdM/","5465064542962429986":"http://lh6.ggpht.com/_3UYvaY5uN7E/S9fPPyXbsCI/AAAAAAAAAbc/w9YyUMXol5k/","5465267981519769410":"http://lh3.ggpht.com/_Z6STI8lIz68/S9iIReDNT0I/AAAAAAAAVn8/1VWscVg0VHI/","5464637264209516562":"http://lh4.ggpht.com/_yjAEkPM8eKE/S9ZKo4-SGBI/AAAAAAAAExM/Yolg3yv48ZE/","5469816275349772930":"http://lh4.ggpht.com/_aIZoxdfNfNk/S-iw7A7fmoI/AAAAAAAAB7I/uX8etH_Zh8s/","5405276903498929458":"http://lh5.ggpht.com/_KFSyWTTuLjA/SwNmtJGtVTI/AAAAAAAAWS8/m3yzK6SE-9k/","5464602659331416274":"http://lh3.ggpht.com/_mlwpgEPyjKM/S9YrKnwaoNI/AAAAAAAAL8o/qERJYeK9SOY/","5468081125425097026":"http://lh5.ggpht.com/_LgRsf0mgy_M/S-KGz_v7KUI/AAAAAAAABNU/GYTn-LSj3lw/","5480525380508846738":"http://lh4.ggpht.com/_3rqotzCU1sY/TA68y-e-CpI/AAAAAAAAA8g/Fb18jqd2T18/","5465064395281172466":"http://lh6.ggpht.com/_3UYvaY5uN7E/S9fPHMNeh_I/AAAAAAAAAbY/teuqnGf7uT8/","5427875955486466754":"http://lh3.ggpht.com/_K29ox9DWiaM/S1OwbGOnosI/AAAAAAAASqs/Wg5OAoix0tk/","5480525385832476034":"http://lh6.ggpht.com/_3rqotzCU1sY/TA68zSUOLYI/AAAAAAAAA9I/JpGyEL5lx9s/","5464721817854022450":"http://lh5.ggpht.com/_7V85eCJY_fg/S9aXij2EEzI/AAAAAAAAMsc/rUXq7chzQZo/","5468499236979512002":"http://lh6.ggpht.com/_RXIvzqFA_h8/S-QDFSqoksI/AAAAAAAABss/q8Hs_Y6Ojco/","5465811371224046274":"http://lh3.ggpht.com/_7SB5-VS6jYo/S9p2e6cZmsI/AAAAAAAAAPk/CdITAmRcDNU/","5468499251879550482":"http://lh6.ggpht.com/_RXIvzqFA_h8/S-QDGKLFHhI/AAAAAAAABso/mMXhQIO_rIY/","5468011240643552594":"http://lh5.ggpht.com/_q82cg6OMtCs/S-JHQKpm5VI/AAAAAAAAQDs/eQKsBn336_w/","5464721917635140242":"http://lh3.ggpht.com/_7V85eCJY_fg/S9aXoXjvGpI/AAAAAAAAMsg/8LweEHXvC8E/","5465963404565598994":"http://lh3.ggpht.com/_4HzkBj4VmKw/S9sAwaxq0xI/AAAAAAAAy3s/595Du9f3xbQ/","5464886839716494226":"http://lh6.ggpht.com/_as1xi-WX02U/S9ctoGMCO5I/AAAAAAAAC2o/G348G26qKR0/","5464644514748019778":"http://lh5.ggpht.com/_dAaguGcsRfA/S9ZRO7VXtEI/AAAAAAAAENA/jQ1y0m7u7FE/","5465825398133839090":"http://lh3.ggpht.com/_7SB5-VS6jYo/S9qDPYwTVPI/AAAAAAAAANo/39f76y32uiA/","5467921205742594898":"http://lh3.ggpht.com/_aDwLqnCx5xE/S-H1Xcgc61I/AAAAAAAACAQ/zmy2_wM2j4Y/","5436863789388960962":"http://lh5.ggpht.com/_uqT1DECwpD8/S3Oez4q2lMI/AAAAAAAAO6c/aGrJoPQEzbY/","5464721845849026242":"http://lh4.ggpht.com/_7V85eCJY_fg/S9aXkMIl7sI/AAAAAAAAMsY/hbwwd2lB1ns/","5467928286294729906":"http://lh4.ggpht.com/_6NwUsKnkxdc/S-H7zlnoZLI/AAAAAAAAJ2Y/qYD_7yeqVOw/","5469782237294118322":"http://lh3.ggpht.com/_iGI-XCxGLew/S-iR9vSoRbI/AAAAAAAABLQ/n5Ix1uZx1qc/","5463830940035733394":"http://lh4.ggpht.com/_1rL3G0Y32aQ/S9NtSpWeV5I/AAAAAAAAJd4/wJdXRCWA-_c/","5470258900410180098":"http://lh5.ggpht.com/_n8uHgnu6KsU/S-pDfLxeIgI/AAAAAAAAAZY/uPP45av8Tls/","5467976005541355106":"http://lh5.ggpht.com/_loGyjar4MMI/S-InNNqm3mI/AAAAAAAAB9s/XKcK0UhQhHk/","5467975931636282290":"http://lh6.ggpht.com/_loGyjar4MMI/S-InI6WQ87I/AAAAAAAACEs/WaRxi6D4WCs/","5467936023478442338":"http://lh4.ggpht.com/_aDwLqnCx5xE/S-IC183-mWI/AAAAAAAACAU/x5M3XSm-z38/","5468630655462131890":"http://lh5.ggpht.com/_vegCfczOoKA/S-R6m2qhyLI/AAAAAAAAIJg/VbgtlWc1YVs/","5468499216650860930":"http://lh6.ggpht.com/_RXIvzqFA_h8/S-QDEG75-YI/AAAAAAAABsw/qbL5p3ubU8U/","5464708695072547106":"http://lh6.ggpht.com/_s60pF2QNbck/S9aLmtrJoSI/AAAAAAAAeOo/cPMni36CmMk/","5464721937652197202":"http://lh4.ggpht.com/_7V85eCJY_fg/S9aXpiILJ1I/AAAAAAAAMsU/m2f6UsfQfEA/","5464593346215231826":"http://lh4.ggpht.com/_4HzkBj4VmKw/S9YishsfQVI/AAAAAAAAy3w/2Hg6_XEPri4/"
     };
     
-    var css = ''; //GM_getValue('theme_mytheme');
-    if (css) {
-        GM_addStyle(css, 'rps_mytheme');
-    }
-    else {
-        loadCss('skin/css/mytheme.css', function(css){
-            stylish(css);
-        }, {
-            compact: true,
-            clean: false
-        });
-    }
-    
-    function stylish(tplCss){
-        var o = {
-            image: prefs.theme_url || '',
-            color: prefs.theme_color || '#aaa',
-            bg: prefs.theme_bg || '#ffc',
-            repeat: prefs.theme_repeat || false
-        };
-        if (prefs.theme_gmailtheme && gmailthemes && gmailthemes[prefs.theme_gmailtheme]) {
-        
-            console.log(prefs.theme_gmailtheme);
-            o = gmailthemes[prefs.theme_gmailtheme];
-            o.image = o.image || '';
-            o.bg2 = o.bg2 || o.bg;
-            if (typeof o === 'string') {
-                o = {
-                    bg: '#fff',
-                    color: '#fff',
-                    image: o,
-                    repeat: false
-                };
-            }
-            
-            //current_time
-            var current_time = (new Date()).getHours();
-            current_time = current_time - current_time % 2;//pair number
-            daytime = daytimes[current_time];
-            //day
-            var day = (new Date()).getDay();
-            
-            //placeholders replacement
-            var holders = {
-                day: daycodes[day - 1],
-				fullday: fulldaycodes[day - 1],
-                time: current_time,
-                daytime: daytime,
-				daynight:((current_time<8 || current_time>20)?'night':'day')
-            };
-            if (o.vars) {
-                iterate(o.vars, function(varname, varvalues){
-                    var variable = false;
-                    //random choice
-                    variable = randomselect(varvalues);
-                    holders[varname] = variable;
-                });
-            }
-            
-            
-            //choose random image if multiples...
-            iterate(o, function(key, a){
-                if (key !== 'vars') {
-                    if (isArray(a)) {
-                        o[key] = randomselect(a);
-                    }
-                    else if (typeof a === 'object') {
-                        var k = holders[a.selector]; //selector specific (day...)
-                        if (k && k !== 'random') {
-                            o[key] = o[key][k];
-                        }
-                        else {
-                            delete a.selector;
-                            //multiple images per day possible
-                            o[key] = randomselect(a);
-                        }
-                    }
-                }
-            });
-            
-            //placeholders replacement
-            if (holders) {
-                iterate(holders, function(name, value){
-                    iterate(o, function(key, a){
-                        if (typeof a === 'string') {
-                            o[key] = a.replace('{' + name + '}', value);
-                        }
-                    });
-                });
-            }
-            
-        }
-        
-        var css = fillTpl(tplCss, o);
-        
-        //same theme for repeat / norepeat
-        if (o.image) {
-            if (o.repeat) {
-                css = cleancss(css, 'bgr');
-            }
-            else {
-                css = cleancss(css, 'bg');
-            }
-        }
-        
-        //hr : header right
-        //h: header
-        //rh : repeated header
-        //f: footer
-        //fr: footer right
-        //fl: footer left
-        //rf: repeated footer
-        var items = ['rh', 'h', 'hr', 'hl', 'rf', 'f', 'fr', 'fl'];
-        var html = '';
-        
-        foreach(items, function(itm){
-            html += '<div id="rp-' + itm + '"></div>';
-            if (o[itm]) {
-                css = cleancss(css, itm);
-            }
-        });
-        
-        var c = dh(document.body, 'div', {
-            id: 'rp-cs',
-            html: html
-        });
-        
-        GM_addStyle(css, 'rps_mytheme');
-        //cache css
-        GM_setValue('theme_mytheme', css);
-        
-        if (o.resize) {
-            fireResize();
-        }
-    }
-    
-    function cleancss(css, id){
-        return css.replace('/*--' + id + '>--*//*', '').replace('*//*--<' + id + '--*/', '');
-    }
-};
+}
