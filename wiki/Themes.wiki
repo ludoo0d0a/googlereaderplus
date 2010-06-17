@@ -1,0 +1,59 @@
+#summary Themes preview.
+#labels theme,screenshot,preview,skin
+
+= Introduction =
+
+Here you could find a few screenshots of themes.
+
+
+= Details =
+
+ * mytheme:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/mytheme.png
+
+* gmail_desk:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/gmail_desk.png
+* gmail_planets:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/gmail_planets.png
+* gmail_mountains:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/gmail_mountains.png
+* gmail_beach:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/gmail_beach.jpg
+* gmail_lapinscretins:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/gmail_lapinscretins.png
+* gmail_assassins:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/gmail_assassins.png
+* gmail_highscore:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/gmail_highscore.png
+
+ * aero
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/aero.jpg
+ * aircomic
+ http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/air.jpg
+ * aircomic
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/aircomic.jpg
+ * black:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/black.jpg
+ * calibri:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/calibri.jpg
+ * dark:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/dark.jpg
+ * darkgray:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/darkgray.jpg
+ * glassblackgold:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/glassblackgold.png
+* helvetireader:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/helvetireader.jpg
+ * minimal:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/minimal.jpg
+* optimized:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/optimized.jpg
+ * osxblack:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/osxblack.jpg
+ * osxblue:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/osxblue.jpg
+ * player:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/player.jpg
+ * portal:
+http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/skins/portal.jpg
+ 
