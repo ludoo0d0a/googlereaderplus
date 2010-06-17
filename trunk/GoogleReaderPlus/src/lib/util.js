@@ -9,18 +9,17 @@ function hasClass(el, clazz){
     return (reClassname.test(el.className));
 }
 
-function addClass(el, clazz){
-    if (el) {
+function addClass(el, clazz, checked){
+    if (checked && hasClass(el, clazz)){
+		return;
+	}
+	if (el) {
         el.className = (el.className || '') + ' ' + clazz;
-    } else {
-        console.log('el null');
-    }
+    } 
 }
 
 function addClassChecked(el, clazz){
-    if (!hasClass(el, clazz)) {
-        addClass(el, clazz);
-    }
+    addClass(el, clazz, true);
 }
 
 function addClassIf(el, cls, status){
