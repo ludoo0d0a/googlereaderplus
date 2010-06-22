@@ -12,6 +12,7 @@ GRP.scripts = {
             topcurrent: false,
             floatactions: false,
             /*antisocial:true,*/
+			bottomup:false,
             noupdatepopup: false,
             icontoolbar_add: {
                 xtype: 'p',
@@ -42,7 +43,7 @@ GRP.scripts = {
             mytheme: {
                 xtype: 'p',
                 label: true,
-                parent: 'mto'
+                parent: 'mytheme'
             },
             externaltheme: {
                 value: '',
@@ -91,58 +92,61 @@ GRP.scripts = {
 					
 },
                 xtype: 'select',
-                parent: 'mto'
+                parent: 'mytheme'
             },
 			color: {
                 value: '#565656',
                 xtype: 'picker',
-                parent: 'mto'
+                parent: 'mytheme'
             },
             bg: {
                 value: '#FFC',
                 xtype: 'picker',
-                parent: 'mto'
+                parent: 'mytheme'
             },
 			imgsbg: {
                 value: '',
                 size: 80,
-                parent: 'mto'
+                parent: 'mytheme'
             }, imgrbg: {
                 value: '',
                 size: 80,
-                parent: 'mto'
+                parent: 'mytheme'
             },imgrh: {
                 value: '',
                 size: 80,
-                parent: 'mto'
+                parent: 'mytheme'
             }, imgh: {
                 value: '',
                 size: 80,
-                parent: 'mto'
+                parent: 'mytheme'
             }, imghr: {
                 value: '',
                 size: 80,
-                parent: 'mto'
+                parent: 'mytheme'
             }, imghl: {
                 value: '',
                 size: 80,
-                parent: 'mto'
+                parent: 'mytheme'
             }, imgrf: {
                 value: '',
                 size: 80,
-                parent: 'mto'
+                parent: 'mytheme'
             }, imgf: {
                 value: '',
                 size: 80,
-                parent: 'mto'
+                parent: 'mytheme'
             }, imgfr: {
                 value: '',
                 size: 80,
-                parent: 'mto'
+                parent: 'mytheme'
             }, imgfl: {
                 value: '',
                 size: 80,
-                parent: 'mto'
+                parent: 'mytheme'
+            }, ncolumns: {
+                value: 2,
+                parent: 'portal'
             }
         }
     },
