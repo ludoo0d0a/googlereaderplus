@@ -24,7 +24,7 @@ function addClassChecked(el, clazz){
 
 function addClassIf(el, cls, status){
     if (status) {
-        addClass(el, cls);
+        addClass(el, cls, true);
     } else {
         removeClass(el, cls);
     }
