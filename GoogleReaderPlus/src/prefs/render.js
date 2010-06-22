@@ -195,7 +195,7 @@ function renderOptions(body, script){
         };
         if (!document.getElementById(o.id)) {
             if (cfg.parent) {
-                html += "<div class='" + cfg.parent + "'>";
+                html += "<div class='mto' alt='" + cfg.parent + "'>";
             }
             if (xtype === "boolean") {
                 html += fillTpl(tplCheckbox, o);
@@ -314,12 +314,13 @@ function renderSkins(){
             var mtos = document.getElementsByClassName('mto');
             if (mtos && mtos.length > 0) {
                 foreach(mtos, function(mto){
-                    addClassIf(mto, 'hidden', (id !== "mytheme"));
+                    addClassIf(mto, 'hidden', (id !== mto.getAttribute('alt')));
                 });
             }
             if (id === "none") {
                 input.value = "";
-                thumb.className = "hidden";
+                addClass(thumb, "hidden", true);
+				addClass(get_id('skindesc'), "hidden", true)
             } else {
                 input.value = id;
                 thumb.className = "";
