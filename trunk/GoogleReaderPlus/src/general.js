@@ -11,8 +11,15 @@ GRP.general = function(prefs, langs, ID, SL, lang){
             window.location.href = window.location.href.replace(/^http\:/, 'https:');
         }
     }
+	var entries = get_id('entries');
+	if (prefs.general_bottomup) {
+        var el = get_id('viewer-footer'),ref = get_id('viewer-header'), c = get_id('chrome');
+	ref = get_id('stream-prefs-menu'); 
+		var h = el.clientHeight;
+		insertAfter(el, ref);
+		entries.style.height = (getStyle(entries, 'height')+h) + 'px';
+    }
     if (prefs.general_topcurrent) {
-        var entries = get_id('entries');
         function updateSpacer(){
             var scrollspacer = get_id('scrollspacer');
             if (!scrollspacer) {
