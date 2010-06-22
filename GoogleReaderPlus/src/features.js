@@ -769,7 +769,7 @@ GRP.skins = {
         name: "None"
     },
     mytheme: {
-        name: "My Theme"
+        name: "My Theme <span class='updated'>Updated!</span>"
     },
     nativecompact: {
         name: "Native compact"
@@ -812,6 +812,15 @@ GRP.skins = {
     },
     calibri: {
         name: "Calibri Skin"
+    },
+	sublimelight: {
+        name: "Sublime Reader Light <span class='new'>New!</span>"
+    },
+	sublimedark: {
+        name: "Sublime Reader Dark <span class='new'>New!</span>"
+    },
+	redesigned: {
+        name: "Redesigned <span class='new'>New!</span>"
     },
     glassblackgold: {
         name: "Glass Black Gold Skin",
