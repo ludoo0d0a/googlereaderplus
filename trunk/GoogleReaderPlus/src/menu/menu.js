@@ -1,17 +1,17 @@
 function initMenu(){
-    dh('menu', 'a', {
+    dh('prefs', 'a', {
         href: '#',
-		cls:'gb2',
-        text: 'Preferences'
+        text: 'Preferences',
+		cls:'first'
     }, {
         click: function(){
             GM_openInTab(mycore.getUrl('/preferences.html'));
         }
     });
-    dh('menu', 'a', {
+    dh('theme', 'a', {
         href: '#',
-		cls:'gb2',
-        text: 'Themes'
+        text: 'Themes',
+		cls:'last'
     }, {
         click: function(){
             GM_openInTab(mycore.getUrl('/preferences.html#theme'));
