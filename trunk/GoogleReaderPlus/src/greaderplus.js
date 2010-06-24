@@ -16,7 +16,8 @@
                 //dummy
             };
             GRP.fns = [];
-            GRP.IMAGES_PATH = 'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/src/images';
+            //GRP.IMAGES_PATH = 'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/src/images';
+			GRP.IMAGES_PATH = LOCALPATH + '/images';
             this.prefs = {};
             var me = this;
             mycore.extension.sendRequest({
@@ -73,12 +74,14 @@
                     //skin
                     console.log("**** run " + o);
                     GRP.theme(this.prefs, langs, this);
+					track('theme', o);
                 } else {
                     if (window.GRP[o]) {
                         console.log("**** run " + o);
                         try {
                             //console.log("myport(run) "+this.myport.portId_);
                             window.GRP[o].call(window, this.prefs, langs, o, langs[o]||{}, this.lang);
+							track('feature', o);
                         } catch (e) {
                             console.error(e);
                         }
@@ -109,3 +112,11 @@
     };
     ReaderPlus.init();
 })();
+
+function track(name, value){
+	mycore.extension.sendRequest({
+                message: "track",
+				name:name, 
+				value: value
+    });
+}

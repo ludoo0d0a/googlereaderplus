@@ -65,6 +65,7 @@ GRP.mytheme = function(prefs){
 		
         if (prefs.theme_externaltheme && externalthemes && externalthemes[prefs.theme_externaltheme]) {
             o = externalthemes[prefs.theme_externaltheme];
+			track('theme_externaltheme', prefs.theme_externaltheme);
             o.bg2 = o.bg2 || o.bg;
             if (o.rbg) {
                 //repeated image background
