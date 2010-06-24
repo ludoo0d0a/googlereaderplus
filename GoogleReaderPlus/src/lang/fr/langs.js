@@ -233,6 +233,8 @@ imgfl:'Pied de page gauche'
     },
     general: {
         counter: "Afficher le compteur dans la barre d'outil",
+pageicon: "Activer l'icône dans la barre d'adresse (permet d'afficher un menu)",
+stats: 'Autoriser la collecte de données statistiques anonyme (pour un meilleur support)',
         opendirect: "Cliquer sur l'icône pour ouvrir GoogleReader",
         secure: "Forcer l'utilisation du protocole sécurisé (https)",
 topcurrent: "Forcer l'affichage de l'article courant toujours en haut de l'écran",
