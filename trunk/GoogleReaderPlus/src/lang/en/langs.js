@@ -149,7 +149,8 @@ GRP.langs[locale].prefs = {
         snew: 'new!',
         supdated: 'Updated!',
         prefssaved: "Preferences saved!",
-        cachecleared: "Cache cleared!"
+        cachecleared: "Cache cleared!",
+expandall:'All'
     },
     theme: {
         noborder: "Remove entries borders to display more items on a single page",

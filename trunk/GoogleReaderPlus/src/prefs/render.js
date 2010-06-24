@@ -70,7 +70,7 @@ function renderScripts(){
             var html = '<span class="bullet">•</span><span>'+getCategory(lang, category)+'</span>';
 			if (firstcat){
 				firstcat=false;
-				html+='<div id="expandall">All</div>';
+				html+='<div id="expandall">'+getTextPrefs(lang, 'global', 'expandall', 'en', 'All')+'</div>';
 			}
 			var acat = dh(licat, 'a', {
                 //text: getCategory(lang, category),
