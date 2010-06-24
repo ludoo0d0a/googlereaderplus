@@ -669,3 +669,18 @@ function getMetadata(){
 }
 
 
+/*
+ * Sublime methods
+ */
+function sublime_update(){
+	//hide searh
+	var s = get_id('search');
+	addClass(s,'hidden',true);
+	s.addEventListener('click', function (e) {
+        e.stopPropagation();
+    } , false);
+	//new search
+	dh(false, 'searchicon', {id:'searchicon', html:'SEARCH'}, {click:function(){
+		toggle(s);
+	}});
+}
