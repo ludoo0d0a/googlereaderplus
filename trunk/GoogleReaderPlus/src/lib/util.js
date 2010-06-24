@@ -836,6 +836,9 @@ function merge(o, c, defaults){
     return o;
 }
 
+function isundef(o){
+	return (typeof o ==='undefined');
+}
 function group(a, name){
     var r = {};
     iterate(a, function(id, o){
