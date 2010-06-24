@@ -1,51 +1,70 @@
 <html>
     <head>
         <title>readerplus Background</title>
-        <script type="application/javascript" src="version.js">
-        </script>
-		<script type="application/javascript" src="lib/cross.js">
-        </script>
-        <script type="application/javascript" src="lib/util.js">
-        </script>
-        <script type="application/javascript" src="lib/external.js">
-        </script>
-        <script type="application/javascript" src="features.js">
-        </script>
-        <script type="application/javascript" src="lib/greasekit.js">
-        </script>
-        <script type="application/javascript" src="prefs/itheme.js">
-        </script>
-        <script type="text/javascript" src="http://www.google.com/jsapi">
-        </script>
+        <script type="application/javascript" src="version.js"></script>
+        <script type="application/javascript" src="lib/cross.js"></script>
+        <script type="application/javascript" src="lib/util.js"></script>
+        <script type="application/javascript" src="lib/external.js"></script>
+        <script type="application/javascript" src="features.js"></script>
+        <script type="application/javascript" src="lib/greasekit.js"></script>
+        <script type="application/javascript" src="prefs/stats.js"></script>
+        <script type="text/javascript" src="http://www.google.com/jsapi"></script>
         <script type="application/javascript">
             //var READING_LIST_RE_ = new RegExp('user/[\\d]+/state/com\\.google/reading-list');
-			var reReader = {
-                    reading:/user\/[\d]+\/state\/com\.google\/reading\-list/,
-					search: /https?\:\/\/www.google.com\/reader\/view\//,
-                    url: 'http://www.google.com/reader/view/'
-             };				
+            var reReader = {
+                reading: /user\/[\d]+\/state\/com\.google\/reading\-list/,
+                search: /https?\:\/\/www.google.com\/reader\/view\//,
+                url: 'http://www.google.com/reader/view/'
+            };
             mycore.extension.onRequest.addListener(onMessageReceived);
             mycore.extension.onRequestExternal.addListener(function(request, sender, sendResponse){
                 if (sender.id === GUID_ICON) {
                     onMessageReceived(request, false, sendResponse);
                 }
             });
-			
-			/*
-			function addAction(tabId, changeInfo, tab){
-                if (reReader.search.test(tab.url)) {
-                    chrome.pageAction.show(tabId);
+            
+            function activePageAction(mprefs){
+                //Selective tab for page icon
+                chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
+                    if (reReader.search.test(tab.url)) {
+                        var prefs = mprefs || getPrefs();
+                        var active = (prefs && prefs.general_pageicon);
+                        if (active) {
+                            chrome.pageAction.show(tabId);
+                            chrome.pageAction.setPopup({
+                                tabId: tabId,
+                                popup: 'menu/menu.html'
+                            });
+                            /*chrome.pageAction.onClicked.addListener(function(tab){ });*/
+                        } else {
+                            chrome.pageAction.hide(tabId);
+                        }
+                    }
+                });
+            }
+            
+            function runStats(mprefs){
+                var prefs = mprefs || getPrefs();
+                if (prefs && prefs.general_stats) {
+                    initstats();
                 }
             }
-            chrome.tabs.onUpdated.addListener(addAction);
-            */
             
-            monitorIcon();
-            sendPrefsToIcon();
+            function runOnSave(mprefs){
+                var prefs = mprefs || getPrefs();
+                monitorIcon(prefs);
+                sendPrefsToIcon(prefs);
+                activePageAction(prefs);
+                runStats(prefs);
+            }
+            
+            runOnSave();
             
             //request, sender, callback
             function onMessageReceived(a, p, cb){
-                if (a.message == "loadicons") {
+                if (a.message == "track") {
+                    track(a);
+                } else if (a.message == "loadicons") {
                     loadIcons(a, cb);
                 } else if (a.message == "setprefs") {
                     setPreferences(a);
@@ -80,8 +99,8 @@
              * Icon monitor for unreead count
              */
             var monitorId;
-            function monitorIcon(){
-                var prefs = getPrefs();
+            function monitorIcon(mprefs){
+                var prefs = mprefs || getPrefs();
                 if (prefs && prefs.general_counter) {
                     getUnreadCount();
                     if (monitorId) {
@@ -93,10 +112,10 @@
                 }
             }
             
-            function sendPrefsToIcon(prefs){
-                var myprefs = prefs || getPrefs();
+            function sendPrefsToIcon(mprefs){
+                var prefs = mprefs || getPrefs();
                 call_icon('prefs', {
-                    prefs: myprefs
+                    prefs: prefs
                 });
             }
             
@@ -221,8 +240,7 @@
                 if (cleanall) {
                     localStorage.setItem('grp_favicons', '');
                 }
-                sendPrefsToIcon(prefs);
-                monitorIcon();
+                runOnSave(prefs);
             }
             
             function setPreferences(a){
@@ -466,7 +484,7 @@
                 }
                 //a['onload']=true;//force onload
                 var fns = ['readystatechange', 'error', 'load'];
-				var xpath = a.xpath;
+                var xpath = a.xpath;
                 for (var i = 0, len = fns.length; i < len; i++) {
                     var name = fns[i];
                     if (a['on' + name]) {
@@ -477,7 +495,7 @@
                                 if (local && typeof a['on' + f] === "function") {
                                     a['on' + f].call(this, xhr);
                                 } else {
-                                    var res ={
+                                    var res = {
                                         message: a.callback || "requestdone",
                                         action: f,
                                         responseXML: null, //xhr.responseXML,
@@ -486,11 +504,11 @@
                                         status: xhr.status,
                                         statusText: xhr.statusText,
                                         request: a
-                                    }; 
-									if (xpath && xhr.responseXML) {
-										res.xml=serializeXml(getElements(xpath, xhr.responseXML));
-									};
-									sendResponse(res, cb);
+                                    };
+                                    if (xpath && xhr.responseXML) {
+                                        res.xml = serializeXml(getElements(xpath, xhr.responseXML));
+                                    };
+                                    sendResponse(res, cb);
                                 }
                             }
                         };
