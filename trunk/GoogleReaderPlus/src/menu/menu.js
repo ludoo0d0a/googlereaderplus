@@ -14,7 +14,7 @@ function initMenu(){
         text: 'Themes'
     }, {
         click: function(){
-            GM_openInTab(mycore.getUrl('/preferences.html'));
+            GM_openInTab(mycore.getUrl('/preferences.html#theme'));
         }
     });
 }
