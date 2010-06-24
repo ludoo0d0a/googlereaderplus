@@ -731,8 +731,16 @@ GRP.scripts = {
     }
 };
 GRP.packages = {
-    'mini': {
-        favicons: true,
+    'none': {
+        general: {
+            secure: true
+        }
+    },
+	'mini': {
+        general: {
+            secure: true
+        },
+		favicons: true,
         unreadcount: true,
         fixlayout: true,
         count: true,

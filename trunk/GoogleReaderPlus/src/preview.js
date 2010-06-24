@@ -251,8 +251,10 @@ GRP.preview = function(prefs, langs, ID){
         overlay.iframe.setAttribute('height', (window.innerHeight - 80) + 'px');
     }
     function hideoverlay(){
-        overlay.root.style.display = 'none';
-		overlay.visible=false;
+       if (overlay) {
+	   	overlay.root.style.display = 'none';
+	   	overlay.visible = false;
+	   }
     }
 	function showoverlay(){
         overlay.root.style.display = '';
@@ -260,15 +262,17 @@ GRP.preview = function(prefs, langs, ID){
     }
     function siblingentry(next){
         var entry;
-        if (next) {
-            entry = overlay.entry.nextSibling;
-        } else {
-            entry = overlay.entry.previousSibling;
-        }
-        if (entry && entry.id!=='scroll-filler') {
-            overlay.entry = entry;
-            updateFrame(overlay.iframe, overlay.entry);
-        }
+		if (overlay) {
+			if (next) {
+				entry = overlay.entry.nextSibling;
+			} else {
+				entry = overlay.entry.previousSibling;
+			}
+			if (entry && entry.id !== 'scroll-filler') {
+				overlay.entry = entry;
+				updateFrame(overlay.iframe, overlay.entry);
+			}
+		}
     }
     function onResize(height){
         if (prefs.preview_overlay) {
