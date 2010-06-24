@@ -147,7 +147,8 @@ GRP.langs[locale].prefs = {
         "val-save": "Sauver",
         alreadyexist: "Cet élément existe déjà!",
         snew: 'Nouveau!',
-        supdated: 'Mis à jour!'
+        supdated: 'Mis à jour!',
+expandall:'Tous'
     },
     theme: {
         noborder: "Retirer les bords des articles pour en afficher un maximum sur une page",
