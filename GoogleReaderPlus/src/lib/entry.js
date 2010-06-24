@@ -486,11 +486,6 @@ function isTagged(entry, cls){
     if (!tagged) {
         entry.setAttribute(cls, 'true');
     }
-    /*
-     var tagged = hasClass(entry, cls);
-     if (!tagged) {
-     addClass(entry, cls);
-     }*/
     return tagged;
 }
 
@@ -524,37 +519,8 @@ function getShortcutKey(script, shortcut, prefs){
     return key;
 }
 
-/*
- * TODO: replace by a map
- */
 function getScriptObject(id){
-    return GRP.scripts[id];
-    /*for (var i = 0, len = GRP.scripts.length; i < len; i++) {
-    
-     
-    
-     var script = GRP.scripts[i];
-    
-     
-    
-     if (script.id == id) {
-    
-     
-    
-     return script;
-    
-     
-    
-     }
-    
-     
-    
-     }
-    
-     
-    
-     return null;*/
-    
+    return GRP.scripts[id];   
 }
 
 function toggle(el){
@@ -670,12 +636,12 @@ function getMetadata(){
 
 
 /*
- * Sublime methods
+ * Sublime theme methods
  */
 function sublime_update(){
 	//hide searh
 	var s = get_id('search');
-	addClass(s,'hidden',true);
+	hide(s);
 	s.addEventListener('click', function (e) {
         e.stopPropagation();
     } , false);
