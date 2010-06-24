@@ -62,6 +62,13 @@ GRP.preview = function(prefs, langs, ID){
     function previewShortcut(){
         onKey('btn-preview', previewize);
     }
+	function previewGoNext(){
+        siblingentry(true);
+    }
+	function previewGoPrev(){
+        siblingentry(false);
+    }
+	
     /**
      * Click on faked title link to open preview
      */
@@ -193,7 +200,7 @@ GRP.preview = function(prefs, langs, ID){
             overlay.btn_next = dh(overlay.root, 'div', {
                 id: 'pov_next',
 				alt:'Next',
-                title: SL.overlay_next
+                title: SL.overlay_next+formatShortcut(ID, 'next', prefs)
             }, {
                 click: function(){
                     siblingentry(true);
@@ -202,7 +209,7 @@ GRP.preview = function(prefs, langs, ID){
             overlay.btn_previous = dh(overlay.root, 'div', {
                 id: 'pov_previous',
 				alt:'Previous',
-                title: SL.overlay_previous
+                title: SL.overlay_previous+formatShortcut(ID, 'previous', prefs)
             }, {
                 click: function(){
                     siblingentry(false);
@@ -211,7 +218,7 @@ GRP.preview = function(prefs, langs, ID){
             overlay.btn_close = dh(overlay.root, 'div', {
                 id: 'pov_close',
 				alt:'Close',
-                title: SL.overlay_close
+                title: SL.overlay_close+formatShortcut(ID, 'close', prefs)
             }, {
                 click: function(){
                     hideoverlay();
@@ -303,7 +310,13 @@ GRP.preview = function(prefs, langs, ID){
     GM_addStyle(css);
     registerFeature(addPreviewButton, ID);
     initResize(onResize);
-    var keycode = getShortcutKey(ID, 'prview', prefs); //81 q
-    keycode.fn = previewShortcut;
-    initKey(keycode);
+    
+	var mykeys = {'prview':previewShortcut,'next':previewGoNext,'previous':previewGoPrev,'close':hideoverlay };
+	iterate(mykeys, function(key, fn){
+		var keycode = getShortcutKey(ID, key, prefs); //81 q
+    	keycode.fn = fn;
+    	initKey(keycode);
+	});
+
+	
 };
