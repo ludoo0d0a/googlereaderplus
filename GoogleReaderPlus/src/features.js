@@ -311,6 +311,33 @@ GRP.scripts = {
                     //81 q
                     keyCode: 81
                 }
+            },
+			'next': {
+                id: 'next',
+                title: 'Next preview',
+                key: {
+                    //81 q
+                    keyCode: 81,
+					shiftKey:true
+                }
+            },
+			'previous': {
+                id: 'previous',
+                title: 'Previous preview',
+                key: {
+                    //81 q
+                    keyCode: 81,
+					ctrlKey:true
+                }
+            },
+			'close': {
+                id: 'close',
+                title: 'Close preview',
+                key: {
+                    //88 x
+                    keyCode: 88,
+					shiftKey:true
+                }
             }
         }
     },
@@ -819,15 +846,15 @@ GRP.skins = {
     },
 	sublimelight: {
         name: "Sublime Reader Light <span class='new'>New!</span>",
-		url:'https://code.google.com/p/sublimereader/'
+		ref:'https://code.google.com/p/sublimereader/'
     },
 	sublimedark: {
         name: "Sublime Reader Dark <span class='new'>New!</span>",
-		url:'https://code.google.com/p/sublimereader'
+		ref:'https://code.google.com/p/sublimereader'
     },
 	redesigned: {
         name: "Redesigned <span class='new'>New!</span>",
-		url:'http://www.globexdesigns.com/products/gr/'
+		ref:'http://www.globexdesigns.com/products/gr/'
     },
     glassblackgold: {
         name: "Glass Black Gold Skin",
