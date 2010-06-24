@@ -243,6 +243,7 @@ imgfl:'Left footer'
         counter: "Display unread counter in the toolbar icon",
 pageicon: 'Activate icon in the address bar (click will open a menu)',
 stats: 'Enable anonymous statistics reporting (for a better support)',
+bottomup:'Footer toolbar on the top',
 		opendirect: "Click on toolbar icon will open GoogleReader",
         secure: "Always force use of secure protocol (https)",
         topcurrent: "Current entry always on top",
