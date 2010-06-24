@@ -5,6 +5,7 @@ GRP.scripts = {
     general: {
         name: "General",
         category: 'main',
+		status: 'updated',
         options: {
             secure: false,
 			pageicon:true,
@@ -13,6 +14,7 @@ GRP.scripts = {
             opendirect: false,
             topcurrent: false,
             floatactions: false,
+			bottomup:false,
             /*antisocial:true,*/
             noupdatepopup: false,
             icontoolbar_add: {
