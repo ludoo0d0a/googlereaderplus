@@ -241,7 +241,9 @@ imgfl:'Left footer'
     },
     general: {
         counter: "Display unread counter in the toolbar icon",
-        opendirect: "Click on icon will open GoogleReader",
+pageicon: 'Activate icon in the address bar (click will open a menu)',
+stats: 'Enable anonymous statistics reporting (for a better support)',
+		opendirect: "Click on toolbar icon will open GoogleReader",
         secure: "Always force use of secure protocol (https)",
         topcurrent: "Current entry always on top",
         floatactions: "Entry actions are displayed as a floating window",
