@@ -665,17 +665,25 @@
             //+favicons_providerpageicons
             function upgrade(){
                 var prefs = getPrefs();
-                if (prefs && prefs.favicons) {
-                    prefs.favicons_providerpageicons = true;
-                    setPrefs(prefs);
-                }
+                if (prefs) {
+					/*if (prefs.favicons) {
+						prefs.favicons_providerpageicons = true;
+					}*/
+					if (isundef(prefs.general_stats)) {
+						prefs.general_stats = true;
+					}
+					if (isundef(prefs.general_pageicon)) {
+						prefs.general_pageicon = true;
+					}
+					setPrefs(prefs);
+				}
             }
             
             function initVersion(){
                 var v = localStorage.getItem('grp_version');
                 if (v === null || v !== GRP.VERSION) {
                     localStorage.setItem('grp_version', GRP.VERSION);
-                    //upgrade();
+                    upgrade();
                     var prefs = getPrefs();
                     if (prefs.general_noupdatepopup === false) {
                         //no popup on minor updates
