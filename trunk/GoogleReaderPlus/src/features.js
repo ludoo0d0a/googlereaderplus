@@ -6,13 +6,14 @@ GRP.scripts = {
         name: "General",
         category: 'main',
         options: {
-            counter: true,
             secure: false,
+			pageicon:true,
+			stats:true,
+			counter: true,
             opendirect: false,
             topcurrent: false,
             floatactions: false,
             /*antisocial:true,*/
-			bottomup:false,
             noupdatepopup: false,
             icontoolbar_add: {
                 xtype: 'p',
@@ -43,7 +44,7 @@ GRP.scripts = {
             mytheme: {
                 xtype: 'p',
                 label: true,
-                parent: 'mytheme'
+                parent: 'mto'
             },
             externaltheme: {
                 value: '',
@@ -92,61 +93,58 @@ GRP.scripts = {
 					
 },
                 xtype: 'select',
-                parent: 'mytheme'
+                parent: 'mto'
             },
 			color: {
                 value: '#565656',
                 xtype: 'picker',
-                parent: 'mytheme'
+                parent: 'mto'
             },
             bg: {
                 value: '#FFC',
                 xtype: 'picker',
-                parent: 'mytheme'
+                parent: 'mto'
             },
 			imgsbg: {
                 value: '',
                 size: 80,
-                parent: 'mytheme'
+                parent: 'mto'
             }, imgrbg: {
                 value: '',
                 size: 80,
-                parent: 'mytheme'
+                parent: 'mto'
             },imgrh: {
                 value: '',
                 size: 80,
-                parent: 'mytheme'
+                parent: 'mto'
             }, imgh: {
                 value: '',
                 size: 80,
-                parent: 'mytheme'
+                parent: 'mto'
             }, imghr: {
                 value: '',
                 size: 80,
-                parent: 'mytheme'
+                parent: 'mto'
             }, imghl: {
                 value: '',
                 size: 80,
-                parent: 'mytheme'
+                parent: 'mto'
             }, imgrf: {
                 value: '',
                 size: 80,
-                parent: 'mytheme'
+                parent: 'mto'
             }, imgf: {
                 value: '',
                 size: 80,
-                parent: 'mytheme'
+                parent: 'mto'
             }, imgfr: {
                 value: '',
                 size: 80,
-                parent: 'mytheme'
+                parent: 'mto'
             }, imgfl: {
                 value: '',
                 size: 80,
-                parent: 'mytheme'
-            }, ncolumns: {
-                value: 2,
-                parent: 'portal'
+                parent: 'mto'
             }
         }
     },
@@ -818,13 +816,16 @@ GRP.skins = {
         name: "Calibri Skin"
     },
 	sublimelight: {
-        name: "Sublime Reader Light <span class='new'>New!</span>"
+        name: "Sublime Reader Light <span class='new'>New!</span>",
+		url:'https://code.google.com/p/sublimereader/'
     },
 	sublimedark: {
-        name: "Sublime Reader Dark <span class='new'>New!</span>"
+        name: "Sublime Reader Dark <span class='new'>New!</span>",
+		url:'https://code.google.com/p/sublimereader'
     },
 	redesigned: {
-        name: "Redesigned <span class='new'>New!</span>"
+        name: "Redesigned <span class='new'>New!</span>",
+		url:'http://www.globexdesigns.com/products/gr/'
     },
     glassblackgold: {
         name: "Glass Black Gold Skin",
