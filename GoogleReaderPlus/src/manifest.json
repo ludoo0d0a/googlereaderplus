@@ -21,7 +21,7 @@
 	    "lib/external.js",	"lib/jquery.min.js",
 		"version.js","features.js",
 		"api/entry.js","api/readit.js",
-		"antisocial.js","general.js","fixlayout.js", "unreadcount.js", "mark.js", "removeads.js", "favicons.js", 
+		"general.js","fixlayout.js", "unreadcount.js", "mark.js", "removeads.js", "favicons.js", 
 		"column.js","jump.js","preview.js", "openbackground.js", "filter.js", "count.js", 
 		"counticon.js", "readbymouse.js","menu.js", "facebook.js", "twitter.js", 
 		"readitlater.js","instapaper.js", "closeentry.js", "fitheight.js", "limit.js",
