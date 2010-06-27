@@ -51,7 +51,7 @@ function run_extshortcuts(){
 }
 
 function renderShortcuts(el, script){
-    iterate(script.shortcuts, function(sid, shortcut){
+	iterate(script.shortcuts, function(sid, shortcut){
         createShortcut(el, script, shortcut, sid);
     });
 }
@@ -72,8 +72,9 @@ function createShortcut(el, script, shortcut){
     input.className = 'shortcut';
     input.id = script.id + '_key_' + shortcut.id;
     var key = shortcut.key;
+	
     //use default value on creation
-    setShortcut(key, input);
+    setShortcut(key, input, false);
     var scriptId = script.id;
     var shortcutId = shortcut.id;
     input.onkeydown = function(e){
@@ -108,8 +109,8 @@ function isShortcutFree(e){
     return true;
 }
 
-function setShortcut(key, ctrl){
-    //remove old
+function setShortcut(key, ctrl, save){
+	//remove old
 	clearShortcut(key, ctrl);
 	
 	if (!key.keyCode) {
@@ -119,9 +120,10 @@ function setShortcut(key, ctrl){
     ctrl.value = formatKey(key);
     ctrl.key = marshallKey(key);
     //add new
-    gshortcuts[ctrl.key] = key;
-    prefs[ctrl.id] = ctrl.key;
-	//console.log(ctrl.id+'=='+ctrl.key);
+	if (save) {
+		gshortcuts[ctrl.key] = key;
+		prefs[ctrl.id] = ctrl.key;
+	}
 }
 function clearShortcut(key, ctrl){
 	delete gshortcuts[ctrl.key];
@@ -139,7 +141,7 @@ function fixShortcut(e, input){
 		warn.className = 'warning hidden';
 		warn.innerHTML = '';
         input.className = '';
-        setShortcut(e, input);
+        setShortcut(e, input, true);
     } else {
         input.value = formatKey(e);
         input.className = 'warning';
