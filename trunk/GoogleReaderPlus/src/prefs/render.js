@@ -61,7 +61,6 @@ function renderScripts(){
 	var firstcat=true;
     iterate(categories, function(category, scripts){
         var ulcat;
-		//var incat = (category !== 'other');
 		var incat=true;
         if (incat) {
             var licat = dh(list, 'li', {
@@ -92,7 +91,7 @@ function renderScripts(){
         var html = '';
 		
         iterate(scripts, function(id, script){
-            script.dlink = '>';
+			script.dlink = '>';
 			script.desc = script.desc||'';
 			if (script.status){
 				var stat = getTextPrefs(lang, 'global', 's'+script.status) || script.status;

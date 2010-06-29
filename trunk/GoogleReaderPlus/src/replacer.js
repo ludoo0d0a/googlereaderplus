@@ -11,7 +11,18 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
     
     function initVars(){
 		gp_data={};
-		iterate(prefs.replacer_items, function(title,o){
+		parseItems(gp_data, prefs.replacer_items);
+		
+		//get online data from cloud db
+		console.log('fullfeed asking....');
+		chrome.extension.sendRequest({message: "fullfeed"}, function(selectors){
+			console.log('fullfeed added');
+			parseItems(gp_data, selectors);
+		});
+    }
+	
+	function parseItems(gp_data, items){
+		iterate(items, function(title,o){
 			  o.re_url=new RegExp(o.url, "im");
 			  if (/^xpath\:/.test(o.search)){
 			  	o.xpath=o.search.replace(/^xpath\:/, '');
@@ -28,7 +39,7 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
 			  }
 			  gp_data[title]=o;
 		});
-    }
+	}
     
     function replaceItem(html, xml, matches, partIndex){
        var result = '';
