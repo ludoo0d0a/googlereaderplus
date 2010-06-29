@@ -1,9 +1,13 @@
 function initstats(){
+	if (GRP && GRP.useStats){
+		return;
+	}
 	var _gaq = _gaq || [];
 	_gaq.push(['_setAccount', 'UA-183120-12']);
 	_gaq.push(['_trackPageview']);
 	GRP = GRP || {};
 	GRP.useStats = true;
+	//console.log('track ON');
 	
 	//http://code.google.com/chrome/extensions/tut_analytics.html
 	(function(){
@@ -22,5 +26,6 @@ function track(name, value){
 			name=name.name;
 		}
 		_gaq.push(['_trackEvent', name, value]);
+		//console.log('track '+name+':'+value);
    }
 }
