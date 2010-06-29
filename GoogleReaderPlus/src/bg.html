@@ -90,10 +90,35 @@
                     igtheme(a, cb);
                 } else if (a.message == "translate") {
                     translate(a, cb);
+                } else if (a.message == "fullfeed") {
+                    getFullFeed(a, cb);
                 }
             }
-            
-            
+			
+			function getFullFeed(a, cb){
+                request({
+                    url: 'http://wedata.net/databases/LDRFullFeed/items.json',
+                    onload: function(xhr){
+                        if (xhr.status == 200) {
+                            var items = JSON.parse(xhr.responseText);
+                            //cache value
+							var selectors = {};
+							foreach(items, function(item){
+								selectors[item.name]={
+									title: item.name,
+									url: item.data.url,
+									search:'xpath:'+item.data.xpath,
+									replace:"$1"
+								};
+							});
+							//store it now as cache (needs timestamp)
+							//localStorage.setItem('grp_fullfeed', JSON.stringify(selectors));
+							sendResponse(selectors, cb);
+                        }
+                    }
+                }, true);
+			}
+
             
             /**
              * Icon monitor for unreead count

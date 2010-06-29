@@ -289,6 +289,7 @@ bottomup:'Footer toolbar on the top',
     },
     replacer: {
 intro: '<a href="http://code.google.com/p/googlereaderplus/wiki/ReplacerHowto" target="blank">Help on how to use replacer</a>',
+cloud: 'Use online expressions from <a href="http://wedata.net/databases/LDRFullFeed/items" target="blank">wedata/LDRFullFeed</a> cloud database',
         link: "Link Regex",
         from: "Search regex/xpath",
         to: "Replace",

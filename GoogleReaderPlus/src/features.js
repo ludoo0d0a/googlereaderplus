@@ -608,6 +608,7 @@ GRP.scripts = {
                 xtype: 'p',
                 label: true
             },
+			cloud: true,
             items: {
                 xtype: 'crud',
                 value: {
@@ -736,12 +737,14 @@ GRP.scripts = {
 GRP.packages = {
     'none': {
         general: {
-            secure: true
+            secure: true,
+			stats:true
         }
     },
 	'mini': {
         general: {
-            secure: true
+            secure: true,
+			stats:true
         },
 		favicons: true,
         unreadcount: true,
@@ -753,7 +756,9 @@ GRP.packages = {
     'ludoo': {
         general: {
             secure: true,
-            counter: false
+            counter: false,
+			pageicon: true,
+			stats:true
         },
         favicons: true,
         unreadcount: true,
@@ -777,8 +782,15 @@ GRP.packages = {
         }
     },
     'full': {
-        theme: {
-            skin: 'osxblack'
+        general: {
+            secure: true,
+            counter: false,
+			pageicon: true,
+			stats:true
+        },
+		theme: {
+            skin: 'osxblack',
+			stats:true
         },
         favicons: true,
         unreadcount: true,
