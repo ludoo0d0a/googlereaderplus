@@ -86,6 +86,8 @@
                     monitorIcon();
                 } else if (a.message == "request") {
                     request(a, false, cb);
+                } else if (a.message == "window") {
+                    openwindow(a, cb);
                 } else if (a.message == "igtheme") {
                     igtheme(a, cb);
                 } else if (a.message == "translate") {
@@ -94,6 +96,11 @@
                     getFullFeed(a, cb);
                 }
             }
+			
+			function openwindow(a, cb){
+				delete a.message;
+				chrome.windows.create(a, cb);
+			}
 			
 			function getFullFeed(a, cb){
                 request({

@@ -10,8 +10,8 @@
      "48": "images/48.png",
      "128": "images/128.png"
   },
-  "default_locale": "en",
   "background_page": "bg.html",
+  "default_locale": "en",
   "content_scripts": [
     {
       "matches": [

@@ -85,9 +85,19 @@ GRP.preview = function(prefs, langs, ID){
     }
     function previewize(btn, entry, lcked, e){
         var locked = (lcked && (typeof e === "undefined"));
-        if (locked && filterEntry(entry, rx)) {
+        if (filterEntry(entry, rx)) {
             //Regex filtered
-            return false;
+			if (locked) {
+				//do nothing
+            	
+			} else {
+				//open in a popup
+				var urlLink = getEntryLink(entry);
+				openWindow({
+					url: urlLink.url
+				});
+			}
+			return false;
         }
         // Need to scroll before changing entry-body, because scrolling repaints
         // article from scratch (list view only)
