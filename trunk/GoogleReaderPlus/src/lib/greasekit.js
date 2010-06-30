@@ -75,6 +75,10 @@ function clearcache(lang){
     alert(getTextPrefs(lang, 'global', 'cachecleared', 'en', "Cache cleared"));
 }
 
+function openWindow(o, cb){
+	sendMessage("window",o, cb);
+}
+
 function sendMessage(message, o, callback){
     var a = clone(o) || {};
     a.message = message;
