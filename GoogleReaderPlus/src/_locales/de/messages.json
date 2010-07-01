@@ -3,15 +3,15 @@
     "message": "Reader Plus"
   },
   "extension_description": {
-    "message": "Enhance Google Reader by adding missing favicons and a collection of others features"
+    "message": "Verbesserung der Google Reader, indem fehlende Favicons und eine Sammlung von anderen Funktionen"
   },
   "extension_summary": {
-    "message": "Enhance Google Reader by adding missing favicons, fixing missing images in enclosures, better unread counter, better viewing on wider screens, fullscreen, preview, colored list view, filtering, multi columns display, jump top bottom, close entry, fit height, open in background tab, read by mouse, share news on Facebook, Twitter, Instapaper, ReadItLater, mark all as read, simple advertising remover, replacer items for comic strips, automatic translation, and more....\nYou can choose your favorite theme in the different available skins, use your own background picture or choose one from iGoogle themes.\nShortcuts can be easily customizable.\nThis extension supports translations (english, french, russian, chinese).\nDon't hesitate to help me to translate in your language [http://goo.gl/HjiG]\n\nYou can add the optional button in the chrome toolbar here :\nhttps://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo"
+    "message": "Verbesserung der Google Reader, indem fehlende Favicons, Festsetzung fehlende Bilder in Gehegen, besser ungelesenen Zähler, bessere Sicht auf breitere Bildschirme, fullscreen, Vorschau, farbigen ListView-, Filter-, Multi-Display-Spalten, oben unten springen, in der Nähe Eintrag, fit Höhe, öffnet in Tab im Hintergrund, mit der Maus lesen, teilen Nachrichten auf Facebook, Twitter, Instapaper, ReadItLater, Alle als gelesen markieren, einfach Werbung Entferner, Milchaustauscher Produkten für Comics, automatische Übersetzung, und mehr ....\nSie können Ihre Lieblings-Thema in den verschiedenen verfügbaren Skins wählen, verwenden Sie Ihre eigenen Hintergrundbild oder wählen Sie eine von iGoogle Themen.\nShortcuts lassen sich leicht anpassbar.\nDiese Erweiterung unterstützt Übersetzungen (Englisch, Französisch, Russisch, Chinesisch).\nZögern Sie nicht, mir zu helfen, in Ihrer Sprache [http://goo.gl/HjiG übersetzen]\n\nSie können das optionale Schaltfläche in der Symbolleiste Chrom hier hinzufügen:\nhttps://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo"
   },
   "extension_language": {
     "message": "Deutsch"
   },
   "browser_action_tooltip_default": {
-    "message": "Reader Plus Preferences"
+    "message": "Reader Plus Einstellungen"
   } 
 }
