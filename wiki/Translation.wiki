@@ -12,10 +12,12 @@ Already available languages are :
   * Simplified chinese
   * Traditional chinese
   * Russian
+  * Ukrainan
+  * Turkish
+  * Polish
 
 In progress :
-  * Ukrainan
-  * German
+  * German (please I need need a german guy !! )
 
 == Instructions for translators ==
 If you want to participate and contribute to the translations, please follow these steps :
