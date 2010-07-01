@@ -26,7 +26,7 @@ img {
 /**
  * Pretty form
  */
-#panels input[type='text'], #panels textarea, #panels select {
+#panels input[type='text'],#panels input[type='password'], #panels textarea, #panels select {
     border: 0;
     margin: 3px;
     padding: 0px 3px;
