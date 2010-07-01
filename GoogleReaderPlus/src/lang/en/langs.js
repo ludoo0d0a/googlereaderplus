@@ -6,7 +6,7 @@
  * en : English
  * **************************
  *
- * Version : 1.3
+ * Version : 1.4
  * Date : 04-09-2010
  * @author Valente
  */
@@ -253,7 +253,12 @@ bottomup:'Footer toolbar on the top',
         icontoolbar_add: "To add button with icon in toolbar, please <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">download and install it</a>.",
         icontoolbar_text: "<span>To make the button optional, we put him in an another extension as standalone,</span>                                    <br>                                    <span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b></b> on the <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span><span>To remove the button, right click him and choose Disable.</span>",
         importexport_text: "You can now save your preferences using 'export' and reload it later using 'import', but be sure data are <a href='http://jsonformatter.curiousconcept.com/' target='blank'>JSON compliant</a>:",
-        confirmimport: "Are you sure to import this configuration?\nCurrent configuration will be LOST!"
+        confirmimport: "Are you sure to import this configuration?\nCurrent configuration will be LOST!",
+text_layout:'Layout options',
+text_private:'Private data and updates',
+text_toolbaricon:'Toolbar icon',
+text_pageicon:'Address bar icon',
+text_export:'Export/import'
     },
     limit: {
         slidewindow: "Slidewindow - limit entries number",
