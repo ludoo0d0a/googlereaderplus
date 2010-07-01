@@ -168,6 +168,7 @@ var tplSelect = '<label class="lbl {lcls}" id="t_{id}">{text}</label><select nam
 var tplSelectOption = '<option value="{id}"{checked}>{value}</option>';
 var tplButton = '<button value="{value}" name="{name}" id="{id}" onclick="javascript:{action}();return false;">{text}</button>';
 var tplPara = '<p class="{cls}" id="t_{id}">{text}</p>';
+var tplHeader = '<h{level}>{text}</h{level}>';
 var tplDiv = '<div class="{cls}" id="{id}"></div>';
 function renderOptions(body, script){
     if (!script.options) {
@@ -218,6 +219,9 @@ function renderOptions(body, script){
                 html += fillTpl(tplTextarea, o);
             } else if (xtype === "p") {
                 html += fillTpl(tplPara, o);
+            }else if (xtype === "h") {
+                o.level = o.level || 3;
+				html += fillTpl(tplHeader, o);
             } else if (xtype === "html") {
                 html += value;
             } else if (xtype === "select") {

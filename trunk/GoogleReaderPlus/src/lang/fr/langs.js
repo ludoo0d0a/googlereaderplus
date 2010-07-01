@@ -245,7 +245,12 @@ noupdatepopup: "Plus de popup lors des mises à jour",
         icontoolbar_add: "Pour ajouter un bouton avec icône dans la barre d'outil, veuillez <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">télécharger et installer le bouton</a>.",
         icontoolbar_text: "<span>Afin de le rendre optionnel, nous fournissons le bouton sous forme d'une extension indépendante,</span><br><span>à installé en plus de ReaderPlus.</span><br><span>Pour ajouter le bouton, cliquer <b>Installer</b> sur la page <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">bouton pour ReaderPlus</a>.</span><br><span>Pour retirer le bouton, un clic droit et choisissez 'Désactiver'.</span>",
         importexport_text: "Vous pouvez sauver vos préférences avec la fonction 'export' et les rechqrger plus tard avec 'import', mais assurez vous de la <a href='http://jsonformatter.curiousconcept.com/' target='blank'>validité du format JSON</a>:",
-        confirmimport: "Etes-vous sur de vouloir importer cette configuration?\nLa configuration actuelle sera perdue"
+        confirmimport: "Etes-vous sur de vouloir importer cette configuration?\nLa configuration actuelle sera perdue",
+text_layout:'Mise en page',
+text_private:'Données privées et mise à jour',
+text_toolbaricon:"Icône de la barre d'outil",
+text_pageicon:"Icône de la barre d'adresse",
+text_export:'Export/import'
     },
     removeads: {
         links: "Liens:",
