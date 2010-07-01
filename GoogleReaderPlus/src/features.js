@@ -798,7 +798,8 @@ GRP.packages = {
             overlay: true
         },
         theme: {
-            gmailtheme: 'coldshower'
+            skin:'mytheme',
+			gmailtheme: 'coldshower'
         }
     },
     'full': {
