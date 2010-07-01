@@ -51,7 +51,6 @@ function autoTranslate(name){
 	loadLangs(lang, function(){
 		translatePage(lang, name);
 	});
-    
 }
 
 function translatePage(lang, name){
@@ -63,6 +62,8 @@ function translatePage(lang, name){
 		translations=DEFAULT_translations;
 	}	
 	*/
+	return;
+	
 	var translations= GRP.langs[lang].prefs;
     if (translations) {
 		function replaceTexts(name, texts){

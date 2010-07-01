@@ -62,6 +62,7 @@ function renderScripts(){
     iterate(categories, function(category, scripts){
         var ulcat;
 		var incat=true;
+		console.log(category);
         if (incat) {
             var licat = dh(list, 'li', {
                 cls: 'category'
@@ -91,6 +92,7 @@ function renderScripts(){
         var html = '';
 		
         iterate(scripts, function(id, script){
+			console.log('-'+id);
 			script.dlink = '>';
 			script.desc = script.desc||'';
 			if (script.status){

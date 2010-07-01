@@ -11,7 +11,8 @@ function button(a){
 }
 
 function init(){
-    var opendirect = backgroundPage.getPref('icon_opendirect');
+    var opendirect = backgroundPage.getPref('general_opendirect');
+	console.log('opendirect='+opendirect);
     if (opendirect) {
         call_core('findreader');
         window.close();

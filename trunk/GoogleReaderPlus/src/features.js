@@ -8,22 +8,42 @@ GRP.scripts = {
 		status: 'updated',
         options: {
             secure: false,
-			pageicon:true,
-			stats:true,
-			counter: true,
-            opendirect: false,
+
+			text_layout:{
+                xtype: 'h'
+            },
             topcurrent: false,
             floatactions: false,
 			bottomup:false,
             /*antisocial:true,*/
-            noupdatepopup: false,
-            icontoolbar_add: {
+
+			text_pageicon:{
+                xtype: 'h'
+            },
+			pageicon:true,
+			
+			text_toolbaricon: {
+                xtype: 'h'
+            },
+			icontoolbar_add: {
                 xtype: 'p',
                 label: true
             },
+			counter: true,
+			opendirect: false,
             icontoolbar_text: {
                 xtype: 'p',
                 label: true
+            },
+			
+			text_private:{
+                xtype: 'h'
+            },
+			stats:true,
+            noupdatepopup: false,
+			
+			text_export:{
+                xtype: 'h'
             },
             importexport_text: {
                 xtype: 'p',

@@ -19,7 +19,7 @@
             mycore.extension.onRequest.addListener(onMessageReceived);
             mycore.extension.onRequestExternal.addListener(function(request, sender, sendResponse){
                 if (sender.id === GUID_ICON) {
-                    onMessageReceived(request, false, sendResponse);
+					onMessageReceived(request, false, sendResponse);
                 }
             });
             
@@ -119,10 +119,14 @@
 								};
 							});
 							//store it now as cache (needs timestamp)
-							//localStorage.setItem('grp_fullfeed', JSON.stringify(selectors));
+							mycore.storage.setItem('grp_fullfeed', selectors);
 							sendResponse(selectors, cb);
                         }
-                    }
+                    },
+					onerror:function(){
+						 var selectors = mycore.storage.getItem('grp_fullfeed')||false;
+						 sendResponse(selectors, cb);
+					}
                 }, true);
 			}
 
@@ -148,7 +152,9 @@
                 var prefs = mprefs || getPrefs();
                 call_icon('prefs', {
                     prefs: prefs
-                });
+                }, function(){
+					//
+				});
             }
             
             var lastText, lastLogged;
@@ -268,23 +274,24 @@
             }
             
             function setPrefs(prefs, cleanall){
-                localStorage.setItem('grp_prefs', JSON.stringify(prefs));
+                mycore.storage.setItem('grp_prefs', prefs);
                 if (cleanall) {
-                    localStorage.setItem('grp_favicons', '');
+                    mycore.storage.setItem('grp_favicons', '');
                 }
                 runOnSave(prefs);
             }
             
             function setPreferences(a){
-                localStorage.clear();
-                localStorage.setItem('grp_version', GRP.VERSION);
+                mycore.storage.clear();
+                mycore.storage.setItem('grp_version', GRP.VERSION);
                 setPrefs(a.prefs, a.cleanall);
             }
             
             function getPrefs(a){
                 var id;
-                var textPrefs = localStorage.getItem('grp_prefs');
-                var prefs = (textPrefs) ? JSON.parse(textPrefs) : false;
+                //var textPrefs = localStorage.getItem('grp_prefs');
+                //var prefs = (textPrefs) ? JSON.parse(textPrefs) : false;
+				var prefs = mycore.storage.getItem('grp_prefs');
                 prefs = checkPrefs(prefs);
                 return prefs;
             }
@@ -365,7 +372,7 @@
                 var prefs = getPrefs();
                 var domains = prefs.favicons_domains;
                 var FAVICON = {};
-                var manual = localStorage.getItem("favicons_manual") === "true";
+                var manual = mycore.storage.getItem("favicons_manual");
                 Array.forEach(xml.getElementsByTagName('outline'), function(outline){
                     if (!outline.hasAttribute('htmlUrl')) {
                         return;
@@ -712,9 +719,9 @@
             }
             
             function initVersion(){
-                var v = localStorage.getItem('grp_version');
+                var v = mycore.storage.getItem('grp_version');
                 if (v === null || v !== GRP.VERSION) {
-                    localStorage.setItem('grp_version', GRP.VERSION);
+                    mycore.storage.setItem('grp_version', GRP.VERSION);
                     upgrade();
                     var prefs = getPrefs();
                     if (prefs.general_noupdatepopup === false) {
