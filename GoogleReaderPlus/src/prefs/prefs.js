@@ -29,7 +29,7 @@ function exportprefs(){
 function initprefs(){
 	lang = prefs.language_lang || 'en';
     loadLangs(lang, function(){
-        renderScripts();
+		renderScripts();
         translatePage(lang);
         specialTranslate(lang);
         renderSkins();

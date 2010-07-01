@@ -11,22 +11,18 @@
 //home crx : aencokegfecfkpckmiklpcklhdblkdgj
 //unpacked : lomblngfikeinenjgnkcnhbdgchkaeai
 
-var GUID_CORE = getGUID();
-var GUID_ICON = 'ecpcafinfpjgabomoamkhkgnpgpmdmeo';
-var env = ''; //readCookie('env');
+var GUID_CORE = 'hhcknjkmaaeinhdjgimjnophgpbdgfmg';
+var GUID_ICON = mycore.getGUID();
+var env = 'unpacked'; //readCookie('env');
 if (env) {
 	console.log('env toolbar=' + env);
 }
 //GM_setCookieValue('env','home');
-
-if (env && env == 'home') {
-	//home unpacked
-	GUID_ICON = 'ihejemglamcpmehbcdbielbafnbflgdk';
-} else if (env && env == 'unpacked') {
-	GUID_ICON = 'lomblngfikeinenjgnkcnhbdgchkaeai';
+if (env && env == 'unpacked') {
+	GUID_CORE = 'lnmcgabhnnfjenanodagmpjjmgbfbgje';
 }
-console.log('GUID_CORE=' + GUID_CORE);
-console.log('GUID_ICON=' + GUID_ICON);
+console.log('icon GUID_CORE=' + GUID_CORE);
+console.log('icon GUID_ICON=' + GUID_ICON);
 var LOCALPATH = 'chrome-extension://'+GUID_CORE;
 
 function call_icon(message, options, callback){

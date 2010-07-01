@@ -13,17 +13,13 @@
 
 var GUID_CORE = mycore.getGUID();
 var GUID_ICON = 'ecpcafinfpjgabomoamkhkgnpgpmdmeo';
-var env = ''; //readCookie('env');
+var env = 'unpacked'; //readCookie('env');
 if (env) {
 	console.log('env=' + env);
 }
 //GM_setCookieValue('env','home');
-
-if (env && env == 'home') {
-	//home unpacked
-	GUID_ICON = 'ihejemglamcpmehbcdbielbafnbflgdk';
-} else if (env && env == 'unpacked') {
-	GUID_ICON = 'lomblngfikeinenjgnkcnhbdgchkaeai';
+if (env && env == 'unpacked') {
+	GUID_ICON = 'cgpgjbahhnkejmclppnpkcoildokbmem';
 }
 console.log('GUID_CORE=' + GUID_CORE);
 console.log('GUID_ICON=' + GUID_ICON);

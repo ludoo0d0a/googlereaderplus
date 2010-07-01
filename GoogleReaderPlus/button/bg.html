@@ -1,39 +1,52 @@
 <html>
     <head>
         <title>GoogleReaderPlus Icon Background</title>
-        <script type="application/javascript" src="version.js">
-        </script>
-        <script type="application/javascript" src="lib/external.js">
-        </script>
+        <script type="application/javascript" src="version.js"></script>
+        <script type="application/javascript" src="lib/greasekit.js"></script>
+        <script type="application/javascript" src="lib/cross.js"></script>
+        <script type="application/javascript" src="lib/external.js"></script>
         <script type="application/javascript">
-            var SIGNED_OUT_BADGE_COLOR_ = 
-            {
+            var SIGNED_OUT_BADGE_COLOR_ = {
                 color: [190, 190, 190, 230]
             };
-            var SIGNED_IN_BADGE_COLOR_ = 
-            {
+            var SIGNED_IN_BADGE_COLOR_ = {
                 color: [208, 0, 24, 255]
             };
-			
-			var prefs;
-			function getPref(option){
-				if (prefs && typeof prefs[option] !== "undefined"){
-					return prefs[option];
-				}else{
-					return false;
-				}
-			}
-			
-			function updateIcon(logged, text){
-                chrome.browserAction.setIcon(
-                {
+            
+            
+            function isObjectEmpty(o){
+                if (!o) {
+                    return true;
+                }
+                for (var p in o) {
+                    if (!hasOwnProperty.call(o, p)) {
+                        continue;
+                    }
+                    return false;
+                }
+                return true;
+            }
+            
+            var prefs;
+            function getPref(option){
+                if (!prefs || isObjectEmpty(prefs)) {
+                    prefs = GM_getValue('iconprefs', {});
+                }
+                if (typeof prefs[option] !== "undefined") {
+                    return prefs[option];
+                } else {
+                    return false;
+                }
+            }
+            
+            function updateIcon(logged, text){
+                chrome.browserAction.setIcon({
                     path: (logged) ? 'images/19.png' : 'images/19-gray.png'
                 });
                 chrome.browserAction.setBadgeBackgroundColor((logged) ? SIGNED_IN_BADGE_COLOR_ : SIGNED_OUT_BADGE_COLOR_);
                 
                 if (text) {
-                    chrome.browserAction.setBadgeText(
-                    {
+                    chrome.browserAction.setBadgeText({
                         text: text
                     });
                     
@@ -50,8 +63,8 @@
                     } else if (request.message === 'version') {
                         console.log('version: ' + GRPP.VERSION);
                         sendResponse(window.GRPP.VERSION);
-                    }else if (request.message === 'prefs') {
-                        prefs=request.options.prefs;
+                    } else if (request.message === 'prefs') {
+                        GM_setValue('iconprefs', request.options.prefs);
                     }
                 }
             });
