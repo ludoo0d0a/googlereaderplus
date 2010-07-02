@@ -44,8 +44,8 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         //_excludes = JSON.parse(decodeURI("" + trim(GM_getValue("excludes", JSON.stringify(_excludes)))));
         //_highlights = JSON.parse(decodeURI("" + trim(GM_getValue("highlights", JSON.stringify(_highlights)))));
         
-		_excludes = JSON.parse(GM_getValue("excludes", "[]"));
-		_highlights = JSON.parse(GM_getValue("highlights", "[]"));
+		_excludes = GM_getValue("excludes", "[]");
+		_highlights = GM_getValue("highlights", "[]");
 		
         _hideExcluds = +GM_getValue("hideExcluds", 0);
         _hideDuplicates = +GM_getValue("hideDuplicates", 0);
