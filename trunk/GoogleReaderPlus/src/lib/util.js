@@ -1220,7 +1220,7 @@ function randomItem(items){
 
 function loadjQuery(cb, version, local){
     version = version || '1';
-    var url = (local) ? (LOCALPATH + 'lib/jquery.min.js') : ('http://ajax.googleapis.com/ajax/libs/jquery/' + version + '/jquery.min.js');
+    var url = (local) ? (LOCALPATH + '/lib/jquery.min.js') : ('http://ajax.googleapis.com/ajax/libs/jquery/' + version + '/jquery.min.js');
     GM_loadScript(url, false, function(){
         return (typeof jQuery !== "undefined");
     }, cb);
