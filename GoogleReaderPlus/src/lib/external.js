@@ -1,28 +1,17 @@
 /**
  * @author Valente
  */
-//*************** CORE ************************
-//prod: hhcknjkmaaeinhdjgimjnophgpbdgfmg
-//home crx : njidamgjohnfbkeagfbnkllfkdnlpjhi
-//debug : cmkepfncdncbdpmdfnkbpenhfbmmnebm
-
-//*************** ICON ************************
-//prod: ecpcafinfpjgabomoamkhkgnpgpmdmeo
-//home crx : aencokegfecfkpckmiklpcklhdblkdgj
-//unpacked : lomblngfikeinenjgnkcnhbdgchkaeai
-
-var GUID_CORE = mycore.getGUID();
-var GUID_ICON = 'ecpcafinfpjgabomoamkhkgnpgpmdmeo';
-var env = 'unpacked'; //readCookie('env');
-if (env) {
+var GUID_CORE = mycore.getGUID(), 
+GUID_CORE_PROD = 'hhcknjkmaaeinhdjgimjnophgpbdgfmg', 
+GUID_ICON = 'ecpcafinfpjgabomoamkhkgnpgpmdmeo';
+var env = ''; //readCookie('env');
+if (GUID_CORE!==GUID_CORE_PROD){
+	env='unpacked';
 	console.log('env=' + env);
-}
-//GM_setCookieValue('env','home');
-if (env && env == 'unpacked') {
 	GUID_ICON = 'cgpgjbahhnkejmclppnpkcoildokbmem';
+	console.log('GUID_CORE=' + GUID_CORE);
+	console.log('GUID_ICON=' + GUID_ICON);
 }
-console.log('GUID_CORE=' + GUID_CORE);
-console.log('GUID_ICON=' + GUID_ICON);
 var LOCALPATH = mycore.getLocalPath();
 
 function call_icon(message, options, callback){
