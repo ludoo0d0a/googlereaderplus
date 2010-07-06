@@ -560,22 +560,34 @@ function addMenuItems(menu, items){
     }
 }
 
-function addReaderMenuItem(text, cb){
-    dh('gbg', 'a', {
+function addReaderMenuItem(text, cb, checkbox){
+   var html = text;
+   GM_addStyle('.grp-menu{background: transparent url(/reader/ui/3607832474-entry-action-icons.png) no-repeat;padding: 1px 8px 1px 16px;}'+
+'.grp-menu-checked{background-position:-80px -160px;}'+
+'.grp-menu-unchecked{background-position:-64px -128px;}'
+,'grp_menusettings');
+
+   if (checkbox){
+   	html='<span class="grp-menu grp-menu-unchecked">'+text+'</span>';
+   }
+	
+	dh('gbg', 'a', {
         href: '#',
         cls: 'gb2',
-        text: text
+        html: html
     }, {
-        click: cb
+        click: function(e){
+			if (checkbox) {
+				var span = e.target;
+				addClassIf(span, 'grp-menu-checked', 'grp-menu-unchecked');
+			}
+			cb(e);
+		}
     });
 }
 
 function toggleCheckMenu(el){
-    if (hasClass(el, 'goog-option-selected')) {
-        removeClass(el, 'goog-option-selected');
-    } else {
-        addClass(el, 'goog-option-selected');
-    }
+    addClassIf(el, 'goog-option-selected');
 }
 
 function getLanguage(){
