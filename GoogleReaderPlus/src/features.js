@@ -239,6 +239,7 @@ GRP.scripts = {
         options: {
             providerpageicons: false,
             sidebaronly: false,
+			cloud:true,
             custom: {
                 xtype: 'p',
                 label: true
