@@ -22,11 +22,24 @@ function addClassChecked(el, clazz){
     addClass(el, clazz, true);
 }
 
-function addClassIf(el, cls, status){
-    if (status) {
+function addClassIf(el, cls, status, cls2){
+    if (typeof status ==='string'){
+		cls2=status;
+		status = null;
+	}
+	if (typeof status ==='undefined' || status === null){
+		status = !hasClass(el, cls);
+	}
+	if (status) {
         addClass(el, cls, true);
+		if (cls2) {
+			removeClass(el, cls2);
+		}
     } else {
         removeClass(el, cls);
+		if (cls2) {
+			addClass(el, cls2);
+		}
     }
 }
 
