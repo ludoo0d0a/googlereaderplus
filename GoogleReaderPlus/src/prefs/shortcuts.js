@@ -7,7 +7,12 @@ function run_extshortcuts(){
     iterate(GRP.scripts, function(id, script){
         iterate(script.shortcuts, function(sid, shortcut){
             if (prefs && prefs[id + '_key_' + sid]) {
-                key = unmarshallKey(prefs[id + '_key_' + sid]);
+                var v = prefs[id + '_key_' + sid];
+				if (typeof v === 'string') {
+					key = unmarshallKey(v);
+				}else{
+					key = v.key;
+				}
             } else {
                 key = shortcut.key;
             }
