@@ -241,16 +241,26 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
                     var f = FAVICON[key];
                     if (!f) {
                         //try to get url+title
+						var dir = getSelectedDir(node);
+						if (dir) {
+							FAVICON[key] = {
+								url: dir.url,
+								title: dir.text
+							};
+						}
+						
+						/*
                         var nameText = getFirstElementByClassName(node, 'name-text');//span
                         if (nameText) {
                             f = 
                             {
-                                url: unescape(node.href.replace('/^https?\/\/www\.google\.com\/reader\/view\/feed\/', '')),
+                                url: unescape(node.href.replace('/\/reader\/view\/feed\/', '')),
                                 title: ellipsis(nameText.innerText)
                             };
                             
                             FAVICON[key] = f;
-                        }
+                        }*/
+						
                     }
                     if (f) {
                         img.src = '';
