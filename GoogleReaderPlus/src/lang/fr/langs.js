@@ -138,7 +138,8 @@ GRP.langs[locale].texts = {
         menu_randomtheme: 'Changer le thème :'
     },
     menu: {
-        label: 'Extra'
+        label: 'Extra',
+showallfolders: 'Show all folders'
     }
 };
 GRP.langs[locale].prefs = {
