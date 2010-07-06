@@ -599,10 +599,10 @@ function getLanguage(){
     return lang;
 }
 
-function getSelectedDir(){
-    var o = {};
+function getSelectedDir(node){
+    var o = {url:''};
     //a.tree-link-selected
-    var el = getFirstElementByClassName(document, 'tree-link-selected');
+    var el = node || getFirstElementByClassName(document, 'tree-link-selected');
     if (el) {
         o = {
             text: getElementText(el, 'name-text'),
@@ -620,6 +620,8 @@ function getSelectedDir(){
             };
         }
     }
+	o.url = o.url.replace('/reader/view', '');
+	
     return o;
 }
 
