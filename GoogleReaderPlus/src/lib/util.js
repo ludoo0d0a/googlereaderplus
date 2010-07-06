@@ -173,10 +173,55 @@ function getElements(xpath, context){
 
 function serializeXml(nodes){
 	var html='';
-	forEach(nodes, function(node){
+	nodes.forEach(function(node){
 		html+=node.outerHTML;	
 	});
 	return html;
+}
+
+/*
+ * From jQuery
+ */
+function serializePost(a,traditional){
+	var e=encodeURIComponent,s = [];
+	if ( isArray(a) || a.jquery ) {
+		forEeach( a, function() {
+			add( this.name, this.value );
+		});
+	} else {
+		for ( var prefix in a ) {
+			buildParams( prefix, a[prefix] );
+		}
+	}
+	return s.join("&").replace(/%20/g, "+");
+
+	function buildParams( prefix, obj ) {
+		if ( isArray(obj) ) {
+			iterate( obj, function( i, v ) {
+				if ( traditional || /\[\]$/.test( prefix ) ) {
+					add( prefix, v );
+				} else {
+					buildParams( prefix + "[" + ( typeof v === "object" || isArray(v) ? i : "" ) + "]", v );
+				}
+			});
+				
+		} else if ( !traditional && obj != null && typeof obj === "object" ) {
+			// Serialize object item.
+			iterate( obj, function( k, v ) {
+				buildParams( prefix + "[" + k + "]", v );
+			});
+				
+		} else {
+			// Serialize scalar item.
+			add( prefix, obj );
+		}
+	}
+
+	function add( key, value ) {
+		// If value is a function, invoke it and return its value
+		value = (typeof value === 'function') ? value() : value;
+		s[ s.length ] = e(key) + "=" + e(value);
+	}
 }
 
 function get_id(id){
@@ -744,7 +789,7 @@ function foreach(array, fn, scope){
     }
 }
 
-function map2array(o, key, value, flat){
+function map2array(o, key, value, flat, eu){
     var r = [];
     iterate(o, function(p, o){
         var a = {};
