@@ -6,8 +6,8 @@
  * en : English
  * **************************
  *
- * Version : 1.4
- * Date : 04-09-2010
+ * Version : 1.5
+ * Date : 07-06-2010
  * @author Valente
  */
 var locale = 'en';
@@ -284,6 +284,7 @@ text_export:'Export/import'
     favicons: {
         providerpageicons: 'Use <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> provider (Recommended to load succesfully all icons)',
         sidebaronly: "Show favicons in sidebar only",
+cloud: 'Use cloud database <a href="http://wedata.net/databases/Favicons" target="blank">wedata/Favicons</a> so that community completes favicons',
         custom: "Enter your custom favicons :",
         add: "Add",
         tip: "Tip: You could add it easily using the contextual menu \"Get favicon\" of the left side bar",

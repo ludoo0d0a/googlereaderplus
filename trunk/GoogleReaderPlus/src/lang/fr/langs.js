@@ -6,8 +6,8 @@
  * fr : Francais
  * **************************
  *
- * Version : 1.3.1
- * Date : 06-09-2010
+ * Version : 1.5
+ * Date : 07-06-2010
  * @author Valente
  */
 var locale = 'fr';
@@ -271,6 +271,7 @@ text_export:'Export/import'
     favicons: {
         providerpageicons: 'Utiliser le fournisseur d\'icônes <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> pour afficher correctement toutes les icônes des sites (Recommandé)',
         sidebaronly: "Afficher favicons in sidebar only",
+cloud: 'Utiliser les favicons de la communauté grâce la base en ligne <a href="http://wedata.net/databases/Favicons/items" target="blank">wedata/Favicons</a>',
         custom: "Saisissez vos propres favicons :",
         add: "Ajouter",
         tip: "Conseil: Vous pouvez également utiliser le menu contextuel \"Obtenir l'icône de ce site\" sur chaque site dans l'arbre de gauche",
