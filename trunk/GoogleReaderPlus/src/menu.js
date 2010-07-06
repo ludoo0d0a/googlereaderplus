@@ -125,7 +125,6 @@ GRP.menu = function(prefs, langs, ID, SL, lang){
         } else {
             //No link found -> get from nav
             var d = getSelectedDir();
-            url = d.url.replace('/reader/view', '');
             text = d.text;
         }
         var domain = getDomain(window.location.href, true);
