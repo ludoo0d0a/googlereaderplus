@@ -6,7 +6,7 @@ GRP.api_rest = function(name, local){
     var config = {
         base: 'http://wedata.net',
         successCodes: {201:true, 200:true},
-		api_key:'4b64b4cd064456a86a847907fb6707c89ff560e5',
+		api_key:'4b64b4cd064456a86a'+'847907fb6707c89ff560e5',
         errors: {
             201: 'Created - Database or item was created successfully.',
             200: ' OK - No error.',
@@ -150,6 +150,19 @@ GRP.api_rest = function(name, local){
                 };
 				send('put', url, params, success, error);
             },
+			createOrUpdate: function(itm, o , success, error){
+                if (itm){
+					//object already exist
+					if (v.name !== o.name || !compareObject(itm, o.values)){
+						o.id = getIdFromResourceUrl(itm);
+						console.log('createOrUpdate update '+o.name + ' '+o.id),
+						this.update(o);
+					}
+				}else{
+					console.log('createOrUpdate create '+o.name),
+					this.create(o);
+				}
+            },
             'delete': function(o/* api_key, name, id */, success, error){
              	var url = config.item.get.replace(':id', o.name);
                 var params = {
@@ -162,3 +175,17 @@ GRP.api_rest = function(name, local){
 }
 
 
+function getIdFromResourceUrl(o){
+	return o.resource_url.replace(/^.*\/items\//, '');
+}
+
+function compareObject(a,b){
+	var eq=true;
+	iterate(a, function(i,o){
+		if (o!==b[i]){
+			eq = false;
+			//exit
+		}
+	});
+	return eq;
+}
