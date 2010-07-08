@@ -13,12 +13,24 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
 		gp_data={};
 		parseItems(gp_data, prefs.replacer_items);
 		
-		//get online data from cloud db
-		console.log('fullfeed asking....');
-		chrome.extension.sendRequest({message: "fullfeed"}, function(selectors){
-			console.log('fullfeed added');
-			parseItems(gp_data, selectors);
-		});
+		if (prefs.replacer_cloud) {
+			//get online data from cloud db
+			chrome.extension.sendRequest({
+				message: "clouddata",
+				name: 'LDRFullFeed'
+			}, function(selectors){
+				parseItems(gp_data, selectors);
+				console.log('cloud LDRFullFeed added');
+			});
+			chrome.extension.sendRequest({
+				message: "clouddata",
+				name: 'Replacer'
+			}, function(selectors){
+				parseItems(gp_data, selectors);
+				console.log('cloud replacer added');
+			});
+		}
+		
     }
 	
 	function parseItems(gp_data, items){

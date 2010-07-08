@@ -389,6 +389,7 @@ function saveReplacerNext(title, url, search, replace){
         search: search,
         replace: replace
     };
+	prefs._replacer_changed=true;
     loadCRUD('replacer_items');
 }
 

@@ -99,6 +99,15 @@ function saveFavicon(url, icon, title){
 	
 	//Check if already exist
 	var ci = cloudItems[url];
+	r.item.createOrUpdate(ci, {
+				name: name,
+				values: {
+					url: url,
+					icon: icon,
+					title: title
+				}
+			});
+	/*
 	if (ci) {
 		//something changed
 		if (ci.name!==name || ci.url!==url || ci.icon!==icon || ci.title!==title ){
@@ -123,6 +132,7 @@ function saveFavicon(url, icon, title){
 			}
 		});
 	}
+	*/
 }
 
 function getIdFromResourceUrl(o){

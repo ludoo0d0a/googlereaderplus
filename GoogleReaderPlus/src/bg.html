@@ -1,17 +1,28 @@
 <html>
     <head>
         <title>readerplus Background</title>
-        <script type="text/javascript" src="version.js"></script>
-        <script type="text/javascript" src="lib/cross.js"></script>
-        <script type="text/javascript" src="lib/util.js"></script>
-        <script type="text/javascript" src="lib/external.js"></script>
-        <script type="text/javascript" src="features.js"></script>
-        <script type="text/javascript" src="lib/greasekit.js"></script>
-        <script type="text/javascript" src="api/rest.js"></script>
-		<script type="text/javascript" src="worker/workerhelper.js"></script>
-		<script type="text/javascript" src="api/webworkers.js"></script>
-		<script type="text/javascript" src="api/favicons.js"></script>
-        <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="version.js">
+        </script>
+        <script type="text/javascript" src="lib/cross.js">
+        </script>
+        <script type="text/javascript" src="lib/util.js">
+        </script>
+        <script type="text/javascript" src="lib/external.js">
+        </script>
+        <script type="text/javascript" src="features.js">
+        </script>
+        <script type="text/javascript" src="lib/greasekit.js">
+        </script>
+        <script type="text/javascript" src="api/rest.js">
+        </script>
+        <script type="text/javascript" src="worker/workerhelper.js">
+        </script>
+        <script type="text/javascript" src="api/webworkers.js">
+        </script>
+        <script type="text/javascript" src="api/favicons.js">
+        </script>
+        <script type="text/javascript" src="http://www.google.com/jsapi">
+        </script>
         <script type="text/javascript">
             //var READING_LIST_RE_ = new RegExp('user/[\\d]+/state/com\\.google/reading-list');
             var reReader = {
@@ -55,10 +66,30 @@
             
             function runOnSave(mprefs){
                 var prefs = mprefs || getPrefs();
+				var rc = prefs._replacer_changed;
+				delete prefs._replacer_changed;
                 monitorIcon(prefs);
                 sendPrefsToIcon(prefs);
                 activePageAction(prefs);
                 runStats(prefs);
+				//sure we changed replacer items and click save
+				if (mprefs && rc){
+					sendToCloud(prefs);
+				}
+            }
+
+            function sendToCloud(prefs){
+                console.log('sendToCloud items...');
+                var r = new GRP.api_rest('Replacer', true);
+                var cloud_items = mycore.storage.getItem('grp_cloud_Replacer');
+                iterate(prefs.replacer_items, function(id, o){
+                    var ci = (cloud_items)?cloud_items[id]:false;
+                    console.log('sendToCloud '+id);
+					r.item.createOrUpdate(ci, {
+                        name: id,
+                        values: o
+                    });
+                });
             }
             
             runOnSave();
@@ -95,8 +126,30 @@
                     igtheme(a, cb);
                 } else if (a.message == "translate") {
                     translate(a, cb);
-                } else if (a.message == "fullfeed") {
-                    getFullFeed(a, cb);
+                } else if (a.message == "clouddata") {
+                    getCloudData(a, cb);
+                }
+            }
+            
+            var mappers = {
+                def:function(item){
+					var o = item.data;
+					o.title = o.name;
+					return o;
+				},
+				Replacer: function(item){
+                    var o = item.data;
+					//title, url,search,replace
+					o.title = o.name;
+					return o;
+                },
+                LDRFullFeed: function(item){
+                    return {
+                        title: item.name,
+                        url: item.data.url,
+                        search: 'xpath:' + item.data.xpath,
+                        replace: "$1"
+                    }
                 }
             }
             
@@ -105,26 +158,22 @@
                 chrome.windows.create(a, cb);
             }
             
-            function getFullFeed(a, cb){
+            function getCloudData(a, cb, mapper){
                 request({
-                    url: 'http://wedata.net/databases/LDRFullFeed/items.json',
+                    url: 'http://wedata.net/databases/' + a.name + '/items.json',
                     onload: function(xhr){
                         if (xhr.status == 200) {
-                            console.log('LDRFullFeed get');
+                            console.log(a.name + ' get');
                             var items = JSON.parse(xhr.responseText);
                             //cache value
                             var selectors = {};
-                            foreach(items, function(item){
-                                selectors[item.name] = {
-                                    title: item.name,
-                                    url: item.data.url,
-                                    search: 'xpath:' + item.data.xpath,
-                                    replace: "$1"
-                                };
+                            var f = mappers[a.name] || mappers.def;
+							foreach(items, function(item){
+                                selectors[item.name] = f(item);
                             });
                             //store it now as cache (needs timestamp)
-                            mycore.storage.setItem('grp_fullfeed', selectors);
-                            console.log('LDRFullFeed ok');
+                            mycore.storage.setItem('grp_cloud_' + a.name, selectors);
+                            console.log(a.name + ' ok');
                             sendResponse(selectors, cb);
                         }
                     },
@@ -133,7 +182,7 @@
                      console.log('-readyState:'+ xhr.readyState);
                      },*/
                     onerror: function(){
-                        var selectors = mycore.storage.getItem('grp_fullfeed') || false;
+                        var selectors = mycore.storage.getItem('grp_cloud_' + a.name) || false;
                         sendResponse(selectors, cb);
                     }
                 }, true);
@@ -283,7 +332,7 @@
             }
             
             function setPrefs(prefs, cleanall){
-                mycore.storage.setItem('grp_prefs', prefs);
+				mycore.storage.setItem('grp_prefs', prefs);
                 if (cleanall) {
                     mycore.storage.setItem('grp_favicons', '');
                 }
@@ -410,7 +459,8 @@
                                     if (a.dataType === 'json' && res.responseText) {
                                         try {
                                             res.responseJson = JSON.parse(res.responseText);
-                                        } catch (e) {
+                                        } 
+                                        catch (e) {
                                         }
                                     }
                                     if (xpath && xhr.responseXML) {
@@ -433,7 +483,8 @@
                         d = serializePost(d);
                     }
                     xhr.send(d);
-                } catch (e) {
+                } 
+                catch (e) {
                     console.log('Error catched on xhr');
                     var o = {
                         message: a.callback || "requestdone",
@@ -614,18 +665,20 @@
                 }
             }
         </script>
-		<script type="text/javascript" src="https://ssl.google-analytics.com/ga.js" async="true"></script>
-		<script type="text/javascript" src="prefs/stats.js"></script>
+        <script type="text/javascript" src="https://ssl.google-analytics.com/ga.js" async="true">
+        </script>
+        <script type="text/javascript" src="prefs/stats.js">
+        </script>
     </head>
     <body>
         <script>
-          /*
-            (function() {
+            /*
+             (function() {
              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
              ga.src = 'https://ssl.google-analytics.com/ga.js';
              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
              })();
-            */
+             */
         </script>
     </body>
 </html>
