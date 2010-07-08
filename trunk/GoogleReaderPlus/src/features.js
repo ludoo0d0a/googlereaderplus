@@ -767,7 +767,9 @@ GRP.packages = {
             secure: true,
 			stats:true
         },
-		favicons: true,
+		favicons: {
+			cloud:true
+		},
         unreadcount: true,
         fixlayout: true,
         count: true,
@@ -781,7 +783,9 @@ GRP.packages = {
 			pageicon: true,
 			stats:true
         },
-        favicons: true,
+        favicons: {
+			cloud:true
+		},
         unreadcount: true,
         fixlayout: true,
         count: true,
@@ -793,7 +797,9 @@ GRP.packages = {
         fitheight: true,
         closeentry: true,
         openbackground: true,
-        replacer: true,
+        replacer: {
+			cloud:true
+		},
         preview: {
             onicon: true,
             overlay: true
@@ -814,7 +820,9 @@ GRP.packages = {
             skin: 'osxblack',
 			stats:true
         },
-        favicons: true,
+        favicons: {
+			cloud:true
+		},
         unreadcount: true,
         fixlayout: true,
         count: true,
