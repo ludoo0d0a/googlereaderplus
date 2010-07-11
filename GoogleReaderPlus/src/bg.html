@@ -60,32 +60,32 @@
             function runStats(mprefs){
                 var prefs = mprefs || getPrefs();
                 if (prefs && prefs.general_stats) {
-                    //initstats();
+                    initstats();
                 }
             }
             
             function runOnSave(mprefs){
                 var prefs = mprefs || getPrefs();
-				var rc = prefs._replacer_changed;
-				delete prefs._replacer_changed;
+                var rc = prefs._replacer_changed;
+                delete prefs._replacer_changed;
                 monitorIcon(prefs);
                 sendPrefsToIcon(prefs);
                 activePageAction(prefs);
-                runStats(prefs);
-				//sure we changed replacer items and click save
-				if (mprefs && rc){
-					sendToCloud(prefs);
-				}
+                //runStats(prefs);
+                //sure we changed replacer items and click save
+                if (mprefs && rc) {
+                    sendToCloud(prefs);
+                }
             }
-
+            
             function sendToCloud(prefs){
                 console.log('sendToCloud items...');
                 var r = new GRP.api_rest('Replacer', true);
                 var cloud_items = mycore.storage.getItem('grp_cloud_Replacer');
                 iterate(prefs.replacer_items, function(id, o){
-                    var ci = (cloud_items)?cloud_items[id]:false;
-                    console.log('sendToCloud '+id);
-					r.item.createOrUpdate(ci, {
+                    var ci = (cloud_items) ? cloud_items[id] : false;
+                    console.log('sendToCloud ' + id);
+                    r.item.createOrUpdate(ci, {
                         name: id,
                         values: o
                     });
@@ -132,16 +132,16 @@
             }
             
             var mappers = {
-                def:function(item){
-					var o = item.data;
-					o.title = o.name;
-					return o;
-				},
-				Replacer: function(item){
+                def: function(item){
                     var o = item.data;
-					//title, url,search,replace
-					o.title = o.name;
-					return o;
+                    o.title = o.name;
+                    return o;
+                },
+                Replacer: function(item){
+                    var o = item.data;
+                    //title, url,search,replace
+                    o.title = o.name;
+                    return o;
                 },
                 LDRFullFeed: function(item){
                     return {
@@ -168,7 +168,7 @@
                             //cache value
                             var selectors = {};
                             var f = mappers[a.name] || mappers.def;
-							foreach(items, function(item){
+                            foreach(items, function(item){
                                 selectors[item.name] = f(item);
                             });
                             //store it now as cache (needs timestamp)
@@ -332,7 +332,7 @@
             }
             
             function setPrefs(prefs, cleanall){
-				mycore.storage.setItem('grp_prefs', prefs);
+                mycore.storage.setItem('grp_prefs', prefs);
                 if (cleanall) {
                     mycore.storage.setItem('grp_favicons', '');
                 }
@@ -665,20 +665,13 @@
                 }
             }
         </script>
-        <script type="text/javascript" src="https://ssl.google-analytics.com/ga.js" async="true">
-        </script>
-        <script type="text/javascript" src="prefs/stats.js">
-        </script>
+        
     </head>
     <body>
-        <script>
-            /*
-             (function() {
-             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-             ga.src = 'https://ssl.google-analytics.com/ga.js';
-             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
-             })();
-             */
+        <script type="text/javascript" src="prefs/stats.js">
+        </script>
+		<script>
+            runStats();
         </script>
     </body>
 </html>
