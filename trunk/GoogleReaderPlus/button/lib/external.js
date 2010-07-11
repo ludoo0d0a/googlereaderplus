@@ -8,7 +8,7 @@ var env = ''; //readCookie('env');
 if (GUID_ICON !== GUID_ICON_PROD) {
     env = 'unpacked';
     console.log('env=' + env);
-    GUID_CORE = 'lnmcgabhnnfjenanodagmpjjmgbfbgje';
+    GUID_CORE = 'aiiclalbkneakbgonobojbdeapcabolj';
     console.log('icon GUID_CORE=' + GUID_CORE);
     console.log('icon GUID_ICON=' + GUID_ICON);
 }
