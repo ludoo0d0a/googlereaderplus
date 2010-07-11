@@ -14,8 +14,7 @@
   "background_page": "bg.html",
   "browser_action": {
     "default_icon": "images/19.png",
-	"default_title": "__MSG_browser_action_tooltip_default__",
-    "popup": "popup.html"
+	"default_title": "__MSG_browser_action_tooltip_default__"
   },
   "content_scripts": [
     {
@@ -27,7 +26,9 @@
   ],
   "permissions": [
     "tabs",
-	"http://*/",
-    "https://*/"
+	"http://www.google.com/m8/feeds/*",
+    "https://www.google.com/accounts/OAuthGetRequestToken",
+    "https://www.google.com/accounts/OAuthAuthorizeToken",
+    "https://www.google.com/accounts/OAuthGetAccessToken"
   ]
 }
