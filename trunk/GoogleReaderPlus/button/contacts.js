@@ -5,16 +5,21 @@
  * http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/extensions/docs/examples/extensions/oauth_contacts/
  * 
  */
+
+var DOCLIST_SCOPE = 'https://docs.google.com/feeds';
+var DOCLIST_FEED = DOCLIST_SCOPE + '/default/private/full/';
+var CONTACTS_SCOPE = 'http://www.google.com/m8/feeds/';
+var CONTACTS_FEED = 'http://www.google.com/m8/feeds/';
+	  
 var oauth = ChromeExOAuth.initBackgroundPage({
     'request_url': 'https://www.google.com/accounts/OAuthGetRequestToken',
     'authorize_url': 'https://www.google.com/accounts/OAuthAuthorizeToken',
     'access_url': 'https://www.google.com/accounts/OAuthGetAccessToken',
     'consumer_key': 'anonymous',
     'consumer_secret': 'anonymous',
-    'scope': 'http://www.google.com/m8/feeds/',
+    'scope': CONTACTS_SCOPE,
     'app_name': 'Readerplus - OAuth'	
 });
-
 
 var contacts = null;
 
@@ -59,7 +64,7 @@ function getContacts(){
     oauth.authorize(function(){
         console.log("on authorize");
         setIcon();
-        var url = "http://www.google.com/m8/feeds/contacts/default/full";
+        var url = 'http://www.google.com/m8/feeds/contacts/default/full';
         oauth.sendSignedRequest(url, onContacts, {
             'parameters': {
                 'alt': 'json',
