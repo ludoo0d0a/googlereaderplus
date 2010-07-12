@@ -1,0 +1,50 @@
+.entry-icons {
+    width: 15px;
+	height: 15px;
+    padding: 0px;
+	background: transparent url(https://www.google.com/reader/ui/3607832474-entry-action-icons.png) no-repeat;
+    float:left;
+    white-space: nowrap;
+}
+
+.entry-icons.item-star {
+    background-position: 0px -1px;
+}
+
+.entry-icons.item-star-active {
+background-position: -16px -33px;
+}
+
+.entry-icons.item-read {
+    background-position: -64px -128px;
+}
+
+.entry-icons.item-read-active{
+    background-position: -80px -160px;
+}
+
+.entry-title {
+    display: inline;
+    margin: 0px;
+    padding: 0px;
+    position: static;
+    width: auto;
+}
+
+.entry{
+	cursor:pointer;
+	position:relative;
+}
+
+#nav{
+	float:right;
+}
+/* nobreak  */
+/*
+.entry-original,.entry-title{
+	display: inline;
+	margin: 0px;
+	padding: 0px;
+	position: static;
+	width: auto;
+}*/
