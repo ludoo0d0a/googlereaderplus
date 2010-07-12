@@ -9,7 +9,8 @@ body {
     font-style: normal;
     font-variant: normal;
     font-weight: normal;
-    width: auto;
+    width: 600px;
+	height:auto;
     padding: 0px !important;
     margin: 0px !important;
     border: none !important;
@@ -123,4 +124,21 @@ div#opt {
 	margin-top : 0px;
 	font-size: 8pt;
 	width: 94px;
+}
+
+/**
+ * 
+ */
+.entry-favicon{
+	width:16px;
+	height:16px;
+}
+.entry-secondary{
+	display:none;
+}
+.fhidden{
+	visibility:hidden;
+}
+#loading{
+	margin:100px 200px;
 }

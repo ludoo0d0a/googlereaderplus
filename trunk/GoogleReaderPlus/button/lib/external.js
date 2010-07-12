@@ -4,7 +4,7 @@
 var GUID_CORE = 'hhcknjkmaaeinhdjgimjnophgpbdgfmg', 
 GUID_ICON_PROD = 'ecpcafinfpjgabomoamkhkgnpgpmdmeo', 
 GUID_ICON = mycore.getGUID();
-var env = ''; //readCookie('env');
+var env = '';
 if (GUID_ICON !== GUID_ICON_PROD) {
     env = 'unpacked';
     console.log('env=' + env);
@@ -25,7 +25,7 @@ function call_core(message, options, callback){
 function external_call(guid, message, options, callback){
     var emptyFn = function(){
     };
-    chrome.extension.sendRequest(guid, {
+    mycore.extension.sendRequest(guid, {
         message: message,
         options: options || {}
     }, callback || emptyFn);

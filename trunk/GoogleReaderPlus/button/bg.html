@@ -5,29 +5,19 @@
         <script type="application/javascript" src="lib/greasekit.js"></script>
         <script type="application/javascript" src="lib/cross.js"></script>
         <script type="application/javascript" src="lib/external.js"></script>
+		<script type="application/javascript" src="lib/util.js"></script>
+		<script type="application/javascript" src="bg/request.js"></script>
+		<script type="application/javascript" src="lib/reader.js"></script>
         <script type="text/javascript" src="chrome_ex_oauthsimple.js"></script>
         <script type="text/javascript" src="chrome_ex_oauth.js"></script>
+		<script type="text/javascript" src="contacts.js"></script>
         <script type="application/javascript">
-            var SIGNED_OUT_BADGE_COLOR_ = {
+			var SIGNED_OUT_BADGE_COLOR_ = {
                 color: [190, 190, 190, 230]
             };
             var SIGNED_IN_BADGE_COLOR_ = {
                 color: [208, 0, 24, 255]
             };
-            
-            function isObjectEmpty(o){
-                if (!o) {
-                    return true;
-                }
-                for (var p in o) {
-                    if (!hasOwnProperty.call(o, p)) {
-                        continue;
-                    }
-                    return false;
-                }
-                return true;
-            }
-            
             var prefs;
             function getPref(option){
                 if (!prefs || isObjectEmpty(prefs)) {
@@ -54,7 +44,8 @@
                 }
             }
             
-            chrome.extension.onRequestExternal.addListener(function(request, sender, sendResponse){
+            mycore.extension.onRequest.addListener(onMessageReceived);
+            mycore.extension.onRequestExternal.addListener(function(request, sender, sendResponse){
                 if (sender.id === GUID_CORE && request.message) {
                     if (request.message === 'updateicon') {
                         var a = request.options;
@@ -69,8 +60,21 @@
                     }
                 }
             });
+            
+            function onMessageReceived(a, p, cb){
+                console.log('message=' + a.message);
+                if (a.message == "unread") {
+                    getunread(a, function(r){
+						updateIcon(r.logged);
+						if (cb) {
+							cb(r);
+						}
+					});
+                }else if (a.message == "mark") {
+                    mark(a, cb);
+                }
+            }
         </script>
-		<script type="text/javascript" src="contacts.js"></script>
     </head>
     <body>
     </body>

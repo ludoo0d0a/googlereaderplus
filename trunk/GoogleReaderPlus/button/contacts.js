@@ -12,7 +12,7 @@ var oauth = ChromeExOAuth.initBackgroundPage({
     'consumer_key': 'anonymous',
     'consumer_secret': 'anonymous',
     'scope': 'http://www.google.com/m8/feeds/',
-    'app_name': 'Readerplus - OAuth Contacts'	
+    'app_name': 'Readerplus - OAuth'	
 });
 
 
@@ -33,22 +33,22 @@ function setIcon(){
 function onContacts(text, xhr){
     contacts = [];
     var data = JSON.parse(text);
-    for (var i = 0, entry; entry = data.feed.entry[i]; i++) {
-        var contact = {
+	$.each(data.feed.entry, function(entry){
+		 var contact = {
             'name': entry['title']['$t'],
             'id': entry['id']['$t'],
             'emails': []
         };
         
-        for (var j = 0, email; email = entry['gd$email'][j]; j++) {
+		$.each(entry['gd$email'], function(email){
             contact['emails'].push(email['address']);
-        }
+        });
         
         if (!contact['name']) {
             contact['name'] = contact['emails'][0] || "<Unknown>";
         }
         contacts.push(contact);
-    }
+	});
     
     chrome.tabs.create({
         'url': 'contacts.html'
@@ -75,6 +75,6 @@ function logout(){
 };
 
 setIcon();
-chrome.browserAction.onClicked.addListener(getContacts);
-//setpopup('popup.html')
+//chrome.browserAction.onClicked.addListener(getContacts);
+//chrome.browserAction.setPopup({popup :'popup.html'});
 

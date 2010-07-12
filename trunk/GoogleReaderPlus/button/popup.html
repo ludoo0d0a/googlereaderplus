@@ -1,20 +1,46 @@
 <!DOCTYPE html>
 <html>
     <head>
-		<link href="css/popup1.css" type="text/css" rel="stylesheet">
-		<script type="application/javascript" src="lib/cross.js"></script>
-		<script type="application/javascript" src="lib/external.js"></script>
-		<script type="application/javascript" src="popup.js"></script>
-		<title>Popup ReaderPlus</title>
+        <link href="css/popup1.css" type="text/css" rel="stylesheet">
+		<link href="css/reader.css" type="text/css" rel="stylesheet">
+		
+        <script type="application/javascript" src="lib/jquery.min.js"></script>
+        <script type="application/javascript" src="lib/cross.js"></script>
+        <script type="application/javascript" src="lib/external.js"></script>
+		<script type="application/javascript" src="lib/parseuri.js"></script>
+		<script type="application/javascript" src="lib/util.js"></script>
+        <script type="application/javascript" src="popup.js"></script>
+		<script type="application/javascript" src="lib/tiptip/jquery.tipTip.min.js"></script>
+		<link href="lib/tiptip/tipTip.css" type="text/css" rel="stylesheet">
+        <title>Popup ReaderPlus</title>
     </head>
     <body onload="init();">
-        <div id="menu">
-			<div class="item" onClick="button('reader');" title="Google Reader">
-                Google Reader
+        <div id="header">
+            <a id="lreader" href="#">Reader</a>&nbsp;|&nbsp;<a id="lprefs" href="#">Options</a>&nbsp;|&nbsp;<a id="lrefresh" href="#">Refresh</a>
+			<br/>
+			<a id="lprevious" href="#">Previous</a>&nbsp;|&nbsp;<a id="lnext" href="#">Next</a>
+			<span id="nav"></span>
+        </div>
+        <div id="entries">
+            <div id="loading">Loading...</div>
+            <!--
+            <div class="item" onClick="button('reader');" title="Google Reader">
+            Google Reader
             </div>
-			<div class="item" onClick="button('prefs');" title="preferences">
-                Preferences
+            <div class="item" onClick="button('prefs');" title="preferences">
+            Preferences
             </div>
-		</div>
+            -->
+        </div>
     </body>
+	<!--
+<div class="entry entry-${i}"><div class="collapsed">
+<div class="entry-icons"><div class="item-star star link unselectable empty"></div></div>
+<div class="entry-date">${date} </div>
+<div class="entry-main"><a class="entry-original" target="_blank" href="${url}"></a>
+<img class="entry-favicon " title="${title}" src="${icon}"><span class="entry-source-title">${title}</span>
+<div class="entry-secondary"><h2 class="entry-title">${summary}</h2>
+<span class="entry-secondary-snippet"> - <span class="snippet">${snippet}</span></span>
+</div></div></div></div>
+ -->
 </html>
