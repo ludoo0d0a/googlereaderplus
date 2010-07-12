@@ -1,28 +1,20 @@
 <html>
     <head>
         <title>readerplus Background</title>
-        <script type="text/javascript" src="version.js">
-        </script>
-        <script type="text/javascript" src="lib/cross.js">
-        </script>
-        <script type="text/javascript" src="lib/util.js">
-        </script>
-        <script type="text/javascript" src="lib/external.js">
-        </script>
-        <script type="text/javascript" src="features.js">
-        </script>
-        <script type="text/javascript" src="lib/greasekit.js">
-        </script>
-        <script type="text/javascript" src="api/rest.js">
-        </script>
-        <script type="text/javascript" src="worker/workerhelper.js">
-        </script>
-        <script type="text/javascript" src="api/webworkers.js">
-        </script>
-        <script type="text/javascript" src="api/favicons.js">
-        </script>
-        <script type="text/javascript" src="http://www.google.com/jsapi">
-        </script>
+        <script type="text/javascript" src="version.js"></script>
+        <script type="text/javascript" src="lib/cross.js"></script>
+        <script type="text/javascript" src="lib/util.js"></script>
+        <script type="text/javascript" src="lib/external.js"></script>
+        <script type="text/javascript" src="features.js"></script>
+        <script type="text/javascript" src="lib/greasekit.js"></script>
+        <script type="text/javascript" src="api/rest.js"></script>
+        <script type="text/javascript" src="worker/workerhelper.js"></script>
+        <script type="text/javascript" src="api/webworkers.js"></script>
+        <script type="text/javascript" src="api/favicons.js"></script>
+		<script type="text/javascript" src="bg/prefs.js"></script>
+		<script type="text/javascript" src="bg/request.js"></script>
+		<script type="text/javascript" src="bg/tabs.js"></script>
+        <script type="text/javascript" src="http://www.google.com/jsapi"></script>
         <script type="text/javascript">
             //var READING_LIST_RE_ = new RegExp('user/[\\d]+/state/com\\.google/reading-list');
             var reReader = {
@@ -96,7 +88,8 @@
             
             //request, sender, callback
             function onMessageReceived(a, p, cb){
-                if (a.message == "track") {
+				console.log('message='+a.message);
+				if (a.message == "track") {
                     track(a);
                 } else if (a.message == "loadicons") {
                     loadIcons(a, cb);
@@ -106,7 +99,9 @@
                 } else if (a.message == "getprefs") {
                     getPreferences(a, cb);
                 } else if (a.message == "openprefs") {
-                    open_preferences();
+                    opentab({
+                    url: "preferences.html"
+                });
                     sendNull(cb);
                 } else if (a.message == "opentab") {
                     open_tab(a);
@@ -230,17 +225,9 @@
                 }
             }
             
-            var lastTabReader = false;
-            monitorCloseTab();
-            function monitorCloseTab(){
-                //Check if greader were closed
-                mycore.tabs.onRemoved.addListener(function(tabId){
-                    if (lastTabReader && tabId == lastTabReader.id) {
-                        lastTabReader = false;
-                    }
-                });
-            }
             
+            monitorCloseTab();
+			
             function getUnreadCount(){
                 if (lastTabReader) {
                     updateFromTabtitle(lastTabReader);
@@ -331,70 +318,6 @@
                 return count;
             }
             
-            function setPrefs(prefs, cleanall){
-                mycore.storage.setItem('grp_prefs', prefs);
-                if (cleanall) {
-                    mycore.storage.setItem('grp_favicons', '');
-                }
-                runOnSave(prefs);
-            }
-            
-            function setPreferences(a){
-                mycore.storage.clear();
-                mycore.storage.setItem('grp_version', GRP.VERSION);
-                setPrefs(a.prefs, a.cleanall);
-            }
-            
-            function getPrefs(a){
-                var id;
-                //var textPrefs = localStorage.getItem('grp_prefs');
-                //var prefs = (textPrefs) ? JSON.parse(textPrefs) : false;
-                var prefs = mycore.storage.getItem('grp_prefs');
-                prefs = checkPrefs(prefs);
-                return prefs;
-            }
-            
-            function getPreferences(a, cb){
-                initVersion();
-                var prefs = getPrefs();
-                if (cb) {
-                    cb.call(this, {
-                        message: "prefs",
-                        prefs: prefs
-                    });
-                } else {
-                    sendResponse({
-                        message: "prefs",
-                        prefs: prefs
-                    }, cb);
-                }
-                return prefs;
-            }
-            
-            function checkPrefs(prefs){
-                prefs = prefs || {};
-                //set default if not
-                iterate(GRP.scripts, function(id, script){
-                    //options
-                    iterate(script.options, function(option, o){
-                        if (!(o && typeof o === 'object' && o.label)) {
-                            id = script.id + '_' + option;
-                            if (typeof prefs[id] === "undefined") {
-                                prefs[id] = getTypedValue(o);
-                            }
-                        }
-                    });
-                    //shortcuts
-                    iterate(script.shortcuts, function(shortcut, o){
-                        id = script.id + '_key_' + shortcut;
-                        if (typeof prefs[id] === "undefined") {
-                            prefs[id] = o;
-                        }
-                    });
-                }, this, true);
-                checkIconDomains(prefs);
-                return prefs;
-            }
             
             function getTypedValue(o){
                 var text;
@@ -412,181 +335,10 @@
                 }
             }
             
-            
-            function request(a, local, cb){
-                var xhr = new XMLHttpRequest();
-                var method = a.method || 'get';
-                method = method.toLowerCase();
-                var url = a.url;
-                if (a.parameters && (method === 'get')) {
-                    var params = [];
-                    for (var k in a.parameters) {
-                        params.push(k + '=' + encodeURIComponent(a.parameters[k]));
-                    }
-                    var sep = (url.indexOf('?') > 0) ? '&' : '?';
-                    url += sep + params.join('&');
-                }
-                xhr.open(method, url, true);
-                //headers
-                if (a.headers) {
-                    for (var kh in a.headers) {
-                        xhr.setRequestHeader(kh, a.headers[kh]);
-                    }
-                }
-                //a['onload']=true;//force onload
-                var fns = ['readystatechange', 'error', 'load'];
-                var xpath = a.xpath;
-                for (var i = 0, len = fns.length; i < len; i++) {
-                    var name = fns[i];
-                    if (a['on' + name]) {
-                        var f = '' + name;
-                        xhr['on' + f] = function(o){
-                            var xhr = o.target;
-                            if (xhr) {
-                                if (local && typeof a['on' + f] === "function") {
-                                    a['on' + f].call(this, xhr);
-                                } else {
-                                    var res = {
-                                        message: a.callback || "requestdone",
-                                        action: f,
-                                        responseXML: null, //xhr.responseXML,
-                                        responseText: xhr.responseText,
-                                        responseHeaders: xhr.responseHeaders,
-                                        status: xhr.status,
-                                        statusText: xhr.statusText,
-                                        request: a
-                                    };
-                                    if (a.dataType === 'json' && res.responseText) {
-                                        try {
-                                            res.responseJson = JSON.parse(res.responseText);
-                                        } 
-                                        catch (e) {
-                                        }
-                                    }
-                                    if (xpath && xhr.responseXML) {
-                                        res.xml = serializeXml(getElements(xpath, xhr.responseXML));
-                                    }
-                                    sendResponse(res, cb);
-                                }
-                            }
-                        };
-                    }
-                }
-                try {
-                    var typesSend = {
-                        post: true,
-                        put: true,
-                        'delete': true
-                    };
-                    var d = typesSend[method] ? a.data : null;
-                    if (d && typeof d !== 'string') {
-                        d = serializePost(d);
-                    }
-                    xhr.send(d);
-                } 
-                catch (e) {
-                    console.log('Error catched on xhr');
-                    var o = {
-                        message: a.callback || "requestdone",
-                        responseText: e.message || 'Error',
-                        status: (e.name || '') + ' ' + (e.code || 0),
-                        statusText: (e.name || '') + ' ' + (e.code || 0),
-                        action: 'error',
-                        error: e
-                    };
-                    if (local && typeof a.onerror === "function") {
-                        a.onerror.call(this, o);
-                    } else {
-                        sendResponse(o, cb);
-                    }
-                }
-            }
-            
-            //Try to find opened tab before open it
-            function open_tab(a){
-                if (a.search) {
-                    var o = {
-                        search: new RegExp(a.search.replace(/^https?/, 'https?').replace(/#.*$/, '')),
-                        url: a.url
-                    };
-                    selecttab(o, a.selected, a.create || true, a.fn);
-                } else {
-                    opentab(a);
-                }
-            }
-            
             function findreader(selected, create, fn){
                 selecttab(reReader, selected, create, fn);
             }
             
-            function selecttab(a, selected, create, fn){
-                findtab(a, function(tab){
-                    if (tab) {
-                        if (selected) {
-                            mycore.tabs.update(tab.id, {
-                                url: a.url,
-                                selected: true
-                            }, function(tab){
-                                mycore.tabs.executeScript(tab.id, 'hashchange();');
-                            });
-                        }
-                    } else {
-                        if (create) {
-                            a.selected = selected;
-                            opentab(a);
-                        }
-                    }
-                    if (fn && typeof fn === "function") {
-                        fn.call(this, tab);
-                    }
-                });
-            }
-            
-            function findtab(a, fn){
-                mycore.windows.getAll({
-                    populate: true
-                }, function(windows){
-                    var tab = false, found = false;
-                    for (var i = 0, len = windows.length; i < len; i++) {
-                        var window = windows[i];
-                        for (var j = 0, jlen = window.tabs.length; j < jlen; j++) {
-                            tab = window.tabs[j];
-                            var check = false;
-                            if (a.search && a.search.test) {
-                                check = (a.search.test(tab.url));
-                            } else {
-                                check = (tab.url.indexOf(a.search) >= 0);
-                            }
-                            if (check) {
-                                found = true;
-                                fn.call(this, tab);
-                                break;
-                            }
-                        }
-                    }
-                    if (!found) {
-                        fn.call(this, false);
-                    }
-                });
-            }
-            
-            function opentab(a){
-                mycore.tabs.getSelected(null, function(tab){
-                    var o = {
-                        url: a.url,
-                        selected: (a.selected || typeof a.selected === "undefined"),
-                        windowId: a.windowId,
-                        index: a.index || (tab.index + 1)
-                    };
-                    mycore.tabs.create(o);
-                });
-            }
-            
-            function open_preferences(){
-                opentab({
-                    url: "preferences.html"
-                });
-            }
             
             function igtheme(o, cb){
                 if (o.type === 'random') {
@@ -614,20 +366,6 @@
                     });
                 } else {
                     trad();
-                }
-            }
-            
-            function sendResponse(a, cb){
-                if (cb) {
-                    cb(a);
-                } else {
-                    //myport.postMessage(a);
-                }
-            }
-            
-            function sendNull(cb){
-                if (cb) {
-                    cb({});
                 }
             }
             
@@ -665,11 +403,9 @@
                 }
             }
         </script>
-        
     </head>
     <body>
-        <script type="text/javascript" src="prefs/stats.js">
-        </script>
+        <script type="text/javascript" src="bg/stats.js"></script>
 		<script>
             runStats();
         </script>
