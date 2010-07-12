@@ -1,0 +1,65 @@
+
+function setPrefs(prefs, cleanall){
+    mycore.storage.setItem('grp_prefs', prefs);
+    if (cleanall) {
+        mycore.storage.setItem('grp_favicons', '');
+    }
+    runOnSave(prefs);
+}
+
+function setPreferences(a){
+    mycore.storage.clear();
+    mycore.storage.setItem('grp_version', GRP.VERSION);
+    setPrefs(a.prefs, a.cleanall);
+}
+
+function getPrefs(a){
+    var id;
+    //var textPrefs = localStorage.getItem('grp_prefs');
+    //var prefs = (textPrefs) ? JSON.parse(textPrefs) : false;
+    var prefs = mycore.storage.getItem('grp_prefs');
+    prefs = checkPrefs(prefs);
+    return prefs;
+}
+
+function getPreferences(a, cb){
+    initVersion();
+    var prefs = getPrefs();
+    if (cb) {
+        cb.call(this, {
+            message: "prefs",
+            prefs: prefs
+        });
+    } else {
+        sendResponse({
+            message: "prefs",
+            prefs: prefs
+        }, cb);
+    }
+    return prefs;
+}
+
+function checkPrefs(prefs){
+    prefs = prefs || {};
+    //set default if not
+    iterate(GRP.scripts, function(id, script){
+        //options
+        iterate(script.options, function(option, o){
+            if (!(o && typeof o === 'object' && o.label)) {
+                id = script.id + '_' + option;
+                if (typeof prefs[id] === "undefined") {
+                    prefs[id] = getTypedValue(o);
+                }
+            }
+        });
+        //shortcuts
+        iterate(script.shortcuts, function(shortcut, o){
+            id = script.id + '_key_' + shortcut;
+            if (typeof prefs[id] === "undefined") {
+                prefs[id] = o;
+            }
+        });
+    }, this, true);
+    checkIconDomains(prefs);
+    return prefs;
+}
