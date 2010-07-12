@@ -29,7 +29,8 @@ function request(a, local, cb){
                 var xhr = o.target;
                 if (xhr) {
                     if (local && typeof a['on' + f] === "function") {
-                        a['on' + f].call(this, xhr);
+                        var res = enhanceResponse(a, xhr);
+                        a['on' + f].call(this, res);
                     } else {
                         var res = {
                             message: a.callback || "requestdone",
@@ -41,15 +42,7 @@ function request(a, local, cb){
                             statusText: xhr.statusText,
                             request: a
                         };
-                        if (a.dataType === 'json' && res.responseText) {
-                            try {
-                                res.responseJson = JSON.parse(res.responseText);
-                            } catch (e) {
-                            }
-                        }
-                        if (xpath && xhr.responseXML) {
-                            res.xml = serializeXml(getElements(xpath, xhr.responseXML));
-                        }
+                        res = enhanceResponse(a, res);
                         sendResponse(res, cb);
                     }
                 }
@@ -85,6 +78,19 @@ function request(a, local, cb){
     }
 }
 
+function enhanceResponse(a, res){
+    if (a.dataType === 'json' && res.responseText) {
+        try {
+            res.responseJson = JSON.parse(res.responseText);
+        } catch (e) {
+        }
+    }
+    if (xpath && xhr.responseXML) {
+        res.xml = serializeXml(getElements(xpath, xhr.responseXML));
+    }
+	return res;
+}
+
 function sendResponse(a, cb){
     if (cb) {
         cb(a);
@@ -98,3 +104,4 @@ function sendNull(cb){
         cb({});
     }
 }
+
