@@ -85,8 +85,8 @@ function enhanceResponse(a, res){
         } catch (e) {
         }
     }
-    if (xpath && xhr.responseXML) {
-        res.xml = serializeXml(getElements(xpath, xhr.responseXML));
+    if (a.xpath && xhr.responseXML) {
+        res.xml = serializeXml(getElements(a.xpath, xhr.responseXML));
     }
 	return res;
 }
