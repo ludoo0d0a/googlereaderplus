@@ -3,29 +3,6 @@
  */
 var backgroundPage = chrome.extension.getBackgroundPage();
 
-
-
-function button(a){
-    if (a == 'prefs') {
-        call_core('openprefs');
-    } else if (a == 'reader') {
-        call_core('findreader');
-    }
-}
-
-/*
- <link href="https://www.google.com/reader/ui/1619293549-en-scroll.css?hl=en" type="text/css" rel="stylesheet">
- var tpl ='<div class="entry entry-{i}"><div class="collapsed">'+
- '<div class="entry-icons"><div class="item-star star link unselectable empty"></div><div class="read-state-not-kept-unread read-state link unselectable empty"></div></div>'+
- //'<div class="entry-date">{date} </div>'+
- '<div class="entry-main"><a class="entry-original" target="_blank" href="{url}"></a>'+
- '<img class="entry-favicon {iconcls}" title="{origin}" src="{icon}">'+
- //'<span class="entry-source-title">{site}</span>'+
- '<div class="entry-secondary"><h2 class="entry-title">{title}</h2>'+
- //'<span class="entry-secondary-snippet"> - <span class="snippet">{snippet}</span></span>'+
- '</div>'+
- '</div></div></div>';
- */
 var tpl = '<div id="entry-{i}" class="entry">' +
 '<div class="entry-icons entry-star {starcls}" title="Starred item"></div>' +
 '<div class="entry-icons entry-read {readcls}" title="Marked as read"></div>' +
@@ -57,6 +34,11 @@ function init(){
         $('#lnext').click(function(){
             loaditems(++page);
         });
+        $('#lcontacts').click(function(){
+            mycore.extension.sendRequest({
+                message: 'contacts'
+            });
+        });
     }
 }
 
@@ -68,7 +50,7 @@ function loaditems(page, reload){
         console.log('loaditems reload');
         mycore.extension.sendRequest({
             message: 'unread',
-			count:100
+            count: 100
         }, function(o){
             items = o.items;
             displayEntries(items, page);
@@ -79,31 +61,42 @@ function loaditems(page, reload){
     }
 }
 
+var reCategory = /user\/\d+\/state\/com\.google\/(.*)/;
+var reLabel = /user\/\d+\/label\/(.*)/;
+
 function displayEntries(items, page){
     console.log('displayEntries page=' + page);
     page = page || 1;
     page = Math.max(page, 1);
-	var pagesMax = items?Math.round(items.length/pageItems):1;
+    var pagesMax = items ? Math.round(items.length / pageItems) : 1;
     page = Math.min(page, 10);
-	$('#nav').html('Page '+page+'/'+pagesMax);
+    $('#nav').html('Page ' + page + '/' + pagesMax);
     var index = 0, min = pageItems * (page - 1) + 1, max = pageItems * page, html = '';
     console.log('min=' + min + 'max=' + max);
-    var reCategory = /\/user\\d+\/state\/com.google\/(.*)/;
-    var reLabel = /\/user\\d+\/label\/(.*)/;
     $.each(items, function(id, item){
         ++index;
         if (index < min || index > max) {
             return;
         }
         var url = item.alternate[0].href;
-		item.actions=item.actions||{};
+        item.actions = item.actions || {};
         var starred = item.actions.starred || false, read = item.actions.read || false, categories = [], labels = [];
+        console.log('---');
         $.each(item.categories, function(i, cat){
             var m = reCategory.exec(cat);
+            console.log('cat=' + cat);
+            if (cat.indexOf('starred') > 0) {
+                cat = cat;
+            }
+            
             if (m && m[1]) {
                 categories.push(m[1]);
-                starred = ('starred' === m[1]);
-                read = ('read' === m[1]);
+                if ('starred' === m[1]) {
+                    starred = true;
+                }
+                if ('read' === m[1]) {
+                    read = true;
+                }
                 console.log('starred=' + starred + ' ' + m[1]);
             }
             /*else{
@@ -146,34 +139,37 @@ function displayEntries(items, page){
         var el = entry.find('.entry-' + action);
         var b = toggleClass(el, 'item-' + action, 'item-' + action + '-active');
         var itm = getEntryItem(entry);
-		itm.actions[action] = b;
+        itm.actions[action] = b;
         console.log('Mark as ' + action);
         console.log(itm)
         mycore.extension.sendRequest({
             message: 'mark',
-			id:itm.id, 
-			streamId: itm.origin.streamId, 
-			action:action, 
-			status:b
+            id: itm.id,
+            streamId: itm.origin.streamId,
+            action: action,
+            status: b
         }, function(o){
-            console.log('mark '+action+' done for '+itm.id);
+            console.log('mark ' + action + ' done for ' + itm.id);
         });
     };
     
+    /*
+     //TODO edit action still not work
     $('#entries .entry-read').click(function(e){
         markas(e, 'read');
     });
-	function markasread(e){
+    function markasread(e){
         markas(e, 'star');
     }
     $('#entries .entry-star').click(markasread);
     $('.entry-original').click(markasread);
-    
+    */
+	
     $(".entry-original").tipTip({
-        maxWidth: "auto",
+        maxWidth: "400px",
         defaultPosition: 'top',
         edgeOffset: -100,
-		fadeIn:50
+        fadeIn: 50
     });
 }
 
@@ -203,7 +199,7 @@ function toggleClass(el, cls1, cls2){
 function getEntryItem(el){
     var id = el[0].id;
     var index = parseInt(id.replace(/^entry-/, ''), 10);
-    var itm = (items)?items[index]:false;
+    var itm = (items) ? items[index] : false;
     return itm;
 }
 

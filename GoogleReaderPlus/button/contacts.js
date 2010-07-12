@@ -33,14 +33,14 @@ function setIcon(){
 function onContacts(text, xhr){
     contacts = [];
     var data = JSON.parse(text);
-	$.each(data.feed.entry, function(entry){
+	jQuery.each(data.feed.entry, function(i, entry){
 		 var contact = {
             'name': entry['title']['$t'],
             'id': entry['id']['$t'],
             'emails': []
         };
         
-		$.each(entry['gd$email'], function(email){
+		jQuery.each(entry['gd$email'], function(j,email){
             contact['emails'].push(email['address']);
         });
         

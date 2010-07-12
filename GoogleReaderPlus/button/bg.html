@@ -11,7 +11,10 @@
         <script type="text/javascript" src="chrome_ex_oauthsimple.js"></script>
         <script type="text/javascript" src="chrome_ex_oauth.js"></script>
 		<script type="text/javascript" src="contacts.js"></script>
+		<script type="application/javascript" src="lib/jquery.min.js"></script>
         <script type="application/javascript">
+			jQuery.noConflict();
+			
 			var SIGNED_OUT_BADGE_COLOR_ = {
                 color: [190, 190, 190, 230]
             };
@@ -72,6 +75,8 @@
 					});
                 }else if (a.message == "mark") {
                     mark(a, cb);
+                }else if (a.message == "contacts") {
+                    getContacts();
                 }
             }
         </script>
