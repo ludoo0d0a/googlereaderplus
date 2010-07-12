@@ -19,6 +19,14 @@ GRP.general = function(prefs, langs, ID, SL, lang){
         insertAfter(el, ref);
         entries.style.height = (getStyle(entries, 'height') + h) + 'px';
     }
+	if (prefs.general_fixdefault) {
+		//#253
+		var ws={pt:200,de:190,ru:197,nl:190};
+		if (ws[lang]){
+        	var css='#quickadd{width:'+ws[lang]+'px !important;}';
+        	GM_addStyle(css, 'rps_fixdefault_'+lang);
+		}
+    }
     if (prefs.general_topcurrent) {
         function updateSpacer(){
             var scrollspacer = get_id('scrollspacer');
