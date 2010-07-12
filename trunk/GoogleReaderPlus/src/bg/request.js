@@ -20,6 +20,7 @@ function request(a, local, cb){
     }
     //a['onload']=true;//force onload
     var fns = ['readystatechange', 'error', 'load'];
+    var xpath = a.xpath;
     for (var i = 0, len = fns.length; i < len; i++) {
         var name = fns[i];
         if (a['on' + name]) {
@@ -84,8 +85,8 @@ function enhanceResponse(a, res){
         } catch (e) {
         }
     }
-    if (a.xpath && xhr.responseXML) {
-        res.xml = serializeXml(getElements(a.xpath, xhr.responseXML));
+    if (xpath && xhr.responseXML) {
+        res.xml = serializeXml(getElements(xpath, xhr.responseXML));
     }
 	return res;
 }
