@@ -44,11 +44,17 @@ GRP.fixlayout = function(prefs, langs, ID, SL, lang){
 	
 	//fix image width
 	var css = ".entry-body img {max-width:100%;}";
-	GM_addStyle(css);
 	
 	//fix width of entry
-	GM_addStyle(".entry .entry-body, .entry .entry-title{ display: inline !important; max-width: 100% !important; }");
+	css+".entry .entry-body, .entry .entry-title{ display: inline !important; max-width: 100% !important; }";
 
+	//#253 fix width of add localized subscription
+	var ws={pt:200,de:190,ru:197,nl:190};
+	if (ws[lang]){
+    	css+='#quickadd{width:'+ws[lang]+'px !important;}';
+	}
+	GM_addStyle(css, 'rps_fixlayout');
+	
 	var e = document.getElementById('entries');
 	if (e) {
 		e.addEventListener('DOMNodeInserted', function() {

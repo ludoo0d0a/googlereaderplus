@@ -520,7 +520,7 @@ function getShortcutKey(script, shortcut, prefs){
 }
 
 function getScriptObject(id){
-    return GRP.scripts[id];   
+    return GRP.scripts[id];
 }
 
 function toggle(el){
@@ -561,28 +561,27 @@ function addMenuItems(menu, items){
 }
 
 function addReaderMenuItem(text, cb, checkbox){
-   var html = text;
-   GM_addStyle('.grp-menu{background: transparent url(/reader/ui/3607832474-entry-action-icons.png) no-repeat;padding: 1px 8px 1px 16px;}'+
-'.grp-menu-checked{background-position:-80px -160px;}'+
-'.grp-menu-unchecked{background-position:-64px -128px;}'
-,'grp_menusettings');
-
-   if (checkbox){
-   	html='<span class="grp-menu grp-menu-unchecked">'+text+'</span>';
-   }
-	
-	dh('gbg', 'a', {
+    var html = text;
+    GM_addStyle('.grp-menu{background: transparent url(/reader/ui/3607832474-entry-action-icons.png) no-repeat;padding: 1px 8px 1px 16px;}' +
+    '.grp-menu-checked{background-position:-80px -160px;}' +
+    '.grp-menu-unchecked{background-position:-64px -128px;}', 'grp_menusettings');
+    
+    if (checkbox) {
+        html = '<span class="grp-menu grp-menu-unchecked">' + text + '</span>';
+    }
+    
+    dh('gbg', 'a', {
         href: '#',
         cls: 'gb2',
         html: html
     }, {
         click: function(e){
-			if (checkbox) {
-				var span = e.target;
-				addClassIf(span, 'grp-menu-checked', 'grp-menu-unchecked');
-			}
-			cb(e);
-		}
+            if (checkbox) {
+                var span = e.target;
+                addClassIf(span, 'grp-menu-checked', 'grp-menu-unchecked');
+            }
+            cb(e);
+        }
     });
 }
 
@@ -612,7 +611,9 @@ function getLanguage(){
 }
 
 function getSelectedDir(node){
-    var o = {url:''};
+    var o = {
+        url: ''
+    };
     //a.tree-link-selected
     var el = node || getFirstElementByClassName(document, 'tree-link-selected');
     if (el) {
@@ -632,8 +633,8 @@ function getSelectedDir(node){
             };
         }
     }
-	o.url = o.url.replace('/reader/view', '');
-	
+    o.url = o.url.replace('/reader/view', '');
+    
     return o;
 }
 
@@ -650,17 +651,58 @@ function getMetadata(){
 
 
 /*
- * Sublime theme methods
+ * Various useful methods
  */
 function sublime_update(){
-	//hide searh
-	var s = get_id('search');
-	hide(s);
-	s.addEventListener('click', function (e) {
+    //hide searh
+    var s = get_id('search');
+    hide(s);
+    s.addEventListener('click', function(e){
         e.stopPropagation();
-    } , false);
-	//new search
-	dh(false, 'searchicon', {id:'searchicon', html:'SEARCH'}, {click:function(){
-		toggle(s);
-	}});
+    }, false);
+    //new search
+    dh(false, 'searchicon', {
+        id: 'searchicon',
+        html: 'SEARCH'
+    }, {
+        click: function(){
+            toggle(s);
+        }
+    });
+}
+
+function showallfolders(){
+    var saf = 'grp_showallfolders';
+    var elsaf = get_id(saf);
+    if (elsaf) {
+        remove(elsaf);
+    } else {
+        GM_addStyle('.folder li{display:block !important;}', saf);
+    }
+}
+
+function removeReadItems(ent, deleteMarkAsRead){
+    var currentry = ent || getCurrentEntry();
+	
+	if (deleteMarkAsRead) {
+		var entries = get_id('entries');
+		var items = entries.getElementsByClassName('read');
+		foreach(items, function(item){
+			if (item && currentry !== item) {
+				console.log('remove ' + item.className);
+				remove(item);
+			}
+		});
+	} else {
+		entry = currentry.previousSibling;
+		while (entry) {
+			var prev = entry.previousSibling;
+			console.log('Remove ' + entry.className)
+			remove(entry);
+			entry = prev;
+		}
+	}
+	setTimeout(function(){
+    	jump(currentry, true);
+	},200);
 }

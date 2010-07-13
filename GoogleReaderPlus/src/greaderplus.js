@@ -104,19 +104,16 @@
                 }
             );
 			addReaderMenuItem(getText(this.lang, 'menu', 'showallfolders', 'en', 'Show all folders'), 
-                function(){
-                    var saf = 'grp_showallfolders';
-					var elsaf = get_id(saf);
-					if (elsaf) {
-						remove(elsaf);
-					}else{
-						GM_addStyle('.folder li{display:block !important;}', saf);
-					}
-                }, true
+                showallfolders, true
             );
 			addReaderMenuItem(getText(this.lang, 'general', 'menu_clearcache', 'en', 'Clear cache'), 
                 function(){
                     clearcache(this.lang);
+                }
+            );
+			addReaderMenuItem(getText(this.lang, 'general', 'menu_removeread', 'en', 'Remove read items'), 
+                 function(){
+                    removeReadItems();
                 }
             );
         }
