@@ -1,46 +1,66 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <link href="css/popup1.css" type="text/css" rel="stylesheet">
-		<link href="css/reader.css" type="text/css" rel="stylesheet">
-		
+        <link href="css/reader.css" type="text/css" rel="stylesheet">
         <script type="application/javascript" src="lib/jquery.min.js"></script>
         <script type="application/javascript" src="lib/cross.js"></script>
         <script type="application/javascript" src="lib/external.js"></script>
-		<script type="application/javascript" src="lib/parseuri.js"></script>
-		<script type="application/javascript" src="lib/util.js"></script>
+        <script type="application/javascript" src="lib/parseuri.js"></script>
+        <script type="application/javascript" src="lib/util.js"></script>
+        <script type="application/javascript" src="lib/tooltip.js"></script>
         <script type="application/javascript" src="popup.js"></script>
-		<script type="application/javascript" src="lib/tiptip/jquery.tipTip.min.js"></script>
-		<link href="lib/tiptip/tipTip.css" type="text/css" rel="stylesheet">
         <title>Popup ReaderPlus</title>
     </head>
-    <body onload="init();">
+    <body>
         <div id="header">
             <a id="lreader" href="#">Reader</a>&nbsp;|&nbsp;<a id="lprefs" href="#">Options</a>&nbsp;|&nbsp;<a id="lrefresh" href="#">Refresh</a>
-			<br/>
-			<a id="lprevious" href="#">Previous</a>&nbsp;|&nbsp;<a id="lnext" href="#">Next</a>&nbsp;|&nbsp;<a id="lcontacts" href="#">Contacts</a>
-			<span id="nav"></span>
+            <span id="nav">
+        </div>
         </div>
         <div id="entries">
-            <div id="loading">Loading...</div>
+            <div id="entry-78" class="entry">
+                <span class="entry-icons entry-star item-star" title="Starred item">
+                </span>
+                <span class="entry-icons entry-read item-read" title="Marked as read">
+                </span>
+				 <div class="entry-title">
+                <img class="entry-favicon  favicon" title="Сайт Президента России: Все материалы" src="http://pageicons.appspot.com/favicons?url=news.kremlin.ru">
+				
+				<a class="entry-original" target="_blank" href="http://news.kremlin.ru/acts/8330">
+                    
+                        Представление кандидатуры Татьяны Хомицкой для назначения на должность судьи Верхо...
+                    
+                </a>
+				</div>
+            </div>
+			
+			<div id="entry-79" class="entry">
+                <span class="entry-icons entry-star item-star" title="Starred item">
+                </span>
+                <span class="entry-icons entry-read item-read" title="Marked as read">
+                </span>
+				 <div class="entry-title">
+                <img class="entry-favicon  favicon" title="Сайт Президента России: Все материалы" src="http://pageicons.appspot.com/favicons?url=news.kremlin.ru">
+				
+				<a class="entry-original" target="_blank" href="http://news.kremlin.ru/acts/8330">
+                    
+                        Представление кандидатуры Татьяны Хомицкой для назначения на должность судьи Верхо...
+                    
+                </a>
+				</div>
+            </div>
+        </div>
+        <!--
+        <div id="entries">
+        <div id="loading">Loading...</div>
+        </div>
+        -->
+        <div id="footer">
+            <a id="lprevious" href="#">Previous</a>&nbsp;|&nbsp;<a id="lnext" href="#">Next</a>
             <!--
-            <div class="item" onClick="button('reader');" title="Google Reader">
-            Google Reader
-            </div>
-            <div class="item" onClick="button('prefs');" title="preferences">
-            Preferences
-            </div>
-            -->
+            <br/><a id="lcontacts" href="#">Contacts</a>-->
         </div>
     </body>
-	<!--
-<div class="entry entry-${i}"><div class="collapsed">
-<div class="entry-icons"><div class="item-star star link unselectable empty"></div></div>
-<div class="entry-date">${date} </div>
-<div class="entry-main"><a class="entry-original" target="_blank" href="${url}"></a>
-<img class="entry-favicon " title="${title}" src="${icon}"><span class="entry-source-title">${title}</span>
-<div class="entry-secondary"><h2 class="entry-title">${summary}</h2>
-<span class="entry-secondary-snippet"> - <span class="snippet">${snippet}</span></span>
-</div></div></div></div>
- -->
 </html>

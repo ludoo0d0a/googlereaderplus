@@ -495,10 +495,25 @@ function removeClass(el, classname){
     el.className = s.join(' ').trim();
 //el.className = el.className.replace(classname, '').trim();
 }
-
+/*
 function toggleClass(el, classDelete, classAdd){
     removeClass(el, classDelete);
     addClass(el, classAdd);
+}
+*/
+function toggleClass(el, cls1, cls2, show){
+    var b = false;
+	if(typeof show ==='undefined'){
+		show=el.hasClass(cls2);
+	}
+    if (show) {
+        el.removeClass(cls2).addClass(cls1);
+        b = false;
+    } else {
+		el.removeClass(cls1).addClass(cls2);
+        b = true;
+    }
+    return b;
 }
 
 function fireResizeDefer(){
