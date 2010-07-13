@@ -6,6 +6,16 @@
  * 
  */
 
+/*
+ * Manifest permissions : 
+ */
+/*
+	"http://www.google.com/m8/feeds/*",
+    "https://www.google.com/accounts/OAuthGetRequestToken",
+    "https://www.google.com/accounts/OAuthAuthorizeToken",
+    "https://www.google.com/accounts/OAuthGetAccessToken"
+*/
+	
 var DOCLIST_SCOPE = 'https://docs.google.com/feeds';
 var DOCLIST_FEED = DOCLIST_SCOPE + '/default/private/full/';
 var CONTACTS_SCOPE = 'http://www.google.com/m8/feeds/';
