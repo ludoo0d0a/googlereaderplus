@@ -1,14 +1,19 @@
 /**
  * @author Valente
  */
-$(document).ready(function(){
-    if (location.protocol === 'file:') {
-        tooltips();
-    } else {
-        init();
-    }
-});
+var bgPage = chrome.extension.getBackgroundPage();
 var g = chrome.i18n.getMessage;
+
+var opendirect = bgPage.getPref('opendirect');
+if (opendirect) {
+    mycore.extension.sendRequest({
+			message: 'core',
+			action:'findreader'
+	});
+	window.close();
+} else {
+    $(document).ready(startDom);
+}
 
 var tpl = '<div id="entry-{i}" class="entry">' +
 '<span class="entry-icons entry-star {starcls}" title="' +
@@ -22,55 +27,62 @@ g("mark_as_read") +
 '<a class="entry-original" target="_blank" href="{url}"{atitle}>{title}</a>' +
 '</div>' +
 '</div>';
-function init(){
-    var opendirect = chrome.extension.getBackgroundPage().getPref('general_opendirect');
-    if (opendirect) {
-        window.close();
-        call_core('findreader');
-    } else {
-        $('.i18n').each(function(i, el){
-            var t = g(el.id);
-            if (t) {
-                $(el).text(t);
-            }
-        });
-        
-        //Fill data feed
-        loaditems(1, true);
-        
-        $('#lprefs').click(function(){
-            var tim=setTimeout(function(){
-				$('#lprefs').addClass('link-off');
-				msg(g('needreaderplus'));
-			},2000);
-			call_core('openprefs', function(){
-                console.log('ReaderPlus found');
-				clearTimeout(tim);
-                //Enhance Reader link
-                $('#lreader').click(function(){
-                    call_core('findreader');
-                });
-            });
-        });
-        $('#lrefresh').click(function(){
-            loaditems(1, true);
-        });
-        $('#lprevious').click(function(){
-            if (!$(this).hasClass('link-off')) {
-                loaditems(--page);
-            }
-        });
-        $('#lnext').click(function(){
-            if (!$(this).hasClass('link-off')) {
-                loaditems(++page);
-            }
-        });
-        $('#lcontacts').click(function(){
+function startDom(){
+	$('.i18n').each(function(i, el){
+        var t = g(el.id);
+        if (t) {
+            $(el).text(t);
+        }
+    });
+    
+    //Fill data feed
+    loaditems(1, true);
+    
+	$('#loptions').attr('title', g('needreaderplus'));
+    $('#loptions').click(function(){
+        if (!$(this).hasClass('link-off')) {
             mycore.extension.sendRequest({
-                message: 'contacts'
-            });
+					message: 'core',
+					action:'openprefs'
+			});
+        }
+    });
+	
+    $('#lrefresh').click(function(){
+        loaditems(1, true);
+    });
+    $('#lprevious').click(function(){
+        if (!$(this).hasClass('link-off')) {
+            loaditems(--page);
+        }
+    });
+    $('#lnext').click(function(){
+        if (!$(this).hasClass('link-off')) {
+            loaditems(++page);
+        }
+    });
+    $('#lcontacts').click(function(){
+        mycore.extension.sendRequest({
+            message: 'contacts'
         });
-    }
+    });
+	
+	//$(document).keypress(function(e){
+	$(document).keydown(function(e){
+		var w = e.keyCode;
+        if (w == 39 || w == 40 || w == 34) {
+            //right,down,pagedown
+			if (!$('#lnext').hasClass('link-off')) {
+	            loaditems(++page);
+	        }
+        }else if (w == 37 || w == 38 || w == 33) {
+            //left,up,pageup
+			if (!$('#lprevious').hasClass('link-off')) {
+	            loaditems(--page);
+	        }
+        };
+    });
+    
 }
 
 var URL_FAVICON = "http://pageicons.appspot.com/favicons?url=";
@@ -85,9 +97,13 @@ function loaditems(page, reload){
             if (o && o.items) {
                 items = o.items;
                 displayEntries(items, page);
+				if (o.GUID_CORE) {
+					//ReaderPlus detected
+					$('#loptions').removeClass('link-off').attr('title', '');
+				}
             } else {
                 //not logged
-                msg( g('notlogged'));
+                msg(g('notlogged'));
             }
         });
     } else {
@@ -96,8 +112,8 @@ function loaditems(page, reload){
 }
 
 function msg(txt){
-	$('#entries').html("<div id='loading'>" + txt + "</div>");
-	$('.tooltip').hide();
+    $('#entries').html("<div id='loading'>" + txt + "</div>");
+    $('.tooltip').remove();
 }
 
 var reCategory = /user\/\d+\/state\/com\.google\/(.*)/;
@@ -108,7 +124,7 @@ function displayEntries(items, page){
     page = Math.max(page, 1);
     var pagesMax = items ? Math.round(items.length / pageItems) : 1;
     page = Math.min(page, 10);
-    $('#nav').html(g('page', [page , pagesMax]));
+    $('#nav').html(g('page', [page, pagesMax]));
     
     toggleClass($('#lnext'), 'link-on', 'link-off', page < pagesMax);
     toggleClass($('#lprevious'), 'link-on', 'link-off', page > 1);

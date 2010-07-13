@@ -1,7 +1,7 @@
 {
   "name": "Reader Plus Toolbar button",
   "_name": "__MSG_extension_name__",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "Add a button with icon for Google Reader Plus in Chrome Toolbar",
   "_description": "__MSG_extension_description__",
   "icons": { 
@@ -15,7 +15,7 @@
   "browser_action": {
     "default_icon": "images/19.png",
 	"default_title": "__MSG_browser_action_tooltip_default__",
-	"popup":"popup.html"	
+	"popup":"popup.html"
   },
   "content_scripts": [
     {
@@ -27,9 +27,7 @@
   ],
   "permissions": [
     "tabs",
-	"http://www.google.com/m8/feeds/*",
-    "https://www.google.com/accounts/OAuthGetRequestToken",
-    "https://www.google.com/accounts/OAuthAuthorizeToken",
-    "https://www.google.com/accounts/OAuthGetAccessToken"
+	"http://www.google.com/reader/*",
+	"https://www.google.com/reader/*"
   ]
 }

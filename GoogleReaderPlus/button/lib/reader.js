@@ -1,4 +1,4 @@
-var _BASE_URL = "http://www.google.com/reader";
+var _BASE_URL = "https://www.google.com/reader";
 var api_urls = {
     subscriptions: "/api/0/stream/contents/user/-/pref/com.google/subscriptions&client=readerplus",
     unreadcount: "/api/0/unread-count?output=json&refresh=true&client=readerplus",
