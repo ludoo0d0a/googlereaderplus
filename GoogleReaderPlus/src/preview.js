@@ -180,9 +180,7 @@ GRP.preview = function(prefs, langs, ID){
         }
     }
     function isSiteLocked(url){
-        /*if (/www\.zdnet\.fr/.test(url) || /www\.lefigaro\.fr/.test(url) || /www\.chauffeurdebuzz\.com/.test(url)){
-         return true;
-         }*/
+		//Site doesn't allow to be iframe embedded (reopen themself in the main window opener) 
         return false;
     }
     function cleanHtml(html, url){

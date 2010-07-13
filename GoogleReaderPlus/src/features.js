@@ -237,6 +237,7 @@ GRP.scripts = {
     favicons: {
         name: "Favicons",
         category: 'icons',
+		status: 'updated',
         options: {
             providerpageicons: false,
             sidebaronly: false,
