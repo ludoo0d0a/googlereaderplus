@@ -59,5 +59,26 @@
   },
   "needreaderplus":{
   	"message": "<a href='http://goo.gl/bswm' target='_blank'>Reader Plus</a> doit être installé..."
-  }
+  },
+  "feeditems":{
+  	"message": "$title$",
+	"placeholders": {
+	    "title": {
+	      "content": "$1",
+	      "example": "My feed"
+	    }
+	  }
+  },
+  "labelitems":{
+  	"message": "Label $label$",
+	"placeholders": {
+	    "label": {
+	      "content": "$1",
+	      "example": "video"
+	    }
+	  }
+  },
+  "unreaditems":{
+  	"message": "Unread items"
+  } 
 }
