@@ -1319,7 +1319,6 @@ function getBoolean(val){
 	return (val && (val===true || val.toLowerCase()==='true'));
 }
 
-
 function cleanHTML(html){
   return html.replace(/<[^>]*>/gi,'');
 }

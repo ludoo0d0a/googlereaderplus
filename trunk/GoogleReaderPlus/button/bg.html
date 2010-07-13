@@ -5,17 +5,63 @@
         <script type="application/javascript" src="lib/greasekit.js"></script>
         <script type="application/javascript" src="lib/cross.js"></script>
         <script type="application/javascript" src="lib/external.js"></script>
-		<script type="application/javascript" src="lib/util.js"></script>
-		<script type="application/javascript" src="bg/request.js"></script>
-		<script type="application/javascript" src="lib/reader.js"></script>
+        <script type="application/javascript" src="lib/util.js"></script>
+        <script type="application/javascript" src="bg/request.js"></script>
+        <script type="application/javascript" src="lib/reader.js"></script>
+        <!--
         <script type="text/javascript" src="chrome_ex_oauthsimple.js"></script>
         <script type="text/javascript" src="chrome_ex_oauth.js"></script>
-		<script type="text/javascript" src="contacts.js"></script>
-		<script type="application/javascript" src="lib/jquery.min.js"></script>
+        <script type="text/javascript" src="contacts.js"></script>
+        --><script type="application/javascript" src="lib/jquery.min.js"></script>
         <script type="application/javascript">
-			jQuery.noConflict();
-			
-			var SIGNED_OUT_BADGE_COLOR_ = {
+            jQuery.noConflict();
+            
+            mycore.extension.onRequest.addListener(onMessageReceived);
+            mycore.extension.onRequestExternal.addListener(function(request, sender, sendResponse){
+                if (request.keypass === "##ReaderPlus" && request.message) {
+                    console.log('ICON onRequestExternal id=' + sender.id+ ' '+request.message);
+					//GUID_CORE = sender.id;
+                    console.log('ICON set GUID_CORE= ' + GUID_CORE);
+                    if (request.message === 'updateicon') {
+                        var a = request.options;
+                        if (a) {
+                            updateIcon(a.logged, a.text);
+                        }
+                    } else if (request.message === 'version') {
+                        console.log('version: ' + GRPP.VERSION);
+                        sendResponse(window.GRPP.VERSION);
+                    } else if (request.message === 'prefs') {
+                        prefs = request.options.prefs;
+						GM_setValue('iconprefs', prefs);
+                    }
+                }
+            });
+            
+            function onMessageReceived(a, p, cb){
+                console.log('message=' + a.message);
+                if (a.message == "unread") {
+                    getunread(a, function(r){
+                        updateIcon(!!r);
+                        if (cb) {
+                            r = r || {};
+                            r.GUID_CORE = GUID_CORE;
+                            cb(r);
+                        }
+                    });
+                } else if (a.message == "mark") {
+                    mark(a, cb);
+                } else if (a.message === 'core') {
+                    call_core(a.action, a.options, a.callback);
+                }
+                /*else if (a.message == "contacts") {
+                
+                 getContacts();
+                
+                 }*/
+                
+            }
+            
+            var SIGNED_OUT_BADGE_COLOR_ = {
                 color: [190, 190, 190, 230]
             };
             var SIGNED_IN_BADGE_COLOR_ = {
@@ -43,40 +89,6 @@
                     chrome.browserAction.setBadgeText({
                         text: text
                     });
-                    
-                }
-            }
-            
-            mycore.extension.onRequest.addListener(onMessageReceived);
-            mycore.extension.onRequestExternal.addListener(function(request, sender, sendResponse){
-                if (sender.id === GUID_CORE && request.message) {
-                    if (request.message === 'updateicon') {
-                        var a = request.options;
-                        if (a) {
-                            updateIcon(a.logged, a.text);
-                        }
-                    } else if (request.message === 'version') {
-                        console.log('version: ' + GRPP.VERSION);
-                        sendResponse(window.GRPP.VERSION);
-                    } else if (request.message === 'prefs') {
-                        GM_setValue('iconprefs', request.options.prefs);
-                    }
-                }
-            });
-            
-            function onMessageReceived(a, p, cb){
-                console.log('message=' + a.message);
-                if (a.message == "unread") {
-                    getunread(a, function(r){
-						updateIcon(!!r);
-						if (cb) {
-							cb(r);
-						}
-					});
-                }else if (a.message == "mark") {
-                    mark(a, cb);
-                }else if (a.message == "contacts") {
-                    getContacts();
                 }
             }
         </script>
