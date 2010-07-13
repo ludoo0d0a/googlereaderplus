@@ -19,9 +19,6 @@
             mycore.extension.onRequest.addListener(onMessageReceived);
             mycore.extension.onRequestExternal.addListener(function(request, sender, sendResponse){
                 if (request.keypass === "##ReaderPlus" && request.message) {
-                    console.log('ICON onRequestExternal id=' + sender.id+ ' '+request.message);
-					//GUID_CORE = sender.id;
-                    console.log('ICON set GUID_CORE= ' + GUID_CORE);
                     if (request.message === 'updateicon') {
                         var a = request.options;
                         if (a) {
@@ -38,7 +35,6 @@
             });
             
             function onMessageReceived(a, p, cb){
-                console.log('message=' + a.message);
                 if (a.message == "unread") {
                     getunread(a, function(r){
                         updateIcon(!!r);
