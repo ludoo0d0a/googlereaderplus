@@ -24,8 +24,10 @@
             };
             mycore.extension.onRequest.addListener(onMessageReceived);
             mycore.extension.onRequestExternal.addListener(function(request, sender, sendResponse){
-                if (sender.id === GUID_ICON) {
-                    onMessageReceived(request, false, sendResponse);
+				if (request.keypass === "##ReaderPlusIcon") {
+                    console.log('CORE onRequestExternal id=' + sender.id+ ' '+request.message);
+					onMessageReceived(request, false, sendResponse);
+					//GUID_ICON = sender.id;
                 }
             });
             
@@ -100,8 +102,8 @@
                     getPreferences(a, cb);
                 } else if (a.message == "openprefs") {
                     opentab({
-                    url: "preferences.html"
-                });
+	                    url: "preferences.html"
+	                });
                     sendNull(cb);
                 } else if (a.message == "opentab") {
                     open_tab(a);
@@ -190,11 +192,12 @@
             var monitorId;
             function monitorIcon(mprefs){
                 var prefs = mprefs || getPrefs();
+				if (monitorId) {
+                       window.clearInterval(monitorId);
+                }
                 if (prefs && prefs.general_counter) {
                     getUnreadCount();
-                    if (monitorId) {
-                        window.clearInterval(monitorId);
-                    }
+                    
                     monitorId = window.setInterval(function(){
                         getUnreadCount();
                     }, 2000);
@@ -203,8 +206,11 @@
             
             function sendPrefsToIcon(mprefs){
                 var prefs = mprefs || getPrefs();
+				var iconprefs= {
+					opendirect:prefs.general_opendirect||false
+				};
                 call_icon('prefs', {
-                    prefs: prefs
+                    prefs: iconprefs
                 }, function(){
                     //
                 });
@@ -407,7 +413,24 @@
     <body>
         <script type="text/javascript" src="bg/stats.js"></script>
 		<script>
-            runStats();
+            //runStats();
+			
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-183120-12']);
+    _gaq.push(['_trackPageview']);
+    
+    GRP = GRP || {};
+    GRP.useStats = true;
+    console.log('track ON');
+    
+    //http://code.google.com/chrome/extensions/tut_analytics.html
+    (function(){
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = 'https://ssl.google-analytics.com/ga.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+    })();
         </script>
     </body>
 </html>
