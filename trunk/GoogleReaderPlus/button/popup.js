@@ -1,17 +1,24 @@
 /**
  * @author Valente
  */
-var backgroundPage = chrome.extension.getBackgroundPage();
+$(document).ready(function(){
+    if (location.protocol === 'file:') {
+		tooltips();
+	} else {
+		init();
+	}
+});
 
 var tpl = '<div id="entry-{i}" class="entry">' +
-'<div class="entry-icons entry-star {starcls}" title="Starred item"></div>' +
-'<div class="entry-icons entry-read {readcls}" title="Marked as read"></div>' +
+'<span class="entry-icons entry-star {starcls}" title="Starred item"></span>' +
+'<span class="entry-icons entry-read {readcls}" title="Marked as read"></span>' +
+'<div class="entry-title">'+
 '<img class="entry-favicon {iconcls}" title="{origin}" src="{icon}">' +
-'<a class="entry-original" target="_blank" href="{url}" title="{summary}">' +
-'<span class="entry-title">{i}-{title}</span>' +
-'</a></div>';
+'<a class="entry-original" target="_blank" href="{url}"{atitle}>{title}</a>' +
+'</div>'+
+'</div>';
 function init(){
-    var opendirect = backgroundPage.getPref('general_opendirect');
+    var opendirect = chrome.extension.getBackgroundPage().getPref('general_opendirect');
     if (opendirect) {
         window.close();
         call_core('findreader');
@@ -29,10 +36,14 @@ function init(){
             loaditems(1, true);
         });
         $('#lprevious').click(function(){
-            loaditems(--page);
+            if (!$(this).hasClass('link-off')) {
+				loaditems(--page);
+			}
         });
         $('#lnext').click(function(){
-            loaditems(++page);
+            if (!$(this).hasClass('link-off')) {
+				loaditems(++page);
+			}
         });
         $('#lcontacts').click(function(){
             mycore.extension.sendRequest({
@@ -71,6 +82,10 @@ function displayEntries(items, page){
     var pagesMax = items ? Math.round(items.length / pageItems) : 1;
     page = Math.min(page, 10);
     $('#nav').html('Page ' + page + '/' + pagesMax);
+	
+	toggleClass($('#lnext'), 'link-on', 'link-off', page<pagesMax);
+	toggleClass($('#lprevious'), 'link-on', 'link-off', page>1);
+	
     var index = 0, min = pageItems * (page - 1) + 1, max = pageItems * page, html = '';
     console.log('min=' + min + 'max=' + max);
     $.each(items, function(id, item){
@@ -111,14 +126,22 @@ function displayEntries(items, page){
             date: '', //item.published,
             url: url,
             icon: ((item.enclosure && item.enclosure.href) ? item.enclosure.href : getFavicon(url)),
-            title: ellipsis(item.title, 85),
-            summary: ((item.summary) ? cleanHTML(item.summary.content) : ''),
+            //title: ellipsis(item.title, 85),
+			title: item.title,
+            summary: '',
             origin: (item.origin) ? item.origin.title : '',
             //categories:categories,
             //labels:labels,
             starcls: (starred) ? 'item-star-active' : 'item-star',
             readcls: (read) ? 'item-read-active' : 'item-read'
         };
+        if (item.summary && item.summary.content) {
+            a.summary = cleanHTML(item.summary.content);
+        } else if (item.content && item.content.content) {
+            a.summary = cleanHTML(item.content.content);
+        }
+        
+        a.atitle = (a.summary) ? (' title="' + a.summary + '"') : '';
         a.iconcls = (a.icon ? ' favicon' : ' fhidden');
         html += fillTpl(tpl, a);
     });
@@ -155,24 +178,29 @@ function displayEntries(items, page){
     
     /*
      //TODO edit action still not work
-    $('#entries .entry-read').click(function(e){
-        markas(e, 'read');
-    });
-    function markasread(e){
-        markas(e, 'star');
-    }
-    $('#entries .entry-star').click(markasread);
-    $('.entry-original').click(markasread);
-    */
-	
-    $(".entry-original").tipTip({
-        maxWidth: "400px",
-        defaultPosition: 'top',
-        edgeOffset: -100,
-        fadeIn: 50
-    });
+     $('#entries .entry-read').click(function(e){
+     markas(e, 'read');
+     });
+     function markasread(e){
+     markas(e, 'star');
+     }
+     $('#entries .entry-star').click(markasread);
+     $('.entry-original').click(markasread);
+     */
+    tooltips();
 }
 
+function tooltips(){    
+    $("a.entry-original").each(function(i, el){
+        if ($(this).attr('title')) {
+            $(this).addClass('ht').tooltip({
+                position: (i < 5) ? 'bottom center' : 'top center',
+                opacity: 0.9,
+				fixed:true
+            });
+        }
+    });
+}
 
 function getFavicon(url){
     var d = getUrlHost(url);
@@ -184,24 +212,9 @@ function getUrlHost(url){
     return u.host;
 }
 
-function toggleClass(el, cls1, cls2){
-    var b = false;
-    if (el.hasClass(cls1)) {
-        el.removeClass(cls1).addClass(cls2);
-        b = true;
-    } else {
-        el.removeClass(cls2).addClass(cls1);
-        b = false;
-    }
-    return b;
-}
-
 function getEntryItem(el){
     var id = el[0].id;
     var index = parseInt(id.replace(/^entry-/, ''), 10);
     var itm = (items) ? items[index] : false;
     return itm;
 }
-
-
-

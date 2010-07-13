@@ -1,3 +1,14 @@
+#entries{
+	height:190px;
+	overflow: auto;
+}
+#loading{
+	padding-left:250px;
+	padding-top:80px;
+}
+#header{
+	height:20px;
+}
 .entry-icons {
     width: 15px;
 	height: 15px;
@@ -24,11 +35,12 @@ background-position: -16px -33px;
 }
 
 .entry-title {
-    display: inline;
-    margin: 0px;
+	 margin: 0px;
     padding: 0px;
-    position: static;
-    width: auto;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space:nowrap;
+	width:550px;
 }
 
 .entry{
@@ -39,12 +51,18 @@ background-position: -16px -33px;
 #nav{
 	float:right;
 }
-/* nobreak  */
-/*
-.entry-original,.entry-title{
-	display: inline;
-	margin: 0px;
-	padding: 0px;
-	position: static;
-	width: auto;
-}*/
+
+
+.entry-favicon{
+	width:16px;
+	height:16px;
+}
+
+.entry-secondary{
+	display:none;
+}
+
+.fhidden{
+	visibility:hidden;
+}
+
