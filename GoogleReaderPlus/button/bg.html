@@ -68,7 +68,7 @@
                 console.log('message=' + a.message);
                 if (a.message == "unread") {
                     getunread(a, function(r){
-						updateIcon(r.logged);
+						updateIcon(!!r);
 						if (cb) {
 							cb(r);
 						}

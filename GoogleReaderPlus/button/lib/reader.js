@@ -92,9 +92,9 @@ function marktoken(a, cb){
     //var url = fillTpl(_BASE_URL + api_urls['mark_' + a.action], o);
     var url = _BASE_URL + api_urls.edit;
     if (url) {
-        console.log('post');
-        console.log(url);
-        console.log(o);
+        //console.log('post');
+        //console.log(url);
+        //console.log(o);
         request({
             method: 'post',
             url: url,

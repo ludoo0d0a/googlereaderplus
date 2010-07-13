@@ -3,19 +3,24 @@
  */
 $(document).ready(function(){
     if (location.protocol === 'file:') {
-		tooltips();
-	} else {
-		init();
-	}
+        tooltips();
+    } else {
+        init();
+    }
 });
+var g = chrome.i18n.getMessage;
 
 var tpl = '<div id="entry-{i}" class="entry">' +
-'<span class="entry-icons entry-star {starcls}" title="Starred item"></span>' +
-'<span class="entry-icons entry-read {readcls}" title="Marked as read"></span>' +
-'<div class="entry-title">'+
+'<span class="entry-icons entry-star {starcls}" title="' +
+g("starred_items") +
+'"></span>' +
+'<span class="entry-icons entry-read {readcls}" title="' +
+g("mark_as_read") +
+'"></span>' +
+'<div class="entry-title">' +
 '<img class="entry-favicon {iconcls}" title="{origin}" src="{icon}">' +
 '<a class="entry-original" target="_blank" href="{url}"{atitle}>{title}</a>' +
-'</div>'+
+'</div>' +
 '</div>';
 function init(){
     var opendirect = chrome.extension.getBackgroundPage().getPref('general_opendirect');
@@ -23,27 +28,42 @@ function init(){
         window.close();
         call_core('findreader');
     } else {
+        $('.i18n').each(function(i, el){
+            var t = g(el.id);
+            if (t) {
+                $(el).text(t);
+            }
+        });
+        
         //Fill data feed
         loaditems(1, true);
         
-        $('#lreader').click(function(){
-            call_core('findreader');
-        });
         $('#lprefs').click(function(){
-            call_core('openprefs');
+            var tim=setTimeout(function(){
+				$('#lprefs').addClass('link-off');
+				msg(g('needreaderplus'));
+			},2000);
+			call_core('openprefs', function(){
+                console.log('ReaderPlus found');
+				clearTimeout(tim);
+                //Enhance Reader link
+                $('#lreader').click(function(){
+                    call_core('findreader');
+                });
+            });
         });
         $('#lrefresh').click(function(){
             loaditems(1, true);
         });
         $('#lprevious').click(function(){
             if (!$(this).hasClass('link-off')) {
-				loaditems(--page);
-			}
+                loaditems(--page);
+            }
         });
         $('#lnext').click(function(){
             if (!$(this).hasClass('link-off')) {
-				loaditems(++page);
-			}
+                loaditems(++page);
+            }
         });
         $('#lcontacts').click(function(){
             mycore.extension.sendRequest({
@@ -56,38 +76,44 @@ function init(){
 var URL_FAVICON = "http://pageicons.appspot.com/favicons?url=";
 var page = 1, pageItems = 10, items = {};
 function loaditems(page, reload){
-    $('#entries').html("<div id='loading'>Loading page " + page + "...</div>");
+    msg(g('loadingpage', [page]));
     if (reload) {
-        console.log('loaditems reload');
         mycore.extension.sendRequest({
             message: 'unread',
             count: 100
         }, function(o){
-            items = o.items;
-            displayEntries(items, page);
+            if (o && o.items) {
+                items = o.items;
+                displayEntries(items, page);
+            } else {
+                //not logged
+                msg( g('notlogged'));
+            }
         });
     } else {
-        console.log('loaditems not reload');
         displayEntries(items, page);
     }
+}
+
+function msg(txt){
+	$('#entries').html("<div id='loading'>" + txt + "</div>");
+	$('.tooltip').hide();
 }
 
 var reCategory = /user\/\d+\/state\/com\.google\/(.*)/;
 var reLabel = /user\/\d+\/label\/(.*)/;
 
 function displayEntries(items, page){
-    console.log('displayEntries page=' + page);
     page = page || 1;
     page = Math.max(page, 1);
     var pagesMax = items ? Math.round(items.length / pageItems) : 1;
     page = Math.min(page, 10);
-    $('#nav').html('Page ' + page + '/' + pagesMax);
-	
-	toggleClass($('#lnext'), 'link-on', 'link-off', page<pagesMax);
-	toggleClass($('#lprevious'), 'link-on', 'link-off', page>1);
-	
+    $('#nav').html(g('page', [page , pagesMax]));
+    
+    toggleClass($('#lnext'), 'link-on', 'link-off', page < pagesMax);
+    toggleClass($('#lprevious'), 'link-on', 'link-off', page > 1);
+    
     var index = 0, min = pageItems * (page - 1) + 1, max = pageItems * page, html = '';
-    console.log('min=' + min + 'max=' + max);
     $.each(items, function(id, item){
         ++index;
         if (index < min || index > max) {
@@ -96,10 +122,8 @@ function displayEntries(items, page){
         var url = item.alternate[0].href;
         item.actions = item.actions || {};
         var starred = item.actions.starred || false, read = item.actions.read || false, categories = [], labels = [];
-        console.log('---');
         $.each(item.categories, function(i, cat){
             var m = reCategory.exec(cat);
-            console.log('cat=' + cat);
             if (cat.indexOf('starred') > 0) {
                 cat = cat;
             }
@@ -112,7 +136,7 @@ function displayEntries(items, page){
                 if ('read' === m[1]) {
                     read = true;
                 }
-                console.log('starred=' + starred + ' ' + m[1]);
+                //console.log('starred=' + starred + ' ' + m[1]);
             }
             /*else{
              var n = reLabel.exec(cat);
@@ -127,7 +151,7 @@ function displayEntries(items, page){
             url: url,
             icon: ((item.enclosure && item.enclosure.href) ? item.enclosure.href : getFavicon(url)),
             //title: ellipsis(item.title, 85),
-			title: item.title,
+            title: item.title,
             summary: '',
             origin: (item.origin) ? item.origin.title : '',
             //categories:categories,
@@ -163,8 +187,8 @@ function displayEntries(items, page){
         var b = toggleClass(el, 'item-' + action, 'item-' + action + '-active');
         var itm = getEntryItem(entry);
         itm.actions[action] = b;
-        console.log('Mark as ' + action);
-        console.log(itm)
+        //console.log('Mark as ' + action);
+        //console.log(itm)
         mycore.extension.sendRequest({
             message: 'mark',
             id: itm.id,
@@ -172,7 +196,7 @@ function displayEntries(items, page){
             action: action,
             status: b
         }, function(o){
-            console.log('mark ' + action + ' done for ' + itm.id);
+            //console.log('mark ' + action + ' done for ' + itm.id);
         });
     };
     
@@ -190,13 +214,13 @@ function displayEntries(items, page){
     tooltips();
 }
 
-function tooltips(){    
+function tooltips(){
     $("a.entry-original").each(function(i, el){
         if ($(this).attr('title')) {
             $(this).addClass('ht').tooltip({
                 position: (i < 5) ? 'bottom center' : 'top center',
                 opacity: 0.9,
-				fixed:true
+                fixed: true
             });
         }
     });
