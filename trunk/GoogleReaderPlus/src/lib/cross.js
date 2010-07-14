@@ -4,19 +4,20 @@
  * @param {Object} a
  * @param {Object} fn
  */
-var isChrome = (typeof chrome !== "undefined");
-var isSafari = (typeof safari !== "undefined");
-var options={
-	autoparse:true  
-}
-
 var mycore = {
-    application:{
+    env:{
+		background:false,
+		chrome: (typeof chrome !== "undefined"),
+		safari: (typeof safari !== "undefined"),
+		prefix:'',
+		autoparse:true  
+	},
+	application:{
 		sendRequest: function(a, fn, b){
-			if (isChrome) {
+			if (mycore.env.chrome) {
 				
             }
-            else if (isSafari) {
+            else if (mycore.env.safari) {
 				safari.application.addEventListener(a.message,fn,false);
             }
         }
@@ -35,7 +36,7 @@ var mycore = {
 				fn=arguments[1];
 			}
 				
-			if (isChrome) {
+			if (mycore.env.chrome) {
 				if (guid){
 					if (fn) {
 						chrome.extension.sendRequest(guid,a, fn);
@@ -51,7 +52,7 @@ var mycore = {
 				}
 				//chrome.extension.sendRequest(arguments);
             }
-            else if (isSafari) {
+            else if (mycore.env.safari) {
 				safari.self.addEventListener('crossaction', function(e){
 					var a = e;
 					a.message = a.name;
@@ -64,20 +65,20 @@ var mycore = {
         onRequest:{
 			addListener: function(fn){
                //from bg
-			   if (isChrome) {
+			   if (mycore.env.chrome) {
                     chrome.extension.onRequest.addListener(fn);
                 }
-                else if (isSafari) {
+                else if (mycore.env.safari) {
 					safari.application.addEventListener('crossaction',fn,false);
                 }
             }
         },
         onRequestExternal:{
 			addListener: function(fn){
-                if (isChrome) {
+                if (mycore.env.chrome) {
                     chrome.extension.onRequestExternal.addListener(fn);
                 }
-                else if (isSafari) {
+                else if (mycore.env.safari) {
                     safari.application.addEventListener('crossaction',fn,false);
                 }
             }
@@ -85,46 +86,46 @@ var mycore = {
     },
     tabs: {
         create:function(options){
-			if (isChrome) {
+			if (mycore.env.chrome) {
                  chrome.tabs.create(options);
-            }else if (isSafari) {
+            }else if (mycore.env.safari) {
                     //safari
             }
 		},
 		get: function(id, fn){
-			if (isChrome) {
+			if (mycore.env.chrome) {
                  chrome.tabs.get(id, fn);
-            }else if (isSafari) {
+            }else if (mycore.env.safari) {
                     //safari
             }
 		},
 		getSelected: function(options, fn){
-			if (isChrome) {
+			if (mycore.env.chrome) {
                  chrome.tabs.getSelected(options, fn);
-            }else if (isSafari) {
+            }else if (mycore.env.safari) {
                   //safari
             }
 		},
 		update: function(id, options, fn){
-			if (isChrome) {
+			if (mycore.env.chrome) {
                  chrome.tabs.update(id, options, fn);
-            }else if (isSafari) {
+            }else if (mycore.env.safari) {
                  //safari
             }
 		},
 		executeScript: function(id, options){
-			if (isChrome) {
+			if (mycore.env.chrome) {
                  chrome.tabs.executeScript(id, options);
-            }else if (isSafari) {
+            }else if (mycore.env.safari) {
                     //safari
             }
 		},
 		onRemoved: {
             addListener: function(fn){
-                if (isChrome) {
+                if (mycore.env.chrome) {
                     chrome.tabs.onRemoved.addListener(fn);
                 }
-                else if (isSafari) {
+                else if (mycore.env.safari) {
                     //safari
                 }
             }
@@ -132,90 +133,132 @@ var mycore = {
     },
 	windows:{
 		getAll: function(options, fn){
-			if (isChrome) {
+			if (mycore.env.chrome) {
                  chrome.windows.getAll(options, fn);
-            }else if (isSafari) {
+            }else if (mycore.env.safari) {
                     //safari
             }
 		}
 	},
     storage: {
-        getItem: function(name){
-            var v;
-			if (isChrome) {
-                v= localStorage.getItem(name);
+        getItem: function(name, def, cb){
+            var v=null;
+			if (mycore.env.chrome) {
+                if (cb && !mycore.env.background) {
+					mycore.extension.sendRequest({
+						message: 'get',
+						name: name
+					},function(o){
+						cb(o||def);
+					});
+				}else{
+					if (!mycore.env.background){
+						name=mycore.env.prefix+name;
+					}
+					v = localStorage.getItem(name);
+				}
             }
-            else if (isSafari) {
+            else if (mycore.env.safari) {
                 v= localStorage.getItem(name);
                 //return safari.extension.settings.getItem(name);
             }
-			if (v && typeof v ==='string' && options.autoparse){
+			if (v && typeof v ==='string' && mycore.env.autoparse){
 				try {
 					v = JSON.parse(v);
 				}catch(e){
 					//
 				}
 			}
+			v = v||def;
+			if (cb && typeof v ==='function'){
+				cb(v); 
+			}
 			return v;
         },
         removeItem: function(name){
-            if (isChrome) {
-                localStorage.removeItem(name);
+            if (mycore.env.chrome) {
+                if (!mycore.env.background) {
+					mycore.extension.sendRequest({
+						message: 'remove',
+						name: name
+					}, cb);
+				} else {
+					if (!mycore.env.background){
+						name=mycore.env.prefix+name;
+					}
+					localStorage.removeItem(name);
+				}
             }
-            else if (isSafari) {
+            else if (mycore.env.safari) {
                 localStorage.removeItem(name);
             }
         },
-        setItem: function(name, value){
+        setItem: function(name, value, cb){
             var s = value;
-			if (s && options.autoparse && typeof s ==='object'){
+			if (s && mycore.env.autoparse && typeof s ==='object'){
 				s= JSON.stringify(s);
 			}
-			if (isChrome) {
-                localStorage.setItem(name, s);
+			if (mycore.env.chrome) {
+                if (cb!==false && !mycore.env.background) {
+					mycore.extension.sendRequest({
+						message: 'set',
+						name: name,
+						value: value
+					}, cb);
+				} else {
+					if (!mycore.env.background){
+						name=mycore.env.prefix+name;
+					}
+					localStorage.setItem(name, s);
+				}
             }
-            else if (isSafari) {
+            else if (mycore.env.safari) {
                 localStorage.setItem(name, s);
             }
         },
         key: function(i){
-            if (isChrome) {
+            if (mycore.env.chrome) {
                 return localStorage.key(i);
             }
-            else if (isSafari) {
+            else if (mycore.env.safari) {
                 return localStorage.key(i);
                 //return safari.extension.settings.key(i);
             }
         },
-        getLength: function(){
-            if (isChrome) {
-                return localStorage.length;
+        getLength: function(cb){
+            var v= -1;
+			if (mycore.env.chrome) {
+                v = localStorage.length;
             }
-            else if (isSafari) {
-                return localStorage.length;
+            else if (mycore.env.safari) {
+                v  = localStorage.length;
                 //return safari.extension.settings.length;
             }
+			if (cb && typeof v ==='function'){
+				cb(v); 
+			}
+			return v;
         },
 		clear:function(){
 			localStorage.clear();
 		}
     },
     getUrl: function(path){
-        if (isChrome) {
+        if (mycore.env.chrome) {
             return 'chrome-extension://' + mycore.getGUID() + path;
         }
-        else if (isSafari) {
+        else if (mycore.env.safari) {
             return safari.extension.baseURI;
 			//return 'safari-extension://' + mycore.getGUID() + path;
         }
     },
     getGUID: function(){
-        if (isChrome) {
+        if (mycore.env.chrome) {
             var url = chrome.extension.getURL('bg.html');
             var m = /:\/\/(\w+)/.exec(url);
             return m[1];
         }
-        else if (isSafari) {
+        else if (mycore.env.safari) {
             //TODO
             var namespace = 'com.pitaso.readerplus';
             var guid = '37PA8NKYKP';
@@ -226,10 +269,10 @@ var mycore = {
         return mycore.getProtocol() + mycore.getGUID();
     },
     getProtocol: function(){
-        if (isChrome) {
+        if (mycore.env.chrome) {
             return 'chrome-extension://';
         }
-        else if (isSafari) {
+        else if (mycore.env.safari) {
             return 'safari-extension://';
         }
     }

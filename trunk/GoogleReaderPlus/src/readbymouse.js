@@ -23,8 +23,8 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
     var systemStatus = GM_getValue('rbmStatus', 'Off');
     var ua = navigator.userAgent.toLowerCase();
     var isWindows = /windows|win32/.test(ua);
-		
-	var isMClick = (!isWindows || (isWindows && isChromeVersionMini('5.0.342.1')));
+    
+    var isMClick = (!isWindows || (isWindows && isChromeVersionMini('5.0.342.1')));
     
     // Get the element our new button goes by
     var nearNewButton = document.getElementById('entries-down');
@@ -36,41 +36,64 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
         mouseCtrlButton.id = 'btn-readbymouse';
         var html = '<input type="button" id="___mouseCtrl" value="ReadByMouse ' + systemStatus + '" style="margin-left: 10px;"></input>';
         if (isMClick) {
-            html += '<span style="margin-left: 10px;">' + SL.middleclick + 
-			':</span><select id="___middleClickSettings" name="midClickSettings" style="margin-left: 5px;">'+
-			'<option id="openInTab" value="openInTab">' + SL.openintab + 
-			'</option><option id="openInBackTab" value="openInBackTab">' + SL.openinbacktab +
-			'</option><option id="share" value="share">' + SL.shares + 
-			'</option><option id="star" value="star">' + SL.stars + 
-			'</option><option id="addTag" value="addTag">' + SL.addtag + 
-			'</option></select><span id="addTagSpan" style="text-align:left; visibility: collapse; margin-left: 10px;">' + SL.addtag + ':<input type="textbox" id="txtTag" value=""></span>';
+            html += '<span style="margin-left: 10px;">' + SL.middleclick +
+            ':</span><select id="___middleClickSettings" name="midClickSettings" style="margin-left: 5px;">' +
+            '<option id="openInTab" value="openInTab">' +
+            SL.openintab +
+            '</option><option id="openInBackTab" value="openInBackTab">' +
+            SL.openinbacktab +
+            '</option><option id="share" value="share">' +
+            SL.shares +
+            '</option><option id="star" value="star">' +
+            SL.stars +
+            '</option><option id="addTag" value="addTag">' +
+            SL.addtag +
+            '</option></select><span id="addTagSpan" style="text-align:left; visibility: collapse; margin-left: 10px;">' +
+            SL.addtag +
+            ':<input type="textbox" id="txtTag" value=""></span>';
         }
-
-		mouseCtrlButton.innerHTML+=html;
+        
+        mouseCtrlButton.innerHTML += html;
         insertAfter(mouseCtrlButton, nearNewButton);
     }
     
     var currentSettingMidClick = 'openInTab';
-    var currentTag = 'test';
+    var currentTag = '';
     
-    // Get the current middle click setting out of GM
-    currentSettingMidClick = GM_getValue('middleClickSetting', 'openInTab');
-    
+	GM_getValue('readbymouse_settings', {}, function(o){
+		currentSettingMidClick=o.midClick||'openInTab';
+		currentTag=o.tag||'';
+		selectvalue(currentSettingMidClick, currentTag);
+	});
+	
+	function saveSettings(){
+		GM_setValue('readbymouse_settings', {
+			tag:currentTag,
+			midClick:currentSettingMidClick
+		});
+	}
+	
+	/*
+    // Get the current middle click setting out of GM	
+	var currentSettingMidClick = GM_getValue('middleClickSetting', 'openInTab');
     // Get the current tag setting out of GM
-    currentTag = GM_getValue('mouseTag', '');
-    
+    var currentTag = GM_getValue('mouseTag', '');
+    */
+	
     // set the selected value to the setting
-    var midClickOption = document.getElementById(currentSettingMidClick);
-    if (midClickOption) {
-        midClickOption.selected = true;
-        // Hide or reveal the tag textbox
-        if (midClickOption.value == "addTag") {
-            document.getElementById('addTagSpan').style.visibility = 'visible';
-        } else {
-            document.getElementById('addTagSpan').style.visibility = 'hidden';
-        }
-        document.getElementById('txtTag').value = currentTag;
-    }
+	function selectvalue(settingMidClick){
+	    var midClickOption = document.getElementById(settingMidClick);
+	    if (midClickOption) {
+	        midClickOption.selected = true;
+	        // Hide or reveal the tag textbox
+	        if (midClickOption.value == "addTag") {
+	            document.getElementById('addTagSpan').style.visibility = 'visible';
+	        } else {
+	            document.getElementById('addTagSpan').style.visibility = 'hidden';
+	        }
+	        document.getElementById('txtTag').value = currentTag;
+	    }
+	}
     // Add listener for key press (toggles Mouse on and off)
     document.addEventListener('keydown', function(event){
         if (event.ctrlKey && event.which == 90) {
@@ -83,22 +106,20 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
             if (systemStatus == 'On') {
                 myBtn.value = SL.off;
                 systemStatus = 'Off';
-                GM_setValue('rbmStatus', systemStatus);
-                
             } else {
                 myBtn.value = SL.on;
                 systemStatus = 'On';
-                GM_setValue('rbmStatus', systemStatus);
             }
+            GM_setValue('rbmStatus', systemStatus);
         }
     }, false);
     
     // Add listener for mouse clicks
     document.addEventListener('click', function(event){
-        console.log('event.button:'+event.button);
-		// On each left click, check to see if the middle click setting
+        console.log('event.button:' + event.button);
+        // On each left click, check to see if the middle click setting
         // has changed. if so, then set it in GM
-		if (event.button === 0) {
+        if (event.button === 0) {
         
             // Get the selected option
             var myMiddleSelect = document.getElementById('___middleClickSettings');
@@ -110,25 +131,21 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
             if (!midClickSelValue) {
                 return;
             }
-		
+            
             // If the middle click setting has changed, then set it
             // in GM
             if (currentSettingMidClick != midClickSelValue) {
-                if (GM_setValue) {
-                    GM_setValue('middleClickSetting', midClickSelValue);
-                    currentSettingMidClick = midClickSelValue;
-                }
+                //GM_setValue('middleClickSetting', midClickSelValue);
+                currentSettingMidClick = midClickSelValue;
+				saveSettings();
             }
             
             // If the tag has changed, then set it in GM
             var strTag = document.getElementById('txtTag').value;
-            
             if (currentTag != strTag) {
-                if (GM_setValue) {
-                    GM_setValue('mouseTag', strTag);
-                    currentTag = strTag;
-                }
-                
+                //GM_setValue('mouseTag', strTag);
+                currentTag = strTag;
+				saveSettings();
             }
             
             // Hide or reveal the tag textbox
@@ -138,9 +155,9 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
                 document.getElementById('addTagSpan').style.visibility = 'collapse';
             }
             
-        }else if (event.button == 1 && systemStatus == 'On') {
+        } else if (event.button == 1 && systemStatus == 'On') {
             // Middle click
-			// If they click on a link, let the link work like
+            // If they click on a link, let the link work like
             // normal
             if (event.target.nodeName.toLowerCase() == 'a') {
                 return;
@@ -180,9 +197,7 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
                 if (myTarget.id == '___mouseCtrl') {
                     myTarget.value = SL.off;
                     systemStatus = 'Off';
-                    if (GM_setValue) {
-                        GM_setValue('rbmStatus', systemStatus);
-                    }
+                    GM_setValue('rbmStatus', systemStatus);
                 } else if (myTarget.id == '___middleClickSettings' || myTarget.id == 'txtTag') {
                     // Always let clicks work here
                 } else {
@@ -210,9 +225,9 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
                         case "openInTab":
                             openInTab(true);
                             break;
-						case "openInBackTab":
+                        case "openInBackTab":
                             openInTab(false);
-                            break;	
+                            break;
                         case "share":
                             shareItem();
                             break;

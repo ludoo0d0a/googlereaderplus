@@ -402,6 +402,11 @@ function notEmpty(o){
     }
 }
 
+function isFunction(fn){
+	return (fn && typeof fn ==='function');
+}
+
+
 function isObjectEmpty(o){
     if (!o) {
         return true;

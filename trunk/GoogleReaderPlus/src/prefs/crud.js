@@ -300,7 +300,7 @@ function addfavicon(urlin){
     if (!url) {
         return;
     }
-    var icon = prefs.favicons_domains[url] || getDomain(url) + '/favicon.ico';
+    var icon = cleanUrl(prefs.favicons_domains[url] || getDomain(url)) + '/favicon.ico';
     //Enter the icon url
     var promptUrl = getTextPrefs(lang, 'favicons', 'prompticon');
     icon = prompt(promptUrl, icon);

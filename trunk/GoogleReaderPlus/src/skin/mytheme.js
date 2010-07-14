@@ -170,7 +170,7 @@ GRP.mytheme = function(prefs){
         
         GM_addStyle(css, 'rps_mytheme');
         //cache css
-        GM_setValue('theme_mytheme', css);
+        GM_setValue('theme_mytheme', css, false);
         
         if (o.resize) {
             fireResize();

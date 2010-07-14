@@ -17,7 +17,7 @@ function call_core(message, options, callback){
 	external_call(GUID_CORE, message, options, callback);
 }
 function external_call(guid, message, options, callback){
-    console.log('CORE external_call ['+message+'] to '+guid);
+    //console.log('CORE external_call ['+message+'] to '+guid);
 	var emptyFn = function(){
     };
     mycore.extension.sendRequest(guid, 
@@ -26,7 +26,5 @@ function external_call(guid, message, options, callback){
 		keypass: "##ReaderPlus",
         options: options || {}
     }, callback || emptyFn);
-    //console.log('send "' + message + '" on ' + guid);
-	//console.log(options);
 }
 

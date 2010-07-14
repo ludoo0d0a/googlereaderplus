@@ -267,7 +267,9 @@ text_export:'Export/import'
         locked: "Option 'Adapter hauteur' toujours activée"
     },
     filter: {
-        searchbody: "Recherche dans le titre et le corps du texte"
+        searchbody: "Recherche dans le titre et le corps du texte",
+highlights: 'Liste des exclusions (une par ligne)',
+excludes: 'Liste des  surlignages (un par ligne)'
     },
     favicons: {
         providerpageicons: 'Utiliser le fournisseur d\'icônes <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> pour afficher correctement toutes les icônes des sites (Recommandé)',

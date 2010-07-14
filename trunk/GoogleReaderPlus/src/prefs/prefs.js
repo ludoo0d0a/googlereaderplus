@@ -65,7 +65,12 @@ function applyprefs(){
                     prefs[o] = EDITORS[o].getCode();
                     //ctrl.innerHTML=prefs[o];
                 } else {
-                    prefs[o] = ctrl.value;
+                    var v = ctrl.value;
+					if (hasClass(ctrl, 'xlist')){
+						v = v.split('\n');
+					}
+					prefs[o] = v;
+					
                 }
             } else {
                 prefs[o] = ctrl.value;
@@ -108,7 +113,14 @@ function renderPrefs(){
             var ctrl = document.frmprefs[o];
             if (ctrl && (typeof prefs[o] !== 'undefined')) {
                 if (!hasClass(ctrl, 'ignore')) {
-                    if (ctrl.tagName === "INPUT") {
+                    //This could help
+					/*
+                    var m = /([^_]+)_(.*)/.exec(o);
+					var script = m[1], name= m[2];
+					var opts = GRP.scripts[script].options[name];
+                    */	
+					var opts = {};				
+					if (ctrl.tagName === "INPUT") {
                         if (ctrl.key) {
                             //shortcut
                             var key = unmarshallKey(prefs[o]);
@@ -129,7 +141,17 @@ function renderPrefs(){
                                 ed.setCode(p);
                             }, 500);
                         } else {
-                            ctrl.value = prefs[o];
+                            var v = prefs[o];
+							if (isArray(v)){
+								v=v.join(opts.sep||'\n');
+							}else if (typeof v === 'object'){
+								try {
+									v = JSON.stringify(v);
+								}catch(e){
+									//
+								}
+							}
+							ctrl.value = v;
                         }
                     }
                 }

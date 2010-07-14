@@ -11,20 +11,6 @@
  */
 GRP.colorful = function(prefs, langs, ID, SL, lang){    
     const BASE_CSS = "#entries.list .entry-likers,#entries.list .collapsed .entry-source-title,#entries.list .collapsed .entry-secondary,#entries.list .collapsed .entry-title{background-color:transparent!important}.gm-color-lv .collapsed /* list view headers */{border-color:transparent!important}#entries.list.gm-color-lv #current-entry .collapsed{border:2px solid #8181DC!important}#entries.list.gm-color-lv #current-entry.expanded .collapsed{border-bottom-color:transparent!important;border-width:2px 0!important}#entries .entry{padding:5px 0}#entries.list .collapsed{line-height:2.4ex!important}";
-
-    var settings = 
-    {
-        getColorPrefs: function(){
-            var prefs = "";
-            prefs += GM_getValue("gm-color-lv", "gm-color-lv") + " ";
-            prefs += GM_getValue("gm-color-ev", "gm-color-ev") + " ";
-            prefs += GM_getValue("gm-color-ef", "") + " ";
-            prefs += GM_getValue("gm-color-cv", "") + " ";
-            prefs += GM_getValue("gm-color-ui", "gm-color-ui") + " ";
-            prefs += GM_getValue("gm-color-ri", "gm-color-ri") + " ";
-            return prefs;
-        }
-    };
 	
     // controls and applies colors
     var theme = 
@@ -34,9 +20,9 @@ GRP.colorful = function(prefs, langs, ID, SL, lang){
         bgColor: null, 
         textColor: null,
         styles: null, 
-        init: function(chrome){
+        init: function(chrome, settings){
             //this.styles = GM_addStyle("", 'colorful');
-            this.prefs = settings.getColorPrefs();
+            this.prefs = settings; //settings.getColorPrefs();
             
             var setup = this.setup, thm = this;
             var set = function(){
@@ -451,9 +437,19 @@ GRP.colorful = function(prefs, langs, ID, SL, lang){
         }
     };
     
-    //=============================================================================
-    var chrome = get_id("chrome");
-    theme.init(chrome);
+	GM_getValue("colorful_settings", {}, function(o){
+			var a = [];
+            a.push(o['gm-color-lv']||"gm-color-lv");
+            a.push(o['gm-color-ev']||"gm-color-ev");
+            a.push(o['gm-color-ef']||"");
+            a.push(o['gm-color-cv']||"");
+            a.push(o['gm-color-ui']||"gm-color-ui");
+            a.push(o['gm-color-ri']||"gm-color-ri");
+			var settings=a.join(" ");
+			
+	    var chrome = get_id("chrome");
+	    theme.init(chrome, settings);	
+	});
 
     GM_addStyle(BASE_CSS);
 };

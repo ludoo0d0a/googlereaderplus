@@ -49,6 +49,9 @@ label.lbl, .shortcut label {
     width: 140px;
     display: block;
 }
+label.lbltxtarea{
+	width: 200px;
+}
 label.large{
 	width: 250px;
 }

@@ -280,7 +280,9 @@ text_export:'Export/import'
         locked: "Always actived, except following feeds:"
     },
     filter: {
-        searchbody: "Search inside title and body text"
+        searchbody: "Search inside title and body text",
+highlights: 'Highlights list (one item per line)',
+excludes: 'Excludes list (one item per line)'
     },
     favicons: {
         providerpageicons: 'Use <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> provider (Recommended to load succesfully all icons)',

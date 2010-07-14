@@ -1,18 +1,15 @@
-var PREFIX = "readerplus.";
+mycore.env.prefix = "readerplus.";
 //GreaseKit
 //http://groups.google.com/group/greasekit-users/browse_thread/thread/d0ed6e8919bb6b42
 if (typeof GM_getValue === "undefined") {
-    GM_getValue = function(name, def){
+    GM_getValue = function(name, def, cb){
         //Move old nameing value to new prefixed place
-        var value = mycore.storage.getItem(name);
+        /*var value = mycore.storage.getItem(name, cb);
         if (value) {
             GM_setValue(PREFIX + name, value);
             mycore.storage.removeItem(name);//remove old
-        }
-        value = mycore.storage.getItem(PREFIX + name);
-        if (value === null && def !== null) {
-            value = def;
-        }
+        }*/
+        value = mycore.storage.getItem(name, def, cb);
         return value;
     };
 }
@@ -37,11 +34,11 @@ if (typeof GM_getCookieValue === "undefined") {
     };
 }
 if (typeof GM_setValue === "undefined") {
-    GM_setValue = function(name, value, options){
+    GM_setValue = function(name, value, cb){
         try {
-            mycore.storage.setItem(PREFIX + name, value);
+			mycore.storage.setItem(name, value, cb);
         } catch (e) {
-            console.log('error on GM_setValue[' + name + ']=' + value);
+            console.log('error on GM_setValue[' + n + ']=' + value);
         }
     };
 }

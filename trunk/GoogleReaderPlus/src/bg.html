@@ -22,6 +22,7 @@
                 search: /https?\:\/\/www.google.com\/reader\/view\//,
                 url: 'http://www.google.com/reader/view/'
             };
+			mycore.env.background=true;
             mycore.extension.onRequest.addListener(onMessageReceived);
             mycore.extension.onRequestExternal.addListener(function(request, sender, sendResponse){
 				if (request.keypass === "##ReaderPlusIcon") {
@@ -98,6 +99,12 @@
                 } else if (a.message == "setprefs") {
                     setPreferences(a);
                     sendNull(cb);
+                } else if (a.message == "get") {
+                    getValue(a, cb);
+                } else if (a.message == "set") {
+                    setValue(a, cb);
+                } else if (a.message == "remove") {
+                    removeValue(a, cb);
                 } else if (a.message == "getprefs") {
                     getPreferences(a, cb);
                 } else if (a.message == "openprefs") {
