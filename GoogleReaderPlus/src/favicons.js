@@ -181,7 +181,8 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
     
     function setValue(){
         GRP_INFO.icon = FAVICON;
-        GM_setValue('grp_favicons', JSON.stringify(GRP_INFO));
+		//cache only in webpage storage
+        GM_setValue('grp_favicons', GRP_INFO, false);
     }
     
     function clearCache(){

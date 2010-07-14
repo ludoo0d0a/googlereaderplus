@@ -386,8 +386,11 @@ GRP.scripts = {
     filter: {
         name: "Filter entries",
         category: 'layout',
+		status: 'updated',
         options: {
-            searchbody: false
+            searchbody: false,
+			excludes: {xtype:'textarea',list:true,cls:'xlist'},
+			highlights: {xtype:'textarea',list:true,cls:'xlist'}
         }
     },
     readbymouse: {

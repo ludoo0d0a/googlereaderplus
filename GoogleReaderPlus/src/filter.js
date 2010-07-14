@@ -44,20 +44,31 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         //_excludes = JSON.parse(decodeURI("" + trim(GM_getValue("excludes", JSON.stringify(_excludes)))));
         //_highlights = JSON.parse(decodeURI("" + trim(GM_getValue("highlights", JSON.stringify(_highlights)))));
         
-		_excludes = GM_getValue("excludes", "[]");
-		_highlights = GM_getValue("highlights", "[]");
+		GM_getValue("filter_excludes", [], function(o){
+			_excludes=o||[];
+			_excludes.sort(stringSort);
+        	GM_getValue("filter_highlights", [], function(o){
+				_highlights=o||[];
+				_highlights.sort(stringSort);
+				setRegExps();
+		
+				GM_getValue("filter_settings", {}, function(o){
+					_hideExcluds = o.hideExcluds;
+			        _hideDuplicates = o.hideDuplicates;
+			        _preferHighlights = o.preferHighlights;
+				});
+			});
+		});
+		/*
+		_excludes = GM_getValue("excludes", []);
+		_highlights = GM_getValue("highlights", []);
 		
         _hideExcluds = +GM_getValue("hideExcluds", 0);
         _hideDuplicates = +GM_getValue("hideDuplicates", 0);
         _preferHighlights = +GM_getValue("preferHighlights", 0);
-        
-        _excludes.sort(stringSort);
-        _highlights.sort(stringSort);
-        
+        */
+       
         initInterface();
-        
-        setRegExps();
-		
         registerFeature(filterEntries, ID, {onlistviewtitle: true});
     }
     
@@ -89,16 +100,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
     }
     
     function stringSort(a, b){
-        if (a > b) {
-            return 1;
-        }
-        else 
-            if (a < b) {
-                return -1;
-            }
-            else {
-                return 0;
-            }
+        return (a > b)?1:((a < b)?-1:0);
     }
     
     function initInterface(){
@@ -297,17 +299,30 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         _hideExcluds = +_hideExcludsCheckbox.checked;
         _hideDuplicates = +_hideDuplicatesCheckbox.checked;
         _preferHighlights = +_preferHighlightsCheckbox.checked;
-        GM_setValue("hideExcluds", _hideExcluds ? 1 : "");
+        /*GM_setValue("hideExcluds", _hideExcluds ? 1 : "");
         GM_setValue("hideDuplicates", _hideDuplicates ? 1 : "");
-        GM_setValue("preferHighlights", _preferHighlights ? 1 : "");
+        GM_setValue("preferHighlights", _preferHighlights ? 1 : "");*/
+		
+		GM_setValue("filter_settings", {
+			hideExcluds:_hideExcluds,
+		    hideDuplicates: _hideDuplicates,
+		    preferHighlights: _preferHighlights
+		});
+		
         saveCollections();
     }
     
     function saveCollections(update){
-        //GM_setValue("excludes", encodeURI(JSON.stringify(_excludes)));
-        //GM_setValue("highlights", encodeURI(JSON.stringify(_highlights)));
-		GM_setValue("excludes", JSON.stringify(_excludes));
+/*		GM_setValue("excludes", JSON.stringify(_excludes));
 		GM_setValue("highlights", JSON.stringify(_highlights));
+		*/
+		GM_setValue("filter_excludes", _excludes);
+		GM_setValue("filter_highlights", _highlights);
+		
+		GM_setValue("filter_items", {
+			excludes:_excludes,
+			highlights:_highlights
+		});
         setRegExps();
         updateFilterEntries();
     }

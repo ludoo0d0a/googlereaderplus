@@ -162,7 +162,7 @@ function toggleCategories(expand){
 }
 
 var tplInput = '<label class="lbl {lcls}" id="t_{id}" for="{id}">{text}</label><input id="{id}" class="{cls}" name="{id}" type="{input}" value="{value}"{extra}"/><br/>';
-var tplTextarea = '<label class="lbl {lcls}" id="t_{id}" for="{id}">{text}</label><textarea style="" class="{cls}" id="{id}" name="{id}" cols="{cols}" rows="{rows}"{extra}">{value}</textarea><br/>';
+var tplTextarea = '<label class="lbl lbltxtarea {lcls}" id="t_{id}" for="{id}">{text}</label><textarea style="" class="{cls}" id="{id}" name="{id}" cols="{cols}" rows="{rows}"{extra}">{value}</textarea><br/>';
 var tplCheckbox = '<input id="{id}" name="{id}" type="checkbox"/><label class="lbl_checkbox" id="t_{id}" for="{id}">{text}</label><br/>';
 var tplSelect = '<label class="lbl {lcls}" id="t_{id}">{text}</label><select name="{id}" id="{id}">{options}</select><br/><br/>';
 var tplSelectOption = '<option value="{id}"{checked}>{value}</option>';
@@ -197,6 +197,7 @@ function renderOptions(body, script){
             if (cfg.parent) {
                 html += "<div class='mto' alt='" + cfg.parent + "'>";
             }
+			
             if (xtype === "boolean") {
                 html += fillTpl(tplCheckbox, o);
             } else if (xtype === "string") {
@@ -216,6 +217,9 @@ function renderOptions(body, script){
             } else if (xtype === "textarea") {
                 o.rows = cfg.rows || 5;
                 o.cols = cfg.cols || 70;
+				if (cfg.list && isArray(o.value)){
+					o.value=o.value.join(cfg.sep||'\n');
+				}
                 html += fillTpl(tplTextarea, o);
             } else if (xtype === "p") {
                 html += fillTpl(tplPara, o);

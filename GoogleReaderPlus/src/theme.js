@@ -57,8 +57,9 @@ GRP.theme = function(prefs, langs, scop){
 							css+=skin.fix;
 						}
 						GM_addStyle(css, 'rps_' + skin.id);
-                        //cache css
-						GM_setValue('theme_' + skin.id, css);
+                        //cache css 
+						//param3 = false : force local storage in webpage
+						GM_setValue('theme_' + skin.id, css, false);
                     }
                 }
             });

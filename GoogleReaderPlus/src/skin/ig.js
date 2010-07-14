@@ -183,7 +183,7 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
                 css = '/* '+skin_name+' */'+fillTpl(tplCss, colors);
                 GM_addStyle(css, 'rps_ig');
                 //cache css
-                GM_setValue('cache_ig_'+skin_name, css);
+                GM_setValue('cache_ig_'+skin_name, css, false);
             }
         });
     }

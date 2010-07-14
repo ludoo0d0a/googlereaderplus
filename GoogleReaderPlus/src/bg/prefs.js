@@ -1,6 +1,33 @@
 
-function setPrefs(prefs, cleanall){
+function getValue(a, cb){
+	var prefs = readPrefs(a);
+	var value = prefs[a.name];
+	if (isFunction(cb)){
+		cb(prefs[a.name]);
+	}
+}
+function setValue(a, cb){
+	var prefs = readPrefs(a);
+	prefs[a.name]=a.value;
+	savePrefs(prefs);
+	if (isFunction(cb)) {
+		cb(prefs[a.name]);
+	}
+}
+function removeValue(a, cb){
+	var prefs = readPrefs(a);
+	delete prefs[a.name];
+	savePrefs(prefs);
+	if (isFunction(cb)) {
+		cb(true);
+	}
+}
+
+function savePrefs(prefs){
     mycore.storage.setItem('grp_prefs', prefs);
+}
+function setPrefs(prefs, cleanall){
+    savePrefs(prefs);
     if (cleanall) {
         mycore.storage.setItem('grp_favicons', '');
     }
@@ -13,11 +40,12 @@ function setPreferences(a){
     setPrefs(a.prefs, a.cleanall);
 }
 
-function getPrefs(a){
-    var id;
-    //var textPrefs = localStorage.getItem('grp_prefs');
-    //var prefs = (textPrefs) ? JSON.parse(textPrefs) : false;
-    var prefs = mycore.storage.getItem('grp_prefs');
+function readPrefs(prefs){
+    return mycore.storage.getItem('grp_prefs');
+}
+
+function getPrefs(a, ignoreCheck){
+    var prefs = readPrefs();
     prefs = checkPrefs(prefs);
     return prefs;
 }
