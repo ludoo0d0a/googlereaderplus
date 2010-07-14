@@ -232,7 +232,9 @@ function serializePost(a,traditional){
 
 	function add( key, value ) {
 		// If value is a function, invoke it and return its value
-		value = (typeof value === 'function') ? value() : value;
+		if (isFunction(value)){
+			value = value();
+		}
 		s[ s.length ] = e(key) + "=" + e(value);
 	}
 }

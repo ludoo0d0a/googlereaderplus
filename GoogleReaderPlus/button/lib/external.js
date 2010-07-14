@@ -19,7 +19,7 @@ function call_core(message, options, callback){
 }
 
 function external_call(guid, message, options, callback){
-    console.log('ICON external_call ['+message+'] to '+guid);
+    //console.log('ICON external_call ['+message+'] to '+guid);
 	var emptyFn = function(){
     };
     mycore.extension.sendRequest(guid, {

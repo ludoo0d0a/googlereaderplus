@@ -255,7 +255,7 @@ if (typeof GM_openInTab === "undefined") {
 if (typeof unsafeWindow === "undefined") {
     unsafeWindow = window;
 }
-if (typeof(this['clone']) !== 'function') {
+if (!isFunction(this['clone'])) {
     clone = function(o){
         try {
             return eval(uneval(o));
@@ -267,7 +267,7 @@ if (typeof(this['clone']) !== 'function') {
 /**
  * uneval for prefetch !!
  */
-if (typeof(this['uneval']) !== 'function') {
+if (!isFunction(this['uneval'])) {
     var hasOwnProperty = Object.prototype.hasOwnProperty;
     var protos = [];
     var char2esc = {
