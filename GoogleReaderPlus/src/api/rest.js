@@ -18,14 +18,14 @@ GRP.api_rest = function(name, local){
 			get: '/databases/'+name+'.json',
             create: '/databases',
 			update: '/databases/'+name,
-			'delete':'/databases/'+name
+			remove:'/databases/'+name
         },
 		item: {
             getall:'/databases/'+name+'/items.json',
-			get: 'items/:id.json',
+			get: '/items/:id.json',
             create: '/databases/'+name+'/items',
 			update: '/items/:id',
-			'delete':'/items/:id'
+			remove:'/items/:id'
         }
     }
     
@@ -37,7 +37,7 @@ GRP.api_rest = function(name, local){
 					cb(o, true);
 				}
 			} else {
-				alert((SL[xhr.status]||config.errors[xhr.status]||SL.error).replace('$status', xhr.status||''));
+				console.error((SL[xhr.status]||config.errors[xhr.status]||SL.error).replace('$status', xhr.status||''));
 			}
 		}
 		var o = {
@@ -67,7 +67,7 @@ GRP.api_rest = function(name, local){
     
     return ({
         all: {
-            getall: function(o /* page */, success, error){
+            getAll: function(o /* page */, success, error){
                 var url = config.all.getall;
 				o=o||{};
                 var params = {
@@ -110,8 +110,9 @@ GRP.api_rest = function(name, local){
                 };
 				send('put', url, params, success, error);
             },
-            'delete': function(o/* api_key, name */, success, error){
-             	var url = config.all.get;
+            remove: function(o/* api_key, name */, success, error){
+             	//Remove DB
+				var url = config.all.remove;
                 var params = {
                     api_key: o.api_key||config.api_key
                 };
@@ -119,7 +120,7 @@ GRP.api_rest = function(name, local){
             }
         },
         item: {
-            getall: function(o /* name, page */, success, error){
+            getAll: function(o /* name, page */, success, error){
                 var url = config.item.getall;
                 var params = {
                     page: o.page
@@ -150,25 +151,42 @@ GRP.api_rest = function(name, local){
                 };
 				send('put', url, params, success, error);
             },
-			createOrUpdate: function(itm, o , success, error){
-                if (itm){
+			createOrUpdate: function(ci, o , success, error){
+                if (ci){
 					//object already exist
-					if (v.name !== o.name || !compareObject(itm, o.values)){
-						o.id = getIdFromResourceUrl(itm);
-						console.log('createOrUpdate update '+o.name + ' '+o.id),
+					if (ci.name !== o.name || !compareObject(ci.values, o.values)){
+						o.id = getIdFromResourceUrl(ci);
+						console.log('objects different-> update '+o.name + ' '+o.id);
 						this.update(o);
 					}
 				}else{
-					console.log('createOrUpdate create '+o.name),
 					this.create(o);
 				}
             },
-            'delete': function(o/* api_key, name, id */, success, error){
-             	var url = config.item.get.replace(':id', o.name);
+            remove: function(o/* api_key, id */, success, error){
+             	var url = config.item.get.replace(':id', o.id);
                 var params = {
                     api_key: o.api_key||config.api_key
                 };
                 send('delete', url, params, success, error);
+            },
+			removeAll: function(o/* api_key */, success, error){
+             	var me = this;
+				o=o||{};
+				this.getAll(o,function(items){
+					foreach(items,function(item){
+						var id = getIdFromResourceUrl(item);
+						if (id) {
+							me.remove({
+								id: id,
+								api_key: o.api_key || config.api_key
+							});
+						}
+					});
+					if (success) {
+						success(true);
+					}
+				},error);
             }
         }
     });
@@ -176,13 +194,13 @@ GRP.api_rest = function(name, local){
 
 
 function getIdFromResourceUrl(o){
-	return o.resource_url.replace(/^.*\/items\//, '');
+	return (o.resource_url)?(o.resource_url.replace(/^.*\/items\//, '')):false;
 }
 
 function compareObject(a,b){
 	var eq=true;
 	iterate(a, function(i,o){
-		if (o!==b[i]){
+		if (typeof o !=='undefined' && o!==b[i]){
 			eq = false;
 			//exit
 		}
