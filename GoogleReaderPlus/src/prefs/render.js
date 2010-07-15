@@ -297,11 +297,10 @@ function renderpicker(){
 
 function renderSkins(){
     var last;
+	var SKINS_PATH = 'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/skins/';
     var list = document.getElementById('skinlist');
     list.innerHTML = '';
     iterate(GRP.skins, function(id, o){
-        //for (var i = 0, len = GRP.skins.length; i < len; i++) {
-        //    var o = GRP.skins[i];
         var li = document.createElement('li');
         var a = document.createElement('a');
         li.id = 'skin_' + id;
@@ -331,7 +330,8 @@ function renderSkins(){
             } else {
                 input.value = id;
                 thumb.className = "";
-                thumb.src = o.pic || "skin/img/" + id + ".png";
+				thumb.src = "images/loading-bar300.gif";
+                thumb.src = o.pic || (SKINS_PATH+ id + ".png");
                 var athumb = document.getElementById("athumb");
                 if (o.ref) {
                     athumb.href = o.ref;
