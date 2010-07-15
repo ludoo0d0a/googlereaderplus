@@ -16,7 +16,6 @@
                 //dummy
             };
             GRP.fns = [];
-            //GRP.IMAGES_PATH = 'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/src/images';
 			GRP.IMAGES_PATH = LOCALPATH + '/images';
             this.prefs = {};
             var me = this;
