@@ -66,7 +66,7 @@ function renderScripts(){
             var licat = dh(list, 'li', {
                 cls: 'category'
             });
-            var html = '<span class="bullet">•</span><span>'+getCategory(lang, category)+'</span>';
+            var html = '<span class="bullet">•</span><span id="t_cat_'+category+'">'+getCategory(lang, category)+'</span>';
 			if (firstcat){
 				firstcat=false;
 				html+='<div id="expandall">'+getTextPrefs(lang, 'global', 'expandall', 'en', 'All')+'</div>';
@@ -99,8 +99,6 @@ function renderScripts(){
 			}else{
 				script.status='';
 			}
-			
-			console.log('Script:'+id);
 			
             var t = (script.link) ? tplLink : tplCheckbox;
             html += fillTpl(t, script);

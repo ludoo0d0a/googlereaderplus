@@ -52,19 +52,20 @@ function autoTranslate(name){
 		translatePage(lang, name);
 	});
 }
+/*
+//Dynamical translation (too complex ; not useful)
+function onLang(){
+	var lang = get_id('language_lang').value; 
+	loadLangs(lang, function(){
+		translatePage(lang, 'cat', 'categories',0);
+		translatePage(lang);
+	});
+}
+*/
 
-function translatePage(lang, name){
-    /*var translations, DEFAULT_translations = GRP.langs.en.prefs;
-	if(GRP.langs[lang]){
-		//translations=merge(DEFAULT_translations, GRP.langs[lang].prefs);
-		translations= GRP.langs[lang].prefs;
-	}else{
-		translations=DEFAULT_translations;
-	}	
-	*/
-	//return;
-	
-	var translations= GRP.langs[lang].prefs;
+function translatePage(lang, name, section, level){
+	section=section||'prefs';
+	var translations= GRP.langs[lang][section];
     if (translations) {
 		function replaceTexts(name, texts){
 			for (var key in texts) {
@@ -81,7 +82,7 @@ function translatePage(lang, name){
 			}
 		}
         if (name){
-			var texts = translations[name];
+			var texts = (level==0)?translations:translations[name];
 			replaceTexts(name, texts);
 		}else{
 			for (var nam in translations) {
@@ -129,15 +130,21 @@ function splitId(id){
 
 function loadLangs(lang, cb, scope){
     //TODO: load json here instead evald js
-    GM_addScript('lang/' + lang + '/features.js', true, function(){
-        GM_addScript('lang/' + lang + '/langs.js', true, function(){
-            //override locale texts
-            if (GRP.langs) {
-				merge(GRP, GRP.langs[lang]);
-            }
-            if (cb) {
-                cb.call(scope||this);
-            }
-        }, true);
-    }, true);
+	if (!GRP.langs[lang]) {
+		GM_addScript('lang/' + lang + '/features.js', true, function(){
+			GM_addScript('lang/' + lang + '/langs.js', true, function(){
+				//override locale texts
+				if (GRP.langs) {
+					merge(GRP, GRP.langs[lang]);
+				}
+				if (cb) {
+					cb.call(scope || this);
+				}
+			}, true);
+		}, true);
+	}else{
+		if (cb) {
+					cb.call(scope || this);
+				}
+	}
 }
