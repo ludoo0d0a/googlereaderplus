@@ -810,7 +810,7 @@ GRP.packages = {
         },
         theme: {
             skin:'mytheme',
-			gmailtheme: 'coldshower'
+			externaltheme: 'gmail_coldshower'
         }
     },
     'full': {

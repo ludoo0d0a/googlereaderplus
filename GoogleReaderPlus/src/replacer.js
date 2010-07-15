@@ -2,7 +2,7 @@
  * TODO make doc
  * @version  0.2
  * @date 2010
- * @author JoLan
+ * @author JoLan, LudoO
  * Replace entries with part of the original article
  *
  */
