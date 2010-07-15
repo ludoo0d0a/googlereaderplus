@@ -109,6 +109,9 @@ function saveFavicon(url, icon, title){
 			});
 }
 
+function getNameFromUrl(url){
+	return url.replace(/^http:\/\//, '').replace(/\/$/, '');
+}
 
 function parseFavicon(html, url){
     var icon, link;
