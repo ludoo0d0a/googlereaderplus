@@ -25,13 +25,13 @@ function track(name, value){
         value = name.value;
         name = name.name;
     }
-    console.log('track ' + name + '=' + value);
+    console.log('try track [GRP.useStats='+GRP.useStats+']' + name + '=' + value);
     if (GRP.useStats && _gaq) {
-        if (typeof name === 'object') {
+		if (typeof name === 'object') {
             value = name.value;
             name = name.name;
         }
         _gaq.push(['_trackEvent', name, value]);
-        //console.log('track '+name+':'+value);
+        console.log('track '+name+':'+value);
     }
 }
