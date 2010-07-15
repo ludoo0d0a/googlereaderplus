@@ -130,7 +130,11 @@ function splitId(id){
 
 function loadLangs(lang, cb, scope){
     //TODO: load json here instead evald js
-    if (!GRP.langs[lang]) {
+    if (GRP.langs && GRP.langs[lang]) {
+        if (cb) {
+            cb.call(scope || this);
+        }
+    } else {
         GM_addScript('lang/' + lang + '/features.js', true, function(){
             GM_addScript('lang/' + lang + '/langs.js', true, function(){
                 //override locale texts
@@ -142,9 +146,5 @@ function loadLangs(lang, cb, scope){
                 }
             }, true);
         }, true);
-    } else {
-        if (cb) {
-            cb.call(scope || this);
-        }
     }
 }
