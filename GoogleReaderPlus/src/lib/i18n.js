@@ -62,7 +62,7 @@ function translatePage(lang, name){
 		translations=DEFAULT_translations;
 	}	
 	*/
-	return;
+	//return;
 	
 	var translations= GRP.langs[lang].prefs;
     if (translations) {
