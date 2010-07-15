@@ -100,6 +100,8 @@ function renderScripts(){
 				script.status='';
 			}
 			
+			console.log('Script:'+id);
+			
             var t = (script.link) ? tplLink : tplCheckbox;
             html += fillTpl(t, script);
             var body, panel = document.getElementById('panel_' + id);

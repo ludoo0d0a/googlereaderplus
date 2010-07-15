@@ -10,12 +10,12 @@ function hasClass(el, clazz){
 }
 
 function addClass(el, clazz, checked){
-    if (checked && hasClass(el, clazz)){
-		return;
-	}
-	if (el) {
+    if (checked && hasClass(el, clazz)) {
+        return;
+    }
+    if (el) {
         el.className = (el.className || '') + ' ' + clazz;
-    } 
+    }
 }
 
 function addClassChecked(el, clazz){
@@ -23,23 +23,23 @@ function addClassChecked(el, clazz){
 }
 
 function addClassIf(el, cls, status, cls2){
-    if (typeof status ==='string'){
-		cls2=status;
-		status = null;
-	}
-	if (typeof status ==='undefined' || status === null){
-		status = !hasClass(el, cls);
-	}
-	if (status) {
+    if (typeof status === 'string') {
+        cls2 = status;
+        status = null;
+    }
+    if (typeof status === 'undefined' || status === null) {
+        status = !hasClass(el, cls);
+    }
+    if (status) {
         addClass(el, cls, true);
-		if (cls2) {
-			removeClass(el, cls2);
-		}
+        if (cls2) {
+            removeClass(el, cls2);
+        }
     } else {
         removeClass(el, cls);
-		if (cls2) {
-			addClass(el, cls2);
-		}
+        if (cls2) {
+            addClass(el, cls2);
+        }
     }
 }
 
@@ -176,65 +176,69 @@ function getElementsByClazzName(clazz, itag, ielm){
 }
 
 function getElements(xpath, context){
-    var doc = (context) ? context.ownerDocument : document;
-    var r = doc.evaluate(xpath, (context || doc), null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-    for (var i = 0, l = r.snapshotLength, res = new Array(l); i < l; i++) {
-        res[i] = r.snapshotItem(i);
+    var res = false, doc = (context) ? context.ownerDocument : document;
+    try {
+        var r = doc.evaluate(xpath, (context || doc), null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        for (var i = 0, l = r.snapshotLength, res = new Array(l); i < l; i++) {
+            res[i] = r.snapshotItem(i);
+        }
+    } catch (e) {
+        console.error('xpath error : ' + xpath);
     }
     return res;
 }
 
 function serializeXml(nodes){
-	var html='';
-	nodes.forEach(function(node){
-		html+=node.outerHTML;	
-	});
-	return html;
+    var html = '';
+    nodes.forEach(function(node){
+        html += node.outerHTML;
+    });
+    return html;
 }
 
 /*
  * From jQuery
  */
-function serializePost(a,traditional){
-	var e=encodeURIComponent,s = [];
-	if ( isArray(a) || a.jquery ) {
-		forEeach( a, function() {
-			add( this.name, this.value );
-		});
-	} else {
-		for ( var prefix in a ) {
-			buildParams( prefix, a[prefix] );
-		}
-	}
-	return s.join("&").replace(/%20/g, "+");
-
-	function buildParams( prefix, obj ) {
-		if ( isArray(obj) ) {
-			iterate( obj, function( i, v ) {
-				if ( traditional || /\[\]$/.test( prefix ) ) {
-					add( prefix, v );
-				} else {
-					buildParams( prefix + "[" + ( typeof v === "object" || isArray(v) ? i : "" ) + "]", v );
-				}
-			});
-				
-		} else if ( !traditional && obj != null && typeof obj === "object" ) {
-			// Serialize object item.
-			iterate( obj, function( k, v ) {
-				buildParams( prefix + "[" + k + "]", v );
-			});
-				
-		} else {
-			// Serialize scalar item.
-			add( prefix, obj );
-		}
-	}
-
-	function add( key, value ) {
-		// If value is a function, invoke it and return its value
-		value = (typeof value === 'function') ? value() : value;
-		s[ s.length ] = e(key) + "=" + e(value);
-	}
+function serializePost(a, traditional){
+    var e = encodeURIComponent, s = [];
+    if (isArray(a) || a.jquery) {
+        forEeach(a, function(){
+            add(this.name, this.value);
+        });
+    } else {
+        for (var prefix in a) {
+            buildParams(prefix, a[prefix]);
+        }
+    }
+    return s.join("&").replace(/%20/g, "+");
+    
+    function buildParams(prefix, obj){
+        if (isArray(obj)) {
+            iterate(obj, function(i, v){
+                if (traditional || /\[\]$/.test(prefix)) {
+                    add(prefix, v);
+                } else {
+                    buildParams(prefix + "[" + (typeof v === "object" || isArray(v) ? i : "") + "]", v);
+                }
+            });
+            
+        } else if (!traditional && obj != null && typeof obj === "object") {
+            // Serialize object item.
+            iterate(obj, function(k, v){
+                buildParams(prefix + "[" + k + "]", v);
+            });
+            
+        } else {
+            // Serialize scalar item.
+            add(prefix, obj);
+        }
+    }
+    
+    function add(key, value){
+        // If value is a function, invoke it and return its value
+        value = (typeof value === 'function') ? value() : value;
+        s[s.length] = e(key) + "=" + e(value);
+    }
 }
 
 function get_id(id){
@@ -403,7 +407,7 @@ function notEmpty(o){
 }
 
 function isFunction(fn){
-	return (fn && typeof fn ==='function');
+    return (fn && typeof fn === 'function');
 }
 
 
@@ -464,29 +468,29 @@ function getCount(o){
     return count;
 }
 
-function returnItemAtPosition(o,i){
+function returnItemAtPosition(o, i){
     var count = 0;
     for (var p in o) {
         if (!hasOwnProperty.call(o, p)) {
             continue;
         }
-		if (count==i){
-			return o;
-		}
+        if (count == i) {
+            return o;
+        }
     }
     return false;
 }
 
 function randomselect(ar){
-	if (isArray(ar)) {
-		return ar[Math.round(Math.random() * (ar.length-1))];
-	}else if (typeof ar == 'object'){
-		var i = Math.round(Math.random() * (getCount(ar)-1));
-		return returnItemAtPosition(ar, i);
-	}else{
-		return false;
-	}
-	
+    if (isArray(ar)) {
+        return ar[Math.round(Math.random() * (ar.length - 1))];
+    } else if (typeof ar == 'object') {
+        var i = Math.round(Math.random() * (getCount(ar) - 1));
+        return returnItemAtPosition(ar, i);
+    } else {
+        return false;
+    }
+    
 }
 
 function removeClass(el, classname){
@@ -900,8 +904,9 @@ function merge(o, c, defaults){
 }
 
 function isundef(o){
-	return (typeof o ==='undefined');
+    return (typeof o === 'undefined');
 }
+
 function group(a, name){
     var r = {};
     iterate(a, function(id, o){
@@ -1096,10 +1101,10 @@ function isShown(el){
 
 function show(el, value){
     if (el) {
-        if (!el.style){
-			el.style={};
-		}
-		el.style.display = value || '';
+        if (!el.style) {
+            el.style = {};
+        }
+        el.style.display = value || '';
     }
 }
 
@@ -1149,12 +1154,12 @@ function loadText(url, cb){
 function loadCss(url, cb, option){
     loadText(url, function(txt){
         var css = txt;
-		if (!option || option.compact){
-			css=compact(css);
-		}
-		if (!option || option.clean){
-			css=css.replace(/\/\*.*?\*\//g, '');
-		}
+        if (!option || option.compact) {
+            css = compact(css);
+        }
+        if (!option || option.clean) {
+            css = css.replace(/\/\*.*?\*\//g, '');
+        }
         cb(css);
     });
 }
@@ -1230,7 +1235,7 @@ function dhc(config){
         tag: 1,
         events: 1,
         el: 1,
-		position:1
+        position: 1
     };
     var el = document.createElement(config.tag || 'div');
     iterate(config, function(k, o){
@@ -1254,7 +1259,7 @@ function dhc(config){
         dhc(cfg);
     }
     if (config.position) {
-		if (config.position === 'before') {
+        if (config.position === 'before') {
             insertBefore(el, root);
         } else {
             insertAfter(el, root);
@@ -1305,6 +1310,24 @@ function encodeu(el){
 function decodeu(el){
     return decodeURIComponent(unescape(el));
 }
+
 function getBoolean(val){
-	return (val && (val===true || val.toLowerCase()==='true'));
+    return (val && (val === true || val.toLowerCase() === 'true'));
+}
+
+
+function getTypedValue(o){
+    var text;
+    if (typeof o === 'object') {
+        text = o.value || '';
+    } else {
+        text = o;
+    }
+    if (text === "true") {
+        return true;
+    } else if (text === "false") {
+        return false;
+    } else {
+        return text;
+    }
 }

@@ -11,9 +11,9 @@
         <script type="text/javascript" src="worker/workerhelper.js"></script>
         <script type="text/javascript" src="api/webworkers.js"></script>
         <script type="text/javascript" src="api/favicons.js"></script>
-		<script type="text/javascript" src="bg/prefs.js"></script>
-		<script type="text/javascript" src="bg/request.js"></script>
-		<script type="text/javascript" src="bg/tabs.js"></script>
+        <script type="text/javascript" src="bg/prefs.js"></script>
+        <script type="text/javascript" src="bg/request.js"></script>
+        <script type="text/javascript" src="bg/tabs.js"></script>
         <script type="text/javascript" src="http://www.google.com/jsapi"></script>
         <script type="text/javascript">
             //var READING_LIST_RE_ = new RegExp('user/[\\d]+/state/com\\.google/reading-list');
@@ -22,13 +22,13 @@
                 search: /https?\:\/\/www.google.com\/reader\/view\//,
                 url: 'http://www.google.com/reader/view/'
             };
-			mycore.env.background=true;
+            mycore.env.background = true;
             mycore.extension.onRequest.addListener(onMessageReceived);
             mycore.extension.onRequestExternal.addListener(function(request, sender, sendResponse){
-				if (request.keypass === "##ReaderPlusIcon") {
-                    console.log('CORE onRequestExternal id=' + sender.id+ ' '+request.message);
-					onMessageReceived(request, false, sendResponse);
-					//GUID_ICON = sender.id;
+                if (request.keypass === "##ReaderPlusIcon") {
+                    console.log('CORE onRequestExternal id=' + sender.id + ' ' + request.message);
+                    onMessageReceived(request, false, sendResponse);
+                    //GUID_ICON = sender.id;
                 }
             });
             
@@ -52,13 +52,6 @@
                 });
             }
             
-            function runStats(mprefs){
-                var prefs = mprefs || getPrefs();
-                if (prefs && prefs.general_stats) {
-                    initstats();
-                }
-            }
-            
             function runOnSave(mprefs){
                 var prefs = mprefs || getPrefs();
                 var rc = prefs._replacer_changed;
@@ -66,33 +59,17 @@
                 monitorIcon(prefs);
                 sendPrefsToIcon(prefs);
                 activePageAction(prefs);
-                //runStats(prefs);
                 //sure we changed replacer items and click save
                 if (mprefs && rc) {
-                    sendToCloud(prefs);
+                    sendReplacerToCloud(prefs);
                 }
-            }
-            
-            function sendToCloud(prefs){
-                console.log('sendToCloud items...');
-                var r = new GRP.api_rest('Replacer', true);
-                var cloud_items = mycore.storage.getItem('grp_cloud_Replacer');
-                iterate(prefs.replacer_items, function(id, o){
-                    var ci = (cloud_items) ? cloud_items[id] : false;
-                    console.log('sendToCloud ' + id);
-                    r.item.createOrUpdate(ci, {
-                        name: id,
-                        values: o
-                    });
-                });
             }
             
             runOnSave();
             
             //request, sender, callback
             function onMessageReceived(a, p, cb){
-				console.log('message='+a.message);
-				if (a.message == "track") {
+                if (a.message == "track") {
                     track(a);
                 } else if (a.message == "loadicons") {
                     loadIcons(a, cb);
@@ -109,8 +86,8 @@
                     getPreferences(a, cb);
                 } else if (a.message == "openprefs") {
                     opentab({
-	                    url: "preferences.html"
-	                });
+                        url: "preferences.html"
+                    });
                     sendNull(cb);
                 } else if (a.message == "opentab") {
                     open_tab(a);
@@ -137,59 +114,84 @@
             
             var mappers = {
                 def: function(item){
-                    var o = item.data;
-                    o.title = o.name;
-                    return o;
+                    return {
+						name: item.name,
+						resource_url: item.resource_url,
+						values: item.data
+					};
                 },
-                Replacer: function(item){
+                /*Replacer: function(item){
                     var o = item.data;
                     //title, url,search,replace
                     o.title = o.name;
                     return o;
-                },
+                },*/
                 LDRFullFeed: function(item){
                     return {
-                        title: item.name,
-                        url: item.data.url,
-                        search: 'xpath:' + item.data.xpath,
-                        replace: "$1"
-                    }
+						name: item.name,
+						resource_url: item.resource_url,
+						values: {
+	                        title: item.name,
+	                        url: item.data.url,
+	                        search: 'xpath:' + item.data.xpath,
+	                        replace: "$1"
+	                    }
+					};
                 }
-            }
-            
-            function openwindow(a, cb){
-                delete a.message;
-                chrome.windows.create(a, cb);
             }
             
             function getCloudData(a, cb, mapper){
                 request({
-                    url: 'http://wedata.net/databases/' + a.name + '/items.json',
+                    url: a.url || ('http://wedata.net/databases/' + a.name + '/items.json'),
                     onload: function(xhr){
                         if (xhr.status == 200) {
                             console.log(a.name + ' get');
                             var items = JSON.parse(xhr.responseText);
                             //cache value
-                            var selectors = {};
+                            var i=0,selectors = {};
                             var f = mappers[a.name] || mappers.def;
                             foreach(items, function(item){
-                                selectors[item.name] = f(item);
+								selectors[item.name] = f(item);
+								i++;
                             });
                             //store it now as cache (needs timestamp)
                             mycore.storage.setItem('grp_cloud_' + a.name, selectors);
-                            console.log(a.name + ' ok');
+							console.log('Store Cloud DB '+ a.name+ ' : '+i+' items');
                             sendResponse(selectors, cb);
                         }
                     },
-                    /*onreadystatechange:function(xhr){
-                     console.log('-status:'+ xhr.status);
-                     console.log('-readyState:'+ xhr.readyState);
-                     },*/
                     onerror: function(){
-                        var selectors = mycore.storage.getItem('grp_cloud_' + a.name) || false;
+                        var selectors = mycore.storage.getItem('grp_cloud_' + a.name, false);
                         sendResponse(selectors, cb);
                     }
                 }, true);
+            }
+            
+            function sendReplacerToCloud(prefs){
+                console.log('sendReplacerToCloud items...');
+                var r = new GRP.api_rest('Replacer', true);
+                var cloud_items = false; //mycore.storage.getItem('grp_cloud_Replacer');
+				//r.item.remove_All();
+				if (!cloud_items){
+					getCloudData({name:'Replacer'},function(items){
+						sendReplacerToCloud2(r, prefs, items);
+					});
+				}else{
+					sendReplacerToCloud2(r, prefs, cloud_items);
+				}
+			}
+
+			function sendReplacerToCloud2(r, prefs, cloud_items){
+				iterate(prefs.replacer_items, function(id, o){
+                    var ci = false;
+					if (cloud_items) {
+						ci = cloud_items[id];
+					}
+                    r.item.createOrUpdate(ci, {
+                        name: id,
+                        values: o
+                    });
+                });
             }
             
             
@@ -199,8 +201,8 @@
             var monitorId;
             function monitorIcon(mprefs){
                 var prefs = mprefs || getPrefs();
-				if (monitorId) {
-                       window.clearInterval(monitorId);
+                if (monitorId) {
+                    window.clearInterval(monitorId);
                 }
                 if (prefs && prefs.general_counter) {
                     getUnreadCount();
@@ -213,9 +215,9 @@
             
             function sendPrefsToIcon(mprefs){
                 var prefs = mprefs || getPrefs();
-				var iconprefs= {
-					opendirect:prefs.general_opendirect||false
-				};
+                var iconprefs = {
+                    opendirect: prefs.general_opendirect || false
+                };
                 call_icon('prefs', {
                     prefs: iconprefs
                 }, function(){
@@ -240,7 +242,7 @@
             
             
             monitorCloseTab();
-			
+            
             function getUnreadCount(){
                 if (lastTabReader) {
                     updateFromTabtitle(lastTabReader);
@@ -313,45 +315,25 @@
             }
             
             function parseUnread(json){
-                //var count = 0, o = eval('(' + json + ')');
                 var o = JSON.parse(json);
-                //var max = parseInt(o.max, 10);
-                //if (max == 1000) {
                 for (var i = 0, len = o.unreadcounts.length; i < len; i++) {
                     var f = o.unreadcounts[i];
-                    //count += parseInt(f.count, 10);
-                    if (reReader.reading.test(f.id)) {
+					if (reReader.reading.test(f.id)) {
                         count = f.count;
                         continue;
                     }
                 }
-                /*} else {
-                 count = max;
-                 }*/
                 return count;
-            }
-            
-            
-            function getTypedValue(o){
-                var text;
-                if (typeof o === 'object') {
-                    text = o.value || '';
-                } else {
-                    text = o;
-                }
-                if (text === "true") {
-                    return true;
-                } else if (text === "false") {
-                    return false;
-                } else {
-                    return text;
-                }
             }
             
             function findreader(selected, create, fn){
                 selecttab(reReader, selected, create, fn);
             }
             
+            function openwindow(a, cb){
+                delete a.message;
+                chrome.windows.create(a, cb);
+            }
             
             function igtheme(o, cb){
                 if (o.type === 'random') {
@@ -381,6 +363,7 @@
                     trad();
                 }
             }
+            
             
             //+favicons_providerpageicons
             function upgrade(){
@@ -419,24 +402,20 @@
     </head>
     <body>
         <script type="text/javascript" src="bg/stats.js"></script>
-		<script>
-            //runStats();
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-183120-12']);
-_gaq.push(['_trackPageview']);
-
-GRP = GRP || {};
-GRP.useStats = true;
-console.log('track ON');
-
-//http://code.google.com/chrome/extensions/tut_analytics.html
-(function(){
-    var ga = document.createElement('script');
-    ga.type = 'text/javascript';
-    ga.async = true;
-    ga.src = 'https://ssl.google-analytics.com/ga.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
-})();
+        <script>
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-183120-12']);
+            _gaq.push(['_trackPageview']);
+            GRP = GRP || {};
+            GRP.useStats = true;
+            console.log('Statistics track ON');
+            (function(){
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = 'https://ssl.google-analytics.com/ga.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+            })();
         </script>
     </body>
 </html>

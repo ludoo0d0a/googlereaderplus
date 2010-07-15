@@ -26,7 +26,7 @@ function loadIcons(a, cb){
             //Load wedata cloud data
 			if (prefs.favicons_cloud) {
                 var r = new GRP.api_rest('Favicons', true);
-                r.item.getall({}, function(items, success){
+                r.item.getAll({}, function(items, success){
                     if (success) {
                         cloudItems={};
 						foreach(items, function(item){
@@ -107,41 +107,8 @@ function saveFavicon(url, icon, title){
 					title: title
 				}
 			});
-	/*
-	if (ci) {
-		//something changed
-		if (ci.name!==name || ci.url!==url || ci.icon!==icon || ci.title!==title ){
-			var id = getIdFromResourceUrl(ci);
-			r.item.update({
-				id:id,
-				name: name,
-				values: {
-					url: url,
-					icon: icon,
-					title: title
-				}
-			});
-		}
-	} else {
-		r.item.create({
-			name: name,
-			values: {
-				url: url,
-				icon: icon,
-				title: title
-			}
-		});
-	}
-	*/
 }
 
-function getIdFromResourceUrl(o){
-	return o.resource_url.replace(/^.*\/items\//, '');
-}
-
-function getNameFromUrl(url){
-	return url.replace(/^http:\/\//, '').replace(/\/$/, '');
-}
 
 function parseFavicon(html, url){
     var icon, link;
