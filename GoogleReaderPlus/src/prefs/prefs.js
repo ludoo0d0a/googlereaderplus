@@ -40,6 +40,7 @@ function initprefs(){
 		renderPreviewTheme();
         renderThemes();
 		renderDummies();
+		
     });
 }
 
@@ -59,21 +60,27 @@ function applyprefs(){
                 //shortcut code
                 prefs[o] = ctrl.key;
             } else if (ctrl.type === "checkbox") {
-                prefs[o] = ctrl.checked || false;
+                if (ctrl.checked) {
+					prefs[o] = true;
+				}
             } else if (ctrl.nodeName === "TEXTAREA") {
                 if (EDITORS && EDITORS[o]) {
                     prefs[o] = EDITORS[o].getCode();
                     //ctrl.innerHTML=prefs[o];
                 } else {
                     var v = ctrl.value;
-					if (hasClass(ctrl, 'xlist')){
-						v = v.split('\n');
+					if (v) {
+						if (hasClass(ctrl, 'xlist')) {
+							v = v.split('\n');
+						}
+						prefs[o] = v;
 					}
-					prefs[o] = v;
 					
                 }
             } else {
-                prefs[o] = ctrl.value;
+                if (ctrl.value) {
+					prefs[o] = ctrl.value;
+				}
             }
         }
     }
@@ -105,20 +112,19 @@ function saveprefs(reload, cleanall){
 
 function renderPrefs(){
     if (prefs) {
-        var select = document.getElementById("language_lang");
+		var select = get_id("language_lang");
         if (select) {
             select.value = lang;
         }
+		console.log(prefs);
         for (var o in prefs) {
             var ctrl = document.frmprefs[o];
             if (ctrl && (typeof prefs[o] !== 'undefined')) {
                 if (!hasClass(ctrl, 'ignore')) {
                     //This could help
-					/*
-                    var m = /([^_]+)_(.*)/.exec(o);
-					var script = m[1], name= m[2];
-					var opts = GRP.scripts[script].options[name];
-                    */	
+                    //var m = /([^_]+)_(.*)/.exec(o);
+					//var script = m[1], name= m[2];
+					//var opts = GRP.scripts[script].options[name];
 					var opts = {};				
 					if (ctrl.tagName === "INPUT") {
                         if (ctrl.key) {
@@ -131,6 +137,7 @@ function renderPrefs(){
                             //text,password,hidden
                             ctrl.value = prefs[o];
                         }
+						console.log(o+'='+prefs[o]);
                     } else if (ctrl.nodeName === "SELECT") {
                         ctrl.value = prefs[o];
                     } else if (ctrl.nodeName === "TEXTAREA") {
