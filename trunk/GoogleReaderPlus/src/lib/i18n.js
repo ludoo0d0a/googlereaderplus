@@ -131,7 +131,8 @@ function splitId(id){
 function loadLangs(lang, cb, scope){
     //TODO: load json here instead evald js
     if (GRP.langs && GRP.langs[lang]) {
-        if (cb) {
+        merge(GRP, GRP.langs[lang]);
+		if (cb) {
             cb.call(scope || this);
         }
     } else {
