@@ -60,8 +60,8 @@ function applyprefs(){
                 //shortcut code
                 prefs[o] = ctrl.key;
             } else if (ctrl.type === "checkbox") {
-                if (ctrl.checked) {
-					prefs[o] = true;
+                if (ctrl.checked || prefs[o]) {
+					prefs[o] = ctrl.checked;
 				}
             } else if (ctrl.nodeName === "TEXTAREA") {
                 if (EDITORS && EDITORS[o]) {
@@ -69,7 +69,7 @@ function applyprefs(){
                     //ctrl.innerHTML=prefs[o];
                 } else {
                     var v = ctrl.value;
-					if (v) {
+					if (v || prefs[o]) {
 						if (hasClass(ctrl, 'xlist')) {
 							v = v.split('\n');
 						}
@@ -78,7 +78,7 @@ function applyprefs(){
 					
                 }
             } else {
-                if (ctrl.value) {
+                if (ctrl.value || prefs[o]) {
 					prefs[o] = ctrl.value;
 				}
             }
@@ -137,7 +137,6 @@ function renderPrefs(){
                             //text,password,hidden
                             ctrl.value = prefs[o];
                         }
-						console.log(o+'='+prefs[o]);
                     } else if (ctrl.nodeName === "SELECT") {
                         ctrl.value = prefs[o];
                     } else if (ctrl.nodeName === "TEXTAREA") {
