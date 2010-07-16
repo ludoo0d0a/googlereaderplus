@@ -28,19 +28,24 @@ function exportprefs(){
 
 function initprefs(){
 	lang = prefs.language_lang || 'en';
+	console.log('Current lang : '+lang);
     loadLangs(lang, function(){
+		console.log('Lang loaded : '+lang);
 		renderScripts();
+		console.log('Scripts rendered');
         translatePage(lang);
         specialTranslate(lang);
+		console.log('Translate done');
         renderSkins();
         renderPrefs();
+		console.log('renderPrefs done');
         var current = window.location.hash.substring(1) || 'general';
         showPanel(current);
+		console.log('showPanel :'+current);
         reportNavigator();
 		renderPreviewTheme();
         renderThemes();
-		renderDummies();
-		
+		renderDummies();		
     });
 }
 
