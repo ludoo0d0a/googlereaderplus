@@ -985,7 +985,9 @@ function isChromeVersionMini(ref){
 function isOsMac(){
 	return window.navigator.platform.toLowerCase().indexOf('mac')>=0;
 }
-
+function isOsLinux(){
+	return window.navigator.platform.toLowerCase().indexOf('linux')>=0;
+}
 //compare 2 first segments
 function isVersionMajorUpdated(oldVersion, newVersion){
     return (compareVersion(newVersion, oldVersion, 2) > 0);
