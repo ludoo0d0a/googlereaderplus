@@ -633,8 +633,9 @@ function getSelectedDir(node){
             };
         }
     }
-    o.url = o.url.replace('/reader/view', '');
-    
+	if (o.url) {
+		o.url = o.url.replace('/reader/view', '');
+	}
     return o;
 }
 

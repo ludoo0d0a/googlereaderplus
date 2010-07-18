@@ -200,7 +200,7 @@ function parseXml(xml, FAVICON_TPL_URL){
     
     return FAVICON;
 }
-
+/*
 function createWorkerIcons(icons){
     createWorker({
         url: "worker/wfavicons.js",
@@ -218,3 +218,4 @@ function createWorkerIcons(icons){
         }
     });
 }
+*/

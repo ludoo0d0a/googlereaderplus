@@ -8,8 +8,6 @@
         <script type="text/javascript" src="features.js"></script>
         <script type="text/javascript" src="lib/greasekit.js"></script>
         <script type="text/javascript" src="api/rest.js"></script>
-        <script type="text/javascript" src="worker/workerhelper.js"></script>
-        <script type="text/javascript" src="api/webworkers.js"></script>
         <script type="text/javascript" src="api/favicons.js"></script>
         <script type="text/javascript" src="bg/prefs.js"></script>
         <script type="text/javascript" src="bg/request.js"></script>
@@ -206,9 +204,17 @@
                 }
                 if (prefs && prefs.general_counter) {
                     getUnreadCount();
-                    
+                    //TODO: ensure not used
                     monitorId = window.setInterval(function(){
-                        getUnreadCount();
+						getUnreadCount();
+						/*function(status){
+							//stop on error
+							if (status===false){
+								if (monitorId) {
+				                    window.clearInterval(monitorId);
+				                }
+							}
+						});*/
                     }, 2000);
                 }
             }
@@ -243,7 +249,7 @@
             
             monitorCloseTab();
             
-            function getUnreadCount(){
+            function getUnreadCount(cb){
                 if (lastTabReader) {
                     updateFromTabtitle(lastTabReader);
                 } else {
@@ -273,6 +279,9 @@
                                 },
                                 onerror: function(o){
                                     updateIcon(false, '');
+									if (cb) {
+										cb(false);
+									}
                                 }
                             }, true);
                         }
@@ -402,20 +411,25 @@
     </head>
     <body>
         <script type="text/javascript" src="bg/stats.js"></script>
-        <script>
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-183120-12']);
-            _gaq.push(['_trackPageview']);
-            GRP = GRP || {};
-            GRP.useStats = true;
-            console.log('Statistics track ON');
-            (function(){
-                var ga = document.createElement('script');
-                ga.type = 'text/javascript';
-                ga.async = true;
-                ga.src = 'https://ssl.google-analytics.com/ga.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
-            })();
+        <script type="text/javascript">
+            //crash on macOsX + chrome<6.4.458
+			if (!(isOsMac() && !isChromeVersionMini('6.0.458'))){
+				var _gaq = _gaq || [];
+	            _gaq.push(['_setAccount', 'UA-183120-12']);
+	            _gaq.push(['_trackPageview']);
+	            window.GRP = window.GRP || {};
+	            GRP.useStats = true;
+	            console.log('Statistics track ON');
+	            (function(){
+	                var ga = document.createElement('script');
+	                ga.type = 'text/javascript';
+	                ga.async = true;
+	                ga.src = 'https://ssl.google-analytics.com/ga.js';
+	                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	            })();
+			}else{
+				console.log('Statistics track OFF');
+			}
         </script>
     </body>
 </html>

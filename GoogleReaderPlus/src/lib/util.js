@@ -972,10 +972,18 @@ function getDomain(url, withProtocol){
  compareVersion('5.1', '5.0.342.1');->=true
  compareVersion('5.0.100', '5.0.342.1');->=false
  */
+function getChromeVersion(){
+    var version = /Chrome\/([\d\.]+)/.exec(window.navigator.appVersion);
+    return version[1];
+}
+
 //Chrome mini version required
 function isChromeVersionMini(ref){
-    var version = /Chrome\/([\d\.]+)/.exec(window.navigator.appVersion);
-    return (compareVersion(version[1], ref) >= 0);
+    return (compareVersion(getChromeVersion(), ref) >= 0);
+}
+
+function isOsMac(){
+	return window.navigator.platform.toLowerCase().indexOf('mac')>=0;
 }
 
 //compare 2 first segments
