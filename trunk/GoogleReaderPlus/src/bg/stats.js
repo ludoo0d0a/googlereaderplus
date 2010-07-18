@@ -1,4 +1,4 @@
-function initstats(){
+/*function initstats(){
     if (GRP && GRP.useStats) {
         return;
     }
@@ -18,7 +18,7 @@ function initstats(){
         ga.src = 'https://ssl.google-analytics.com/ga.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
     })();
-}
+}*/
 
 function track(name, value){
     if (typeof name === 'object') {

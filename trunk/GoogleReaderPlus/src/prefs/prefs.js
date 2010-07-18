@@ -27,35 +27,36 @@ function exportprefs(){
 }
 
 function initprefs(){
-	lang = prefs.language_lang || 'en';
-	console.log('Current lang : '+lang);
+    lang = prefs.language_lang || 'en';
+    console.log('Current lang : ' + lang);
     loadLangs(lang, function(){
-		console.log('Lang loaded : '+lang);
-		renderScripts();
-		console.log('Scripts rendered');
+        renderScripts();
         translatePage(lang);
         specialTranslate(lang);
-		console.log('Translate done');
         renderSkins();
         renderPrefs();
-		console.log('renderPrefs done');
         var current = window.location.hash.substring(1) || 'general';
         showPanel(current);
-		console.log('showPanel :'+current);
         reportNavigator();
-		renderPreviewTheme();
+        renderPreviewTheme();
         renderThemes();
-		renderDummies();		
+        renderDummies();
     });
+}
+
+function isChecked(form, name){
+    return (form && form[name] && form[name].checked);
 }
 
 function applyprefs(){
     var form = document.frmprefs;
     //general checked if one option ON 
-    if (form.general_secure.checked ||
-    form.general_counter.checked ||
-    form.general_opendirect.checked) {
-        form.general.checked = true;
+    if (isChecked(form, 'general_secure') ||
+    isChecked(form, 'general_counter') ||
+    isChecked(form, 'general_opendirect')) {
+        if (form.general) {
+            form.general.checked = true;
+        }
     }
     for (var i in form) {
         var ctrl = form[i];
@@ -66,27 +67,31 @@ function applyprefs(){
                 prefs[o] = ctrl.key;
             } else if (ctrl.type === "checkbox") {
                 if (ctrl.checked || prefs[o]) {
-					prefs[o] = ctrl.checked;
-				}
+                    prefs[o] = ctrl.checked;
+                }
             } else if (ctrl.nodeName === "TEXTAREA") {
                 if (EDITORS && EDITORS[o]) {
                     prefs[o] = EDITORS[o].getCode();
                     //ctrl.innerHTML=prefs[o];
                 } else {
                     var v = ctrl.value;
-					if (v || prefs[o]) {
-						if (hasClass(ctrl, 'xlist')) {
-							v = v.split('\n');
-						}
-						prefs[o] = v;
-					}
-					
+                    if (v || prefs[o]) {
+                        if (hasClass(ctrl, 'xlist')) {
+                            v = v.split('\n');
+                        }
+                        prefs[o] = v;
+                    }
+                    
                 }
             } else {
                 if (ctrl.value || prefs[o]) {
-					prefs[o] = ctrl.value;
-				}
+                    prefs[o] = ctrl.value;
+                }
             }
+            //keep prefs light
+			/*if (!prefs[o]) {
+                delete prefs[o];
+            }*/
         }
     }
     var select = document.getElementById("language_lang");
@@ -117,21 +122,21 @@ function saveprefs(reload, cleanall){
 
 function renderPrefs(){
     if (prefs) {
-		var select = get_id("language_lang");
+        var select = get_id("language_lang");
         if (select) {
             select.value = lang;
         }
-		console.log(prefs);
+        console.log(prefs);
         for (var o in prefs) {
             var ctrl = document.frmprefs[o];
             if (ctrl && (typeof prefs[o] !== 'undefined')) {
                 if (!hasClass(ctrl, 'ignore')) {
                     //This could help
                     //var m = /([^_]+)_(.*)/.exec(o);
-					//var script = m[1], name= m[2];
-					//var opts = GRP.scripts[script].options[name];
-					var opts = {};				
-					if (ctrl.tagName === "INPUT") {
+                    //var script = m[1], name= m[2];
+                    //var opts = GRP.scripts[script].options[name];
+                    var opts = {};
+                    if (ctrl.tagName === "INPUT") {
                         if (ctrl.key) {
                             //shortcut
                             var key = unmarshallKey(prefs[o]);
@@ -153,16 +158,17 @@ function renderPrefs(){
                             }, 500);
                         } else {
                             var v = prefs[o];
-							if (isArray(v)){
-								v=v.join(opts.sep||'\n');
-							}else if (typeof v === 'object'){
-								try {
-									v = JSON.stringify(v);
-								}catch(e){
-									//
-								}
-							}
-							ctrl.value = v;
+                            if (isArray(v)) {
+                                v = v.join(opts.sep || '\n');
+                            } else if (typeof v === 'object') {
+                                try {
+                                    v = JSON.stringify(v);
+                                } 
+                                catch (e) {
+                                    //
+                                }
+                            }
+                            ctrl.value = v;
                         }
                     }
                 }
@@ -178,12 +184,12 @@ function reportNavigator(){
 }
 
 function initGRP(){
-	GRP.setVersion();
+    GRP.setVersion();
     var me = this;
     mycore.extension.sendRequest({
         message: "getprefs"
     }, function(a){
-		prefs = a.prefs;
+        prefs = a.prefs;
         initprefs();
     });
 }
@@ -217,12 +223,11 @@ function hashchange(){
 }
 
 function renderDummies(){
-	/*var sel = get_id('language_lang');
-	if (sel){
-		sel.addEventListener('change', onLang);
-		sel.addEventListener('keyup', onLang);
-	}*/
-	
-	var el = get_id('fbbtn');
-	el.innerHTML = '<iframe class="ifbook" src="http://www.facebook.com/plugins/like.php?href=https%253A%252F%252Fchrome.google.com%252Fextensions%252Fdetail%252Fhhcknjkmaaeinhdjgimjnophgpbdgfmg&amp;layout=button_count&amp;action=recommend&amp;font=trebuchet%2Bms&amp;colorscheme=dark" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
+    /*var sel = get_id('language_lang');
+     if (sel){
+     sel.addEventListener('change', onLang);
+     sel.addEventListener('keyup', onLang);
+     }*/
+    var el = get_id('fbbtn');
+    el.innerHTML = '<iframe class="ifbook" src="http://www.facebook.com/plugins/like.php?href=https%253A%252F%252Fchrome.google.com%252Fextensions%252Fdetail%252Fhhcknjkmaaeinhdjgimjnophgpbdgfmg&amp;layout=button_count&amp;action=recommend&amp;font=trebuchet%2Bms&amp;colorscheme=dark" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
 }
