@@ -413,7 +413,6 @@
         <script type="text/javascript" src="bg/stats.js"></script>
         <script type="text/javascript">
             //crash on macOsX + chrome<6.4.458
-			//if (!(isOsMac() && !isChromeVersionMini('6.0.458'))){
 			if (isOsLinux() || isOsMac()){
 				console.log('Statistics track OFF for platform : '+window.navigator.platform);
 			}else{
@@ -421,7 +420,7 @@
 	            _gaq.push(['_setAccount', 'UA-183120-12']);
 	            _gaq.push(['_trackPageview']);
 	            window.GRP = window.GRP || {};
-	            GRP.useStats = true;
+	            window.GRP.useStats = true;
 	            console.log('Statistics track ON');
 	            (function(){
 	                var ga = document.createElement('script');
