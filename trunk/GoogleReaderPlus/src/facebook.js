@@ -25,13 +25,9 @@ GRP.facebook = function(prefs, langs, ID, SL, lang){
 
 	function facebookShare(btn, entry, locked) {
 		var active = isActive(btn, entry, 'facebook', locked);
-		
 		var iframe, facebookSharer;
-		
 		var body = getFirstElementByClassName(entry,  'entry-body');//div
-		
 		iframe = getFirstElementByClassName(entry,  'facebookSharer');//iframe
-		
 		if (active) {
 			// iframe creation/display
 			if (iframe) {
