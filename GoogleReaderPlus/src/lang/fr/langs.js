@@ -6,8 +6,8 @@
  * fr : Francais
  * **************************
  *
- * Version : 1.5
- * Date : 07-06-2010
+ * Version : 1.6
+ * Date : 07-21-2010
  * @author Valente
  */
 var locale = 'fr';
@@ -253,6 +253,16 @@ text_toolbaricon:"Icône de la barre d'outil",
 text_pageicon:"Icône de la barre d'adresse",
 text_export:'Export/import'
     },
+limit: {
+    slidewindow: "Slidewindow - Limiter le nombre d'éléments",
+    mini: "Nombre minimum d'éléments",
+    maxi: "Nombre maximum d'éléments"
+},
+prefetch: {
+	first : "Nombre initial d'éléments chargés dans la vue Texte complet"
+	next : "Nombre d'éléments chargés après un scroll dans la vue Texte complet"
+	list : "Nombre initial d'éléments chargés dans la vue Liste."
+},   
     removeads: {
         links: "Liens:",
         images: "Images:",

@@ -89,6 +89,10 @@ GRP.langs[locale].scripts = {
         name: "Limit entries",
         desc: "Limit entries number in one page. Read items are removed to fit in a range"
     },
+	prefetch: {
+        name: "Prefetch more",
+        desc: "Loading more entries at the same time for a smoother navigation"
+    },
     readbymouse: {
         name: "Read by mouse",
         desc: "Next/previous item using right/left mouse click"

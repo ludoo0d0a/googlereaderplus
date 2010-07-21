@@ -84,6 +84,10 @@ GRP.langs[locale].scripts = {
         name: "Limitation",
         desc: "Limiter le nombre d'aticles dans une page. Les articles lus sont retirés pour rester avec un nombre raisonnable d'éléments."
     },
+	prefetch: {
+        name: "Chargement+",
+        desc: "Charger plus d'éléments à chaque fois pour une navigation plus souple"
+    },
     readbymouse: {
         name: "Lecture par souris",
         desc: "Lire les articles avec votre souris. Clid croit ou gauche pour aller sur l'élément suivant pour précédent"
