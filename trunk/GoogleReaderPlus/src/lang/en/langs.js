@@ -6,8 +6,8 @@
  * en : English
  * **************************
  *
- * Version : 1.5
- * Date : 07-06-2010
+ * Version : 1.6
+ * Date : 07-21-2010
  * @author Valente
  */
 var locale = 'en';
@@ -265,6 +265,11 @@ text_export:'Export/import'
         slidewindow: "Slidewindow - limit entries number",
         mini: "Minimum items",
         maxi: "Maximum items"
+    },
+	prefetch: {
+		first : "Initial loading items number on the expanded view."
+		next : "Loading items when scrolling on the expanded view. "
+		list : "Initial fetch on the list view."
     },
     removeads: {
         links: "Link filter:",
