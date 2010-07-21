@@ -139,7 +139,7 @@ GRP.langs[locale].texts = {
     },
     menu: {
         label: 'Extra',
-showallfolders: 'Show all folders'
+        showallfolders: 'Show all folders'
     }
 };
 GRP.langs[locale].prefs = {
@@ -149,26 +149,26 @@ GRP.langs[locale].prefs = {
         alreadyexist: "Cet élément existe déjà!",
         snew: 'Nouveau!',
         supdated: 'Mis à jour!',
-expandall:'Tous'
+        expandall: 'Tous'
     },
     theme: {
         noborder: "Retirer les bords des articles pour en afficher un maximum sur une page",
         mytheme: 'Utilisez <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">une image de fond </a> et des couleurs personnaliséees avec le thème "MyTheme" (<a href="http://code.google.com/p/googlereaderplus/wiki/Themes" target="blank">Aperçu</a>)',
-/*url: 'URL de l\'image',*/
+        /*url: 'URL de l\'image',*/
         color: 'Couleur du text',
         bg: 'Couleur du fond du texte',
-/*repeat: 'Tiled Picture ',*/
-externaltheme: 'Gmail theme',
-imgrbg:'Image répétée',
-imgsbg:'Image',
-imgrh:'Entête répété',
-imgh:'Entête',
-imghr:'Entête droit',
-imghl:'Entête gauche',
-imgrf:'Pied de page répété',
-imgf:'Pied de page',
-imgfr:'Pied de page droit',
-imgfl:'Pied de page gauche'
+        /*repeat: 'Tiled Picture ',*/
+        externaltheme: 'Gmail theme',
+        imgrbg: 'Image répétée',
+        imgsbg: 'Image',
+        imgrh: 'Entête répété',
+        imgh: 'Entête',
+        imghr: 'Entête droit',
+        imghl: 'Entête gauche',
+        imgrf: 'Pied de page répété',
+        imgf: 'Pied de page',
+        imgfr: 'Pied de page droit',
+        imgfl: 'Pied de page gauche'
     },
     ig: {
         warning: 'Some themes could be displayed incorrectly ; this is a Beta feature!',
@@ -235,34 +235,34 @@ imgfl:'Pied de page gauche'
     },
     general: {
         counter: "Afficher le compteur dans la barre d'outil",
-pageicon: "Activer l'icône dans la barre d'adresse (permet d'afficher un menu)",
-stats: 'Autoriser la collecte de données statistiques anonyme (pour un meilleur support)',
-bottomup:"Placer la barre 'Précédent/Suivant' en haut de l'écran",
+        pageicon: "Activer l'icône dans la barre d'adresse (permet d'afficher un menu)",
+        stats: 'Autoriser la collecte de données statistiques anonyme (pour un meilleur support)',
+        bottomup: "Placer la barre 'Précédent/Suivant' en haut de l'écran",
         opendirect: "Cliquer sur l'icône pour ouvrir GoogleReader",
         secure: "Forcer l'utilisation du protocole sécurisé (https)",
-topcurrent: "Forcer l'affichage de l'article courant toujours en haut de l'écran",
-floatactions: "Menu 'actions' est affiché dans une fenêtre volante",
-noupdatepopup: "Plus de popup lors des mises à jour",
+        topcurrent: "Forcer l'affichage de l'article courant toujours en haut de l'écran",
+        floatactions: "Menu 'actions' est affiché dans une fenêtre volante",
+        noupdatepopup: "Plus de popup lors des mises à jour",
         icontoolbar_add: "Pour ajouter un bouton avec icône dans la barre d'outil, veuillez <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">télécharger et installer le bouton</a>.",
         icontoolbar_text: "<span>Afin de le rendre optionnel, nous fournissons le bouton sous forme d'une extension indépendante,</span><br><span>à installé en plus de ReaderPlus.</span><br><span>Pour ajouter le bouton, cliquer <b>Installer</b> sur la page <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">bouton pour ReaderPlus</a>.</span><br><span>Pour retirer le bouton, un clic droit et choisissez 'Désactiver'.</span>",
         importexport_text: "Vous pouvez sauver vos préférences avec la fonction 'export' et les rechqrger plus tard avec 'import', mais assurez vous de la <a href='http://jsonformatter.curiousconcept.com/' target='blank'>validité du format JSON</a>:",
         confirmimport: "Etes-vous sur de vouloir importer cette configuration?\nLa configuration actuelle sera perdue",
-text_layout:'Mise en page',
-text_private:'Données privées et mise à jour',
-text_toolbaricon:"Icône de la barre d'outil",
-text_pageicon:"Icône de la barre d'adresse",
-text_export:'Export/import'
+        text_layout: 'Mise en page',
+        text_private: 'Données privées et mise à jour',
+        text_toolbaricon: "Icône de la barre d'outil",
+        text_pageicon: "Icône de la barre d'adresse",
+        text_export: 'Export/import'
     },
 limit: {
-    slidewindow: "Slidewindow - Limiter le nombre d'éléments",
-    mini: "Nombre minimum d'éléments",
-    maxi: "Nombre maximum d'éléments"
+slidewindow: "Slidewindow - Limiter le nombre d'éléments",
+mini: "Nombre minimum d'éléments",
+maxi: "Nombre maximum d'éléments"
 },
 prefetch: {
-	first : "Nombre initial d'éléments chargés dans la vue Texte complet"
-	next : "Nombre d'éléments chargés après un scroll dans la vue Texte complet"
-	list : "Nombre initial d'éléments chargés dans la vue Liste."
-},   
+first: "Nombre initial d'éléments chargés dans la vue Texte complet",
+next: "Nombre d'éléments chargés après un scroll dans la vue Texte complet",
+list: "Nombre initial d'éléments chargés dans la vue Liste."
+},
     removeads: {
         links: "Liens:",
         images: "Images:",
@@ -278,13 +278,13 @@ prefetch: {
     },
     filter: {
         searchbody: "Recherche dans le titre et le corps du texte",
-highlights: 'Liste des exclusions (une par ligne)',
-excludes: 'Liste des  surlignages (un par ligne)'
+        highlights: 'Liste des exclusions (une par ligne)',
+        excludes: 'Liste des  surlignages (un par ligne)'
     },
     favicons: {
         providerpageicons: 'Utiliser le fournisseur d\'icônes <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> pour afficher correctement toutes les icônes des sites (Recommandé)',
         sidebaronly: "Afficher favicons in sidebar only",
-cloud: 'Utiliser les favicons de la communauté grâce la base en ligne <a href="http://wedata.net/databases/Favicons/items" target="blank">wedata/Favicons</a>',
+        cloud: 'Utiliser les favicons de la communauté grâce la base en ligne <a href="http://wedata.net/databases/Favicons/items" target="blank">wedata/Favicons</a>',
         custom: "Saisissez vos propres favicons :",
         add: "Ajouter",
         tip: "Conseil: Vous pouvez également utiliser le menu contextuel \"Obtenir l'icône de ce site\" sur chaque site dans l'arbre de gauche",
@@ -294,8 +294,8 @@ cloud: 'Utiliser les favicons de la communauté grâce la base en ligne <a href=
         "prompticon": "Saisissez l'adresse de votre icône (laissez vide pour l'obtenir automatiquement):"
     },
     replacer: {
-intro: '<a href="http://code.google.com/p/googlereaderplus/wiki/ReplacerHowto" target="blank">Aide sur l\'utilisation de replacer</a>',
-cloud: 'Utiliser les expressions de la base en ligne <a href="http://wedata.net/databases/LDRFullFeed/items" target="blank">wedata/LDRFullFeed</a>  et <a href="http://wedata.net/databases/Replacer/items" target="blank">wedata/Replacer</a>',
+        intro: '<a href="http://code.google.com/p/googlereaderplus/wiki/ReplacerHowto" target="blank">Aide sur l\'utilisation de replacer</a>',
+        cloud: 'Utiliser les expressions de la base en ligne <a href="http://wedata.net/databases/LDRFullFeed/items" target="blank">wedata/LDRFullFeed</a>  et <a href="http://wedata.net/databases/Replacer/items" target="blank">wedata/Replacer</a>',
         link: "Sites",
         from: "Rechercher",
         to: "Remplacer par"
