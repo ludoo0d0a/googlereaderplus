@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <script type="application/javascript" src="lib/jquery.min.js"></script>
+        <title></title>
+        <script type="text/javascript">
+    function printSource(o){
+        if (o){
+			var d= o.dir||{};
+			$('#h').text(d.count +' items in '+d.text+','+getToday());
+		
+			var html ='';
+			if (o.entries) {
+				html = o.entries.join('');
+			}
+			 
+			$('#ctn').html(html);
+		}
+    }
+                
+    function getToday(){
+        var currentTime = new Date();
+        var month = parseInt(currentTime.getMonth() + 1);
+        month = month <= 9 ? "0" + month : month;
+        var day = currentTime.getDate();
+        day = day <= 9 ? "0" + day : day;
+        var year = currentTime.getFullYear();
+        return month + "/" + day + "/" + year;
+    }
+    
+    function req(message, cb, data){
+        if (chrome.extension) {
+            var o = data || {};
+            o.message = message;
+            chrome.extension.sendRequest(o, cb);
+        }
+    }
+	
+	function htmlEscape(txt){
+		return txt.replace(/>/g, '&gt;').replace(/</g, '&lt;');
+	} 
+                
+                    
+        </script>
+    </head>
+    <body>
+        <h3>Export of GoogleReader</h3>
+		<span id="h"></span>
+		<div id="ctn"></div>
+    </body>
+</html>

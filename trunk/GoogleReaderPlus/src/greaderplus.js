@@ -25,6 +25,16 @@
                 me.prefs = a.prefs;
                 me.initprefs.call(me);
             });
+			
+			mycore.page.listen(function(a){
+				if (a.message === 'export') {
+					mycore.extension.sendRequest({
+						message: 'exported',
+						entries: me.getExportedEntries(),
+						dir: getSelectedDir()
+					});
+				}
+			});
         },
         initprefs: function(){
             this.lang = this.prefs.language_lang || 'en';
@@ -34,6 +44,15 @@
                 this.fixMenu();
             }, this);
         },
+		getExportedEntries: function(){
+			var root = get_id('entries');
+			var entries = root.getElementsByClassName('entry-main');
+			var r= [];
+			foreach(entries, function(entry){
+				r.push(entry.innerHTML);
+			});	
+			return r;
+		},
         runExtra: function(){
             var count = 0;
             if (GRP.scripts) {

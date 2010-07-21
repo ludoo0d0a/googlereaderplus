@@ -1,7 +1,7 @@
 {
   "_name": "__MSG_extension_name__",
   "name": "Reader Plus",
-  "version": "3.3.3",
+  "version": "3.4.0",
   "_description": "__MSG_extension_description__",
   "description": "Enhance Google Reader by adding missing favicons and a collection of others features",
   "icons": { 

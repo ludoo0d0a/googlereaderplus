@@ -76,6 +76,27 @@ function opentab(a){
     });
 }
 
+function openNewPage(a, id){
+    chrome.tabs.getSelected(null, function(tab){
+        var oldUrl = tab.url;
+        var blankUrl = chrome.extension.getURL('blank.html');
+        blankUrl += '#' + id;
+        chrome.tabs.create({
+            url: blankUrl,
+            index: tab.index + 1
+        }, function(tab){
+            var tabs = chrome.extension.getExtensionTabs();
+            for (var i = 0; i < tabs.length; i++) {
+                var tab = tabs[i];
+                if (tab.location.href == blankUrl && !tab.dataAlreadySet) {
+                    tab.printSource(a);
+                    tab.dataAlreadySet = true;
+                    break;
+                }
+            }
+        });
+    });
+}
 
 var lastTabReader = false;
 function monitorCloseTab(){
