@@ -139,7 +139,7 @@ GRP.langs[locale].texts = {
     },
     menu: {
         label: 'Extra',
-showallfolders: 'Afficher tous les dossiers'
+        showallfolders: 'Afficher tous les dossiers'
     }
 };
 GRP.langs[locale].prefs = {
@@ -151,26 +151,26 @@ GRP.langs[locale].prefs = {
         supdated: 'Updated!',
         prefssaved: "Preferences saved!",
         cachecleared: "Cache cleared!",
-expandall:'All'
+        expandall: 'All'
     },
     theme: {
         noborder: "Remove entries borders to display more items on a single page",
         mytheme: 'Use <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">custom background picture</a> and font color with skin "MyTheme" (<a href="http://code.google.com/p/googlereaderplus/wiki/Themes" target="blank">Preview</a>)',
-/*url: 'Picture URL',*/
+        /*url: 'Picture URL',*/
         color: 'Text color',
-		bg: 'Background color',
-/*repeat: 'Tiled Picture ',*/
-externaltheme: 'Google/Gmail theme',
-imgrbg:'Repeated background',
-imgsbg:'Background',
-imgrh:'Repeated header',
-imgh:'Header',
-imghr:'Right header',
-imghl:'Left header',
-imgrf:'Repeated footer',
-imgf:'Footer',
-imgfr:'Right footer',
-imgfl:'Left footer'
+        bg: 'Background color',
+        /*repeat: 'Tiled Picture ',*/
+        externaltheme: 'Google/Gmail theme',
+        imgrbg: 'Repeated background',
+        imgsbg: 'Background',
+        imgrh: 'Repeated header',
+        imgh: 'Header',
+        imghr: 'Right header',
+        imghl: 'Left header',
+        imgrf: 'Repeated footer',
+        imgf: 'Footer',
+        imgfr: 'Right footer',
+        imgfl: 'Left footer'
     },
     ig: {
         warning: 'Some themes could be displayed incorrectly ; this is a Beta feature!',
@@ -243,10 +243,10 @@ imgfl:'Left footer'
     },
     general: {
         counter: "Display unread counter in the toolbar icon",
-pageicon: 'Activate icon in the address bar (click will open a menu)',
-stats: 'Enable anonymous statistics reporting (for a better support)',
-bottomup:'Footer toolbar on the top',
-		opendirect: "Click on toolbar icon will open GoogleReader",
+        pageicon: 'Activate icon in the address bar (click will open a menu)',
+        stats: 'Enable anonymous statistics reporting (for a better support)',
+        bottomup: 'Footer toolbar on the top',
+        opendirect: "Click on toolbar icon will open GoogleReader",
         secure: "Always force use of secure protocol (https)",
         topcurrent: "Current entry always on top",
         floatactions: "Entry actions are displayed as a floating window",
@@ -255,22 +255,22 @@ bottomup:'Footer toolbar on the top',
         icontoolbar_text: "<span>To make the button optional, we put him in an another extension as standalone,</span>                                    <br>                                    <span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b></b> on the <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span><span>To remove the button, right click him and choose Disable.</span>",
         importexport_text: "You can now save your preferences using 'export' and reload it later using 'import', but be sure data are <a href='http://jsonformatter.curiousconcept.com/' target='blank'>JSON compliant</a>:",
         confirmimport: "Are you sure to import this configuration?\nCurrent configuration will be LOST!",
-text_layout:'Layout options',
-text_private:'Private data and updates',
-text_toolbaricon:'Toolbar icon',
-text_pageicon:'Address bar icon',
-text_export:'Export/import'
+        text_layout: 'Layout options',
+        text_private: 'Private data and updates',
+        text_toolbaricon: 'Toolbar icon',
+        text_pageicon: 'Address bar icon',
+        text_export: 'Export/import'
     },
-    limit: {
-        slidewindow: "Slidewindow - limit entries number",
-        mini: "Minimum items",
-        maxi: "Maximum items"
-    },
-	prefetch: {
-		first : "Initial loading items number on the expanded view."
-		next : "Loading items when scrolling on the expanded view. "
-		list : "Initial fetch on the list view."
-    },
+limit: {
+slidewindow: "Slidewindow - limit entries number",
+mini: "Minimum items",
+maxi: "Maximum items"
+},
+prefetch: {
+first: "Initial loading items number on the expanded view.",
+next: "Loading items when scrolling on the expanded view. ",
+list: "Initial fetch on the list view."
+},
     removeads: {
         links: "Link filter:",
         images: "Image filter:",
@@ -286,13 +286,13 @@ text_export:'Export/import'
     },
     filter: {
         searchbody: "Search inside title and body text",
-highlights: 'Highlights list (one item per line)',
-excludes: 'Excludes list (one item per line)'
+        highlights: 'Highlights list (one item per line)',
+        excludes: 'Excludes list (one item per line)'
     },
     favicons: {
         providerpageicons: 'Use <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> provider (Recommended to load succesfully all icons)',
         sidebaronly: "Show favicons in sidebar only",
-cloud: 'Use cloud database <a href="http://wedata.net/databases/Favicons" target="blank">wedata/Favicons</a> so that community completes favicons',
+        cloud: 'Use cloud database <a href="http://wedata.net/databases/Favicons" target="blank">wedata/Favicons</a> so that community completes favicons',
         custom: "Enter your custom favicons :",
         add: "Add",
         tip: "Tip: You could add it easily using the contextual menu \"Get favicon\" of the left side bar",
@@ -302,8 +302,8 @@ cloud: 'Use cloud database <a href="http://wedata.net/databases/Favicons" target
         prompticon: "Enter the icon url (let empty to get it automatically):"
     },
     replacer: {
-intro: '<a href="http://code.google.com/p/googlereaderplus/wiki/ReplacerHowto" target="blank">Help on how to use replacer</a>',
-cloud: 'Use online expressions from <a href="http://wedata.net/databases/LDRFullFeed/items" target="blank">wedata/LDRFullFeed</a> and <a href="http://wedata.net/databases/Replacer/items" target="blank">wedata/Replacer</a> cloud database',
+        intro: '<a href="http://code.google.com/p/googlereaderplus/wiki/ReplacerHowto" target="blank">Help on how to use replacer</a>',
+        cloud: 'Use online expressions from <a href="http://wedata.net/databases/LDRFullFeed/items" target="blank">wedata/LDRFullFeed</a> and <a href="http://wedata.net/databases/Replacer/items" target="blank">wedata/Replacer</a> cloud database',
         link: "Link Regex",
         from: "Search regex/xpath",
         to: "Replace",
