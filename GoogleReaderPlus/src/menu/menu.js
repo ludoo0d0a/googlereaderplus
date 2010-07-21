@@ -10,13 +10,26 @@ function initMenu(){
     });
     dh('theme', 'a', {
         href: '#',
-        text: 'Themes',
-		cls:'last'
+        text: 'Themes'
     }, {
         click: function(){
             GM_openInTab(mycore.getUrl('/preferences.html#theme'));
         }
     });
+	dh('export', 'a', {
+        href: '#',
+        text: 'Export',
+		cls:'last'
+    }, {
+        click: function(){
+            mycore.page.postMessage('export');
+			/*mycore.extension.sendRequest({
+				message: 'export'
+			});*/
+        }
+    });	
 }
+//document.onload = function(){
+	initMenu();
+//};
 
-initMenu();
