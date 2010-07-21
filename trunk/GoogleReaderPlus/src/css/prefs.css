@@ -521,3 +521,7 @@ img.favicon {
 	width:120px;
 	float:right;
 }
+
+#panel_prefetch label{
+	width:400px;
+}
