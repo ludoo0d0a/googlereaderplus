@@ -624,6 +624,16 @@ GRP.scripts = {
             maxi: 200
         }
     },
+	prefetch: {
+        name: "Prefetch",
+        category: 'layout',
+        status: 'new',
+        options: {
+            first: 25,
+			next: 15,
+			list: 60
+        }
+    },
     replacer: {
         name: "Replacer",
         category: 'content',
