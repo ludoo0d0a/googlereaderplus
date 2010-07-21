@@ -107,9 +107,15 @@
                     translate(a, cb);
                 } else if (a.message == "clouddata") {
                     getCloudData(a, cb);
+                }else if (a.message == "exported") {
+                    exportitems(a);
                 }
             }
-            
+			
+			function exportitems(a){
+				openNewPage(a, 'export');
+			}
+			            
             var mappers = {
                 def: function(item){
                     return {
@@ -410,6 +416,7 @@
         </script>
     </head>
     <body>
+    	<script type="text/javascript" src="bg/stats.js"></script>
         <script type="text/javascript" src="bg/stats.js"></script>
         <script type="text/javascript">
             //crash on macOsX + chrome<6.4.458

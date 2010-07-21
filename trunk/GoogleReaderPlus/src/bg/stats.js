@@ -2,12 +2,12 @@
     if (GRP && GRP.useStats) {
         return;
     }
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-183120-12']);
-    _gaq.push(['_trackPageview']);
+    window._gaq = window._gaq || [];
+    window._gaq.push(['_setAccount', 'UA-183120-12']);
+    window._gaq.push(['_trackPageview']);
     
-    GRP = GRP || {};
-    GRP.useStats = true;
+    window.GRP = window.GRP || {};
+    window.GRP.useStats = true;
     console.log('track ON');
     
     //http://code.google.com/chrome/extensions/tut_analytics.html
@@ -18,7 +18,9 @@
         ga.src = 'https://ssl.google-analytics.com/ga.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
     })();
-}*/
+}
+initstats();
+*/
 
 function track(name, value){
     if (typeof name === 'object') {
