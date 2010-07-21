@@ -125,11 +125,15 @@
 					};
                 },
                 /*Replacer: function(item){
-                    var o = item.data;
-                    //title, url,search,replace
-                    o.title = o.name;
-                    return o;
-                },*/
+                    return {
+						name: item.name,
+						resource_url: item.resource_url,
+                        title: item.name,
+                        url: item.data.url,
+                        search: item.data.xpath,
+                        replace: item.data.replace
+					};
+                },
                 LDRFullFeed: function(item){
                     return {
 						name: item.name,
@@ -141,7 +145,7 @@
 	                        replace: "$1"
 	                    }
 					};
-                }
+                }*/
             }
             
             function getCloudData(a, cb, mapper){
