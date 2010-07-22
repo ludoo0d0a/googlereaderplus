@@ -1149,6 +1149,7 @@ function showas(el, hideme){
 //https://developer.mozilla.org/En/Code_snippets:HTML_to_DOM
 function loadXml(html, id){
     var el = document.createElement('div');
+	el.id = id || ('_grp_xml_'+Math.round(Math.random()*999+1));
     el.style.display = 'none';
     el.innerHTML = (html.split(/<body[^>]*>((?:.|\n)*)<\/body>/i)[1]) || html;
     return el;
