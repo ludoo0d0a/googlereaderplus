@@ -610,12 +610,16 @@ function marshallKey(e){
 }
 
 function formatKey(e, keyFirst){
-    var keyLetter = getStringFromCharCode(e.keyCode);
-    if (keyFirst) {
-        return keyLetter + ((e.ctrlKey) ? '+ctrl' : '') + ((e.altKey) ? '+alt' : '') + ((e.shiftKey) ? '+shift' : '');
-    } else {
-        return ((e.ctrlKey) ? 'ctrl+' : '') + ((e.altKey) ? 'alt+' : '') + ((e.shiftKey) ? 'shift+' : '') + keyLetter;
-    }
+    if (e && e.keyCode) {
+		var keyLetter = getStringFromCharCode(e.keyCode);
+		if (keyFirst) {
+			return keyLetter + ((e.ctrlKey) ? '+ctrl' : '') + ((e.altKey) ? '+alt' : '') + ((e.shiftKey) ? '+shift' : '');
+		} else {
+			return ((e.ctrlKey) ? 'ctrl+' : '') + ((e.altKey) ? 'alt+' : '') + ((e.shiftKey) ? 'shift+' : '') + keyLetter;
+		}
+	}else{
+		return '';
+	}
 }
 
 /**
