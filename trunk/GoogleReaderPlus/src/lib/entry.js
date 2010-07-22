@@ -506,8 +506,10 @@ function formatShortcut(script, shortcut, prefs){
 
 function getShortcutKey(script, shortcut, prefs){
     var key, keyhash = prefs[script + '_key_' + shortcut];
-    if (keyhash) {
-        key = unmarshallKey(keyhash);
+	if (keyhash && typeof keyhash === 'object' && keyhash.key) {
+		key = keyhash.key;
+	}else if (keyhash && typeof keyhash === 'string') {
+		key = unmarshallKey(keyhash);
     } else {
         try {
             var s = getScriptObject(script);
@@ -707,3 +709,56 @@ function removeReadItems(ent, deleteMarkAsRead){
     	jump(currentry, true);
 	},200);
 }
+
+function markallasread(entry, since){
+        console.log('entry: ' + entry.className);
+        var url, text;
+        var a = getFirstElementByClassName(entry, 'entry-source-title');//a
+        if (a) {
+            console.log('entry-source-title: ' + a.href);
+            url = 'feed/' + (decodeURIComponent(a.href).replace(/.*?\/feed\//, ''));
+            //url = 'feed/' + (a.href.replace(/.*?\/feed\//, ''));
+            text = a.innerText;
+        } else {
+            //No link found -> get from nav
+            var d = getSelectedDir();
+            text = d.text;
+        }
+        var domain = getDomain(window.location.href, true);
+        var metadata = getMetadata();
+        console.log('_COMMAND_TOKEN: ' + metadata._COMMAND_TOKEN);
+        console.log('url: ' + url);
+        console.log('text: ' + text);
+        console.log('domain: ' + domain);
+        var params = {
+            T: metadata._COMMAND_TOKEN,
+            s: url,
+            t: text,
+            ts: 1000 * (new Date()).getTime() + 999 //since
+        };
+        var urlpost = domain + '/reader/api/0/mark-all-as-read';
+        console.log('url: ' + urlpost);
+        console.log('params: ' + JSON.stringify(params));
+        GM_xmlhttpRequest({
+            method: 'post',
+			injected:true,
+            headers: {
+                Origin: domain,
+                Referer: domain + '/reader/view/'
+            },
+            url: urlpost,
+            parameters: params,
+            onload: function(r){
+				if (r.status == 200 && r.responsText === 'OK') {
+                    console.log('Mark all as read done');
+                } else {
+                    console.error(r);
+                    alert(r.status + ':' + r.statusText);
+                }
+            },
+            onerror: function(r){
+                console.error(r);
+                alert(r.status + ':' + r.statusText);
+            }
+        });
+    }
