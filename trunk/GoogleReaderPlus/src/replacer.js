@@ -50,7 +50,9 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
                         o.xpath = './' + o.xpath;
                     }
                 }
-            } else {
+            }else if (/^css\:/.test(o.search)) {
+				o.selector = = o.search.replace(/^css\:/, '');
+			} else {
                 o.re_search = new RegExp(o.search, "im");
             }
             gp_data[title] = o;
@@ -65,15 +67,22 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
          result = eb.innerHTML+'<br/>';
          }*/
         iterate(matches, function(title, o){
-            if (o.xpath) {
+            if (o.xpath || o.selector) {
                 if (!xml) {
                     xml = loadXml(html);
                 }
                 if (xml) {
-                    var els = getElements(o.xpath, xml);
-                    foreach(els, function(el){
-                        result += el.outerHTML;
-                    });
+                    var els;
+					if (o.xpath){
+						els = getElements(o.xpath, xml);
+					}else{
+						els = Sizzle(o.selector, xml);
+					}
+					if (els) {
+						foreach(els, function(el){
+							result += el.outerHTML;
+						});
+					}
                     //clean xml
                     remove(xml);
                 }
