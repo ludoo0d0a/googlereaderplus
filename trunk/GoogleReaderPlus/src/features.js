@@ -15,6 +15,7 @@ GRP.scripts = {
             topcurrent: false,
             floatactions: false,
 			bottomup:false,
+			currdir:true,
             /*antisocial:true,*/
 
 			text_pageicon:{
@@ -649,10 +650,11 @@ GRP.scripts = {
             }
         }
     },
-    /*menu: {
-     name: "Intuitive menu",
-     desc: "Intuitive menu to add extra capabilites"
-     },*/
+   /* menu: {
+     name: "Smart menu",
+	 category: 'navigation',
+     desc: "Smart menu to add extra capabilites on each entry"
+    },*/
     aero: {
         name: "Google Aero Toolbar",
         category: 'theme'

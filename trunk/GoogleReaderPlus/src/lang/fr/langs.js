@@ -251,7 +251,8 @@ GRP.langs[locale].prefs = {
         text_private: 'Données privées et mise à jour',
         text_toolbaricon: "Icône de la barre d'outil",
         text_pageicon: "Icône de la barre d'adresse",
-        text_export: 'Export/import'
+        text_export: 'Export/import',
+currdir: "Surligner le répertoire de l'élément sélectionné"
     },
 limit: {
 slidewindow: "Slidewindow - Limiter le nombre d'éléments",
