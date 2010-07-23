@@ -19,6 +19,40 @@ GRP.general = function(prefs, langs, ID, SL, lang){
         insertAfter(el, ref);
         entries.style.height = (getStyle(entries, 'height') + h) + 'px';
     }
+	if (prefs.general_currdir) {
+        var lastUrl='';
+		GM_addStyle('.tree-sel{background-color:#dedede;}', 'rps_currdir');
+		var st = get_id('sub-tree');
+		setInterval(function(){
+			var e = get_id('current-entry');
+			if (e) {
+				var el = getFirstElementByClassName(e, 'entry-source-title');
+				//var el = Sizzle('#current-entry a.entry-source-title');
+				if (el) {
+					var url = el.getAttribute('href');
+					if (url && url !== lastUrl) {
+						var l = getFirstElementByClassName(st, 'tree-sel');
+						if (l) {
+							removeClass(l, 'tree-sel');
+						}
+						
+						//var a = Sizzle('#sub-tree a.link[href="' + url + '"]');
+						var a = getElements(".//a[@class='link'][@href='" + url + "']", st);
+						console.log("a[@class='link'][@href='" + url + "']");
+						if (a && a.length > 0) {
+							addClass(a[0], 'tree-sel');//tree-selected
+							lastUrl = url;
+							//ensure visible
+							var h = findTop(a[0], st);
+							st.scrollTop = h;
+						}
+					}
+				}
+			}
+		},2000);
+		
+		
+    }
     if (prefs.general_topcurrent) {
         function updateSpacer(){
             var scrollspacer = get_id('scrollspacer');

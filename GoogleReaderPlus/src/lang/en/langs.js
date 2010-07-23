@@ -259,7 +259,8 @@ GRP.langs[locale].prefs = {
         text_private: 'Private data and updates',
         text_toolbaricon: 'Toolbar icon',
         text_pageicon: 'Address bar icon',
-        text_export: 'Export/import'
+        text_export: 'Export/import',
+currdir: 'Highlight folder of current entry'
     },
 limit: {
 slidewindow: "Slidewindow - limit entries number",

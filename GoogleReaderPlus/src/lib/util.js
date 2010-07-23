@@ -106,7 +106,7 @@ function getPos(obj){
 
 //native getElementsByClassName
 function getFirstElementByClassName(root, clazz){
-    return root.getElementsByClassName(clazz)[0];
+	return root.getElementsByClassName(clazz)[0];
 }
 
 function getElementText(root, cls, html, firstchild){
@@ -531,12 +531,12 @@ function fitHeight(id, bottom){
     el.style.height = (window.innerHeight - h) + 'px';
 }
 
-function findTop(obj){
+function findTop(obj, relative){
     var curtop = 0;
     if (obj.offsetParent) {
         do {
             curtop += obj.offsetTop;
-        } while ((obj = obj.offsetParent));
+        } while ((obj = obj.offsetParent) && (!relative || (relative && relative!==obj)) );
         return curtop;
     }
 }

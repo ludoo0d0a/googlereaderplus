@@ -41,7 +41,7 @@ GRP.menu = function(prefs, langs, ID, SL, lang){
                         cls: 'read-state-kept-unread',
                         text: 'Mark site as read',
                         fn: function(){
-                            markreadsite(ent);
+                            markallasread(ent);
                         }
                     }]);
                 }
@@ -113,58 +113,7 @@ GRP.menu = function(prefs, langs, ID, SL, lang){
      toggle(menu);
      }
      */
-    function markreadsite(entry){
-        console.log('entry: ' + entry.className);
-        var url, text;
-        var a = getFirstElementByClassName(entry, 'entry-source-title');//a
-        if (a) {
-            console.log('entry-source-title: ' + a.href);
-            url = 'feed/' + (decodeURIComponent(a.href).replace(/.*?\/feed\//, ''));
-            //url = 'feed/' + (a.href.replace(/.*?\/feed\//, ''));
-            text = a.innerText;
-        } else {
-            //No link found -> get from nav
-            var d = getSelectedDir();
-            text = d.text;
-        }
-        var domain = getDomain(window.location.href, true);
-        var metadata = getMetadata();
-        console.log('_COMMAND_TOKEN: ' + metadata._COMMAND_TOKEN);
-        console.log('url: ' + url);
-        console.log('text: ' + text);
-        console.log('domain: ' + domain);
-        var params = {
-            T: metadata._COMMAND_TOKEN,
-            s: url,
-            t: text,
-            ts: 1000 * (new Date()).getTime() + 999
-        };
-        var urlpost = domain + '/reader/api/0/mark-all-as-read?client=scroll';
-        console.log('url: ' + urlpost);
-        console.log('params: ' + JSON.stringify(params));
-        GM_xmlhttpRequest({
-		//jq_xmlhttpRequest({
-            method: 'POST',
-            headers: {
-                Origin: domain,
-                Referer: domain + '/reader/view/'
-            },
-            url: urlpost,
-            parameters: params,
-            onload: function(r){
-                if (r.status == 200 && r.responsText === 'OK') {
-                    console.log('Mark all as read done');
-                } else {
-                    console.error(r);
-                    alert(r.status + ':' + r.statusText);
-                }
-            },
-            onerror: function(r){
-                console.error(r);
-                alert(r.status + ':' + r.statusText);
-            }
-        });
-    }
+    
     var css = '.grp-item-link-menu item-link-drop-down-arrow{visibility:visible;}.grp-item-link-menu:hover item-link-drop-down-arrow{visibility:hidden !important;}';
     css += '.goog-menuitem:hover {background-color:#BECDEE;}'
     GM_addStyle(css);

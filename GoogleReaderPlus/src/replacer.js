@@ -51,7 +51,7 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
                     }
                 }
             }else if (/^css\:/.test(o.search)) {
-				o.selector = = o.search.replace(/^css\:/, '');
+				o.selector = o.search.replace(/^css\:/, '');
 			} else {
                 o.re_search = new RegExp(o.search, "im");
             }

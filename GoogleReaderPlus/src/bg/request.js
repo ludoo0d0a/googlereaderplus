@@ -1,4 +1,35 @@
 function request(a, local, cb){
+    if (a.injected) {
+		/*chrome.tabs.getSelected(null, function(tab){
+            chrome.tabs.executeScript(tab.id, {
+                code: getInjectedXhrCode(a)
+            });
+        });*/
+		//GM_addjs(getInjectedXhrCode(a), true, '_grp_xhr');
+    } else {
+		bg_request(a, local, cb);
+    }
+}
+function getInjectedXhrCode(o){
+	var p = null;
+	if (o.method.toLowerCase() === 'post') {
+		p = '"'+serializePost(o.parameters)+'"';
+	}
+	var code =  'var xhr = new XMLHttpRequest();\n'+
+	'xhr.open("'+o.method+'", "'+o.url+'", true);\n'+
+	'xhr.onload=function(x){\n'+
+	'  var xhr=x.target;\n'+
+	'  console.log(xhr.status);\n'+
+	'};\n'+
+	'xhr.onerror=function(x){\n'+
+	'  console.log(x.target);\n'+
+	'};\n'+
+	'xhr.send('+p+');\n';
+	
+	return "(function(){\n" + code +"\n}());\n";
+}
+
+function bg_request(a, local, cb){
     var xhr = new XMLHttpRequest();
     var method = a.method || 'get';
     method = method.toLowerCase();
@@ -76,6 +107,7 @@ function request(a, local, cb){
             sendResponse(o, cb);
         }
     }
+    
 }
 
 function enhanceResponse(a, res){
@@ -88,7 +120,7 @@ function enhanceResponse(a, res){
     if (a.xpath && xhr.responseXML) {
         res.xml = serializeXml(getElements(a.xpath, xhr.responseXML));
     }
-	return res;
+    return res;
 }
 
 function sendResponse(a, cb){

@@ -5,10 +5,10 @@ if (typeof GM_getValue === "undefined") {
     GM_getValue = function(name, def, cb){
         //Move old nameing value to new prefixed place
         /*var value = mycore.storage.getItem(name, cb);
-        if (value) {
-            GM_setValue(PREFIX + name, value);
-            mycore.storage.removeItem(name);//remove old
-        }*/
+         if (value) {
+         GM_setValue(PREFIX + name, value);
+         mycore.storage.removeItem(name);//remove old
+         }*/
         value = mycore.storage.getItem(name, def, cb);
         return value;
     };
@@ -36,7 +36,7 @@ if (typeof GM_getCookieValue === "undefined") {
 if (typeof GM_setValue === "undefined") {
     GM_setValue = function(name, value, cb){
         try {
-			mycore.storage.setItem(name, value, cb);
+            mycore.storage.setItem(name, value, cb);
         } catch (e) {
             console.log('error on GM_setValue[' + n + ']=' + value);
         }
@@ -73,7 +73,7 @@ function clearcache(lang){
 }
 
 function openWindow(o, cb){
-	sendMessage("window",o, cb);
+    sendMessage("window", o, cb);
 }
 
 function sendMessage(message, o, callback){
@@ -88,12 +88,14 @@ function sendMessage(message, o, callback){
     mycore.extension.sendRequest(a, callback);
 }
 
+
 if (typeof GM_xmlhttpRequest === "undefined") {
     GM_xmlhttpRequest = function(o){
         o.method = (o.method) ? o.method.toUpperCase() : "GET";
         if (!o.url) {
             throw ("GM_xmlhttpRequest requires an URL.");
         }
+        
         var om = o;
         sendMessage("request", om, function(a){
             if (a.message === (om.callback || "requestdone")) {
@@ -113,6 +115,7 @@ if (typeof GM_xmlhttpRequest === "undefined") {
                 }
             }
         });
+        
     };
 }
 if (typeof GM_addStyle === "undefined") {
@@ -278,7 +281,8 @@ if (typeof(this['uneval']) !== 'function') {
         '\\': '\\'
     };
     var escapeChar = function(c){
-        if (c in char2esc) return '\\' + char2esc[c];
+        if (c in char2esc) 
+            return '\\' + char2esc[c];
         var ord = c.charCodeAt(0);
         return ord < 0x20 ? '\\x0' + ord.toString(16) : ord < 0x7F ? '\\' + c : ord < 0x100 ? '\\x' + ord.toString(16) : ord < 0x1000 ? '\\u0' + ord.toString(16) : '\\u' + ord.toString(16);
     };
@@ -302,7 +306,8 @@ if (typeof(this['uneval']) !== 'function') {
     var uneval_default = function(o, np){
         var src = []; // a-ha!
         for (var p in o) {
-            if (!hasOwnProperty.call(o, p)) continue;
+            if (!hasOwnProperty.call(o, p)) 
+                continue;
             src[src.length] = uneval(p) + ':' + uneval(o[p], 1);
         }
         // parens needed to make eval() happy
@@ -325,16 +330,19 @@ if (typeof(this['uneval']) !== 'function') {
     var typeName = function(o){
         // if (o === null) return 'null';
         var t = typeof o;
-        if (t != 'object') return t;
+        if (t != 'object') 
+            return t;
         // we have to lenear-search. sigh.
         for (var i = 0, l = protos.length; i < l; i++) {
-            if (o instanceof protos[i][0]) return protos[i][1];
+            if (o instanceof protos[i][0]) 
+                return protos[i][1];
         }
         return 'object';
     };
     uneval = function(o, np){
         // if (o.toSource) return o.toSource();
-        if (o === null) return 'null';
+        if (o === null) 
+            return 'null';
         var func = name2uneval[typeName(o)] || uneval_default;
         return func(o, np);
     };
