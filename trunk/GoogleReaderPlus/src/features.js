@@ -635,6 +635,14 @@ GRP.scripts = {
 			list: 60
         }
     },
+	nested: {
+        name: "Nested folders",
+        category: 'layout',
+        status: 'new',
+        options: {
+            separator: ":"
+        }
+    },
     replacer: {
         name: "Replacer",
         category: 'content',
