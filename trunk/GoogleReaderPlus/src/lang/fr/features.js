@@ -88,6 +88,10 @@ GRP.langs[locale].scripts = {
         name: "Chargement+",
         desc: "Charger plus d'éléments à chaque fois pour une navigation plus souple"
     },
+	nested: {
+        name: "Nested folders",
+        desc: "Plusieurs niveaux de répertoires"
+    },
     readbymouse: {
         name: "Lecture par souris",
         desc: "Lire les articles avec votre souris. Clid croit ou gauche pour aller sur l'élément suivant pour précédent"

@@ -264,6 +264,9 @@ first: "Nombre initial d'éléments chargés dans la vue Texte complet",
 next: "Nombre d'éléments chargés après un scroll dans la vue Texte complet",
 list: "Nombre initial d'éléments chargés dans la vue Liste."
 },
+nested: {
+separator: "Separateur pour des nieaux supplémentaires (exemple: Sports:Footbal)."
+},
     removeads: {
         links: "Liens:",
         images: "Images:",
