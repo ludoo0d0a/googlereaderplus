@@ -10,8 +10,9 @@
 GRP.nested = function(prefs, langs, ID, SL, lang){
     var sep = prefs.nested_separator || ':';
 	setTimeout(function(){
-        if (domIsDirty()) 
-            nestFolders();
+        if (domIsDirty()) {
+			nestFolders();
+		}
     }, 100);
 	
     
@@ -19,7 +20,7 @@ GRP.nested = function(prefs, langs, ID, SL, lang){
         var folderNodes = document.querySelectorAll('.folder, .tag'), folderMap = {};
         
         var i = 0, folder;
-        while (folder = folderNodes[i++]) {
+        while ((folder = folderNodes[i++])) {
             var nameNode = folder.querySelector('.name');
             if (nameNode) {
                 folderMap[nameNode.title.split(' (')[0]] = folder;
@@ -36,8 +37,7 @@ GRP.nested = function(prefs, langs, ID, SL, lang){
                 
                 if (!parent) {
                     parent = folderMap[prefix].appendChild(document.createElement('ul'));
-                };
-                
+                }
                 var wrapper = parseNode('<div style="position:relative;left:16px;"/>');
                 wrapper.appendChild(folder);
                 wrapper.querySelector('.name-text').innerHTML = nameTokens[0];
@@ -45,7 +45,7 @@ GRP.nested = function(prefs, langs, ID, SL, lang){
                 parent.insertBefore(wrapper, parent.firstChild);
             }
         });
-    };
+    }
     
     function domIsDirty(){
         var isDirty = !document.querySelector('#clean-flag');
@@ -53,7 +53,7 @@ GRP.nested = function(prefs, langs, ID, SL, lang){
             document.querySelector('#sub-tree').appendChild(parseNode('<div id="clean-flag" />'));
         }
         return isDirty;
-    };
+    }
     
     function parseNode(html){
         if (!parseNode.element) {
@@ -61,5 +61,5 @@ GRP.nested = function(prefs, langs, ID, SL, lang){
         }
         parseNode.element.innerHTML = html;
         return parseNode.element.firstChild;
-    };
+    }
 };
