@@ -1,0 +1,16 @@
+lib\cross.js
+lib\util.js
+lib\greasekit.js
+version.js
+features.js
+lib\i18n.js
+prefs\crud.js
+prefs\render.js
+prefs\prefs.js
+prefs\shortcuts.js
+prefs\itheme.js
+lib\mustacheg.js
+info.js
+lang\en\features.js
+lang\en\langs.js
+skin\mytheme.js
