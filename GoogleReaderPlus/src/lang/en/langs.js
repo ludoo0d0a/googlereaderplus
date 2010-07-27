@@ -272,6 +272,9 @@ first: "Initial loading items number on the expanded view.",
 next: "Loading items when scrolling on the expanded view. ",
 list: "Initial fetch on the list view."
 },
+nested: {
+separator: "Separator to add extra level (example: Sports:Footbal)."
+},
     removeads: {
         links: "Link filter:",
         images: "Image filter:",

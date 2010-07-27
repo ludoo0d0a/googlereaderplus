@@ -93,6 +93,10 @@ GRP.langs[locale].scripts = {
         name: "Prefetch more",
         desc: "Loading more entries at the same time for a smoother navigation"
     },
+	nested: {
+        name: "Nested folders",
+        desc: "Multiple level on folders"
+    },
     readbymouse: {
         name: "Read by mouse",
         desc: "Next/previous item using right/left mouse click"
