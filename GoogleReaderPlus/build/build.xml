@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<project name="Bnl Viewer packaging" default="buildjs.all" basedir="..">
+	<taskdef name="jsmin" classname="net.matthaynes.jsmin.JSMin_Task" classpath="lib/jsmin.0.2.3.jar" />
+
+	<property file="build/ant.properties" />
+
+	<!-- JS are minifed then concatenated -->
+	<target name="buildjs.all" depends="jsmin.compress,js.min.concat" description="Build JS files for a server">
+	</target>
+	<!--Css are first concatenated then minified -->
+	<target name="buildcss.all" depends="css.concat,css.min,copy.files" description="Build CSS files for a server">
+	</target>
+
+	<target name="css.concat">
+		<!-- CSS debug is the concat version -->
+		<concat destfile="${output.dir}/${output.key}${suffix.debug}.css" fixlastline="true">
+			<filelist dir="${view.dir}/css" files="bnl.css,layout.css,tree.css,toolbars.css,overlays.css,imagezoom.css,thumbnails.css,notification.css,help.css" />
+		</concat>
+		<concat destfile="${output.dir}/theme-${output.key}${suffix.debug}.css" fixlastline="true">
+			<filelist dir="${view.dir}/js/ext/resources/css" files="ext-all-notheme.css,xtheme-gray.css" />
+		</concat>
+	</target>
+
+	<target name="z_load.all">
+		<delete dir="${output.dir}" />
+		<mkdir dir="${output.dir}" />
+		<mkdir dir="${output.dir.js}" />
+		<mkdir dir="${output.dir.css}" />
+	</target>
+
+	<target name="css.min">
+		<antcall target="css.compress">
+			<param name="in" value="${output.dir}/${output.key}${suffix.debug}.css" />
+			<param name="out" value="${output.dir}/${output.key}${suffix.min}.css" />
+		</antcall>
+		<antcall target="css.compress">
+			<param name="in" value="${output.dir}/theme-${output.key}${suffix.debug}.css" />
+			<param name="out" value="${output.dir}/theme-${output.key}${suffix.min}.css" />
+		</antcall>
+	</target>
+	<target name="css.compress">
+		<exec executable="${lib.dir}/csstidy.exe">
+			<arg value="${in}" />
+			<arg value="--template=highest" />
+			<arg value="${out}" />
+		</exec>
+	</target>
+
+	<!-- http://code.google.com/p/jsmin-ant-task/ -->
+	<target name="jsmin.compress">
+		<jsmin destdir="${output.dir.js}" suffix="true" copyright="(c) 2010 BNL">
+			<fileset dir="${view.dir}/js/">
+				<include name="**/*.js" />
+				<exclude name="**/ext/**" />
+				<exclude name="**/clipboard/**" />
+				<exclude name="**/lib/**" />
+			</fileset>
+		</jsmin>
+	</target>
+
+	<target name="js.min.concat">
+		<!-- concat normal files to get debug files -->
+		<antcall target="js.concat">
+			<param name="input" value="${view.dir}/js" />
+			<param name="suf" value="" />
+			<param name="ux" value="ux/" />
+			<param name="lang" value="lang/" />
+			<param name="outsuffix" value="${suffix.debug}" />
+		</antcall>
+		<!-- concat minified files to get min files -->
+		<antcall target="js.concat">
+			<param name="input" value="${output.dir.js}" />
+			<param name="suf" value="${suffix.jsmin}" />
+			<param name="ux" value="" />
+			<param name="lang" value="" />
+			<param name="outsuffix" value="${suffix.min}" />
+		</antcall>
+	</target>
+	<target name="js.concat">
+		<concat destfile="${output.dir}/${output.key}${outsuffix}.js">
+			<filelist dir="${input}" files="${lang}en${suf}.js,${lang}fr${suf}.js,${lang}de${suf}.js,console${suf}.js,bnl-core${suf}.js,${ux}SvgElement${suf}.js,${ux}ToolsTips${suf}.js,bnl-dd${suf}.js,UtilHash${suf}.js,langs${suf}.js,Translate${suf}.js,${ux}ClearableCombobox${suf}.js,${ux}TreeFilterX${suf}.js,TreeSorter${suf}.js,${ux}Notification${suf}.js,data${suf}.js,HelpWindow${suf}.js,LinkWindow${suf}.js,ZoomSlider${suf}.js,SearchField${suf}.js,PagingToolbar${suf}.js,TreePagingToolbar${suf}.js,ZoomToolbar${suf}.js,TreeToc${suf}.js,ThumbnailsView${suf}.js,ImageView${suf}.js,Overlay${suf}.js,OverlayItem${suf}.js,ImageZoom${suf}.js,AbstractPanelView${suf}.js,PanelLicense${suf}.js,PanelIssue${suf}.js,PanelPage${suf}.js,PanelArticle${suf}.js,layout${suf}.js,loader${suf}.js,app${suf}.js" />
+		</concat>
+	</target>
+
+	<target name="copy.files" depends="copy.env">
+		<!-- debug CSS -->
+		<copy file="${output.dir}/${output.key}${suffix.debug}.css" tofile="${view.dir}/css/${output.key}${suffix.debug}.css" overwrite="true" />
+		<copy file="${output.dir}/theme-${output.key}${suffix.debug}.css" tofile="${view.dir}/js/ext/resources/css/theme-${output.key}${suffix.debug}.css" overwrite="true" />
+		<!-- debug JS -->
+		<copy file="${output.dir}/${output.key}${suffix.debug}.js" tofile="${view.dir}/js/min/${output.key}${suffix.debug}.js" overwrite="true" />
+		<!-- min CSS -->
+		<copy file="${output.dir}/${output.key}${suffix.min}.css" tofile="${view.dir}/css/${output.key}${suffix.min}.css" overwrite="true" />
+		<copy file="${output.dir}/theme-${output.key}${suffix.min}.css" tofile="${view.dir}/js/ext/resources/css/theme-${output.key}${suffix.min}.css" overwrite="true" />
+		<!-- min JS -->
+		<copy file="${output.dir}/${output.key}${suffix.min}.js" tofile="${view.dir}/js/min/${output.key}${suffix.min}.js" overwrite="true" />
+	</target>
+
+	<target name="copy.env">
+		<!-- Copy configuration -->
+		<copy todir="${resources.dir}" overwrite="true" failonerror="false">
+			<fileset dir="${build.dir}/env/${env}">
+				<exclude name="**/lib/**" />
+			</fileset>
+		</copy>
+		<copy todir="${classes.dir}" overwrite="true" failonerror="false">
+			<fileset dir="${build.dir}/env/${env}">
+				<exclude name="**/lib/**" />
+			</fileset>
+		</copy>
+	</target>
+
+</project>
