@@ -1,0 +1,13 @@
+version.js
+lib\cross.js
+lib\util.js
+lib\external.js
+features.js
+lib\greasekit.js
+api\rest.js
+api\favicons.js
+bg\prefs.js
+bg\request.js
+bg\tabs.js
+bg\main.js
+bg\stats.js
