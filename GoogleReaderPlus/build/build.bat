@@ -23,6 +23,9 @@ call compress prefs
 echo **************** about
 call compress about
 
+echo **************** menu
+call compress menu
+
 echo **************** finalize
 copy ..\src\lib\jquery.min.js dist\lib\
 copy config\manifest.json dist\
@@ -48,3 +51,4 @@ xcopy /e /Y /I ..\src\lang\*.* dist\lang
 xcopy /e /Y /I ..\src\res\*.* dist\res
 
 del debug\*.tmp
+del dist\*.tmp
