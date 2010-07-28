@@ -24,7 +24,7 @@ function activePageAction(mprefs){
                 chrome.pageAction.show(tabId);
                 chrome.pageAction.setPopup({
                     tabId: tabId,
-                    popup: 'menu/menu.html'
+                    popup: 'menu.html'
                 });
                 /*chrome.pageAction.onClicked.addListener(function(tab){ });*/
             } else {
