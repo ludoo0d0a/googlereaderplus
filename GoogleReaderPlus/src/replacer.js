@@ -7,7 +7,7 @@
  *
  */
 GRP.replacer = function(prefs, langs, ID, SL, lang){
-    var locked = false, SL = langs.replacer, partIndex = 0, gp_data = {}, TPL_NAME = "replacer_result_";
+    var locked = false, partIndex = 0, gp_data = {}, TPL_NAME = "replacer_result_";
     
     function initVars(){
         gp_data = {};
