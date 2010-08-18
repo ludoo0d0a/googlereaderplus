@@ -31,6 +31,7 @@ GRP.scripts = {
                 label: true
             },
 			counter: true,
+			counterinterval: 2,
 			opendirect: false,
             icontoolbar_text: {
                 xtype: 'p',
@@ -301,6 +302,7 @@ GRP.scripts = {
             count: 3,
             /*maxcolumns:6,*/
             pagebreak: true,
+			miniparas:5,
             locked: false,
             filter: {
                 xtype: 'crud'
