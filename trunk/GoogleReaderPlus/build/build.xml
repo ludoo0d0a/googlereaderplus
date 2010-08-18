@@ -4,6 +4,8 @@
 
 	<property file="build/ant.properties" />
 
+<!-- TODO in ANT -->
+
 	<!-- JS are minifed then concatenated -->
 	<target name="buildjs.all" depends="jsmin.compress,js.min.concat" description="Build JS files for a server">
 	</target>
@@ -14,7 +16,7 @@
 	<target name="css.concat">
 		<!-- CSS debug is the concat version -->
 		<concat destfile="${output.dir}/${output.key}${suffix.debug}.css" fixlastline="true">
-			<filelist dir="${view.dir}/css" files="bnl.css,layout.css,tree.css,toolbars.css,overlays.css,imagezoom.css,thumbnails.css,notification.css,help.css" />
+			<filelist dir="${view.dir}/css" files="layout.css,help.css" />
 		</concat>
 		<concat destfile="${output.dir}/theme-${output.key}${suffix.debug}.css" fixlastline="true">
 			<filelist dir="${view.dir}/js/ext/resources/css" files="ext-all-notheme.css,xtheme-gray.css" />
@@ -48,11 +50,9 @@
 
 	<!-- http://code.google.com/p/jsmin-ant-task/ -->
 	<target name="jsmin.compress">
-		<jsmin destdir="${output.dir.js}" suffix="true" copyright="(c) 2010 BNL">
+		<jsmin destdir="${output.dir.js}" suffix="true">
 			<fileset dir="${view.dir}/js/">
 				<include name="**/*.js" />
-				<exclude name="**/ext/**" />
-				<exclude name="**/clipboard/**" />
 				<exclude name="**/lib/**" />
 			</fileset>
 		</jsmin>
