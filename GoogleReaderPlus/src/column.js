@@ -13,6 +13,7 @@ GRP.column = function(prefs, langs, ID, SL, lang){
     var maxcolumns = 6; //between 1 and 6
     var entries = get_id('entries');
     var rx = getRegex(prefs.column_filter);
+	var miniparas = prefs.column_miniparas || 5;
     
     function addButton(el, entry, mode){
         var text = SL.text + formatShortcut(ID, 'columns', prefs); //[c]
@@ -97,10 +98,11 @@ GRP.column = function(prefs, langs, ID, SL, lang){
 			}
 		}
     }
+	
     
     function wrapHtml(entries, divwrap, hpage, divoriginal){
         var paras = divoriginal.childNodes;
-		if (paras.length<10 /*prefs.column_miniparas*/){
+		if (paras.length < miniparas){
 			//too little
 			return false;
 		}
