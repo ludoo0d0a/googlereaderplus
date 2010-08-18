@@ -18,7 +18,6 @@ GRP.langs[locale].texts = {
         text: 'Fermer cet élément',
         keyword: 'Fermer'
     },
-    colorful: {},
     column: {
         text: 'Affichage multi-colonnes (type journal)',
         keyword: 'Colonnes',
@@ -211,6 +210,7 @@ GRP.langs[locale].prefs = {
         count: "Nombre de colonnes",
         locked: "Option 'Colonne' toujours activée",
         pagebreak: "Ajouter des sauts de page dans les articles longs pour les lire page par page comme un journal.",
+		miniparas: "Nombre minimum de paragraphes avant de couper en colonnes",
         "entersite": "Saisissez l'adresse de votre site"
     },
     twitter: {
@@ -231,10 +231,14 @@ GRP.langs[locale].prefs = {
         password: "Mot de passe:"
     },
     colorful: {
-        tree: "Afficher les titres en couleurs dans l'arbre des sites à gauche"
+        tree: "Afficher les titres en couleurs dans l'arbre des sites à gauche",
+		usebasecolor: "Utiliser les couleurs de base suivantes :",
+		background: "Couleur arrière-plan",
+		color:"Couleur des textes"
     },
     general: {
         counter: "Afficher le compteur dans la barre d'outil",
+counterinterval: "Refraîchir le compteur toutes les (s)",
         pageicon: "Activer l'icône dans la barre d'adresse (permet d'afficher un menu)",
         stats: 'Autoriser la collecte de données statistiques anonyme (pour un meilleur support)',
         bottomup: "Placer la barre 'Précédent/Suivant' en haut de l'écran",

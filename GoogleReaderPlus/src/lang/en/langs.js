@@ -18,7 +18,6 @@ GRP.langs[locale].texts = {
         text: 'Close this entry',
         keyword: 'Close'
     },
-    colorful: {},
     column: {
         text: 'Display as multi columns layout',
         keyword: 'Column',
@@ -213,6 +212,7 @@ GRP.langs[locale].prefs = {
         count: "Columns number",
         locked: "Always actived, except following feeds:",
         pagebreak: "Break long articles so long articles can be read page by page like a newspaper.",
+		miniparas: "Number of paragraphs minimum before split into columns",
         entersite: "Enter URL of the site"
     },
     translate: {
@@ -239,10 +239,14 @@ GRP.langs[locale].prefs = {
         password: "Password:"
     },
     colorful: {
-        tree: "Show label colors in the left navigation tree"
+        tree: "Show label colors in the left navigation tree",
+		usebasecolor: "Use following base colors :",
+		background: "Background color",
+		color:"Fore color"
     },
     general: {
         counter: "Display unread counter in the toolbar icon",
+counterinterval: "Refresh unread counter every (s)",
         pageicon: 'Activate icon in the address bar (click will open a menu)',
         stats: 'Enable anonymous statistics reporting (for a better support)',
         bottomup: 'Footer toolbar on the top',
