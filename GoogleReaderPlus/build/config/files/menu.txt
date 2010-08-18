@@ -3,3 +3,4 @@ lib\cross.js
 lib\util.js
 lib\external.js
 lib\greasekit.js
+bg\menu.js
