@@ -198,8 +198,12 @@ function monitorIcon(mprefs){
     if (monitorId) {
         window.clearInterval(monitorId);
     }
+	var t = 2000;
+	if (prefs && prefs.general_counterinterval) {
+		t = prefs.general_counterinterval * 1000;
+	}
     if (prefs && prefs.general_counter) {
-        getUnreadCount();
+		getUnreadCount();
         //TODO: ensure not used
         monitorId = window.setInterval(function(){
             getUnreadCount();
@@ -211,7 +215,7 @@ function monitorIcon(mprefs){
              }
              }
              });*/
-        }, 2000);
+        }, t);
     }
 }
 
