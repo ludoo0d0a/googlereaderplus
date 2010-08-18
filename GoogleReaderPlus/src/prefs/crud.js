@@ -362,9 +362,9 @@ function addReplacerItems(id, key){
     }
     var def = prefs.replacer_items[key] ||
     {
-        url: 'htpp://www.site.web',
-        search: '(http://www.site.web/image/[^\"]*)',
-        replace: "<img src='$1'></br>"
+        url: 'http://www.WEBSITE.COM',
+        search: 'xpath://div[@class="CLASSNAME"]',
+        replace: "$1"
     };
     url = prompt(getTextPrefs(lang, 'replacer', 'link'), def.url);
     if (!url) {
