@@ -11,8 +11,8 @@
  * so that 0.3.11 is the 11th translated version of the original v0.3 english version.
  *
  *
- * Version : 1.4
- * Date : 07-11-2010
+ * Version : 1.5
+ * Date : 07-30-2010
  * @author Ilídio
  */
 var locale = 'pt';
@@ -71,14 +71,14 @@ GRP.langs[locale].scripts = {
     },
     column: {
         name: "Texto em multiplas colunas",
-        desc: "Adicionar um botão para ler artigos com colunas de jornais em colunas multiplas"
+        desc: "Adicionar um botão para ler artigos em colunas (como os jornais)"
     },
     preview: {
-        name: "Integrated preview",
+        name: "Pré-visualização integrada",
         desc: "Adiciona um botão para mostrar a página inteira do artigo em vez do resumo"
     },
     colorful: {
-        name: "Listagens coloridas",
+        name: "Listagens às cores",
         desc: "Utilizar a cor de fundo para o mesmo feed"
     },
     filter: {
@@ -115,11 +115,11 @@ GRP.langs[locale].scripts = {
     },
     jump: {
         name: "Adicionar links de cabeçalho/rodapé",
-        desc: "Adicionar os botões 'vai para o fim' no ínicio e 'vai parao ínicio' no fim"
+        desc: "Adicionar os botões 'vai para o fim' no ínicio e 'vai para o ínicio' no fim"
     },
     fitheight: {
         name: "Ajustar altura",
-        desc: "Ajustar altura de artigos para caber com a altura do ecrã (para artigos grandes)"
+        desc: "Ajustar altura dos artigos para se ajustarem com a altura do ecrã (para artigos grandes)"
     },
     closeentry: {
         name: "Fechar entrada",

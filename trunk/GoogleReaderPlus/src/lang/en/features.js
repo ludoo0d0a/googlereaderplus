@@ -71,11 +71,11 @@ GRP.langs[locale].scripts = {
     },
     column: {
         name: "Text multi columns",
-        desc: "Add a button to display news as a newspaper in multi columns"
+        desc: "Display news as a newspaper in multi columns"
     },
     preview: {
         name: "Integrated preview",
-        desc: "Add a button to show entire original page instead the entry"
+        desc: "Display original page content instead feed entry"
     },
     colorful: {
         name: "Colorful listview",

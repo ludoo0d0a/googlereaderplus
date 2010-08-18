@@ -6,8 +6,8 @@
  * pt : Portuguese
  * **************************
  *
- * Version : 1.5
- * Date : 07-11-2010
+ * Version : 1.6
+ * Date : 07-30-2010
  * @author Ilídio
  */
 var locale = 'pt';
@@ -18,7 +18,6 @@ GRP.langs[locale].texts = {
         text: 'Fechar entrada',
         keyword: 'Fechar'
     },
-    colorful: {},
     column: {
         text: 'Mostrar em multiplas colunas',
         keyword: 'Coluna',
@@ -200,7 +199,7 @@ imgfl:'Rodapé esquerdo'
         nopopup: '<p>Se não quiseres alertas acerca de novas actualizações, remove a seguinte opção "Sem aviso de actualizações" na <a href="preferences.html#general">Secção Geral</a>.</p>'
     },
     link: {
-        reader: "<span>Google Reader</span>Your RSS reader (é teu!)",
+        reader: "<span>Google Reader</span>O teu RSS reader",
         issues: "<span>Contactar</span>Encontras-te algum bug ou têns alguma sugestão?",
         download: "<span>Extensões do Google</span>O local para fazer download",
         about: "<span>Acerca</span>Acerca, obrigado,…",
@@ -234,12 +233,12 @@ imgfl:'Rodapé esquerdo'
         password: "Palavra-passe (opcional):"
     },
     readitlater: {
-        auth: "<a href='http://readitlaterlist.com/signup' target='blank'>Autenticação</a> do <a href='http://www.readitlaterlist.com' target='blank'>ReadItLater</a> authentication (obrigatório):",
+        auth: "<a href='http://readitlaterlist.com/signup' target='blank'>Autenticação</a> do <a href='http://www.readitlaterlist.com' target='blank'>ReadItLater</a> (obrigatório):",
         username: "Utilizador:",
         password: "Palavra-passe:"
     },
     colorful: {
-        tree: "Mostrar cores das pastas na navegação em árvore"
+        tree: "Mostrar cores das pastas da navegação em árvore"
     },
     general: {
         counter: "Mostrar contador dos não lidos no icon da toolbar",
@@ -251,8 +250,8 @@ bottomup:'Toolbar do Cabeçalho para cima',
         topcurrent: "Entrada currente sempre no topo",
         floatactions: "As acções inseridas são mostradas em janelas flutuantes",
         noupdatepopup: "Sem avisos de actualizações",
-        icontoolbar_add: "Para adicionar um botão com um icon da toolbar, faça <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">download e instale-a</a>.",
-        icontoolbar_text: "<span>Para fazer o botão opcional, adiciona-mo-lo no extensão à parte,</span>                                    <br>                                    <span>para ser instalado em conjunto com o readerplus.</span>                                    <br>                                    <span>Para adicionar um botão, clica <b></b> no <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">botão Toolbar do readerplus</a> da página.</span><span>Para remover o botão, clica no botão do lado direito e escolhe a opção desactivar.</span>",
+        icontoolbar_add: "Para adicionar um botão com um icon na toolbar, faça <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">download e instale-o</a>.",
+        icontoolbar_text: "<span>Para inserir o botão opcional, adiciona-mo-lo numa extensão à parte,</span>                                    <br>                                    <span>para ser instalado em conjunto com o readerplus.</span>                                    <br>                                    <span>Para adicionar o botão, clica <b></b> no <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">botão Toolbar do readerplus</a> da página.</span><span>Para remover o botão, clica no botão do lado direito e escolhe a opção desactivar.</span>",
         importexport_text: "Podes agora gravar as tuas configurações utilizando o 'exportar' e utiliza-las mais tarde com o 'importar', mas confirma que a informação é compatível com a modelo <a href='http://jsonformatter.curiousconcept.com/' target='blank'>JSON</a>:",
         confirmimport: "Têm a certeza que pretende importar estas configurações?\nAs configurações correntes seram PERDIDAS!",
 text_layout:'Opções de Layout',
@@ -283,12 +282,12 @@ text_export:'Exportar/importar'
         searchbody: "Pesquisar no título e no corpo da mensagem"
     },
     favicons: {
-        providerpageicons: 'Utilizar <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> provider (Recomendado para visualização dos icons)',
+        providerpageicons: 'Utilizar o servidor do <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> (Recomendado para visualização dos icons)',
         sidebaronly: "Mostrar favicons apenas na barra do lado",
-cloud: 'Utilizar uma base de dados em nuvem <a href="http://wedata.net/databases/Favicons" target="blank">wedata/Favicons</a> para comunidade poder utilizar/adicionar favicons',
+cloud: 'Utilizar uma base de dados em nuvem <a href="http://wedata.net/databases/Favicons" target="blank">wedata/Favicons</a> para a comunidade poder utilizar/adicionar favicons',
         custom: "Inserir favicons:",
         add: "Adicionar",
-        tip: "Tip: You could add it easily using the contextual menu \"Get favicon\" of the left side bar",
+        tip: "Ajuda: podes facilmente adicionar o menu contextual \"Get favicon\" no menu que está situado à esquerda",
         manual: "Icons manuais para todos os sites (não recomendado; lento)",
         parsing: "Esta opção irá detectar o favicon utilizando para isso a página principal",
         entersite: "Introduz um URL de uma página de internet",
