@@ -29,7 +29,8 @@ function initMenu(){
         }
     });	
 }
-//document.onload = function(){
+window.onload = function(){
+	console.log('document.onload');
 	initMenu();
-//};
+};
 
