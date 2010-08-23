@@ -256,7 +256,8 @@ counterinterval: "Refraîchir le compteur toutes les (s)",
         text_toolbaricon: "Icône de la barre d'outil",
         text_pageicon: "Icône de la barre d'adresse",
         text_export: 'Export/import',
-currdir: "Surligner le répertoire de l'élément sélectionné"
+currdir: "Surligner le répertoire de l'élément sélectionné",
+icons: 'Icône seulement pour les boutons de la barre action (sauf pour les radio boutons)'
     },
 limit: {
 slidewindow: "Slidewindow - Limiter le nombre d'éléments",

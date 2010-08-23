@@ -100,4 +100,17 @@ GRP.general = function(prefs, langs, ID, SL, lang){
         runfn(floatactions, 'floatactions', 99, 2000);
         //defer to get right #main.top
     }
+	if (prefs.general_icons) {
+		function changeIconsButton(el, entry, mode){
+			var items = el.getElementsByClassName('link');
+			foreach(items, function(item){
+				if (item && !hasClass(item, 'read-state')) {
+					item.title=item.innerHTML;
+					item.innerHTML='';
+				}
+			});
+		}
+		
+		registerFeature(changeIconsButton, ID);
+	}
 };

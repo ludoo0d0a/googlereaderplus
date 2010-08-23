@@ -16,8 +16,9 @@ GRP.api_entry = function(prefs, langs, ID, SL, lang, edata){
 	}
 	
     function addButton(el, entry, mode){
-        var text = (SL.text || ID) + formatShortcut(ID, edata.action, prefs); //[x]
-        addBottomLink(el, SL.keyword || ID, text, ID, '', true, filterize, locked||include, entry, mode);
+        var title = (SL.text || ID) + formatShortcut(ID, edata.action, prefs); //[x]
+        var text = (prefs && prefs.general_icons)?'':(SL.keyword || ID);
+        addBottomLink(el, text, title, ID, '', true, filterize, locked||include, entry, mode);
     }
 	
 	function filterize(btn, entry, lcked, e){

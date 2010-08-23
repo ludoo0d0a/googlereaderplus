@@ -30,8 +30,9 @@ GRP.jump = function(prefs, langs, ID, SL, lang){
             div.addEventListener('click', gotobottom, false);
         }
         
-        var text =  SL.texttop + formatShortcut(ID, 'goup', prefs); //[Shift+T]
-        addBottomLink(el, SL.keywordtop, text, ID, 'item-go-to-top', false, gototop, false, entry, mode);
+        var title =  SL.texttop + formatShortcut(ID, 'goup', prefs); //[Shift+T]
+        var text = (prefs && prefs.general_icons)?'':(SL.keyword || ID);
+        addBottomLink(el, text, title, ID, 'item-go-to-top', false, gototop, false, entry, mode);
     }
     
     function gototop(e){

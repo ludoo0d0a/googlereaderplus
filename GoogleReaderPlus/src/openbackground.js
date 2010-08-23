@@ -12,8 +12,9 @@ GRP.openbackground = function(prefs, langs, ID, SL, lang){
 	var selectTab = prefs.openbackground_selectTab||false;
 	
 	function addButtons(el, entry, mode) {
-		var text = SL.text + formatShortcut(ID, 'openback', prefs); //[Shift+V]
-		addBottomLink(el, SL.keyword, text, ID, '', false, openbackground, false, entry, mode);
+		var title = SL.text + formatShortcut(ID, 'openback', prefs); //[Shift+V]
+		var text = (prefs && prefs.general_icons)?'':(SL.keyword || ID);
+		addBottomLink(el, text, title, ID, '', false, openbackground, false, entry, mode);
 	}
 
 	function openbackground(e) {
