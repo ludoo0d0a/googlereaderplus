@@ -264,7 +264,8 @@ counterinterval: "Refresh unread counter every (s)",
         text_toolbaricon: 'Toolbar icon',
         text_pageicon: 'Address bar icon',
         text_export: 'Export/import',
-currdir: 'Highlight folder of current entry'
+currdir: 'Highlight folder of current entry',
+icons: 'Icons only for action buttons (except checkbox)'
     },
 limit: {
 slidewindow: "Slidewindow - limit entries number",

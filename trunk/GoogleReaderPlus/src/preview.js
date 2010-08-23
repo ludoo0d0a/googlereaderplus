@@ -41,23 +41,26 @@ GRP.preview = function(prefs, langs, ID){
             plink.addEventListener('click', previewTitleClick, false);
         } else {
             //clean current a.href link to keep open link
-            var text = link.innerText;
+            var txt = link.innerText;
             link.title = SL.opennewtab;
             addClass(link, 'grp-link-url');
             link.innerHTML = '<div class="entry-title-maximize"></div>';
             //create a second link before the previous one to used as preview
-            var title = link.parentNode;// h2.entry-title
+            //var title = link.parentNode;// h2.entry-title
             plink = document.createElement('a');
             //plink.className = 'ilink entry-title-link';
             addClass(plink, 'grp-link-title');
             plink.href = '#';
             plink.title = SL.title + keytext; //[Shift+V]
-            plink.innerText = ' ' + text;
+            plink.innerText = ' ' + txt;
             link.parentNode.insertBefore(plink, link);
             plink.addEventListener('click', previewTitleClick, false);
         }
         // Bottom button
-        addBottomLink(el, SL.keyword, SL.text + keytext, ID, '', true, previewize, locked, entry, mode);
+		var title = SL.text + keytext;
+		//var text = (prefs && prefs.general_icons)?'':(SL.keyword || ID);
+		var text = (SL.keyword || ID);//checkbox
+        addBottomLink(el, text, title, ID, '', true, previewize, locked, entry, mode);
     }
     function previewShortcut(){
         onKey('btn-preview', previewize);

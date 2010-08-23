@@ -16,8 +16,10 @@ GRP.column = function(prefs, langs, ID, SL, lang){
 	var miniparas = prefs.column_miniparas || 5;
     
     function addButton(el, entry, mode){
-        var text = SL.text + formatShortcut(ID, 'columns', prefs); //[c]
-        addBottomLink(el, SL.keyword, text, ID, '', true, columnize, locked, entry, mode);
+        var title = SL.text + formatShortcut(ID, 'columns', prefs); //[c]
+        //var text = (prefs && prefs.general_icons)?'':(SL.keyword || ID);
+		var text = (SL.keyword || ID);//checkbox
+        addBottomLink(el, text, title, ID, '', true, columnize, locked, entry, mode);
     }
     
     function addKey(){

@@ -14,8 +14,9 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
     var locked = false;
     
     function addButton(el, entry, mode){
-        var text = SL.text;
-        addBottomLink(el, SL.keyword, text, ID, '', true, filterEntries, locked, entry, mode);
+        var title = SL.text;
+		var text = (prefs && prefs.general_icons)?'':(SL.keyword || ID);
+        addBottomLink(el, text, title, ID, '', true, filterEntries, locked, entry, mode);
     }
     
     function findPosition(element){
