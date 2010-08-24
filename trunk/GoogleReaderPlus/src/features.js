@@ -16,7 +16,7 @@ GRP.scripts = {
             floatactions: false,
 			bottomup:false,
 			currdir:true,
-			/*icons:false,*/
+			icons:false,
             /*antisocial:true,*/
 
 			text_pageicon:{
