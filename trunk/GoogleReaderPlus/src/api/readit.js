@@ -5,7 +5,7 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
     var o = apply({}, langs.readit);
 	var SL = apply(o, scriptlangs);
     function addButton(el, entry, mode){
-        var text = SL.text + formatShortcut(ID, ID, prefs);
+        var title = SL.text + formatShortcut(ID, ID, prefs);
 		var text = (prefs && prefs.general_icons)?'':(SL.keyword || ID);
         addBottomLink(el, text, title, ID, 'item-star star', false, readitlaterClick, false, entry, mode);
     }

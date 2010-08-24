@@ -100,17 +100,27 @@ GRP.general = function(prefs, langs, ID, SL, lang){
         runfn(floatactions, 'floatactions', 99, 2000);
         //defer to get right #main.top
     }
+	
 	if (prefs.general_icons) {
 		function changeIconsButton(el, entry, mode){
 			var items = el.getElementsByClassName('link');
 			foreach(items, function(item){
 				if (item && !hasClass(item, 'read-state')) {
-					item.title=item.innerHTML;
-					item.innerHTML='';
+					item.title=item.innerText;
+					var s = item.getElementsByTagName('span');
+					var b = (s && s[0])?(s[0]):item;
+					b.innerHTML='';
 				}
 			});
 		}
-		
+		//RAZ labels because google rewrite labels after selection
+		//Xp MArquer comme lu = chekbox
+		var o = ['Wp','Yp','Zp','$p','aq','bq'];
+		var js = '';
+		foreach(o,function(e){
+			js += e+".Gf.Pb='';"+e+".Hf.Pb='';";
+		});
+		GM_addjs(js, true, 'clearlabel');
 		registerFeature(changeIconsButton, ID);
 	}
 };
