@@ -11,7 +11,7 @@
  * so that 0.3.11 is the 11th translated version of the original v0.3 english version.
  *
  *
- * Version : 1.5
+ * Version : 1.5.1
  * Date : 07-30-2010
  * @author Ilídio
  */
@@ -89,6 +89,14 @@ GRP.langs[locale].scripts = {
         name: "Limitar entradas",
         desc: "Limitar número de entradas numa só página. Os itens lidos são removidos."
     },
+     	prefetch: {
+        name: "Pre-obter mais",
+        desc: "Obter mais entradas de cada vez, para uma navegação mais suave"
+    },
+        nested: {
+        name: "Pastas aninhadas",
+        desc: "Multiplos níveis em pastas"
+    },    
     readbymouse: {
         name: "Ler com o rato",
         desc: "O seguinte/anterior são utilizados com o botão direito/esquerdo do rato"

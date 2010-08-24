@@ -6,7 +6,7 @@
  * pt : Portuguese
  * **************************
  *
- * Version : 1.6
+ * Version : 1.6.1
  * Date : 07-30-2010
  * @author Ilídio
  */
@@ -265,6 +265,14 @@ text_export:'Exportar/importar'
         mini: "Nº mínimo de itens",
         maxi: "Nº máximo de itens"
     },
+	prefetch: {
+		first: "Número de itens que devem ser inicialmente carregados na vista expandida.",
+		next: "Número de itens a serem carregados na vista expandida aquando do evento scroll. ",
+		list: "Número de itens que devem ser inicialmente carregados na vista em forma de lista. "
+	},
+	nested: {
+		separator: "Separador para adicionar mais níveis (exemplo: Sports:Footbal)."
+	},        
     removeads: {
         links: "Filtro Link:",
         images: "Filtro imagem:",
