@@ -1,10 +1,11 @@
 /**
  * TODO make doc
- * @version  0.2
+ * @version  0.3
  * @date 2010
  * @author JoLan, LudoO
  * Replace entries with part of the original article
  *
+ * +css selector 
  */
 GRP.replacer = function(prefs, langs, ID, SL, lang){
     var locked = false, partIndex = 0, gp_data = {}, TPL_NAME = "replacer_result_";
@@ -53,9 +54,17 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
             }else if (/^css\:/.test(o.search)) {
 				o.selector = o.search.replace(/^css\:/, '');
 			} else {
-                o.re_search = new RegExp(o.search, "im");
+                try {
+					o.re_search = new RegExp(o.search, "im");
+				}catch(e){
+					console.error(e);
+					console.error(o);
+					o=false;
+				}
             }
-            gp_data[title] = o;
+			if (o){
+            	gp_data[title] = o;
+			}
         });
     }
     
@@ -76,9 +85,9 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
 					if (o.xpath){
 						els = getElements(o.xpath, xml);
 					}else{
-						els = Sizzle(o.selector, xml);
+						els = jQuery(o.selector, xml);
 					}
-					if (els) {
+					if (els && els.length>0) {
 						foreach(els, function(el){
 							result += el.outerHTML;
 						});
@@ -115,7 +124,7 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
         if (link) {
             var matches = {};
             iterate(gp_data, function(title, o){
-                if (o.re_url.test(link.url)) {
+                if (o.re_url.test(link.url) || o.re_url.test(link.feed)) {
                     matches[title] = o;
                 }
             });

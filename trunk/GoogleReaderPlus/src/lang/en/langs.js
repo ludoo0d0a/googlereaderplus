@@ -264,8 +264,8 @@ counterinterval: "Refresh unread counter every (s)",
         text_toolbaricon: 'Toolbar icon',
         text_pageicon: 'Address bar icon',
         text_export: 'Export/import',
-currdir: 'Highlight folder of current entry',
-icons: 'Icons only for action buttons (except checkbox)'
+currdir: 'Highlight folder of current entry <span class="new">new!</span>',
+icons: 'Icons only for action buttons (except checkbox) <span class="new">new!</span>'
     },
 limit: {
 slidewindow: "Slidewindow - limit entries number",
@@ -314,7 +314,7 @@ separator: "Separator to add extra level (example: Sports:Footbal)."
         intro: '<a href="http://code.google.com/p/googlereaderplus/wiki/ReplacerHowto" target="blank">Help on how to use replacer</a>',
         cloud: 'Use online expressions from <a href="http://wedata.net/databases/LDRFullFeed/items" target="blank">wedata/LDRFullFeed</a> and <a href="http://wedata.net/databases/Replacer/items" target="blank">wedata/Replacer</a> cloud database',
         link: "Link Regex",
-        from: "Search regex/xpath",
+        from: "Search regex/xpath/css",
         to: "Replace",
         prompttitle: "Title for this filter"
     },
