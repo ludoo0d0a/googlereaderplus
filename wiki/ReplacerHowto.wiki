@@ -10,7 +10,7 @@ Here are the things to know to use 'replacer' feature.
 To create an entry, just add the 4 informations : 
  * title : {a definition of the replacement}
  * url regex: {a regular expression or url base of the catched urls}
- * link regex/xpath: {a regular expression or an xpath expression to locate data to retrieve ; if xpath it should be prefixed by xpath:}
+ * link regex/xpath/css: {a regular expression or an xpath expression to locate data to retrieve ; if xpath it should be prefixed by *xpath:* ; if CSS seletor it should start with *css:*}
  * replace expression: {the new replaced expression, $n are the captured group of the regex ; not used if xpath}
 
 = Useful links =
@@ -43,6 +43,14 @@ $1 is the first group inside whole result (a group is defined by parenthesis.)
  * "(http://imgsrv.gocomics.com/dim/[^"]*)"
  * <img src='$1'><br/>
 
+== Sample3 ==
+Easier syntax using CSS selector)
+
+ * Comments on blogspot.com
+ * blogspot.com
+ * css://div.post-outer
+ * $1
+
 = Contributions =
 
-If you create new epxressions please add them into comments so that i can deliver them into next release.
+Each time you add in your config a new expression, it will be saved in the cloud, so that it becomes available to all community.
