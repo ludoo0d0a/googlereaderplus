@@ -239,7 +239,6 @@ GRP.scripts = {
     favicons: {
         name: "Favicons",
         category: 'icons',
-		status: 'updated',
         options: {
             providerpageicons: false,
             sidebaronly: false,
@@ -373,7 +372,6 @@ GRP.scripts = {
     colorful: {
         name: "Colorful listview",
         category: 'layout',
-        /*status: 'updated',*/
         options: {
             tree: false,
             usebasecolor: false,
@@ -390,7 +388,6 @@ GRP.scripts = {
     filter: {
         name: "Filter entries",
         category: 'layout',
-		status: 'updated',
         options: {
             searchbody: false,
 			excludes: {xtype:'textarea',list:true,cls:'xlist'},
@@ -480,7 +477,6 @@ GRP.scripts = {
     readitlater: {
         name: "ReadItLater integration",
         category: 'share',
-        /*status: 'new',*/
         options: {
             auth: {
                 xtype: 'p',
@@ -598,7 +594,6 @@ GRP.scripts = {
     translate: {
         name: "Translate",
         category: 'content',
-       /* status: 'new',*/
         options: {
             lang: 'en',
             locked: false,
@@ -622,7 +617,6 @@ GRP.scripts = {
     limit: {
         name: "Limit",
         category: 'layout',
-        /*status: 'new',*/
         options: {
             mini: 30,
             maxi: 200
@@ -848,17 +842,21 @@ GRP.skins = {
         name: "Calibri Skin"
     },
 	sublimelight: {
-        name: "Sublime Reader Light <span class='new'>New!</span>",
+        name: "Sublime Reader Light",
 		ref:'https://code.google.com/p/sublimereader/'
     },
 	sublimedark: {
-        name: "Sublime Reader Dark <span class='new'>New!</span>",
+        name: "Sublime Reader Dark",
 		ref:'https://code.google.com/p/sublimereader'
     },
 	redesigned: {
-        name: "Redesigned <span class='new'>New!</span>",
+        name: "Redesigned",
 		ref:'http://www.globexdesigns.com/products/gr/'
     },
+	webbizgeek: {
+		name: "WebBizGeek Skin <span class='new'>New!</span>",
+		pic: 'http://www.webbizgeek.com/wp-content/uploads/2010/07/Google-Reader-custom-skin1.jpg'
+	},
     glassblackgold: {
         name: "Glass Black Gold Skin",
         /*
