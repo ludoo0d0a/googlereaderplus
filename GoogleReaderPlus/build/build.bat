@@ -3,7 +3,7 @@ del /Q dist
 mkdir dist\lib
 
 del /Q debug
-mkdir debug
+rem mkdir debug
 
 rem echo **************** codemirror
 rem call compress codemirror
@@ -32,7 +32,7 @@ copy config\manifest.json dist\
 copy config\*.html dist\
 copy ..\src\blank.html dist\
 
-copy debug\*.* dist\
+rem copy debug\*.* dist\
 
 move dist\colorpicker*.js dist\lib
 move dist\codemirror*.js dist\lib
@@ -50,5 +50,10 @@ xcopy /e /Y /I ..\src\images\*.* dist\images
 xcopy /e /Y /I ..\src\lang\*.* dist\lang
 xcopy /e /Y /I ..\src\res\*.* dist\res
 
-del debug\*.tmp
+rem del debug\*.tmp
 del dist\*.tmp
+
+echo ======================================================
+echo Update version number in build/config/manifest.json
+echo ======================================================
+pause
