@@ -53,6 +53,7 @@ skin\osxblue.js
 skin\osxblack.js
 skin\player.js
 skin\calibri.js
+skin\webbizgeek.js
 skin\sublimelight.js
 skin\sublimedark.js
 skin\redesigned.js
