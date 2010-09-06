@@ -242,6 +242,7 @@ imgfl:'Rodapé esquerdo'
     },
     general: {
         counter: "Mostrar contador dos não lidos no icon da toolbar",
+        counterinterval: "Refrescar o contador, dos não lidos, a cada",
 pageicon: 'Activar o icon na barra de endereço (ao clicar irá abrir o menu)',
 stats: 'Activar o relatório de estatisticas anónimas (para um melhor suporte)',
 bottomup:'Toolbar do Cabeçalho para cima',
@@ -258,7 +259,9 @@ text_layout:'Opções de Layout',
 text_private:'Dados privados e actualizações',
 text_toolbaricon:'Toolbar icon',
 text_pageicon:'Address bar icon',
-text_export:'Exportar/importar'
+text_export:'Exportar/importar',
+currdir: 'Destacar a pasta do item selecionado <span class="new">novo!</span>',
+icons: 'Mostrar os icons apenas para os botões de acções (excepto nas caixas de selecção) <span class="new">novo!</span>'
     },
     limit: {
         slidewindow: "Slidewindow - limitar número de entradas",
