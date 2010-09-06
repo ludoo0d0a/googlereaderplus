@@ -11,8 +11,8 @@
  * so that 0.3.11 is the 11th translated version of the original v0.3 english version.
  *
  *
- * Version : 1.4.1
- * Date : 09-05-2010
+ * Version : 1.4.2
+ * Date : 09-06-2010
  * @author jesalgadom
  */
 var locale = 'es';
@@ -55,7 +55,7 @@ GRP.langs[locale].scripts = {
     },
     fixlayout: {
         name: "Corregir opciones de página",
-        desc: "Corregir diferentes fallas de estilo en la página como el ancho de las entradas, las imágenes faltantes y hacer caber en la pantalla grandes imágenes"
+        desc: "Corregir diferentes fallas de estilo en la página como el ancho de las entradas, las imágenes faltantes y la visualización de grandes imágenes"
     },
     count: {
         name: "Corregir contador (1000+)",
@@ -138,12 +138,12 @@ GRP.langs[locale].scripts = {
         desc: "Añadir un botón 'abrir en segundo plano' en cada entrada"
     },
     replacer: {
-        name: "Replacer",
+        name: "Remplazar",
         desc: "Remplazar la entrada con una parte de la página original. Actualmente se usa para obtener cómics.<br/>Gracias a jolan78 por su idea y su script."
     },
     aero: {
-        name: "Barra de herramientas Google Aero",
-        desc: "Barra de herrammientas con el tema de Aero"
+        name: "Barra de herramientas Aero",
+        desc: "Barra de herrammientas con el tema de Google Aero"
     },
     info: {
         name: "SysInfo",

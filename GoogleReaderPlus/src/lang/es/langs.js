@@ -7,7 +7,7 @@
  * **************************
  *
  * Version : 1.6
- * Date : 09-05-2010
+ * Date : 09-06-2010
  * @author jesalgadom
  */
 var locale = 'es';
@@ -172,7 +172,7 @@ GRP.langs[locale].prefs = {
         imgfl: 'Pie de página izquierdo'
     },
     ig: {
-        warning: 'Puede que algunos temas no se visualicen correctamente. Esta característica se encuentra en desarrollo',
+        warning: 'Puede que algunos temas no se visualicen correctamente. Esta característica se encuentra en desarrollo.',
         skin_name: 'Nombre del tema iGoogle',
         skin_url: 'URL del tema iGoogle',
         debug: 'Debug mode (For debugging only)',
@@ -204,13 +204,13 @@ GRP.langs[locale].prefs = {
         download: "<span>Descargar</span>La galería de Google Chrome",
         about: "<span>Acerca</span>Acerca de, agradecimientos...",
         site: "<span>Web</span>Mi página personal",
-        twitter: "<span><img width=\"160\" height=\"27\" src=\"http://twitter-badges.s3.amazonaws.com/follow_me-a.png\" alt=\"Follow ludoo0d0a on Twitter\"></span>Esté al tanto",
-        donate: '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=US&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></span>¡Invíteme a un café!</a>',
+        twitter: "<span><img width=\"160\" height=\"27\" src=\"http://twitter-badges.s3.amazonaws.com/follow_me-a.png\" alt=\"Follow ludoo0d0a on Twitter\"></span>Mantente al tanto",
+        donate: '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=US&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></span>¡Invítame a un café!</a>',
         translate: '<span>Traducción</span>Ayúdame a traducir</a>'
     },
     column: {
         count: "Número de columnas",
-        locked: "Siempre activas, excepto en:",
+        locked: "Opción siempre activa, excepto en:",
         pagebreak: "Dividir artículos largos para que se puedan leer por páginas como en un periódico.",
                 miniparas: "Número mínimo de párrafos antes de dividir en columnas",
         entersite: "Introduzca la URL de su página"
@@ -246,17 +246,17 @@ GRP.langs[locale].prefs = {
     },
     general: {
         counter: "Mostrar el contador en la barra de herramientas",
-counterinterval: "Actualizar el contador cada (s)",
+counterinterval: "Actualizar el contador cada (seg)",
         pageicon: 'Activar ícono en la barra de direcciones (muestra un menú al pinchar)',
         stats: 'Autorizar el envío anónimo de datos estadísticos (para mejorar el soporte)',
-        bottomup: "Poner la barra 'Anterior/Siguiente' arriba de la pantalla",
+        bottomup: "Poner la barra 'Anterior/Siguiente' en la parte superior de la pantalla",
         opendirect: "Pinchar el botón de la barra de herramientas para abrir GoogleReader",
         secure: "Usar siempre el protocolo seguro (https)",
-        topcurrent: "Mostrar siempre el artículo actual arriba de la pantalla",
+        topcurrent: "Abrir artículos siempre en la parte superior de la pantalla",
         floatactions: "El panel de acciones se muestra en una ventana flotante",
         noupdatepopup: "No mostrar avisos sobre actualizaciones",
         icontoolbar_add: "Para añadir el botón a la barra de herramientras, <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">descargar e instalar</a>.",
-        icontoolbar_text: "<span>Para que el uso del botón sea opcional, lo ofrecemos como una extensión independiente</span>                                    <br>                                    <span>que debe instalarse aparte de Readerplus.</span>                                    <br>                                    <span>Para añadir el botón, clic en <b>Instalar</b> en la página <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">botón para Readerplus</a>.</span><span>Para desactivar el botón, dé clic derecho sobre él y elija Desactivar.</span>",
+        icontoolbar_text: "<span>Para que el uso del botón sea opcional, lo ofrecemos como una extensión independiente que debe instalarse aparte de Readerplus.</span>                                    <br>                                    <span>Para añadir el botón, clic en <b>Instalar</b> en la página <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">botón para Readerplus</a>.</span><br><span>Para desactivar el botón, dé clic derecho sobre él y elija Desactivar.</span>",
         importexport_text: "Puede guardar sus preferencias con la función 'export' y recargarlas luego con 'import', pero asegúrese de la validez del formato <a href='http://jsonformatter.curiousconcept.com/' target='blank'>JSON</a>:",
         confirmimport: "¿Está seguro de querer importar esta configuración?\n¡La configuración actual se perderá!",
         text_layout: 'Configuración de página',
@@ -265,7 +265,7 @@ counterinterval: "Actualizar el contador cada (s)",
         text_pageicon: 'Ícono de la barra de direcciones',
         text_export: 'Exportar/importar',
 currdir: 'Destacar la carpeta del elemento seleccionado <span class="new">¡Nuevo!</span>',
-icons: 'Íconos solamente en los botones de la barra acciones (excepto checkbox) <span class="new">new!</span>'
+icons: 'Íconos solamente en los botones de la barra acciones (excepto checkbox) <span class="new">¡Nuevo!</span>'
     },
 limit: {
 slidewindow: "Slidewindow - Limitar número de entradas",
@@ -339,7 +339,7 @@ separator: "Separador para añadir niveles adicionales (ejemplo: Deportes:Fútbo
         alreadyusedgoogle: "Ya está en las combinaciones oficiales"
     },
     thanks: {
-        donators: "Gracias a los que han donado por contribuir en este proyecto",
+        donators: "Gracias a los que, con sus donaciones, han contribuido en este proyecto",
         translators: "Gracias a los valientes traductores por su excelente trabajo",
         authors: "Gracias a los autores de los scripts y temas originales (Greasemonkey y Stylish)"
     }
