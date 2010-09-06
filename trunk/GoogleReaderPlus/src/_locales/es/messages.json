@@ -1,0 +1,17 @@
+{
+  "extension_name": {
+    "message": "Reader Plus"
+  },
+  "extension_description": {
+    "message": "Mejora Google Reader agregando íconos de página, temas y muchas otras características"
+  },
+  "extension_summary": {
+    "message": "Mejora Google Reader con numerosas características: agrega íconos de página (favicons), corrige problemas de visualización e imágenes faltantes, incluye un contador que muestra el número real de elementos sin leer, mejora la visualización en pantallas anchas, en pantalla completa y la previsualización integrada, colorea los elementos de la lista, incluye filtros, permite mostrar en columnas, permite ir de abajo a arriba, cerrar la noticia, adaptar el alto, abrir en una pestaña en segundo plano, lectura con el ratón, compartir noticias en Facebook, Twitter, Instapaper, ReadItLater, marcar todos como leídos, eliminar anuncios publicitarios, remplazar artículos en cómics, traducir automáticamente, etc. \nPuedes escoger tu tema favorito entre una gran selección, usar tu propia imagen de fondo o escoger entre los temas de iGoogle. \nLos accesos rápidos se configuran fácilmente. \nTraducción en varios idiomas (inglés, francés, ruso, chino, español). Se aceptan propuestas de traducciones en otros idiomas [http://goo.gl/HjiG]\n\nSe puede instalar un boton opcional en la barra de herramientas: \nhttps://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo"
+  },
+  "extension_language": {
+    "message": "Español"
+  },
+  "browser_action_tooltip_default": {
+    "message": "Preferencias de Reader Plus"
+  } 
+}
