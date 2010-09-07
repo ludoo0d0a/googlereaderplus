@@ -1,0 +1,84 @@
+{
+  "extension_name": {
+    "message": "Botón de Reader Plus para la barra de herramientas"
+  },
+  "extension_description": {
+    "message": "Añadir un botón con ícono para Reader Plus en Chrome Toolbar"
+  },
+  "browser_action_tooltip_default": {
+    "message": "Botón de Reader Plus para la barra de herramientas"
+  },
+  "starred_items":{
+  	"message": "Elementos destacados"
+  },
+  "mark_as_read":{
+  	"message": "Leído"
+  },
+  "lreader":{
+  	"message": "Reader"
+  },
+  "lprefs":{
+  	"message": "Opciones"
+  },
+  "lrefresh":{
+  	"message": "Actualizar"
+  },
+  "lnext":{
+  	"message": "Siguiente"
+  },
+  "lprevious":{
+  	"message": "Anterior"
+  },
+  "loading":{
+  	"message": "Cargando..."
+  },
+  "loadingpage":{
+  	"message": "Cargando pÃ¡gina $page$ ....",
+	"placeholders": {
+	    "page": {
+	      "content": "$1",
+	      "example": "1"
+	    }
+	  }
+  },
+  "page":{
+  	"message": "PÃ¡gina $current$ en $last$",
+	"placeholders": {
+	    "current": {
+	      "content": "$1",
+	      "example": "1"
+	    },
+		"last": {
+	      "content": "$2",
+	      "example": "10"
+	    }
+	  }
+  },
+  "notlogged":{
+  	"message": "Iniciar sesiÃ³n en Google Reader..."
+  },
+  "needreaderplus":{
+  	"message": "<a href='http://goo.gl/bswm' target='_blank'>Reader Plus</a> debe estar instalado..."
+  },
+  "feeditems":{
+  	"message": "$title$",
+	"placeholders": {
+	    "title": {
+	      "content": "$1",
+	      "example": "My feed"
+	    }
+	  }
+  },
+  "labelitems":{
+  	"message": "Label $label$",
+	"placeholders": {
+	    "label": {
+	      "content": "$1",
+	      "example": "video"
+	    }
+	  }
+  },
+  "unreaditems":{
+  	"message": "Elementos no leÃ­dos"
+  } 
+}
