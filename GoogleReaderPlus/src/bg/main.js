@@ -93,6 +93,8 @@ function onMessageReceived(a, p, cb){
         getCloudData(a, cb);
     } else if (a.message == "exported") {
         exportitems(a);
+    }else if (a.message == "tweet") {
+        tweet(a,cb);
     }
 }
 
