@@ -26,18 +26,18 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
         scop.run(skin.id, langs);
     }
 	
-	var tog;
+	var tog={};
 	function toggleTheme(){
 		var el = get_id('rps_' + skin.id);
 		if (el) {
 			tog = {
-				url:el.href,
 				css: el.innerHTML
 			};
 			remove(el);
-		} else {
+		} else if(tog.css){
 			GM_addStyle(tog.css, 'rps_' + skin.id);
 		}
+		fireResize();
 	}
 	
     function remoteSkin(skin){

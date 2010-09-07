@@ -190,6 +190,7 @@ GRP.scripts = {
     ig: {
         name: "iGoogle Theme",
         category: 'theme',
+		status: 'updated',
         desc: "Use iGoogle Theme in your Google Reader (Beta)",
         options: {
             warning: {
@@ -245,6 +246,7 @@ GRP.scripts = {
     relook: {
         name: "Relook",
         category: 'theme',
+		status: 'updated',
         desc: "Relook yourself GoogleReader using custom stylesheets",
         options: {
             resize: false,
@@ -446,6 +448,7 @@ GRP.scripts = {
     twitter: {
         name: "Twitter integration",
         category: 'share',
+		status: 'updated',
         options: {
             shortener: {
                 xtype: 'select',
