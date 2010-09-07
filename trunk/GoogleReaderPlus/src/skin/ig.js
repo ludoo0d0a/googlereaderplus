@@ -47,18 +47,26 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
         });
     }
 	
-	var tog;
+	var tog={};
 	function toggleTheme(){
-		var el = get_id('rps_ig');
-		if (el) {
+		var el = get_id('theme_ig');
+		var el2 = get_id('rps_ig');
+		if (el || el2) {
 			tog = {
-				url:el.href,
-				css: el.innerHTML
+				css: (el)?el.innerHTML:'',
+				css2: (el2)?el2.innerHTML:''
 			};
 			remove(el);
+			remove(el2);
 		} else {
-			GM_addStyle(tog.css, 'rps_ig');
+			if (tog.css) {
+				GM_addStyle(tog.css, 'theme_ig');
+			}
+			if (tog.css2) {
+				GM_addStyle(tog.css2, 'rps_ig');
+			}
 		}
+		fireResize();
 	}
 	
     function setcss(css, xml, entry){
