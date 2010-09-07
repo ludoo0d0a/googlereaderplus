@@ -1,5 +1,5 @@
 // Theme
-GRP.theme = function(prefs, langs, scop){
+GRP.theme = function(prefs, langs, ID, SL, lang, scop){
 	if (prefs.theme_noborder) {
         var css = '.card-common,.entry-main{margin:0 !important;}';
         css += '.entry,.card-content,.entry-actions,.entry-container{padding:0 !important;}';
@@ -25,6 +25,21 @@ GRP.theme = function(prefs, langs, scop){
     } else {
         scop.run(skin.id, langs);
     }
+	
+	var tog;
+	function toggleTheme(){
+		var el = get_id('rps_' + skin.id);
+		if (el) {
+			tog = {
+				url:el.href,
+				css: el.innerHTML
+			};
+			remove(el);
+		} else {
+			GM_addStyle(tog.css, 'rps_' + skin.id);
+		}
+	}
+	
     function remoteSkin(skin){
         var c = GM_getValue('cache_theme_' + skin.id);
         if (c) {
@@ -73,4 +88,10 @@ GRP.theme = function(prefs, langs, scop){
 	if (skin.resize) {
 		fireResize();
 	}
+	
+	var keycode = getShortcutKey(ID, 'toggletheme', prefs); 
+    if (keycode) {
+        keycode.fn = toggleTheme;
+        initKey(keycode);
+    }
 };

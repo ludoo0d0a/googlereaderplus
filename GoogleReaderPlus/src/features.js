@@ -174,7 +174,18 @@ GRP.scripts = {
 	            value: 2,
 	            parent: 'portal'
 	       }	
-        }
+        },
+		shortcuts: {
+			'toggletheme': {
+				id: 'toggletheme',
+				title: 'Toggle theme',
+				key: {
+					//Alt+x
+					keyCode: 88,
+					altKey: true
+				}
+			}
+		}
     },
     ig: {
         name: "iGoogle Theme",
@@ -211,7 +222,16 @@ GRP.scripts = {
             }
         },
         shortcuts: {
-            'random': {
+            'toggletheme': {
+                id: 'toggletheme',
+                title: 'Toggle theme',
+                key: {
+                    //Shift+y
+                    keyCode: 89,
+                    altKey: true
+                }
+            },
+			'random': {
                 id: 'random',
                 title: 'Random theme',
                 key: {
@@ -233,6 +253,17 @@ GRP.scripts = {
                 cls: 'code',
                 rows: 40,
                 value: '/* This CSS sample alternates green entry, red border */\n/* green entry */\n.entry:nth-child(even) .card-common, \n.entry:nth-child(even) .card-actions, \n#entries .entry:nth-child(even) .collapsed {\n border:1px solid #FFACAC;\n}\n/* red border */\n.entry:nth-child(odd) .card-common, \n.entry:nth-child(odd) .card-actions, \n#entries .entry:nth-child(odd) .collapsed {\n background-color:#C4DFC0;\n}\n'
+            }
+        },
+        shortcuts: {
+            'toggletheme': {
+                id: 'togglerelook',
+                title: 'Toggle relook',
+                key: {
+                    //Alt+z
+                    keyCode: 90,
+                    altKey: true
+                }
             }
         }
     },
@@ -362,9 +393,9 @@ GRP.scripts = {
                 id: 'close',
                 title: 'Close preview',
                 key: {
-                    //88 x
+                    //88 alt+x
                     keyCode: 88,
-					shiftKey:true
+					altKey:true
                 }
             }
         }
@@ -508,16 +539,18 @@ GRP.scripts = {
                 id: 'markprev',
                 title: 'Mark items before As Read',
                 key: {
-                    //87 w
-                    keyCode: 87
+                    //87 shift+w
+                    keyCode: 87,
+					shitKey:true
                 }
             },
             'marknext': {
                 id: 'marknext',
                 title: 'Mark items after As Read',
                 key: {
-                    //89 y
-                    keyCode: 89
+                    //89 shift+y
+                    keyCode: 89,
+					shitKey:true
                 }
             }
         }
