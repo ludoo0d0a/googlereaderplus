@@ -9,5 +9,8 @@ api\favicons.js
 bg\prefs.js
 bg\request.js
 bg\tabs.js
+chrome_ex_oauthsimple.js
+chrome_ex_oauth.js
+bg\twitter.js
 bg\main.js
 bg\stats.js
