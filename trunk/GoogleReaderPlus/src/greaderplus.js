@@ -91,14 +91,14 @@
                 if (o == 'theme') {
                     //skin
                     console.log("**** run " + o);
-                    GRP.theme(this.prefs, langs, this);
+                    GRP.theme(this.prefs, langs, o, langs[o]||{}, this.lang, this);
 					track('theme', o);
                 } else {
                     if (window.GRP[o]) {
                         console.log("**** run " + o);
                         try {
                             //console.log("myport(run) "+this.myport.portId_);
-                            window.GRP[o].call(window, this.prefs, langs, o, langs[o]||{}, this.lang);
+                            window.GRP[o].call(window, this.prefs, langs, o, langs[o]||{}, this.lang, this);
 							track('feature', o);
                         } catch (e) {
                             console.error(e);

@@ -13,7 +13,7 @@
  * http://userscripts.org/scripts/show/12352
  * http://userscripts.org/scripts/show/9455
  */
-GRP.preview = function(prefs, langs, ID){
+GRP.preview = function(prefs, langs, ID, SL, lang, scop){
     var SL = langs.preview;
     var locked = false;
     var overlay;

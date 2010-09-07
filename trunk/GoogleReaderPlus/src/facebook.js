@@ -31,7 +31,7 @@ GRP.facebook = function(prefs, langs, ID, SL, lang){
 		iframe = getFirstElementByClassName(entry,  'facebookSharer');//iframe
 		if (active) {
 			// iframe creation/display
-			if (iframe) {
+			/*if (iframe) {
 				// iframe already in document, display it
 				iframe.style.display = 'block';
 			} else {
@@ -41,15 +41,16 @@ GRP.facebook = function(prefs, langs, ID, SL, lang){
 				iframe.setAttribute('height', '350px');
 				iframe.setAttribute('name', 'grpfacebook');
 				iframe.setAttribute('target', 'grpfacebook');
+				iframe.className = 'facebookSharer';*/
 				//var shareurl = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
 				var shareurl = getEntryLink(entry);
 				var e = encodeURIComponent;
 				var fbsharer = 'http://www.facebook.com/sharer.php?&u=' + e(shareurl.url) + '&t='
 						+ e(shareurl.title);
-				iframe.setAttribute('src', fbsharer);
-				iframe.className = 'facebookSharer';
+				window.open(fbsharer, 'sharer', 'toolbar=0,status=0,resizable=1,width=626,height=436');
+			/*	iframe.setAttribute('src', fbsharer);
 				body.appendChild(iframe);
-			}
+			}*/
 
 			// Scale article container to fullwidth
 			body.setAttribute('style', gpeStyles.entryBody);
