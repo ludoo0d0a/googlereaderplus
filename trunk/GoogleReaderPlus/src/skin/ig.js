@@ -46,6 +46,21 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
 				}
         });
     }
+	
+	var tog;
+	function toggleTheme(){
+		var el = get_id('rps_ig');
+		if (el) {
+			tog = {
+				url:el.href,
+				css: el.innerHTML
+			};
+			remove(el);
+		} else {
+			GM_addStyle(tog.css, 'rps_ig');
+		}
+	}
+	
     function setcss(css, xml, entry){
         if (css) {
             GM_addStyle(css, 'theme_ig');
@@ -190,6 +205,10 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
 	
     var keycode = getShortcutKey(ID, 'random', prefs); //shift+r
     keycode.fn = rndskin;
+    initKey(keycode);
+	
+	var keycode = getShortcutKey(ID, 'toggletheme', prefs);
+    keycode.fn = toggleTheme;
     initKey(keycode);
 	
 };
