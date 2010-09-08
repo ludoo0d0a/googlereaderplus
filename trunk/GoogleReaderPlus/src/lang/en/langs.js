@@ -138,7 +138,7 @@ GRP.langs[locale].texts = {
     },
     menu: {
         label: 'Extra',
-        showallfolders: 'Afficher tous les dossiers'
+        showallfolders: 'Display all folders'
     }
 };
 GRP.langs[locale].prefs = {
