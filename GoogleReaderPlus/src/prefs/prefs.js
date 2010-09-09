@@ -35,8 +35,8 @@ function initprefs(){
         specialTranslate(lang);
         renderSkins();
         renderPrefs();
-        var current = window.location.hash.substring(1) || 'general';
-        showPanel(current);
+        var hash = window.location.hash.substring(1) || 'general';
+        showPanel(hash);
         reportNavigator();
         renderPreviewTheme();
         renderThemes();
