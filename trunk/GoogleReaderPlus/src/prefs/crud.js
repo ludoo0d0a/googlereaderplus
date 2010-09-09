@@ -350,7 +350,8 @@ function removefavicon(url){
  *
  */
 function addReplacerItems(id, key){
-    var title = key || 'Image site.web';
+    var p = window.GRP_params||{};
+	var title = key || p.title || 'Image site.web';
     title = prompt(getTextPrefs(lang, 'replacer', 'prompttitle'), title);
     if (!title) {
         return;
@@ -362,9 +363,9 @@ function addReplacerItems(id, key){
     }
     var def = prefs.replacer_items[key] ||
     {
-        url: 'http://www.WEBSITE.COM',
-        search: 'xpath://div[@class="CLASSNAME"]',
-        replace: "$1"
+        url: p.url || 'http://www.WEBSITE.COM',
+        search: p.search || 'xpath://div[@class="CLASSNAME"]',
+        replace: p.replace || "$1"
     };
     url = prompt(getTextPrefs(lang, 'replacer', 'link'), def.url);
     if (!url) {

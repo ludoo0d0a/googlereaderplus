@@ -11,8 +11,20 @@ function loadSkin(){
 }
 
 var lastPanel, lastLink;
-function showPanel(id){
-    if (typeof window['run_' + id] == "function") {
+function showPanel(hash){
+     var n = hash.split('/');
+	 var id = n[0], params=false;
+	 if (n.length>1){
+	 	params = unescape(n.shift().join('/'));
+		if (params) {
+			try {
+				window.GRP_params = JSON.parse(params);
+			} catch (e) {
+			}
+		}
+	 }
+	 	
+	if (typeof window['run_' + id] == "function") {
         window['run_' + id].call(this, id);
     }
     var link = document.getElementById('l_' + id);
