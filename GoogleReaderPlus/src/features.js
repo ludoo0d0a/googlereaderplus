@@ -482,6 +482,46 @@ GRP.scripts = {
             }
         }
     },
+	/*
+	identi: {
+        name: "Identi.ca",
+        category: 'share',
+		status: 'new',
+        options: {
+            shortener: {
+                xtype: 'select',
+                values: {
+                    tinyurl: 'TinyUrl',
+                    bitly: 'BitLy'
+                }
+            },
+            shortener_bitly: {
+                xtype: 'p',
+                label: true,
+                cls: 'subtitle'
+            },
+            shortener_login: {
+                value: '',
+                size: 20
+            },
+            shortener_apikey: {
+                value: '',
+                size: 30
+            }
+        },
+        shortcuts: {
+            'identeet': {
+                id: 'identeet',
+                title: 'Post on Identi.ca',
+                key: {
+                    //87 w
+                    keyCode: 87,
+					shiftKey:true
+                }
+            }
+        }
+    },
+    */
     instapaper: {
         name: "Instapaper integration",
         category: 'share',
