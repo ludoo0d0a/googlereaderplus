@@ -11,8 +11,8 @@
  * so that 0.3.11 is the 11th translated version of the original v0.3 english version.
  *
  *
- * Version : 1.4
- * Date : 04-22-2010
+ * Version : 1.5
+ * Date : 09-09-2010
  * @author Valente
  */
 var locale = 'en';
@@ -136,6 +136,22 @@ GRP.langs[locale].scripts = {
     openbackground: {
         name: "Open in background",
         desc: "Add a 'open in background' button on each entry"
+    },
+	translate: {
+        name: "Translate",
+		desc: "Translate text and title for entries"
+    },
+	limit: {
+        name: "Limit",
+       desc: "Limit number of displayed entries (by removing old read entries)"
+    },
+	prefetch: {
+        name: "Prefetch",
+        desc: "Preload more entries"
+    },
+	nested: {
+        name: "Nested folders",
+        desc: "Use nested folders to add extra levels"
     },
     replacer: {
         name: "Replacer",

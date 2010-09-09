@@ -137,6 +137,22 @@ GRP.langs[locale].scripts = {
         name: "Abrir en segundo plano",
         desc: "Añadir un botón 'abrir en segundo plano' en cada entrada"
     },
+	translate: {
+        name: "Translate",
+		desc: "**TODO** Translate text and title for entries"
+    },
+	limit: {
+        name: "Limit",
+       desc: "**TODO** Limit number of displayed entries (by removing old read entries)"
+    },
+	prefetch: {
+        name: "Prefetch",
+        desc: "**TODO** Preload more entries"
+    },
+	nested: {
+        name: "Nested folders",
+        desc: "**TODO** Use nested folders to add extra levels"
+    },
     replacer: {
         name: "Remplazar",
         desc: "Remplazar la entrada con una parte de la página original. Actualmente se usa para obtener cómics.<br/>Gracias a jolan78 por su idea y su script."
