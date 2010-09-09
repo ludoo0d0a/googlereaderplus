@@ -1,11 +1,11 @@
 /**
- * Twitter micro bloging
+ * Identi.ca micro bloging
  * using shared API
  *  
  */
-GRP.twitter = function(prefs, langs, ID, SL, lang){
+GRP.identi = function(prefs, langs, ID, SL, lang){
     var api = {
-        shortcut:'tweet'
+        shortcut:'identi'
     };
     GRP.api_micro(prefs, langs, ID, SL, lang, api);
 };
