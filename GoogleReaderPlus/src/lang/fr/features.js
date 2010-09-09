@@ -6,8 +6,8 @@
  * fr : Francais
  * **************************
  *
- * Version : 1.4
- * Date : 04-22-2010
+ * Version : 1.5
+ * Date : 09-09-2010
  * @author Valente
  */
 var locale = 'fr';
@@ -131,6 +131,22 @@ GRP.langs[locale].scripts = {
     openbackground: {
         name: "Ouvrir en arrière plan",
         desc: "Ouvrir en arrière plan un élément"
+    },
+	translate: {
+        name: "Translate",
+		desc: "Traduire les textes et titres des éléments"
+    },
+	limit: {
+        name: "Limit",
+       desc: "Limiter le nombre d'éléments affichés (en supprimant les plus vieux éléments lus)"
+    },
+	prefetch: {
+        name: "Prefetch",
+        desc: "Précharger plus d'éléments"
+    },
+	nested: {
+        name: "Nested folders",
+        desc: "Utiliser l'arborescence des répertoires"
     },
     replacer: {
         name: "Remplacement",
