@@ -11,8 +11,8 @@
  * so that 0.3.11 is the 11th translated version of the original v0.3 english version.
  *
  *
- * Version : 1.4.2
- * Date : 09-06-2010
+ * Version : 1.5.1
+ * Date : 09-09-2010
  * @author jesalgadom
  */
 var locale = 'es';
@@ -66,8 +66,8 @@ GRP.langs[locale].scripts = {
         desc: "Mostrar número de elementos no leídos en el favicon de Google Reader"
     },
     removeads: {
-        name: "Eliminar anuncios publicitarios",
-        desc: "Bloquear algunos anuncios comunes"
+        name: "Eliminar anuncios",
+        desc: "Bloquear algunos anuncios publicitarios comunes"
     },
     column: {
         name: "Texto en varias columnas",
@@ -151,7 +151,7 @@ GRP.langs[locale].scripts = {
     },
 	nested: {
         name: "Nested folders",
-        desc: "**TODO** Use nested folders to add extra levels"
+        desc: "Use nested folders to add extra levels"
     },
     replacer: {
         name: "Remplazar",
