@@ -24,7 +24,7 @@
         <script type="text/javascript" src="lib/jquery/colorpicker.js"></script>
         <script type="text/javascript" src="skin/mytheme.js"></script>
         <script type="application/javascript">
-            var lang = 'en', prefs = {}, gshortcuts = {}, gcomp=false;
+            var lang = 'en', prefs = {}, gshortcuts = {}, gcomp = false;
             window.onload = initGRP;
         </script>
     </head>
@@ -58,20 +58,18 @@
                 </div>
                 <div class="rounded container3">
                     <div class="savetop">
-                        <label for="language_lang">
-                            Language :
-                        </label>
+                        <label for="language_lang">Language :</label>
                         <select name="language_lang" id="language_lang" title="Your language setting">
                             <option value="en">English</option>
                             <option value="fr">French - Français</option>
-							<option value="es">Spanish - Español</option>
-							<option value="pt">Portuguese - Português</option>
+                            <option value="es">Spanish - Español</option>
+                            <option value="pt">Portuguese - Português</option>
                             <option value="zh_CN">Chinese (Simplified) - 简体中文</option>
                             <option value="zh_TW">Chinese (Traditional) - 繁體中文</option>
                             <option value="ru">Russian - Русский</option>
                             <option value="uk">Ukrainan - Українська</option>
                             <option value="tr">Turkish - Türkçe</option>
-                            <option value="pl">Polish - polski</option>							
+                            <option value="pl">Polish - polski</option>
                         </select>
                         <input id="t_val-save" type="button" class="ignore" name="saveform" value="Save" onClick="saveprefs();"/>
                     </div>
@@ -99,9 +97,7 @@
                         </div>
                         <div id="panel_extshortcuts" style="display:none;">
                             <div class="body">
-                                <p>
-                                    <a id="t_extshortcuts_official" href="http://www.google.com/support/reader/bin/answer.py?hl=en&amp;answer=69973" target="_blank">Google Reader official shortcuts</a>
-                                </p>
+                                <p><a id="t_extshortcuts_official" href="http://www.google.com/support/reader/bin/answer.py?hl=en&amp;answer=69973" target="_blank">Google Reader official shortcuts</a></p>
                                 <ul id="grpshortcuts" class="mnu shortcut">
                                 </ul>
                             </div>
@@ -110,15 +106,14 @@
                             <div class="body">
                                 <span id="t_thanks_donators">Thanks to donators to contribute to this project</span>:
                                 <ul class="rounded mnu donators">
-                                    <li class="first">
-                                    <!--4+4+4--><a href="javascript:void();"><span>Bill Moldrup</span></a></li>	
-									<li><!--10--><a href="javascript:void();"><span>Ian Chipman</span></a></li>
+                                    <li class="first"><!--4+4+4--><a href="javascript:void();"><span>Bill Moldrup</span></a></li>
+                                    <li><!--10--><a href="javascript:void();"><span>Ian Chipman</span></a></li>
                                     <li><!--10--><a href="http://www.webslinky.com/" target="blank"><span>Lee Murawski</span></a></li>
                                     <li><!--10--><a href="javascript:void();"><span>Gautham Shankar</span></a></li>
                                     <li><!--2+5--><a href="javascript:void();"><span>Timo Ruppell</span></a></li>
                                     <li><!--5--><a href="javascript:void();"><span>Parker Harrington</span></a></li>
                                     <li><!--5--><a href="javascript:void();"><span>Darren Lynn</span></a></li>
-									<li><!--4--><a href="javascript:void();"><span>Husam Alghamdi</span></a></li>
+                                    <li><!--4--><a href="javascript:void();"><span>Husam Alghamdi</span></a></li>
                                     <li><!--3--><a href="javascript:void();"><span>Feng Gao</span></a></li>
                                     <li><!--3--><a href="javascript:void();"><span>Ally Akbarzadeh</span></a></li>
                                     <li><!--2--><a href="javascript:void();"><span>William Banks</span></a></li>
@@ -132,12 +127,10 @@
                                     <li><a href="http://rusik.land.ru" target="blank"><span>Ruslan Pokatskii - Russian</span></a></li>
                                     <li><a href="#"><span>Vincent chow - Traditional Chinese</span></a></li>
                                     <li><a href="http://hepsidetay.blogspot.com" target="blank"><span>Ata İsmet Özçelik - Türkçe</span></a></li>
-                                    <!--<li>
-                                    <a href="#" target="blank"><span>Thorsten Rost + ? - German</span></a>
-                                    </li>-->
-									<li><a href="#" target="blank"><span>voythas - Polish</span></a></li>
-									<li><a href="#" target="blank"><span>Ilídio Martins - Portuguese</span></a></li>
-									<li class="last"><a href="#" target="blank"><span>Jorge Salgado - Spanish</span></a></li>
+                                    <li><a href="#" target="blank"><span>Thorsten Rost - German</span></a></li>
+                                    <li><a href="#" target="blank"><span>voythas - Polish</span></a></li>
+                                    <li><a href="#" target="blank"><span>Ilídio Martins - Portuguese</span></a></li>
+                                    <li class="last"><a href="#" target="blank"><span>Jorge Salgado - Spanish</span></a></li>
                                 </ul>
                                 <span id="t_thanks_authors">Thanks to authors of original scripts and skins (Greasemonkey and Stylish)</span>:
                                 <ul class="rounded mnu thanks">
@@ -174,8 +167,8 @@
                                     <li><a href="http://userscripts.org/scripts/show/10229"><span>Slide window</span></a></li>
                                     <li><a href="https://code.google.com/p/sublimereader"><span>Sublime Reader</span></a></li>
                                     <li><a href="http://www.globexdesigns.com/products/gr/"><span>Google Redesigned</span></a></li>
-									<li><a href="http://userscripts.org/scripts/show/26383"><span>Google Reader Prefetch More</span></a></li>
-									<li class="last"><a href="http://userscripts.org/scripts/show/64659" target="_blank">Google Reader: Nested Folders</a></li>
+                                    <li><a href="http://userscripts.org/scripts/show/26383"><span>Google Reader Prefetch More</span></a></li>
+                                    <li class="last"><a href="http://userscripts.org/scripts/show/64659" target="_blank">Google Reader: Nested Folders</a></li>
                                 </ul>
                             </div>
                         </div>

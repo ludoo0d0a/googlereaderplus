@@ -136,18 +136,6 @@ GRP.langs[locale].scripts = {
         name: "Translate",
 		desc: "Traduire les textes et titres des éléments"
     },
-	limit: {
-        name: "Limit",
-       desc: "Limiter le nombre d'éléments affichés (en supprimant les plus vieux éléments lus)"
-    },
-	prefetch: {
-        name: "Prefetch",
-        desc: "Précharger plus d'éléments"
-    },
-	nested: {
-        name: "Nested folders",
-        desc: "Utiliser l'arborescence des répertoires"
-    },
     replacer: {
         name: "Remplacement",
         desc: "Remplace un élément avec une partie de la page originale. Actuellement utilisé pour afficher les bandes dessinées de gocomics.com. Merci à jolan78 pour son idée originale et son script."

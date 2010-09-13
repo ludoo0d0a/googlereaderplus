@@ -11,8 +11,8 @@
  * so that 0.3.11 is the 11th translated version of the original v0.3 english version.
  *
  *
- * Version : 1.5.1
- * Date : 09-09-2010
+ * Version : 1.5.2
+ * Date : 09-10-2010
  * @author jesalgadom
  */
 var locale = 'es';
@@ -89,7 +89,7 @@ GRP.langs[locale].scripts = {
         name: "Limitar artículos",
         desc: "Limitar número de artículos en una página. Los elementos leídos se eliminan."
     },
-        prefetch: {
+    prefetch: {
         name: "Predescargar más",
         desc: "Descargar más entradas al mismo tiempo para una navegación más fluida"
     },
@@ -137,21 +137,9 @@ GRP.langs[locale].scripts = {
         name: "Abrir en segundo plano",
         desc: "Añadir un botón 'abrir en segundo plano' en cada entrada"
     },
-	translate: {
-        name: "Translate",
-		desc: "**TODO** Translate text and title for entries"
-    },
-	limit: {
-        name: "Limit",
-       desc: "**TODO** Limit number of displayed entries (by removing old read entries)"
-    },
-	prefetch: {
-        name: "Prefetch",
-        desc: "**TODO** Preload more entries"
-    },
-	nested: {
-        name: "Nested folders",
-        desc: "Use nested folders to add extra levels"
+        translate: {
+        name: "Traducir",
+                desc: "Traducir el título y el contenido de los artículos"
     },
     replacer: {
         name: "Remplazar",
