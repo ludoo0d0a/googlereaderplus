@@ -141,18 +141,6 @@ GRP.langs[locale].scripts = {
         name: "Translate",
 		desc: "Translate text and title for entries"
     },
-	limit: {
-        name: "Limit",
-       desc: "Limit number of displayed entries (by removing old read entries)"
-    },
-	prefetch: {
-        name: "Prefetch",
-        desc: "Preload more entries"
-    },
-	nested: {
-        name: "Nested folders",
-        desc: "Use nested folders to add extra levels"
-    },
     replacer: {
         name: "Replacer",
         desc: "Replace entry with a part of the original page. Currently used to get comic strips.<br/>Thanks to jolan78 for its original idea and script."

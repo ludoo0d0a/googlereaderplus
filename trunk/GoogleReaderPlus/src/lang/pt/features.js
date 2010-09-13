@@ -89,7 +89,7 @@ GRP.langs[locale].scripts = {
         name: "Limitar entradas",
         desc: "Limitar número de entradas numa só página. Os itens lidos são removidos."
     },
-     	prefetch: {
+    prefetch: {
         name: "Pre-obter mais",
         desc: "Obter mais entradas de cada vez, para uma navegação mais suave"
     },
