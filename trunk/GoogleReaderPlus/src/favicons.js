@@ -240,7 +240,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
                         key = img.nextSibling.title;
                     }
                     var f = FAVICON[key];
-                    if (!f) {
+                    //if (!f) {
                         //try to get url+title
 						var dir = getSelectedDir(node);
 						if (dir) {
@@ -249,7 +249,6 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
 								title: dir.text
 							};
 						}
-						
 						/*
                         var nameText = getFirstElementByClassName(node, 'name-text');//span
                         if (nameText) {
@@ -261,8 +260,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
                             
                             FAVICON[key] = f;
                         }*/
-						
-                    }
+                    //}
                     if (f) {
                         img.src = '';
                         img.src = LOADING_IMAGE;

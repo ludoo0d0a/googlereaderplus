@@ -126,12 +126,16 @@ function parseFavicon(html, url){
         }
     }
     if (!icon) {
-        icon = cleanUrl(url) + "/favicon.ico";
+        icon = getUrlBase(url) + "/favicon.ico";
     } else {
         //Add domain if relative url
         var re = new RegExp("^http:", "i");
         if (!re.test(icon)) {
-            icon = url + '/' + icon;
+            if (/^\//.test(icon)){
+				icon = getUrlBase(url) + icon;
+			}else{
+				icon = cleanUrl(url) + '/' + icon;
+			}
         }
     }
     icon = normalizeUrl(icon);

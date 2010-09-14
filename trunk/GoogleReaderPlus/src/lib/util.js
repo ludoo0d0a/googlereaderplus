@@ -301,12 +301,24 @@ function normalizeUrl(url){
 
 //without parameter
 function cleanUrl(url){
-    var m = /([^\?]+)\??(.*)/.exec(url);
+    var r=url, m = /([^\?]+)\??(.*)/.exec(url);
     if (m) {
-        return m[1];
-    } else {
-        return url;
-    }
+        r= m[1];
+    } 
+	m = /(.*)\/.*\.\w+$/.exec(url);
+	if (m) {
+        r= m[1];
+    } 
+	return r;
+}
+
+function getUrlBase(url){
+	var m = url.split(/\/|\?/);
+	if (m){
+		return m[0]+'/'+m[1]+'/'+m[2];
+	}else{
+		return url;
+	}
 }
 
 function ellipsis(text, max){
