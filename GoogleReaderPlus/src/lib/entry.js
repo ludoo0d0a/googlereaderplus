@@ -635,8 +635,8 @@ function getSelectedDir(node){
             };
         }
     }
-	if (o.url) {
-		o.url = o.url.replace('/reader/view', '');
+	if (o.url && /\/reader\/view\/feed\//.test(o.url)) {
+		o.url = decodeURIComponent(o.url.replace(/.*\/reader\/view\/feed\//, ''));
 	}
     return o;
 }
