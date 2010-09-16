@@ -241,7 +241,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
                     }
                     var f = FAVICON[key];
                     //if (!f) {
-                        //try to get url+title
+                        //try to get url+title, but this solution is sometimes wrong !!
 						var dir = getSelectedDir(node);
 						if (dir) {
 							FAVICON[key] = {
@@ -249,17 +249,6 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
 								title: dir.text
 							};
 						}
-						/*
-                        var nameText = getFirstElementByClassName(node, 'name-text');//span
-                        if (nameText) {
-                            f = 
-                            {
-                                url: unescape(node.href.replace('/\/reader\/view\/feed\/', '')),
-                                title: ellipsis(nameText.innerText)
-                            };
-                            
-                            FAVICON[key] = f;
-                        }*/
                     //}
                     if (f) {
                         img.src = '';

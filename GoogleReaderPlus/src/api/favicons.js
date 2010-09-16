@@ -63,7 +63,13 @@ function extractFavicon(a, cb){
         url = f.url;
         title = f.title;
     }
-    xhr.open(a.method || 'get', normalizeUrl(url), true);
+	var page = getUrlBase(url);
+	
+	//Helper for feedburner
+	page=page.replace(/\/\/feeds\./,'//www.');
+	
+    //xhr.open(a.method || 'get', normalizeUrl(url), true);
+	xhr.open(a.method || 'get', page, true);
     xhr.onload = function(o){
         var xhr = o.target;
         if (xhr) {
