@@ -35,7 +35,7 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
             //add a button right after the title
             plink = document.createElement('a');
             plink.title = SL.title + keytext; //[Shift+V]
-            plink.href = '#';
+            plink.href = link.href; 'javascript:void();';
             plink.innerHTML = '<div class="entry-title-preview"></div>';
             insertAfter(plink, link);
             plink.addEventListener('click', previewTitleClick, false);
@@ -50,7 +50,7 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
             plink = document.createElement('a');
             //plink.className = 'ilink entry-title-link';
             addClass(plink, 'grp-link-title');
-            plink.href = '#';
+            plink.href = link.href; //'javascript:void();';
             plink.title = SL.title + keytext; //[Shift+V]
             plink.innerText = ' ' + txt;
             link.parentNode.insertBefore(plink, link);
