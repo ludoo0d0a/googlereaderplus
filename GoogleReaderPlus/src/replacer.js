@@ -54,8 +54,13 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
             }else if (/^css\:/.test(o.search)) {
 				o.selector = o.search.replace(/^css\:/, '');
 			} else {
-                try {
-					o.re_search = new RegExp(o.search, "im");
+                var s = o.search;
+				if (/^link\:/.test(s)) {
+					s = s.replace(/^link\:/, '');
+					o.link = true;
+				}
+				try {
+					o.re_search = new RegExp(s, "im");
 				}catch(e){
 					console.error(e);
 					console.error(o);
@@ -68,7 +73,7 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
         });
     }
     
-    function replaceItem(html, xml, matches, partIndex){
+    function replaceItem(html, xml, matches, partIndex, body){
         var result = '';
         var el = document.getElementById(TPL_NAME + partIndex);
         /*if (item.keeptext){
@@ -98,9 +103,21 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
             } else {
                 var item = gp_data[title];
                 if (item.re_search) {
+					if (item.link) {
+						html=item._link.url;
+					}
+					
                     var m = item.re_search.exec(html);
                     if (m && m[0]) {
-                        result += m[0].replace(item.re_search, item.replace);
+                        var r =item.replace;
+						if (/^\+/.test(r)){
+							var entryBody = getEntryBody(body);//item-body
+							if (entryBody) {
+								result += entryBody.innerHTML;
+							}
+							r=r.replace(/^\+/,'');
+						}
+						result += m[0].replace(item.re_search, r);
                     }
                 }
             }
@@ -125,7 +142,8 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
             var matches = {};
             iterate(gp_data, function(title, o){
                 if (o.re_url.test(link.url) || o.re_url.test(link.feed)) {
-                    matches[title] = o;
+                    o._link={url:link.url,title:link.title};
+					matches[title] = o;
                 }
             });
             replacePart(matches, entry, link);
@@ -161,7 +179,7 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
             onload: function(res, req){
                 var matches = JSON.parse(req.matches);
                 var text = res.responseText.replace(/[\r\n]+/g, '');
-                replaceItem(text, res.responseXml, matches, req.partIndex);
+                replaceItem(text, res.responseXml, matches, req.partIndex, body);
             }
         });
     }
