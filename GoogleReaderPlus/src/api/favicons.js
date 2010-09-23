@@ -10,11 +10,16 @@ function setFavicon(title, icon, url, FAVICON){
     }
 }
 
+var counts = {doublons:0,urlreader:0,urluser:0,uiicon:0};
+var reFixReader = /^.*\/feed%2F/;
+var r2 = new GRP.api_rest('Favicons', true);	
+
 /**
  * Extract sites list from google reader xml
  */
 function loadIcons(a, cb){
-    var FAVICON_TPL_URL = a.FAVICON_TPL_URL;
+    var FIXING = false;
+	var FAVICON_TPL_URL = a.FAVICON_TPL_URL;
     var prefs = getPrefs();
     request({
         url: a.url,
@@ -30,9 +35,18 @@ function loadIcons(a, cb){
                     if (success) {
                         cloudItems={};
 						foreach(items, function(item){
-                            setFavicon(item.data.title, item.data.icon, item.data.url, FAVICON);
+                            if (FIXING) {
+								item = fixItem(item);
+							}
+							setFavicon(item.data.title, item.data.icon, item.data.url, FAVICON);
 							cloudItems[item.data.url]=item;
                         });
+						if (FIXING) {
+							console.log('doublons=' + counts.doublons);
+							console.log('urlreader=' + counts.urlreader);
+							console.log('urluser=' + counts.urluser);
+							console.log('uiicon=' + counts.uiicon);
+						}
                     }
                     sendResponse({
                         message: "iconsloaded",
@@ -47,6 +61,58 @@ function loadIcons(a, cb){
             }
         }
     }, true);
+}
+
+function fixItem(item){
+	/*if (cloudItems[item.data.url]){
+		//remove doublon
+		item.id = getIdFromResourceUrl(item);
+		counts.doublons++;
+		//r2.item.remove(item);
+	}
+	if (reFixReader.test(item.data.url)||reFixReader.test(item.name)){
+		item.id = getIdFromResourceUrl(item);
+		item.name = cleanReaderUrl(item.name);
+		item.values = {
+			url: cleanReaderUrl(item.data.url),
+			icon: cleanReaderUrl(item.data.icon),
+			title: item.data.title
+		};
+		console.log(item);
+		counts.urlreader++;
+		//r2.item.update(item);
+	}
+	
+	//if url is a page, remove page
+	if (/http\:\/\/.*\/[^\.]+\.\w+$/.test(item.data.url)){
+		var url = getUrlBase(item.data.url);
+		item.id = getIdFromResourceUrl(item);
+		item.values=item.data
+		item.values.icon=item.values.icon.replace(new RegExp('^'+item.data.url), url);
+		item.values.url=url;
+		item.name = url;
+		console.log(item);
+		counts.urluser++;
+		//r2.item.update(item);
+	}
+	
+	if (/\/reader\/ui\/favicon\.ico$/.test(item.data.icon)){
+		item.id = getIdFromResourceUrl(item);
+		item.values=item.data
+		item.values.icon=item.values.icon.replace(/\/?\/reader\/ui\//, '');
+		console.log(item);
+		counts.uiicon++;
+		r2.item.update(item);
+	}*/
+	
+	return item;
+}
+function cleanReaderUrl(url){
+	if (reFixReader.test(url)) {
+		return decodeURIComponent(url.replace(reFixReader, ''));
+	}else{
+		return url;
+	}
 }
 
 function extractFavicon(a, cb){
@@ -99,13 +165,14 @@ function saveFavicon(url, icon, title){
     prefs.favicons_domains[url] = icon;
     setPrefs(prefs);
     
-    //send to remote db
-    var r = new GRP.api_rest('Favicons', true);	
-    var name = getNameFromUrl(url);
-	
-	//Check if already exist
-	var ci = cloudItems[url];
-	r.item.createOrUpdate(ci, {
+    if (cloudSaveIcon(url)){
+		//send to remote db
+	    var r = new GRP.api_rest('Favicons', true);	
+	    var name = getNameFromUrl(url);
+		
+		//Check if already exist
+		var ci = cloudItems[url];
+		r.item.createOrUpdate(ci, {
 				name: name,
 				values: {
 					url: url,
@@ -113,6 +180,23 @@ function saveFavicon(url, icon, title){
 					title: title
 				}
 			});
+	}
+}
+//Ignore some user custom sites
+function cloudSaveIcon(url){
+	//User reader
+	if (/google\.com\/\reader\/view\/user/.test(url)){
+		return false;
+	}
+	//Google Buzz
+	if (/buzz\.googleapis\.com/.test(url)){
+		return false;
+	}
+	//some numeric number inside urls
+	if (/\/\d{2}\d+(\/|$)/.test(url)){
+		return false;
+	}
+	return true;
 }
 
 function getNameFromUrl(url){
