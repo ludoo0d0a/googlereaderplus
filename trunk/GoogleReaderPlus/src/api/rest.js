@@ -146,8 +146,9 @@ GRP.api_rest = function(name, local){
             update: function(o /*  api_key, id, data */, success, error){
                 var url = config.item.update.replace(':id', o.id);
                 var params = {
-                    api_key: o.api_key||config.api_key,
-                    data: o.values /* [] key/value */
+                   api_key: o.api_key||config.api_key,
+                   name: o.name,
+				   data: o.values /* [] key/value */
                 };
 				send('put', url, params, success, error);
             },
@@ -198,12 +199,15 @@ function getIdFromResourceUrl(o){
 }
 
 function compareObject(a,b){
-	var eq=true;
-	iterate(a, function(i,o){
-		if (typeof o !=='undefined' && o!==b[i]){
-			eq = false;
+	var eq=false;
+	if ((typeof a == 'object') && (typeof b == 'object')) {
+		eq = true;
+		iterate(a, function(i, o){
+			if (typeof o !== 'undefined' && o !== b[i]) {
+				eq = false;
 			//exit
-		}
-	});
+			}
+		});
+	}
 	return eq;
 }
