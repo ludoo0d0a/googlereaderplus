@@ -375,10 +375,13 @@ function addReplacerItems(id, key){
     if (!search) {
         return;
     }
-    replace = prompt(getTextPrefs(lang, 'replacer', 'to'), def.replace);
-    if (replace) {
-        saveReplacerNext(title, url, search, replace);
-    }
+	if (!(/^xpath:|^css:/.test(search))) {
+		//Replace if NOT xpath or css
+		replace = prompt(getTextPrefs(lang, 'replacer', 'to'), def.replace);
+		if (replace) {
+			saveReplacerNext(title, url, search, replace);
+		}
+	}
 }
 
 function saveReplacerNext(title, url, search, replace){
