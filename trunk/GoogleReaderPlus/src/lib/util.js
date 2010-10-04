@@ -529,6 +529,7 @@ function fireResizeDefer(){
 function fireResize(){
     fitHeight('sub-tree');
     fitHeight('entries', 'viewer-footer');
+	setTimeout(fireResize,300);//Ensure resize
 }
 
 function fitHeight(id, bottom){
