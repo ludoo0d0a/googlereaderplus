@@ -10,7 +10,7 @@ function setFavicon(title, icon, url, FAVICON){
     }
 }
 
-var counts = {doublons:0,urlreader:0,urluser:0,uiicon:0};
+var counts = {doublons:0,urlreader:0,urluser:0,uiicon:0,icoslash:0};
 var reFixReader = /^.*\/feed%2F/;
 var r2 = new GRP.api_rest('Favicons', true);	
 
@@ -46,6 +46,7 @@ function loadIcons(a, cb){
 							console.log('urlreader=' + counts.urlreader);
 							console.log('urluser=' + counts.urluser);
 							console.log('uiicon=' + counts.uiicon);
+							console.log('icoslash=' + counts.icoslash);
 						}
                     }
                     sendResponse({
@@ -103,7 +104,8 @@ function fixItem(item){
 		console.log(item);
 		counts.uiicon++;
 		r2.item.update(item);
-	}*/
+	}
+	*/
 	
 	return item;
 }
