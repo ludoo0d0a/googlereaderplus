@@ -805,6 +805,13 @@ function adjustIframeHeight(iframe, heightMaxi){
         }
     }
 }
+function getHeight(el){
+	var h = 0;
+	if (el && el.style) {
+		h = parseInt(el.style.height.replace('px', ''), 10);
+	}
+	return h;
+}
 
 function bind(func, thisArg){
     var args = Array.prototype.slice.call(arguments, 2);

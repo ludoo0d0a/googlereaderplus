@@ -335,7 +335,7 @@ function jump(entry, dirtop){
         return false;
     }
     var entries = get_id('entries');
-    var height = parseInt(entries.style.height.replace('px', ''), 10);
+    var height = getHeight(entries);
     var top = 0;
     if (dirtop) {
         top = entry.offsetTop; // - height;

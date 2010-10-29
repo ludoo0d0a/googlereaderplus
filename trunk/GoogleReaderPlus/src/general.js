@@ -24,7 +24,8 @@ GRP.general = function(prefs, langs, ID, SL, lang){
 		GM_addStyle('.tree-sel{background-color:#dedede;}', 'rps_currdir');
 		var st = get_id('sub-tree');
 		setInterval(function(){
-			var e = get_id('current-entry');
+			var e = get_id('current-entry'),st = get_id('sub-tree');
+			var sth = getHeight(st);
 			if (e) {
 				var el = getFirstElementByClassName(e, 'entry-source-title');
 				if (el) {
@@ -40,8 +41,11 @@ GRP.general = function(prefs, langs, ID, SL, lang){
 							addClass(a[0], 'tree-sel');
 							lastUrl = url;
 							//ensure visible
+							//TODO : Better
 							var h = findTop(a[0], st);
-							st.scrollTop = h;
+							if (h<st.scrollTop || h>st.scrollTop+sth) {
+								st.scrollTop = h;
+							}
 						}
 					}
 				}
