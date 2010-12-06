@@ -1004,6 +1004,14 @@ GRP.skins = {
         pic: 'http://userstyles.org/style_screenshots/2375_after.png',
         ref: 'http://userstyles.org/styles/2375',
         desc: 'userstyles.org'
+    },
+	purereader:{
+        name: "Pure Reader",
+        url: 'http://idzr.org/c5br',
+        pic: 'http://nadesign.net/safari/images/preview-reader.png',
+        ref: 'http://nadesign.net/safari/',
+		desc: 'Pure Reader by Na\'Design',
+        resize: true
     }
 };
 GRP.googleshortcuts = {
