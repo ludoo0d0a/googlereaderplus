@@ -23,7 +23,7 @@ function exportprefs(){
             p[i] = pref;
         }
     });
-    el.value = JSON.stringify(p)
+    el.value = JSON.stringify(p);
 }
 
 function initprefs(){
