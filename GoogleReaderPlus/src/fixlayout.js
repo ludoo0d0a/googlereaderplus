@@ -46,7 +46,7 @@ GRP.fixlayout = function(prefs, langs, ID, SL, lang){
 	var css = ".entry-body img {max-width:100%;}";
 	
 	//fix width of entry
-	css+".entry .entry-body, .entry .entry-title{ display: inline !important; max-width: 100% !important; }";
+	css+=".entry .entry-body, .entry .entry-title, .entry .entry-likers{ display: inline !important; max-width: 100% !important; }";
 
 	//#253 fix width of add localized subscription
 	var ws={pt:200,de:190,ru:197,nl:190};
