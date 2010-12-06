@@ -74,14 +74,18 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
     }
     
     var _rxExcludes, _rxHighlights;
-    
     function setRegExps(){
-        if (_excludes.length) {
+		if (_excludes.length) {
             _rxExcludes = getRegExp(_excludes);
-        }
+        } else {
+			_rxExcludes='';
+		}
+		
         if (_highlights.length) {
-            _rxHighlights = getRegExp(_highlights);
-        }
+			_rxHighlights = getRegExp(_highlights);
+		} else {
+			_rxHighlights = '';
+		}
     }
     
     // (0) all until 0 (2f) , [0-9], above 9 (3a) to @ (40), [A-Z], above Z (5b)
@@ -97,7 +101,8 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
     var _minifyRx = /[~!@#$%^&*()_+-]+/g;
     
     function getRegExp(items){
-        return new RegExp("(^| )(" + items.join("|") + ")($| )", "i");
+        //return new RegExp("(^| )(" + items.join("|") + ")($| )", "i");
+		return new RegExp("(" +items.join("|")+ ")", "i");
     }
     
     function stringSort(a, b){
@@ -295,8 +300,16 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
     var _alreadyPrinted = {};
     
     function saveSettings(excludesString, highlightsString){
-        _excludes = excludesString.replace(/\r/, "").split(/\n+/);
-        _highlights = highlightsString.replace(/\r/, "").split(/\n+/);
+		_excludes = [];
+		excludesString=excludesString.replace(/\r/, "");
+		if (excludesString.length>0){
+			_excludes = excludesString.split(/\n+/);
+		}
+		_highlights = [];
+		highlightsString=highlightsString.replace(/\r/, "");
+		if (highlightsString.length>0){
+			_highlights = highlightsString.split(/\n+/);
+		}
         _hideExcluds = +_hideExcludsCheckbox.checked;
         _hideDuplicates = +_hideDuplicatesCheckbox.checked;
         _preferHighlights = +_preferHighlightsCheckbox.checked;
@@ -429,7 +442,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
     }
     
     function checkEntry(title, element, rx, className){
-        if (rx.test(title)) {
+        if (rx && rx.test(title)) {
             addClass(element, className);
             return true;
         }
