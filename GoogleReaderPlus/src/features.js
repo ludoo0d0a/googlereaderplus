@@ -5,7 +5,6 @@ GRP.scripts = {
     general: {
         name: "General",
         category: 'main',
-		status: 'updated',
         options: {
             secure: false,
 
@@ -190,7 +189,7 @@ GRP.scripts = {
     ig: {
         name: "iGoogle Theme",
         category: 'theme',
-		status: 'updated',
+		
         desc: "Use iGoogle Theme in your Google Reader (Beta)",
         options: {
             warning: {
@@ -246,7 +245,7 @@ GRP.scripts = {
     relook: {
         name: "Relook",
         category: 'theme',
-		status: 'updated',
+		
         desc: "Relook yourself GoogleReader using custom stylesheets",
         options: {
             resize: false,
@@ -421,6 +420,7 @@ GRP.scripts = {
     filter: {
         name: "Filter entries",
         category: 'layout',
+		status:'updated',
         options: {
             searchbody: false,
 			excludes: {xtype:'textarea',list:true,cls:'xlist'},
@@ -701,7 +701,7 @@ GRP.scripts = {
 	prefetch: {
         name: "Prefetch",
         category: 'layout',
-        status: 'new',
+        
         options: {
             first: 25,
 			next: 15,
@@ -711,7 +711,7 @@ GRP.scripts = {
 	nested: {
         name: "Nested folders",
         category: 'layout',
-        status: 'new',
+        
         options: {
             separator: ":"
         }
@@ -719,7 +719,6 @@ GRP.scripts = {
     replacer: {
         name: "Replacer",
         category: 'content',
-        status: 'updated',
         options: {
             intro: {
                 xtype: 'p',
@@ -873,7 +872,7 @@ GRP.skins = {
         name: "None"
     },
     mytheme: {
-        name: "My Theme <span class='updated'>Updated!</span>"
+        name: "My Theme"
     },
     nativecompact: {
         name: "Native compact"
@@ -994,7 +993,7 @@ GRP.skins = {
     darkshinyblue: {
         name: "Dark Shiny Blue",
         url: 'http://userstyles.org/styles/userjs/8935/iGoogle%2FGoogle%20Dark%20Shiny%20Blue%2C%20transparency.user.js',
-        pic: 'http://userstyles.org/style_screenshots/8935_after.jpeg',
+        pic: 'http://userstyles.org/style_screenshots/8935_after.png',
         ref: 'http://userstyles.org/styles/8935',
         desc: 'userstyles.org'
     },
@@ -1006,7 +1005,7 @@ GRP.skins = {
         desc: 'userstyles.org'
     },
 	purereader:{
-        name: "Pure Reader",
+        name: "Pure Reader <span class='new'>New!</span>",
         url: 'http://idzr.org/c5br',
         pic: 'http://nadesign.net/safari/images/preview-reader.png',
         ref: 'http://nadesign.net/safari/',
