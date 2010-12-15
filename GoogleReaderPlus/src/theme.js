@@ -37,7 +37,9 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
 		} else if(tog.css){
 			GM_addStyle(tog.css, 'rps_' + skin.id);
 		}
-		fireResize();
+		if (skin.resize) {
+			fireResize();
+		}
 	}
 	
     function remoteSkin(skin){
@@ -81,10 +83,6 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
         }
     }
     	
-	/*
-	if (prefs.theme_hidenav) {
-		addClass(document.body, 'lhn-hidden');
-	}*/
 	if (skin.resize) {
 		fireResize();
 	}
