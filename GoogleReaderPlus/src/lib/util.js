@@ -175,6 +175,13 @@ function getElementsByClazzName(clazz, itag, ielm){
     return returnElements;
 }
 
+function getEl(el){
+	if(typeof el =='string'){
+		 el = document.getElementById(el);
+	}
+	return el;
+}
+
 function getElements(xpath, context){
     var res = false, doc = (context) ? context.ownerDocument : document;
     try {
@@ -521,26 +528,45 @@ function toggleClass(el, classDelete, classAdd){
     removeClass(el, classDelete);
     addClass(el, classAdd);
 }
-
-function fireResizeDefer(){
-    window.setTimeout(fireResize, 500);
+	
+function fireResizeDefer(lhnfooter){
+    window.setTimeout(function(){
+		fireResize(lhnfooter);
+	}, 400);
 }
 
-function fireResize(){
-    fitHeight('sub-tree');
-    fitHeight('entries', 'viewer-footer');
-	setTimeout(fireResize,300);//Ensure resize
+function fireResize(lhnfooter){
+	_fireResize(lhnfooter);
+	//setTimeout(function(){
+	setInterval(function(){
+		_fireResize(lhnfooter);
+	}, 2000);
+}
+function _fireResize(lhnfooter){
+	var st = document.getElementById('sub-tree');
+	var elb = false;
+	if (lhnfooter) {
+		var el = document.getElementById('lhn-subscriptions');
+		if (el) {
+			elb = getFirstElementByClassName(el, 'lhn-section-footer');
+		}
+	} 
+	fitHeight(st, elb);
+	
+	var entries = document.getElementById('entries');
+	var vf = document.getElementById('viewer-footer');
+	fitHeight(entries, vf);
 }
 
 function fitHeight(id, bottom){
-    var el = document.getElementById(id);
+    var el=getEl(id);
     var h = findTop(el);
     if (bottom) {
-        var elb = document.getElementById(bottom);
-        if (elb) {
-            h -= elb.clientHeight;
+		var elb = getEl(bottom);
+		if (elb) {
+			h += elb.clientHeight;
         }
-    }
+    }	
     el.style.height = (window.innerHeight - h) + 'px';
 }
 
