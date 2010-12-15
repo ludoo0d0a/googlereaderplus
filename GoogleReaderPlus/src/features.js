@@ -916,6 +916,9 @@ GRP.skins = {
     calibri: {
         name: "Calibri Skin"
     },
+	snowleopard: {
+        name: "Snow Leopard(2) Skin"
+    },
 	sublimelight: {
         name: "Sublime Reader Light",
 		ref:'https://code.google.com/p/sublimereader/'
