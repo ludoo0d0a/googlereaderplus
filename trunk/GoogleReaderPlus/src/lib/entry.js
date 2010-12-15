@@ -574,7 +574,7 @@ function addReaderMenuItem(text, cb, checkbox){
     
     dh('gbg', 'a', {
         href: '#',
-        cls: 'gb2',
+        cls: 'gb2 rpgb2',
         html: html
     }, {
         click: function(e){
