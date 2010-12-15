@@ -1,4 +1,4 @@
-//miroblogging oauth API
+//microblogging oauth API
 /**
  * Google Reader + MicroBlogging platform
  * @version  1.0
@@ -195,7 +195,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
         countWord(event);
         btnSend.focus();
         notesinput.focus();
-    };
+    }
     
     function getBookmarkField(){
         if (!bookmarkField) {
