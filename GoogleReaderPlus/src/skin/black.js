@@ -1620,14 +1620,14 @@ GRP.black = function(){
             if (iframe[iB].src.indexOf("pagead2.googlesyndication.com/pagead/ads") != -1) {
                 iframe[iB].height = 0;
                 iframe[iB].width = 0;
-            };
-                    };
+            }
+        }
         
         GM_addStyle(googleEnhancedBLACK, 'rps_black');
         
-        //fireResize();
+        fireResize();
     
-    };
+    }
     
     var googleLogoBLACK = "data:image/gif;base64," +
     "R0lGODlhlgBBAOZJAAoQHi4JBAsbPAgMFxI1gRhJtE0MAxdEqKQXA7YZAxoGAwJjBxAubhQ8kG4QAxlNvsYcBIsTAwsWLQ4lWANEBgSSDBtSyQ0gSBVAnQQmBh" +
