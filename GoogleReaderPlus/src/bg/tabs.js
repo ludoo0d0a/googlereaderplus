@@ -87,10 +87,10 @@ function openNewPage(a, id){
         }, function(tab){
             var tabs = chrome.extension.getExtensionTabs();
             for (var i = 0; i < tabs.length; i++) {
-                var tab = tabs[i];
-                if (tab.location.href == blankUrl && !tab.dataAlreadySet) {
-                    tab.printSource(a);
-                    tab.dataAlreadySet = true;
+                var tb = tabs[i];
+                if (tb.location.href == blankUrl && !tb.dataAlreadySet) {
+                    tb.printSource(a);
+                    tb.dataAlreadySet = true;
                     break;
                 }
             }
