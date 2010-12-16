@@ -27,7 +27,7 @@ function loadCruds(id){
                     return normalizeUrl(this.url);
                 },
                 rows: function(){
-                    return notEmpty(map2array(prefs.favicons_domains, 'url', 'icon'));
+                    return removeNull(map2array(prefs.favicons_domains, 'url', 'icon'));
                 },
                 etext: function(){
                     return ellipsis(this.url, 60);
@@ -55,8 +55,8 @@ function loadCruds(id){
                 txt_edit: getText(lang, 'filter', 'edit'),
                 txt_remove: getText(lang, 'filter', 'remove'),
                 rows: function(){
-                    //return notEmpty(map2array(prefs.column_filter, 'url', 'exclude'));
-                    return notEmpty(prefs.column_filter);
+                    //return removeNull(map2array(prefs.column_filter, 'url', 'exclude'));
+                    return removeNull(prefs.column_filter);
                 },
                 etext: function(){
                     return ellipsis(this['.'], 60);
@@ -84,7 +84,7 @@ function loadCruds(id){
                 txt_edit: getText(lang, 'filter', 'edit'),
                 txt_remove: getText(lang, 'filter', 'remove'),
                 rows: function(){
-                    return notEmpty(prefs.preview_filter);
+                    return removeNull(prefs.preview_filter);
                 },
                 etext: function(){
                     return ellipsis(this['.'], 60);
@@ -112,7 +112,7 @@ function loadCruds(id){
                 txt_edit: getText(lang, 'filter', 'edit'),
                 txt_remove: getText(lang, 'filter', 'remove'),
                 rows: function(){
-                    return notEmpty(prefs.lightbox_filter);
+                    return removeNull(prefs.lightbox_filter);
                 },
                 etext: function(){
                     return ellipsis(this['.'], 60);
@@ -140,8 +140,8 @@ function loadCruds(id){
                 txt_edit: getText(lang, 'filter', 'edit'),
                 txt_remove: getText(lang, 'filter', 'remove'),
                 rows: function(){
-                    //var a = notEmpty(prefs.replacer_items);
-                    var a = map2array(prefs.replacer_items, '.', '', true);
+                    //var a = removeNull(prefs.replacer_items);
+                    var a = map2array(removeNull(prefs.replacer_items), '.', '', true);
                     return a;
                 }
             }
@@ -167,8 +167,8 @@ function loadCruds(id){
                 txt_edit: getText(lang, 'filter', 'edit'),
                 txt_remove: getText(lang, 'filter', 'remove'),
                 rows: function(){
-                    //return notEmpty(map2array(prefs.column_filter, 'url', 'exclude'));
-                    return notEmpty(prefs.translate_filter);
+                    //return removeNull(map2array(prefs.column_filter, 'url', 'exclude'));
+                    return removeNull(prefs.translate_filter);
                 },
                 etext: function(){
                     return ellipsis(this['.'], 60);
