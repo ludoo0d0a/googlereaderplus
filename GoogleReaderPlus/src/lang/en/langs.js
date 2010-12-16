@@ -246,7 +246,7 @@ GRP.langs[locale].prefs = {
     },
     general: {
         counter: "Display unread counter in the toolbar icon",
-counterinterval: "Refresh unread counter every (s)",
+counterinterval: "Refresh unread counter every (min)",
         pageicon: 'Activate icon in the address bar (click will open a menu)',
         stats: 'Enable anonymous statistics reporting (for a better support)',
         bottomup: 'Footer toolbar on the top',

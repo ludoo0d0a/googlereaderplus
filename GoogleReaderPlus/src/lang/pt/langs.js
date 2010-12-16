@@ -242,7 +242,7 @@ imgfl:'Rodapé esquerdo'
     },
     general: {
         counter: "Mostrar contador dos não lidos no icon da toolbar",
-        counterinterval: "Refrescar o contador, dos não lidos, a cada",
+        counterinterval: "Refrescar o contador, dos não lidos, a cada (min)",
 pageicon: 'Activar o icon na barra de endereço (ao clicar irá abrir o menu)',
 stats: 'Activar o relatório de estatisticas anónimas (para um melhor suporte)',
 bottomup:'Toolbar do Cabeçalho para cima',

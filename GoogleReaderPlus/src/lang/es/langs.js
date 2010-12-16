@@ -246,7 +246,7 @@ GRP.langs[locale].prefs = {
     },
     general: {
         counter: "Mostrar el contador en la barra de herramientas",
-counterinterval: "Actualizar el contador cada (seg)",
+counterinterval: "Actualizar el contador cada (min)",
         pageicon: 'Activar ícono en la barra de direcciones (muestra un menú al pinchar)',
         stats: 'Autorizar el envío anónimo de datos estadísticos (para mejorar el soporte)',
         bottomup: "Poner la barra 'Anterior/Siguiente' en la parte superior de la pantalla",
