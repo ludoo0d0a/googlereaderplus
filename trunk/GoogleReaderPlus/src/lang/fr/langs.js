@@ -238,7 +238,7 @@ GRP.langs[locale].prefs = {
     },
     general: {
         counter: "Afficher le compteur dans la barre d'outil",
-counterinterval: "Refraîchir le compteur toutes les (s)",
+counterinterval: "Refraîchir le compteur toutes les (min)",
         pageicon: "Activer l'icône dans la barre d'adresse (permet d'afficher un menu)",
         stats: 'Autoriser la collecte de données statistiques anonyme (pour un meilleur support)',
         bottomup: "Placer la barre 'Précédent/Suivant' en haut de l'écran",
