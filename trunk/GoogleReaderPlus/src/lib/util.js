@@ -559,7 +559,8 @@ function fireResizeDefer(lhnfooter){
 	}, 400);
 }
 
-function fireResize(lhnfooter){
+function fireResize(value){
+	var lhnfooter = (value=='footer');
 	_fireResize(lhnfooter);
 	//setTimeout(function(){
 	setInterval(function(){
