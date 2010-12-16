@@ -14,7 +14,7 @@
  * http://userscripts.org/scripts/show/9455
  */
 GRP.preview = function(prefs, langs, ID, SL, lang, scop){
-    var SL = langs.preview;
+    //var SL = langs.preview;
     var locked = false;
     var overlay;
     var rx = getRegex(prefs.preview_filter);
@@ -35,7 +35,7 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
             //add a button right after the title
             plink = document.createElement('a');
             plink.title = SL.title + keytext; //[Shift+V]
-            plink.href = link.href; 'javascript:void();';
+            plink.href = link.href; //'javascript:void();';
             plink.innerHTML = '<div class="entry-title-preview"></div>';
             insertAfter(plink, link);
             plink.addEventListener('click', previewTitleClick, false);
@@ -114,10 +114,12 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
         }
         var iframe, active;
         if (prefs.preview_overlay) {
-            renderoverlay(entry);
-            if (overlay) {
-                updateFrame(overlay.iframe, entry);
-            }
+             if (!locked) {
+			 	renderoverlay(entry);
+			 	if (overlay) {
+			 		updateFrame(overlay.iframe, entry);
+			 	}
+			 }
         } else {
             //toggle button only when not overlay
             active = isActive(btn, entry, 'preview', locked);
