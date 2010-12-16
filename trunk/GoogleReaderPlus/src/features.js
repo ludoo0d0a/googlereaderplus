@@ -916,9 +916,6 @@ GRP.skins = {
     calibri: {
         name: "Calibri Skin"
     },
-	snowleopard: {
-        name: "Snow Leopard(2) Skin"
-    },
 	sublimelight: {
         name: "Sublime Reader Light",
 		ref:'https://code.google.com/p/sublimereader/'
@@ -932,7 +929,7 @@ GRP.skins = {
 		ref:'http://www.globexdesigns.com/products/gr/'
     },
 	webbizgeek: {
-		name: "WebBizGeek Skin <span class='new'>New!</span>",
+		name: "WebBizGeek Skin",
 		pic: 'http://www.webbizgeek.com/wp-content/uploads/2010/07/Google-Reader-custom-skin1.jpg'
 	},
     glassblackgold: {
@@ -1014,6 +1011,14 @@ GRP.skins = {
         ref: 'http://nadesign.net/safari/',
 		desc: 'Pure Reader by Na\'Design',
         resize: true
+    },
+	snowleopard: {
+        name: "Snow Leopard Improved <span class='new'>New!</span>",
+		url: 'http://userstyles.org/styles/userjs/41190/Google%20Reader%20for%20Snow%20Leopard%20Improved.user.js',
+        pic: 'http://userstyles.org/style_screenshots/41190_after.png',
+        ref: 'http://userstyles.org/styles/41190',
+        desc: 'userstyles.org',
+        resize: 'footer'
     }
 };
 GRP.googleshortcuts = {
