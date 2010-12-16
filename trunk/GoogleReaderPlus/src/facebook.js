@@ -17,7 +17,7 @@ GRP.facebook = function(prefs, langs, ID, SL, lang){
 	function addButton(el, entry, mode) {
 		var title = SL.text + formatShortcut(ID, 'gofacebook', prefs); //[b]
 		var text = (prefs && prefs.general_icons)?'':(SL.keyword || ID);
-		addBottomLink(el,text, title, ID, '', false, facebookShare, false, entry, mode);
+		addBottomLink(el,text, title, ID, 'item-star star read-state-not-kept-unread', false, facebookShare, false, entry, mode);
 	}
 
 	function addKey() {
