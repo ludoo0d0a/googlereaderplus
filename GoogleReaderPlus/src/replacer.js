@@ -62,9 +62,15 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
 				try {
 					o.re_search = new RegExp(s, "im");
 				}catch(e){
-					console.error(e);
-					console.error(o);
-					o=false;
+					//Retry with escaped
+					try {
+						s = encodeRE(s);
+						o.re_search = new RegExp(s, "im");
+					} catch (e) {
+						console.error(e);
+						console.error(o);
+						o = false;
+					}
 				}
             }
 			if (o){
