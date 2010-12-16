@@ -424,6 +424,30 @@ function notEmpty(o){
         return false;
     }
 }
+function removeNull(o){
+    if (o) {
+        var r, a = notEmpty(o);
+		if (isArray(o)) {
+			r = [];
+			foreach(a, function(e){
+				if (e) {
+					r.push(e);
+				}
+			});
+		} else {
+			r = {};
+			iterate(a, function(i, e){
+				if (e) {
+					r[i] = e;
+				}
+			});
+		}
+		return r;
+    } else {
+        return false;
+    }
+}
+
 
 function isFunction(fn){
     return (fn && typeof fn === 'function');
