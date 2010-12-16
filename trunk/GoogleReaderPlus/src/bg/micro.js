@@ -27,18 +27,25 @@ var OAUTHS = {
 };
 
 function micro(a, cb){
-    var o = OAUTHS[a.id];   
+    var o = OAUTHS[a.id];
     if (!o || !a.msg) {
         return false;
     }
-	if (!o.oauth) {
+    if (!o.oauth) {
         o.oauth = ChromeExOAuth.initBackgroundPage(o.authcfg);
     }
     o.oauth.authorize(function(){
-        console.log("on authorize for "+a.id);
-        var url = o.oauth.api + '/statuses/update.json';
-        oauth.sendSignedRequest(url, function(text, xhr){
-            var data = JSON.parse(text);
+        console.log("on authorize for " + a.id);
+        var url = o.api + '/statuses/update.json';
+        o.oauth.sendSignedRequest(url, function(text, xhr){
+            var data = false;
+            try {
+                if (text) {
+                    data = JSON.parse(text);
+                }
+            } catch (e) {
+            
+            }
             if (cb) {
                 cb(data);
             }

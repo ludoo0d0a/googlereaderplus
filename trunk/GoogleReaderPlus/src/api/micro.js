@@ -109,7 +109,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
     function addMicroButton(el, entry, mode){
         var title = SL.text + formatShortcut(ID, 'tweet', prefs); //[b]
         var text = (prefs && prefs.general_icons) ? '' : (SL.keyword || ID);
-        addBottomLink(el, text, title, ID, 'item-star star link', false, postBookmark, false, entry, mode);
+        addBottomLink(el, text, title, ID, 'item-star star', false, postBookmark, false, entry, mode);
     }
     function addKey(){
         onKey('btn-'+ID, postBookmark);
@@ -131,7 +131,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
             // parent = bookmarkStar.parentNode.parentNode;
             parent.className = "entry read expanded action-area-visible";
         }
-        bookmarkStar.className = "item-star star link email-active";
+        bookmarkStar.className = "item-star-active star link";
         
         var link = getEntryLink(entry);
         url = link.url;
