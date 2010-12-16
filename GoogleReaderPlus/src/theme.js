@@ -38,7 +38,7 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
 			GM_addStyle(tog.css, 'rps_' + skin.id);
 		}
 		if (skin.resize) {
-			fireResize();
+			fireResize(skin.resize);
 		}
 	}
 	
@@ -84,7 +84,7 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
     }
     	
 	if (skin.resize) {
-		fireResize();
+		fireResize(skin.resize);
 	}
 	
 	var keycode = getShortcutKey(ID, 'toggletheme', prefs); 
