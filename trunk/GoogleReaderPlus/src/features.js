@@ -31,7 +31,7 @@ GRP.scripts = {
                 label: true
             },
 			counter: true,
-			counterinterval: 2,
+			counterinterval: 5,
 			opendirect: false,
             icontoolbar_text: {
                 xtype: 'p',
