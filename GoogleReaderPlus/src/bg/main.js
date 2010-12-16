@@ -196,27 +196,31 @@ function sendReplacerToCloud2(r, prefs, cloud_items){
  */
 var monitorId;
 function monitorIcon(mprefs){
-    var prefs = mprefs || getPrefs();
     if (monitorId) {
         window.clearInterval(monitorId);
     }
-	var t = 2000;
+	//Check if button is installed
+	call_icon('version', {}, function(o){
+        //
+		if (o){
+			//OK
+			_monitorIcon(mprefs);
+		}
+    });
+}
+
+function _monitorIcon(mprefs){
+    var prefs = mprefs || getPrefs();
+	
+	var t = 5*60000;//5 min
 	if (prefs && prefs.general_counterinterval) {
-		t = prefs.general_counterinterval * 1000;
+		t = prefs.general_counterinterval * 60000;
 	}
+	t=Math.max(60000, t);
     if (prefs && prefs.general_counter) {
 		getUnreadCount();
-        //TODO: ensure not used
         monitorId = window.setInterval(function(){
             getUnreadCount();
-            /*function(status){
-             //stop on error
-             if (status===false){
-             if (monitorId) {
-             window.clearInterval(monitorId);
-             }
-             }
-             });*/
         }, t);
     }
 }
