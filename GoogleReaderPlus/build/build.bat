@@ -5,6 +5,12 @@ mkdir dist\lib
 del /Q debug
 rem mkdir debug
 
+echo ======================================================
+echo Update version number in build/config/manifest.json
+echo Copy changelog in about.html from src to build/config
+echo ======================================================
+pause
+
 rem echo **************** codemirror
 rem call compress codemirror
 
@@ -54,6 +60,8 @@ rem del debug\*.tmp
 del dist\*.tmp
 
 echo ======================================================
-echo Update version number in build/config/manifest.json
+echo Then to upload source into Google Westore, zip build/dist
+echo or to test it as local crx, use Extensions page, go to "Pack extension"
+echo   choose build\dist folder and key file build\dist.pem
 echo ======================================================
 pause
