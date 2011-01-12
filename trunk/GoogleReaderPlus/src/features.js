@@ -17,7 +17,6 @@ GRP.scripts = {
 			currdir:true,
 			icons:false,
             /*antisocial:true,*/
-
 			text_pageicon:{
                 xtype: 'h'
             },
@@ -30,7 +29,7 @@ GRP.scripts = {
                 xtype: 'p',
                 label: true
             },
-			counter: true,
+			counter: false,
 			counterinterval: 5,
 			opendirect: false,
             icontoolbar_text: {
