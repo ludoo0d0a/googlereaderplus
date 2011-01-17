@@ -222,6 +222,15 @@ function _monitorIcon(mprefs){
         monitorId = window.setInterval(function(){
             getUnreadCount();
         }, t);
+		//TODO : change setInterval with a conditional(using lastTabReader) setTimeout
+		/*if (lastTabReader){
+			//Tab is open, fast refresh
+			t = 5000; //5s
+		}
+		window.setTimeout(function(){
+            getUnreadCount();
+			_monitorIcon(mprefs);
+        }, t);*/
     }
 }
 
