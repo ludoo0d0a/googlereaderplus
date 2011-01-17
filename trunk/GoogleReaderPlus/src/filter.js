@@ -120,7 +120,11 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
     }
     
     function formatListToTextArea(list){
-        return list.join("\n").replace(/(\r?\n){2,}/, "");
+		return list.join("\n").replace(/(\r?\n){2,}/, "");
+    }
+	
+	function trimEx(s){
+		return s.replace(/^[\s\t\n\r]*/,'').replace(/[\s\t\n\r]*$/,'');
     }
     
     // ui
@@ -301,12 +305,12 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
     
     function saveSettings(excludesString, highlightsString){
 		_excludes = [];
-		excludesString=excludesString.replace(/\r/, "");
+		excludesString=trimEx(excludesString.replace(/\r/, ""));
 		if (excludesString.length>0){
 			_excludes = excludesString.split(/\n+/);
 		}
 		_highlights = [];
-		highlightsString=highlightsString.replace(/\r/, "");
+		highlightsString=trimEx(highlightsString.replace(/\r/, ""));
 		if (highlightsString.length>0){
 			_highlights = highlightsString.split(/\n+/);
 		}
