@@ -575,7 +575,12 @@ function _fireResize(lhnfooter){
 		if (el) {
 			elb = getFirstElementByClassName(el, 'lhn-section-footer');
 		}
-	} 
+		//fix home, without footer
+		var vpc = document.getElementById('viewer-page-container');
+		if(vpc && vpc.style && vpc.style.height){
+			fitHeight(vpc);
+		}
+	}
 	fitHeight(st, elb);
 	
 	var entries = document.getElementById('entries');
