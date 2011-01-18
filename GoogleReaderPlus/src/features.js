@@ -987,7 +987,8 @@ GRP.skins = {
         url: 'http://userstyles.org/styles/userjs/12691/Google%20Reader%20Absolutely%20Compact.user.js',
         pic: 'http://userstyles.org/style_screenshots/12691_after.png',
         ref: 'http://userstyles.org/styles/12691',
-        desc: 'userstyles.org'
+        desc: 'userstyles.org',
+        resize: true
     },
     darkshinyblue: {
         name: "Dark Shiny Blue",
