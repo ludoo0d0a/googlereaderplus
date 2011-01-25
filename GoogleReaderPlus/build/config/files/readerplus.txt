@@ -9,6 +9,7 @@ version.js
 features.js
 api\entry.js
 api\readit.js
+api\micro.js
 general.js
 fixlayout.js
 unreadcount.js

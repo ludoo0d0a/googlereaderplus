@@ -56,6 +56,8 @@ xcopy /e /Y /I ..\src\images\*.* dist\images
 xcopy /e /Y /I ..\src\lang\*.* dist\lang
 xcopy /e /Y /I ..\src\res\*.* dist\res
 
+xcopy /e /Y /I ..\src\chrome_ex_*.* dist
+
 rem del debug\*.tmp
 del dist\*.tmp
 
