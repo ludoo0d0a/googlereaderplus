@@ -131,7 +131,9 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
         
         var entryBody = getEntryBody(el.parentNode);
         if (result !== '') {
-            el.innerHTML = result;
+            //TODO : Fix relative url
+			//result = fixurls(result, base);
+			el.innerHTML = result;
             show(el);
             hide(entryBody);
         } else {
@@ -141,6 +143,14 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
             show(entryBody);
         }
     }
+	
+	function fixurls(html, base){
+		html.replace(/\shref="[^http]([^"])/g, base);
+		html.replace(/\shref='[^http]([^'])/g, base);
+		html.replace(/\ssrc="[^http]([^"])/g, base);
+		html.replace(/\ssrc='[^http]([^'])/g, base);
+		return html;
+	}
     
     function doreplacer(el, entry, mode, force){
         var index = -1, regex, link = getEntryLink(entry);
