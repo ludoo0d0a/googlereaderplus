@@ -1,29 +1,65 @@
+function syncload(){
+	var r = confirm(getTextPrefs(lang, 'general', 'confirmsyncload'));
+    if (r) {
+		mycore.extension.sendRequest({
+	        message: "syncload"
+	    }, function(a){
+	        gosaveprefs(a.prefs);
+	    });
+    }
+}
+function syncsave(){
+	mycore.extension.sendRequest({
+	        message: "syncsave",
+			prefs: prefs
+	    }, function(a){
+	        info(getTextPrefs(lang, 'global', 'prefssavedok', 'en', "Preferences succesfully saved!"));
+	    });
+}
+
 function importprefs(){
     var r = confirm(getTextPrefs(lang, 'general', 'confirmimport'));
     if (r) {
-        var el = document.getElementById("ieprefs");
-        if (el && el.value) {
-            try {
-                prefs = JSON.parse(el.value);
-                saveprefs(true, true);
-                info(getTextPrefs(lang, 'global', 'prefsimportedok', 'en', "Preferences imported!"));
-            } 
-            catch (e) {
-                info(getTextPrefs(lang, 'global', 'prefsimportfailed', 'en', "Import failed!") + ' : ' + e, 'error');
-            }
-        }
+		var el = document.getElementById("ieprefs");
+		if (el && el.value) {
+			gosaveprefs(value);
+		}
     }
 }
 
-function exportprefs(){
-    var el = document.getElementById("ieprefs");
+function gosaveprefs(value){
+	if (value) {
+        try {
+			if (typeof value === 'string') {
+				prefs = JSON.parse(value);
+			} else {
+				prefs = value;
+			}
+            saveprefs(true, true);
+            info(getTextPrefs(lang, 'global', 'prefsimportedok', 'en', "Preferences imported!"));
+        } 
+        catch (e) {
+            info(getTextPrefs(lang, 'global', 'prefsimportfailed', 'en', "Import failed!") + ' : ' + e, 'error');
+        }
+    }else{
+		info(getTextPrefs(lang, 'global', 'prefsimportnull', 'en', "No saved preferences found!"), 'error');
+	}
+}
+
+function exportprefs(synced){
     var p = {};
     iterate(prefs, function(i, pref){
         if (i && pref && !(/password/.test(i))) {
             p[i] = pref;
         }
     });
-    el.value = JSON.stringify(p);
+    var value = JSON.stringify(p);
+	if (synced){
+		saveStorage(value);
+	}else{
+		var el = document.getElementById("ieprefs");
+		el.value = value;
+	}
 }
 
 function initprefs(){
