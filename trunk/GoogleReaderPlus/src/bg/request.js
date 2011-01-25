@@ -30,7 +30,16 @@ function getInjectedXhrCode(o){
 }
 
 function bg_request(a, local, cb){
-    var xhr = new XMLHttpRequest();
+    if (a && a.cached){
+		//Retrieve from cache
+		var c = getFromCache(a);
+		if (c){
+            sendResponse(c.cache, cb);
+			return;
+		}
+	}
+	
+	var xhr = new XMLHttpRequest();
     var method = a.method || 'get';
     method = method.toLowerCase();
     var url = a.url;
@@ -57,13 +66,13 @@ function bg_request(a, local, cb){
         if (a['on' + name]) {
             var f = '' + name;
             xhr['on' + f] = function(o){
-                var xhr = o.target;
+                var res, xhr = o.target;
                 if (xhr) {
                     if (local && typeof a['on' + f] === "function") {
-                        var res = enhanceResponse(a, xhr);
+                        res = enhanceResponse(a, xhr);
                         a['on' + f].call(this, res);
                     } else {
-                        var res = {
+                        res = {
                             message: a.callback || "requestdone",
                             action: f,
                             responseXML: null, //xhr.responseXML,
@@ -120,6 +129,10 @@ function enhanceResponse(a, res){
     if (a.xpath && xhr.responseXML) {
         res.xml = serializeXml(getElements(a.xpath, xhr.responseXML));
     }
+	if (a.cached) {
+        //save in cache
+		setInCache(a,res);
+    }
     return res;
 }
 
@@ -137,3 +150,58 @@ function sendNull(cb){
     }
 }
 
+/**
+ * Cache
+ */
+function getFromCache(a){
+	var metas = mycore.storage.getItem('grp.cache.meta', {});
+	var url = a.url, o=false, meta = metas[url] ;
+	if (meta) {
+		var cache = mycore.storage.getItem('grp.cache.data_' + meta.i, false);
+		if (cache){
+			cache=cache||{};
+			cache.status=200;
+			o = {meta: meta,cache: cache};
+			
+			//Obsolete ?
+			var max_time = (a.cached && typeof a.cached=='object')?a.cached.time:0;
+			max_time=max_time || 8*60*60*1000;//8h default
+			if (meta.time-((new Date()).getTime())>max_time){
+				//invalidate
+				o = false;
+			}
+		}
+	}
+	return o;
+}
+function setInCache(a, res){
+	var metas = mycore.storage.getItem('grp.cache.meta', {});
+	var o=false, url = a.url;
+	metas[url] = metas[url] || {};
+	metas[url].time = (new Date()).getTime();
+	metas[url].i =  metas[url].i || (count(metas)+1);
+	var cache = {};
+	
+	if (res.responseJson){
+		cache = {
+			responseJson: res.responseJson
+		};
+	}else{
+		cache = {
+			responseText: (res.responseText||'').replace(/\n/g,'')
+		};
+	}
+	var s = mycore.storage.setItem('grp.cache.data_' + metas[url].i, cache);
+	if (s) {
+		//ensure tablespace is enough
+		mycore.storage.setItem('grp.cache.meta', metas);
+	}
+	
+}
+function clearRequestCache(){
+	var m = mycore.storage.getItem('grp.cache.meta', {});
+	iterate(m,function(i,o){
+		mycore.storage.removeItem('grp.cache.data' + m.i||0);
+	});
+	mycore.storage.setItem('grp.cache.meta', {});
+}
