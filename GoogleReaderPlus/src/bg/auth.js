@@ -12,6 +12,18 @@ var OAUTHS = {
             'app_name': 'Twitter for Readerplus'
         }
     },
+	gdocs:{
+		api: 'https://docs.google.com/feeds/default/private/full/',
+        authcfg: {
+			'request_url': 'https://www.google.com/accounts/OAuthGetRequestToken',
+	        'authorize_url': 'https://www.google.com/accounts/OAuthAuthorizeToken',
+	        'access_url': 'https://www.google.com/accounts/OAuthGetAccessToken',
+	        'consumer_key': 'anonymous', /*'www.pitaso.com',*/
+	        'consumer_secret':   'anonymous', /*'Y70x/jA2wD66oH6mk32LWozU',*/
+	        'scope': 'https://docs.google.com/feeds',
+	        'app_name': 'Readerplus sync settings'
+		}
+	},
     identi: {
         api: 'http://identi.ca/api',
         authcfg: {
@@ -27,34 +39,45 @@ var OAUTHS = {
 };
 
 function micro(a, cb){
-    var o = OAUTHS[a.id];
-    if (!o || !a.msg) {
+	oauth_sign(a, cb, function(o){
+		return o.api + '/statuses/update.json';
+	},  {
+		method: 'POST',
+		parameters: {
+			status: a.msg
+		}
+	});
+}
+
+function oauth_sign(a, cb, url, params){
+	var id = (typeof a ==='string')?a:a.id;
+	var o = OAUTHS[id];
+    if (!o) {
         return false;
     }
     if (!o.oauth) {
         o.oauth = ChromeExOAuth.initBackgroundPage(o.authcfg);
     }
     o.oauth.authorize(function(){
-        console.log("on authorize for " + a.id);
-        var url = o.api + '/statuses/update.json';
-        o.oauth.sendSignedRequest(url, function(text, xhr){
+        console.log("on authorize for " + id);
+		var _url = (typeof url == 'function')?url(o):url;
+		var _params = (typeof params == 'function')?params(o):params;		
+        o.oauth.sendSignedRequest(_url, function(text, xhr){
             var data = false;
-            try {
-                if (text) {
-                    data = JSON.parse(text);
-                }
-            } catch (e) {
-            
-            }
+			if (xhr.status >= 200 && xhr.status <= 210) {
+				try {
+					if (text) {
+						data = JSON.parse(text);
+					}
+				} catch (e) {
+				
+				}
+			}
             if (cb) {
-                cb(data);
+                cb(data, xhr);
             }
-        }, {
-            method: 'POST',
-            parameters: {
-                status: a.msg
-            }
-        });
+        }, _params
+		);
     });
 }
 

@@ -54,6 +54,15 @@ GRP.scripts = {
                 xtype: 'html',
                 label: true,
                 value: '<input id="ieprefs" class="ignore" type="text" size="30"/><input type="button" id="bimport" value="import" onclick="importprefs();"/><input type="button" id="bexport" value="export" onclick="exportprefs();"/>'
+            },
+			syncprefs_text: {
+                xtype: 'p',
+                label: true
+            },
+			syncprefs: {
+                xtype: 'html',
+                label: true,
+                value: '<input type="button" id="bsync_load" value="Load from your Google\'s account" onclick="syncload();"/><input type="button" id="bsync_save" value="Save into your Google\'s account"  onclick="syncsave();"/>'
             }
         }
     },
