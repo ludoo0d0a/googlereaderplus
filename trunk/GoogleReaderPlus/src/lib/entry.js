@@ -364,11 +364,20 @@ function getHeightEntries(alone){
             }
             var ea = getFirstElementByClassName(entries, 'entry-actions');
             if (ea) {
-                offset += ea.clientHeight;
+                var ca = ea.parentNode;//card-actions
+				if (ca && ca.style && ca.clientHeight) {
+					offset += ea.clientHeight;
+				}
             }
-            offset = Math.max(110, offset);
+			var vf = get_id('viewer-footer');
+			if (vf){
+				offset += vf.clientHeight;
+			}
+            //offset = Math.max(110, offset);
+			//offset+=4;
         }
-        height = parseInt(entries.style.height.replace('px', ''), 10) - offset;
+        //height = getHeight(entries) - offset;
+		height = entries.clientHeight - offset;
     }
     return height;
 }
