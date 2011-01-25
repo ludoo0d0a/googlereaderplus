@@ -6,6 +6,7 @@ features.js
 lib\greasekit.js
 api\rest.js
 api\favicons.js
+bg\micro.js
 bg\prefs.js
 bg\request.js
 bg\tabs.js
