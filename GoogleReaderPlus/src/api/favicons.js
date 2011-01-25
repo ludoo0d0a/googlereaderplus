@@ -30,8 +30,8 @@ function loadIcons(a, cb){
             var prefs = getPrefs();
             //Load wedata cloud data
 			if (prefs.favicons_cloud) {
-                var r = new GRP.api_rest('Favicons', true);
-                r.item.getAll({}, function(items, success){
+                var r = new GRP.api_rest('Favicons', true/*, {time:8*60*60*1000}*/);
+				r.item.getAll({}, function(items, success){
                     if (success) {
                         cloudItems={};
 						foreach(items, function(item){
@@ -54,6 +54,7 @@ function loadIcons(a, cb){
                         FAVICON: FAVICON
                     }, cb);
                 });
+				
             } else {
                 sendResponse({
                     message: "iconsloaded",
@@ -169,7 +170,7 @@ function saveFavicon(url, icon, title){
     
     if (cloudSaveIcon(url)){
 		//send to remote db
-	    var r = new GRP.api_rest('Favicons', true);	
+	    var r = new GRP.api_rest('Favicons', true, {time:4*60*60});	
 	    var name = getNameFromUrl(url);
 		
 		//Check if already exist
