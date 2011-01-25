@@ -160,9 +160,9 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
         urlinput = document.getElementById("urlinput");
         titleinput = document.getElementById("titleinput");
         notesdesc = document.getElementById("notesdesc");
-        notesinput.addEventListener('click', function(){
+        /*notesinput.addEventListener('click', function(){
             notesinput.focus();
-        }, false);
+        }, false);*/
         notesinput.addEventListener('keypress', countWord, false);
         notesinput.value = "";
         lblinput.value = getTags(parent);
