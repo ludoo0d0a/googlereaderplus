@@ -235,11 +235,18 @@ var mycore = {
                     if (!mycore.env.background) {
                         name = mycore.env.prefix + name;
                     }
-                    localStorage.setItem(name, s);
+                    try {
+						localStorage.setItem(name, s);
+					}catch(e){
+						console.error('Cannot store '+name+ ' ['+e.name+']');
+						console.log(s.length+ ' characters : '+ s.substring(0,400)+'...');
+						return false;
+					}
                 }
             } else if (mycore.env.safari) {
                 localStorage.setItem(name, s);
             }
+			return true;
         },
         key: function(i){
             if (mycore.env.chrome) {
