@@ -1,4 +1,4 @@
-GRP.api_rest = function(name, local){
+GRP.api_rest = function(name, local, cached){
     //http://wedata.net/help/api
     var SL = {
 		error:'Error $status on sending data using REST'
@@ -58,6 +58,10 @@ GRP.api_rest = function(name, local){
 				}
 			}
 		};
+		if (cached) {
+			o.cached=cached;
+		}
+		
 		if (local) {
 			request(o, true, response);
 		} else {
