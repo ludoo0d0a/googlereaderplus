@@ -65,7 +65,8 @@ function clearcache(lang){
     var name, v;
     for (var i = 0; i <= mycore.storage.getLength() - 1; i++) {
         name = mycore.storage.key(i);
-        if ((/^readerplus\.theme_/.test(name)) || (/^readerplus\.rps_/.test(name)) || (/^readerplus\.cache/.test(name))) {
+        if ((/^readerplus\.theme_/.test(name)) || (/^readerplus\.rps_/.test(name)) 
+		|| (/^readerplus\.cache/.test(name)) || (/^cache\./.test(name))   ) {
             mycore.storage.removeItem(name);
         }
     }
