@@ -12,7 +12,7 @@ function setFavicon(title, icon, url, FAVICON){
 
 var counts = {doublons:0,urlreader:0,urluser:0,uiicon:0,icoslash:0};
 var reFixReader = /^.*\/feed%2F/;
-var r2 = new GRP.api_rest('Favicons', true);	
+//var r2 = new GRP.api_rest('Favicons', true);	
 
 /**
  * Extract sites list from google reader xml
@@ -170,7 +170,7 @@ function saveFavicon(url, icon, title){
     
     if (cloudSaveIcon(url)){
 		//send to remote db
-	    var r = new GRP.api_rest('Favicons', true, {time:4*60*60});	
+	    var r = new GRP.api_rest('Favicons', true/*, {time:4*60*60}*/);	
 	    var name = getNameFromUrl(url);
 		
 		//Check if already exist
