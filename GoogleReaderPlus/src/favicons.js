@@ -125,8 +125,9 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
         var icon = document.createElement('img');
         icon.className = 'grf-favicon grf-sidebar';
         icon.title = match;
-        elsubicon.parentNode.insertBefore(icon, elsubicon);
-        elsubicon.parentNode.removeChild(elsubicon);
+		var ep = elsubicon.parentNode;
+        ep.insertBefore(icon, elsubicon);
+        ep.removeChild(elsubicon);
 		
 		function setIcon(match){
 			//console.log('setIcon:'+match);
@@ -142,10 +143,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
 		window.setTimeout(function(){
 			setIcon(match);
 		}, tim);
-        //icon.removeEventListener('error', revertFavicon, false);
-        //icon.addEventListener('error', revertFavicon, false);
     }
-    
     
     function renderFavicons(url, title, icon){
         var match = ellipsis(title);
@@ -193,7 +191,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
         var me = this;
         document.body.addEventListener('DOMNodeInserted', function(e){
             var target = e.target;
-            if (!target.grfm && target.className && target.className.indexOf("goog-menu") >= 0) {
+            if (!target.grfm && target.className && (''+target.className).indexOf("goog-menu") >= 0) {
                 target.grfm = "1";
                 target.addEventListener('DOMNodeInserted', function(e){
                     var node = e.target;
