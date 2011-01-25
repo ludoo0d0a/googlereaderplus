@@ -575,12 +575,13 @@ function _fireResize(lhnfooter){
 		if (el) {
 			elb = getFirstElementByClassName(el, 'lhn-section-footer');
 		}
-		//fix home, without footer
-		var vpc = document.getElementById('viewer-page-container');
-		if(vpc && vpc.style && vpc.style.height){
-			fitHeight(vpc);
-		}
 	}
+	//fix home, without footer
+	var vpc = document.getElementById('viewer-page-container');
+	if(vpc && vpc.style && vpc.style.height){
+		fitHeight(vpc);
+	}
+	
 	fitHeight(st, elb);
 	
 	var entries = document.getElementById('entries');
@@ -921,6 +922,13 @@ function iterate(o, fn, scope, id){
         }
     }
     return false;
+}
+function count(o, fn, scope, id){
+	var s= 0;
+	iterate(o, function(id, a){
+		s++;
+	});
+	return s;
 }
 
 function namespace(){
@@ -1422,3 +1430,4 @@ function getTypedValue(o){
         return text;
     }
 }
+
