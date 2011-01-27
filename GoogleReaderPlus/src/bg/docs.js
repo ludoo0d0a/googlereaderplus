@@ -5,6 +5,7 @@ var docs = []; // In memory cache for the user's entire doclist.
 var requestFailureCount = 0;  // used for exponential backoff
 var DOCLIST_SCOPE = 'https://docs.google.com/feeds';
 var DOCLIST_FEED = DOCLIST_SCOPE + '/default/private/full/';
+var DOCLIST_MEDIA = DOCLIST_SCOPE + '/default/media/';
 var KEY_DOC = 'ReaderPlus_preferences';
 	  
 var DEFAULT_MIMETYPES = {
@@ -43,8 +44,7 @@ gdocs.saveStorage = function(content, cb) {
 			gdocs.createDoc(KEY_DOC, content, false, 'document', cb);
 		}else{
 			//update
-			//gdocs.updateDoc(KEY_DOC, content, false, 'document', cb);
-			gdocs.updateDoc(googleDocObj, cb);
+			gdocs.updateDocContent(googleDocObj, content, cb);
 		}
 	});
 };
@@ -109,7 +109,8 @@ util.stringify = function(parameters) {
 util.unstringify = function(paramStr) {
   var parts = paramStr.split('&');
   var params = {};
-  for (var i=0,pair; pair=parts[i]; ++i) {
+  //for (var i = 0; i >= 0; i--){
+  for (var i=0,pair; (pair=parts[i]); ++i) {
     var param = pair.split('=');
     params[decodeURIComponent(param[0])] = decodeURIComponent(param[1]);
   }
@@ -124,7 +125,7 @@ util.unstringify = function(paramStr) {
  *     if one is not found.
  */
 gdocs.getLink = function(links, rel) {
-  for (var i = 0, link; link = links[i]; ++i) {
+  for (var i = 0, link; (link = links[i]); ++i) {
     if (link.rel === rel) {
       return link;
     }
@@ -140,7 +141,7 @@ gdocs.getLink = function(links, rel) {
  * @return {string|null} The appropriate category, or null if one is not found.
  */
 gdocs.getCategory = function(categories, scheme, opt_term) {
-  for (var i = 0, cat; cat = categories[i]; ++i) {
+  for (var i = 0, cat; (cat = categories[i]); ++i) {
     if (opt_term) {
       if (cat.scheme === scheme && opt_term === cat.term) {
         return cat;
@@ -158,7 +159,6 @@ gdocs.getCategory = function(categories, scheme, opt_term) {
  * @param {string} textStatus The server's returned status.
  */
 gdocs.handleError = function(xhr, textStatus) {
-  console.error(xhr.responseText);
   ++requestFailureCount;
 };
 
@@ -201,14 +201,21 @@ gdocs.constructAtomXml_ = function(docTitle, docType, opt_starred) {
  */
 gdocs.constructContentBody_ = function(title, docType, body, contentType,
                                        opt_starred) {
-  var body = ['--END_OF_PART\r\n',
+  var body_ = ['--END_OF_PART\r\n',
               'Content-Type: application/atom+xml;\r\n\r\n',
               gdocs.constructAtomXml_(title, docType, opt_starred), '\r\n',
               '--END_OF_PART\r\n',
               'Content-Type: ', contentType, '\r\n\r\n',
               body, '\r\n',
               '--END_OF_PART--\r\n'].join('');
-  return body;
+  return body_;
+};
+gdocs.constructContent_ = function(body, contentType) {
+  var body_ = ['--END_OF_PART\r\n',
+              'Content-Type: ', contentType, '\r\n\r\n',
+              body, '\r\n',
+              '--END_OF_PART--\r\n'].join('');
+  return body_;
 };
 
 /**
@@ -230,7 +237,7 @@ gdocs.createDoc = function(title, content, starred, docType, cb) {
     'method': 'POST',
     'headers': {
       'GData-Version': '3.0',
-      'Content-Type': 'multipart/related; boundary=END_OF_PART',
+      'Content-Type': 'multipart/related; boundary=END_OF_PART'
     },
     'parameters': {'alt': 'json'},
     'body': gdocs.constructContentBody_(title, docType, content,
@@ -245,6 +252,36 @@ gdocs.createDoc = function(title, content, starred, docType, cb) {
   }
 
   sendSignedRequest(DOCLIST_FEED, handleSuccess, params);
+};
+
+
+/**
+ * Updates a document's metadata (title, starred, etc.).
+ * @param {gdocs.GoogleDoc} googleDocObj An object containing the document to
+ *     update.
+ */
+gdocs.updateDocContent = function(googleDocObj, content, cb) {
+  var handleSuccess = function(resp, xhr) {
+    requestFailureCount = 0;
+	if (cb){
+		cb(resp);
+	}
+  };
+
+  var params = {
+    'method': 'PUT',
+    'headers': {
+      'GData-Version': '3.0',
+	  'Content-Type': DEFAULT_MIMETYPES[googleDocObj.type.label],
+      'If-Match': '*',
+	  'Slug':googleDocObj.title
+   },
+   'parameters': {'alt': 'json'},
+    'body': content
+  };
+
+  var url = DOCLIST_MEDIA + googleDocObj.resourceId;
+  sendSignedRequest(url,  handleSuccess, params);
 };
 
 /**
@@ -349,7 +386,7 @@ gdocs.processDocListResults = function(data, xhr, cb){
 	} else {
 		requestFailureCount = 0;
 		if (data.feed.entry) {
-			for (var i = 0, entry; entry = data.feed.entry[i]; ++i) {
+			for (var i = 0, entry; (entry = data.feed.entry[i]); ++i) {
 				if (entry.title.$t === KEY_DOC) {
 					//Use first one only
 					var googleDocObj = new gdocs.GoogleDoc(entry);

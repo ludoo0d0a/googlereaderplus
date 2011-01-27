@@ -6,8 +6,8 @@
  * en : English
  * **************************
  *
- * Version : 1.6
- * Date : 07-21-2010
+ * Version : 1.7
+ * Date : 01-27-2011
  * @author Valente
  */
 var locale = 'en';
@@ -195,7 +195,7 @@ GRP.langs[locale].prefs = {
         thanks2: '<td><p>If you like this extension and want more features, feel free to make a donation.</p>' +
         '<p>In this way, I could buy a truck of coffee so that i can stay awake to write all the code :)</p>' +
         '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></a></td>',
-        whatsnew: '<td> <h2>What\'s new!!</h2> <ul> <li>Try the new themes</li> <li>Toggle theme shortcut (Alt X)</li> <li>Spanish supported now</li> <li>Bugfixes</li> </ul> <p class="center"><img src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/button/popup1.png"/></p><h2>And still ...</h2> <ul> <li>Cloud experience : Use shared configuration for favicons and replacer</li> <li>Toolbar button shows now a popup with last unread items and a fast tooltip preview</li> <li>or use a custom background with the new theme \'MyTheme\'</li> <li>or use a random <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a> theme</li> <li>Preview as lightbox</li> <li>Share items using <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li> <li>Entry actions as floating window (general)</li> <li>Translate news</li> </ul> </td>',
+        whatsnew: '<td> <h2>What\'s new!!</h2> <ul> <li>Sync settings in your Google Docs (1 profile for multiple computers)</li> <li>Try the new themes</li> <li>Toggle theme shortcut (Alt X)</li> <li>Spanish supported now</li> <li>Bugfixes</li> </ul> <p class="center"><img src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/button/popup1.png"/></p><h2>And still ...</h2> <ul> <li>Cloud experience : Use shared configuration for favicons and replacer</li> <li>Toolbar button shows now a popup with last unread items and a fast tooltip preview</li> <li>or use a custom background with the new theme \'MyTheme\'</li> <li>or use a random <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a> theme</li> <li>Preview as lightbox</li> <li>Share items using <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li> <li>Entry actions as floating window (general)</li> <li>Translate news</li> </ul> </td>',
         nopopup: '<p>If you don\'t want to be alerted on new version updates, check option "No popup on updates" in <a href="preferences.html#general">General section</a>.</p>'
     },
     link: {
@@ -264,6 +264,8 @@ prefsimportedok: 'Preferences succesfully imported!',
 prefsimportfailed: 'Import failed!',
 prefsimportnull: 'No saved preferences found!',
 syncprefs_text: 'Load/save using your Google\'s account',
+prefssavedok: 'Preferences succesfully saved!',
+prefssavedfailed: 'Preferences save failed!',
         text_layout: 'Layout options',
         text_private: 'Private data and updates',
         text_toolbaricon: 'Toolbar icon',
