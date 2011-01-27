@@ -13,7 +13,11 @@ function syncsave(){
 	        message: "syncsave",
 			prefs: prefs
 	    }, function(a){
-	        info(getTextPrefs(lang, 'global', 'prefssavedok', 'en', "Preferences succesfully saved!"));
+	        if (a){
+				info(getTextPrefs(lang, 'global', 'prefssavedok', 'en', "Preferences succesfully saved!"));
+			}else{
+				error(getTextPrefs(lang, 'global', 'prefssavedfailed', 'en', "Preferences save failed!"));
+			}
 	    });
 }
 
@@ -39,10 +43,10 @@ function gosaveprefs(value){
             info(getTextPrefs(lang, 'global', 'prefsimportedok', 'en', "Preferences imported!"));
         } 
         catch (e) {
-            info(getTextPrefs(lang, 'global', 'prefsimportfailed', 'en', "Import failed!") + ' : ' + e, 'error');
+            error(getTextPrefs(lang, 'global', 'prefsimportfailed', 'en', "Import failed!") + ' : ' + e, 'error');
         }
     }else{
-		info(getTextPrefs(lang, 'global', 'prefsimportnull', 'en', "No saved preferences found!"), 'error');
+		error(getTextPrefs(lang, 'global', 'prefsimportnull', 'en', "No saved preferences found!"), 'error');
 	}
 }
 
@@ -230,6 +234,9 @@ function initGRP(){
     });
 }
 
+function error(msg){
+	info(msg, 'error');
+}
 function info(msg, cls){
     var status = document.getElementById('status');
     status.innerHTML = msg;

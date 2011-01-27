@@ -6,8 +6,8 @@
  * fr : Francais
  * **************************
  *
- * Version : 1.6
- * Date : 07-21-2010
+ * Version : 1.7
+ * Date : 01-27-2011
  * @author Valente
  */
 var locale = 'fr';
@@ -193,7 +193,7 @@ GRP.langs[locale].prefs = {
         thanks2: '<td><p>Si vous appréciez cette extension ou que vous avez des idées pour de nouvelles fonctionnalités, n\'hésitez pas à m\'en parler.</p>' +
         '<p>Vous pouvez également me faire un don, de sorte que je puisse m\'acheter une cargaison de café pour tenir le coup pour écrire le code :)</p>' +
         '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=FR&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/fr_FR/i/btn/btn_donate_SM.gif" width="108" height="21"></span></a></td>',
-        whatsnew: '<td> <h2>Quoi de neuf!!</h2> <ul> <li>Essayer les nouveaux thèmes</li> <li>Raccourci clavier pour activer/désactiver le thème courant(Alt X)</li> <li>L\'espagnol est maintenant supporté</li> <li>Corrections de bugs</li> </ul> <p class="center"><img src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/button/popup1.png"/></p><h2>Et toujours ...</h2> <ul> <li>Experience Cloud : Utilisé une configuration partagée par la communauté pour les favicons et le replacement</li> <li>Apercu des derniers articles non lus dans le bouton de la barre.</li> <li>Utiliser une image personnalisée ave le nouveau thème configurable "MyTheme"</li> <li>ou choisissez un thème aléatoire parmi les thèmes <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a></li> <li>Aperçu plein ecran façon "lightbox"</li> <li>Partager vos lectures avec <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li> <li>Le panneau des actions comme fenêtre volante (onglet Général)</li> <li>Traduction des articles</li> </ul> </td>',
+        whatsnew: '<td> <h2>Quoi de neuf!!</h2> <ul> <li>Synchronisation des préférences dans Google Documents (1 seul profil pour plusieurs ordinateurs)</li><li>Essayer les nouveaux thèmes</li> <li>Raccourci clavier pour activer/désactiver le thème courant(Alt X)</li> <li>L\'espagnol est maintenant supporté</li> <li>Corrections de bugs</li> </ul> <p class="center"><img src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/button/popup1.png"/></p><h2>Et toujours ...</h2> <ul> <li>Experience Cloud : Utilisé une configuration partagée par la communauté pour les favicons et le replacement</li> <li>Apercu des derniers articles non lus dans le bouton de la barre.</li> <li>Utiliser une image personnalisée ave le nouveau thème configurable "MyTheme"</li> <li>ou choisissez un thème aléatoire parmi les thèmes <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a></li> <li>Aperçu plein ecran façon "lightbox"</li> <li>Partager vos lectures avec <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li> <li>Le panneau des actions comme fenêtre volante (onglet Général)</li> <li>Traduction des articles</li> </ul> </td>',
         nopopup: '<p>Si vous ne voulez plus être averties des mises à jour, cocher l\'option "Plus de popup lors des mises à jour" dans <a href="preferences.html#general">la section Générale</a>.</p>'
     },
     link: {
@@ -253,9 +253,11 @@ counterinterval: "Refraîchir le compteur toutes les (min)",
         confirmimport: "Etes-vous sur de vouloir importer cette configuration?\nLa configuration actuelle sera PERDUE",
 confirmsyncload: "Etes-vous sur de vouloir importer cette configuration depuis votre compte Google?\nLa configuration actuelle sera PERDUE!",
 prefsimportedok: 'Préférences importé avec succès!',
-prefsimportfailed: 'Echec de l\'iImport!',
+prefsimportfailed: 'Echec de l\'import!',
 prefsimportnull: 'Aucune préférence enregistrée!',
 syncprefs_text: 'Charger/Sauver avec votre compte Google',
+prefssavedok: 'Préférences sauvé avec succès!',
+prefssavedfailed: 'Echec de la sauvegarde!',
         text_layout: 'Mise en page',
         text_private: 'Données privées et mise à jour',
         text_toolbaricon: "Icône de la barre d'outil",
