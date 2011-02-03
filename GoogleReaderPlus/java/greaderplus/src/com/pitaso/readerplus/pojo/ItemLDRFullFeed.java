@@ -1,19 +1,19 @@
-package com.pitaso.readerplus;
+package com.pitaso.readerplus.pojo;
 
-public class Item {
+public class ItemLDRFullFeed {
 
 	private String name;
-	private Data data;
+	private DataLDRFullFeed data;
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Data getData() {
+	public DataLDRFullFeed getData() {
 		return data;
 	}
-	public void setData(Data data) {
+	public void setData(DataLDRFullFeed data) {
 		this.data = data;
 	}
 	

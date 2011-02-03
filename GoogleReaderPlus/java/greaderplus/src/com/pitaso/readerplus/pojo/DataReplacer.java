@@ -1,10 +1,11 @@
-package com.pitaso.readerplus;
+package com.pitaso.readerplus.pojo;
 
-public class Data {
+public class DataReplacer {
 
 	private String search;
 	private String replace;
 	private String url;
+	
 	public String getSearch() {
 		return search;
 	}
