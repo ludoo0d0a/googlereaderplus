@@ -18,14 +18,16 @@ GRP.api_rest = function(name, local, cached){
 			get: '/databases/'+name+'.json',
             create: '/databases',
 			update: '/databases/'+name,
-			remove:'/databases/'+name
+			remove:'/databases/'+name,
+			cache: 'http://greaderplus.appspot.com/'+name
         },
 		item: {
             getall:'/databases/'+name+'/items.json',
 			get: '/items/:id.json',
             create: '/databases/'+name+'/items',
 			update: '/items/:id',
-			remove:'/items/:id'
+			remove:'/items/:id',
+			cache: 'http://greaderplus.appspot.com/'+name
         }
     };
     
@@ -43,7 +45,7 @@ GRP.api_rest = function(name, local, cached){
 		}
 		var o = {
 			method: method,
-			url: config.base + url,
+			url: url,
 			data: params,
 			headers:{
 				"Content-Type": "application/x-www-form-urlencoded"
@@ -73,7 +75,7 @@ GRP.api_rest = function(name, local, cached){
     return ({
         all: {
             getAll: function(o /* page */, success, error){
-                var url = config.all.getall;
+                var url = config.all.cache||(config.base + config.all.getall);
 				o=o||{};
                 var params = {
                     page: o.page||1
@@ -81,14 +83,14 @@ GRP.api_rest = function(name, local, cached){
                 send('get', url, params, success, error);
             },
 			get: function(o /* name, page */, success, error){
-                var url = config.all.get;
+                var url = config.base + config.all.get;
                 var params = {
                     page: o.page
                 };
                 send('get', url, params, success, error);
             },
             create: function(o /* api_key name,description, required_keys,optional_keys, permit_other_keys */, success, error){
-                var url = config.all.create;
+                var url = config.base + config.all.create;
                 var params = {
                     api_key: o.api_key||config.api_key,
                     database: {
@@ -102,7 +104,7 @@ GRP.api_rest = function(name, local, cached){
 				send('post', url, params, success, error);
             },
             update: function(o /* api_key name,description, required_keys,optional_keys, permit_other_keys*/, success, error){
-                var url = config.all.update;
+                var url = config.base + config.all.update;
                 var params = {
                     api_key: o.api_key||config.api_key,
                     database: {
@@ -117,7 +119,7 @@ GRP.api_rest = function(name, local, cached){
             },
             remove: function(o/* api_key, name */, success, error){
              	//Remove DB
-				var url = config.all.remove;
+				var url = config.base + config.all.remove;
                 var params = {
                     api_key: o.api_key||config.api_key
                 };
@@ -126,21 +128,21 @@ GRP.api_rest = function(name, local, cached){
         },
         item: {
             getAll: function(o /* name, page */, success, error){
-                var url = config.item.getall;
+				var url = config.item.cache||(config.base + config.item.getall);
                 var params = {
                     page: o.page
                 };
                 send('get', url, params, success, error);
             },
 			get: function(o /* name, page, id */, success, error){
-                var url = config.item.get.replace(':id', o.id);
+                var url = config.base + config.item.get.replace(':id', o.id);
                 var params = {
                     page: o.page
                 };
                 send('get', url, params, success, error);
             },
             create: function(o /* name, api_key, name, values */, success, error){
-                var url = config.item.create;
+                var url = config.base + config.item.create;
                 var params = {
                     api_key: o.api_key||config.api_key,
 					name: o.name,
@@ -149,7 +151,7 @@ GRP.api_rest = function(name, local, cached){
 				send('post', url, params, success, error);
             },
             update: function(o /*  api_key, id, data */, success, error){
-                var url = config.item.update.replace(':id', o.id);
+                var url = config.base + config.item.update.replace(':id', o.id);
                 var params = {
                    api_key: o.api_key||config.api_key,
                    name: o.name,
@@ -170,7 +172,7 @@ GRP.api_rest = function(name, local, cached){
 				}
             },
             remove: function(o/* api_key, id */, success, error){
-             	var url = config.item.get.replace(':id', o.id);
+             	var url = config.base + config.item.get.replace(':id', o.id);
                 var params = {
                     api_key: o.api_key||config.api_key
                 };
