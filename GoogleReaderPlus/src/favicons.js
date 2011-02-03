@@ -45,14 +45,14 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
     
     function loadFavicons(){
         //clearCache();
-        chrome.extension.sendRequest(
+		chrome.extension.sendRequest(
         {
             message: "loadicons",
             method: 'get',
             url: protocol + '//www.google.com/reader/subscriptions/export',
             FAVICON_TPL_URL: FAVICON_TPL_URL
         }, function(a){
-            if (a.FAVICON) {
+			if (a.FAVICON) {
                 FAVICON = a.FAVICON;
                 updateFavicons();
             }
@@ -72,7 +72,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
     }
     
     function addFaviconEntry(el, entry, mode){
-        if (isTagged(entry, 'tfavicon')) {
+		if (isTagged(entry, 'tfavicon')) {
             //stop entry was already scanned
             return;
         }
@@ -113,23 +113,23 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
     
     }
     function addFaviconSidebar(el, mode){
-        if (isTagged(el, 'tfavicon')) {
+		if (isTagged(el, 'tfavicon')) {
             //stop entry was already scanned
             return;
         }
-        
-        var elsubicon = getFirstElementByClassName(el, 'sub-icon');//span
-        var title = elsubicon.nextSibling;
-        var match = ellipsis(title.firstChild.textContent);
-        title.style.paddingLeft = '7px';
-        var icon = document.createElement('img');
-        icon.className = 'grf-favicon grf-sidebar';
-        icon.title = match;
-		var ep = elsubicon.parentNode;
-        ep.insertBefore(icon, elsubicon);
-        ep.removeChild(elsubicon);
 		
-		function setIcon(match){
+		function addIcon(el){
+			var elsubicon = getFirstElementByClassName(el, 'sub-icon');//span
+			var title = elsubicon.nextSibling;
+			var match = ellipsis(title.firstChild.textContent);
+			title.style.paddingLeft = '7px';
+			var icon = document.createElement('img');
+			icon.className = 'grf-favicon grf-sidebar';
+			icon.title = match;
+			var ep = elsubicon.parentNode;
+			ep.insertBefore(icon, elsubicon);
+			ep.removeChild(elsubicon);
+		
 			//console.log('setIcon:'+match);
 			//var t = findFaviconByTitle(FAVICON, match);
 			var t = FAVICON[match];
@@ -139,9 +139,10 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
 				icon.src = FAVICON_TPL_DEF_URL;
 			}
 		}
-		var tim= (hasClass(el, 'unread')) ?0:2000;
+		
+		var tim= (hasClass(el, 'unread'))?0:4000;
 		window.setTimeout(function(){
-			setIcon(match);
+			addIcon(el);
 		}, tim);
     }
     
