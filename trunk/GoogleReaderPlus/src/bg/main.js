@@ -139,8 +139,10 @@ var mappers = {
 };
 
 function getCloudData(a, cb, mapper){
-    request({
-        url: a.url || ('http://wedata.net/databases/' + a.name + '/items.json'),
+    //cached mirror on gae : http://greaderplus.appspot.com/replacer
+	// 'http://wedata.net/databases/' + a.name + '/items.json'
+	request({
+        url: a.url || ('http://greaderplus.appspot.com/' + a.name ),
         onload: function(xhr){
             if (xhr.status == 200) {
                 console.log(a.name + ' get');
