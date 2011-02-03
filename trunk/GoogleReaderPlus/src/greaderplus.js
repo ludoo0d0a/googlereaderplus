@@ -10,7 +10,11 @@
 (function(){
     var ReaderPlus = {
         init: function(){
-            console.log("Starts ReaderPlus");
+            if (!(/^https?\:\/\/\w+.google\.\w+\/reader\/view/.test(window.location.href))){
+				//Not in Reader
+				return;
+			}
+			console.log("Starts ReaderPlus");
             window.GRP = window.GRP || {};
             GRP.language = function(){
                 //dummy
