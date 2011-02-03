@@ -17,61 +17,65 @@ GRP.prefetch = function(prefs, langs, ID, SL, lang){
     var version = '0.3.0';
     
     var id = 'GoogleReaderPrefetchMore';
-    var config = eval(GM_getValue(id)) ||
-        {
+    var config = GM_getValue(id, {
         version: '',
         src: '',
         targetFunction: '',
         targetValue: ''
     };
     
-    var scripts = document.getElementsByTagName('script');
-    for (var i = 0, len = scripts.length; i < len; i++) {
-        var e = scripts[i];
+    Array.slice(document.getElementsByTagName('script')).forEach(function(e){
         if (e.src && /\/reader\/ui\/\d+-\w+-scroll.js/.test(e.src)) {
             if (config.src == e.src && config.version == version) {
                 more(config.targetFunction, config.targetValue);
                 return;
             }
-            config.version = version;
+            config.version = version
             config.src = e.src;
-            GM_xmlhttpRequest(
-            {
+            GM_xmlhttpRequest({
                 method: 'GET',
                 url: config.src,
                 onload: function(res){
                     var s = res.responseText;
-                    // aF.prototype.Om=function(){return
-                    // TE(this.cb())?this.Xa?1:5:20};
-                    var m = s.match(/;([^=]+)=(function\(\)\{[^\}]*\?1:5:20\});/);
-                    if (m.length != 3) 
+                    var a, r;
+                    // o.Sl=function(){return St(this.tb())?this.Xa?1:5:20};
+                    s = s.split(/;[^;]+\.([^.]+)=[^=]+\{[^{]+1:5:20/)[0];
+                    if (!RegExp.$1) 
                         throw new Error('Prefetch failed. Something wrong with the js.');
-                    config.targetFunction = m[1];
-                    config.targetValue = m[2];
-                    GM_setValue(id, uneval(config));
-                    // GM_log('js changed.');
+                    a = RegExp.$1;
+                    // new Ut(this.ba,q(this.Cg,this),q(this.Jo,this),q(this.Lu,this),q(this.ys,this),q(this.Sl,this));
+                    r = new RegExp('new ([a-zA-Z]+)\\([^;]+this\.' + a + '[^a-zA-Z]');
+                    s = s.split(r)[0];
+                    a = RegExp.$1;
+                    // function Ut(a,b,c,d,e,g){this.ba=a;this.AE=b;this.PE=c;this.CA=d;this.dy=e;this.QE=g;this.fl={kH:0,Dl:0}}
+                    r = new RegExp('function ' + a + '\\([a-zA-Z]+,[a-zA-Z]+,[a-zA-Z]+,[a-zA-Z]+,[a-zA-Z]+,([a-zA-Z]+)\\)');
+                    s = s.split(r)[2];
+                    a = RegExp.$1;
+                    r = new RegExp('\\{[^}]+this.([a-zA-Z]+)=' + a);
+                    s = s.split(r)[2];
+                    a = RegExp.$1;
+                    // function Vt(a){var b=a.fl.Dl;a.fl.Dl+=a.QE();var c=a.fl.Dl;a.dy(a.ba.nj(),a.ba.Oh());for(b=b;b<c;b++)a.ba.Eh(b,q(a.Cg,a,b))}
+                    r = new RegExp('function ([a-zA-Z]+)\\([^\\)]*\\)\\{[^}]+=([a-zA-Z]+\\.' + a + '\\(\\))[^}]+\\}');
+                    r.test(s);
+                    if (a == RegExp.$1) 
+                        throw new Error('Prefetch failed. Something wrong with the js!!');
+                    config.targetFunction = RegExp.$1;
+                    config.targetValue = RegExp.$2;
+                    GM_setValue(id, config);
                     more(config.targetFunction, config.targetValue);
-                }
-            });
+                }            
+			});
         }
-    }
+    });
     
     function more(targetFunction, targetValue){
-        // var w = 'unsafeWindow';
-        // var w = 'window';
-        var f = /* w + '.' + */ targetFunction;
-        // var v = targetValue.replace(/function\(\){([^}]*)}/, "function(){with("
-        // + w + "){$1}}").replace('1:5:20',
-        // [ next, first, list ].join(':'));list
-        var v = targetValue.replace('1:5:20', [next, first, list].join(':'));
-        console.log(f + '=' + v);
-        // console.log(window.fF);
-        /*
-         * with(window){ fF.prototype.Tm=function(){ return
-         * (ZE(this.db())?this.Ya?next:first:list); }; }
-         */
-        // window.eval('window.fF');
-        eval(f + '=' + v);
-        console.log('evaled');
+        var n = 'unsafeWindow.' + targetFunction, v = targetValue, e = eval, p;
+        try {
+            p = e(n);
+        } catch (x) { // for Firefox prior to 3.5
+            e = unsafeWindow.eval, n = targetFunction, p = e(n);
+        }
+        var r = uneval(p).replace(v, ['(', v, ' == 5)? ', first, ' : (', v, ' == 1)? ', next, ' : (', v, ' == 20)? ', list, ' : ', v].join('')).replace(/{/, '{with(unsafeWindow){').replace(/}$/, '}}');
+        e(n + '=' + r);
     }
 };
