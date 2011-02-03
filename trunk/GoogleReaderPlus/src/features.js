@@ -1014,8 +1014,8 @@ GRP.skins = {
         desc: 'userstyles.org'
     },
 	purereader:{
-        name: "Pure Reader <span class='new'>New!</span>",
-        url: 'http://idzr.org/c5br',
+        name: "Pure Reader <span class='updated'>Updated!</span>",
+        url: 'http://idzr.org/2ioj',
         pic: 'http://nadesign.net/safari/images/preview-reader.png',
         ref: 'http://nadesign.net/safari/',
 		desc: 'Pure Reader by Na\'Design',
