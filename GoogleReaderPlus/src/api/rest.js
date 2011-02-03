@@ -27,7 +27,7 @@ GRP.api_rest = function(name, local, cached){
 			update: '/items/:id',
 			remove:'/items/:id'
         }
-    }
+    };
     
     function send(method, url, params, cb){
 		function response(xhr){
@@ -38,6 +38,7 @@ GRP.api_rest = function(name, local, cached){
 				}
 			} else {
 				console.error((SL[xhr.status]||config.errors[xhr.status]||SL.error).replace('$status', xhr.status||''));
+				cb(null, false);
 			}
 		}
 		var o = {
@@ -195,8 +196,7 @@ GRP.api_rest = function(name, local, cached){
             }
         }
     });
-}
-
+};
 
 function getIdFromResourceUrl(o){
 	return (o.resource_url)?(o.resource_url.replace(/^.*\/items\//, '')):false;
