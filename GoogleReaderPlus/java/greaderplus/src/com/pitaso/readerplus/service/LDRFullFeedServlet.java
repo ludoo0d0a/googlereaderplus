@@ -15,19 +15,12 @@ public class LDRFullFeedServlet extends AbstractWeDataServlet{
 	 * 
 	 */
 	private static final long serialVersionUID = -3438080955825682063L;
-	private static final String KEY_REPLACER = "LDRFullFeed";
 	private static final String DATABASE = "LDRFullFeed";
 	
 	@Override
 	public String getDatabase() {
 		return DATABASE;
 	}
-	
-	@Override
-	public String getKey() {
-		return KEY_REPLACER;
-	}
-	
 	@Override
 	public String compactJson(String json) {
 		Type listType = new TypeToken<List<ItemLDRFullFeed>>() {}.getType();

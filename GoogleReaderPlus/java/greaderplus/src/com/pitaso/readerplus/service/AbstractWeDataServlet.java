@@ -1,5 +1,7 @@
 package com.pitaso.readerplus.service;
 
+import static com.google.appengine.api.taskqueue.TaskOptions.Builder.withUrl;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,13 +20,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.appengine.api.memcache.jsr107cache.GCacheFactory;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
-import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.appengine.api.taskqueue.TaskOptions.Method;
-
-import static com.google.appengine.api.taskqueue.TaskOptions.Builder.*;
 
 @SuppressWarnings("serial")
 public abstract class AbstractWeDataServlet extends HttpServlet {
@@ -34,59 +32,79 @@ public abstract class AbstractWeDataServlet extends HttpServlet {
 
 	public abstract String getDatabase();
 
-	public abstract String getKey();
-
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		resp.setContentType("application/json");
+		resp.setCharacterEncoding("UTF-8");
+		resp.setHeader("Cache-Control", "max-age=3600, public");
+
+		String reload = req.getParameter("reload");
+		String out = null;
+		String cached = "1";
+		if ("1".equals(reload)) {
+			//force reloading
+			cached = "0";
+			out = populate(getDatabase());
+		}else{
+			Cache cache = getCache();
+			out = (String) cache.get(getDatabase());
+			if (out == null) {
+				cached = "0";
+				out = populate(getDatabase());
+			}
+		}
+		resp.setHeader("GRP-cached", cached);
+		resp.getWriter().println(out);
+	}
+
+	protected String populate(String database) {
+		String out = null;
+		if (database != null) {
+			out = getContent("http://wedata.net/databases/" + database
+					+ "/items.json");
+			if (out != null) {
+				out = compactJson(out);
+				Cache cache = getCache();
+				if (cache != null && out != null) {
+					log.log(Level.INFO, "size" + out.length());
+					cache.put(database, out);
+				} else {
+					out = "{\"error\":\"cache or out null\"}";
+				}
+			} else {
+				out = "{\"error\":\"no content\"}";
+			}
+		}
+		return out;
+	}
+
+	/**
+	 * Update cache if empty using a queue
+	 */
+	public void update() {
+		Cache cache = getCache();
+
+		String out = (String) cache.get(getDatabase());
+		if (out == null) {
+			Queue queue = QueueFactory.getQueue("reloadqueue");
+			queue.add(withUrl("/queue/recache")
+					.param("database", getDatabase()).method(Method.POST));
+		}
+	}
+
+	private Cache getCache() {
+		Map props = new HashMap();
+		// props.put(GCacheFactory.EXPIRATION_DELTA, 3600);// 3600s 1h
 
 		Cache cache = null;
-
-		Map props = new HashMap();
-		props.put(GCacheFactory.EXPIRATION_DELTA, 3600);// 3600s 1h
-
 		try {
-			CacheFactory cacheFactory = CacheManager.getInstance().getCacheFactory();
+			CacheFactory cacheFactory = CacheManager.getInstance()
+					.getCacheFactory();
 			cache = cacheFactory.createCache(props);
 		} catch (CacheException e) {
 			// ...
 		}
-
-		String out = null;
-		String reload = req.getParameter("reload");
-		boolean isReload = ("1".equals(reload));
-		if (!isReload){
-			out = (String) cache.get(getKey());
-		}
-		if (out == null) {
-			String pqueue = req.getParameter("queue");
-			boolean isQueue = ("1".equals(pqueue));
-			if (isQueue){
-				out = getContent("http://wedata.net/databases/"+getDatabase()+"/items.json");
-				if (out!=null){
-					out=compactJson(out);
-					if (cache!=null && out!=null){
-						log.log(Level.INFO, "size"+out.length());
-						cache.put(getKey(), out);
-						out = "{\"reload\":1,\"queue\":1}";
-					}else{
-						out = "{\"reload\":0,\"queue\":1,\"error\":\"cache or out null\"}";
-					}
-				}else{
-					out = "{\"reload\":0,\"queue\":1,\"error\":\"no content\"}";
-				}
-			}else{
-				Queue queue = QueueFactory.getQueue("reloadqueue");
-		        queue.add(withUrl("/"+getDatabase()).param("reload", "1").param("queue", "1").method(Method.GET));
-		        out = "{\"reload\":1}";
-			}
-			
-		}
-		if (out == null) {
-			out = "[]";
-		}
-
-		resp.getWriter().println(out);
+		return cache;
 	}
 
 	public String compactJson(String json) {
