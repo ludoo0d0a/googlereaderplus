@@ -82,13 +82,17 @@ public abstract class AbstractWeDataServlet extends HttpServlet {
 	 * Update cache if empty using a queue
 	 */
 	public void update() {
+		update(getDatabase());
+	}
+	
+	public void update(String database) {
 		Cache cache = getCache();
 
 		String out = (String) cache.get(getDatabase());
 		if (out == null) {
 			Queue queue = QueueFactory.getQueue("reloadqueue");
 			queue.add(withUrl("/queue/recache")
-					.param("database", getDatabase()).method(Method.POST));
+					.param("database", database).method(Method.POST));
 		}
 	}
 
