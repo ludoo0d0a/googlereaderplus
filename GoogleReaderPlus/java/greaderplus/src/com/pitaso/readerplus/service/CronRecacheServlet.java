@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 public class CronRecacheServlet extends AbstractWeDataServlet{
 
 
+	private String database = null;
+	
 	/**
 	 * 
 	 */
@@ -23,7 +25,8 @@ public class CronRecacheServlet extends AbstractWeDataServlet{
 	throws IOException {
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");
-		update();//run queue
+		String database = req.getParameter("database");
+		update(database);//run queue
 		resp.getWriter().println("[]");
 	}
 	
