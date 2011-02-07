@@ -138,7 +138,7 @@ function filterEntry(entry, rx){
 }
 
 function getRegex(urls){
-    if (!urls || urls.length == 0) {
+    if (!urls || urls.length === 0) {
         return false;
     }
     var escaped = [];
@@ -644,7 +644,7 @@ function getSelectedDir(node){
             };
         }
     }
-	if (o.url && /\/reader\/view\/feed\//.test(o.url)) {
+	if (o.url && (/\/reader\/view\/feed\//.test(o.url))) {
 		o.url = decodeURIComponent(o.url.replace(/.*\/reader\/view\/feed\//, ''));
 	}
     return o;
@@ -709,7 +709,7 @@ function removeReadItems(ent, deleteMarkAsRead){
 		entry = currentry.previousSibling;
 		while (entry) {
 			var prev = entry.previousSibling;
-			console.log('Remove ' + entry.className)
+			console.log('Remove ' + entry.className);
 			remove(entry);
 			entry = prev;
 		}
