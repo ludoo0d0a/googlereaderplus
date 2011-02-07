@@ -142,7 +142,7 @@ function getCloudData(a, cb, mapper){
     //cached mirror on gae : http://greaderplus.appspot.com/replacer
 	// 'http://wedata.net/databases/' + a.name + '/items.json'
 	request({
-        url: a.url || ('http://greaderplus.appspot.com/' + a.name ),
+        url: a.url || (GRP_MIRROR + a.name ),
         onload: function(xhr){
             if (xhr.status == 200) {
                 console.log(a.name + ' get');

@@ -1,3 +1,5 @@
+var GRP_MIRROR = 'http://greaderplus.appspot.com/';
+
 GRP.api_rest = function(name, local, cached){
     //http://wedata.net/help/api
     var SL = {
@@ -19,7 +21,7 @@ GRP.api_rest = function(name, local, cached){
             create: '/databases',
 			update: '/databases/'+name,
 			remove:'/databases/'+name,
-			cache: 'http://greaderplus.appspot.com/'+name
+			cache: GRP_MIRROR+name
         },
 		item: {
             getall:'/databases/'+name+'/items.json',
@@ -27,7 +29,7 @@ GRP.api_rest = function(name, local, cached){
             create: '/databases/'+name+'/items',
 			update: '/items/:id',
 			remove:'/items/:id',
-			cache: 'http://greaderplus.appspot.com/'+name
+			cache: GRP_MIRROR+name
         }
     };
     
