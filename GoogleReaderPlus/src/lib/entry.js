@@ -472,18 +472,20 @@ function addBottomLink(el, text, title, script, cls, button, callback, locked, e
     }
 }
 
-function isActive(btn, entry, cls, locked){
+function isActive(btn, entry, cls, locked, clsOn, clsOff){
     var active = false;
-    if (locked || !hasClass(btn, 'read-state-kept-unread')) {
+	clsOn=clsOn||'read-state-kept-unread';
+	clsOff=clsOff||'read-state-not-kept-unread';
+    if (locked || !hasClass(btn, clsOn)) {
         addClass(entry, cls);
         if (btn) {
-            toggleClass(btn, 'read-state-not-kept-unread', 'read-state-kept-unread');
+            toggleClass(btn, clsOff, clsOn);
         }
         active = true;
     } else {
         removeClass(entry, cls);
         if (btn) {
-            toggleClass(btn, 'read-state-kept-unread', 'read-state-not-kept-unread');
+            toggleClass(btn, clsOn, clsOff);
         }
         active = false;
     }
