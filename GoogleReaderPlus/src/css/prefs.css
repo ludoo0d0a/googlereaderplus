@@ -528,3 +528,7 @@ img.favicon {
 #panel_prefetch label,#panel_general label,#panel_nested label,#panel_column label{
 	width:400px;
 }
+
+#t_relook_css{
+	width:100%;
+}
