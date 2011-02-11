@@ -14,10 +14,13 @@
  */
 
 GRP.facebook = function(prefs, langs, ID, SL, lang){
+	var BTN_CLS = 'item-share star';
+	var BTN_CLS_ID ='btn-'+ID+' '+BTN_CLS;
+	
 	function addButton(el, entry, mode) {
 		var title = SL.text + formatShortcut(ID, 'gofacebook', prefs); //[b]
 		var text = (prefs && prefs.general_icons)?'':(SL.keyword || ID);
-		addBottomLink(el,text, title, ID, 'item-star star read-state-not-kept-unread', false, facebookShare, false, entry, mode);
+		addBottomLink(el,text, title, ID, BTN_CLS, false, facebookShare, false, entry, mode);
 	}
 
 	function addKey() {
@@ -25,33 +28,18 @@ GRP.facebook = function(prefs, langs, ID, SL, lang){
 	}
 
 	function facebookShare(btn, entry, locked) {
-		var active = isActive(btn, entry, 'facebook', locked);
+		var active = isActive(btn, entry, 'facebook', locked, 'btn-active', 'btn-inactive');
+		addClassIf(btn, 'item-star-active',active);
 		var iframe, facebookSharer;
 		var body = getFirstElementByClassName(entry,  'entry-body');//div
 		iframe = getFirstElementByClassName(entry,  'facebookSharer');//iframe
 		if (active) {
 			// iframe creation/display
-			/*if (iframe) {
-				// iframe already in document, display it
-				iframe.style.display = 'block';
-			} else {
-				// iframe not in document, create it
-				iframe = document.createElement('iframe');
-				iframe.setAttribute('width', '650px');
-				iframe.setAttribute('height', '350px');
-				iframe.setAttribute('name', 'grpfacebook');
-				iframe.setAttribute('target', 'grpfacebook');
-				iframe.className = 'facebookSharer';*/
-				//var shareurl = getFirstElementMatchingClassName(entry, 'a', 'entry-title-link');
-				var shareurl = getEntryLink(entry);
-				var e = encodeURIComponent;
-				var fbsharer = 'http://www.facebook.com/sharer.php?&u=' + e(shareurl.url) + '&t='
-						+ e(shareurl.title);
-				window.open(fbsharer, 'sharer', 'toolbar=0,status=0,resizable=1,width=626,height=436');
-			/*	iframe.setAttribute('src', fbsharer);
-				body.appendChild(iframe);
-			}*/
-
+			var shareurl = getEntryLink(entry);
+			var e = encodeURIComponent;
+			var fbsharer = 'http://www.facebook.com/sharer.php?&u=' + e(shareurl.url) + '&t='
+					+ e(shareurl.title);
+			window.open(fbsharer, 'sharer', 'toolbar=0,status=0,resizable=1,width=626,height=436');
 			// Scale article container to fullwidth
 			body.setAttribute('style', gpeStyles.entryBody);
 		} else {
