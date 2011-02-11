@@ -1,0 +1,31 @@
+.entry .entry-actions .btn-twitter,.entry .entry-actions .btn-facebook,.entry .entry-actions .btn-instapaper,.entry .entry-actions .btn-readitlater{
+	background: url('http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/src/images/share.png') transparent no-repeat 0% 0% !important;
+	padding-left:18px !important;
+}
+.entry .entry-actions .btn-facebook{
+	background-position: 0 0px !important;
+}
+.entry .entry-actions .btn-facebook.btn-active{
+	background-position: 0 -16px;
+}
+
+.entry .entry-actions .btn-twitter{
+	background-position: 0 -32px !important;
+}
+.entry .entry-actions .btn-twitter.btn-active{
+	background-position: 0 -48px;
+}
+
+.entry .entry-actions .btn-instapaper{
+	background-position: 0 -64px !important;
+}
+.entry .entry-actions .btn-instapaper.btn-active{
+	background-position: 0 -80px;
+}
+
+.entry .entry-actions .btn-readitlater{
+	background-position: 0 -96px !important;
+}
+.entry .entry-actions .btn-readitlater.btn-active{
+	background-position: 0 -112px;
+}

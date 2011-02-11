@@ -15,6 +15,8 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
     // NORMALIZE=false leaves the tags alone
     // NORMALIZE=true converts tags to proper case and replaces -'s with spaces,
     // like reader should itself
+	//var CLS_ACTIVE='item-star-active star link';
+	var CLS_ACTIVE='item-star-active btn-active star link';
     
 	function getPref(name, def){
 		return prefs[ID+'_'+name] || def;
@@ -95,21 +97,15 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
     var NORMALIZE = true;
     
     // Variables for editing bookmark details
-    var bookmarkField;
-    var bookmarkStar;
-    var lblinput;
-    var notesinput;
-    var urlinput;
-    var url;
-    var titleinput;
-    var notesdesc;
-    
-    var mode;
+    var bookmarkField,bookmarkStar,lblinput,notesinput;
+    var urlinput,url,titleinput,notesdesc,mode;
+	var BTN_CLS = 'item-share star';
+	var BTN_CLS_ID ='btn-'+ID+' '+BTN_CLS;
     
     function addMicroButton(el, entry, mode){
         var title = SL.text + formatShortcut(ID, 'tweet', prefs); //[b]
         var text = (prefs && prefs.general_icons) ? '' : (SL.keyword || ID);
-        addBottomLink(el, text, title, ID, 'item-star star', false, postBookmark, false, entry, mode);
+        addBottomLink(el, text, title, ID, BTN_CLS, false, postBookmark, false, entry, mode);
     }
     function addKey(){
         onKey('btn-'+ID, postBookmark);
@@ -131,7 +127,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
             // parent = bookmarkStar.parentNode.parentNode;
             parent.className = "entry read expanded action-area-visible";
         }
-        bookmarkStar.className = "item-star-active star link";
+        bookmarkStar.className = "btn-"+ID+" " + CLS_ACTIVE;
         
         var link = getEntryLink(entry);
         url = link.url;
@@ -139,7 +135,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
         var addbkmk = getBookmarkField();
         if (mode == "expanded") {
             if (addbkmk.className == "action-area card-bottom") {
-                bookmarkStar.className = "item-star star link";
+                bookmarkStar.className = BTN_CLS_ID+" link";
                 addbkmk.className = "action-area card-bottom hidden";
                 bookmarkStar.parentNode.parentNode.className = "card-actions card-bottom";
                 return;
@@ -147,7 +143,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
             addbkmk.className = "action-area card-bottom";
         } else {
             if (addbkmk.className == "action-area") {
-                bookmarkStar.className = "item-star star link";
+                bookmarkStar.className = BTN_CLS_ID+" link";
                 addbkmk.className = "action-area hidden";
                 parent.className = "entry read expanded";
                 return;
@@ -179,7 +175,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
             btnCancel.addEventListener("click", function(){
                 bookmarkStar.parentNode.parentNode.className = "card-actions card-bottom";
                 bookmarkField.className = "action-area card-bottom hidden";
-                bookmarkStar.className = "item-star star link";
+                bookmarkStar.className = BTN_CLS_ID+" link";
                 notesdesc.innerHTML = SL.notemax;
                 notesinput.value = "";
             }, false);
@@ -187,7 +183,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
             btnCancel.addEventListener("click", function(){
                 parent.className = "entry read expanded";
                 bookmarkField.className = "action-area hidden";
-                bookmarkStar.className = "item-star star link";
+                bookmarkStar.className = BTN_CLS_ID+" link";
                 notesdesc.innerHTML = SL.notemax;
                 notesinput.value = "";
             }, false);
@@ -266,7 +262,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
             bookmarkField.parentNode.className = "entry read expanded";
         }
         bookmarkField.className += " hidden";
-        bookmarkStar.className = "item-star-active star link";
+        bookmarkStar.className = CLS_ACTIVE;
         notesinput.value = "";
     }
     

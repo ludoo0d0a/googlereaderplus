@@ -7,7 +7,7 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
     function addButton(el, entry, mode){
         var title = SL.text + formatShortcut(ID, ID, prefs);
 		var text = (prefs && prefs.general_icons)?'':(SL.keyword || ID);
-        addBottomLink(el, text, title, ID, 'item-star star', false, readitlaterClick, false, entry, mode);
+        addBottomLink(el, text, title, ID, 'item-share star', false, readitlaterClick, false, entry, mode);
     }
     function addKey(){
         onKey('btn-' + ID, readitlaterClick);
@@ -62,8 +62,8 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
             onload: function(r){
                 if (r.status == api.successCode) {
                     //set star active
-                    addClass(btn, 'item-star-active');
-                    removeClass(btn, 'item-star');
+                    addClass(btn, 'item-star-active btn-active');
+                    removeClass(btn, 'item-share');
                 } else if (api.errors[r.status]) {
                     alert(SL[api.errors[r.status]]);
                 } else {
