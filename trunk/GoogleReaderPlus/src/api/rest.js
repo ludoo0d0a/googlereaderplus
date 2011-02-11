@@ -1,4 +1,5 @@
 var GRP_MIRROR = 'http://greaderplus.appspot.com/';
+//var GRP_MIRROR = 'http://3.latest.greaderplus.appspot.com/';
 
 GRP.api_rest = function(name, local, cached){
     //http://wedata.net/help/api
@@ -33,7 +34,7 @@ GRP.api_rest = function(name, local, cached){
         }
     };
     
-    function send(method, url, params, cb){
+    function send(method, url, params, cb, cberr){
 		function response(xhr){
 			if (config.successCodes[xhr.status]) {
 				if (cb) {
@@ -58,7 +59,9 @@ GRP.api_rest = function(name, local, cached){
 				}
 			},
 			onerror: function(xhr){
-				if (cb) {
+				if (cberr) {
+					cberr(xhr);
+				}else if (cb) {
 					cb(xhr, false);
 				}
 			}
@@ -77,12 +80,18 @@ GRP.api_rest = function(name, local, cached){
     return ({
         all: {
             getAll: function(o /* page */, success, error){
-                var url = config.all.cache||(config.base + config.all.getall);
-				o=o||{};
+                o=o||{};
                 var params = {
                     page: o.page||1
                 };
-                send('get', url, params, success, error);
+				var url = config.all.cache;
+				if (url){
+					send('get', url, params, success, function(){
+						console.log('Retry all.getAll without cache');
+						var url = config.base + config.all.getall;
+						send('get', url, params, success, error);
+					});
+				}
             },
 			get: function(o /* name, page */, success, error){
                 var url = config.base + config.all.get;
@@ -130,11 +139,18 @@ GRP.api_rest = function(name, local, cached){
         },
         item: {
             getAll: function(o /* name, page */, success, error){
-				var url = config.item.cache||(config.base + config.item.getall);
+				o=o||{};
                 var params = {
-                    page: o.page
+                    page: o.page||1
                 };
-                send('get', url, params, success, error);
+				var url = config.item.cache;
+				if (url){
+					send('get', url, params, success, function(){
+						console.log('Retry item.getAll without cache');
+						var url = config.base + config.item.getall;
+						send('get', url, params, success, error);
+					});
+				}
             },
 			get: function(o /* name, page, id */, success, error){
                 var url = config.base + config.item.get.replace(':id', o.id);
