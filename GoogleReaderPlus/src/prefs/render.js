@@ -100,7 +100,7 @@ function renderScripts(){
         }else{
 			ulcat = list;
 		}
-        var html = '';
+        html = '';
 		
         iterate(scripts, function(id, script){
 			script.dlink = '>';
@@ -278,16 +278,19 @@ var EDITORS = {};
 function extraFeatures(){
     textareaTab();
     renderpicker();
-    //var CODEMIRROR_PATH = 'http://marijn.haverbeke.nl/codemirror';
-    var CODEMIRROR_PATH = 'lib/codemirror';
+	
+    var CODEMIRROR_PATH = 'http://marijn.haverbeke.nl/codemirror';
+    //var CODEMIRROR_PATH = chrome.extension.getURL('lib/codemirror');
+	//var localcss = chrome.extension.getURL('css/editor.css');
     if (CodeMirror && get_id('relook_css')) {
         EDITORS.relook_css = CodeMirror.fromTextArea('relook_css', {
+		//EDITORS.relook_css = new CodeMirror(CodeMirror.replace(document.getElementById('relook_css')), {
             parserfile: "parsecss.js",
-            stylesheet: [CODEMIRROR_PATH + "/css/csscolors.css", "css/editor.css"],
-            path: CODEMIRROR_PATH + "/js/",
-            tabMode: 'shift',
+            stylesheet: [CODEMIRROR_PATH + "/css/csscolors.css", 'css/editor.css'],
+            path: CODEMIRROR_PATH + "/js/"
+            ,tabMode: 'shift',
             height: '500px'
-        });
+      });
     }
 }
 
@@ -338,7 +341,7 @@ function renderSkins(){
             if (id === "none") {
                 input.value = "";
                 addClass(thumb, "hidden", true);
-				addClass(get_id('skindesc'), "hidden", true)
+				addClass(get_id('skindesc'), "hidden", true);
             } else {
                 input.value = id;
                 thumb.className = "";
