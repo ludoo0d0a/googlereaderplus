@@ -69,7 +69,7 @@ GRP.scripts = {
     theme: {
         name: "Theme",
         category: 'theme',
-        status: 'updated',
+		status: 'updated',
         options: {
             skin: '',
             noborder: false,
@@ -279,6 +279,7 @@ GRP.scripts = {
     favicons: {
         name: "Favicons",
         category: 'icons',
+		status: 'updated',
         options: {
             providerpageicons: false,
             sidebaronly: false,
@@ -425,16 +426,6 @@ GRP.scripts = {
             }
         }
     },
-    filter: {
-        name: "Filter entries",
-        category: 'layout',
-		status:'updated',
-        options: {
-            searchbody: false,
-			excludes: {xtype:'textarea',list:true,cls:'xlist'},
-			highlights: {xtype:'textarea',list:true,cls:'xlist'}
-        }
-    },
     readbymouse: {
         name: "Read by mouse",
         category: 'navigation'
@@ -456,7 +447,6 @@ GRP.scripts = {
     twitter: {
         name: "Twitter integration",
         category: 'share',
-		status: 'updated',
         options: {
             shortener: {
                 xtype: 'select',
@@ -738,6 +728,16 @@ GRP.scripts = {
             }
         }
     },
+	filter: {
+        name: "Filter entries",
+        category: 'content',
+		status:'updated',
+        options: {
+            searchbody: false,
+			excludes: {xtype:'textarea',list:true,cls:'xlist'},
+			highlights: {xtype:'textarea',list:true,cls:'xlist'}
+        }
+    },
    /* menu: {
      name: "Smart menu",
 	 category: 'navigation',
@@ -933,7 +933,7 @@ GRP.skins = {
 		ref:'https://code.google.com/p/sublimereader'
     },
 	redesigned: {
-        name: "Redesigned",
+        name: "Redesigned <span class='updated'>Updated!</span>",
 		ref:'http://www.globexdesigns.com/products/gr/'
     },
 	webbizgeek: {
@@ -981,16 +981,13 @@ GRP.skins = {
         ref: 'http://userstyles.org/styles/16117',
         desc: 'userstyles.org'
     },
-    /*
-     '31d1remix':
-     {
-     name: "31d1 remix",
-     url:'http://userstyles.org/styles/userjs/3519/Google%20Reader%20-%2031d1%20remix%20.user.js',
-     pic:'http://userstyles.org/style_screenshots/3519_after.png',
-     ref:'http://userstyles.org/styles/3519',
-     desc: 'userstyles.org'
-     },
-     */
+    /*'31d1remix': {
+	    name: "31d1 remix <span class='new'>New!</span>",
+	    url:'http://userstyles.org/styles/userjs/3519/Google%20Reader%20-%2031d1%20remix%20.user.js',
+	    pic:'http://userstyles.org/style_screenshots/3519_after.png',
+	    ref:'http://userstyles.org/styles/3519',
+	    desc: 'userstyles.org'
+    },*/
     absolutelycompact: {
         name: "Absolutely Compact",
         url: 'http://userstyles.org/styles/userjs/12691/Google%20Reader%20Absolutely%20Compact.user.js',
@@ -1014,7 +1011,7 @@ GRP.skins = {
         desc: 'userstyles.org'
     },
 	purereader:{
-        name: "Pure Reader <span class='updated'>Updated!</span>",
+        name: "Pure Reader",
         url: 'http://idzr.org/2ioj',
         pic: 'http://nadesign.net/safari/images/preview-reader.png',
         ref: 'http://nadesign.net/safari/',
@@ -1022,7 +1019,7 @@ GRP.skins = {
         resize: true
     },
 	snowleopard: {
-        name: "Snow Leopard Improved <span class='new'>New!</span>",
+        name: "Snow Leopard Improved <span class='updated'>Updated!</span>",
 		url: 'http://userstyles.org/styles/userjs/41190/Google%20Reader%20for%20Snow%20Leopard%20Improved.user.js',
         pic: 'http://userstyles.org/style_screenshots/41190_after.png',
         ref: 'http://userstyles.org/styles/41190',
