@@ -288,6 +288,20 @@ function insertFirst(el, ref){
         ref.parentNode.appendChild(el);
     }
 }
+function insertOn(el, ref, position){
+	if (position=='before' || position == 1) {
+		//after
+		insertAfter(el, ref);
+	} else if (position=='after' || position == 2) {
+		//before
+		insertBefore(el, ref);
+	} else {
+		if (ref) {
+			//append
+			ref.appendChild(el);
+		}
+	}
+}
 
 function remove(el){
     if (el && el.parentNode) {
@@ -608,6 +622,16 @@ function findTop(obj, relative){
             curtop += obj.offsetTop;
         } while ((obj = obj.offsetParent) && (!relative || (relative && relative!==obj)) );
         return curtop;
+    }
+}
+
+function findLeft(obj, relative){
+    var curleft = 0;
+    if (obj.offsetParent) {
+        do {
+            curleft += obj.offsetLeft;
+        } while ((obj = obj.offsetParent) && (!relative || (relative && relative!==obj)) );
+        return curleft;
     }
 }
 
@@ -1029,7 +1053,7 @@ function applyRemoteLang(lang, base, id, o, fn, scope){
 
 //http://snipplr.com/view/9649/escape-regular-expression-characters-in-string/
 //http://simonwillison.net/2006/Jan/20/escape/
-var re_encodeRE = new RegExp("[.*+?|()\\[\\]{}\\\\]", "g"); // .*+?|()[]{}\
+var re_encodeRE = new RegExp("[-^$.*+?|()\\[\\]{}\\\\]", "g"); // .*+?|()[]{}\
 function encodeRE(s){
     return s.replace(re_encodeRE, "\\$&").replace(' ', '\\W');
 }
@@ -1213,11 +1237,14 @@ function hide(el){
 }
 
 function toggle(el){
-    if (isShown(el)) {
+    var r = false;
+	if (isShown(el)) {
         hide(el);
+		r = true;
     } else {
         show(el);
     }
+	return r;
 }
 
 function showas(el, hideme){
@@ -1357,15 +1384,7 @@ function dhc(config){
         cfg.root = el;
         dhc(cfg);
     }
-    if (config.position) {
-        if (config.position === 'before') {
-            insertBefore(el, root);
-        } else {
-            insertAfter(el, root);
-        }
-    } else {
-        root.appendChild(el);
-    }
+	insertOn(el, root, config.position);
     return el;
 }
 
@@ -1431,3 +1450,9 @@ function getTypedValue(o){
     }
 }
 
+function trim(s){
+    return s ? s.replace(/^\s+|\s+$/g, "") : "";
+}
+function trimEx(s){
+	return (s||'').replace(/^[\s\t\n\r]*/,'').replace(/[\s\t\n\r]*$/,'');
+}
