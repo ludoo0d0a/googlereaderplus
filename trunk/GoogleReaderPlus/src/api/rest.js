@@ -1,5 +1,5 @@
 var GRP_MIRROR = 'http://greaderplus.appspot.com/';
-//var GRP_MIRROR = 'http://3.latest.greaderplus.appspot.com/';
+//var GRP_MIRROR = 'http://node.greaderplus.appspot.com/';
 
 GRP.api_rest = function(name, local, cached){
     //http://wedata.net/help/api
@@ -43,7 +43,11 @@ GRP.api_rest = function(name, local, cached){
 				}
 			} else {
 				console.error((SL[xhr.status]||config.errors[xhr.status]||SL.error).replace('$status', xhr.status||''));
-				cb(null, false);
+				if (cberr) {
+					cberr();
+				} else if (cb) {
+					cb(null, false);
+				}
 			}
 		}
 		var o = {
