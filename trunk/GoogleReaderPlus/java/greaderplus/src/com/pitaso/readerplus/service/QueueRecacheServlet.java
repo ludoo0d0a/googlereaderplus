@@ -27,6 +27,15 @@ public class QueueRecacheServlet extends AbstractWeDataServlet{
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 	throws IOException {
+		doStuff(req, resp);
+	}
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+	throws IOException {
+		doStuff(req, resp);
+	}
+	
+	private void doStuff(HttpServletRequest req, HttpServletResponse resp)
+	throws IOException {
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");
 		
@@ -34,6 +43,7 @@ public class QueueRecacheServlet extends AbstractWeDataServlet{
 		populate(database);
 		resp.getWriter().println("[]");
 	}
+	
 	
 	
 	

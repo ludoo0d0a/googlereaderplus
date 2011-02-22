@@ -7,9 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public class CronRecacheServlet extends AbstractWeDataServlet{
 
-
-	private String database = null;
-	
 	/**
 	 * 
 	 */

@@ -29,32 +29,51 @@ public abstract class AbstractWeDataServlet extends HttpServlet {
 
 	private static final Logger log = Logger
 			.getLogger(AbstractWeDataServlet.class.getName());
+	private static final int INFINITUM = 99000;
+	private static final int NODES = 3;
+	//set to false for main redirect servlet <application>greaderplus</application>
+	//set to true for cluster nodes where X is the node number <application>greaderplusX</application>
+	private static final boolean REDIRECT = true;
 
 	public abstract String getDatabase();
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		resp.setContentType("application/json");
-		resp.setCharacterEncoding("UTF-8");
-		resp.setHeader("Cache-Control", "max-age=3600, public");
-
-		String reload = req.getParameter("reload");
-		String out = null;
-		String cached = "1";
-		if ("1".equals(reload)) {
-			//force reloading
-			cached = "0";
-			out = populate(getDatabase());
+		if (REDIRECT) {
+			redirect(req, resp);
 		}else{
-			Cache cache = getCache();
-			out = (String) cache.get(getDatabase());
-			if (out == null) {
+			resp.setContentType("application/json");
+			resp.setCharacterEncoding("UTF-8");
+			resp.setHeader("Cache-Control", "max-age=7200, public");
+	
+			String reload = req.getParameter("reload");
+			String out = null;
+			String cached = "1";
+			if ("1".equals(reload)) {
+				// force reloading
 				cached = "0";
 				out = populate(getDatabase());
+			} else {
+				Cache cache = getCache();
+				// RatedCache cache = new RatedCache();
+				out = (String) cache.get(getDatabase());
+				if (out == null) {
+					cached = "0";
+					out = populate(getDatabase());
+				}
 			}
+			resp.setHeader("GRP-cached", cached);
+			resp.getWriter().println(out);
 		}
-		resp.setHeader("GRP-cached", cached);
-		resp.getWriter().println(out);
+	}
+
+	public void redirect(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		int node = (int) Math.round(Math.random() * (NODES - 1)) + 1;
+		log.info("Redirect on node " + node);
+		String url = "http://greaderplus" + node + ".appspot.com"
+				+ req.getServletPath();
+		resp.sendRedirect(url);
 	}
 
 	protected String populate(String database) {
@@ -62,9 +81,14 @@ public abstract class AbstractWeDataServlet extends HttpServlet {
 		if (database != null) {
 			out = getContent("http://wedata.net/databases/" + database
 					+ "/items.json");
+
+			// Debug
+			// out = getDummyString();
+
 			if (out != null) {
 				out = compactJson(out);
 				Cache cache = getCache();
+				// RatedCache cache = new RatedCache();
 				if (cache != null && out != null) {
 					log.log(Level.INFO, "size" + out.length());
 					cache.put(database, out);
@@ -75,7 +99,21 @@ public abstract class AbstractWeDataServlet extends HttpServlet {
 				out = "{\"error\":\"no content\"}";
 			}
 		}
+
+		// Debug
+		// RatedCache cache2 = new RatedCache();
+		// out = (String) cache2.get(database);
+
 		return out;
+	}
+
+	private String getDummyString() {
+		StringBuffer sb = new StringBuffer(10 * INFINITUM);
+		for (int i = 0; i < INFINITUM; i++) {
+			sb.append("dummydumm_");
+		}
+
+		return sb.toString();
 	}
 
 	/**
@@ -84,15 +122,17 @@ public abstract class AbstractWeDataServlet extends HttpServlet {
 	public void update() {
 		update(getDatabase());
 	}
-	
-	public void update(String database) {
-		Cache cache = getCache();
 
-		String out = (String) cache.get(getDatabase());
-		if (out == null) {
-			Queue queue = QueueFactory.getQueue("reloadqueue");
-			queue.add(withUrl("/queue/recache")
-					.param("database", database).method(Method.POST));
+	public void update(String database) {
+		if (database != null) {
+			// RatedCache cache = new RatedCache();
+			Cache cache = getCache();
+			String out = (String) cache.get(database);
+			if (out == null) {
+				Queue queue = QueueFactory.getQueue("reloadqueue");
+				queue.add(withUrl("/queue/recache").param("database", database)
+						.method(Method.POST));
+			}
 		}
 	}
 
