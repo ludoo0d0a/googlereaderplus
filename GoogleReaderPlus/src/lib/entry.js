@@ -30,6 +30,7 @@ function execAll(el, entry, mode, force){
 function execAllOffset(el, entry, mode, force){
     for (var i = 0, len = stackFeatures.length; i < len; i++) {
         var p = stackFeatures[i].params;
+		//console.log('p.bid='+p.bid);
         if (el) {
             //ListView-opened + ExpandedView
             if (!isTagged(el, p.bid)) {
@@ -38,8 +39,9 @@ function execAllOffset(el, entry, mode, force){
         } else {
             //ListView-closed
             if (p && p.onlistviewtitle) {
-                //only for favcions (onlistviewtitle=true)
-                if (force || !isTagged(entry.firstChild, p.bid)) {
+                //only for favicons (onlistviewtitle=true)
+                //if (force || !isTagged(entry.firstChild, p.bid)) {
+				if (force || !isTagged(entry, p.bid)) {
                     stackFeatures[i].fn.call(this, el, entry, mode);
                 }
             }
@@ -412,37 +414,123 @@ function initResize(fn){
         }
     }, false);
 }
+var countbtn=1;
+function addSplitButton(reference, text, title, fn, fnmenu, position, items){
+	var menu, split = dh(reference, 'div', {
+		id:'filter-split-button', 
+		position:position
+	});
+	var btn = addButton(split, text, title, fn, 0,false);
+	btn.style.marginRight = '-2px';
+	var dwn = addButton(split, '&nbsp;', '', function(){
+		if (menu) {
+			var visible = toggle(menu);
+			addClassIf(dwn, 'goog-button-base-open', visible);
+			//set pos
+			menu.style.top = (findTop(dwn)+dwn.clientHeight) + 'px';
+			menu.style.left = findLeft(btn) + 'px';
+		}
+	}, 0,true);
+	
+	var id = ':rpjm'+countbtn++;
+	menu = dh(document.body, 'div', {
+		id:id,
+		cls:'goog-menu goog-menu-vertical',
+		style:"-webkit-user-select: none; visibility: visible; display: none;",
+		role:"menu",
+		tabindex:-1
+	});
+	
+	var iitem=1;
+	foreach(items,function(item){
+		if (item.text) {
+			addMenuItem(menu, dwn, iitem++, item);
+		}else{
+			addMenuSeparator(menu, dwn, iitem++);
+		}
+	});
+	
+	hide(menu);
+}
 
-function addButton(reference, text, title, fn, position){
+function addMenuSeparator(menu, dwn, id, text){
+	dh(menu, 'div', {
+		id:menu.id+'_ev'+id,
+		cls:'goog-menuseparator',
+		style:"-webkit-user-select: none;",
+		role:"separator"
+	});
+}
+
+function addMenuItem(menu, dwn, id, item){
+	var html=item.text, chkbox = item.checkbox, _close = item.close;
+	
+	if (item.textarea){
+		html+='<br/><textarea id="t_'+(item.id||id)+'" rows="5" cols="25">'+(item.value||'')+'</textarea>';
+	}
+	var el = dh(menu, 'div', {
+		id:item.id||(menu.id+'_'+id),
+		cls:'goog-menuitem goog-option'+(chkbox && item.value?' goog-option-selected':''),
+		style:"-webkit-user-select: none;",
+		role:"menuitem",
+		tabindex:-1, 
+		html:'<div class="goog-menuitem-content"><div class="goog-menuitem-checkbox"></div>'+html+'</div></div>'
+	},{
+		mouseover:function(e){
+			addClass(el, 'goog-menuitem-highlight');
+		},
+		mouseout:function(){
+			removeClass(el, 'goog-menuitem-highlight');
+		},
+		click:function(){
+			if (_close){
+				removeClass(el, 'goog-menuitem-highlight');
+				hide(menu);
+			}else if (chkbox){
+				addClassIf(el, 'goog-option-selected');
+			}
+			if (item.click){
+				fwdClick();
+			}
+		}
+	});
+	function fwdClick(){
+		var sel = hasClass(el, 'goog-option-selected');
+		item.click(el, menu, id, sel);
+	}
+}
+
+	
+function addButton(reference, text, title, fn, position, menu){
     position = position || 0;
     var div = document.createElement('div');
-    div.style.marginLeft = '0.5em';
-    div.className = 'goog-button goog-button-base unselectable goog-inline-block goog-button-float-left goog-button-tight';
+	var styleBaseContent = '';
+	if (menu) {
+		styleBaseContent=' style="padding:0 .95em 0 0;"';
+	}else{
+		div.style.marginLeft = '0.5em';
+	}
+    var cls  = 'goog-button goog-button-base unselectable goog-inline-block goog-button-float-left goog-button-tight';
+	var dropdown = '';
+	if (menu){
+		cls+=' goog-menu-button';
+		dropdown = '<div class="goog-menu-button-dropdown"></div>';
+	}
+	div.className = cls;
     div.setAttribute('tabindex', '0');
     if (title) {
         div.setAttribute('title', title);
     }
     div.setAttribute('role', 'wairole:button');
-    div.innerHTML = '<div class="goog-button-base-outer-box goog-inline-block"><div class="goog-button-base-inner-box goog-inline-block"><div class="goog-button-base-pos"><div class="goog-button-base-top-shadow">&nbsp;</div><div class="goog-button-base-content"><div class="goog-button-body">' + text + '</div></div></div></div></div>';
-    if (position == 1) {
-        //after
-        if (reference.nextSibling) {
-            reference.parentNode.insertBefore(div, reference.nextSibling);
-        } else {
-            //last item
-            reference.parentNode.appendChild(div);
-        }
-    } else if (position == 2) {
-        //before
-        reference.parentNode.insertBefore(div, reference);
-    } else {
-        //append
-        reference.appendChild(div);
-    }
+	
+	
+    div.innerHTML = '<div class="goog-button-base-outer-box goog-inline-block"><div class="goog-button-base-inner-box goog-inline-block"><div class="goog-button-base-pos"><div class="goog-button-base-top-shadow">&nbsp;</div><div class="goog-button-base-content" '+styleBaseContent+'><div class="goog-button-body">' + text + '</div>'+dropdown+'</div></div></div></div>';
+    insertOn(div, reference, position);
     var me = this;
     div.addEventListener('click', function(e){
         fn.call(me);
     }, false);
+	return div;
 }
 
 function onKey(cls, fn){
@@ -495,7 +583,7 @@ function isActive(btn, entry, cls, locked, clsOn, clsOff){
 function isTagged(entry, cls){
     var tagged = entry.getAttribute(cls);
     if (!tagged) {
-        entry.setAttribute(cls, 'true');
+        entry.setAttribute(cls, '1');
     }
     return tagged;
 }
@@ -564,7 +652,7 @@ function addMenuItems(menu, items){
         addClass(el, 'goog-menuitem goog-option ' + ((item.selected) ? 'goog-option-selected' : ''));
         el.role = "menuitem";
         el.style = "-moz-user-select: none;";
-        el.id = ':grp' + i;
+        el.id = item.id||(':grp' + i);
         el.innerHTML = fillTpl(tplInner, item);
         var callback = function(){
             item.fn.call(el, [item, el]);
