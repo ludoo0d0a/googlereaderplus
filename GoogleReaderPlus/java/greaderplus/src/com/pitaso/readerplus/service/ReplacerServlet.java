@@ -6,6 +6,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.pitaso.readerplus.pojo.ItemLDRFullFeed;
 import com.pitaso.readerplus.pojo.ItemReplacer;
 
 public class ReplacerServlet extends AbstractWeDataServlet{
@@ -32,6 +33,11 @@ public class ReplacerServlet extends AbstractWeDataServlet{
 	public String compactJson(String json) {
 		Type listType = new TypeToken<List<ItemReplacer>>() {}.getType();
 		List<ItemReplacer> items = new Gson().fromJson(json, listType);
+		
+		int i=0;
+		for (ItemReplacer item : items) {
+			item.setName(""+(++i));
+		}
 		
 		//Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		Gson gson = new GsonBuilder().create();
