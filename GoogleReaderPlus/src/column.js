@@ -102,7 +102,7 @@ GRP.column = function(prefs, langs, ID, SL, lang){
     }
 	
     
-    function wrapHtml(entries, divwrap, hpage, divoriginal){
+    function wrapHtml(entries, divwrap, _hpage, divoriginal){
         var paras = divoriginal.childNodes;
 		if (paras.length < miniparas){
 			//too little
@@ -110,10 +110,10 @@ GRP.column = function(prefs, langs, ID, SL, lang){
 		}
 		
 		var ecw = entries.clientWidth;
-        var div = createDiv(divwrap, hpage);
+        var div = createDiv(divwrap, _hpage);
         var length = paras.length;
         var cwh = getColumWidth();
-        
+
         if (paras && length > 0) {
             var cp, top, h, tag, line, offset;
             for (var i = 0; i < length; i++) {
@@ -149,11 +149,13 @@ GRP.column = function(prefs, langs, ID, SL, lang){
 					}
 					
                     //fix it up if width > page.width
-                    if (prefs.column_pagebreak && div.scrollWidth > ecw) {
-                        //new div
-                        var newdiv = createDiv(divwrap, hpage);
-                        newdiv.appendChild(para);
-                        div = newdiv;
+                    if (prefs.column_pagebreak){
+						if  (div.scrollHeight > _hpage || div.scrollWidth > ecw) {
+	                        //new div
+	                        var newdiv = createDiv(divwrap, _hpage);
+	                        newdiv.appendChild(para);
+	                        div = newdiv;
+						}
                     }
                 }
             }
@@ -165,12 +167,12 @@ GRP.column = function(prefs, langs, ID, SL, lang){
 		return true;
     }
     
-    function createDiv(parent, hpage){
+    function createDiv(parent, _hpage){
         var div = document.createElement('div');
         div.className = 'column-wrapped';
         if (prefs.column_pagebreak) {
-            if (hpage > 0) {
-                div.style['max-height'] = hpage + 'px';
+            if (_hpage > 0) {
+                div.style['max-height'] = _hpage + 'px';
             }
         }
         parent.appendChild(div);
