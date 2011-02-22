@@ -12,6 +12,9 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
     
     function initVars(){
         gp_data = {};
+		
+		GM_addStyle('.entry.preview .p_replacer{display:none}', 'rps_replacer_preview');
+		
         parseItems(gp_data, prefs.replacer_items);
         
         if (prefs.replacer_cloud) {
@@ -182,6 +185,7 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
          hide(entryBody);
          }*/
         partIndex++;
+		el.className = 'p_replacer';
         el.id = TPL_NAME + partIndex;
         el.innerHTML = SL.loading;
         hide(el);
