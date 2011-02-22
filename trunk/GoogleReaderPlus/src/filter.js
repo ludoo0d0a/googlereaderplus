@@ -1,13 +1,15 @@
 /**
  * Google Reader Filter
- * @version  0.6
+ * @version  2.0
  * @date 2009-08-14
  *
  * Filters duplicated entries and unwanted content or highlight chosen content based on keywords (with regex support).
+ * Completely rewritten to be well integrated, and easy to write useful expressions as well as expert mode.
  *
  * Original author :
  * Elad Ossadon (http://twitter.com/elado | http://www.devign.co.il | elado7@gmail.com)
  * http://userscripts.org/scripts/show/23671
+ * 
  *
  */
 GRP.filter = function(prefs, langs, ID, SL, lang){
