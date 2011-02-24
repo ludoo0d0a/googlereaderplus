@@ -733,9 +733,14 @@ GRP.scripts = {
         category: 'content',
 		status:'updated',
         options: {
-            searchbody: false,
 			excludes: {xtype:'textarea',list:true,cls:'xlist'},
-			highlights: {xtype:'textarea',list:true,cls:'xlist'}
+			highlights: {xtype:'textarea',list:true,cls:'xlist'},
+			searchbody: false,
+			hide_duplicates: false,
+			hide_excludes: false,
+			prefer_highlights: false,
+			live: true,
+			word_mini: 4
         }
     },
    /* menu: {
