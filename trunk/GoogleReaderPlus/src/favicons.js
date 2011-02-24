@@ -197,11 +197,11 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
         var me = this;
         document.body.addEventListener('DOMNodeInserted', function(e){
             var target = e.target;
-            if (!target.grfm && target.className && (''+target.className).indexOf("goog-menu") >= 0) {
+			if (!target.grfm && hasClass(target,"goog-menu")) {
                 target.grfm = "1";
                 target.addEventListener('DOMNodeInserted', function(e){
                     var node = e.target;
-                    if (target.grfm !== "2") {
+                    if (target.id=='stream-prefs-menu-menu' && target.grfm !== "2") {
                         setTimeout(function(){
                             showMenuItem(target, me);
                         }, 500);
