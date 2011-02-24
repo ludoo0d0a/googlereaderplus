@@ -3,16 +3,36 @@ mycore.env.prefix = "readerplus.";
 //http://groups.google.com/group/greasekit-users/browse_thread/thread/d0ed6e8919bb6b42
 if (typeof GM_getValue === "undefined") {
     GM_getValue = function(name, def, cb){
-        //Move old nameing value to new prefixed place
-        /*var value = mycore.storage.getItem(name, cb);
-         if (value) {
-         GM_setValue(PREFIX + name, value);
-         mycore.storage.removeItem(name);//remove old
-         }*/
         value = mycore.storage.getItem(name, def, cb);
         return value;
     };
 }
+var GM_getValues = function(prefix, _names, cb){
+  var res={}, names=_names;
+  prefix=prefix||'';
+  _getValues(0, cb);
+  
+  function _getValues(i, fn){
+	/*if (typeof names[i] ==='string'){
+		names[i]= {name:names[i]};
+	}*/
+	var name = names[i].name||names[i];
+	
+	GM_getValue(prefix+name, name.def, function(value){
+		if ((typeof value ==='object') && value.length==1){
+			value=value[0];
+		}
+		res[name]=value;
+		
+		if (i < names.length-1) {
+			_getValues(++i, fn);
+		}else{
+			fn(res);
+		}
+	});
+	}
+};
+
 if (typeof GM_getCookieValue === "undefined") {
     GM_getCookieValue = function(name, def){
         var value;
