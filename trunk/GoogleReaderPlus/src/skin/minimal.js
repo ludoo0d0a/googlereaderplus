@@ -9,20 +9,23 @@
 //http://userscripts.org/scripts/show/12197
 
 GRP.minimal = function(){
-    var ids = ["viewer-header", "logo-container", "search", "chrome-header", "global-info", "gbar", "viewer-footer"];
+    //var ids = ["#viewer-header", "#logo-container", "#search", "#chrome-header", "#global-info", "#gbar", "#viewer-footer"];
     
     function toggle_gr(){
         var logo;
-        var length = ids.length;
+        //var length = ids.length;
         //var is_visible = document.getElementById(ids[0]).style.display != "none";
 		var is_visible = true;
         
+        /*
         for (var i = 0; i < length; i++) {
             if (document.getElementById(ids[i]) !== null) {         
                 document.getElementById(ids[i]).style.display = is_visible ? "none" : "block";
             }
-        }
-        var css = ".gbh { display:none !important; }"; // Hide dividing line
+        }*/
+		
+		var css = ".gbh { display:none !important; }"; // Hide dividing line
+        css += "#viewer-header,#logo-container,#search,#chrome-header,#global-info,#gbar,#viewer-footer { display:none !important; }"; // Hide dividing line
         css += "#entries .entry {padding-top: 2px}";
         css += ".card-common {margin: 0 2px}";
         css += ".entry .entry-source-title {font-size:110%;}";
@@ -33,32 +36,20 @@ GRP.minimal = function(){
         css += ".entry .entry-body {padding-top: 0;}";
         css += ".entry .entry-actions {padding: 2px;}";
 		css += "#chrome, #nav{padding-top:0 !important;}";
-        GM_addStyle(css, 'rps_minimal');
+        //GM_addStyle(css, 'rps_minimal');
 		
 		var css2 = '';
 
         if (is_visible) {
             css2 = '#main{top:0 !important;}';
-			/*logo = document.getElementById('main');
-            logo.style.top = '0';
-            
-            logo = document.getElementById('chrome');
-            logo.style.paddingTop = '0';
-            
-            logo = document.getElementById('nav');
-            logo.style.paddingTop = '0';*/
+			
         } else {
             css2 = '#main{top:65px !important;}';
-			/*logo = document.getElementById('main');
-            logo.style.top = '65px';
-            
-            logo = document.getElementById('chrome');
-            logo.style.paddingTop = '0';
-            
-            logo = document.getElementById('nav');
-            logo.style.paddingTop = '0';*/
         }
-		GM_addStyle(css2, 'rps_minimal_2');
+		
+		//GM_addStyle(css2, 'rps_minimal_2');
+		
+		GM_addStyle(css+css2, 'rps_minimal');
         fireResize();
     }
     
