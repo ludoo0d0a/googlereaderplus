@@ -87,7 +87,22 @@ GRP.langs[locale].texts = {
         add: 'Add',
         close: 'Close',
         edit: 'Edit',
-        remove: 'Remove'
+        remove: 'Remove',
+		//v2
+		filter: 'Filter',
+	    save: 'Save & apply',
+	    close: 'Close menu',
+	    searchbody: 'Search in whole body text',
+	    hide_duplicates: 'Hide Duplicates',
+	    hide_excludes: 'Hide Excludes',
+	    prefer_highlight: 'Prefer Highlights over excludes',
+	    highlights: 'Highlights',
+	    duplicates: 'Duplicates',
+	    excludes: 'Excludes',
+	    content: 'Content',
+	    addentry: 'Add',
+	    add_excludes: 'Add as exludes',
+	    add_highlights: 'Add as highlight'
     },
     fitheight: {
         text: 'Fit height',

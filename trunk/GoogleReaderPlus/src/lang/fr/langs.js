@@ -87,7 +87,22 @@ GRP.langs[locale].texts = {
         add: 'Ajouter',
         close: 'Fermer',
         edit: 'Editer',
-        remove: 'Effacer'
+        remove: 'Effacer',
+		//v2
+		filter: 'Filtrer',
+	    save: 'Sauver & appliquer',
+	    close: 'Fermer le menu',
+	    searchbody: 'Chercher dans tout le texte',
+	    hide_duplicates: 'Cacher les doublons',
+	    hide_excludes: 'Cacher les exclusions',
+	    prefer_highlight: 'Préférer les surlignages',
+	    highlights: 'Surlignages',
+	    duplicates: 'Doublons',
+	    excludes: 'Exclusions',
+	    content: 'Contenu',
+	    addentry: 'Ajouter',
+	    add_excludes: 'Exclure',
+	    add_highlights: 'Surligner'
     },
     fitheight: {
         text: 'Adapter la hauteur',
