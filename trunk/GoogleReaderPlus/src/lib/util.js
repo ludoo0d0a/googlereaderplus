@@ -48,25 +48,34 @@ function addAttr(el, name, value){
     attr.value = value;
     el.attributes.setNamedItem(attr);
 }
-
-function findParentNode(eel, etag, clazz){
-    var tag = etag.toUpperCase();
-    var el = eel.parentNode;
-    if (clazz) {
-        // Find first element's parent node matching tag and className
-        while (el && el.tagName !== 'BODY' && (el.tagName !== tag || !hasClass(el, clazz))) {
-            // console.log(el.tagName+'.'+el.className);
+function findParentNode(eel, etag, clazz, id){
+	return isAncestor(eel.parentNode, etag, clazz, id);
+}
+function isAncestor(el, etag, clazz, id){
+    var TAG_ROOT = '#document'; //'BODY'
+    var tag = (etag||'').toUpperCase();
+    if (clazz && etag) {
+	    //class+tag 
+		while (el && el.nodeName !== TAG_ROOT && (el.nodeName !== tag || !hasClass(el, clazz))) {
             el = el.parentNode;
-            /*
-             * if (!el){ console.log('el null for clazz '+clazz ); }
-             */
         }
-    } else {
-        while (el && el.tagName !== 'BODY' && el.tagName !== tag) {
+    } else if (clazz) {
+        //class only
+		while (el && el.nodeName !== TAG_ROOT && (!hasClass(el, clazz))) {
+            el = el.parentNode;
+        }
+    } else if (id) {
+        //id only
+		while (el && el.nodeName !== TAG_ROOT && (el.id !== id)) {
+            el = el.parentNode;
+        }
+    }else if (etag) {
+		//tag only
+		while (el && el.nodeName !== TAG_ROOT && (el.nodeName !== tag)) {
             el = el.parentNode;
         }
     }
-    return ((el && el.tagName !== 'BODY') ? el : false);
+    return ((el && el.nodeName !== TAG_ROOT) ? el : false);
 }
 
 function getFirstNode(el){
@@ -207,29 +216,17 @@ function serializeXml(nodes){
  * From jQuery
  */
 function serializePost(a, traditional){
-    var e = encodeURIComponent, s = [];
-    if (isArray(a) || a.jquery) {
-        forEeach(a, function(){
-            add(this.name, this.value);
-        });
-    } else {
-        for (var prefix in a) {
-            buildParams(prefix, a[prefix]);
-        }
-    }
-    return s.join("&").replace(/%20/g, "+");
-    
     function buildParams(prefix, obj){
         if (isArray(obj)) {
             iterate(obj, function(i, v){
-                if (traditional || /\[\]$/.test(prefix)) {
+                if (traditional || (/\[\]$/.test(prefix))) {
                     add(prefix, v);
                 } else {
                     buildParams(prefix + "[" + (typeof v === "object" || isArray(v) ? i : "") + "]", v);
                 }
             });
             
-        } else if (!traditional && obj != null && typeof obj === "object") {
+        } else if (!traditional && obj !== null && typeof obj === "object") {
             // Serialize object item.
             iterate(obj, function(k, v){
                 buildParams(prefix + "[" + k + "]", v);
@@ -246,6 +243,18 @@ function serializePost(a, traditional){
         value = (typeof value === 'function') ? value() : value;
         s[s.length] = e(key) + "=" + e(value);
     }
+	
+    var e = encodeURIComponent, s = [];
+    if (isArray(a) || a.jquery) {
+        forEeach(a, function(){
+            add(this.name, this.value);
+        });
+    } else {
+        for (var prefix in a) {
+            buildParams(prefix, a[prefix]);
+        }
+    }
+    return s.join("&").replace(/%20/g, "+");
 }
 
 function get_id(id){
@@ -619,7 +628,7 @@ function findTop(obj, relative){
     var curtop = 0;
     if (obj.offsetParent) {
         do {
-            curtop += obj.offsetTop;
+            curtop += obj.offsetTop - obj.scrollTop;
         } while ((obj = obj.offsetParent) && (!relative || (relative && relative!==obj)) );
         return curtop;
     }
@@ -916,9 +925,9 @@ function foreach(array, fn, scope){
     }
 }
 
-function map2array(o, key, value, flat, eu){
+function map2array(all, key, value, flat, eu){
     var r = [];
-    iterate(o, function(p, o){
+    iterate(all, function(p, o){
         var a = {};
         a[key || 'key'] = p;
         if (flat && typeof o === "object") {
@@ -985,18 +994,6 @@ function merge(o, c, defaults){
         merge(o, defaults);
     }
     if (typeof o !== "undefined" && typeof c !== "undefined") {
-        /*if (isArray(c)) {
- for (var i = 0, len = c.length; i < len; i++) {
- //o[i] = c[i];
- //console.log(c[i] + ' Amerge['+i+']> ' + o[i]);
- if (typeof c[i] === 'object' || isArray(c[i])) {
- merge(o[i], c[i]);
- } else {
- o[i] = c[i];
- }
- }
- //console.log('after: ' + c[i] + ' Amerge[' + i + ']> ' + o[i]);
- } else */
         if (typeof c === 'object') {
             for (var p in c) {
                 //console.log(c[p] + ' Omerge['+p+']> ' + o[p]);
@@ -1053,9 +1050,10 @@ function applyRemoteLang(lang, base, id, o, fn, scope){
 
 //http://snipplr.com/view/9649/escape-regular-expression-characters-in-string/
 //http://simonwillison.net/2006/Jan/20/escape/
-var re_encodeRE = new RegExp("[-^$.*+?|()\\[\\]{}\\\\]", "g"); // .*+?|()[]{}\
+//var re_encodeRE = new RegExp("[-^$.*+?|()\\[\\]{}\\\\]", "g"); // .*+?|()[]{}\
+var re_encodeRE = /\/[\-\^\$\.\*\+\?\\|\(\)\[\]{}\\\\]/g;
 function encodeRE(s){
-    return s.replace(re_encodeRE, "\\$&").replace(' ', '\\W');
+    return s.replace(re_encodeRE, "\\$&").replace(' ', '\\s');
 }
 
 function urlDecode(string){
@@ -1238,11 +1236,11 @@ function hide(el){
 
 function toggle(el){
     var r = false;
-	if (isShown(el)) {
-        hide(el);
-		r = true;
-    } else {
-        show(el);
+	if (isShown(el)){
+		hide(el);
+	} else {
+       show(el);
+	   r = true;
     }
 	return r;
 }
@@ -1455,4 +1453,18 @@ function trim(s){
 }
 function trimEx(s){
 	return (s||'').replace(/^[\s\t\n\r]*/,'').replace(/[\s\t\n\r]*$/,'');
+}
+
+function setValue(id, value){
+	var el = get_id(id);
+	if (el){
+		el.value = value;
+	}
+}
+function getValue(id, def){
+	var value=def||'', el = get_id(id);
+	if (el){
+		value=el.value;
+	}
+	return value;
 }

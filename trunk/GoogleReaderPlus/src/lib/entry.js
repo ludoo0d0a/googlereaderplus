@@ -414,33 +414,92 @@ function initResize(fn){
         }
     }, false);
 }
-var countbtn=1;
-function addSplitButton(reference, text, title, fn, fnmenu, position, items){
-	var menu, split = dh(reference, 'div', {
-		id:'filter-split-button', 
+var countbtn=0;
+function addSplitButton(id, reference, text, title, fn, fnmenu, position, items){
+	var menu,c=countbtn++, split = dh(reference, 'div', {
+		id:id||'split-button'+c, 
 		position:position
 	});
 	var btn = addButton(split, text, title, fn, 0,false);
 	btn.style.marginRight = '-2px';
+	addClass(btn, 'goog-menu-button');//use it as menu to get gray on highlight
+	
 	var dwn = addButton(split, '&nbsp;', '', function(){
-		if (menu) {
-			var visible = toggle(menu);
-			addClassIf(dwn, 'goog-button-base-open', visible);
-			//set pos
-			menu.style.top = (findTop(dwn)+dwn.clientHeight) + 'px';
-			menu.style.left = findLeft(btn) + 'px';
-		}
+		toggleMenu(menu,dwn,btn);
 	}, 0,true);
 	
-	var id = ':rpjm'+countbtn++;
-	menu = dh(document.body, 'div', {
+	menu=createMenu(':rpjm'+c, items, dwn);
+	
+	return btn;
+}
+
+function hideMenu(menu,dwn){
+	toggleMenu(menu,dwn,false,false);
+}
+function showMenu(menu,dwn,btn){
+	toggleMenu(menu,dwn,btn,true);
+}
+
+function toggleMenu(menu,dwn,btn,visible,init){
+	if (menu) {
+		if ((typeof visible === 'undefined') || (visible === null)){
+			visible = !hasClass(dwn, 'goog-button-base-open');
+		}
+		if (init && (typeof init ==='function')){
+			init(visible);
+		}
+		
+		showas(menu,!visible);
+		if (menu.dwn) {
+			removeClass(menu.dwn,'goog-button-base-open');
+		}
+		addClassIf(dwn, 'goog-button-base-open', visible);
+		if (visible) {
+			//set pos
+			menu.style.top = (findTop(dwn) + dwn.offsetHeight) + 'px';
+			var left = Math.max(0,Math.min(findLeft(btn || dwn), window.innerWidth-250));
+			menu.style.left = left + 'px';
+			menu.dwn = dwn;
+		}else{
+			menu.dwn = false;
+		}
+		
+		if (menu.autoclose){
+			if (!menu.clickElseWhere) {
+				//console.log('create menu.clickElseWhere');
+				menu.clickElseWhere = function(e){
+					//console.log('clickElseWhere...');
+					if (e.button === 0) {
+						var fm = findParentNode(e.target, false, false, menu.id);
+						//var fd = findParentNode(e.target, false, false, dwn.id);
+						//console.log('clickElseWhere parent:' + f);
+						if (menu && !fm) {
+							//console.log('clickElseWhere hideMenu');
+							hideMenu(menu, dwn);
+							e.stopPropagation();
+						}
+					}
+				};
+			}
+			if (visible) {
+				document.addEventListener('click', menu.clickElseWhere, true);
+			}else{
+				document.removeEventListener('click', menu.clickElseWhere, true);
+			}
+		}
+	}
+}
+
+function createMenu(id, items, dwn, autoclose){
+    var menu = dh(document.body, 'div', {
 		id:id,
 		cls:'goog-menu goog-menu-vertical',
 		style:"-webkit-user-select: none; visibility: visible; display: none;",
 		role:"menu",
 		tabindex:-1
 	});
-	
+	menu.autoclose=autoclose;
+    
 	var iitem=1;
 	foreach(items,function(item){
 		if (item.text) {
@@ -450,7 +509,9 @@ function addSplitButton(reference, text, title, fn, fnmenu, position, items){
 		}
 	});
 	
-	hide(menu);
+	hideMenu(menu,dwn);
+	
+	return menu;
 }
 
 function addMenuSeparator(menu, dwn, id, text){
@@ -466,7 +527,7 @@ function addMenuItem(menu, dwn, id, item){
 	var html=item.text, chkbox = item.checkbox, _close = item.close;
 	
 	if (item.textarea){
-		html+='<br/><textarea id="t_'+(item.id||id)+'" rows="5" cols="25">'+(item.value||'')+'</textarea>';
+		html+='<br/><textarea id="t_'+(item.id||id)+'" rows="'+(item.rows||5)+'" cols="'+(item.cols||25)+'">'+(item.value||'')+'</textarea>';
 	}
 	var el = dh(menu, 'div', {
 		id:item.id||(menu.id+'_'+id),
@@ -485,7 +546,7 @@ function addMenuItem(menu, dwn, id, item){
 		click:function(){
 			if (_close){
 				removeClass(el, 'goog-menuitem-highlight');
-				hide(menu);
+				hideMenu(menu,dwn);
 			}else if (chkbox){
 				addClassIf(el, 'goog-option-selected');
 			}
@@ -528,7 +589,7 @@ function addButton(reference, text, title, fn, position, menu){
     insertOn(div, reference, position);
     var me = this;
     div.addEventListener('click', function(e){
-        fn.call(me);
+		fn.call(me);
     }, false);
 	return div;
 }
@@ -622,43 +683,6 @@ function getShortcutKey(script, shortcut, prefs){
 
 function getScriptObject(id){
     return GRP.scripts[id];
-}
-
-function toggle(el){
-    if (!el.style.display) {
-        hide(el);
-    } else {
-        show(el);
-    }
-}
-
-function createMenu(items){
-    var menu = document.createElement('div');
-    menu.className = "goog-menu goog-menu-vertical";
-    menu.style = "-moz-user-select: none; left: 228px; top: 20.1px; max-height: 300px;";
-    menu.role = "menu";
-    //menu['aria-haspopup']=true;
-    menu.tabindex = -1;
-    menu.id = "stream-prefs-menu-menu";
-    addMenuItems(menu, items);
-}
-
-function addMenuItems(menu, items){
-    var item, i, len, html = '';
-    var tplInner = '<div class="goog-menuitem-content"><div class="goog-menuitem-checkbox"></div>{text}</div>';
-    for (i = 0, len = items.length; i < len; i++) {
-        item = items[i];
-        var el = document.createElement('div');
-        addClass(el, 'goog-menuitem goog-option ' + ((item.selected) ? 'goog-option-selected' : ''));
-        el.role = "menuitem";
-        el.style = "-moz-user-select: none;";
-        el.id = item.id||(':grp' + i);
-        el.innerHTML = fillTpl(tplInner, item);
-        var callback = function(){
-            item.fn.call(el, [item, el]);
-        };
-        el.addEventListener('click', callback, false);
-    }
 }
 
 function addReaderMenuItem(text, cb, checkbox){
