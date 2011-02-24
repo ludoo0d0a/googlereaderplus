@@ -9,66 +9,145 @@
  * Original author :
  * Elad Ossadon (http://twitter.com/elado | http://www.devign.co.il | elado7@gmail.com)
  * http://userscripts.org/scripts/show/23671
- * 
+ *
  *
  */
 GRP.filter = function(prefs, langs, ID, SL, lang){
-    var locked = false,_options = {};
-	
-	//TODO
-	SL.filter='Filter';
-	
-	var FILTERS = {
-		excludes: {text: 'Excludes'},
-		//duplicates:{text:'Duplicates'},
-		highlights:{text:'Highlights'}
-	};
+    var locked = false, _options = {}, entrymenu = false, toggleStatus = true, css = '', miniWord = 4;
+	var KEY_OPTIONS = ['live', 'searchbody', 'excludes','highlights', 'hide_excludes', 'hide_duplicates', 'prefer_highlights', 'word_mini'];
+
+    var FILTERS = {
+        excludes: {
+            text: 'Excludes'
+        },
+        highlights: {
+            text: 'Highlights'
+        }
+    };
     function initInterface(){
-        var css = ".entry-title-filter {margin-left: 4px;padding-left:16px;width:14px;height:14px;background-repeat:no-repeat;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sCFQ4vGkzKXpwAAAGjSURBVDjLpZJNThtBEIXf6+7xjBWE2USKxI9sJYdIzsUB4uxgkevkCoQTZBEhFp5IsEHxmITucXc9FliRjS0FiVpW9/v0ql4BrywCwLefqkdxfuTp65cKi0qaN6M2AMAopiOZ/1qI98E/QZ+XBJgRzgmAULK7GnbdaQDEvu/ovWsqjw97jZq6Isg1oYA+E9KqL8ROaEsvOIBCd9dajudWymXsmQQgeKIKhPeE5OCdQxUA75QeluXSSjxHd9f+s3t9rebX/Pcnkp+bgf+4/wZ1FYh+SRQjSEGydB/L95T05XB0cDGZMG7M+xyyN2QtOACCpHQf84YYANw6YDJhPBwdXFguZ7FXu/grmAGOhj8P1i77crYu3gIAwHiMxGYwk5CKrbImUIRkYTAbj5HW/28BSCpoIJIiqY3H5Xa87rWXGHa3e0iCCcjFAAhm2mlhpwNTdQzghACDd6gCQeK4WHUynW5e6k6AmG8l3QhQLoZlFsx0W/lyM51C/x9BYSHYj5zV39vTLovxKhcuyBfsYN7U7bDrTp33ta2i9KWkd/tvZ8BmMo9zU/DX9PsOeAAAAABJRU5ErkJggg==);}";
-		css+=".entry-hidden{display:none;}.filter-settings-button,.filter-settings-window *,.filter-settings-entry-window *{font-family:verdana;font-size:11px;color:#000;} .filter-settings-window textarea,.filter-settings-entry-window input[type=text]{font-family:'courier new';border:1px solid #669CB9;} .filter-settings-button{cursor:pointer;background-color:#ADCBDA;padding:4px;position:absolute;top:30px;right:10px;z-index:1000;} .filter-settings-button:hover{background-color:#B46B8F;} .filter-settings-window{background-color:#ADCBDA;border:1px solid #669CB9;padding:4px;position:absolute;top:30px;right:10px;z-index:1000;} .filter-settings-window label.ta{float:left;width:250px;} .filter-settings-window textarea{height:300px;width:250px;} .filter-settings-entry-window{width:300px;background-color:#ADCBDA;border:1px solid #669CB9;font-size:11px;padding:4px;position:fixed;top:30px;right:10px;z-index:1000;} .filter-settings-entry-window input[type=text]{width:300px;} .filter-settings-window button,.filter-settings-entry-window button{margin-top:5px;margin-right:5px;background-color:#669CB9;color:#fff;font-size:11px;border:1px solid #000;}.entry-filtered .card-content *, .entry-filtered .collapsed *{color:#BCBCBC!important;} .entry-filtered:hover .card-content *, .entry-filtered:hover .collapsed *{color:#6A6A6A!important;} .entry-highlighted .card-content, .entry-highlighted .collapsed{background-color:#E6EFCF!important;} .entry-highlighted .card-content *, .entry-highlighted .collapsed *{color:#000!important;background-color:#E6EFCF;} .entry-duplicate *{color:#C7D0D8!important;} .filter-configure-entry{background-color:#daa;color:#fff;padding:2px;cursor:pointer;position:absolute;top:0;right:90px}";
-		GM_addStyle(css, 'rps_filter');
-		
-		var ref = get_id('stream-prefs-menu');
-		var items = [
-			{id:'excludes', text:'Excludes', textarea:true, value:_options.excludes},
-			//{id:'duplicates', text:'Duplicates', textarea:true, value:_options.duplicates},
-			{id:'highlights', text:'Highlights', textarea:true, value:_options.highlights},
-			{id:'prefer_highlight', text:'Prefer Highlights over excludes', checkbox:true, value:_options.preferHighlights},
-			{sep:true},
-			{id:'hide_excludes', text:'Hide Excludes', checkbox:true, value:_options.hideExcludes},
-			{id:'hide_duplicates', text:'Hide Duplicates', checkbox:true, value:_options.hideDuplicates},
-			{sep:true},
-			{id:'searchbody', text:'Search in whole body text', checkbox:true, value:_options.searchbody},
-			{id:'live', text:'Live', checkbox:true, value:_options.live, click:onLive},
-			{sep:true},
-			{id:'update', text:'Update', click:onSave},
-			{id:'close', text:'Close', close:true}
-		];
-		addSplitButton(ref, SL.filter, SL.filter, emptyFn, emptyFn, 1, items);
-		
-		function onLive(el, menu, id, sel){
-			_options.live=sel;
-		}
-		//Monitor change textarea
-		function monitorChange(){
-			if (_options.live) {
-				onSave();
-			}
-		}
-		iterate(FILTERS,function(id,o){
-			var el = get_id('t_'+id);
-			if(el){
-				el.addEventListener('change', monitorChange, false);
-				el.addEventListener('keyup', monitorChange, false);
-			}
-		});
-		monitorChange();
+        var colors = {
+            highlight: '#E6EFCF',
+            duplicate: '#C7D0D8',
+            filtered: '#BCBCBC',
+            filtered_hover: '#6A6A6A'
+        };
+        
+        css = '.entry-title-filter {margin-left: 4px;padding-left:16px;width:14px;height:14px;background-repeat:no-repeat;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sCFQ4vGkzKXpwAAAGjSURBVDjLpZJNThtBEIXf6+7xjBWE2USKxI9sJYdIzsUB4uxgkevkCoQTZBEhFp5IsEHxmITucXc9FliRjS0FiVpW9/v0ql4BrywCwLefqkdxfuTp65cKi0qaN6M2AMAopiOZ/1qI98E/QZ+XBJgRzgmAULK7GnbdaQDEvu/ovWsqjw97jZq6Isg1oYA+E9KqL8ROaEsvOIBCd9dajudWymXsmQQgeKIKhPeE5OCdQxUA75QeluXSSjxHd9f+s3t9rebX/Pcnkp+bgf+4/wZ1FYh+SRQjSEGydB/L95T05XB0cDGZMG7M+xyyN2QtOACCpHQf84YYANw6YDJhPBwdXFguZ7FXu/grmAGOhj8P1i77crYu3gIAwHiMxGYwk5CKrbImUIRkYTAbj5HW/28BSCpoIJIiqY3H5Xa87rWXGHa3e0iCCcjFAAhm2mlhpwNTdQzghACDd6gCQeK4WHUynW5e6k6AmG8l3QhQLoZlFsx0W/lyM51C/x9BYSHYj5zV39vTLovxKhcuyBfsYN7U7bDrTp33ta2i9KWkd/tvZ8BmMo9zU/DX9PsOeAAAAABJRU5ErkJggg==);}';
+        css += '.entry-title-filter.goog-button-base-open{opacity:0.4;}';
+        css += '.entry-hidden{display:none;}';
+        css += '.entry-duplicate *{color:' + colors.duplicate + '!important;} .filter-configure-entry{background-color:#daa;color:#fff;padding:2px;cursor:pointer;position:absolute;top:0;right:90px}';
+        css += '.entry-filtered .card-content *, .entry-filtered .collapsed *{color:' + colors.filtered + '!important;} ';
+        css += '.entry-filtered:hover .card-content *, .entry-filtered:hover .collapsed *{color:' + colors.filtered_hover + '!important;} ';
+        css += '.entry-highlighted .card-content, .entry-highlighted .collapsed{background-color:' + colors.highlight + '!important;} .entry-highlighted .card-content *, .entry-highlighted .collapsed *{color:#000!important;background-color:' + colors.highlight + ';}';
+        GM_addStyle(css, 'rps_filter');
+        
+        var css_ui = ".menu-filter-static{position:absolute;right:30px;top:22px;z-index:9;}";
+        GM_addStyle(css_ui, 'rps_filter_ui');
+        
+        var ref = get_id('stream-prefs-menu');
+        var items = [{
+            id: 'excludes',
+            text: SL.excludes,
+            textarea: true,
+            value: _options.excludes
+        },
+        {
+            id: 'highlights',
+            text: SL.highlights,
+            textarea: true,
+            value: _options.highlights
+        }, {
+            sep: true
+        }, {
+            id: 'prefer_highlight',
+            text: SL.prefer_highlight,
+            checkbox: true,
+            value: _options.prefer_highlights,
+            click: monitorChange
+        }, {
+            id: 'hide_excludes',
+            text: SL.hide_excludes,
+            checkbox: true,
+            value: _options.hide_excludes,
+            click: monitorChange
+        }, {
+            id: 'hide_duplicates',
+            text: SL.hide_duplicates,
+            checkbox: true,
+            value: _options.hide_duplicates,
+            click: monitorChange
+        }, {
+            sep: true
+        }, {
+            id: 'searchbody',
+            text: SL.searchbody,
+            checkbox: true,
+            value: _options.searchbody,
+            click: monitorChange
+        }, {
+            id: 'live',
+            text: 'Live',
+            checkbox: true,
+            value: _options.live,
+            click: onLive
+        }, {
+            sep: true
+        }, {
+            id: 'update',
+            text: SL.save,
+            click: onSave
+        }, {
+            id: 'close',
+            text: SL.close,
+            close: true
+        }];
+        var btn = addSplitButton('filter-split-button', ref, SL.filter, SL.filter, toggleFilter, toggleFilter, 1, items);
+        addClassIf(btn, 'goog-button-base-open', toggleStatus);
+        
+        function toggleFilter(){
+            toggleStatus = !toggleStatus;
+            addClassIf(btn, 'goog-button-base-open', toggleStatus);
+            var _css = (toggleStatus) ? css : '';
+            GM_addStyle(_css, 'rps_filter');
+        }
+        
+        
+        function onLive(el, menu, id, sel){
+            _options.live = sel;
+        }
+        //Monitor change textarea
+        function monitorChange(){
+            if (_options.live) {
+                onSave();
+            }
+        }
+        iterate(FILTERS, function(id, o){
+            var el = get_id('t_' + id);
+            if (el) {
+                el.addEventListener('change', monitorChange, false);
+                el.addEventListener('keyup', monitorChange, false);
+            }
+        });
+        monitorChange();
+        
+        checkHidden();
     }
-	
-	function emptyFn(){
-		openSettings();
-	}
-	
+    
+    function checkHidden(){
+        //Check if hidden
+        setTimeout(function(){
+            var elsplit = get_id('filter-split-button');
+            if (elsplit && elsplit.offsetTop === 0 && elsplit.offsetLeft === 0) {
+                //is hidden, force to show it
+                var cv = get_id('chrome-viewer');
+                if (cv) {
+                    cv.appendChild(elsplit);
+                }
+                addClass(elsplit, 'menu-filter-static');
+            }
+        }, 1000);
+    }
+    
     function findPosition(element){
         var point = {
             x: 0,
@@ -82,138 +161,40 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         }
         return point;
     }
-
+    
     function init(){
-		GM_getValue("filter_settings", [], function(o){
-			_options=checkOptions(o);
-			initInterface();
-			registerFeature(filterEntries, ID, {onlistviewtitle: true});
+		GM_getValues(ID+'_', KEY_OPTIONS,function(o){
+			miniWord = o.word_mini || miniWord; 
+			_options = checkOptions(o);
+            initInterface();
+            registerFeature(filterEntries, ID, {
+                onlistviewtitle: true
+            });
 		});
-        
     }
-	
-	function isMenuChecked(id){
-		return hasClass(get_id(id),'goog-option-selected');
-	}
-	function getMenuValue(id){
-		return get_id(id).value||'';
-	}
-	
-	function onSave(){
-		_options = _options||{};
-		_options.excludes=getMenuValue('t_excludes');
-		//_options.duplicates=getMenuValue('t_duplicates');
-		_options.highlights=getMenuValue('t_highlights');
-		
-		_options.searchbody=isMenuChecked('searchbody');
-		_options.hideDuplicates=isMenuChecked('hide_duplicates');
-		_options.hideExcludes=isMenuChecked('hide_excludes');
-		_options.preferHighlights=isMenuChecked('prefer_highlight');
-		_options.live=isMenuChecked('live');
-		
-		_options=checkOptions(_options);
-		
-		//filter
-		var opt = {};
-		iterate(_options,function(name,value){
-			if (!(/^rx/.test(name))){ //typeof 'string'
-				opt[name]=value;
-			}
+    
+    function isMenuChecked(id){
+        return hasClass(get_id(id), 'goog-option-selected');
+    }
+    
+    function onSave(){
+        _options = _options || {};
+        _options.excludes = getValue('t_excludes');
+        _options.highlights = getValue('t_highlights');
+        _options.searchbody = isMenuChecked('searchbody');
+        _options.hide_duplicates = isMenuChecked('hide_duplicates');
+        _options.hide_excludes = isMenuChecked('hide_excludes');
+        _options.prefer_highlights = isMenuChecked('prefer_highlight');
+        _options.live = isMenuChecked('live');
+        onUpdate();
+    }
+    
+    function onUpdate(){
+        _options = checkOptions(_options);
+		foreach(KEY_OPTIONS,function(option){
+			GM_setValue(ID+'_'+option, _options[option]);		
 		});
-		
-		GM_setValue("filter_settings", opt);
-		updateFilterEntries();
-		//alert('Settings saved');
-	}
-	
-	function checkOptions(o){
-		o= o||{};
-		o.excludes=o.excludes||'';
-		o.rxExcludes = getRegExp(o.excludes);
-		
-		o.highlights=o.highlights||'';
-		o.rxHighlights = getRegExp(o.highlights);
-		//o.duplicates=o.duplicates||'';
-		o.rxDuplicates = getRegExp(o.duplicates);
-		
-		o.hideExcludes=o.hideExcludes||false;
-		o.hideDuplicates=o.hideDuplicates||false;
-		o.preferHighlights=o.preferHighlights||false;			
-		return o;
-	}
-	        
-    function getRegExp(o){
-		var items = o;
-		if (typeof items === 'string'){
-			items=formatTextAreaToList(items);
-		}
-		var rx=false,nonRxs=[],toRxs=[];
-		if (items && items.length > 0) {
-			foreach(items, function(item){
-				if (/@/.test(item)) {
-					nonRxs.push(encodeRE(item.substr(1)));
-				} else {
-					toRxs.push(item);
-				}
-			});
-			
-			var rex = nonRxs.join("|");
-			if (nonRxs.length > 0 && toRxs.length > 0) {
-				rex += '|';
-			}
-			if (toRxs.length > 0) {
-				rex += "\\b(" + toRxs.join('|') + ")\\b";
-			}
-			rx = new RegExp(rex, "i");
-		}
-		return rx;
-	}
-  
-    var _settingsForEntry, _settingsForEntryInput;
-    function openSettingsForEntry(relative, title){
-        if (!_settingsForEntry) {
-            var settingsForEntry = document.createElement("div");
-            settingsForEntry.className = "filter-settings-entry-window";
-            settingsForEntry.innerHTML = "<label>" + SL.quickadd + "</label><div style='clear:both'></div>";
-            
-            var input = document.createElement("input");
-            input.type = "text";
-            settingsForEntry.appendChild(input);
-            
-            settingsForEntry.appendChild(document.createElement("br"));
-            
-            var  excludesButton = createButton(settingsForEntry, 'btn-exclude', SL.exclude, input, true);
-			var  highlightButton = createButton(settingsForEntry, 'btn-highlight',SL.highlight, input, false);
-			
-            var close = document.createElement("button");
-            close.textContent = SL.close;
-            close.addEventListener("click", function(){
-                settingsForEntry.style.display = "none";
-            }, false);
-            settingsForEntry.appendChild(close);
-            
-            document.body.appendChild(settingsForEntry);
-            
-            _settingsForEntry = settingsForEntry;
-            _settingsForEntryInput = input;
-        }
-        _settingsForEntry.style.display = "";
-        var point = findPosition(relative);
-        _settingsForEntry.style.left = (point.x - 250) + "px";
-        
-        var y = point.y + 21 - document.getElementById("entries").scrollTop;
-        if (y + _settingsForEntry.offsetHeight > document.documentElement.clientHeight) {
-            _settingsForEntry.style.top = "auto";
-            _settingsForEntry.style.bottom = (document.documentElement.clientHeight -
-            y +
-            10) +
-            "px";
-        }
-        else {
-            _settingsForEntry.style.top = y + "px";
-            _settingsForEntry.style.bottom = "auto";
-        }
-        _settingsForEntryInput.value = title;
+        updateFilterEntries();
     }
     
     function updateFilterEntries(){
@@ -222,24 +203,30 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         });
     }
     
-	var _alreadyPrinted = {};
+    function checkOptions(o){
+        o = o || {};
+        o.excludes = o.excludes || '';
+        o.rxExcludes = getRegExp(o.excludes);
+        o.highlights = o.highlights || '';
+        o.rxHighlights = getRegExp(o.highlights);
+        o.rxDuplicates = getRegExp(o.duplicates);
+        o.hide_excludes = o.hide_excludes || false;
+        o.hide_duplicates = o.hide_duplicates || false;
+        o.prefer_highlights = o.prefer_highlights || false;
+        return o;
+    }
+    
+    var _alreadyPrinted = {};
     function filterEntries(btn, entry, mode, force){
         var tagged = isTagged(entry, 'tf');
-		if (!force && tagged) {
+        if (!force && tagged) {
             //stop entry was already scanned
             return;
         }
         
-        // reset the dups list when entries inserted again
-        /*if (entry.parentNode.id === "entries") {
-            var l = entry.parentNode.childNodes.length;
-            if (l <= 2) {
-                _alreadyPrinted = {};
-            }
-        }*/
-		if (!entry.previousElementSibling) {
-			_alreadyPrinted = {};
-		}
+        if (!entry.previousElementSibling) {
+            _alreadyPrinted = {};
+        }
         
         if (force) {
             //clean before update
@@ -248,114 +235,230 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
             removeClass(entry, 'entry-duplicate');
             removeClass(entry, 'entry-hidden');
         }
-        var link = getEntryLink(entry);
-        var title = link.title;
-		var dt = getFirstElementByClassName(entry, 'entry-date').innerText;
-		var feedname = getFirstElementByClassName(entry, 'entry-source-title').innerText;
-		var snippet = getFirstElementByClassName(entry, 'snippet').innerText;
-        //console.log('>>>>'+active+'--'+title);
         
-        var minifiedTitle = minifyTitle(title);
-		if (_options.searchbody) {
-			/*var body = getBody(entry);
-			if (body) {
-				minifiedTitle += ' ' + body.innerText;
-			}*/
-			minifiedTitle= entry.innerText;
-		}
-		
-        var escapedTitle = encodeURI(minifiedTitle);
-		if (!tagged) {
-			var et = getFirstElementByClassName(entry, 'entry-title');
-			dh(et, 'a', {
-				href: '#',
-				cls: 'entry-title-link-filter', //'filter-configure-entry', 
-				title: 'Filter this entry', //minifiedTitle,
-				html: '<div class="entry-title-filter"></div>'
-			}, {
-				click: configureCurrent
-			});
-		}
-		
+        var content = getContentEntry(entry);
+        
+        var escapedContent = encodeURI(content);
+        if (!tagged) {
+            var et = getFirstElementByClassName(entry, 'entry-title');
+            dh(et, 'a', {
+                href: '#',
+                cls: 'entry-title-link-filter', //'filter-configure-entry', 
+                title: 'Filter this entry', //content,
+                html: '<div class="entry-title-filter"></div>'
+            }, {
+                click: function(e){
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openEntryMenu(e.target, entry);
+                }
+            });
+        }
+        
         var b = false;
-        if (!force && _alreadyPrinted[escapedTitle]) {
+        if (!force && _alreadyPrinted[escapedContent]) {
             addClass(entry, 'entry-duplicate');
-            if (_options.hideDuplicates) {
+            if (_options.hide_duplicates) {
                 addClass(entry, 'entry-hidden');
             }
             return;
         }
-		
+        
         function doExcludes(){
-			var b = false;
-			if (_options.excludes.length) {
-                b = checkEntry(minifiedTitle, entry, _options.rxExcludes, "entry-filtered");
-                if (_options.hideExcludes && b) {
+            var b = false;
+            if (_options.excludes.length) {
+                b = checkEntry(content, entry, _options.rxExcludes, "entry-filtered");
+                if (_options.hide_excludes && b) {
                     addClass(entry, 'entry-hidden');
                 }
             }
-			return b;
-		}
-		function doHighlight(){
-			var b = false;
-			if (_options.highlights.length) {
-                b = checkEntry(minifiedTitle, entry, _options.rxHighlights, "entry-highlighted");
+            return b;
+        }
+        function doHighlight(){
+            var b = false;
+            if (_options.highlights.length) {
+                b = checkEntry(content, entry, _options.rxHighlights, "entry-highlighted");
             }
-			return b;
-		}
-		
-		//Change priority
-        if (_options.preferHighlights) {
-            b=doHighlight();
+            return b;
+        }
+        
+        //Change priority
+        if (_options.prefer_highlights) {
+            b = doHighlight();
             if (!b) {
-                b=doExcludes();
+                b = doExcludes();
             }
-        }else {
-            b=doExcludes();
-			if (!b){
-				b=doHighlight();
-			}
+        } else {
+            b = doExcludes();
+            if (!b) {
+                b = doHighlight();
+            }
         }
         if (!force) {
-			_alreadyPrinted[escapedTitle] = true;
-		}
+            _alreadyPrinted[escapedContent] = true;
+        }
     }
-	
-	var _minifyRx = /[~!@#$%^&*()_+-]+/g;
-	
-    function minifyTitle(title){
-        return trim(title.replace(_minifyRx, " ").replace(/ +/g, " ").toLowerCase());
-    }
-	
- 	function stringSort(a, b){
-        return (a > b)?1:((a < b)?-1:0);
-    }
+    function getContentEntry(entry){
+        var link = getEntryLink(entry);
+        var title = link.title;
+        /*var dt = getElementText(entry, 'entry-date');
+         var feedname = getElementText(entry, 'entry-source-title');
+         var snippet = getElementText(entry, 'snippet');
+         */
+        //console.log('>>>>'+active+'--'+title);
         
-    function formatListToTextArea(list){
-		return list.join("\n").replace(/(\r?\n){2,}/, "");
-    }
-	 function formatTextAreaToList(txt){
-		var t=trimEx(txt.replace(/\r/, ""));
-		var list= false;
-		if (t){
-			list=t.split(/\n+/);
-		}
-		return list;
+        var text = minifyContent(title);
+        if (_options.searchbody) {
+            /*var body = getBody(entry);
+             if (body) {
+             text += ' ' + body.innerText;
+             }*/
+            text = entry.innerText;
+        }
+        return text;
     }
     
-    function configureCurrent(e){
-        openSettingsForEntry(e.target, e.target.title);
-        e.preventDefault();
-        e.stopPropagation();
+    var _minifyRx = /[\n“”’'~\!@#\$%\^&\*\.\(\)_+-\:,;=\\\/\[\]]+/g;
+    function minifyContent(title){
+        return trim(title.replace(_minifyRx, ' ').replace(/ +/g, " ").toLowerCase());
+    }
+    
+    function stringSort(a, b){
+        return (a > b) ? 1 : ((a < b) ? -1 : 0);
+    }
+    
+    function formatListToTextArea(list){
+        return list.join("\n").replace(/(\r?\n){2,}/, "");
+    }
+    function formatTextAreaToList(txt){
+        var t = trimEx(txt.replace(/\r/, ""));
+        var list = false;
+        if (t) {
+            list = t.split(/\n+/);
+        }
+        return list;
+    }
+    
+    function openEntryMenu(el, entry){
+        if (!entrymenu) {
+            function addExpr(asExcludes){
+                var new_content = getValue('t_e_content');
+                if (new_content) {
+                    if (asExcludes) {
+                        _options.excludes += '\n' + new_content;
+                        setValue('t_excludes', _options.excludes);
+                    } else {
+                        _options.highlights += '\n' + new_content;
+                        setValue('t_highlights', _options.highlights);
+                    }
+                    onUpdate();
+                }
+            }
+            
+            var items = [{
+                id: 'e_content',
+                text: SL.content,
+                textarea: true,
+                rows: 2,
+                cols: 50,
+                value: ''
+            }, {
+                sep: true
+            }, {
+                id: 'e_add_excludes',
+                text: SL.add_excludes,
+                close: true,
+                click: function(){
+                    addExpr(true);
+                }            
+			}, {
+                id: 'e_add_highlights',
+                text: SL.add_highlights,
+                close: true,
+                click: function(){
+                    addExpr(false);
+                }
+            }];
+            entrymenu = createMenu('menu-filter-entry', items, el, true);
+        }
+        toggleMenu(entrymenu, el, null, null, function(visible){
+            if (visible) {
+                var content = getContentEntry(entry);
+                var words = getWords(content, miniWord);
+                setValue('t_e_content', words);
+            }
+        });
     }
     
     function checkEntry(title, element, rx, className){
-        if (rx && rx.test(title)) {
+        if (rx) {
+            if (typeof rx !== "object") {
+                rx = [rx];
+            }
+            for (var i = 0, len = rx.length; i < len; i++) {
+                if (!rx[i].test(title)) {
+                    return false;
+                }
+            }
             addClass(element, className);
             return true;
         }
         return false;
     }
     
+    function getWords(text, size){
+        size = size || 3;
+        text = minifyContent(text);
+        var map = {}, values = [], words = text.split(' ');
+        if (words) {
+            foreach(words, function(word){
+                if (word.length >= size) {
+                    map[word]=1;
+                }
+            });
+			iterate(map,function(i,o){
+				values.push(i);
+			});
+            values.sort(stringSort);
+            value = values.join(' ');
+        }
+        return value;
+    }
+    
+    //Transform a google-like expression into a tree regex
+    function buildTree(items){
+    
+    }
+    
+    var reQuotedExpr = /"[^"]*"/g, reQuote = /^"|"$/g;
+    function parseExpression(expr){
+        var r = expr.replace(reQuotedExpr, function(all){
+            var group = all.replace(reQuote, '');
+            return '(' + encodeRE(group) + ')';
+        });
+        //concat multiple spaces, then set them as OR for now (ANd in google expr)
+        r = r.replace(/\s+/g, ' ').replace(/\s/g, '|');
+        return r;
+    }
+    
+    function getRegExp(o){
+        var items = o;
+        if (typeof items === 'string') {
+            items = formatTextAreaToList(items);
+        }
+        //var rx = buildTree(items);
+        var rx = [];
+        foreach(items, function(item){
+            var rex = parseExpression(item);
+            rx.push(rex);
+        });
+        
+        var rex = rx.join("|");
+        rx = new RegExp(rex, "i");
+        return rx;
+    }
+    
     init();
 };
+
+
