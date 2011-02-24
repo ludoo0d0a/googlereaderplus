@@ -10,7 +10,7 @@
 (function(){
     var ReaderPlus = {
         init: function(){
-            if (!(/^https?\:\/\/\w+.google\.[\w\.]+\/reader\/view/.test(window.location.href))){
+            if (!(/^https?\:\/\/[\w\d]+.google\.[\w\.]+\/reader/.test(window.location.href))){
 				//Not in Reader
 				return;
 			}
