@@ -3,10 +3,16 @@
  */
 GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
     var o = apply({}, langs.readit);
-	var SL = apply(o, scriptlangs);
+    var SL = apply(o, scriptlangs);
+    var pp = api.params ||
+    {
+        url: 'url',
+        title: 'title',
+        selection: 'selection'
+    };
     function addButton(el, entry, mode){
         var title = SL.text + formatShortcut(ID, ID, prefs);
-		var text = (prefs && prefs.general_icons)?'':(SL.keyword || ID);
+        var text = (prefs && prefs.general_icons) ? '' : (SL.keyword || ID);
         addBottomLink(el, text, title, ID, 'item-share star', false, readitlaterClick, false, entry, mode);
     }
     function addKey(){
@@ -23,23 +29,37 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
         }
         var link = getEntryLink(entry);
         var body = getBody(entry);
-        var params = {
-            url: link.url,
-            title: link.title,
-            selection: body.innerText
-            //selection: window.getSelection().toString()
-        };
+        var params = {};
+        if (pp.url) {
+            params[pp.url] = link.url;
+        }
+        if (pp.title) {
+            params[pp.title] = link.title;
+        }
+        if (pp.selection) {
+            params[pp.selection] = body.innerText;
+        }
+        if (pp.key) {
+            params[pp.key] = api.key;
+        }
         //login(auth, params, btn);
         //direct
         post(auth, params, btn);
     }
+	function isOk(r, btn){
+		var res = (r.status == api.successCode);
+		if (res && typeof api.success ==='function'){
+			res = api.success(r, btn);
+		}
+		return res;
+	}
     function login(auth, params, btn){
         GM_xmlhttpRequest({
             method: 'GET',
             url: api.auth,
             parameters: auth,
             onload: function(r){
-                if (r.status == api.successCode) {
+                if (isOk(r, btn)){
                     //login success
                     post(auth, params, btn);
                 } else if (api.errors[r.status]) {
@@ -51,19 +71,22 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
         });
     }
     function post(auth, params, btn){
-        params.username = auth.username;
+		params[pp.username || 'username'] = auth.username;
         if (auth.password) {
-            params.password = auth.password;
+            params[pp.password || 'password'] = auth.password;
         }
         GM_xmlhttpRequest({
             method: 'GET',
             url: api.add,
             parameters: params,
             onload: function(r){
-                if (r.status == api.successCode) {
+                if (isOk(r)){
                     //set star active
                     addClass(btn, 'item-star-active btn-active');
                     removeClass(btn, 'item-share');
+					if (typeof api.successTitle ==='function') {
+						btn.title=api.successTitle(r,SL);
+					}
                 } else if (api.errors[r.status]) {
                     alert(SL[api.errors[r.status]]);
                 } else {
@@ -73,8 +96,8 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
         });
     }
     function getAuth(){
-        var username = prefs[ID+'_username'];
-        var password = prefs[ID+'_password'];
+        var username = prefs[ID + '_username'];
+        var password = prefs[ID + '_password'];
         if (typeof username === "undefined" || username === '') {
             alert(SL.nologin);
             return false;
