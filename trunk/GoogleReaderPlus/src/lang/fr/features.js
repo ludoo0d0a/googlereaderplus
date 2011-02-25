@@ -144,6 +144,10 @@ GRP.langs[locale].scripts = {
         name: "Barre d'outil Aero",
         desc: "Barre d'outil utilisant le theme Aero de Windows Vista"
     },
+	actions: {
+        name: "Icônes actions",
+        desc: "Utiliser uniquement les icônes pour les boutons actions en bas des éléments"
+    },
     info: {
         name: "SysInfo",
         desc: "Information sur le système"

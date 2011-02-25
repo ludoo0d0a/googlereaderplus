@@ -572,6 +572,28 @@ GRP.scripts = {
             }
         }
     },
+	radbox: {
+        name: "Radbox integration",
+        category: 'share',
+        options: {
+            auth: {
+                xtype: 'p',
+                label: true,
+                cls: 'subtitle'
+            },
+            username: ''
+        },
+        shortcuts: {
+            'share': {
+                id: 'share',
+                title: 'Read Later with Radbox',
+                key: {
+                    //66 b
+                    keyCode: 66
+                }
+            }
+        }
+    },
     mark: {
         name: "Mark As Read",
         category: 'navigation',
@@ -752,6 +774,10 @@ GRP.scripts = {
         name: "Google Aero Toolbar",
         category: 'theme'
     },
+	actions: {
+        name: "Actions icons",
+        category: 'layout'
+    },
     /*antisocial: {
         name: "Antisocial",
         category: 'layout',
@@ -837,8 +863,9 @@ GRP.packages = {
             overlay: true
         },
         theme: {
-            skin:'mytheme',
-			externaltheme: 'gmail_coldshower'
+            skin:'webbizgeek'
+			//skin:'mytheme',
+			//externaltheme: 'gmail_coldshower'
         }
     },
     'full': {
@@ -877,7 +904,10 @@ GRP.packages = {
         readitlater: true,
         translate: true,
         replacer: true,
-        limit: true
+        limit: true,
+		prefetch:true,
+		nested:true,
+		actions:true
     }
 };
 GRP.skins = {

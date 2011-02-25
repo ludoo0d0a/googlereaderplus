@@ -59,12 +59,17 @@ GRP.langs[locale].texts = {
         plslogin: 'Please login to Instapaper',
         login: 'Email or username:'
     },
-    readitlater: {
+	readitlater: {
         text: 'Read Later with ReadItLater',
         keyword: 'ReadItLater',
         plslogin: 'Please login to ReadItLater',
         rateexceeded: 'Rate limit exceeded, please wait a little bit before resubmitting',
         maintenance: 'Read It Later\'s sync server is down for scheduled maintenance'
+    },
+	radbox: {
+        text: 'Read Later with Radbox',
+        keyword: 'Radbox',
+        nologin: 'This feature requires a userkey, please set preferences!!'
     },
     favicons: {
         preferences: 'Preferences',
@@ -109,7 +114,8 @@ GRP.langs[locale].texts = {
         keyword: 'Fit height'
     },
     jump: {
-        textbottom: 'Jump to bottom',
+        text: 'Jump',
+	    textbottom: 'Jump to bottom',
         texttop: 'Jump to top',
         keywordtop: 'top'
     },
@@ -154,7 +160,10 @@ GRP.langs[locale].texts = {
     menu: {
         label: 'Extra',
         showallfolders: 'Display all folders'
-    }
+    },
+	actions:{
+		text:'Actions icons'
+	}
 };
 GRP.langs[locale].prefs = {
     global: {
@@ -252,6 +261,10 @@ GRP.langs[locale].prefs = {
         auth: "<a href='http://www.readitlaterlist.com' target='blank'>ReadItLater</a> <a href='http://readitlaterlist.com/signup' target='blank'>authentication</a> (required):",
         username: "Username:",
         password: "Password:"
+    },
+	radbox: {
+        auth: "<a href='http://www.radbox.me' target='blank'>Radbox</a> <a href='http://radbox.me/account/user/register' target='blank'>authentication</a> (required):",
+        username: "Userkey:"
     },
     colorful: {
         tree: "Show label colors in the left navigation tree",
