@@ -15,6 +15,7 @@
 GRP.filter = function(prefs, langs, ID, SL, lang){
     var locked = false, _options = {}, entrymenu = false, toggleStatus = true, css = '', miniWord = 4;
 	var KEY_OPTIONS = ['live', 'searchbody', 'excludes','highlights', 'hide_excludes', 'hide_duplicates', 'prefer_highlights', 'word_mini'];
+	var _minifyRx = /[\n“”\?’'~\!@#\$%\^&\*\.\(\)_+-\:,;=\\\/\[\]]+/g;
 
     var FILTERS = {
         excludes: {
@@ -318,7 +319,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         return text;
     }
     
-    var _minifyRx = /[\n“”’'~\!@#\$%\^&\*\.\(\)_+-\:,;=\\\/\[\]]+/g;
+    
     function minifyContent(title){
         return trim(title.replace(_minifyRx, ' ').replace(/ +/g, " ").toLowerCase());
     }
