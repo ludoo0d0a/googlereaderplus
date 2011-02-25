@@ -77,7 +77,45 @@ function isAncestor(el, etag, clazz, id){
     }
     return ((el && el.nodeName !== TAG_ROOT) ? el : false);
 }
-
+/*
+var reCssQuery = /[#\.]?[\w\d_-]+/g;
+function findNodes(root, query){
+	el = el || document;
+	var els=[], segs = query.split(' ');
+	foreach(segs,function(seg){
+		var e, m = reCssQuery.exec(seg);
+		if (m){
+			var bid=[], bcls=[],btag=[];
+			foreach(m,function(p){
+				if (p.indexOf('#')===0){
+					bid.push(p.replace(/^#/,''));
+				}else if (p.indexOf('.')===0){
+					bcls.push(p.replace(/^\./,''));
+				}else{
+					btag.push(p);
+				}
+			});
+			
+			foreach(bid,function(p){
+				els = [el.getElementById(p)];
+			});
+			foreach(bcls,function(p){
+				els = el.getElementsByClassName(p);
+			});
+			foreach(btag,function(p){
+				els = el.getElementsByTagname(p);
+			});
+		}
+	});
+	return els;
+}*/
+function findFirstNode(root, query){
+	var el=false, els = findNodes(root, query);
+	if (els){
+		el = els[0];
+	}
+	return el;
+}
 function getFirstNode(el){
     var o = el.firstChild;
     //if (typeof o == "HTMLDivElement"){
