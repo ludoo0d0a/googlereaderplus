@@ -602,7 +602,7 @@ function onKey(cls, fn){
 
 function addBottomLink(el, text, title, script, cls, button, callback, locked, entry, mode){
     var span = document.createElement('span');
-    span.className = 'btn-' + script + ' ' + cls + (button ? ' read-state-not-kept-unread read-state' : '') + ' link unselectable';
+    span.className = 'grp-btn btn-' + script + ' ' + cls + (button ? ' read-state-not-kept-unread read-state' : '') + ' link unselectable';
     span.innerHTML = text;
     span.title = title;
     el.appendChild(span);
