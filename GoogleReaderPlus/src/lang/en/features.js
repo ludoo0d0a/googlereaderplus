@@ -149,6 +149,10 @@ GRP.langs[locale].scripts = {
         name: "Google Aero Toolbar",
         desc: "Toolbar using Aero theme"
     },
+	actions: {
+        name: "Actions icons",
+        desc: "Use icons only for actions button on the bottom of entry"
+    },
     info: {
         name: "SysInfo",
         desc: "System information"
