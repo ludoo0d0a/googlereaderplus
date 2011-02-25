@@ -29,6 +29,7 @@ facebook.js
 twitter.js
 readitlater.js
 instapaper.js
+radbox.js
 closeentry.js
 fitheight.js
 limit.js
@@ -61,4 +62,5 @@ skin\redesigned.js
 skin\glassblackgold.js
 skin\nativecompact.js
 colorful.js
+actions.js
 greaderplus.js
