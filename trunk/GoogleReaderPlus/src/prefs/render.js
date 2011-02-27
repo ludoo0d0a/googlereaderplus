@@ -403,10 +403,6 @@ function recurseList(root, list, first){
 }
 
 function disableAllScripts(){
-    /*for (var i = 0, len = GRP.scripts.length; i < len; i++) {
-     var script = GRP.scripts[i];
-     prefs[script.id] = false;
-     }*/
     iterate(GRP.scripts, function(id, script){
         prefs[id] = false;
     });
