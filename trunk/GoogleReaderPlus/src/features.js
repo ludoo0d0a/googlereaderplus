@@ -935,6 +935,14 @@ GRP.skins = {
     helvetireader: {
         name: "Helvetireader Skin"
     },
+	darkhelvetireaderday: {
+        name: "Dark Helvetireader - Day",
+		pic:'https://chrome.google.com/extensions/img/dkcjfdlgfmefnbhkholnhliliohggmef/1296639253.46/screenshot/3001'
+    },
+	darkhelvetireadernight: {
+        name: "Dark Helvetireader - Night",
+		pic:'https://chrome.google.com/extensions/img/dkcjfdlgfmefnbhkholnhliliohggmef/1296639253.46/screenshot/4001'
+    },
     minimal: {
         name: "Minimalistic Skin"
     },

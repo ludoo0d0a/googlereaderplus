@@ -31,11 +31,14 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
 		var el = get_id('rps_' + skin.id);
 		if (el) {
 			tog = {
-				css: el.innerHTML
+				css: el.innerHTML,
+				src:el.href
 			};
 			remove(el);
 		} else if(tog.css){
 			GM_addStyle(tog.css, 'rps_' + skin.id);
+		} else if(tog.src){
+			GM_addCss(tog.src, 'rps_' + skin.id);
 		}
 		if (skin.resize) {
 			fireResize(skin.resize);
