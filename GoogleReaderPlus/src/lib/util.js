@@ -437,8 +437,8 @@ function isArray(obj){
  *  [{keycode, shift, ctrl, alt}]
  * @return
  */
-function initKey(keys){
-    document.addEventListener('keydown', function(e){
+function initKey(keys, event){
+    document.addEventListener(event||'keydown', function(e){
         var target = e.target;
         var tag = target.tagName;
         //console.log('keydown on '+tag+'.'+(tag.className||''));
