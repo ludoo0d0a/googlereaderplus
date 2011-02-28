@@ -17,6 +17,9 @@ GRP.fitheight = function(prefs, langs, ID, SL, lang){
 		var active = isActive(btn, entry, ID, locked);
 		//TODO: replace 'fit-height-on' with 'fitheight'
 		addClassIf(entry, 'fit-height-on', active);
+		if (active) {
+			updateCss();
+		}
 		
 		if (!locked) {
 			jump(entry, true);
@@ -37,11 +40,13 @@ GRP.fitheight = function(prefs, langs, ID, SL, lang){
 		onKey('btn-fitheight', fitHeight);
 	}
 	
-	var he = getHeightEntries()-2;	
-
-	var css = " .read.fit-height-on .entry-body{ display:block !important; max-height: "+he+"px !important; overflow-y:auto;}";
-	css += ".fit-height-on .entry-likers{display:none;}";
-	GM_addStyle(css);
+	function updateCss(){
+		var he = getHeightEntries() - 2;
+		var css = " .read.fit-height-on .entry-body{ display:block !important; max-height: " + he + "px !important; overflow-y:auto;}";
+		css += ".fit-height-on .entry-likers{display:none !important;}";
+		GM_addStyle(css, 'grp_fitheight');
+	}
+	updateCss();
 	
 	registerFeature(addButton, ID);
 	var keycode = getShortcutKey(ID, 'fit', prefs); //70 f
