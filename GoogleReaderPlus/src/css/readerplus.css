@@ -1,26 +1,33 @@
-.entry .entry-actions .btn-twitter,.entry .entry-actions .btn-facebook,.entry .entry-actions .btn-instapaper,.entry .entry-actions .btn-readitlater{
-	background: url('http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/src/images/share.png') transparent no-repeat 0% 0% !important;
+.entry .entry-actions .btn-twitter,
+.entry .entry-actions .btn-facebook,
+.entry .entry-actions .btn-instapaper,
+.entry .entry-actions .btn-readitlater,
+.entry .entry-actions .btn-clockblue,
+.entry .entry-actions .btn-clockgray,
+.entry .entry-actions .btn-radbox{
+	background: url('http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/share/share2.png') transparent no-repeat!important;
 	padding-left:18px !important;
+	padding-top:0px !important;
 }
 .entry .entry-actions .btn-facebook{
 	background-position: 0 0px !important;
 }
 .entry .entry-actions .btn-facebook.btn-active{
-	background-position: 0 -16px;
+	background-position: 0 -16px !important;
 }
 
 .entry .entry-actions .btn-twitter{
 	background-position: 0 -32px !important;
 }
 .entry .entry-actions .btn-twitter.btn-active{
-	background-position: 0 -48px;
+	background-position: 0 -48px !important;
 }
 
 .entry .entry-actions .btn-instapaper{
 	background-position: 0 -64px !important;
 }
 .entry .entry-actions .btn-instapaper.btn-active{
-	background-position: 0 -80px;
+	background-position: 0 -80px !important;
 }
 
 .entry .entry-actions .btn-readitlater{
@@ -28,4 +35,25 @@
 }
 .entry .entry-actions .btn-readitlater.btn-active{
 	background-position: 0 -112px;
+}
+
+.entry .entry-actions .btn-clockblue{
+	background-position: 0 -128px !important;
+}
+.entry .entry-actions .btn-clockblue.btn-active{
+	background-position: 0 -144px !important;
+}
+
+.entry .entry-actions .btn-clockgray{
+	background-position: 0 -160px !important;
+}
+.entry .entry-actions .btn-clockgray.btn-active{
+	background-position: 0 -176px !important;
+}
+
+.entry .entry-actions .btn-radbox{
+	background-position: 0 -192px !important;
+}
+.entry .entry-actions .btn-radbox.btn-active{
+	background-position: 0 -208px !important;
 }

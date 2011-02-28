@@ -23,7 +23,8 @@ GRP.radbox = function(prefs, langs, ID, SL, lang){
 			return o.number_of_videos+' videos added in Radbox';
 		},
 		errors: {
-	        //400: Bad request. Probably missing a required parameter, such as url.
+	        200: 'novideo',
+			//400: Bad request. Probably missing a required parameter, such as url.
 	        400: 'badrequest',
 	        //403: Invalid username or password.
 	        403: 'wronglogin',

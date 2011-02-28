@@ -11,7 +11,7 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
         selection: 'selection'
     };
     function addButton(el, entry, mode){
-        var title = SL.text + formatShortcut(ID, ID, prefs);
+        var title = SL.text + formatShortcut(ID, 'share', prefs);
         var text = (prefs && prefs.general_icons) ? '' : (SL.keyword || ID);
         addBottomLink(el, text, title, ID, 'item-share star', false, readitlaterClick, false, entry, mode);
     }
@@ -19,8 +19,11 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
         onKey('btn-' + ID, readitlaterClick);
     }
     function readitlaterClick(btn, entry, locked){
-        //var active = isActive(btn, entry, ID, locked);
-        readitlater(entry, btn);
+        //var active = isActive(btn, entry, ID, locked, 'btn-active', 'btn-inactive');
+		var active = hasClass(btn,'btn-active');
+		if (!active) {
+			readitlater(entry, btn);
+		}
     }
     function readitlater(entry, btn){
         var auth = getAuth();
@@ -49,7 +52,7 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
 	function isOk(r, btn){
 		var res = (r.status == api.successCode);
 		if (res && typeof api.success ==='function'){
-			res = api.success(r, btn);
+			res = api.success(r.responseJson, btn);
 		}
 		return res;
 	}
@@ -78,14 +81,15 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
         GM_xmlhttpRequest({
             method: 'GET',
             url: api.add,
+			dataType:'json',
             parameters: params,
             onload: function(r){
                 if (isOk(r)){
                     //set star active
-                    addClass(btn, 'item-star-active btn-active');
+                    addClass(btn, 'btn-active'); //item-star-active
                     removeClass(btn, 'item-share');
 					if (typeof api.successTitle ==='function') {
-						btn.title=api.successTitle(r,SL);
+						btn.title=api.successTitle(r.responseJson,SL);
 					}
                 } else if (api.errors[r.status]) {
                     alert(SL[api.errors[r.status]]);

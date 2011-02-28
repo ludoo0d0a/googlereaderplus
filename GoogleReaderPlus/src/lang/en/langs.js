@@ -69,7 +69,8 @@ GRP.langs[locale].texts = {
 	radbox: {
         text: 'Read Later with Radbox',
         keyword: 'Radbox',
-        nologin: 'This feature requires a userkey, please set preferences!!'
+        nologin: 'This feature requires a userkey, please set preferences!!',
+		novideo: 'No video were found on this page'
     },
     favicons: {
         preferences: 'Preferences',
