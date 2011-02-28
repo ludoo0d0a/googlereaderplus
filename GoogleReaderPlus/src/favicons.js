@@ -17,6 +17,8 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
     updateFavicons();
     var protocol = document.location.protocol;
     var FAVICON_TPL_URL = protocol + '//s2.googleusercontent.com/s2/favicons?alt=feed&domain=';
+	//FAVICON_TPL_URL = protocol + '//www.google.com/profiles/c/u/0/favicons?domain=';
+	
     var FAVICON_TPL_DEF_URL = protocol + '//s2.googleusercontent.com/s2/favicons';
     if (prefs.favicons_providerpageicons) {
         FAVICON_TPL_URL = 'http://pageicons.appspot.com/favicons?f=1&url=';
