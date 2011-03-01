@@ -129,6 +129,38 @@ function getFirstNode(el){
     }
     return o;
 }
+function getSibling(el, previous, index){
+	/*var o=false, els = getSiblings(el, previous, index);
+	if (els && els.length>0){
+		o = els[els.length-1];
+	}
+	return o;*/
+	var o = el,i=0;
+	while (o && o.nodeType === 1) {
+        o = (previous)?o.previousSibling:o.nextSibling;
+		i++;
+		if (index && i==index){
+			return o;
+		}
+    }
+	if (i==0){
+		o=false;
+	}
+    return o;
+	
+}
+function getSiblings(el, previous, index){
+    var els=[], o = el,i=0;
+	while (o && o.nodeType === 1) {
+        o = (previous)?o.previousSibling:o.nextSibling;
+		els.push(o);
+		i++;
+		if (index && i==index){
+			return els;
+		}
+    }
+    return els;
+}
 
 function getIndex(el){
     var pos = 0, o = el;

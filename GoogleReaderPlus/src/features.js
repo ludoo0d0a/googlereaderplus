@@ -930,7 +930,7 @@ GRP.skins = {
         name: "Mac OS X Snow Leopard - Black"
     },
     portal: {
-        name: "Portal Theme"
+        name: "Portal Theme <span class='updated'>Updated!</span>"
     },
     helvetireader: {
         name: "Helvetireader Skin"
