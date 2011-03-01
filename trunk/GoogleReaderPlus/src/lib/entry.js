@@ -594,6 +594,22 @@ function addButton(reference, text, title, fn, position, menu){
 	return div;
 }
 
+function addIcon(entry, title, fn){
+	var div=false, elicons = getFirstElementByClassName(entry, 'entry-icons');
+	if (elicons) {
+		div = document.createElement('div');
+		div.title = title;
+		addClass(div, 'section-button section-menubutton');
+		//addClass(div, 'item-star star link unselectable empty');
+		elicons.appendChild(div);
+		var me =this;
+		div.addEventListener('click', function(e){
+			fn.call(me, entry, div);
+		}, false);
+	}
+	return div;
+}
+
 function onKey(cls, fn){
     var entry = getCurrentEntry();
     var btn = getFirstElementByClassName(entry, cls);//'span'
@@ -884,4 +900,4 @@ function markallasread(entry, since){
                 alert(r.status + ':' + r.statusText);
             }
         });
-    }
+}
