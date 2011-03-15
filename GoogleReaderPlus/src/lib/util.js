@@ -645,6 +645,13 @@ function toggleClass(el, classDelete, classAdd){
     removeClass(el, classDelete);
     addClass(el, classAdd);
 }
+function toggleClassEl(el, clazz){
+    if (hasClass(el,clazz)){
+		removeClass(el, clazz);
+	}else{
+		addClass(el, clazz);
+	}
+}
 	
 function fireResizeDefer(lhnfooter){
     window.setTimeout(function(){
@@ -654,9 +661,9 @@ function fireResizeDefer(lhnfooter){
 
 function fireResize(value){
 	var lhnfooter = (value=='footer');
-	_fireResize(lhnfooter);
-	//setTimeout(function(){
-	setInterval(function(){
+	//_fireResize(lhnfooter);
+	setTimeout(function(){
+	//setInterval(function(){
 		_fireResize(lhnfooter);
 	}, 2000);
 }
