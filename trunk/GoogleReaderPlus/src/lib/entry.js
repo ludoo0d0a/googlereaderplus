@@ -311,12 +311,12 @@ function getCurrentEntry(){
 }
 
 function selectCurrentEntry(el){
-    if (el) {
-        var cur = getCurrentEntry();
-        if (cur) {
-            delete cur.id;
-        }
-        el.id = 'current-entry';
+    if (el && el.id !== 'current-entry') {
+		var cur = getCurrentEntry();
+		if (cur) {
+			cur.removeAttribute('id');
+		}
+		el.id = 'current-entry';
     }
 }
 
@@ -375,10 +375,7 @@ function getHeightEntries(alone){
 			if (vf){
 				offset += vf.clientHeight;
 			}
-            //offset = Math.max(110, offset);
-			//offset+=4;
         }
-        //height = getHeight(entries) - offset;
 		height = entries.clientHeight - offset;
     }
     return height;
@@ -604,6 +601,7 @@ function addIcon(entry, title, fn){
 		elicons.appendChild(div);
 		var me =this;
 		div.addEventListener('click', function(e){
+			e.stopPropagation();
 			fn.call(me, entry, div);
 		}, false);
 	}
