@@ -930,17 +930,20 @@ GRP.skins = {
         name: "Mac OS X Snow Leopard - Black"
     },
     portal: {
-        name: "Portal Theme <span class='updated'>Updated!</span>"
+        name: "Portal v2",
+		status:'updated'
     },
     helvetireader: {
         name: "Helvetireader Skin"
     },
 	darkhelvetireaderday: {
         name: "Dark Helvetireader - Day",
+		status:'new',
 		pic:'https://chrome.google.com/extensions/img/dkcjfdlgfmefnbhkholnhliliohggmef/1296639253.46/screenshot/3001'
     },
 	darkhelvetireadernight: {
         name: "Dark Helvetireader - Night",
+		status:'new',
 		pic:'https://chrome.google.com/extensions/img/dkcjfdlgfmefnbhkholnhliliohggmef/1296639253.46/screenshot/4001'
     },
     minimal: {
@@ -976,7 +979,8 @@ GRP.skins = {
 		ref:'https://code.google.com/p/sublimereader'
     },
 	redesigned: {
-        name: "Redesigned <span class='updated'>Updated!</span>",
+        name: "Redesigned",
+		status:'updated',
 		ref:'http://www.globexdesigns.com/products/gr/'
     },
 	webbizgeek: {
@@ -1062,9 +1066,10 @@ GRP.skins = {
         resize: true
     },
 	snowleopard: {
-        name: "Snow Leopard Improved <span class='updated'>Updated!</span>",
+        name: "Snow Leopard Improved",
+		status:'updated',
 		url: 'http://userstyles.org/styles/userjs/41190/Google%20Reader%20for%20Snow%20Leopard%20Improved.user.js',
-        pic: 'http://userstyles.org/style_screenshots/41190_after.png',
+        pic: 'http://userstyles.org/style_screenshots/41190_after.jpeg',
         ref: 'http://userstyles.org/styles/41190',
         desc: 'userstyles.org',
         resize: 'footer'
