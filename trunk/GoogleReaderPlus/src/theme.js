@@ -35,10 +35,19 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
 				src:el.href
 			};
 			remove(el);
+			/*if (scop.toggle) {
+				scop.toggle(skin.id, false);
+			}*/
 		} else if(tog.css){
 			GM_addStyle(tog.css, 'rps_' + skin.id);
+			/*if (scop.toggle) {
+				scop.toggle(skin.id, true);
+			}*/
 		} else if(tog.src){
 			GM_addCss(tog.src, 'rps_' + skin.id);
+			/*if (scop.toggle) {
+				scop.toggle(skin.id, true);
+			}*/
 		}
 		if (skin.resize) {
 			fireResize(skin.resize);

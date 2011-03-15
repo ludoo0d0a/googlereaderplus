@@ -164,6 +164,9 @@ GRP.langs[locale].texts = {
     },
 	actions:{
 		text:'Actions icons'
+	},
+	portal:{
+		readmore: 'Read more (Ctrl+click to show actions)'
 	}
 };
 GRP.langs[locale].prefs = {

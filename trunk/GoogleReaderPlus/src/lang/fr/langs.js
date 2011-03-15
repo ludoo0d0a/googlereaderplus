@@ -154,7 +154,13 @@ GRP.langs[locale].texts = {
     menu: {
         label: 'Extra',
         showallfolders: 'Show all folders'
-    }
+    },
+	actions:{
+		text:'Icônes actions'
+	},
+	portal:{
+		readmore: 'En lire plus (Ctrl+click pour le menu)'
+	}
 };
 GRP.langs[locale].prefs = {
     global: {
