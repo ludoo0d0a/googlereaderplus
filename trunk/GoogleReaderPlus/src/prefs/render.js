@@ -104,13 +104,8 @@ function renderScripts(){
 		
         iterate(scripts, function(id, script){
 			script.dlink = '>';
+			script.status=getSpanStatus(script.status);
 			script.desc = script.desc||'';
-			if (script.status){
-				var stat = getTextPrefs(lang, 'global', 's'+script.status) || script.status;
-				script.status='<span class="'+script.status+'">'+stat+'</span>';
-			}else{
-				script.status='';
-			}
 			
             var t = (script.link) ? tplLink : tplCheckbox;
             html += fillTpl(t, script);
@@ -310,6 +305,17 @@ function renderpicker(){
     }
 }
 
+function getSpanStatus(status){
+	var txt='';
+	if (status){
+		var stat = getTextPrefs(lang, 'global', 's'+status, false,'');
+		if (stat) {
+			txt = ' <span class="' + status + '">' + stat + '</span>';
+		}
+	}
+	return txt;
+}
+			
 function renderSkins(){
     var last;
 	var SKINS_PATH = 'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/skins/';
@@ -319,7 +325,8 @@ function renderSkins(){
         var li = document.createElement('li');
         var a = document.createElement('a');
         li.id = 'skin_' + id;
-        a.innerHTML = o.name;
+		a.innerHTML = o.name+getSpanStatus(o.status);
+		
         a.href = '#';
         li.appendChild(a);
         list.appendChild(li);
