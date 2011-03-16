@@ -185,7 +185,12 @@ function getPos(obj){
 
 //native getElementsByClassName
 function getFirstElementByClassName(root, clazz){
-	return root.getElementsByClassName(clazz)[0];
+	var els = root.getElementsByClassName(clazz);
+	if (els && els.length>0){
+		return els[0];
+	}else{
+		return false;
+	}
 }
 
 function getElementText(root, cls, html, firstchild){
@@ -646,10 +651,12 @@ function toggleClass(el, classDelete, classAdd){
     addClass(el, classAdd);
 }
 function toggleClassEl(el, clazz){
-    if (hasClass(el,clazz)){
+	if (hasClass(el,clazz)){
 		removeClass(el, clazz);
+		return false;
 	}else{
 		addClass(el, clazz);
+		return true;
 	}
 }
 	
