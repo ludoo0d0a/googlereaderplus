@@ -4,8 +4,9 @@
 .entry .entry-actions .btn-readitlater,
 .entry .entry-actions .btn-clockblue,
 .entry .entry-actions .btn-clockgray,
-.entry .entry-actions .btn-radbox{
-	background: url('http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/share/share2.png') transparent no-repeat!important;
+.entry .entry-actions .btn-radbox,
+.entry .entry-actions .btn-identi{
+	background: url('http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/share/share2.png') no-repeat!important;
 	padding-left:18px !important;
 	padding-top:0px !important;
 }
@@ -56,4 +57,23 @@
 }
 .entry .entry-actions .btn-radbox.btn-active{
 	background-position: 0 -208px !important;
+}
+
+.entry .entry-actions .btn-identi{
+	background-position: 0 -224px !important;
+}
+.entry .entry-actions .btn-identi.btn-active{
+	background-position: 0 -240px !important;
+}
+
+.entry .entry-actions .btn-jaiku{
+	background-position: 0 -256px !important;
+}
+.entry .entry-actions .btn-jaiku.btn-active{
+	background-position: 0 -272px !important;
+}
+
+span.btn-sel{
+	font-weight:bold;
+	background-color: #d9e2f4 !important;
 }

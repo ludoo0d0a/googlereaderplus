@@ -44,6 +44,38 @@ GRP.langs[locale].texts = {
         text_shortener: 'Short url',
         shortfailed: "Sorry, an error occured on trying to use short url!\n\r{0}"
     },
+	identi:{
+		text:'Share this news on Identi',
+		keyword: 'Identi',
+		plslogin: 'Please login to Identi.ca',
+        toolong: "the message is too long!",
+        notetoolong: "<b>Note to go along with the item:</b> (Optional, remain {0} characters)",
+        notemax: "<b>Note to go along with the item:</b> (Optional, no more than 140 characters)",
+        text_title: 'Title',
+        text_tag: 'Tag',
+        text_url: 'URL',
+        text_send: 'Send',
+        text_count: 'Count',
+        text_cancel: 'Cancel',
+        text_shortener: 'Short url',
+        shortfailed: "Sorry, an error occured on trying to use short url!\n\r{0}"
+	},
+	jaiku:{
+		text:'Share this news on Jaiku',
+		keyword: 'Jaiku',
+		plslogin: 'Please login to Jaiku',
+        toolong: "the message is too long!",
+        notetoolong: "<b>Note to go along with the item:</b> (Optional, remain {0} characters)",
+        notemax: "<b>Note to go along with the item:</b> (Optional, no more than 140 characters)",
+        text_title: 'Title',
+        text_tag: 'Tag',
+        text_url: 'URL',
+        text_send: 'Send',
+        text_count: 'Count',
+        text_cancel: 'Cancel',
+        text_shortener: 'Short url',
+        shortfailed: "Sorry, an error occured on trying to use short url!\n\r{0}"
+	},
     readit: {
         password: 'Password, if you have one:',
         wronglogin: 'Wrong username or password, please check it!!',
