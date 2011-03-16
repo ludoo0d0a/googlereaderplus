@@ -4,7 +4,6 @@ lib\greasekit.js
 lib\entry.js
 lib\i18n.js
 lib\external.js
-lib\jquery\jquery.masonry.js
 version.js
 features.js
 api\entry.js
@@ -27,6 +26,8 @@ readbymouse.js
 menu.js
 facebook.js
 twitter.js
+identi.js
+jaiku.js
 readitlater.js
 instapaper.js
 radbox.js
