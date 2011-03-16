@@ -4,7 +4,8 @@
  *  
  */
 GRP.identi = function(prefs, langs, ID, SL, lang){
-    var api = {
+    var BASE = 'http://identi.ca';
+	var api = {
         shortcut:'identi'
     };
     GRP.api_micro(prefs, langs, ID, SL, lang, api);

@@ -43,7 +43,7 @@ function bg_request(a, local, cb){
     var method = a.method || 'get';
     method = method.toLowerCase();
     var url = a.url;
-    if (a.parameters && (method === 'get')) {
+    if (a.parameters /*&& (method === 'get')*/) {
         var params = [];
         for (var k in a.parameters) {
             params.push(k + '=' + encodeURIComponent(a.parameters[k]));

@@ -11,18 +11,15 @@
  * http://userscripts.org/scripts/show/10169
  */
 GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
-    // Constants
-    // NORMALIZE=false leaves the tags alone
-    // NORMALIZE=true converts tags to proper case and replaces -'s with spaces,
-    // like reader should itself
-	//var CLS_ACTIVE='item-star-active star link';
-	var CLS_ACTIVE='item-star-active btn-active star link';
-    
+    var DEFAULT_LABEL = "",NORMALIZE = true;
+	var CLS_ACTIVE='btn-active', MAX_TEXT=api.max_text||140;
+    var BTN_CLS = 'item-share star',BTN_CLS_ID ='btn-'+ID+' '+BTN_CLS;
+    var entries = get_id('entries');
+	
 	function getPref(name, def){
 		return prefs[ID+'_'+name] || def;
 	}
-	
-    var URL_SHORTENER = getPref('shortener', 'tinyurl');// bitly, tinyurl
+	    
     // format the message to send, pls type as you like
     function formatSendMsg(labels, title, notes, url){
         var msg = "";
@@ -38,69 +35,93 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
     }
     
     var urlShorteners = {
-        'bitly': getTinyAndInsert_BitLy,
-        'tinyurl': getTinyAndInsert_TinyURL
-    };
-    
-    function getTinyAndInsert_TinyURL(event){
-        var thelongurl = encodeURIComponent(url);
-        // urlinput.value = "making url tiny...";
-        GM_xmlhttpRequest({
-            method: 'GET',
-            url: "http://tinyurl.com/create.php?url=" + thelongurl,
-            onload: function(r){
-                if (r.status == 200) {
-                    var t = r.responseText;
-                    urlinput.value = t.match(/<blockquote><b>(http\:\/\/tinyurl\.com\/[a-zA-Z0-9]+)<\/b><br>/)[1];
-                    countWord(event);
-                }
-            },
-            onerror: function(r){
-                var error = formatText(SL.shortfailed, r.status);
-                alert(error);
-            }
-        });
-    }
-    
-    function getTinyAndInsert_BitLy(event){
-        var thelongurl = encodeURIComponent(url);
-        // urlinput.value = "making url tiny...";
-        var o = {
-            login: getPref('bitlylogin', 'twitthis'),
-            apiKey: getPref('bitlykey','R_f0b6b5e3a4c028b3ec97119e4f3ce16c'),
-            url: thelongurl
-        };
-        var tpl = "http://api.bit.ly/shorten?version=2.0.1&login={login}&apiKey={apiKey}&format=xml&longUrl={url}";
-        var urlbitly = fillTpl(tpl, o);
-        
-        GM_xmlhttpRequest({
-            method: 'GET',
-            url: urlbitly,
-            onload: function(r){
-                var tinydom = new DOMParser().parseFromString(r.responseText, "application/xml");
-                urlinput.value = tinydom.getElementsByTagName('shortUrl')[0].textContent;
-                countWord(event);
-            },
-            onerror: function(r){
-                var error = formatText(SL.shortfailed, r.status);
-                alert(error);
-            }
-        });
-    }
-    
-    // -------------------------- shorturl service end
-    // ---------------------------------
-    
-    var getTinyAndInsert = urlShorteners[URL_SHORTENER];
-    
-    var DEFAULT_LABEL = "";
-    var NORMALIZE = true;
-    
-    // Variables for editing bookmark details
-    var bookmarkField,bookmarkStar,lblinput,notesinput;
-    var urlinput,url,titleinput,notesdesc,mode;
-	var BTN_CLS = 'item-share star';
-	var BTN_CLS_ID ='btn-'+ID+' '+BTN_CLS;
+		tinyurl: function(url, cb){
+			var thelongurl = encodeURIComponent(url);
+			// urlinput.value = "making url tiny...";
+			GM_xmlhttpRequest({
+				method: 'GET',
+				url: "http://tinyurl.com/create.php?url=" + thelongurl,
+				onload: function(r){
+					if (r.status == 200) {
+						var t = r.responseText;
+						var s = t.match(/<blockquote><b>(http\:\/\/tinyurl\.com\/[a-zA-Z0-9]+)<\/b><br>/)[1];
+						if (cb){
+							cb(!!s, s);
+						}
+					}
+				},
+				onerror: function(r){
+					var error = formatText(SL.shortfailed, r.status);
+					alert(error);
+					if (cb){
+						cb(false);
+					}
+				}
+			});
+		},
+		bitly: function(url, cb){
+			var thelongurl = encodeURIComponent(url);
+			// urlinput.value = "making url tiny...";
+			var o = {
+				login: getPref('bitlylogin', 'twitthis'),
+				apiKey: getPref('bitlykey', 'R_f0b6b5e3a4c028b3ec97119e4f3ce16c'),
+				url: thelongurl
+			};
+			var tpl = "http://api.bit.ly/shorten?version=2.0.1&login={login}&apiKey={apiKey}&format=xml&longUrl={url}";
+			var urlbitly = fillTpl(tpl, o);
+			
+			GM_xmlhttpRequest({
+				method: 'GET',
+				url: urlbitly,
+				onload: function(r){
+					var tinydom = new DOMParser().parseFromString(r.responseText, "application/xml");
+					var s = tinydom.getElementsByTagName('shortUrl')[0].textContent;
+					if (cb){
+						cb(!!s, s);
+					}
+					//countWord();
+				},
+				onerror: function(r){
+					var error = formatText(SL.shortfailed, r.status);
+					alert(error);
+					if (cb){
+						cb(false);
+					}
+				}
+			});
+		},
+		googl: function(url, cb){
+			//http://code.google.com/apis/urlshortener/v1/getting_started.html#shorten
+			GM_xmlhttpRequest({
+				method: 'POST',
+				dataType:'json',
+				url: "https://www.googleapis.com/urlshortener/v1/url",
+				headers:{
+					'Content-Type':'application/json'
+				},
+				data:JSON.stringify({
+					key:'AIzaSyA-0Dvm2SX5qkNGeM73nkrGwhjAIirZZNM',
+					longUrl: url
+				}),
+				onload: function(r){
+					var s = (r.responseJson && r.responseJson.id);
+					if (cb){
+						cb(!!s,s);
+					}
+				},
+				onerror: function(r){
+					var error = formatText(SL.shortfailed, r.status);
+					alert(error);
+					if (cb){
+						cb(false);
+					}
+				}
+			});
+		}
+	};
+	
+	var URL_SHORTENER = getPref('shortener', 'googl');// bitly, tinyurl, googl
+    var getShortUrl = urlShorteners[URL_SHORTENER];
     
     function addMicroButton(el, entry, mode){
         var title = SL.text + formatShortcut(ID, 'tweet', prefs); //[b]
@@ -110,102 +131,155 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
     function addKey(){
         onKey('btn-'+ID, postBookmark);
     }
-    
+
     function postBookmark(btn, entry, locked){
-        var active = isActive(btn, entry, ID, locked);
+        //local
+		var taginput,notesinput,urlinput,titleinput,notesdesc,mode;
+		
+		//var active = isActive(btn, entry, ID, locked);
+        var bookmarkField = getFirstElementByClassName(entry, 'micro-form-'+ID);
+		var header, bookmarkStar = btn, parent = entry;
+		
+		if (bookmarkField){
+			//toggle
+			var hidden = toggleClassEl(bookmarkField, 'hidden');
+			addClassIf(btn, 'btn-sel', !hidden);
+			return;
+		}
         
-        //bookmarkStar = event.target;
-        //var parent = findParentNode(bookmarkStar, 'div', 'entry');
-        bookmarkStar = btn;
-        var parent = entry;
-        
-        var header;
-        if (mode === "expanded") {
-            // parent = bookmarkStar.parentNode.parentNode.parentNode;
+		//create
+		bookmarkField = document.createElement("div");
+        addClass(bookmarkField, 'micro-form-'+ID+' action-area');
+        var tpl = "<div class='email-this-area'><table class='email-entry-table'><tbody><tr><td class='field-name'>{text_title}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input inp-title' type='text'></td></tr><tr><td class='field-name'>{text_tag}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input inp-tag' type='text'></td></tr><tr><td class='field-name'>{text_url}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input inp-url' type='text'></td></tr><tr><td colspan='2'><div class='inp-notes'>{notemax}</div><br/><textarea class='email-this-comment inp-notes' rows='6'></textarea><div class='email-this-buttons' tabindex='-1'><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-send inp-btn-send'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_send}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel inp-btn-shorturl'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_shortener}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel inp-btn-count'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_count}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel inp-btn-cancel'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_cancel}</div></div></div></div></div></div></div></td></tr></tbody></table></div>";
+        var html = fillTpl(tpl, SL);
+        bookmarkField.innerHTML = html;
+		
+		if (mode === "expanded") {
             bookmarkStar.parentNode.parentNode.className = "card-actions";
         } else {
-            // parent = bookmarkStar.parentNode.parentNode;
             parent.className = "entry read expanded action-area-visible";
         }
-        bookmarkStar.className = "btn-"+ID+" " + CLS_ACTIVE;
+        bookmarkStar.className = "btn-"+ID+" btn-sel star link";
         
-        var link = getEntryLink(entry);
-        url = link.url;
-        var title = link.title;
-        var addbkmk = getBookmarkField();
-        if (mode == "expanded") {
-            if (addbkmk.className == "action-area card-bottom") {
-                bookmarkStar.className = BTN_CLS_ID+" link";
-                addbkmk.className = "action-area card-bottom hidden";
-                bookmarkStar.parentNode.parentNode.className = "card-actions card-bottom";
-                return;
-            }
-            addbkmk.className = "action-area card-bottom";
-        } else {
-            if (addbkmk.className == "action-area") {
-                bookmarkStar.className = BTN_CLS_ID+" link";
-                addbkmk.className = "action-area hidden";
-                parent.className = "entry read expanded";
-                return;
-            }
-            addbkmk.className = "action-area";
-        }
+        var link = getEntryLink(entry), url = link.url, title = link.title;
+		var cb = '';
+		if (mode == "expanded") {
+			cb = ' card-bottom';
+		}
+        
         parent.appendChild(bookmarkField);
-        lblinput = document.getElementById("lblinput");
-        notesinput = document.getElementById("notesinput");
-        urlinput = document.getElementById("urlinput");
-        titleinput = document.getElementById("titleinput");
-        notesdesc = document.getElementById("notesdesc");
-        /*notesinput.addEventListener('click', function(){
-            notesinput.focus();
-        }, false);*/
-        notesinput.addEventListener('keypress', countWord, false);
-        notesinput.value = "";
-        lblinput.value = getTags(parent);
+        taginput = getFirstElementByClassName(bookmarkField, "inp-tag");
+        notesinput = getFirstElementByClassName(bookmarkField, "inp-notes");
+        urlinput = getFirstElementByClassName(bookmarkField, "inp-url");
+        titleinput = getFirstElementByClassName(bookmarkField, "inp-title");
+        notesdesc = getFirstElementByClassName(bookmarkField, "inp-notes");
+
+		notesinput.value = "";
+        taginput.value = getTags(parent);
         urlinput.value = url;
         titleinput.value = title;
-        btnSend = document.getElementById("btnSend");
-        btnTinyURL = document.getElementById("btnTinyURL");
-        btnCount = document.getElementById("btnCount");
-        btnCancel = document.getElementById("btnCancel");
+		
+		function monitorCount(el){
+			el.addEventListener('keypress', function(){
+				countWord();
+			}, false);
+		}
+		monitorCount(notesinput);
+		monitorCount(urlinput);
+		monitorCount(titleinput);
+		monitorCount(taginput);
+        
+        btnSend = getFirstElementByClassName(bookmarkField, "inp-btn-send");
+        btnTinyURL = getFirstElementByClassName(bookmarkField, "inp-btn-shorturl");
+        btnCount = getFirstElementByClassName(bookmarkField, "inp-btn-count");
+        btnCancel = getFirstElementByClassName(bookmarkField, "inp-btn-cancel");
         btnSend.addEventListener('click', saveBookmark, false);
-        btnTinyURL.addEventListener('click', getTinyAndInsert, false);
-        btnCount.addEventListener('click', countWord, false);
-        if (mode == "expanded") {
-            btnCancel.addEventListener("click", function(){
-                bookmarkStar.parentNode.parentNode.className = "card-actions card-bottom";
-                bookmarkField.className = "action-area card-bottom hidden";
-                bookmarkStar.className = BTN_CLS_ID+" link";
-                notesdesc.innerHTML = SL.notemax;
-                notesinput.value = "";
-            }, false);
-        } else {
-            btnCancel.addEventListener("click", function(){
-                parent.className = "entry read expanded";
-                bookmarkField.className = "action-area hidden";
-                bookmarkStar.className = BTN_CLS_ID+" link";
-                notesdesc.innerHTML = SL.notemax;
-                notesinput.value = "";
-            }, false);
-        }
-        countWord(event);
-        btnSend.focus();
-        notesinput.focus();
-    }
-    
-    function getBookmarkField(){
-        if (!bookmarkField) {
-            bookmarkField = document.createElement("div");
-            bookmarkField.setAttribute("id", ID+"Field");
-            var tpl = "<html><body><div class='email-this-area'><table class='email-entry-table'><tbody><tr><td class='field-name'>{text_title}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='titleinput'></td></tr><tr><td class='field-name'>{text_tag}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='lblinput'></td></tr><tr><td class='field-name'>{text_url}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input' type='text' id='urlinput'></td></tr><tr><td colspan='2'><div id='notesdesc'>{notemax}</div><br/><textarea class='email-this-comment' rows='6' id='notesinput'></textarea><div class='email-this-buttons' tabindex='-1'><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-send' id='btnSend'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_send}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnTinyURL'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_shortener}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnCount'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_count}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel' id='btnCancel'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_cancel}</div></div></div></div></div></div></div></td></tr></tbody></table></div></body></html>";
-            var html = fillTpl(tpl, SL);
-            bookmarkField.innerHTML = html;
-        }
-        return bookmarkField;
+        btnTinyURL.addEventListener('click',  function(){
+            url=urlinput.value;
+			getShortUrl(url, function(status, shortUrl){
+				if (status && shortUrl){
+					urlinput.value=shortUrl;
+					countWord();
+				}
+			});
+        }, false);
+        btnCount.addEventListener('click',  function(){
+            countWord();
+        }, false);
+        
+        btnCancel.addEventListener("click", function(){
+            if (mode == "expanded") {
+				bookmarkStar.parentNode.parentNode.className = "card-actions" + cb;
+			}else{
+				parent.className = "entry read expanded";
+			}
+            bookmarkField.className = "action-area'+cb+' hidden";
+            bookmarkStar.className = BTN_CLS_ID+" link";
+            notesdesc.innerHTML = SL.notemax;
+            notesinput.value = "";
+        }, false);
+       
+		
+		function countWord(warning){
+	        var title = titleinput.value;
+	        var labels = taginput.value;
+	        var notes = notesinput.value;
+	        var msg = formatSendMsg(labels, title, notes, urlinput.value);
+			var remain= MAX_TEXT - countMsgWord(msg);
+	        notesdesc.innerHTML = formatText(SL.notetoolong, remain);
+			if (warning && remain<0){
+				alert(SL.toolong);
+				return false;
+			}else{
+				return msg;
+			}
+			
+	    }
+		
+		countWord();
+		
+        //btnSend.focus();
+        //notesinput.focus();
+		
+	    function saveBookmark(event){
+	        var msg = countWord(true);
+			if (!msg){
+				return;
+			}
+
+			function activeStar(){
+		        if (mode == "expanded") {
+		            getElementsByClazzName("card-actions", "div", bookmarkField.parentNode)[0].className = "card-actions card-bottom";
+		        } else {
+		            bookmarkField.parentNode.className = "entry read expanded";
+		        }
+		        addClass(bookmarkField, 'hidden');
+				addClass(bookmarkStar, CLS_ACTIVE);
+		        notesinput.value = "";
+		    }
+		
+	        mycore.extension.sendRequest({
+	            message: "micro",
+				id:ID,
+				msg:msg
+	        }, function(o){
+				var txt = '';
+				if (o) {
+					if (!o.error) {
+						activeStar();
+					}else{
+						alert('Error from '+ID+': '+(o.responseJson.error||''));
+					}
+				}else{
+					alert('Error: Unable to share this item.');
+				}
+	        });        
+	    }
+		
     }
     
     function getTags(parent){
-        var taglist = getElementsByClazzName("user-tags-list", "ul", parent)[0];
+        var taglist = getFirstElementByClassName(parent, "user-tags-list");
         var ins = taglist.getElementsByTagName("li");
         var lbls = "";
         for (var i = 0; i < ins.length; i++) {
@@ -231,61 +305,9 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
         return lbls;
     }
     
-    function saveBookmark(event){
-        var title = titleinput.value;
-        var labels = lblinput.value;
-        var notes = notesinput.value;
-        var msg = formatSendMsg(labels, title, notes, urlinput.value);
-        var size = 140 - countMsgWord(msg);
-        if (size < 0) {
-            alert(SL.toolong);
-            notesdesc.innerHTML = formatText(SL.notetoolong, size);
-            return;
-        }
         
-        GM_log("URL: " + url + "\nTitle: " + title + "\nTags: " + labels + "\nNotes: " + notes);
-        
-        mycore.extension.sendRequest({
-            message: "micro",
-			id:ID,
-			msg:msg
-        }, function(r){
-            GM_log(r.status + ' : ' + r.statusText );
-			GM_log(r.responseText);
-			activeStar();
-        });        
-    }
-    function activeStar(){
-        if (mode == "expanded") {
-            getElementsByClazzName("card-actions", "div", bookmarkField.parentNode)[0].className = "card-actions card-bottom";
-        } else {
-            bookmarkField.parentNode.className = "entry read expanded";
-        }
-        bookmarkField.className += " hidden";
-        bookmarkStar.className = CLS_ACTIVE;
-        notesinput.value = "";
-    }
-    
-    function countWord(event){
-        var title = titleinput.value;
-        var labels = lblinput.value;
-        var notes = notesinput.value;
-        var msg = formatSendMsg(labels, title, notes, urlinput.value);
-        notesdesc.innerHTML = formatText(SL.notetoolong, (140 - countMsgWord(msg)));
-    }
-    
     function countMsgWord(str){
-        var len;
-        var i;
-        len = 0;
-        for (i = 0; i < str.length; i++) {
-            if (str.charCodeAt(i) > 255) {
-                len++;
-            } else {
-                len++;
-            }
-        }
-        return len;
+        return (str||'').length;
     }
     
     registerFeature(addMicroButton, ID);
