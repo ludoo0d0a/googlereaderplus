@@ -508,6 +508,11 @@ img.favicon {
 	text-align:center;
 }
 
+.badge{
+	padding:8px !important;
+	text-align:center;
+}
+
 #expandall{
 	float:right;
 	margin-right:4px;
