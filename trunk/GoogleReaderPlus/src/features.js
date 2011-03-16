@@ -451,8 +451,9 @@ GRP.scripts = {
             shortener: {
                 xtype: 'select',
                 values: {
-                    tinyurl: 'TinyUrl',
-                    bitly: 'BitLy'
+                    googl:'Goo.gl',
+				    tinyurl: 'TinyUrl',
+                    bitly: 'BitLy'					
                 }
             },
             shortener_bitly: {
@@ -480,7 +481,6 @@ GRP.scripts = {
             }
         }
     },
-	/*
 	identi: {
         name: "Identi.ca",
         category: 'share',
@@ -489,7 +489,8 @@ GRP.scripts = {
             shortener: {
                 xtype: 'select',
                 values: {
-                    tinyurl: 'TinyUrl',
+                    googl:'Goo.gl',
+					tinyurl: 'TinyUrl',
                     bitly: 'BitLy'
                 }
             },
@@ -519,7 +520,48 @@ GRP.scripts = {
             }
         }
     },
-    */
+	/*jaiku: {
+        name: "Jaiku",
+        category: 'share',
+		status: 'new',
+        options: {
+            username:'',
+			location:'',
+			shortener: {
+                xtype: 'select',
+                values: {
+                    googl:'Goo.gl',
+					tinyurl: 'TinyUrl',
+                    bitly: 'BitLy'
+                }
+            },
+            shortener_bitly: {
+                xtype: 'p',
+                label: true,
+                cls: 'subtitle'
+            },
+            shortener_login: {
+                value: '',
+                size: 20
+            },
+            shortener_apikey: {
+                value: '',
+                size: 30
+            }
+        }
+       , shortcuts: {
+            'Jaikumessage': {
+                id: 'Jaikumessage',
+                title: 'Post on Jaiku',
+                key: {
+                    //87 w + shift+alt
+                    keyCode: 87,
+					shiftKey:true,
+					altKey:true
+                }
+            }
+        }
+    },*/
     instapaper: {
         name: "Instapaper integration",
         category: 'share',
@@ -923,6 +965,15 @@ GRP.skins = {
     player: {
         name: "Player Theme"
     },
+	snowleopard: {
+        name: "Snow Leopard Improved",
+		status:'updated',
+		url: 'http://userstyles.org/styles/userjs/41190/Google%20Reader%20for%20Snow%20Leopard%20Improved.user.js',
+        pic: 'http://userstyles.org/style_screenshots/41190_after.jpeg',
+        ref: 'http://userstyles.org/styles/41190',
+        desc: 'userstyles.org',
+        resize: 'footer'
+    },
     osxblue: {
         name: "Mac OS X Snow Leopard - Blue"
     },
@@ -1064,15 +1115,6 @@ GRP.skins = {
         ref: 'http://nadesign.net/safari/',
 		desc: 'Pure Reader by Na\'Design',
         resize: true
-    },
-	snowleopard: {
-        name: "Snow Leopard Improved",
-		status:'updated',
-		url: 'http://userstyles.org/styles/userjs/41190/Google%20Reader%20for%20Snow%20Leopard%20Improved.user.js',
-        pic: 'http://userstyles.org/style_screenshots/41190_after.jpeg',
-        ref: 'http://userstyles.org/styles/41190',
-        desc: 'userstyles.org',
-        resize: 'footer'
     }
 };
 GRP.googleshortcuts = {
