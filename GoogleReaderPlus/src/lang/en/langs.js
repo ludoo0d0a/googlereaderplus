@@ -6,8 +6,8 @@
  * en : English
  * **************************
  *
- * Version : 1.7
- * Date : 01-27-2011
+ * Version : 1.8
+ * Date : 03-17-2011
  * @author Valente
  */
 var locale = 'en';
@@ -24,31 +24,8 @@ GRP.langs[locale].texts = {
         summary: 'Add/edit items',
         desc: 'Manage columns'
     },
-    facebook: {
-        text: 'Share this news on Facebook',
-        keyword: 'Facebook'
-    },
-    twitter: {
-        text: 'Share this news on Twitter',
-        keyword: 'Twitter',
-        plslogin: 'Please login to Twitter',
-        toolong: "the message is too long!",
-        notetoolong: "<b>Note to go along with the item:</b> (Optional, remain {0} characters)",
-        notemax: "<b>Note to go along with the item:</b> (Optional, no more than 140 characters)",
-        text_title: 'Title',
-        text_tag: 'Tag',
-        text_url: 'URL',
-        text_send: 'Send',
-        text_count: 'Count',
-        text_cancel: 'Cancel',
-        text_shortener: 'Short url',
-        shortfailed: "Sorry, an error occured on trying to use short url!\n\r{0}"
-    },
-	identi:{
-		text:'Share this news on Identi',
-		keyword: 'Identi',
-		plslogin: 'Please login to Identi.ca',
-        toolong: "the message is too long!",
+	sharemsg:{
+		toolong: "the message is too long!",
         notetoolong: "<b>Note to go along with the item:</b> (Optional, remain {0} characters)",
         notemax: "<b>Note to go along with the item:</b> (Optional, no more than 140 characters)",
         text_title: 'Title',
@@ -60,21 +37,24 @@ GRP.langs[locale].texts = {
         text_shortener: 'Short url',
         shortfailed: "Sorry, an error occured on trying to use short url!\n\r{0}"
 	},
+    facebook: {
+        text: 'Share this news on Facebook',
+        keyword: 'Facebook'
+    },
+    twitter: {
+        text: 'Share this news on Twitter',
+        keyword: 'Twitter',
+        plslogin: 'Please login to Twitter'
+    },
+	identi:{
+		text:'Share this news on Identi',
+		keyword: 'Identi',
+		plslogin: 'Please login to Identi.ca'
+	},
 	jaiku:{
 		text:'Share this news on Jaiku',
 		keyword: 'Jaiku',
-		plslogin: 'Please login to Jaiku',
-        toolong: "the message is too long!",
-        notetoolong: "<b>Note to go along with the item:</b> (Optional, remain {0} characters)",
-        notemax: "<b>Note to go along with the item:</b> (Optional, no more than 140 characters)",
-        text_title: 'Title',
-        text_tag: 'Tag',
-        text_url: 'URL',
-        text_send: 'Send',
-        text_count: 'Count',
-        text_cancel: 'Cancel',
-        text_shortener: 'Short url',
-        shortfailed: "Sorry, an error occured on trying to use short url!\n\r{0}"
+		plslogin: 'Please login to Jaiku'
 	},
     readit: {
         password: 'Password, if you have one:',
@@ -104,6 +84,14 @@ GRP.langs[locale].texts = {
         nologin: 'This feature requires a userkey, please set preferences!!',
 		novideo: 'No video were found on this page'
     },
+	addthis:{
+		text:'Share with AddThis',
+		keyword: 'AddThis'
+	},
+	blogger:{
+		text:'Share with Blogger',
+		keyword: 'Blogger'
+	},
     favicons: {
         preferences: 'Preferences',
         getfavicon: 'Get favicon',

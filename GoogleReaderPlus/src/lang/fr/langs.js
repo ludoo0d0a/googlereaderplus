@@ -6,8 +6,8 @@
  * fr : Francais
  * **************************
  *
- * Version : 1.7
- * Date : 01-27-2011
+ * Version : 1.8
+ * Date : 03-17-2011
  * @author Valente
  */
 var locale = 'fr';
@@ -24,15 +24,8 @@ GRP.langs[locale].texts = {
         summary: 'Ajouter/Editer',
         desc: 'Gérer les colonnes'
     },
-    facebook: {
-        text: 'Partager cette nouvelle sur Facebook',
-        keyword: 'Facebook'
-    },
-    twitter: {
-        text: 'Partager cette nouvelle sur Twitter',
-        keyword: 'Twitter',
-        plslogin: 'Merci de vous connecter à Twitter',
-        toolong: "Ce message est trop long!",
+	sharemsg:{
+		toolong: "Ce message est trop long!",
         notetoolong: "<b>Note attachée à la nouvelle:</b> (optionel, reste {0} caractères)",
         notemax: "<b>Note attachée à la nouvelle:</b> (optionel, 140 caractères maximum)",
         text_title: 'Titre',
@@ -43,6 +36,15 @@ GRP.langs[locale].texts = {
         text_cancel: 'Annuler',
         text_shortener: 'Short URL',
         shortfailed: "Désolé, une erreur est survenue pour obtenir une url courte!\n\r{0}"
+	},
+    facebook: {
+        text: 'Partager cette nouvelle sur Facebook',
+        keyword: 'Facebook'
+    },
+    twitter: {
+        text: 'Partager cette nouvelle sur Twitter',
+        keyword: 'Twitter',
+        plslogin: 'Merci de vous connecter à Twitter'
     },
     readit: {
         password: 'Mot de passe, si vous en avez un:',
