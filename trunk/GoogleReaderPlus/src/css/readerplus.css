@@ -77,3 +77,12 @@ span.btn-sel{
 	font-weight:bold;
 	background-color: #d9e2f4 !important;
 }
+
+.addthis_inline{
+	display:inline !important;
+}
+
+
+.grp-menu{background: transparent url(/reader/ui/3607832474-entry-action-icons.png) no-repeat;padding: 1px 8px 1px 16px;}
+.grp-menu-checked{background-position:-80px -160px;}
+.grp-menu-unchecked{background-position:-64px -128px;}
