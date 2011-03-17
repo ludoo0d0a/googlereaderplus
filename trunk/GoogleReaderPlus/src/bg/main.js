@@ -99,6 +99,10 @@ function onMessageReceived(a, p, cb){
         syncload(a,cb);
     }else if (a.message == "syncsave") {
         syncsave(a,cb);
+    }else if (a.message == "blogger") {
+        postblogger(a,cb);
+    }else if (a.message == "popupblogger") {
+        popupBlogger(a,cb);
     }
 }
 
