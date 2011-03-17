@@ -208,7 +208,7 @@ if (typeof GM_addScript === "undefined") {
             }
         }
     }
-    function GM_addjs(script, inline, id, cb, scope, time){
+    function GM_addjs(script, inline, id, cb, scope, time, root){
         var el = document.createElement("script");
         el.setAttribute("type", "text\/javascript");
         if (inline) {
@@ -219,7 +219,8 @@ if (typeof GM_addScript === "undefined") {
         if (id) {
             el.setAttribute("id", id);
         }
-        document.getElementsByTagName("head")[0].appendChild(el);
+		root=root || (document.getElementsByTagName("head")[0]);
+		root.appendChild(el);
         if (cb) {
             window.setTimeout(function(){
                 cb.call(scope || this);
