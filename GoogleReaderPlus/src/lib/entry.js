@@ -701,23 +701,30 @@ function getScriptObject(id){
 
 function addReaderMenuItem(text, cb, checkbox){
     var html = text;
-    GM_addStyle('.grp-menu{background: transparent url(/reader/ui/3607832474-entry-action-icons.png) no-repeat;padding: 1px 8px 1px 16px;}' +
+	if (checkbox) {
+	      html = '<span class="grp-menu grp-menu-unchecked">' + text + '</span>';
+	}
+
+	var li='gbg', cls='gb2 rpgb2', newUI = get_id('gbd5');
+	if (newUI){
+		var ol = getFirstElementByClassName(newUI, 'gbmcc');
+		li = dh(ol,'li', {cls: 'gbkc gbmtc'});
+		cls='gbmt';
+	}
+
+    /*GM_addStyle('.grp-menu{background: transparent url(/reader/ui/3607832474-entry-action-icons.png) no-repeat;padding: 1px 8px 1px 16px;}' +
     '.grp-menu-checked{background-position:-80px -160px;}' +
     '.grp-menu-unchecked{background-position:-64px -128px;}', 'grp_menusettings');
+    */
     
-    if (checkbox) {
-        html = '<span class="grp-menu grp-menu-unchecked">' + text + '</span>';
-    }
-    
-    dh('gbg', 'a', {
+    dh(li, 'a', {
         href: '#',
-        cls: 'gb2 rpgb2',
+        cls: cls ,
         html: html
     }, {
         click: function(e){
             if (checkbox) {
-                var span = e.target;
-                addClassIf(span, 'grp-menu-checked', 'grp-menu-unchecked');
+                addClassIf(e.target, 'grp-menu-checked', 'grp-menu-unchecked');
             }
             cb(e);
         }
