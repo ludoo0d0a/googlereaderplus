@@ -615,7 +615,7 @@ GRP.scripts = {
         }
     },
 	radbox: {
-        name: "Radbox integration",
+        name: "Radbox",
         category: 'share',
         options: {
             auth: {
@@ -632,6 +632,57 @@ GRP.scripts = {
                 key: {
                     //66 b
                     keyCode: 66
+                }
+            }
+        }
+    },
+	addthis: {
+        name: "AddThis",
+        category: 'share',
+        options: {
+            layout: {
+                xtype: 'select',
+                values: {
+                    button_classic:'Classic',
+					button:'Button',
+					toolbox: 'Toolbox',
+					toolbox_button_icons:'Toolbox text and icons',
+					toolbox_button:'Toolbox text',
+					toolbox_icons:'Toolbox icons',
+					button_text_icons:'Button text and icons',
+					button_text:'Button text'
+                }
+            },
+			auth: {
+                xtype: 'p',
+                label: true,
+                cls: 'subtitle'
+            },
+            username: ''
+        },
+        shortcuts: {
+            'share': {
+                id: 'share',
+                title: 'Share with Addthis',
+                key: {
+                    //66 b
+                    keyCode: 66,
+                    shiftKey:true
+                }
+            }
+        }
+    },
+	blogger: {
+        name: "Blogger",
+        category: 'share',
+        shortcuts: {
+            'share': {
+                id: 'share',
+                title: 'Share with Addthis',
+                key: {
+                    //66 b
+                    keyCode: 66,
+                    altKey:true
                 }
             }
         }

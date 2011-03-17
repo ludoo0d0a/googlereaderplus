@@ -15,24 +15,30 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 	var CLS_ACTIVE='btn-active', MAX_TEXT=api.max_text||140;
     var BTN_CLS = 'item-share star',BTN_CLS_ID ='btn-'+ID+' '+BTN_CLS;
     var entries = get_id('entries');
+	var tplMsg = '{desc}{tags} reading:{title} {url}';
+	var SM = langs.sharemsg;
 	
 	function getPref(name, def){
 		return prefs[ID+'_'+name] || def;
 	}
 	    
     // format the message to send, pls type as you like
-    function formatSendMsg(labels, title, notes, url){
-        var msg = "";
-        if (notes.length > 0) {
-            msg = notes + " ";
+    function _formatSendMsg(url, title, desc, tags){
+        if (desc) {
+            desc = desc + " ";
         }
-        if (labels.length > 0) {
-            msg = msg + "#" + labels + " ";
+        if (tags) {
+			tags='#'+tags;
         }
-        msg = msg + "reading:" + title + ' ' + url;
+		msg = fillTpl(tplMsg, {
+			url:url,
+			title:title,
+			desc:desc,
+			tags:tags
+		});
         return msg;
-        // return notes + " reading " + title + ' ' + url;
     }
+	var formatSendMsg = api.format || _formatSendMsg;
     
     var urlShorteners = {
 		tinyurl: function(url, cb){
@@ -51,7 +57,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 					}
 				},
 				onerror: function(r){
-					var error = formatText(SL.shortfailed, r.status);
+					var error = formatText(SM.shortfailed, r.status);
 					alert(error);
 					if (cb){
 						cb(false);
@@ -82,7 +88,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 					//countWord();
 				},
 				onerror: function(r){
-					var error = formatText(SL.shortfailed, r.status);
+					var error = formatText(SM.shortfailed, r.status);
 					alert(error);
 					if (cb){
 						cb(false);
@@ -110,7 +116,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 					}
 				},
 				onerror: function(r){
-					var error = formatText(SL.shortfailed, r.status);
+					var error = formatText(SM.shortfailed, r.status);
 					alert(error);
 					if (cb){
 						cb(false);
@@ -126,8 +132,13 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
     function addMicroButton(el, entry, mode){
         var title = SL.text + formatShortcut(ID, 'tweet', prefs); //[b]
         var text = (prefs && prefs.general_icons) ? '' : (SL.keyword || ID);
-        addBottomLink(el, text, title, ID, BTN_CLS, false, postBookmark, false, entry, mode);
+		if (api.button && typeof api.button ==='function') {
+			api.button(el, entry, mode, title, text);
+		} else {
+			addBottomLink(el, text, title, ID, BTN_CLS, false, postBookmark, false, entry, mode);
+		}
     }
+	
     function addKey(){
         onKey('btn-'+ID, postBookmark);
     }
@@ -151,7 +162,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 		bookmarkField = document.createElement("div");
         addClass(bookmarkField, 'micro-form-'+ID+' action-area');
         var tpl = "<div class='email-this-area'><table class='email-entry-table'><tbody><tr><td class='field-name'>{text_title}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input inp-title' type='text'></td></tr><tr><td class='field-name'>{text_tag}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input inp-tag' type='text'></td></tr><tr><td class='field-name'>{text_url}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input inp-url' type='text'></td></tr><tr><td colspan='2'><div class='inp-notes'>{notemax}</div><br/><textarea class='email-this-comment inp-notes' rows='6'></textarea><div class='email-this-buttons' tabindex='-1'><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-send inp-btn-send'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_send}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel inp-btn-shorturl'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_shortener}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel inp-btn-count'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_count}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel inp-btn-cancel'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_cancel}</div></div></div></div></div></div></div></td></tr></tbody></table></div>";
-        var html = fillTpl(tpl, SL);
+        var html = fillTpl(tpl, SM);
         bookmarkField.innerHTML = html;
 		
 		if (mode === "expanded") {
@@ -160,8 +171,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
             parent.className = "entry read expanded action-area-visible";
         }
         bookmarkStar.className = "btn-"+ID+" btn-sel star link";
-        
-        var link = getEntryLink(entry), url = link.url, title = link.title;
+
 		var cb = '';
 		if (mode == "expanded") {
 			cb = ' card-bottom';
@@ -174,6 +184,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
         titleinput = getFirstElementByClassName(bookmarkField, "inp-title");
         notesdesc = getFirstElementByClassName(bookmarkField, "inp-notes");
 
+		var link = getEntryLink(entry), url = link.url, title = link.title;
 		notesinput.value = "";
         taginput.value = getTags(parent);
         urlinput.value = url;
@@ -215,24 +226,25 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 			}
             bookmarkField.className = "action-area'+cb+' hidden";
             bookmarkStar.className = BTN_CLS_ID+" link";
-            notesdesc.innerHTML = SL.notemax;
+            notesdesc.innerHTML = SM.notemax;
             notesinput.value = "";
         }, false);
        
 		
 		function countWord(warning){
-	        var title = titleinput.value;
-	        var labels = taginput.value;
-	        var notes = notesinput.value;
-	        var msg = formatSendMsg(labels, title, notes, urlinput.value);
-			var remain= MAX_TEXT - countMsgWord(msg);
-	        notesdesc.innerHTML = formatText(SL.notetoolong, remain);
+	        var o= {}; 
+			o.url = urlinput.value;
+			o.title = titleinput.value;
+	        o.tags = taginput.value;
+	        o.desc = notesinput.value;
+	        o.msg = formatSendMsg(o.url, o.title, o.desc, o.tags);
+			var remain= MAX_TEXT - countMsgWord(o.msg);
+	        notesdesc.innerHTML = formatText(SM.notetoolong, remain);
 			if (warning && remain<0){
-				alert(SL.toolong);
-				return false;
-			}else{
-				return msg;
+				alert(SM.toolong);
+				o= false;
 			}
+			return o;
 			
 	    }
 		
@@ -242,7 +254,8 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
         //notesinput.focus();
 		
 	    function saveBookmark(event){
-	        var msg = countWord(true);
+	        var p = countWord(true)||{};
+			var msg = p.msg;
 			if (!msg){
 				return;
 			}
@@ -258,11 +271,9 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 		        notesinput.value = "";
 		    }
 		
-	        mycore.extension.sendRequest({
-	            message: "micro",
-				id:ID,
-				msg:msg
-	        }, function(o){
+			p.message = api.msg || "micro";
+			p.id=ID;
+	        mycore.extension.sendRequest(p, function(o){
 				var txt = '';
 				if (o) {
 					if (!o.error) {
