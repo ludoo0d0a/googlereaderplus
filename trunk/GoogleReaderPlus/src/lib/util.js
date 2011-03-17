@@ -1457,8 +1457,13 @@ function dhc(config){
             }
         }
     });
-    iterate(config.events, function(event, fn){
-        el.addEventListener(event, fn, false);
+    iterate(config.events, function(name, o){
+        var fn = o, capture=false;
+		if (typeof o ==='object'){
+			fn = o.fn;
+			capture = o.capture;
+		}
+		el.addEventListener(name, fn, capture);
     });
     if (config.el) {
         //recurse
@@ -1501,6 +1506,10 @@ function runfn(fn, id, priority, delay){
         delay: delay,
         priority: priority
     });
+}
+
+function escapeJson(text){
+    return text.replace(/'/g,"\\'");
 }
 
 function encodeu(el){
