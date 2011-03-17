@@ -1,0 +1,46 @@
+﻿<html>
+
+<head>
+<!--script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4d80cc1072411e4e"></script-->
+<script type="text/javascript" src="addthis_widget.js#pubid=ra-4d80cc1072411e4e"></script>
+<script type="text/javascript">
+
+function GM_addjs(script, inline, id, cb, scope, time, root){
+        var el = document.createElement("script");
+        el.setAttribute("type", "text\/javascript");
+        if (inline) {
+          el.innerText = script;
+        } else {
+            el.setAttribute("src", script);
+        }
+        if (id) {
+            el.setAttribute("id", id);
+        }
+		root=root || (document.getElementsByTagName("head")[0]);
+		root.appendChild(el);
+        if (cb) {
+            window.setTimeout(function(){
+                cb.call(scope || this);
+            }, time || 500);
+        }
+    }
+    function load(){
+       document.getElementById('d2').innerHTML = '<a id="atb2">share</a>';
+       setTimeout(function(){
+            GM_addjs('console.log("go");addthis.button("#atb2");console.log("ok");',true);
+            //eval('addthis.button("#atb2");');
+      }, 1000);
+    }
+
+</script>
+</head>
+
+<body onload="load();">
+<h1>AddThis</h1>
+
+<div id="d"></div>
+<div id="d2"></div>
+<div id="s"></div>
+
+</body>
+</html>
