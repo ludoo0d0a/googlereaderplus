@@ -403,9 +403,9 @@ GRP.scripts = {
                 id: 'close',
                 title: 'Close preview',
                 key: {
-                    //88 alt+x
+                    //88 ctrl+x
                     keyCode: 88,
-					altKey:true
+					ctrlKey:true
                 }
             }
         }
@@ -621,9 +621,9 @@ identi: {
                 id: 'share',
                 title: 'Share with Addthis',
                 key: {
-                    //66 b
+                    //66 ctrl+b
                     keyCode: 66,
-                    shiftKey:true
+                    ctrlKey:true
                 }
             }
         }
@@ -635,7 +635,7 @@ identi: {
         shortcuts: {
             'share': {
                 id: 'share',
-                title: 'Share with Addthis',
+                title: 'Share with Blogger',
                 key: {
                     //66 b
                     keyCode: 66,
@@ -696,7 +696,7 @@ identi: {
                 key: {
                     //87 shift+w
                     keyCode: 87,
-					shitKey:true
+					shiftKey:true
                 }
             },
             'marknext': {
@@ -705,7 +705,7 @@ identi: {
                 key: {
                     //89 shift+y
                     keyCode: 89,
-					shitKey:true
+					shiftKey:true
                 }
             }
         }

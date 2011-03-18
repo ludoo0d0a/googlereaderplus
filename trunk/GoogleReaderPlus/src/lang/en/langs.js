@@ -290,6 +290,13 @@ GRP.langs[locale].prefs = {
         auth: "<a href='http://www.radbox.me' target='blank'>Radbox</a> <a href='http://radbox.me/account/user/register' target='_blank'>authentication</a> (required):",
         username: "Userkey:"
     },
+	identi: {
+        shortener: "Shortener",
+        shortener_bitly: "BitLy configuration (optional):",
+        shortener_login: "Login",
+        shortener_apikey: "ApiKey",
+        shortener_pwd: "Password"
+    },
 	addthis:{
 		layout:'Layout',
 		layoutdesc:'Various formats are explained on <a href="http://www.addthis.com/web-button-select" target="_blank">this page</a>'
