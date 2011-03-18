@@ -53,5 +53,5 @@ GRP.darkhelvetireader = function(theme){
 	//117 = u ->keypress
     initKey({keyCode:117,fn:toggleView},'keypress');
 		
-    fireResize();   
+    fireResize('footer');   
 };
