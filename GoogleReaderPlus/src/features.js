@@ -606,23 +606,15 @@ identi: {
 			layout: {
                 xtype: 'select',
                 values: {
-                    button_classic:'Classic',
-					button:'Button with popup',
+                    button_classic:'Basic',
+					toolbox_more:'Text menu',
+					button:'Button',
+					button_compact:'Button compact',
 					toolbox: 'Toolbox',
-					toolbox_button_icons:'Toolbox text and icons',
-					toolbox_button:'Toolbox text',
-					toolbox_icons:'Toolbox icons',
-					button_text_icons:'Button text and icons',
-					button_text:'Button text',
-					button_tweet:'button_tweet'
+					toolbox_preferred:'Toolbox preferred icons',
+					toolbox_icons:'Toolbox big icons'
                 }
-            },
-			auth: {
-                xtype: 'p',
-                label: true,
-                cls: 'subtitle'
-            },
-            username: ''
+            }
         },
         shortcuts: {
             'share': {
