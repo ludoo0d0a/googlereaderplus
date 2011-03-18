@@ -681,6 +681,7 @@ function _fireResize(lhnfooter){
 		var el = document.getElementById('lhn-subscriptions');
 		if (el) {
 			elb = getFirstElementByClassName(el, 'lhn-section-footer');
+			//isShown(elb) instead lhnfooter?
 		}
 	}
 	//fix home, without footer
