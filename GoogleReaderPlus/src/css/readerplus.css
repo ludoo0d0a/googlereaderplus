@@ -5,7 +5,9 @@
 .entry .entry-actions .btn-clockblue,
 .entry .entry-actions .btn-clockgray,
 .entry .entry-actions .btn-radbox,
-.entry .entry-actions .btn-identi{
+.entry .entry-actions .btn-identi,
+.entry .entry-actions .btn-blogger,
+.entry .entry-actions .btn-addthis{
 	background: url('http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/share/share2.png') no-repeat!important;
 	padding-left:18px !important;
 	padding-top:0px !important;
@@ -71,6 +73,20 @@
 }
 .entry .entry-actions .btn-jaiku.btn-active{
 	background-position: 0 -272px !important;
+}
+
+.entry .entry-actions .btn-blogger{
+	background-position: 0 -288px !important;
+}
+.entry .entry-actions .btn-blogger.btn-active{
+	background-position: 0 -304px !important;
+}
+
+.entry .entry-actions .btn-addthis{
+	background-position: 0 -320px !important;
+}
+.entry .entry-actions .btn-addthis.btn-active{
+	background-position: 0 -336px !important;
 }
 
 span.btn-sel{

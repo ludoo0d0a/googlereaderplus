@@ -471,8 +471,8 @@ GRP.scripts = {
             }
         },
         shortcuts: {
-            'tweet': {
-                id: 'tweet',
+            'share': {
+                id: 'share',
                 title: 'Post on Twitter',
                 key: {
                     //87 w
@@ -481,87 +481,6 @@ GRP.scripts = {
             }
         }
     },
-	identi: {
-        name: "Identi.ca",
-        category: 'share',
-		status: 'new',
-        options: {
-            shortener: {
-                xtype: 'select',
-                values: {
-                    googl:'Goo.gl',
-					tinyurl: 'TinyUrl',
-                    bitly: 'BitLy'
-                }
-            },
-            shortener_bitly: {
-                xtype: 'p',
-                label: true,
-                cls: 'subtitle'
-            },
-            shortener_login: {
-                value: '',
-                size: 20
-            },
-            shortener_apikey: {
-                value: '',
-                size: 30
-            }
-        },
-        shortcuts: {
-            'identeet': {
-                id: 'identeet',
-                title: 'Post on Identi.ca',
-                key: {
-                    //87 w
-                    keyCode: 87,
-					shiftKey:true
-                }
-            }
-        }
-    },
-	/*jaiku: {
-        name: "Jaiku",
-        category: 'share',
-		status: 'new',
-        options: {
-            username:'',
-			location:'',
-			shortener: {
-                xtype: 'select',
-                values: {
-                    googl:'Goo.gl',
-					tinyurl: 'TinyUrl',
-                    bitly: 'BitLy'
-                }
-            },
-            shortener_bitly: {
-                xtype: 'p',
-                label: true,
-                cls: 'subtitle'
-            },
-            shortener_login: {
-                value: '',
-                size: 20
-            },
-            shortener_apikey: {
-                value: '',
-                size: 30
-            }
-        }
-       , shortcuts: {
-            'Jaikumessage': {
-                id: 'Jaikumessage',
-                title: 'Post on Jaiku',
-                key: {
-                    //87 w + shift+alt
-                    keyCode: 87,
-					shiftKey:true,
-					altKey:true
-                }
-            }
-        }
-    },*/
     instapaper: {
         name: "Instapaper integration",
         category: 'share',
@@ -614,9 +533,49 @@ GRP.scripts = {
             }
         }
     },
+identi: {
+        name: "Identi.ca",
+        category: 'share',
+		status: 'new',
+        options: {
+            shortener: {
+                xtype: 'select',
+                values: {
+                    googl:'Goo.gl',
+					tinyurl: 'TinyUrl',
+                    bitly: 'BitLy'
+                }
+            },
+            shortener_bitly: {
+                xtype: 'p',
+                label: true,
+                cls: 'subtitle'
+            },
+            shortener_login: {
+                value: '',
+                size: 20
+            },
+            shortener_apikey: {
+                value: '',
+                size: 30
+            }
+        },
+        shortcuts: {
+            'share': {
+                id: 'share',
+                title: 'Post on Identi.ca',
+                key: {
+                    //87 w
+                    keyCode: 87,
+					shiftKey:true
+                }
+            }
+        }
+    },
 	radbox: {
         name: "Radbox",
         category: 'share',
+		status:'new',
         options: {
             auth: {
                 xtype: 'p',
@@ -639,18 +598,23 @@ GRP.scripts = {
 	addthis: {
         name: "AddThis",
         category: 'share',
+		status:'new',
         options: {
-            layout: {
+            layoutdesc:{
+				xtype:'p'
+			},
+			layout: {
                 xtype: 'select',
                 values: {
                     button_classic:'Classic',
-					button:'Button',
+					button:'Button with popup',
 					toolbox: 'Toolbox',
 					toolbox_button_icons:'Toolbox text and icons',
 					toolbox_button:'Toolbox text',
 					toolbox_icons:'Toolbox icons',
 					button_text_icons:'Button text and icons',
-					button_text:'Button text'
+					button_text:'Button text',
+					button_tweet:'button_tweet'
                 }
             },
 			auth: {
@@ -675,6 +639,7 @@ GRP.scripts = {
 	blogger: {
         name: "Blogger",
         category: 'share',
+		status:'new',
         shortcuts: {
             'share': {
                 id: 'share',
@@ -687,6 +652,48 @@ GRP.scripts = {
             }
         }
     },
+/*jaiku: {
+        name: "Jaiku",
+        category: 'share',
+		status: 'new',
+        options: {
+            username:'',
+			location:'',
+			shortener: {
+                xtype: 'select',
+                values: {
+                    googl:'Goo.gl',
+					tinyurl: 'TinyUrl',
+                    bitly: 'BitLy'
+                }
+            },
+            shortener_bitly: {
+                xtype: 'p',
+                label: true,
+                cls: 'subtitle'
+            },
+            shortener_login: {
+                value: '',
+                size: 20
+            },
+            shortener_apikey: {
+                value: '',
+                size: 30
+            }
+        }
+       , shortcuts: {
+            'share': {
+                id: 'share',
+                title: 'Post on Jaiku',
+                key: {
+                    //87 w + shift+alt
+                    keyCode: 87,
+					shiftKey:true,
+					altKey:true
+                }
+            }
+        }
+    },*/
     mark: {
         name: "Mark As Read",
         category: 'navigation',
