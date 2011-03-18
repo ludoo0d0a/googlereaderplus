@@ -130,7 +130,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
     var getShortUrl = urlShorteners[URL_SHORTENER];
     
     function addMicroButton(el, entry, mode){
-        var title = SL.text + formatShortcut(ID, 'tweet', prefs); //[b]
+        var title = SL.text + formatShortcut(ID, 'share', prefs); //[b]
         var text = (prefs && prefs.general_icons) ? '' : (SL.keyword || ID);
 		if (api.button && typeof api.button ==='function') {
 			api.button(el, entry, mode, title, text);

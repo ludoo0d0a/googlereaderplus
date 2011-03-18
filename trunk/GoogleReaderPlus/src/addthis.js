@@ -16,14 +16,15 @@ GRP.addthis = function(prefs, langs, ID, SL, lang){
     var HEADER_BTN=START_LINK+' class="addthis_inline addthis_button"'+ATTRS+'>';
 	var BTN_234 = '<a class="addthis_button_preferred_2"></a><a class="addthis_button_preferred_3"></a><a class="addthis_button_preferred_4"></a>';
 	var LAYOUTS = {
-		button_classic:'<a class="addthis_button" id="{nid}">{text}</a>',
-		button:   LINK,
-		toolbox:  CTN_TB+'{html}</div>',
+		button_classic:		 START_LINK+' class="addthis_button">{text}</a>',
+		button:   			 LINK,
+		toolbox:  			 CTN_TB+'{html}</div>',
 		toolbox_button_icons:CTN_TB+LINK+'<span class="addthis_separator">|</span><a class="addthis_button_preferred_1"></a>'+BTN_234+'</div>',
 		toolbox_button:      CTN_TB+LINK+'</div>',
 		toolbox_icons:       '<a target="_addthis" id="{nid}" class="addthis_button_preferred_1"></a>'+BTN_234+'<a class="addthis_button_compact"></a></div>',
 		button_text_icons:	 HEADER_BTN+'<img src="http://s7.addthis.com/static/btn/v2/lg-share-'+lang+'.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"/></a>',
-		button_text:		 HEADER_BTN+'<img src="http://s7.addthis.com/static/btn/sm-share-'+lang+'.gif" width="83" height="16" alt="Bookmark and Share" style="border:0"/></a>'
+		button_text:		 HEADER_BTN+'<img src="http://s7.addthis.com/static/btn/sm-share-'+lang+'.gif" width="83" height="16" alt="Bookmark and Share" style="border:0"/></a>',
+		button_tweet:	 START_LINK+' class="addthis_inline addthis_button_tweet"'+ATTRS+'>'
 	};
 	var api = {
         shortcut:'addthis',
@@ -34,13 +35,13 @@ GRP.addthis = function(prefs, langs, ID, SL, lang){
 		}
 	};
 	
-	//GM_addjs('var addthis_config={"ui_language":"'+lang+'", "data_track_clickback":true};',true, 'grp_addthis_cfg');
-	//GM_addjs('http://s7.addthis.com/js/250/addthis_widget.js#pubid='+api.cfg.pubid, false, 'grp_addthis');
-	//GM_addjs('http://googlereaderplus.googlecode.com/svn-history/r1024/trunk/GoogleReaderPlus/test/addthis_widget.js#pubid='+api.cfg.pubid, false, 'grp_addthis');
-	
-	chrome.tabs.executeScript(null, {file: "lib/addthis_widget-debug.js"});
-	
-	var layout = prefs[ID+'_layout'] || 'button';
+	console.log('addthis - add config');
+	GM_addjs('var addthis_product="f_readerplus", addthis_config={"ui_language":"'+lang+'", "data_track_clickback":true};',true, 'grp_addthis_cfg');
+	console.log('addthis - add core');
+	GM_addjs('http://s7.addthis.com/js/250/addthis_widget.js#pubid='+api.cfg.pubid, false, 'grp_addthis');
+	//GM_addjs('http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/test/addthis/addthis_widget-debug.js#pubid='+api.cfg.pubid, false, 'grp_addthis');
+			
+	var layout = prefs[ID+'_layout'] || 'button_classic';
 	console.log('layout='+layout);
 
 	function renderIcons(){
@@ -60,9 +61,9 @@ GRP.addthis = function(prefs, langs, ID, SL, lang){
 		o.title = escapeJson(link.title);
 		o.desc = '';
 		o.html='Share';
-		/*if (layout === 'button_classic') {
-			btncls = 'item-star star link unselectable';
-		}*/
+		if (layout === 'button_classic') {
+			btncls = 'btn-addthis item-star star link unselectable';
+		}
 		o.nid = 'btn-addthis-'+btn_inc++;
 		if (/button/.test(layout)){
 			o.method='button';
@@ -72,35 +73,20 @@ GRP.addthis = function(prefs, langs, ID, SL, lang){
 		}
 		
 		var html = fillTpl(api.tpl, o);
-		var sp= dhc({root:el, tag: 'span',cls:'btn-addthis '+btncls, html: html
-		/*
-		, events:{
-			mouseover: {
-				fn: function(e){
-					setTimeout(function(){
-						var top = findTop(e.target) + 20;
-						var el = get_id('at15s');
-						if (el) {
-							el.style.top = top + 'px';
-						}
-					}, 300);
-				},
-				capture:true
-			}}
-			*/
-		});
+		var title = SL.text + formatShortcut(ID, 'share', prefs); //[b]
+		var sp= dhc({root:el, tag: 'span',cls:btncls, html: html, title:title});
 		var script=''; //"if(!addthis){console.error('addthis not found');return;}";
 		//script+="addthis.{method}('#"+o.nid+"', {}, {'url':'{url}', 'title':'{title}'});";
 		script+="console.log('go_"+o.nid+"');";
-		script+="console.log(addthis);";
-		script+="console.log(addthis.{method});";
+		script+="console.log('addthis='+addthis);";
+		script+="console.log('addthis.{method}='+(addthis && addthis.{method}));";
 		script+="addthis.{method}('#"+o.nid+"');";
 		script+="console.log('stop');";
 		script = fillTpl(script, o);
 		//console.log(script);
 		setTimeout(function(){
-			addthis[o.method]('#"+o.nid+"');
-			//GM_addjs(script, true, 's_'+o.nid, false, false, false, sp);
+			//addthis[o.method]('#"+o.nid+"');
+			GM_addjs(script, true, 's_'+o.nid, false, false, false, sp);
 		},1000);
 	}
 	
