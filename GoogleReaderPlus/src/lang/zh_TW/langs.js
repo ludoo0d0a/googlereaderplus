@@ -125,7 +125,7 @@ GRP.langs[locale].prefs = {
         thanks1: '<td><span class="top_right"><img src="images/48.png"></span><h1>謝謝您...</h1>' +
         '<p>... 安裝（或更新）最新的版本 <strong>Reader Plus</strong>!</p>' +
         '<p>Make sure you check the <a href="preferences.html" title="Go to the preferences page"><strong>preferences page</strong></a> for configuration of the extension.</p>' +
-        '<p><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong>Visit the Google Chrome Extensions gallery page!</strong></a></p>' +
+        '<p><a href="https://chrome.google.com/webstore/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong>Visit the Google Chrome Extensions gallery page!</strong></a></p>' +
         '<p><a href="http://www.twitter.com/ludoo0d0a"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow me on Twitter"/></a></p>' +
         '<p></p></td>',
         thanks2: '<td><p>如果您喜歡這個擴展，並希望更多的功能，可隨時作出捐贈.</p>' +
@@ -166,8 +166,8 @@ GRP.langs[locale].prefs = {
         counter: "在工具欄顯示未讀消息的計數器圖標",
         opendirect: "點擊圖標就會打開Google Reader",
         secure: "Always force use of secure protocol (https)",
-        icontoolbar_add: "要添加工具欄圖標，請點擊 <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">下載並安裝</a>.",
-        icontoolbar_text: "<span>為了使按鈕自定義添加，我們也開發了另外一個獨立的擴展,</span><br><span>必須安裝reader plus.</span><br><span>要添加按鈕，點擊 <b>Install</b> 在 <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus 工具欄按鈕</a> page.</span><br><span>要刪除按鈕，右鍵點擊他，選擇禁用.</span>",
+        icontoolbar_add: "要添加工具欄圖標，請點擊 <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">下載並安裝</a>.",
+        icontoolbar_text: "<span>為了使按鈕自定義添加，我們也開發了另外一個獨立的擴展,</span><br><span>必須安裝reader plus.</span><br><span>要添加按鈕，點擊 <b>Install</b> 在 <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus 工具欄按鈕</a> page.</span><br><span>要刪除按鈕，右鍵點擊他，選擇禁用.</span>",
         importexport_text: "You can now save your preferences using 'export' and reload it later using 'import':",
         confirmimport: "Are you sure to import this configuration?\nCurrent configuration will be LOST!"
     },

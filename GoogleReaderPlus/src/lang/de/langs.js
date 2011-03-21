@@ -189,7 +189,7 @@ GRP.langs[locale].prefs = {
         thanks1: '<td><span class="top_right"><img src="images/48.png"></span><h1>Thank you...</h1>' +
         '<p>... for installing (or updating to) the latest version of <strong>Reader Plus</strong>!</p>' +
         '<p>Make sure you check the <a href="preferences.html" title="Go to the preferences page"><strong>preferences page</strong></a> for configuration of the extension.</p>' +
-        '<p><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong>Visit the Google Chrome Extensions gallery page!</strong></a></p>' +
+        '<p><a href="https://chrome.google.com/webstore/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong>Visit the Google Chrome Extensions gallery page!</strong></a></p>' +
         '<p><a href="http://www.twitter.com/ludoo0d0a"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow me on Twitter"/></a></p>' +
         '<p></p></td>',
         thanks2: '<td><p>ihnen gefällt die programm erweiterung und sie möchten noch mehr features, spenden werden hierzu gerne angenommen.</p>' +
@@ -255,8 +255,8 @@ GRP.langs[locale].prefs = {
         topcurrent: "Current entry always on top",
         floatactions: "Entry actions are displayed as a floating window",
         noupdatepopup: "No popup on updates",
-        icontoolbar_add: "To add button with icon in toolbar, please <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">download and install it</a>.",
-        icontoolbar_text: "<span>To make the button optional, we put him in an another extension as standalone,</span><br><span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b></b> on the <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span><span>To remove the button, right click him and choose Disable.</span>",
+        icontoolbar_add: "To add button with icon in toolbar, please <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">download and install it</a>.",
+        icontoolbar_text: "<span>To make the button optional, we put him in an another extension as standalone,</span><br><span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b></b> on the <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span><span>To remove the button, right click him and choose Disable.</span>",
         importexport_text: "You can now save your preferences using 'export' and reload it later using 'import':",
         confirmimport: "Are you sure to import this configuration?\nCurrent configuration will be LOST!",
         text_layout: 'Layout options',

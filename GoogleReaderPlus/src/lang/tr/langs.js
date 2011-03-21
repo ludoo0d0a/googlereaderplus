@@ -177,13 +177,13 @@ clearcache:'Önbelleði boþalt'
         thanks1: '<td><span class="top_right"><img src="images/48.png"></span><h1>Teþekkürler...</h1>' +
         '<p>... <strong>Reader Plus</strong> yüklediniz veya son sürüme güncellediniz!</p>' +
         '<p>Eklentinin konfigürasyonu için <a href="preferences.html" title="Go to the preferences page"><strong>tercihler sayfasýna </strong></a> baktýðýnýza emin olun.</p>' +
-        '<p><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong> Google Chrome Eklenti galeri sayfasýný ziyaret edin!</strong></a></p>' +
+        '<p><a href="https://chrome.google.com/webstore/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong> Google Chrome Eklenti galeri sayfasýný ziyaret edin!</strong></a></p>' +
         '<p><a href="http://www.twitter.com/ludoo0d0a"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow me on Twitter"/></a></p>' +
         '<p></p></td>',
         thanks2: '<td><p>Eklentiyi beðendiyseniz ve daha fazla özellik istiyorsanýz, baðýþ yapmaktan çekinmeyin.</p>' +
         '<p>Bu sayede,tüm kodu yazmak için bir kamyon kahve alabilirim :)</p>' +
         '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></a></td>',
-		whatsnew:'<td><h2>Neler yeni!!</h2><ul><li>Yeni temalarý deneyin</li><li>veya yeni "MyTheme" temasýyla özel bir arkaplan kullanýn</li><li>veya bir rastgele <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a> temasý kullanýn</li><li>Lightbox olarak önizleme yapýn</li><li><a href="http://www.readitlater.com" target="blank">ReadItLater</a> kullanarak öðeleri paylaþ</li><li> Öðeler için özel iþlemler (genel)</li><li>Haberleri tercüme et</li></ul></td>',
+		//whatsnew:'<td><h2>Neler yeni!!</h2><ul><li>Yeni temalarý deneyin</li><li>veya yeni "MyTheme" temasýyla özel bir arkaplan kullanýn</li><li>veya bir rastgele <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a> temasý kullanýn</li><li>Lightbox olarak önizleme yapýn</li><li><a href="http://www.readitlater.com" target="blank">ReadItLater</a> kullanarak öðeleri paylaþ</li><li> Öðeler için özel iþlemler (genel)</li><li>Haberleri tercüme et</li></ul></td>',
 nopopup:'<p>Güncellemelerle ilgili uyarýlmak istemiyorsanýz, <a href="preferences.html#general">Genel Bölümdeki</a> "Güncellemelerde uyarý mesajý çýkmasýn" seçeneðini iþaretleyin.</p>'
     },
     link: {
@@ -235,8 +235,8 @@ readitlater: {
 topcurrent: "Þu anki öðe her zaman en üstte",
 floatactions: "Öðe iþlemleri ayrý bir pencere olarak görüntülenir",
 noupdatepopup: "Güncellemelerde uyarý gösterme",
-        icontoolbar_add: "Araç çubuðuna düðme ve buton eklemek için, lütfen  <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">yükleyin ve kurun</a>.",
-        icontoolbar_text: "<span>Butonu opsiyonel yapmak için, ayrý bir eklenti olarak sunduk; </span>                                    <br>                                    <span>readerplus ile farklý paketlerde yer alýyor.</span>                                    <br>                                    <span>To add the button, click <b></b> on the <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span><span>To remove the button, right click him and choose Disable.</span>",
+        icontoolbar_add: "Araç çubuðuna düðme ve buton eklemek için, lütfen  <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">yükleyin ve kurun</a>.",
+        icontoolbar_text: "<span>Butonu opsiyonel yapmak için, ayrý bir eklenti olarak sunduk; </span>                                    <br>                                    <span>readerplus ile farklý paketlerde yer alýyor.</span>                                    <br>                                    <span>To add the button, click <b></b> on the <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span><span>To remove the button, right click him and choose Disable.</span>",
         importexport_text: "Artýk tercihlerinizi  'dýþa aktar' ile kaydedip daha sonra 'içe aktar' ile geri yükleyebilirsiniz, ancak verinizin <a href='http://jsonformatter.curiousconcept.com/' target='blank'>JSON compliant</a> olduðundan emin olun:",
         confirmimport: "Bu konfigürasyonu içe aktarmak istediðiniden emin misiniz?\nMevcut konfigürasyon SÝLÝNECEKTÝR!"
     },
