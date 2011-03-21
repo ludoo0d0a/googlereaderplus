@@ -10,7 +10,7 @@
 GRP.actions = function(prefs, langs, ID, SL, lang){
 	
 	function inject(){
-		var code = '', all = ['m', 'n', 'o', 'p', 'q', 'r', 's'];
+		var code = '', all = [ 'n', 'o', 'p', 'q', 's', 't'];
 		foreach(all, function(c){
 			code += c + "q.Tf.Tb='&nbsp;';" + c + "q.Sf.Tb='&nbsp;';";
 		});

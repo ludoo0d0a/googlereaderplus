@@ -2,8 +2,8 @@
   "_name": "__MSG_extension_name__",
   "name": "Reader Plus",
   "version": "3.6.0",
-  "_description": "__MSG_extension_description__",
-  "description": "Enhance Google Reader by adding missing favicons and a collection of others features",
+  "description": "__MSG_extension_description__",
+  "_description": "For Google Reader™ ; enhance your favorite RSS reader by adding missing favicons and a collection of others features",
   "icons": { 
      "16": "images/16.png",
      "32": "images/32.png",
