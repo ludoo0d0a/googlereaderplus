@@ -131,7 +131,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
     
     function addMicroButton(el, entry, mode){
         var title = SL.text + formatShortcut(ID, 'share', prefs); //[b]
-        var text = (prefs && prefs.general_icons) ? '' : (SL.keyword || ID);
+        var text = (prefs && prefs.general_icons) ? '' : (SL.keyword || ID);		
 		if (api.button && typeof api.button ==='function') {
 			api.button(el, entry, mode, title, text);
 		} else {
@@ -144,7 +144,15 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
     }
 
     function postBookmark(btn, entry, locked){
-        //local
+		
+		if (typeof api.required =='function'){
+			if (!api.required()){
+				alert(SL.nologin);
+				return;
+			}
+		}
+		
+		//local
 		var taginput,notesinput,urlinput,titleinput,notesdesc,mode;
 		
 		//var active = isActive(btn, entry, ID, locked);
