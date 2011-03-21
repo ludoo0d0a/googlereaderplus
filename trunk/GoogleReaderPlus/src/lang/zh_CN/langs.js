@@ -172,13 +172,13 @@ GRP.langs[locale].prefs = {
         thanks1: '<td><span class="top_right"><img src="images/48.png"></span><h1>Thank you...</h1>' +
         '<p>... for installing (or updating to) the latest version of <strong>Reader Plus</strong>!</p>' +
         '<p>Make sure you check the <a href="preferences.html" title="Go to the preferences page"><strong>preferences page</strong></a> for configuration of the extension.</p>' +
-        '<p><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong>Visit the Google Chrome Extensions gallery page!</strong></a></p>' +
+        '<p><a href="https://chrome.google.com/webstore/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong>Visit the Google Chrome Extensions gallery page!</strong></a></p>' +
         '<p><a href="http://www.twitter.com/ludoo0d0a"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow me on Twitter"/></a></p>' +
         '<p></p></td>',
         thanks2: '<td><p>If you like this extension and want more features, feel free to make a donation.</p>' +
         '<p>In this way, I could buy a truck of coffee so that i can stay awake to write all the code :)</p>' +
         '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></a></td>',
-		whatsnew:'<td><h2>What\'s new!!</h2><ul><li>Try the new themes</li><li>or use a custom background with the new theme "MyTheme"</li><li>or use a random <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a> theme</li><li>Preview as lightbox</li><li>Share items using <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li><li>Entry actions as floating window (general)</li></ul></td>',
+		//whatsnew:'<td><h2>What\'s new!!</h2><ul><li>Try the new themes</li><li>or use a custom background with the new theme "MyTheme"</li><li>or use a random <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a> theme</li><li>Preview as lightbox</li><li>Share items using <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li><li>Entry actions as floating window (general)</li></ul></td>',
 nopopup:'<p>If you don\'t want to be alerted on new version updates, check option "No popup on updates" in <a href="preferences.html#general">General section</a>.</p>'
     },
     link: {
@@ -224,8 +224,8 @@ readitlater: {
 		topcurrent: "当前条目始终置顶",
 		floatactions: "在浮动窗口中显示项目动作",
 		noupdatepopup: "更新时不弹出对话框",
-        icontoolbar_add: "要添加工具栏图标，请点击 <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">下载并安装</a>.",
-        icontoolbar_text: "<span>为了使按钮自定义添加，我们也开发了另外一个独立的扩展,</span><br><span>必须安装reader plus.</span><br><span>要添加按钮，点击 <b>Install</b> 在 <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus 工具栏按钮</a> page.</span><br><span>要删除按钮，右键点击他，选择禁用.</span>",
+        icontoolbar_add: "要添加工具栏图标，请点击 <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">下载并安装</a>.",
+        icontoolbar_text: "<span>为了使按钮自定义添加，我们也开发了另外一个独立的扩展,</span><br><span>必须安装reader plus.</span><br><span>要添加按钮，点击 <b>Install</b> 在 <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus 工具栏按钮</a> page.</span><br><span>要删除按钮，右键点击他，选择禁用.</span>",
         importexport_text: "你现在可以通过'导出'来保存你的偏好设置,以后可以通过'导入'来恢复该设置:",
         confirmimport: "确定要导入此配置？\nCurrent配置将会丢失!"
     },

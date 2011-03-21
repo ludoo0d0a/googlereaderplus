@@ -49,7 +49,8 @@ GRP.langs[locale].texts = {
 	identi:{
 		text:'Share this news on Identi',
 		keyword: 'Identi',
-		plslogin: 'Please login to Identi.ca'
+		plslogin: 'Please login to Identi.ca',
+		nologin: 'This feature requires a username and a key, please set preferences!!'
 	},
 	jaiku:{
 		text:'Share this news on Jaiku',
@@ -121,7 +122,8 @@ GRP.langs[locale].texts = {
 	    searchbody: 'Search in whole body text',
 	    hide_duplicates: 'Hide Duplicates',
 	    hide_excludes: 'Hide Excludes',
-	    prefer_highlight: 'Prefer Highlights over excludes',
+	    prefer_highlights: 'Prefer Highlights over excludes',
+		live:'Live',
 	    highlights: 'Highlights',
 	    duplicates: 'Duplicates',
 	    excludes: 'Excludes',
@@ -237,13 +239,13 @@ GRP.langs[locale].prefs = {
         thanks1: '<td><span class="top_right"><img src="images/48.png"></span><h1>Thank you...</h1>' +
         '<p>... for installing (or updating to) the latest version of <strong>Reader Plus</strong>!</p>' +
         '<p>Make sure you check the <a href="preferences.html" title="Go to the preferences page"><strong>preferences page</strong></a> for configuration of the extension.</p>' +
-        '<p><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong>Visit the Google Chrome Extensions gallery page!</strong></a></p>' +
+        '<p><a href="https://chrome.google.com/webstore/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong>Visit the Google Chrome Extensions gallery page!</strong></a></p>' +
         '<p><a href="http://www.twitter.com/ludoo0d0a"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow me on Twitter"/></a></p>' +
         '<p></p></td>',
         thanks2: '<td><p>If you like this extension and want more features, feel free to make a donation.</p>' +
         '<p>In this way, I could buy a truck of coffee so that i can stay awake to write all the code :)</p>' +
         '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></a></td>',
-        whatsnew: '<td> <h2>What\'s new!!</h2> <ul> <li>Sync settings in your Google Docs (1 profile for multiple computers)</li> <li>Try the new themes</li> <li>Toggle theme shortcut (Alt X)</li> <li>Spanish supported now</li> <li>Bugfixes</li> </ul> <p class="center"><img src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/button/popup1.png"/></p><h2>And still ...</h2> <ul> <li>Cloud experience : Use shared configuration for favicons and replacer</li> <li>Toolbar button shows now a popup with last unread items and a fast tooltip preview</li> <li>or use a custom background with the new theme \'MyTheme\'</li> <li>or use a random <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a> theme</li> <li>Preview as lightbox</li> <li>Share items using <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li> <li>Entry actions as floating window (general)</li> <li>Translate news</li> </ul> </td>',
+        //whatsnew: '<td> <h2>What\'s new!!</h2> <ul> <li>Sync settings in your Google Docs (1 profile for multiple computers)</li> <li>Try the new themes</li> <li>Toggle theme shortcut (Alt X)</li> <li>Spanish supported now</li> <li>Bugfixes</li> </ul> <p class="center"><img src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/button/popup1.png"/></p><h2>And still ...</h2> <ul> <li>Cloud experience : Use shared configuration for favicons and replacer</li> <li>Toolbar button shows now a popup with last unread items and a fast tooltip preview</li> <li>or use a custom background with the new theme \'MyTheme\'</li> <li>or use a random <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a> theme</li> <li>Preview as lightbox</li> <li>Share items using <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li> <li>Entry actions as floating window (general)</li> <li>Translate news</li> </ul> </td>',
         nopopup: '<p>If you don\'t want to be alerted on new version updates, check option "No popup on updates" in <a href="preferences.html#general">General section</a>.</p>'
     },
     link: {
@@ -287,7 +289,7 @@ GRP.langs[locale].prefs = {
         password: "Password:"
     },
 	radbox: {
-        auth: "<a href='http://www.radbox.me' target='blank'>Radbox</a> <a href='http://radbox.me/account/user/register' target='_blank'>authentication</a> (required):",
+        auth: "<a href='http://radbox.me/support/extras' target='blank'>Radbox</a> <a href='http://radbox.me/account/user/register' target='_blank'>authentication</a> (required):",
         username: "Userkey:"
     },
 	identi: {
@@ -318,8 +320,8 @@ counterinterval: "Refresh unread counter every (min)",
         topcurrent: "Current entry always on top",
         floatactions: "Entry actions are displayed as a floating window",
         noupdatepopup: "No popup on updates",
-        icontoolbar_add: "To add button with icon in toolbar, please <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">download and install it</a>.",
-        icontoolbar_text: "<span>To make the button optional, we put him in an another extension as standalone,</span>                                    <br>                                    <span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b></b> on the <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span><span>To remove the button, right click him and choose Disable.</span>",
+        icontoolbar_add: "To add button with icon in toolbar, please <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">download and install it</a>.",
+        icontoolbar_text: "<span>To make the button optional, we put him in an another extension as standalone,</span>                                    <br>                                    <span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b></b> on the <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span><span>To remove the button, right click him and choose Disable.</span>",
         importexport_text: "You can now save your preferences using 'export' and reload it later using 'import', but be sure data are <a href='http://jsonformatter.curiousconcept.com/' target='blank'>JSON compliant</a>:",
         confirmimport: "Are you sure to import this configuration?\nCurrent configuration will be LOST!",
 confirmsyncload: "Are you sure to import this configuration from your Google's account?\nCurrent configuration will be LOST!",
@@ -366,7 +368,13 @@ separator: "Separator to add extra level (example: Sports:Footbal)."
     filter: {
         searchbody: "Search inside title and body text",
         highlights: 'Highlights list (one item per line)',
-        excludes: 'Excludes list (one item per line)'
+        excludes: 'Excludes list (one item per line)',
+		searchbody: 'Search in whole body text',
+	    hide_duplicates: 'Hide Duplicates',
+	    hide_excludes: 'Hide Excludes',
+	    prefer_highlights: 'Prefer Highlights over excludes',
+		live:'Live',
+		word_mini: 'Minimum number of letters for a word'
     },
     favicons: {
         providerpageicons: 'Use <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> provider (Recommended to load succesfully all icons)',

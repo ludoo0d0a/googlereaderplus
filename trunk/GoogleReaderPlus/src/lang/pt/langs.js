@@ -189,13 +189,13 @@ imgfl:'Rodapé esquerdo'
         thanks1: '<td><span class="top_right"><img src="images/48.png"></span><h1>Obrigado...</h1>' +
         '<p>... por instalado (ou actualizado) para a última versão so <strong>Reader Plus</strong>!</p>' +
         '<p>Dá uma olhadela na <a href="preferences.html" title="Go to the preferences page"><strong>página de configurações</strong></a> da extensão, para ver se está tudo nos conformes ou mesmo se pretendes efectuar alguma alteração.</p>' +
-        '<p><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong>Visita a galeria de extensões do Google Chrome!</strong></a></p>' +
+        '<p><a href="https://chrome.google.com/webstore/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong>Visita a galeria de extensões do Google Chrome!</strong></a></p>' +
         '<p><a href="http://www.twitter.com/ludoo0d0a"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow me on Twitter"/></a></p>' +
         '<p></p></td>',
         thanks2: '<td><p>Se gostas-te desta extensão ou mesmo se prentendes novas funcionalidades, por favor efectua uma doação.</p>' +
         '<p>Desta forma, poderei comprar um camião carregado de café, e assim conseguirei ficar mais tempo acordado e escrever mais código :)</p>' +
         '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></a></td>',
-        whatsnew: '<td><h2>O que é há de novo!!</h2><ul><li>Novos temas</li><li>ou utiliza fundos customizáveis com novos temas "MyTheme"</li><li>ou utiliza os temas <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a> </li><li>Pre-visualizações em lightbox</li><li>Partilhar itens no <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li><li>Utilizar janelas flutuantes (geral)</li><li>Traduzir artigos</li></ul></td>',
+        //whatsnew: '<td><h2>O que é há de novo!!</h2><ul><li>Novos temas</li><li>ou utiliza fundos customizáveis com novos temas "MyTheme"</li><li>ou utiliza os temas <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a> </li><li>Pre-visualizações em lightbox</li><li>Partilhar itens no <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li><li>Utilizar janelas flutuantes (geral)</li><li>Traduzir artigos</li></ul></td>',
         nopopup: '<p>Se não quiseres alertas acerca de novas actualizações, remove a seguinte opção "Sem aviso de actualizações" na <a href="preferences.html#general">Secção Geral</a>.</p>'
     },
     link: {
@@ -251,8 +251,8 @@ bottomup:'Toolbar do Cabeçalho para cima',
         topcurrent: "Entrada currente sempre no topo",
         floatactions: "As acções inseridas são mostradas em janelas flutuantes",
         noupdatepopup: "Sem avisos de actualizações",
-        icontoolbar_add: "Para adicionar um botão com um icon na toolbar, faça <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">download e instale-o</a>.",
-        icontoolbar_text: "<span>Para inserir o botão opcional, adiciona-mo-lo numa extensão à parte,</span>                                    <br>                                    <span>para ser instalado em conjunto com o readerplus.</span>                                    <br>                                    <span>Para adicionar o botão, clica <b></b> no <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">botão Toolbar do readerplus</a> da página.</span><span>Para remover o botão, clica no botão do lado direito e escolhe a opção desactivar.</span>",
+        icontoolbar_add: "Para adicionar um botão com um icon na toolbar, faça <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">download e instale-o</a>.",
+        icontoolbar_text: "<span>Para inserir o botão opcional, adiciona-mo-lo numa extensão à parte,</span>                                    <br>                                    <span>para ser instalado em conjunto com o readerplus.</span>                                    <br>                                    <span>Para adicionar o botão, clica <b></b> no <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">botão Toolbar do readerplus</a> da página.</span><span>Para remover o botão, clica no botão do lado direito e escolhe a opção desactivar.</span>",
         importexport_text: "Podes agora gravar as tuas configurações utilizando o 'exportar' e utiliza-las mais tarde com o 'importar', mas confirma que a informação é compatível com a modelo <a href='http://jsonformatter.curiousconcept.com/' target='blank'>JSON</a>:",
         confirmimport: "Têm a certeza que pretende importar estas configurações?\nAs configurações correntes seram PERDIDAS!",
 text_layout:'Opções de Layout',

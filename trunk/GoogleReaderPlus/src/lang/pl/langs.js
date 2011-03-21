@@ -173,14 +173,14 @@ clearcache:'Opróżnij cache'
         thanks1: '<td><span class="top_right"><img src="images/48.png"></span><h1>Dziękuję...</h1>' +
         '<p>... za zainstalowanie (lub zaktualizowanie) najnowszej wersji <strong>Czytnika Plus</strong>!</p>' +
         '<p>Upewnij się, by sprawdzić <a href="preferences.html" title="Ustawienia"><strong>stronę z ustawieniami</strong></a>, aby skonfigurować  rozszerzenie.</p>' +
-        '<p><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Odwiedź stronę główną"><strong>Odwiedź stronę rozszerzeń Google Chrome!</strong></a></p>' +
+        '<p><a href="https://chrome.google.com/webstore/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Odwiedź stronę główną"><strong>Odwiedź stronę rozszerzeń Google Chrome!</strong></a></p>' +
         '<p><a href="http://www.twitter.com/ludoo0d0a"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Dodaj mnie na Twitterze"/></a></p>' +
         '<p></p></td>',
         thanks2: '<td><p>Jeśli podoba Ci się ta wtyczka i chciałbyś więcej opcji, proszę o dotacje.</p>' +
         '<p>Dzięki temu, mógłbym kupić ciężarówkę kawy, która by pomogła mi przetrwać całą noc pisząc kod :) :)</p>' +
         '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img alt="Dotacja" border="0" src="https://www.paypal.com/pl_PL/i/btn/btn_donate_SM.gif" width="74" height="21"></a></td>',
-		whatsnew:'<td><h2>Co nowego?</h2><ul><li>Wypróbuj nowe style</li><li>lub użyj własnego tła z nowym stylem "MyTheme"</li><li>lub użyj losowego  <a href="http://www.google.com/ig/directory?type=themes" target="blank">stylu iGoogle</a></li><li>Podgląd przy użyciu Lightboxa</li><li>Podziel wpis przy użyciu <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li><li>Akcje dotyczące wpisu w pływającym okienku (Ogólne)</li><li>Tłumaczenie wpisu</li></ul></td>',
-nopopup:'<p>Jeśli nie chcesz być powiadamiany o aktualizacjach, zaznacz "Brak powiadomień przy aktualizacji" w <a href="preferences.html#general">sekcji Ogólne</a>.</p>'
+		//whatsnew:'<td><h2>Co nowego?</h2><ul><li>Wypróbuj nowe style</li><li>lub użyj własnego tła z nowym stylem "MyTheme"</li><li>lub użyj losowego  <a href="http://www.google.com/ig/directory?type=themes" target="blank">stylu iGoogle</a></li><li>Podgląd przy użyciu Lightboxa</li><li>Podziel wpis przy użyciu <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li><li>Akcje dotyczące wpisu w pływającym okienku (Ogólne)</li><li>Tłumaczenie wpisu</li></ul></td>',
+		nopopup:'<p>Jeśli nie chcesz być powiadamiany o aktualizacjach, zaznacz "Brak powiadomień przy aktualizacji" w <a href="preferences.html#general">sekcji Ogólne</a>.</p>'
     },
     link: {
         reader: "<span>Czytnik Google</span>Twój czytnik RSS",
@@ -231,8 +231,8 @@ readitlater: {
 topcurrent: "Aktualny wpis zawsze na górze",
 floatactions: "Opcje dotyczące wpisu wyświetlone w pływającym oknie",
 noupdatepopup: "Brak powiadomień przy aktualizacji",
-        icontoolbar_add: "Aby dodać przycisk z ikoną na pasku narzędziowym, proszę <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">ściągnąć oraz zainstalować to.</a>.",
-        icontoolbar_text: "<span>Aby zrobić przycisk niewymagany, stworzyliśmy go jako osobne rozszerzenie,</span>                                    <br>                                    <span>które może być zainstalowane wraz z Czytnikiem Plus.</span>                                    <br>                                    <span>Aby dodać przycisk, kliknij Zainstaluj <b></b> na stronie<a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">Ikony Czytnika Plus</a>.</span><span>Aby pozbyć się przycisku, kliknij na nim prawym przyciskiem myszki, następnie wybierz Wyłącz.</span>",
+        icontoolbar_add: "Aby dodać przycisk z ikoną na pasku narzędziowym, proszę <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">ściągnąć oraz zainstalować to.</a>.",
+        icontoolbar_text: "<span>Aby zrobić przycisk niewymagany, stworzyliśmy go jako osobne rozszerzenie,</span>                                    <br>                                    <span>które może być zainstalowane wraz z Czytnikiem Plus.</span>                                    <br>                                    <span>Aby dodać przycisk, kliknij Zainstaluj <b></b> na stronie<a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">Ikony Czytnika Plus</a>.</span><span>Aby pozbyć się przycisku, kliknij na nim prawym przyciskiem myszki, następnie wybierz Wyłącz.</span>",
         importexport_text: "Możesz zapisać swoje ustawienia używając 'eksport' i wczytać je później, używając 'import', ale upewnij się, że dane są <a href='http://jsonformatter.curiousconcept.com/' target='blank'>zgodne z JSON</a>:",
         confirmimport: "Jesteś pewien, że chcesz zaimportować te ustawienia?\nUtracisz obecną konfigurację!"
     },

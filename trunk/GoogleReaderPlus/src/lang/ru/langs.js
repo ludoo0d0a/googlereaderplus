@@ -172,13 +172,13 @@ GRP.langs[locale].prefs = {
 		thanks1: '<td><span class="top_right"><img src="images/48.png"></span><h1>Спасибо...</h1>'+
 		'<p>... что используете последнюю версию <strong>Reader Plus</strong>!</p>'+
 		'<p>Откройте <a href="preferences.html" title="Перейти к настройкам"><strong>страницу настройки</strong></a> для настройки расширения.</p>'+
-		'<p><a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Перейти в Гаерею расширений Google"><strong>Посетите Галерею расширений Google!</strong></a></p>'+
+		'<p><a href="https://chrome.google.com/webstore/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Перейти в Гаерею расширений Google"><strong>Посетите Галерею расширений Google!</strong></a></p>'+
 		'<p><a href="http://www.twitter.com/ludoo0d0a"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Следить в Twitter"/></a></p>'+
 		'<p></p></td>',
 		thanks2: '<td><p>Если Вам нравится это расширение и Вы хотите, что бы оно улучшалось, можете подкинуть деньжат.</p>'+
 		'<p>Тогда я смогу купить себе вагон кофе и буду программировать круглосуточно без выходных :)</p>'+
         '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img alt="Пожертвовать" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></a></td>',
-		whatsnew: '<td><h2>Обновления:</h2><ul><li>Новые темы</li><li>Настраиваемая тема "MyTheme"</li><li>Случайное переключение тем <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a></li><li>Предпросмотр lightbox</li><li>Отправка записей в <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li><li>Действия над сообщениями в плавающем окне</li></ul></td>',
+		//whatsnew: '<td><h2>Обновления:</h2><ul><li>Новые темы</li><li>Настраиваемая тема "MyTheme"</li><li>Случайное переключение тем <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a></li><li>Предпросмотр lightbox</li><li>Отправка записей в <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li><li>Действия над сообщениями в плавающем окне</li></ul></td>',
 		nopopup: '<p>Если Вы не хотите получать сообщение об обновлении версии, включите опцию "Не сообщать об обновлениях" в <a href="preferences.html#general">Основных настройках</a>.</p>'
 	},
 	link: {
@@ -224,8 +224,8 @@ GRP.langs[locale].prefs = {
 		topcurrent: "Текущее сообщение всегда вверху страницы",
 		floatactions: "Показывать кнопки действий в плавающем окне",
 		noupdatepopup: "Не сообщать об обновлениях",
-        icontoolbar_add: "Чтобы добавить кнопку на панель Google Chrome, нужно <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">скачать и установить её</a>.",
-        icontoolbar_text: "<span>Кнопка сделана в виде отдельного расширения,</span><br><span>которое устанавливается независимо от Reader Plus.</span><br><span>Чтобы добавить кнопку, нажмите <b>Install</b> на странице <a href=\"https://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">Reader Plus Toolbar button</a>.</span><br><span>Чтобы скрыть кнопку из панели, нажмите на ней правой кнопкой мыши и выберите Отключить.</span>",
+        icontoolbar_add: "Чтобы добавить кнопку на панель Google Chrome, нужно <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">скачать и установить её</a>.",
+        icontoolbar_text: "<span>Кнопка сделана в виде отдельного расширения,</span><br><span>которое устанавливается независимо от Reader Plus.</span><br><span>Чтобы добавить кнопку, нажмите <b>Install</b> на странице <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">Reader Plus Toolbar button</a>.</span><br><span>Чтобы скрыть кнопку из панели, нажмите на ней правой кнопкой мыши и выберите Отключить.</span>",
 	    importexport_text: "Вы можете сохранить ваши настроки, используя 'экспорт', и загрузить их позже, используя 'импорт':",
         confirmimport: "Вы уверены, что хотите импортировать эти настройки?\nТекущие настройки будут утеряны!!!"
     },
