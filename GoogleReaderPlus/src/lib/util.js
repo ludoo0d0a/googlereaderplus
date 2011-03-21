@@ -320,7 +320,7 @@ function serializePost(a, traditional){
     }
 	
     var e = encodeURIComponent, s = [];
-    if (isArray(a) || a.jquery) {
+    if (isArray(a)) {
         forEeach(a, function(){
             add(this.name, this.value);
         });
