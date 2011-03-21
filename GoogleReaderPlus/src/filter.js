@@ -60,8 +60,8 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         }, {
             sep: true
         }, {
-            id: 'prefer_highlight',
-            text: SL.prefer_highlight,
+            id: 'prefer_highlights',
+            text: SL.prefer_highlights,
             checkbox: true,
             value: _options.prefer_highlights,
             click: monitorChange
@@ -87,7 +87,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
             click: monitorChange
         }, {
             id: 'live',
-            text: 'Live',
+            text: SL.live,
             checkbox: true,
             value: _options.live,
             click: onLive
@@ -185,7 +185,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         _options.searchbody = isMenuChecked('searchbody');
         _options.hide_duplicates = isMenuChecked('hide_duplicates');
         _options.hide_excludes = isMenuChecked('hide_excludes');
-        _options.prefer_highlights = isMenuChecked('prefer_highlight');
+        _options.prefer_highlights = isMenuChecked('prefer_highlights');
         _options.live = isMenuChecked('live');
         onUpdate();
     }

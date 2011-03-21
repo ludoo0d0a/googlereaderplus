@@ -98,9 +98,9 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
                     var els;
 					if (o.xpath){
 						els = getElements(o.xpath, xml);
-					}else{
+					}/*else{
 						els = jQuery(o.selector, xml);
-					}
+					}*/
 					if (els && els.length>0) {
 						foreach(els, function(el){
 							result += el.outerHTML;

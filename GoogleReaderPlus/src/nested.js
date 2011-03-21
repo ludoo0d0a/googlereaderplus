@@ -30,7 +30,7 @@ GRP.nested = function(prefs, langs, ID, SL, lang){
         iterate(folderMap, function(name, folder){
             var nameTokens = name.split(sep).reverse();
 			var prefix = nameTokens.slice(1).reverse().join(sep);
-			console.log(name +' -- '+ prefix);
+			//console.log(name +' -- '+ prefix);
             
             if (name !== prefix && (prefix in folderMap)) {
                 var parent = folderMap[prefix].querySelector('ul');

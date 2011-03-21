@@ -116,7 +116,7 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
     
     // Add listener for mouse clicks
     document.addEventListener('click', function(event){
-        console.log('event.button:' + event.button);
+        //console.log('event.button:' + event.button);
         // On each left click, check to see if the middle click setting
         // has changed. if so, then set it in GM
         if (event.button === 0) {

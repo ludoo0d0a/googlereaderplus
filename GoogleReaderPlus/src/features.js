@@ -582,7 +582,10 @@ identi: {
                 label: true,
                 cls: 'subtitle'
             },
-            username: ''
+            username: {
+                value: '',
+                size: 40
+            }
         },
         shortcuts: {
             'share': {
@@ -991,7 +994,7 @@ GRP.packages = {
         fitheight: true,
         closeentry: true,
         openbackground: true,
-        aero: true,
+        aero: false,
         instapaper: true,
         readitlater: true,
         translate: true,
@@ -999,7 +1002,11 @@ GRP.packages = {
         limit: true,
 		prefetch:true,
 		nested:true,
-		actions:true
+		actions:true,
+		identi:true,
+		radbox:true,
+		blogger:true,
+		addthis:true
     }
 };
 GRP.skins = {
@@ -1015,8 +1022,8 @@ GRP.skins = {
     player: {
         name: "Player Theme"
     },
-	snowleopardv1: {
-        name: "Snow Leopard Improved v1",
+	snowleopard: {
+        name: "Snow Leopard Improved",
 		status:'updated',
 		url: 'http://userstyles.org/styles/userjs/41190/Google%20Reader%20for%20Snow%20Leopard%20Improved.user.js',
         pic: 'http://userstyles.org/style_screenshots/41190_after.jpeg',
@@ -1024,7 +1031,7 @@ GRP.skins = {
         desc: 'userstyles.org',
         resize: 'footer'
     },
-	snowleopard: {
+	snowleopard2: {
         name: "Snow Leopard Improved v2",
 		status:'new',
 		url: 'http://userstyles.org/styles/userjs/45456/Google%20Reader%20for%20Snow%20Leopard%202%20-%20Improved%20(2%2F2).user.js',
@@ -1034,10 +1041,12 @@ GRP.skins = {
         resize: 'footer'
     },
     osxblue: {
-        name: "Mac OS X Snow Leopard - Blue"
+        name: "Mac OS X Snow Leopard - Blue",
+        resize: 'footer'
     },
     osxblack: {
-        name: "Mac OS X Snow Leopard - Black"
+        name: "Mac OS X Snow Leopard - Black",
+        resize: 'footer'
     },
     portal: {
         name: "Portal v2",
