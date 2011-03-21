@@ -142,13 +142,11 @@ GRP.mytheme = function(prefs){
                 color: prefs.theme_color || '#aaa',
                 bg: prefs.theme_bg || '#ffc'
             };
-			
 			foreach(items, function(itm){
 	            if (prefs['theme_img'+itm]) {
-	                o[itm]=prefs['theme_'+itm];
+	                o[itm]=prefs['theme_img'+itm];
 	            }
 	        });
-		
         }
         
         var css = fillTpl(tplCss, o);
