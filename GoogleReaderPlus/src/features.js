@@ -1058,12 +1058,24 @@ GRP.skins = {
 	darkhelvetireaderday: {
         name: "Dark Helvetireader - Day",
 		status:'new',
-		pic:'https://chrome.google.com/extensions/img/dkcjfdlgfmefnbhkholnhliliohggmef/1296639253.46/screenshot/3001'
+        pic:'https://chrome.google.com/extensions/img/dkcjfdlgfmefnbhkholnhliliohggmef/1296639253.46/screenshot/3001'
+		/*
+		url: 'http://stylebot.me/style/get_userscript/61.user.js',
+        pic: 'http://stylebot.me/uploads/61.png',
+		ref: 'http://stylebot.me/styles/61',
+        fix: '.entry-actions{height: auto!important;}',
+        desc: 'stylebot.me',
+		resize: 'footer'*/
     },
 	darkhelvetireadernight: {
         name: "Dark Helvetireader - Night",
 		status:'new',
-		pic:'https://chrome.google.com/extensions/img/dkcjfdlgfmefnbhkholnhliliohggmef/1296639253.46/screenshot/4001'
+		//pic:'https://chrome.google.com/extensions/img/dkcjfdlgfmefnbhkholnhliliohggmef/1296639253.46/screenshot/4001'
+		/*url: 'http://stylebot.me/style/get_userscript/62.user.js',
+        pic: 'http://stylebot.me/uploads/62.png',
+		ref: 'http://stylebot.me/styles/62',
+        desc: 'stylebot.me',
+		resize: 'footer'*/
     },
     minimal: {
         name: "Minimalistic Skin"

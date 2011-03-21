@@ -5,6 +5,9 @@
  * https://github.com/ankit/flavored-hreader
  * "css/helvetireader.css", "css/scrollbars.css", "css/sprites.css", 
 	"css/light-theme.css", "css/dark-theme.css", "css/buttons.css"
+ * update through stylebot : 
+ *  - day: http://stylebot.me/styles/61 (http://stylebot.me/style/get_userscript/61.js)
+ *  - night: http://stylebot.me/styles/62 (http://stylebot.me/style/get_userscript/62.js)
  */
 GRP.darkhelvetireaderday = function(){
     GRP.darkhelvetireader('day');
