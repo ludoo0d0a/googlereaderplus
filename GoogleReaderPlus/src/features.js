@@ -1015,12 +1015,21 @@ GRP.skins = {
     player: {
         name: "Player Theme"
     },
-	snowleopard: {
-        name: "Snow Leopard Improved",
+	snowleopardv1: {
+        name: "Snow Leopard Improved v1",
 		status:'updated',
 		url: 'http://userstyles.org/styles/userjs/41190/Google%20Reader%20for%20Snow%20Leopard%20Improved.user.js',
         pic: 'http://userstyles.org/style_screenshots/41190_after.jpeg',
         ref: 'http://userstyles.org/styles/41190',
+        desc: 'userstyles.org',
+        resize: 'footer'
+    },
+	snowleopard: {
+        name: "Snow Leopard Improved v2",
+		status:'new',
+		url: 'http://userstyles.org/styles/userjs/45456/Google%20Reader%20for%20Snow%20Leopard%202%20-%20Improved%20(2%2F2).user.js',
+        pic: 'http://userstyles.org/style_screenshots/45456_after.png',
+        ref: 'http://userstyles.org/styles/45456',
         desc: 'userstyles.org',
         resize: 'footer'
     },
