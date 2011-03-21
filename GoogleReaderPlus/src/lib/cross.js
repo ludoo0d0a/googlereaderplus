@@ -202,13 +202,13 @@ var mycore = {
             }
             return v;
         },
-        removeItem: function(name){
+        removeItem: function(name, cb){
             if (mycore.env.chrome) {
                 if (!mycore.env.background) {
                     mycore.extension.sendRequest({
                         message: 'remove',
                         name: name
-                    }, cb);
+                    }, cb||null);
                 } else {
                     if (!mycore.env.background) {
                         name = mycore.env.prefix + name;
