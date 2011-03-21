@@ -1034,9 +1034,9 @@ GRP.skins = {
 	snowleopard2: {
         name: "Snow Leopard Improved v2",
 		status:'new',
-		url: 'http://userstyles.org/styles/userjs/45456/Google%20Reader%20for%20Snow%20Leopard%202%20-%20Improved%20(2%2F2).user.js',
-        pic: 'http://userstyles.org/style_screenshots/45456_after.png',
-        ref: 'http://userstyles.org/styles/45456',
+		url: 'http://userstyles.org/styles/userjs/45455/Google%20Reader%20for%20Snow%20Leopard%202%20-%20Improved.user.js',
+        pic: 'http://userstyles.org/style_screenshots/45455_after.png',
+        ref: 'http://userstyles.org/style_screenshots/45455',
         desc: 'userstyles.org',
         resize: 'footer'
     },
@@ -1182,6 +1182,7 @@ GRP.skins = {
         pic: 'http://nadesign.net/safari/images/preview-reader.png',
         ref: 'http://nadesign.net/safari/',
 		desc: 'Pure Reader by Na\'Design',
+		fix:'.gbtc{padding-left:100px;}',
         resize: true
     }
 };

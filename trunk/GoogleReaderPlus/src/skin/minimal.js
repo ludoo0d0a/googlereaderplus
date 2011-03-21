@@ -38,6 +38,9 @@ GRP.minimal = function(){
 		css += "#chrome, #nav{padding-top:0 !important;}";
         //GM_addStyle(css, 'rps_minimal');
 		
+		//new UI
+		css +='#gb{display:none}';
+		
 		var css2 = '';
 
         if (is_visible) {
