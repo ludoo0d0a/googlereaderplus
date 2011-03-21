@@ -379,6 +379,9 @@ function insertOn(el, ref, position){
 	} else if (position=='after' || position == 2) {
 		//before
 		insertBefore(el, ref);
+	}else if (position=='first' || position == 3) {
+		//first child
+		insertFirst(el, ref);
 	} else {
 		if (ref) {
 			//append
