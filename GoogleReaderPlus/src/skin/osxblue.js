@@ -18,6 +18,10 @@ GRP.osxblue = function() {
 	//color:black so set white text for header children (colorful conflict)
 	css+='#chrome-view-links,#chrome-title{color:#fff!important}';
 	
+	//new UI
+	css += '#gbx3, #gbx4{background: transparent !important;}';
+	css += '.gbtc{padding-left: 600px;}';
+	
 	GM_addStyle(css, 'rps_osxblue');
 	
 	fireResize();

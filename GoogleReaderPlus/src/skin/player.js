@@ -26,7 +26,8 @@ GRP.player = function(){
     
     //adapt main when nav is on
     css += 'body:not(.lhn-hidden) table#chrome-viewer-container{width:auto !important;}';
-    
+    //new UI
+	css +='#gb{display:none}';
     //background black
     css += 'div#entries .entry{visibility:hidden;background-color:black;}';
     css += 'div.entry-likers, #no-entries-msg{background-color:black;}';

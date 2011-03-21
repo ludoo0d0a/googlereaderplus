@@ -22,19 +22,19 @@
 // Change Log & To-Do Lists available @source (URI above)
 // Feel free to leave suggestions/criticism on the UserScript Page or via email; THANX! =)
 
-
 GRP.black = function(){
 
     var scriptVersion = 1258854468202; //alert(Date.now());
     var scriptFileURL = "http://userscripts.org/scripts/source/12917.user.js";
     var scriptHomepageURL = "http://userscripts.org/scripts/show/12917";
-    
-    
     var googleEnhancedBLACK;
-    
+
+	
     function enhanceGoogle(){
         // General Google Page enhancements	
         googleEnhancedBLACK =        /* Global font override */
+		//new UI
+		"#gbx3, #gbx4{background: black !important;}"+	
         "*   {font-family:Trebuchet MS, Verdna;}" +
         /* page bg */
         "BODY   {background:#000 none !important; color:#fff;}" +
@@ -1535,76 +1535,7 @@ GRP.black = function(){
             /* footer */
             sIR("DIV#footer > DIV.copyright   {display:none;}");
         }
-        
-        
-        // Modify Google Header Bar
-        var cGtld = location.host.substring(location.host.indexOf('.google.') + 8, location.host.length); //current Google Top Level Domain
-        gHeaderBarCntnr = getEl("gbar");
-        gHdrUsrBarCntnr = getEl("guser");
-        gHeaderBarCntnrVoice = getEl("gc-gaia-bar");
-        //shift header-menu right for 'iGoogle' link insertion
-        gHeaderBar = gHeaderBarCntnr.getElementsByTagName('nobr')[0];
-        gHeaderBar.style.position = "relative";
-        gHeaderBar.style.left = "4.8em";
-        //header-menu left-side 'iGoogle'/'Web' link insertion
-        if (location.href.indexOf('.google.' + cGtld + '/ig') > -1) {
-            //create new 'iGoogle' B-tag
-            iGheaderInsert = document.createElement('b');
-            
-            //create new 'Web' A-tag
-            WEBheaderInsert = document.createElement('a');
-            WEBheaderInsert.href = "http://www.google." + cGtld + "/url?sa=p&pref=ig&pval=1&q=/webhp%3Frls%3Dig";
-            WEBheaderInsert.innerHTML = "Web";
-            WEBheaderInsert.className = "gb1";
-            WEBheaderInsert.setAttribute('style', 'float:left; position:relative; top:-1.6em; padding-left:0.15em;');
-            
-            //hide old 'Web' B-tag
-            if (gHeaderBarCntnr.getElementsByTagName('nobr')[0].getElementsByTagName('b')[0]) 
-                gHeaderBarCntnr.getElementsByTagName('nobr')[0].getElementsByTagName('b')[0].setAttribute('style', 'visibility:hidden;');
-            
-            //hide old right-side 'Classic Home' A-tag
-            if (gHdrUsrBarCntnr.getElementsByTagName('nobr')[0].getElementsByTagName('a')[0]) 
-                gHdrUsrBarCntnr.getElementsByTagName('nobr')[0].getElementsByTagName('a')[0].setAttribute('style', 'display:none;');
-            
-            //shift 'account' slightly-right
-            if (gHdrUsrBarCntnr.getElementsByTagName('nobr')[0].getElementsByTagName('b')[0]) 
-                gHdrUsrBarCntnr.getElementsByTagName('nobr')[0].getElementsByTagName('b')[0].setAttribute('style', 'position:relative; left:1em;');
-        } else {
-            //create new 'iGoogle' A-tag
-            iGheaderInsert = document.createElement('a');
-            iGheaderInsert.href = "http://www.google." + cGtld + "/ig";
-        }
-        iGheaderInsert.innerHTML = "iGoogle";
-        iGheaderInsert.className = "gb1";
-        iGheaderInsert.setAttribute('style', 'float:left; position:relative; top:-1.55em;');
-        gHeaderBar.insertBefore(iGheaderInsert, parent.firstChild);
-        if (location.href.indexOf('.google.' + cGtld + '/ig') > -1) 
-            gHeaderBar.insertBefore(WEBheaderInsert, parent.firstChild);
-        //header-menu 'Sign in' link adjustments
-        if (gHdrUsrBarCntnr || gHeaderBarCntnrVoice) 
-            gHdrUsrBar = gHdrUsrBarCntnr.getElementsByTagName('nobr')[0];
-        if (((!gHdrUsrBarCntnr) || (gHdrUsrBarCntnr && typeof gHdrUsrBar == "undefined")) && (!gHdrUsrBarCntnr && gHdrUsrBarCntnr.getElementsByTagName('a')[2])) {
-            signInLink = document.createElement('a');
-            signInLink.innerHTML = "Sign in";
-            signInLink.href = "https://www.google." + cGtld + "/accounts/ServiceLogin?continue=http://www.google." + cGtld + "/ig&followup=http://www.google." + cGtld + "/ig&service=ig&passive=true";
-            signInLink.setAttribute('style', 'position:absolute; top:4px; right:8px; font-family:Trebuchet MS,Verdna;');
-            //adds Sign in link to right-side of Firefox start page (when signed out), or not News (body.hp, body.serp & body.sp)
-            if (document.body.className != "hp" && document.body.className != "serp" && document.body.className != "sp" && document.body.className != "gecko loading loaded") 
-                gHeaderBarCntnr.appendChild(signInLink);
-        }
-        //header-menu right-side adjustments
-        if (gHdrUsrBarCntnr && typeof gHdrUsrBar == "object" && gHdrUsrBar.hasChildNodes()) 
-            for (iA = 0; iA < gHdrUsrBar.getElementsByTagName('a').length; iA++) 
-                if (gHdrUsrBar.getElementsByTagName('a')[iA].innerHTML == "iGoogle") {
-                    //removes iGoogle link from right-side (when signed in)
-                    gHdrUsrBar.getElementsByTagName('a')[iA].style.display = "none";
-                    //if exists, shift Account name over (when signed in)
-                    if (gHdrUsrBar.getElementsByTagName('b')[0]) 
-                        gHdrUsrBar.getElementsByTagName('b')[0].setAttribute('style', 'position:relative; left:0.8em; background-color:#000 !important;');
-                }
-        
-        //DIV#tads
-        
+         
         // Remove Search-Tracking Links
         var arLinks = document.getElementsByTagName("a");
         for (var i = 0; i < arLinks.length; i++) {
