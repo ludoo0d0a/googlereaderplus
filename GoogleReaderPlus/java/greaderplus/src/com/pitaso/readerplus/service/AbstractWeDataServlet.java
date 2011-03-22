@@ -4,10 +4,14 @@ import static com.google.appengine.api.taskqueue.TaskOptions.Builder.withUrl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,9 +24,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions.Method;
+import com.google.appengine.repackaged.com.google.common.base.StringUtil;
 
 @SuppressWarnings("serial")
 public abstract class AbstractWeDataServlet extends HttpServlet {
@@ -79,7 +86,9 @@ public abstract class AbstractWeDataServlet extends HttpServlet {
 	protected String populate(String database) {
 		String out = null;
 		if (database != null) {
-			out = getContent("http://wedata.net/databases/" + database
+			out = getContent(
+			/*out = getContentJsonPaging(*/
+					"http://wedata.net/databases/" + database
 					+ "/items.json");
 
 			// Debug
@@ -155,12 +164,36 @@ public abstract class AbstractWeDataServlet extends HttpServlet {
 		return json;
 	}
 
+	public String getContentJsonPaging(String url) {
+		int page=0;
+		String r=null;
+		boolean loop=true;
+		List<String> out= new ArrayList<String>();
+		while(loop && page++<1000){
+			r = getContent(url+"?page="+page);
+			if (r==null || r.length()<=10){
+				loop=false;
+			}else{
+				//remove "[]"
+				r=r.replaceFirst("^\\[", "").replaceFirst("\\]$","");
+				out.add(r);
+			}
+		}
+		log.info("Downloaded "+page+" pages on "+url);
+		return "["+StringUtils.join(out,",")+"]";
+	}
 	public String getContent(String url) {
+		log.info("get url:"+url);
+		log.fine("fget url:"+url);
 		String s = null;
 		try {
 			URL u = new URL(url);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(u
-					.openStream()));
+			URLConnection urlConnection = u.openConnection();
+			InputStream is = urlConnection.getInputStream();
+			urlConnection.setConnectTimeout(10000);
+			urlConnection.setReadTimeout(10000);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+			
 			String line;
 			StringBuffer bf = new StringBuffer();
 			while ((line = reader.readLine()) != null) {
