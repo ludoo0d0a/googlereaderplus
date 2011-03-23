@@ -438,8 +438,9 @@ GRP.scripts = {
                 id: 'gofacebook',
                 title: 'Post on Facebook',
                 key: {
-                    //70 f
-                    keyCode: 70
+                    //70 shift+f
+                    keyCode: 70,
+					shiftKey:true
                 }
             }
         }
@@ -871,7 +872,8 @@ identi: {
     },
 	actions: {
         name: "Actions icons",
-        category: 'layout'
+        category: 'action',
+		status:'new'
     },
     /*antisocial: {
         name: "Antisocial",
@@ -1070,7 +1072,7 @@ GRP.skins = {
 	darkhelvetireadernight: {
         name: "Dark Helvetireader - Night",
 		status:'new',
-		//pic:'https://chrome.google.com/extensions/img/dkcjfdlgfmefnbhkholnhliliohggmef/1296639253.46/screenshot/4001'
+		pic:'https://chrome.google.com/extensions/img/dkcjfdlgfmefnbhkholnhliliohggmef/1296639253.46/screenshot/4001'
 		/*url: 'http://stylebot.me/style/get_userscript/62.user.js',
         pic: 'http://stylebot.me/uploads/62.png',
 		ref: 'http://stylebot.me/styles/62',
@@ -1107,7 +1109,8 @@ GRP.skins = {
     },
 	sublimedark: {
         name: "Sublime Reader Dark",
-		ref:'https://code.google.com/p/sublimereader'
+		ref:'https://code.google.com/p/sublimereader',
+		resize:true
     },
 	redesigned: {
         name: "Redesigned",
@@ -1403,6 +1406,12 @@ GRP.googleshortcuts = {
         text: 'refresh : refreshes the unread counts in the navigation',
         key: {
             keyCode: 82
+        }
+    },
+	'f': {
+        text: 'toggle full screen mode : displays reading list in full screen mode',
+        key: {
+            keyCode: 70
         }
     },
     'u': {

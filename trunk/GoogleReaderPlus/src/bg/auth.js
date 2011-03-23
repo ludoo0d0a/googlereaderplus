@@ -42,6 +42,20 @@ var OAUTHS = {
             'app_name': 'Identi.ca for Readerplus'
         }
     },
+	linkedin: {
+        api: {
+			url: 'http://identi.ca/api/statuses/update.json'
+		},
+        authcfg: {
+            'request_url': 'https://api.linkedin.com/uas/oauth/requestToken',
+            'authorize_url': 'https://www.linkedin.com/uas/oauth/authorize',
+            'access_url': 'https://api.linkedin.com/uas/oauth/accessToken',
+            'consumer_key': '03Lo9p85VlPONMBZeemRektEGq8_hB_J3WZky9nRRQW4dcwnEByjInXupo7DpF9V',
+            'consumer_secret': 'XU2i8HtQB_G2DVKBN_MJO5rEM0oMTky7tEkRlm8xnkFktWc46fwzzcbepsD-At2I',
+            'scope': 'http://www.linkedind.com/',
+            'app_name': 'LinkedIn for Readerplus'
+        }
+    },
 	jaiku:{
 		api: {
 			url: 'http://api.jaiku.com/json',
