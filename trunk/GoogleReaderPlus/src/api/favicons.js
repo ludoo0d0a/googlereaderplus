@@ -1,64 +1,71 @@
-var cloudItems={};
-function setFavicon(title, icon, url, FAVICON){
-    if (FAVICON) {
-        var key = ellipsis(title);
-        FAVICON[key] = {
-            icon: icon,
-            url: url,
-            title: title
-        };
-    }
+var ICONS_TITLE, ICONS_URL={};
+var counts = {total:0},reFixReader = /^.*\/feed%2F/;
+//debug
+var FIXING = false, MIRROR = true, r2=false;
+if (FIXING) {
+	r2 = new GRP.api_rest('Favicons', true, MIRROR);
 }
 
-var counts = {doublons:0,urlreader:0,urluser:0,uiicon:0,icoslash:0};
-var reFixReader = /^.*\/feed%2F/;
-//var r2 = new GRP.api_rest('Favicons', true);	
+function setFavicon(o, item){
+    var key = ellipsis(o.title);
+    ICONS_TITLE[key] = o;/* {icon, url, title}*/
+	if (item) {
+		o.id = getIdFromResourceUrl(item); 
+		ICONS_URL[item.data.url] = o;
+	}
+}
 
 /**
  * Extract sites list from google reader xml
  */
 function loadIcons(a, cb){
-    var FIXING = false;
-	var FAVICON_TPL_URL = a.FAVICON_TPL_URL;
-    var prefs = getPrefs();
+
+	var ICO_TPL_URL = a.ICO_TPL_URL;
     request({
         url: a.url,
         onload: function(xhr){
             var xml = xhr.responseXML;
-            var FAVICON = parseXml(xml, FAVICON_TPL_URL);
+            parseXml(xml, ICO_TPL_URL);
             
             var prefs = getPrefs();
             //Load wedata cloud data
 			if (prefs.favicons_cloud) {
-                var r = new GRP.api_rest('Favicons', true/*, {time:8*60*60*1000}*/);
+                var r = new GRP.api_rest('Favicons', true, MIRROR);
 				r.item.getAll({}, function(items, success){
                     if (success) {
-                        cloudItems={};
+                        ICONS_URL={};
+						if (FIXING) {
+								counts = {total:0,doublons:0,d:{},urldoublons:0,urlreader:0,urluser:0,uiicon:0,icoslash:0,icofailed:0};
+						}
 						foreach(items, function(item){
                             if (FIXING) {
 								item = fixItem(item);
 							}
-							setFavicon(item.data.title, item.data.icon, item.data.url, FAVICON);
-							cloudItems[item.data.url]=item;
+							counts.total++;
+							setFavicon(item.data, item);
                         });
 						if (FIXING) {
+							console.log('total=' + items.length);
 							console.log('doublons=' + counts.doublons);
+							console.log('urldoublons=' + counts.urldoublons);
 							console.log('urlreader=' + counts.urlreader);
 							console.log('urluser=' + counts.urluser);
 							console.log('uiicon=' + counts.uiicon);
 							console.log('icoslash=' + counts.icoslash);
+							console.log('icofailed=' + counts.icofailed);
+							console.log(counts.d);
 						}
                     }
                     sendResponse({
                         message: "iconsloaded",
-                        FAVICON: FAVICON
+                        ICONS_TITLE: ICONS_TITLE
                     }, cb);
                 });
 				
             } else {
                 sendResponse({
                     message: "iconsloaded",
-                    FAVICON: FAVICON
+                    ICONS_TITLE: ICONS_TITLE
                 }, cb);
             }
         }
@@ -66,12 +73,26 @@ function loadIcons(a, cb){
 }
 
 function fixItem(item){
-	/*if (cloudItems[item.data.url]){
+	var o = ICONS_URL[item.data.url];
+	/*if (o){
 		//remove doublon
 		item.id = getIdFromResourceUrl(item);
-		counts.doublons++;
-		//r2.item.remove(item);
-	}
+		if (item.id) {
+			if (item.data.url==o.data.url){
+			//if (compareObject(item.data, o.data)) {
+				counts.doublons++;
+				counts.d[item.data.url] = (counts.d[item.data.url] || 0) + 1;
+				if (counts.doublons < 100) {
+					console.log(counts.doublons+' : remove '+item.id);
+					//r2.item.remove(item);
+				}
+			} else {
+				counts.urldoublons++;
+			}
+		}
+	}*/
+	
+	/*
 	if (reFixReader.test(item.data.url)||reFixReader.test(item.name)){
 		item.id = getIdFromResourceUrl(item);
 		item.name = cleanReaderUrl(item.name);
@@ -83,33 +104,60 @@ function fixItem(item){
 		console.log(item);
 		counts.urlreader++;
 		//r2.item.update(item);
-	}
+	}*/
 	
 	//if url is a page, remove page
-	if (/http\:\/\/.*\/[^\.]+\.\w+$/.test(item.data.url)){
+	/*if (/http\:\/\/.*\/[^\.]+\.\w+$/.test(item.data.url)){
 		var url = getUrlBase(item.data.url);
 		item.id = getIdFromResourceUrl(item);
-		item.values=item.data
+		item.values=item.data;
 		item.values.icon=item.values.icon.replace(new RegExp('^'+item.data.url), url);
 		item.values.url=url;
 		item.name = url;
 		console.log(item);
 		counts.urluser++;
 		//r2.item.update(item);
-	}
+	}*/
 	
+	/*
 	if (/\/reader\/ui\/favicon\.ico$/.test(item.data.icon)){
 		item.id = getIdFromResourceUrl(item);
-		item.values=item.data
+		item.values=item.data;
 		item.values.icon=item.values.icon.replace(/\/?\/reader\/ui\//, '');
 		console.log(item);
 		counts.uiicon++;
-		r2.item.update(item);
+		//r2.item.update(item);
 	}
 	*/
-	
+	/*
+	if (counts.total < 20) {
+		//Check favicon response
+		checkfile({url: item.data.icon}, function(){
+			counts.icofailed++;
+			console.error('Favicon not found ['+counts.icofailed+']: ' + item.data.icon);
+		});
+	}
+	*/
 	return item;
 }
+function checkfile(a, cb){
+	request({
+		url: a.url,
+		onload: function(xhr){
+			if (xhr.status >= 400) {
+				if (cb){
+					cb(a);
+				}
+			}
+		},
+		onerror: function(){
+			if (cb){
+				cb(a);
+			}
+		}
+	}, true);
+}
+
 function cleanReaderUrl(url){
 	if (reFixReader.test(url)) {
 		return decodeURIComponent(url.replace(reFixReader, ''));
@@ -120,7 +168,7 @@ function cleanReaderUrl(url){
 
 function extractFavicon(a, cb){
     var xhr = new XMLHttpRequest();
-    var url, title, key = a.key, FAVICON = a.FAVICON;
+    var url, title, key = a.key, ICONS_TITLE = a.ICONS_TITLE;
     if (!key) {
         //url+title
         key = ellipsis(title);
@@ -128,7 +176,7 @@ function extractFavicon(a, cb){
         title = a.title;
     } else {
         //key only
-        var f = FAVICON[key];
+        var f = ICONS_TITLE[key];
         url = f.url;
         title = f.title;
     }
@@ -145,7 +193,7 @@ function extractFavicon(a, cb){
             var html = xhr.responseText; //responseBody
             var icon = parseFavicon(html, url);
             if (icon) {
-                setFavicon(title, icon, url, FAVICON);
+                setFavicon({title:title, icon:icon, url:url});
                 saveFavicon(url, icon, title);
             }
             sendResponse({
@@ -153,7 +201,7 @@ function extractFavicon(a, cb){
                 title: title,
                 icon: icon,
                 url: url,
-                FAVICON: FAVICON
+                ICONS_TITLE: ICONS_TITLE
             }, cb);
         }
     };
@@ -170,11 +218,12 @@ function saveFavicon(url, icon, title){
     
     if (cloudSaveIcon(url)){
 		//send to remote db
-	    var r = new GRP.api_rest('Favicons', true/*, {time:4*60*60}*/);	
+	    var r = new GRP.api_rest('Favicons', true, MIRROR);	
 	    var name = getNameFromUrl(url);
 		
 		//Check if already exist
-		var ci = cloudItems[url];
+		var ci = ICONS_URL[url];
+		
 		r.item.createOrUpdate(ci, {
 				name: name,
 				values: {
@@ -255,10 +304,10 @@ function checkIconDomains(prefs){
 }
 
 
-function parseXml(xml, FAVICON_TPL_URL){
+function parseXml(xml, tplUrl){
     var prefs = getPrefs();
     var domains = prefs.favicons_domains;
-    var FAVICON = {};
+    ICONS_TITLE = {};
     var manual = mycore.storage.getItem("favicons_manual");
     Array.forEach(xml.getElementsByTagName('outline'), function(outline){
         if (!outline.hasAttribute('htmlUrl')) {
@@ -268,51 +317,8 @@ function parseXml(xml, FAVICON_TPL_URL){
         var url = outline.getAttribute('htmlUrl');
         var favicon;
         var domain = url.split(/\/|\?/)[2];
-        var icon = FAVICON_TPL_URL + domain;
-        setFavicon(title, icon, url, FAVICON);
-        
-        /*
-         var icond = domains[url];//domains store site->faviconUrl
-         var manualDomain = (typeof icond !== "undefined");
-         if (manualDomain){
-         icon=icond;
-         }
-         //manualmode + (empty or null or not defined)
-         //or EXCEPTION + empty (autofill)
-         if ((manual && !icon) || (!manual && manualDomain && icon==='')) {
-         extractFavicon(
-         {
-         url: url,
-         title: title,
-         FAVICON: FAVICON
-         });
-         }else{
-         setFavicon(title, icon, url, FAVICON);
-         }
-         */
-    });
-    
-    //upload parsing results
-    //createWorkerIcons(FAVICON);
-    
-    return FAVICON;
-}
-/*
-function createWorkerIcons(icons){
-    createWorker({
-        url: "worker/wfavicons.js",
-        data: {
-            icons: icons
-        },
-		job: function(worker){
-			console.log('Job here');
-		},
-        onmessage: function(data, e){
-        	console.log('onmessage here');
-        },
-        onerror: function(data, e){
-            console.error('Error on worker favicon ' + data);
-        }
+        var icon = tplUrl + domain;
+        setFavicon({title:title, icon:icon, url:url});
     });
 }
-*/
+

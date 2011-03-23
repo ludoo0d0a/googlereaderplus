@@ -13,18 +13,18 @@
  */
 GRP.favicons = function(prefs, langs, ID, SL, lang){
     var GRP_INFO = GM_getValue('grp_favicons', '{}');
-    var FAVICON = GRP_INFO.icon || (GRP_INFO.icon = {});
+    var ICONS_TITLE = GRP_INFO.icon || (GRP_INFO.icon = {});
     updateFavicons();
     var protocol = document.location.protocol;
-    var FAVICON_TPL_URL = protocol + '//s2.googleusercontent.com/s2/favicons?alt=feed&domain=';
-	//FAVICON_TPL_URL = protocol + '//www.google.com/profiles/c/u/0/favicons?domain=';
+    var ICO_TPL_URL = protocol + '//s2.googleusercontent.com/s2/favicons?alt=feed&domain=';
+	//ICO_TPL_URL = protocol + '//www.google.com/profiles/c/u/0/favicons?domain=';
 	
-    var FAVICON_TPL_DEF_URL = protocol + '//s2.googleusercontent.com/s2/favicons';
+    var ICONS_TITLE_TPL_DEF_URL = protocol + '//s2.googleusercontent.com/s2/favicons';
     if (prefs.favicons_providerpageicons) {
-        FAVICON_TPL_URL = 'http://pageicons.appspot.com/favicons?f=1&url=';
-        FAVICON_TPL_DEF_URL = 'http://pageicons.appspot.com/favicons';
+        ICO_TPL_URL = 'http://pageicons.appspot.com/favicons?f=1&url=';
+        ICONS_TITLE_TPL_DEF_URL = 'http://pageicons.appspot.com/favicons';
     }
-	//FAVICON_TPL_URL = 'http://getfavicons.appspot.com?domain=';
+	//ICO_TPL_URL = 'http://getfavicons.appspot.com?domain=';
 	
     //var LOADING_IMAGE = "chrome-extension://'+GUID_CORE+'/images/loading.gif";
     var LOADING_IMAGE = GRP.IMAGES_PATH+"/loading.gif";
@@ -35,7 +35,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
     var FOLDER_NUMBERS = GRP_INFO.dirs || null;
 	
     function init(){
-        if (true || isObjectEmpty(FAVICON) || RSS_NUMBERS === null || FOLDER_NUMBERS === null || RSS !== RSS_NUMBERS || FOLDER !== FOLDER_NUMBERS) {
+        if (true || isObjectEmpty(ICONS_TITLE) || RSS_NUMBERS === null || FOLDER_NUMBERS === null || RSS !== RSS_NUMBERS || FOLDER !== FOLDER_NUMBERS) {
             loadFavicons();
         } else {
             initFavicons();
@@ -52,18 +52,22 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
             message: "loadicons",
             method: 'get',
             url: protocol + '//www.google.com/reader/subscriptions/export',
-            FAVICON_TPL_URL: FAVICON_TPL_URL
+            ICO_TPL_URL: ICO_TPL_URL
         }, function(a){
-			if (a.FAVICON) {
-                FAVICON = a.FAVICON;
+			if (a.ICONS_TITLE) {
+                ICONS_TITLE = a.ICONS_TITLE;
                 updateFavicons();
             }
             initFavicons();
             setValue();
         });
 		
-		//Moved on creation
-		registerFeature(addFaviconEntry, ID,{onlistviewtitle: true});
+		if (!prefs.favicons_sidebaronly) {
+			//Moved on creation
+			registerFeature(addFaviconEntry, ID, {
+				onlistviewtitle: true
+			});
+		}
     }
     
     function initFavicons(){
@@ -75,7 +79,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
             });
 			//forAllEntries(addFaviconEntry);
         }*/
-        initCatchSidebars(addFaviconSidebar, 'sidebar-favicons');
+		initCatchSidebars(addFaviconSidebar, 'sidebar-favicons');
     }
     
     function addFaviconEntry(el, entry, mode){
@@ -88,20 +92,19 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
         icon.className = 'entry-favicon grf-favicon grf-entry';       
         var siteTitle = getEntrySiteTitle(entry);
         var match = ellipsis(siteTitle);
-        
         icon.title = match;
         
-        var t = FAVICON[match];
+        var t = ICONS_TITLE[match];
         if (t) {
             icon.src = t.icon;
         } else { // popular items | recommended sources
             var fs = entry.getElementsByClassName('entry-original')[0] ||
             entry.getElementsByClassName('entry-title-link')[0];
             if (fs) {
-                fs = FAVICON_TPL_URL + getDomain(fs.href);
+                fs = ICO_TPL_URL + getDomain(fs.href);
                 icon.src = fs;
             } else {
-                icon.src = FAVICON_TPL_DEF_URL;
+                icon.src = ICONS_TITLE_TPL_DEF_URL;
             }
         }
         
@@ -113,12 +116,10 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
             var entrySourceTitle = getFirstElementByClassName(entry, 'entry-source-title');//span
             insertBefore(icon, entrySourceTitle);
         }
-        
-        
         //icon.removeEventListener('error', revertFavicon, false);
         //icon.addEventListener('error', revertFavicon, false);
-    
     }
+	
     function addFaviconSidebar(el, mode){
 		if (isTagged(el, 'tfavicon')) {
             //stop entry was already scanned
@@ -138,12 +139,12 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
 			ep.removeChild(elsubicon);
 		
 			//console.log('setIcon:'+match);
-			//var t = findFaviconByTitle(FAVICON, match);
-			var t = FAVICON[match];
+			//var t = findFaviconByTitle(ICONS_TITLE, match);
+			var t = ICONS_TITLE[match];
 			if (t) {
 				icon.src = t.icon;
 			} else {
-				icon.src = FAVICON_TPL_DEF_URL;
+				icon.src = ICONS_TITLE_TPL_DEF_URL;
 			}
 		}
 		
@@ -165,28 +166,29 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
     //Override with manual favicons
     function updateFavicons(){
         var domains = prefs.favicons_domains;
-        if (!domains || !FAVICON) {
+        if (!domains || !ICONS_TITLE) {
             return;
         }
-        for (var key in FAVICON) {
-            var f = FAVICON[key];
+        for (var key in ICONS_TITLE) {
+            var f = ICONS_TITLE[key];
             var icon = domains[f.url];
             if (icon) {
                 f.icon = icon;
             }
         }
     }
+	
     /*
      function revertFavicon(event){
-     this.src = FAVICON_TPL_DEF_URL;
+     this.src = ICONS_TITLE_TPL_DEF_URL;
      }
      */
-    function findFaviconByTitle(FAVICON, title){
-        return find(FAVICON, 'title', title);
+    function findFaviconByTitle(ICONS_TITLE, title){
+        return find(ICONS_TITLE, 'title', title);
     }
     
     function setValue(){
-        GRP_INFO.icon = FAVICON;
+        GRP_INFO.icon = ICONS_TITLE;
 		//cache only in webpage storage
         GM_setValue('grp_favicons', GRP_INFO, false);
     }
@@ -213,6 +215,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
             }
         }, false);
     }
+	
     function showMenuItem(menu, scope){
         if (!menu) {
             return;
@@ -245,35 +248,37 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
                         // img not there, used 2nd span.name/@title
                         key = img.nextSibling.title;
                     }
-                    var f = FAVICON[key];
+                    var f = ICONS_TITLE[key];
                     //if (!f) {
                         //try to get url+title, but this solution is sometimes wrong !!
 						var dir = getSelectedDir(node);
 						if (dir) {
-							FAVICON[key] = {
+							ICONS_TITLE[key] = {
 								url: dir.url,
 								title: dir.text
 							};
 						}
                     //}
                     if (f) {
-                        img.src = '';
+                        var oldimg = img.src;
+						img.src = '';
                         img.src = LOADING_IMAGE;
                         chrome.extension.sendRequest(
                         {
                             message: "geticon",
                             key: key,
-                            FAVICON: FAVICON
+                            ICONS_TITLE: ICONS_TITLE
                         }, function(a){
                             if (a.icon) {
-                                if (a.FAVICON) {
-                                    FAVICON = a.FAVICON;
+                                if (a.ICONS_TITLE) {
+                                    ICONS_TITLE = a.ICONS_TITLE;
                                     updateFavicons();
                                 }
                                 renderFavicons(a.url, a.title, a.icon);
                                 setValue();
                             } else {
                                 alert('Error: Cannot found favicon for "' + a.title + '"');
+								img.src=oldimg;
                             }
                         });
                         // ->iconget
@@ -302,7 +307,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
     
     attachMenu();
     init();
-    
+
 };
 
 

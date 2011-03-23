@@ -1,7 +1,6 @@
 var GRP_MIRROR = 'http://greaderplus.appspot.com/';
-//var GRP_MIRROR = 'http://node.greaderplus.appspot.com/';
 
-GRP.api_rest = function(name, local, cached){
+GRP.api_rest = function(name, local, mirror, cached){
     //http://wedata.net/help/api
     var SL = {
 		error:'Error $status on sending data using REST'
@@ -22,7 +21,7 @@ GRP.api_rest = function(name, local, cached){
             create: '/databases',
 			update: '/databases/'+name,
 			remove:'/databases/'+name,
-			cache: GRP_MIRROR+name
+			cache: (mirror)?(GRP_MIRROR+name):''
         },
 		item: {
             getall:'/databases/'+name+'/items.json',
@@ -30,10 +29,10 @@ GRP.api_rest = function(name, local, cached){
             create: '/databases/'+name+'/items',
 			update: '/items/:id',
 			remove:'/items/:id',
-			cache: GRP_MIRROR+name
+			cache: (mirror)?(GRP_MIRROR+name):''
         }
     };
-    
+	
     function send(method, url, params, cb, cberr){
 		function response(xhr){
 			if (config.successCodes[xhr.status]) {
@@ -89,12 +88,20 @@ GRP.api_rest = function(name, local, cached){
                     page: o.page||1
                 };
 				var url = config.all.cache;
+				
+				function retryWithoutCache(){
+					console.log('Retry all.getAll without cache');
+					var url = config.base + config.all.getall;
+					send('get', url, params, success, error);
+				}
+				
 				if (url){
+					console.log('Get all.getAll from cache');
 					send('get', url, params, success, function(){
-						console.log('Retry all.getAll without cache');
-						var url = config.base + config.all.getall;
-						send('get', url, params, success, error);
+						retryWithoutCache();
 					});
+				}else{
+					retryWithoutCache();
 				}
             },
 			get: function(o /* name, page */, success, error){
@@ -147,13 +154,19 @@ GRP.api_rest = function(name, local, cached){
                 var params = {
                     page: o.page||1
                 };
+				function retryWithoutCache(){
+					console.log('Retry item.getAll without cache');
+					var url = config.base + config.item.getall;
+					send('get', url, params, success, error);
+				}
 				var url = config.item.cache;
 				if (url){
+					console.log('Get item.getAll from cache');
 					send('get', url, params, success, function(){
-						console.log('Retry item.getAll without cache');
-						var url = config.base + config.item.getall;
-						send('get', url, params, success, error);
+						retryWithoutCache();
 					});
+				}else{
+					retryWithoutCache();
 				}
             },
 			get: function(o /* name, page, id */, success, error){
@@ -184,10 +197,14 @@ GRP.api_rest = function(name, local, cached){
 			createOrUpdate: function(ci, o , success, error){
                 if (ci){
 					//object already exist
-					if (ci.name !== o.name || !compareObject(ci.values, o.values)){
+					if (ci.name !== o.name || !compareObject(ci.data, o.values)){
 						o.id = getIdFromResourceUrl(ci);
-						console.log('objects different-> update '+o.name + ' '+o.id);
-						this.update(o);
+						if (o.id) {
+							console.log('objects different-> update '+o.name + ' '+o.id);
+							this.update(o);
+						}
+					}else{
+						console.log('objects equals-> NO update '+o.name + ' '+o.id);
 					}
 				}else{
 					this.create(o);
@@ -223,7 +240,13 @@ GRP.api_rest = function(name, local, cached){
 };
 
 function getIdFromResourceUrl(o){
-	return (o.resource_url)?(o.resource_url.replace(/^.*\/items\//, '')):false;
+	var s = false;
+	if(o.resource_url){
+		s = o.resource_url.replace(/^.*\/items\//, '');
+	}else if (o.id){
+		s = o.id;
+	}
+	return s;
 }
 
 function compareObject(a,b){
