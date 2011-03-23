@@ -46,6 +46,17 @@ GRP.langs[locale].texts = {
         keyword: 'Twitter',
         plslogin: 'Merci de vous connecter à Twitter'
     },
+    identi:{
+		text:'Partager avec Identi',
+		keyword: 'Identi',
+		plslogin: 'Merci de vous connecter à Identi.ca',
+		nologin: 'Cette fonctionnalité a besoin d\'un nom d\'utilisateur, merci de le renseigner dans la page des préférences!!'
+	},
+	jaiku:{
+		text:'Partager avec Jaiku',
+		keyword: 'Jaiku',
+		plslogin: 'Merci de vous connecter à Jaiku'
+	},
     readit: {
         password: 'Mot de passe, si vous en avez un:',
         wronglogin: 'Mauvais mot de passe ou nom d\'utilisateur, merci de vérifier!!',
@@ -58,7 +69,7 @@ GRP.langs[locale].texts = {
     instapaper: {
         text: 'Lire plus tard avec Instapaper',
         keyword: 'Instapaper',
-        plslogin: 'Merci de vous connecter Instapaper',
+        plslogin: 'Merci de vous connecter à Instapaper',
         login: 'Email ou nom d\'utilisateur:'
     },
     readitlater: {
@@ -68,6 +79,20 @@ GRP.langs[locale].texts = {
         rateexceeded: 'Trafic dépassé, merci d\'attendre avant de recommencer',
         maintenance: 'Maintenance en cours, revenz plus tard !'
     },
+    radbox: {
+        text: 'Lire plus tard avec Radbox',
+        keyword: 'Radbox',
+        nologin: 'Cette fonctionnalité a besoin d\'un nom d\'utilisateur, merci de le renseigner dans la page des préférences!!',
+		novideo: 'Aucune vidéo dans cette page'
+    },
+    addthis:{
+		text:'Partager avec AddThis',
+		keyword: 'AddThis'
+	},
+	blogger:{
+		text:'Partager avec Blogger',
+		keyword: 'Blogger'
+	},
     favicons: {
         preferences: 'Préférences',
         getfavicon: 'Obtenir l\'icône de ce site',
@@ -111,6 +136,7 @@ GRP.langs[locale].texts = {
         keyword: 'Adapter la hauteur'
     },
     jump: {
+        text: 'Aller',
         textbottom: 'Aller en bas',
         texttop: 'Aller en haut',
         keywordtop: 'haut'
@@ -171,6 +197,8 @@ GRP.langs[locale].prefs = {
         alreadyexist: "Cet élément existe déjà!",
         snew: 'Nouveau!',
         supdated: 'Mis à jour!',
+        prefssaved: "Préférences sauvés!",
+        cachecleared: "Cache nettoyé!",
         expandall: 'Tous'
     },
     theme: {
@@ -236,6 +264,12 @@ GRP.langs[locale].prefs = {
 		miniparas: "Nombre minimum de paragraphes avant de couper en colonnes",
         "entersite": "Saisissez l'adresse de votre site"
     },
+    translate: {
+        lang: "Traduire le contenu en ",
+        locked: "Toujours activé, sauf pour :",
+        include: "Inclure seulement les éléments suivants:",
+        entersite: "Saisir l'adresse du site"
+    },
     twitter: {
         shortener: "Urls courtes",
         shortener_bitly: "Configuration pour BitLy (optionnel):",
@@ -253,6 +287,21 @@ GRP.langs[locale].prefs = {
         username: "Utilisateur:",
         password: "Mot de passe:"
     },
+    radbox: {
+        auth: "<a href='http://radbox.me/support/extras' target='blank'>Radbox</a> <a href='http://radbox.me/account/user/register' target='_blank'>authentification</a> (obligatoire):",
+        username: "Clé utilisateur:"
+    },
+	identi: {
+        shortener: "Url courte",
+        shortener_bitly: "configuration BitLy (optionnel):",
+        shortener_login: "Login",
+        shortener_apikey: "Clé API",
+        shortener_pwd: "Mot de passe"
+    },
+	addthis:{
+		layout:'Layout',
+		layoutdesc:'Various formats are explained on <a href="http://www.addthis.com/web-button-select" target="_blank">this page</a>'
+	},
     colorful: {
         tree: "Afficher les titres en couleurs dans l'arbre des sites à gauche",
 		usebasecolor: "Utiliser les couleurs de base suivantes :",
@@ -318,7 +367,13 @@ separator: "Separateur pour des nieaux supplémentaires (exemple: Sports:Footbal
     filter: {
         searchbody: "Recherche dans le titre et le corps du texte",
         highlights: 'Liste des exclusions (une par ligne)',
-        excludes: 'Liste des  surlignages (un par ligne)'
+        excludes: 'Liste des  surlignages (un par ligne)',
+        searchbody: 'Chercher dans tout le texte',
+	    hide_duplicates: 'Cacher les doublons',
+	    hide_excludes: 'Cacher les exclusions',
+	    prefer_highlights: 'Surlignage prioritaire sur exclusion',
+		live:'Live',
+		word_mini: 'Nombre minimum de lettres pour un mot'
     },
     favicons: {
         providerpageicons: 'Utiliser le fournisseur d\'icônes <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> pour afficher correctement toutes les icônes des sites (Recommandé)',
@@ -337,7 +392,8 @@ separator: "Separateur pour des nieaux supplémentaires (exemple: Sports:Footbal
         cloud: 'Utiliser les expressions de la base en ligne <a href="http://wedata.net/databases/LDRFullFeed/items" target="blank">wedata/LDRFullFeed</a>  et <a href="http://wedata.net/databases/Replacer/items" target="blank">wedata/Replacer</a>',
         link: "Sites",
         from: "Rechercher regex/xpath/css",
-        to: "Remplacer par"
+        to: "Remplacer par",
+        prompttitle: "Titre du filtre"
     },
     lightbox: {
         locked: "Option 'Adapter hauteur' toujours activée, sauf pour :"
