@@ -251,20 +251,26 @@ function getEntryLink(ent){
             o.link = link;
             o.title = link.textContent;
             o.eltitle = link;
-            
         } else {
-            //Feed from html (non RSS page)
-            var etitle = getFirstElementByClassName(entry, 'entry-title');//'h2'
-            if (etitle) {
-                var m = /"(.*)"/.exec(etitle.textContent);
-                o.url = '';
-                if (m) {
-                    o.url = m[0];
-                }
-                o.title = etitle.textContent;
-                o.eltitle = etitle;
-                o.link = null;
-            }
+			//Feed from html (non RSS page)
+			var etitle = getFirstElementByClassName(entry, 'entry-title');//'h2'
+			link = getFirstElementByClassName(entry, 'entry-original');//'a'
+			if (etitle) {
+				o.url = '';
+				o.title = etitle.textContent;
+				o.eltitle = etitle;
+				if (link) {
+					//list view
+					o.url = link.href;
+		            o.link = link;
+				}else{
+					var m = /"(.*)"/.exec(etitle.textContent);
+					if (m) {
+						o.url = m[0];
+					}
+					o.link = null;
+				}
+			}
         }
     } else {
         //preview on 
@@ -310,7 +316,7 @@ function getCurrentEntry(){
     return document.getElementById('current-entry');
 }
 
-function selectCurrentEntry(el){
+function selectCurrentEntry(el, markread){
     if (el && el.id !== 'current-entry') {
 		var cur = getCurrentEntry();
 		if (cur) {
@@ -318,6 +324,9 @@ function selectCurrentEntry(el){
 		}
 		el.id = 'current-entry';
     }
+	if (markread){
+		marksasread(el);
+	}
 }
 
 function getEntry(e){
@@ -854,6 +863,13 @@ function removeReadItems(ent, deleteMarkAsRead){
 	},200);
 }
 
+function markasread(entry){
+	//listview
+	var ce = getFirstElementByClassName(entry, 'collapsed') || entry;
+	simulateClick(ce);
+}
+
+//@deprecated
 function markallasread(entry, since){
         console.log('entry: ' + entry.className);
         var url, text;

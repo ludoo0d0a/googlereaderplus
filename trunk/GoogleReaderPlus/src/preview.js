@@ -181,7 +181,7 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
         }
         if (overlay) {
             jump(overlay.entry, true);
-            simulateClick(overlay.entry);//mark as read
+			selectCurrentEntry(overlay.entry,true);
         }
     }
     function isSiteLocked(url){
