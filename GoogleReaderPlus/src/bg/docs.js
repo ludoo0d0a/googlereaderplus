@@ -317,7 +317,7 @@ gdocs.deleteDoc = function(index) {
   var handleSuccess = function(resp, xhr) {
     requestFailureCount = 0;
     docs.splice(index, 1);
-  }
+  };
 
   var params = {
     'method': 'DELETE',
@@ -368,8 +368,8 @@ gdocs.getDocumentList = function(opt_url, title, cb) {
     }
   }
 
-  sendSignedRequest(url, function(r,xhr){
-  	return gdocs.processDocListResults(r,xhr, cb);
+  sendSignedRequest(url, function(r){
+  	return gdocs.processDocListResults(r, cb);
   }, params);
 };
 
@@ -378,13 +378,14 @@ gdocs.getDocumentList = function(opt_url, title, cb) {
  * @param {string} response The server's response.
  * @param {XMLHttpRequest} xhr The xhr request that was made.
  */
-gdocs.processDocListResults = function(data, xhr, cb){
-	if (xhr.status != 200) {
-		gdocs.handleError(xhr, response);
+gdocs.processDocListResults = function(r, cb){
+	if (r.status != 200) {
+		gdocs.handleError(r, response);
 		cb(false, false);
 		return;
 	} else {
 		requestFailureCount = 0;
+		var data = r.responseJson;
 		if (data.feed.entry) {
 			for (var i = 0, entry; (entry = data.feed.entry[i]); ++i) {
 				if (entry.title.$t === KEY_DOC) {
