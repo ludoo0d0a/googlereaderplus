@@ -173,7 +173,11 @@ function getCloudData(a, cb, mapper){
 }
 
 function sendReplacerToCloud(prefs){
-    console.log('sendReplacerToCloud items...');
+    if (!prefs.replacer_cloud){
+		//abort
+		return;
+	}
+	console.log('sendReplacerToCloud items...');
     var r = new GRP.api_rest('Replacer', true);
     var cloud_items = false; //mycore.storage.getItem('grp_cloud_Replacer');
     //r.item.remove_All();
