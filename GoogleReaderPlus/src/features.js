@@ -363,9 +363,11 @@ GRP.scripts = {
     preview: {
         name: "Integrated preview",
         category: 'layout',
+		status:'updated',
         options: {
             onicon: false,
             overlay: false,
+			loading: true,
             locked: false,
             filter: {
                 xtype: 'crud'

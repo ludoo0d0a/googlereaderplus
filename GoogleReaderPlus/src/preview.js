@@ -16,7 +16,7 @@
 GRP.preview = function(prefs, langs, ID, SL, lang, scop){
     //var SL = langs.preview;
     var locked = false,overlay,entries=get_id('entries');
-    var rx = getRegex(prefs.preview_filter);
+    var rx = getRegex(prefs.preview_filter), _loading = prefs.preview_loading;
     function addPreviewButton(el, entry, mode){
         // Top link
         //[preview as text] [maximize as icon]
@@ -129,9 +129,15 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
                     // iframe already in document, display it
                     updateFrame(iframe, entry);
                 } else {
-                    // iframe not in document, create it
-                    iframe = document.createElement('iframe');
+					dh(ebody, 'div',{cls:'if-loader', html:SL.overlay_loading});
+					startLoading(ebody);
+					
+					// iframe not in document, create it
+					iframe = document.createElement('iframe');
                     iframe.className = 'if-preview';
+					iframe.addEventListener('load',function(){
+						stopLoading(ebody);
+					}, true);
                     updateFrame(iframe, entry);
                     setIframesize(iframe);
                     ebody.appendChild(iframe);
@@ -152,11 +158,22 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
             }
         }
     }
+	function stopLoading(el){
+		if (_loading) {
+			removeClass((overlay) ? overlay.content : el, 'pov_loading');
+		}
+	}
+	function startLoading(el){
+		if (_loading) {
+			addClass((overlay) ? overlay.content : el, 'pov_loading');
+		}
+	}
+	
     function updateFrame(iframe, entry){
         var urlLink = getEntryLink(entry);
         var url = urlLink.url;
         if (overlay) {
-            if (overlay.title) {
+			if (overlay.title) {
                 overlay.title.innerHTML = '<a href="' + urlLink.url + '">' + urlLink.title + '</a>';
             }
             if (overlay.subtitle) {
@@ -165,18 +182,25 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
                 overlay.subtitle.innerHTML = SL.overlay_category + ' : ' + d.text + ' - ' + p + '/' + d.count;
             }
         }
-		iframe.setAttribute('src', '');
         var locksite = isSiteLocked(url);
         if (locksite) {
-			GM_xmlhttpRequest({
-                url: url,
-                onload: function(r){
-                    iframe.setAttribute('src', cleanHtml(r.responseText, url));
-                }
-            });
+			if (iframe.url && url !== iframe.url) {
+				startLoading();
+				GM_xmlhttpRequest({
+					url: url,
+					onload: function(r){
+						iframe.src = cleanHtml(r.responseText, url);
+						iframe.url = url;
+						stopLoading();
+					}
+				});
+			}
         } else {
             //get url fron hidden link
-            iframe.setAttribute('src', url);
+			if (url!==iframe.src){
+				startLoading();
+				iframe.src = url;
+			}
         }
         if (overlay) {
             jump(overlay.entry, true);
@@ -250,10 +274,17 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
             overlay.content = dh(overlay.root, 'div', {
                 id: 'pov_content'
             });
+			overlay.loader= dh(overlay.content, 'div',{
+				cls:'if-loader',
+				html:SL.overlay_loading
+			});
             overlay.iframe = dh(overlay.content, 'iframe', {
                 cls: 'if-preview',
                 src: ''
             });
+			overlay.iframe.addEventListener('load',function(){
+				removeClass(overlay.content,'pov_loading');
+			}, true);
         }
 		if (entry) {
 			overlay.entry = entry;
@@ -327,6 +358,9 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
     css += "#pov_next{position:absolute;right:40px;top:45px;background:url(" + GRP.IMAGES_PATH + "/next1.png);width:24px;height:24px;z-index:15002;cursor:pointer;}";
     css += "#pov_previous{position:absolute;right:70px;top:45px;background:url(" + GRP.IMAGES_PATH + "/prev1.png);width:24px;height:24px;z-index:15002;cursor:pointer;}";
     css += "#pov_close{position:absolute;right:8px;top:45px;background:url(" + GRP.IMAGES_PATH + "/close2.png);width:24px;height:24px;z-index:15002;cursor:pointer;}";
+	css += '.if-loader{position:absolute;margin-top:400px;width:100%;font-size:20px;font-weight:bold;text-align: center;}';
+	css += '#pov_content.pov_loading .if-preview,.entry-body.pov_loading .if-preview{opacity:0.3;-webkit-transition: all 1s ease-in-out;}';
+	css += '#pov_content:not(.pov_loading) .if-loader, .entry-body:not(.pov_loading) .if-loader{display:none;}';
 	css += ".grp-overlay video,.grp-overlay embed,.grp-overlay object,.grp-overlay iframe {visibility:hidden;}";
     //css += "#pov_close{position:absolute;right:10px;top:45px;background:url("+GRP.IMAGES_PATH+"/close.png);width:22px;height:22px;z-index:15002;cursor:pointer;}";
     GM_addStyle(css);

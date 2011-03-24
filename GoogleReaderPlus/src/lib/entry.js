@@ -325,7 +325,7 @@ function selectCurrentEntry(el, markread){
 		el.id = 'current-entry';
     }
 	if (markread){
-		marksasread(el);
+		markasread(el);
 	}
 }
 
