@@ -88,7 +88,7 @@ GRP.general = function(prefs, langs, ID, SL, lang){
     
     function floatactions(){
         //Remove #entries.list .entry .entry-actions {left:0px;}
-        var ss = findre(document.styleSheets, 'href', /en-scroll\.css/);
+        var ss = findre(document.styleSheets, 'href', /-scroll\.css/);
         if (ss) {
             var rule = find(ss.cssRules, 'selectorText', '#entries.list .entry .entry-actions');
             if (rule) {
