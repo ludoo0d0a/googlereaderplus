@@ -153,7 +153,8 @@ GRP.langs[locale].texts = {
         overlay_next: 'Suivant',
         overlay_previous: 'Précédent',
         overlay_close: 'Fermer',
-        overlay_category: 'Catégorie'
+        overlay_category: 'Catégorie',
+		overlay_loading: 'Chargement en cours...'
     },
     readbymouse: {
         middleclick: 'Clic bouton du milieu',
@@ -359,7 +360,8 @@ separator: "Separateur pour des nieaux supplémentaires (exemple: Sports:Footbal
     preview: {
         onicon: "Utiliser un icone apres le titre pour afficher l'apercu (si non coché, l'apercu apparait lors du clic sur le titre)",
         locked: "Option 'Apercu' toujours activée",
-        overlay: 'Aperçu plein écran (Lightbox)'
+        overlay: 'Aperçu plein écran (Lightbox)',
+		loading: 'Afficher "Chargement en cours"'
     },
     fitheight: {
         locked: "Option 'Adapter hauteur' toujours activée"

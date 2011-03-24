@@ -154,7 +154,8 @@ GRP.langs[locale].texts = {
         overlay_next: 'Next',
         overlay_previous: 'Previous',
         overlay_close: 'Close',
-        overlay_category: 'Category'
+        overlay_category: 'Category',
+		overlay_loading: 'Loading in progress...'
     },
     readbymouse: {
         middleclick: 'Middle click',
@@ -360,7 +361,8 @@ separator: "Separator to add extra level (example: Sports:Footbal)."
     preview: {
         onicon: "Show integrated preview when click on icon right after the title (if not checked, on title)",
         locked: "Always actived, except following feeds:",
-        overlay: 'Fullscreen preview (Lightbox)'
+        overlay: 'Fullscreen preview (Lightbox)',
+		loading: 'Display "Loading in progress"'
     },
     fitheight: {
         locked: "Always actived, except following feeds:"
