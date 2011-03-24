@@ -148,10 +148,10 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
     }
 	
 	function fixurls(html, base){
-		html.replace(/\shref="[^http]([^"])/g, base);
-		html.replace(/\shref='[^http]([^'])/g, base);
-		html.replace(/\ssrc="[^http]([^"])/g, base);
-		html.replace(/\ssrc='[^http]([^'])/g, base);
+		html=html.replace(/\shref="[^http]([^"])/g, base);
+		html=html.replace(/\shref='[^http]([^'])/g, base);
+		html=html.replace(/\ssrc="[^http]([^"])/g, base);
+		html=html.replace(/\ssrc='[^http]([^'])/g, base);
 		return html;
 	}
     
