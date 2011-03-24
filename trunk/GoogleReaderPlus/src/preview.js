@@ -15,8 +15,7 @@
  */
 GRP.preview = function(prefs, langs, ID, SL, lang, scop){
     //var SL = langs.preview;
-    var locked = false;
-    var overlay;
+    var locked = false,overlay,entries=get_id('entries');
     var rx = getRegex(prefs.preview_filter);
     function addPreviewButton(el, entry, mode){
         // Top link
@@ -263,16 +262,19 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
         overlay.content.style.width = (window.innerWidth - 40) + 'px';
         overlay.iframe.setAttribute('width', (window.innerWidth - 40) + 'px');
         overlay.iframe.setAttribute('height', (window.innerHeight - 80) + 'px');
+		showoverlay();
     }
     function hideoverlay(){
        if (overlay) {
 	   	overlay.root.style.display = 'none';
 	   	overlay.visible = false;
+		removeClass(entries,'grp-overlay');
 	   }
     }
 	function showoverlay(){
         overlay.root.style.display = '';
 		overlay.visible=true;
+		addClass(entries,'grp-overlay');
     }
     function siblingentry(next){
         var entry;
@@ -325,6 +327,7 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
     css += "#pov_next{position:absolute;right:40px;top:45px;background:url(" + GRP.IMAGES_PATH + "/next1.png);width:24px;height:24px;z-index:15002;cursor:pointer;}";
     css += "#pov_previous{position:absolute;right:70px;top:45px;background:url(" + GRP.IMAGES_PATH + "/prev1.png);width:24px;height:24px;z-index:15002;cursor:pointer;}";
     css += "#pov_close{position:absolute;right:8px;top:45px;background:url(" + GRP.IMAGES_PATH + "/close2.png);width:24px;height:24px;z-index:15002;cursor:pointer;}";
+	css += ".grp-overlay video,.grp-overlay embed,.grp-overlay object,.grp-overlay iframe {visibility:hidden;}";
     //css += "#pov_close{position:absolute;right:10px;top:45px;background:url("+GRP.IMAGES_PATH+"/close.png);width:22px;height:22px;z-index:15002;cursor:pointer;}";
     GM_addStyle(css);
     registerFeature(addPreviewButton, ID);
