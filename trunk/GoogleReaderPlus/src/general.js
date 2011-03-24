@@ -16,8 +16,11 @@ GRP.general = function(prefs, langs, ID, SL, lang){
         var el = get_id('viewer-footer'), ref = get_id('viewer-header'), c = get_id('chrome');
         ref = get_id('stream-prefs-menu');
         var h = el.clientHeight;
-        insertAfter(el, ref);
-        entries.style.height = (getStyle(entries, 'height') + h) + 'px';
+		var css = 'div#entries-status{width:auto;top:0px;}';
+		css+= 'div#viewer-footer{border:none;padding:0;}'; 
+        GM_addStyle(css, 'rps_bottomup');
+		insertAfter(el, ref);
+	    entries.style.height = (getStyle(entries, 'height') + h) + 'px';
     }
 	if (prefs.general_currdir) {
         var lastUrl='';
