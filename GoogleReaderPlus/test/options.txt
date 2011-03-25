@@ -1,6 +1,0 @@
-Use options page from chromium
-Try to benefits from cr.
-
-http://www.chromium.org/developers/how-tos/get-the-code#TOC-Windows
-
-http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/resources/options.html?view=log&pathrev=68516

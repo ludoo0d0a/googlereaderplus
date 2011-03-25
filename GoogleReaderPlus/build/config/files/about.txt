@@ -1,5 +1,0 @@
-version.js
-lib\cross.js
-lib\util.js
-lib\greasekit.js
-lib\i18n.js
