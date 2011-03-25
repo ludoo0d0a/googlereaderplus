@@ -1,0 +1,124 @@
+/**
+ * My Theme CSS
+ * Transparent Theme + background image
+ */
+body {
+	height:100%;
+}
+#rp-cs {
+	position:absolute;
+	top:0px;
+	left:0px;
+	min-height: 100%;
+	width: 100%;
+	margin: 0 auto;
+	z-index:-9999;
+	background-color:{bg2};
+}
+
+#rp-rbg, #rp-sbg, #rp-h, #rp-rh,  #rp-hr, #rp-hl, #rp-rf, #rp-f, #rp-fr, #rp-fl {
+	height:100%;
+	position:absolute;
+	width:100%;
+}
+
+/*--rbg>--*//*
+#rp-rbg{background:url({rbg}) repeat scroll transparent;background-color: transparent !important;}
+*//*--<rbg--*/
+
+/*--sbg>--*//*
+#rp-sbg{background:url({sbg}) no-repeat fixed top center;background-size: 100% 100% !important;}
+*//*--<sbg--*/
+
+/*--rh>--*//*
+#rp-rh{background:url({rh}) repeat-x scroll left top transparent;}
+*//*--<rh--*/
+
+/*--h>--*//*
+#rp-h{background:url({h}) no-repeat scroll center top transparent;}
+*//*--<h--*/
+
+/*--hr>--*//*
+#rp-hr{background:url({hr}) no-repeat scroll right top transparent;}
+*//*--<hr--*/
+
+/*--hl>--*//*
+#rp-hl{background:url({hl}) no-repeat scroll left top transparent;}
+*//*--<hl--*/
+
+/*--rf>--*//*
+#rp-rf{	background:url({rf}) repeat-x scroll left bottom transparent;}
+*//*--<rf--*/
+
+/*--f>--*//*
+#rp-f{	background:url({f}) no-repeat scroll 50% bottom transparent;}
+*//*--<f--*/
+
+/*--fr>--*//*
+#rp-fr{background:url({fr}) no-repeat scroll right bottom transparent;}
+*//*--<fr--*/
+
+/*--fl>--*//*
+#rp-fl{	background:url({fl}) no-repeat scroll 0 bottom transparent;}
+*//*--<fl--*/
+
+#logo {
+    display: none;
+}
+
+/*body,*/#gbar, #guser, .text, .gbh, #explore-promo, #tips, #overview-footer, 
+/*.viewer-page, */
+#lhn-selectors,#quick-add-success, 
+/*#directory-box .tab-group, #directory-box .tab-contents, #directory-contents .tab-header, 
+.tab-group-contents, */
+#featured-bundles-container, .bundle-container th,  
+.friend-interruption, #friends-tree .friends-tree-following-info,
+/*#discover-table td, #directory-welcome-conversion,*/
+.date-tooltip td, .date-tooltip, .text-tooltip, .text-tooltip td {
+    color: {color} !important;
+    border: 0 !important;
+}
+
+a.gb1, a.gb3, a.gb4, #entries a, #entries a:visited, 
+a.entry-title-link, .entry-date, /*.link,*/
+#current-entry.read .entry-container .entry-body, .read .entry-container .entry-body, 
+.entry .entry-author, .entry-comments .comment-time, .entry .entry-date,
+#viewer-top-controls,#viewer-top-controls .link,#viewer-top-controls .link-selected, 
+#chrome-view-links,#chrome-view-links .link,#chrome-view-links .link-selected,
+.entry-actions,.entry-actions .link,.entry-actions .link-selected,
+#entries .collapsed .entry-title,
+#entries.list .collapsed .entry-secondary
+{
+    color: {color} !important;
+}
+.fr-modal-dialog-content{
+    color: black !important;
+}
+
+.email-active, .item-link-active, .entry-likers, .tree-link-selected,.lhn-section, .scroll-tree li, 
+/*#chrome, */#chrome-header, #viewer-header, #viewer-footer, 
+.card-common, span.name-text, .name {
+    background: transparent !important;
+    color: {color} !important;
+    border: 0 !important;
+}
+
+#viewer-container,.entry,.card-actions,
+ .collapsed,.entry-container,.entry-actions,.scroll-tree li a.menu-open:hover,
+ a:hover .tree-item-action-container,.section-button,.section-menubutton,#message-area-inner,
+ .message-area-text,#message-area-outer,#loading-area,#chrome-view-links,
+ #loading,#no-entries-msg,.message-area-text-container,.offscreen,.hover-form,
+ .action-area,.email-this-area, .preview-interruption{
+	background-color: transparent!important;
+}
+
+#entries.list .entry .collapsed{
+	border:0 !important;
+}
+
+/**
+ * Hover
+ */
+.scroll-tree li a:hover,#lhn-selectors .selector:hover{
+	background-color: {bg} !important;
+}
