@@ -27,6 +27,7 @@ menu.js
 facebook.js
 twitter.js
 identi.js
+blogger.js
 jaiku.js
 readitlater.js
 instapaper.js
@@ -47,6 +48,7 @@ skin\air.js
 skin\aircomic.js
 skin\black.js
 skin\darkgray.js
+skin\darkhelvetireader.js
 skin\dark.js
 skin\helvetireader.js
 skin\minimal.js
@@ -62,6 +64,7 @@ skin\sublimedark.js
 skin\redesigned.js
 skin\glassblackgold.js
 skin\nativecompact.js
+
 colorful.js
 actions.js
 greaderplus.js
