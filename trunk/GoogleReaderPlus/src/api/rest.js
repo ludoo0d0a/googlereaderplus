@@ -37,7 +37,10 @@ GRP.api_rest = function(name, local, mirror, cached){
 		function response(xhr){
 			if (config.successCodes[xhr.status]) {
 				if (cb) {
-					var o = JSON.parse(xhr.responseText);
+					var o = '';
+					try {
+						o = JSON.parse(xhr.responseText);
+					}catch(e){}
 					cb(o, true);
 				}
 			} else {
