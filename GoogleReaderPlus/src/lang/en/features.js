@@ -82,7 +82,7 @@ GRP.langs[locale].scripts = {
         desc: "Use a background color for a same feed"
     },
     filter: {
-        name: "Filter entries",
+        name: "Filter",
         desc: "Filter entries by removing or highligting items based on user terms"
     },
 	limit: {
