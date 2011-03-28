@@ -16,7 +16,8 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
     var locked = false, _options = {}, entrymenu = false, toggleStatus = true, css = '', miniWord = 4;
 	var KEY_OPTIONS = ['live', 'searchbody', 'excludes','highlights', 'hide_excludes', 'hide_duplicates','detect_duplicates', 'prefer_highlights', 'word_mini'];
 	var _minifyRx = /[\n“”\?’'~\!@#\$%\^&\*\.\(\)_\+\-\:,;=\\\/\[\]]+/g;
-
+	var useButton = prefs[ID+'_button'];
+	
     var FILTERS = {
         excludes: {
             text: 'Excludes'
@@ -249,8 +250,8 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         
         var content = getContentEntry(entry);
         
-        var escapedContent = encodeURI(content);
-        if (!tagged) {
+        var escapedContent = encodeURI(content.text);
+        if (!tagged && useButton) {
             var et = getFirstElementByClassName(entry, 'entry-title');
             dh(et, 'a', {
                 href: '#',
@@ -280,7 +281,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         function doExcludes(){
             var b = false;
             if (_options.excludes.length) {
-                b = checkEntry(content, entry, _options.rxExcludes, "entry-filtered");
+                b = checkEntry(content, entry, _options.rxExcludes, "entry-filtered", mode);
                 if (_options.hide_excludes && b) {
                     addClass(entry, 'entry-hidden');
                 }
@@ -290,7 +291,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         function doHighlight(){
             var b = false;
             if (_options.highlights.length) {
-                b = checkEntry(content, entry, _options.rxHighlights, "entry-highlighted");
+                b = checkEntry(content, entry, _options.rxHighlights, "entry-highlighted", mode);
             }
             return b;
         }
@@ -314,10 +315,11 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
     function getContentEntry(entry){
         var link = getEntryLink(entry);
         var title = link.title;
-        /*var dt = getElementText(entry, 'entry-date');
-         var feedname = getElementText(entry, 'entry-source-title');
-         var snippet = getElementText(entry, 'snippet');
-         */
+		
+		var dt = getElementText(entry, 'entry-date');
+		var feedname = getElementText(entry, 'entry-source-title');
+		var author = getElementText(entry, 'entry-author-name');
+        // var snippet = getElementText(entry, 'snippet');
         //console.log('>>>>'+active+'--'+title);
         
         var text = minifyContent(title);
@@ -328,7 +330,13 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
              }*/
             text = entry.innerText;
         }
-        return text;
+        return {
+			tag:getTagsText(entry),
+			author:author,
+			feed:feedname,
+			date:dt,
+			text: text
+		};
     }
     
     
@@ -397,26 +405,10 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         toggleMenu(entrymenu, el, null, null, function(visible){
             if (visible) {
                 var content = getContentEntry(entry);
-                var words = getWords(content, miniWord);
+                var words = getWords(content.text, miniWord);
                 setValue('t_e_content', words);
             }
         });
-    }
-    
-    function checkEntry(title, element, rx, className){
-        if (rx) {
-            if (typeof rx !== "object") {
-                rx = [rx];
-            }
-            for (var i = 0, len = rx.length; i < len; i++) {
-                if (!rx[i].test(title)) {
-                    return false;
-                }
-            }
-            addClass(element, className);
-            return true;
-        }
-        return false;
     }
     
     function getWords(text, size){
@@ -442,6 +434,20 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
     function buildTree(items){
     
     }
+	
+	function encoderegex(term, re){
+		var rx = '';
+		if (/^#/.test(term)){
+			//RegExp
+			rx=term.replace(/^#/,'');
+		}else {
+			rx = encodeRE(term);
+		}
+		if (re) {
+			rx=new RegExp(rx, 'i');
+		}
+		return rx;
+	}
     
     var reQuotedExpr = /"[^"]*"/g, reQuote = /^"|"$/g;
     function parseExpression(expr){
@@ -450,10 +456,74 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
             return '(' + encodeRE(group) + ')';
         });
         //concat multiple spaces, then set them as OR for now (ANd in google expr)
-        r = r.replace(/\s+/g, ' ').replace(/\s/g, '|');
-        return r;
+        r = r.replace(/\s+/g, ' ');
+		//r = r.replace(/\s/g, '|');
+		
+		var terms = r.split(' ');
+		var o = {rx:[]};
+		foreach(terms, function(term){
+			if (/^author:/.test(term)){
+				//Author
+				o.author=encoderegex(term.replace(/^author:/,''),true);
+			}else if (/^tag:/.test(term)){
+				//Author
+				o.tag=encoderegex(term.replace(/^tag:/,''),true);
+			}else if (/^date:/.test(term)){
+				//Author
+				o.date=encoderegex(term.replace(/^date:/,''),true);
+				//o.date=new Date(o.date);
+			}else if (/^feed:/.test(term)){
+				//Feed name
+				o.feed=encoderegex(term.replace(/^feed:/,''),true);
+			}else {
+				o.rx.push(encoderegex(term));
+			}
+        });
+		
+		var re=o.rx.join("|");
+		o.rx = new RegExp(re,'i');
+
+        return o;
     }
     
+    function checkEntry(content, element, rx, className, mode){
+        if (rx) {
+            /*if (typeof rx !== "object") {
+                rx = [rx];
+            }*/
+			for (var i = 0, len = rx.length; i < len; i++) {
+				var o=rx[i];
+				if (o.rx && !o.rx.test(content.text)) {
+                    return false;
+                }
+				//Metadata?
+				if (o.date && !o.date.test(content.date)){
+					//bad data
+					return false;
+				}
+				if (o.feed && !o.feed.test(content.feed)){
+					//bad feed
+					return false;
+				}
+				if (mode === 'expanded') {
+					//Not in listview
+					if (o.author && !o.author.test(content.author)) {
+						//bad author
+						return false;
+					}
+					if (o.tag && !o.tag.test(content.tag)) {
+						//bad tag
+						return false;
+					}
+				}
+            }
+            addClass(element, className);
+            return true;
+        }
+        return false;
+    }
+    
+	
     function getRegExp(o){
         var items = o;
         if (typeof items === 'string') {
@@ -466,8 +536,8 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
             rx.push(rex);
         });
         
-        var rex = rx.join("|");
-        rx = new RegExp(rex, "i");
+        //var rex = rx.join("|");
+        //rx = new RegExp(rex, "i");
         return rx;
     }
     
