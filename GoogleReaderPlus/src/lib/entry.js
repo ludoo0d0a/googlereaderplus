@@ -533,6 +533,9 @@ function addMenuItem(menu, dwn, id, item){
 	var html=item.text, chkbox = item.checkbox, _close = item.close;
 	
 	if (item.textarea){
+		if (typeof item.value ==='object'){
+			item.value=item.value.join('\n');
+		}
 		html+='<br/><textarea id="t_'+(item.id||id)+'" rows="'+(item.rows||5)+'" cols="'+(item.cols||25)+'">'+(item.value||'')+'</textarea>';
 	}
 	var el = dh(menu, 'div', {
@@ -922,3 +925,29 @@ function markallasread(entry, since){
             }
         });
 }
+function getTagsText(entry, normalize, defaultlabel, sep){
+	sep=sep||', ';
+	var tags = getTags(entry, normalize, defaultlabel)||[];
+	return tags.join(sep);
+}
+function getTags(entry, normalize, defaultlabel){
+        var lbls = [], taglist = getFirstElementByClassName(entry, "user-tags-list");
+		if (taglist) {
+			var ins = taglist.getElementsByTagName("li");
+			
+			if (defaultlabel) {
+				lbls.push(defaultlabel);
+			}
+			foreach(ins, function(o){
+				var lbl = o.getElementsByTagName("a")[0].text;
+				if (normalize) {
+					lbl = lbl.replace(/-/g, ' ');
+					lbl = lbl.toLowerCase().replace(/^(.)|\s(.)/g, function($1){
+						return $1.toUpperCase();
+					});
+				}
+				lbls.push(lbl);
+			});
+		}
+        return lbls;
+    }
