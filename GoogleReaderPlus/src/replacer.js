@@ -19,13 +19,13 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
         
         if (prefs.replacer_cloud) {
             //get online data from cloud db
-            chrome.extension.sendRequest({
+            /*chrome.extension.sendRequest({
                 message: "clouddata",
                 name: 'LDRFullFeed'
             }, function(selectors){
                 parseItems(gp_data, selectors);
                 console.log('cloud LDRFullFeed added');
-            });
+            });*/
             chrome.extension.sendRequest({
                 message: "clouddata",
                 name: 'Replacer'
