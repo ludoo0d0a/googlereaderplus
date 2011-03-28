@@ -23,6 +23,7 @@ GRP.general = function(prefs, langs, ID, SL, lang){
 	    entries.style.height = (getStyle(entries, 'height') + h) + 'px';
     }
 	if (prefs.general_hidetoolbar) {
+		//TODO: full screen, margin top - toolbar height
 		GM_addStyle('#gb{display:none;}','rps_hidetoolbar');
 	}
 	if (prefs.general_currdir) {
