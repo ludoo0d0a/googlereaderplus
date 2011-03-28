@@ -6,7 +6,7 @@
  * Filters duplicated entries and unwanted content or highlight chosen content based on keywords (with regex support).
  * Completely rewritten to be well integrated, and easy to write useful expressions as well as expert mode.
  *
- * Original author :
+ * Original idea :
  * Elad Ossadon (http://twitter.com/elado | http://www.devign.co.il | elado7@gmail.com)
  * http://userscripts.org/scripts/show/23671
  *
@@ -14,8 +14,8 @@
  */
 GRP.filter = function(prefs, langs, ID, SL, lang){
     var locked = false, _options = {}, entrymenu = false, toggleStatus = true, css = '', miniWord = 4;
-	var KEY_OPTIONS = ['live', 'searchbody', 'excludes','highlights', 'hide_excludes', 'hide_duplicates', 'prefer_highlights', 'word_mini'];
-	var _minifyRx = /[\n“”\?’'~\!@#\$%\^&\*\.\(\)_+-\:,;=\\\/\[\]]+/g;
+	var KEY_OPTIONS = ['live', 'searchbody', 'excludes','highlights', 'hide_excludes', 'hide_duplicates','detect_duplicates', 'prefer_highlights', 'word_mini'];
+	var _minifyRx = /[\n“”\?’'~\!@#\$%\^&\*\.\(\)_\+\-\:,;=\\\/\[\]]+/g;
 
     var FILTERS = {
         excludes: {
@@ -71,7 +71,15 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
             checkbox: true,
             value: _options.hide_excludes,
             click: monitorChange
-        }, {
+        },{
+            sep: true
+        },{
+			id: 'detect_duplicates',
+            text: SL.detect_duplicates,
+            checkbox: true,
+            value: _options.detect_duplicates,
+            click: monitorChange
+		}, {
             id: 'hide_duplicates',
             text: SL.hide_duplicates,
             checkbox: true,
@@ -183,7 +191,8 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         _options.excludes = getValue('t_excludes');
         _options.highlights = getValue('t_highlights');
         _options.searchbody = isMenuChecked('searchbody');
-        _options.hide_duplicates = isMenuChecked('hide_duplicates');
+        _options.detect_duplicates = isMenuChecked('detect_duplicates');
+		_options.hide_duplicates = isMenuChecked('hide_duplicates');
         _options.hide_excludes = isMenuChecked('hide_excludes');
         _options.prefer_highlights = isMenuChecked('prefer_highlights');
         _options.live = isMenuChecked('live');
@@ -212,6 +221,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         o.rxHighlights = getRegExp(o.highlights);
         o.rxDuplicates = getRegExp(o.duplicates);
         o.hide_excludes = o.hide_excludes || false;
+		o.detect_duplicates = o.detect_duplicates || true;
         o.hide_duplicates = o.hide_duplicates || false;
         o.prefer_highlights = o.prefer_highlights || false;
         return o;
@@ -258,11 +268,13 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         
         var b = false;
         if (!force && _alreadyPrinted[escapedContent]) {
-            addClass(entry, 'entry-duplicate');
-            if (_options.hide_duplicates) {
-                addClass(entry, 'entry-hidden');
-            }
-            return;
+            if (_options.detect_duplicates) {
+				addClass(entry, 'entry-duplicate');
+				if (_options.hide_duplicates) {
+					addClass(entry, 'entry-hidden');
+				}
+				return;
+			}
         }
         
         function doExcludes(){
