@@ -22,6 +22,9 @@ GRP.general = function(prefs, langs, ID, SL, lang){
 		insertAfter(el, ref);
 	    entries.style.height = (getStyle(entries, 'height') + h) + 'px';
     }
+	if (prefs.general_hidetoolbar) {
+		GM_addStyle('#gb{display:none;}','rps_hidetoolbar');
+	}
 	if (prefs.general_currdir) {
         var lastUrl='';
 		GM_addStyle('.tree-sel{background-color:#dedede;}', 'rps_currdir');
