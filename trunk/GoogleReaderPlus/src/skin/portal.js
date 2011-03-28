@@ -1,4 +1,4 @@
-//Portal theme
+//Portal theme v2.1
 
 GRP.portal = function(prefs, langs, ID, SL, lang){
     var ncolumns = prefs.theme_ncolumns || 3;
@@ -19,7 +19,10 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 	}else{
 		css += '#entries.cards .entry{min-width:200px;position:absolute !important;display:none;-webkit-transition:all '+TIME_TRANSITION+'s ease-in-out;}';
 		css += '#entries.cards .entry.portal{display:block !important;}';
-		css += '#entries.cards .entry .entry-body{max-height:'+he+'px;overflow:auto;}';
+		css += '#entries.cards .entry:not(.portal_maxi) .entry-main{overflow:visible;}';
+		css += '#entries.cards .entry.portal_maxi .entry-main{overflow:auto;}';
+		css += '#entries.cards .entry .entry-main{max-height:'+he+'px;}';
+		
 		css += '#entries.cards .entry:not(.portal_maxi) img{max-width:'+(w-50)+'px;max-height:'+(w-50)+'px;}';
 		//embed, video, iframe,video non zindexable items
 		css += '#entries.cards.portal_current .entry:not(.portal_maxi) embed{display:none;}';
@@ -28,7 +31,14 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 		css += '#entries.cards.portal_current .entry:not(.portal_maxi) iframe{display:none;}';
 		css += '#entries.cards .entry.portal_maxi{z-index:999;}';
 		css += '#entries.cards .entry .section-button{position:static !important;}';
-		css += '#entries.cards .entry .entry-main{overflow:visible !important;}';
+		
+		css += '#entries.cards .entry .entry-date{position:static !important;}';
+		css += '#entries.cards .entry .entry-title{position:static !important;}';
+		css += '#entries.cards .entry .entry-author{position:static !important;}';
+		
+		css += '.entry .entry-overflow {background-image: -webkit-gradient(linear,left top,left bottom,from(rgba(255, 255, 255, 0)),to(rgba(255, 255, 255, 1.0)));height: 20%;max-height:150px;bottom: 0;position: absolute;width:95%;margin:8px;}';
+		css += '.entry.portal_maxi .entry-overflow{display:none}';
+		
 		css += '#entries .entry .entry-body,#entries .entry .entry-title,#entries .entry .entry-likers {max-width: 100%;}';
 		css += '.portal_mouse{cursor: pointer;}';
 		css += '#scroll-filler{display:none;}';
@@ -103,7 +113,11 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 	}
 	function getNowTop(entry,sTop){
 		var eb = getFirstElementByClassName(entry, 'entry-body');//div
-		var maxh = getHeightEntries(), delta = eb.firstChild.clientHeight+30 - eb.clientHeight;
+		var maxh = getHeightEntries();
+		var delta = 0;
+		if (eb.scrollHeight > 0) {
+			delta = eb.firstChild.clientHeight + 30 - eb.clientHeight;
+		}
 		var h=Math.min(Math.max(100,entry.clientHeight + delta),maxh);//100<h<maxh
 		var top = sTop + Math.max(0,(maxh-h)/2);
 		return {
@@ -139,6 +153,10 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 	}
 
     function gridify(el, entry, mode){
+		if (mode!=='expanded'){
+			return;
+		}
+		
 		var prev = getSibling(entry,true,ncolumns);
 		if (prev){
 			if (asRelative && prev) {
@@ -170,6 +188,9 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 		}
 		addClass(entry, 'portal_actions');
 		var icon = addIcon(entry, SL.readmore, clickMenu);
+		
+		dh(entry, 'div', {cls:'entry-overflow'});
+		
 		onTextClick(entry, clickMenu, icon);
     }
 	
@@ -178,6 +199,9 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 		if (eb){
 			addClass(eb, 'portal_mouse');
 			eb.addEventListener('click',function(e){
+				if (e.target.nodeName==='A'){
+					return;
+				}
 				//e.stopPropagation(); //??
 				if (e.ctrlKey){
 					e.stopPropagation();
@@ -189,7 +213,7 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 				}else if (	isAncestor(e.target,false, 'entry-title') || 
 							isAncestor(e.target,false, 'entry-icons') ||
 							isAncestor(e.target,false, 'card-actions') ||
-							isAncestor(e.target,false, 'entry-author') 
+							isAncestor(e.target,false, 'entry-author')
 				){
 					//e.stopPropagation();
 					e.preventDefault();
