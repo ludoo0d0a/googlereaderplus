@@ -1,0 +1,45 @@
+#summary Quick guide for filter feature.
+#labels Featured
+
+= Introduction =
+
+Learn how to use filter like an advanced user.
+
+
+= Details =
+
+There are 2 zones : 
+  * Excludes items
+  * Includes items
+
+Expressions are always multiline.
+Each line are considered as OR operator.
+
+Each words (blank separated) is considered as a term.
+A blank means OR.
+
+{{{
+iPad iPhone iPod
+}}}
+will filter all items with one of these words
+
+Here, it is the same as in multiline
+{{{
+iPad
+iPhone
+iPod
+}}}
+
+A complete phrase can be used using quotes : 
+{{{
+"Guitar Hero"
+}}}
+
+
+If you want use regular expression, start your term with a #
+{{{
+#[iI]P[ao]d|ne
+#[iI]os\s*\d+
+}}}
+
+
