@@ -116,7 +116,8 @@ var mappers = {
         return {
             name: item.name,
             resource_url: item.resource_url,
-            values: item.data
+            values: item.data,//to remove ?
+			data: item.data
         };
     }
     /*Replacer: function(item){
@@ -143,33 +144,95 @@ var mappers = {
      }*/
 };
 
+var CLOUD = {}; 
+function fixCloudItem(item, o,r,a){
+	if (o){
+		//remove doublon
+		item.id = getIdFromResourceUrl(item);
+		if (item.id) {
+			var key = item.data[a.key];
+			//url,search,replace
+			var canRemove=false, b = false;
+			if (a.fixkeyonly){
+				//key compare only
+				b = (key==o.data[a.key]);
+			}else{
+				//Complete compare
+				b = (compareObject(item.data, o.data));				
+				canRemove=true;
+			}
+			
+			if (b) {
+				//CLOUD.counts.d[key] = (CLOUD.counts.d[key] || 0) + 1;
+				CLOUD.counts.v[key] = CLOUD.counts.v[key] || [o];
+				CLOUD.counts.v[key].push(item);
+				
+				if (!a.fixfilter || (a.fixfilter && new RegExp(a.fixfilter,'i').test(key))){
+					if (CLOUD.counts.doublons < 100) {
+						CLOUD.counts.doublons++;
+						console.log(CLOUD.counts.doublons+' {'+a.fixfilter+'} : remove '+item.id);
+						//console.log(item);
+						if (canRemove) {
+							r.item.remove(item, function(){
+								CLOUD.counts.done++;
+								if (CLOUD.counts.done == CLOUD.counts.doublons) {
+									console.log('************ All remove completed');
+								}
+							});
+						}
+					}
+				}
+			} else {
+				CLOUD.counts.keydoublons++;
+				
+				CLOUD.counts.kv[key] = CLOUD.counts.kv[key] || [o];
+				CLOUD.counts.kv[key].push(item);
+			}
+		}
+	}
+}
+
 function getCloudData(a, cb, mapper){
-    //cached mirror on gae : http://greaderplus.appspot.com/replacer
-	// 'http://wedata.net/databases/' + a.name + '/items.json'
-	request({
-        url: a.url || (GRP_MIRROR + a.name ),
-        onload: function(xhr){
-            if (xhr.status == 200) {
-                console.log(a.name + ' get');
-                var items = JSON.parse(xhr.responseText);
-                //cache value
-                var i = 0, selectors = {};
-                var f = mappers[a.name] || mappers.def;
-                foreach(items, function(item){
-                    selectors[item.name] = f(item);
-                    i++;
-                });
-                //store it now as cache (needs timestamp)
-                mycore.storage.setItem('grp_cloud_' + a.name, selectors);
-                console.log('Store Cloud DB ' + a.name + ' : ' + i + ' items');
-                sendResponse(selectors, cb);
-            }
-        },
-        onerror: function(){
-            var selectors = mycore.storage.getItem('grp_cloud_' + a.name, false);
-            sendResponse(selectors, cb);
+	var mirror=!a.fix;//If fix no mirror, direct access
+	var r = new GRP.api_rest(a.name, true, mirror);
+	
+	//Load wedata cloud data
+	r.item.getAll({}, function(items, success){
+		var selectors = {};
+		if (success) {
+			if (a.fix){
+				CLOUD.counts={doublons:0,keydoublons:0,done:0,d:{},v:{},kv:{}};
+			}
+			//cache value
+            var i = 0,f = mappers[a.name] || mappers.def;
+            foreach(items, function(item){
+                if (a.fix && selectors[item.name]){
+					//Remove this one
+					fixCloudItem(item, selectors[item.name],r,a);
+				}
+				selectors[item.name] = f(item);
+                i++;
+            });
+			
+			if (a.fix) {
+				console.log('total=' + items.length);
+				console.log('doublons=' + CLOUD.counts.doublons);
+				//console.log(CLOUD.counts.d);
+				console.log(CLOUD.counts.v);
+				console.log('keydoublons[/'+a.key+']=' + CLOUD.counts.keydoublons);
+				console.log(CLOUD.counts.kv);		
+				sendResponse(CLOUD.counts, cb);
+			} else {
+			
+				//store it now as cache (needs timestamp)
+				mycore.storage.setItem('grp_cloud_' + a.name, selectors);
+				console.log('Store Cloud DB ' + a.name + ' : ' + i + ' items');
+				sendResponse(selectors, cb);
+			}
         }
-    }, true);
+        sendResponse(selectors, cb);
+    });
+	
 }
 
 function sendReplacerToCloud(prefs){
@@ -180,7 +243,6 @@ function sendReplacerToCloud(prefs){
 	console.log('sendReplacerToCloud items...');
     var r = new GRP.api_rest('Replacer', true);
     var cloud_items = false; //mycore.storage.getItem('grp_cloud_Replacer');
-    //r.item.remove_All();
     if (!cloud_items) {
         getCloudData({
             name: 'Replacer'

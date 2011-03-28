@@ -1,3 +1,24 @@
+function fixReplacer(){
+	fixCloud('Replacer', 'url');
+}
+function fixFavicons(){
+	fixCloud('Favicons', 'title');
+}
+function fixCloud(name, key){
+	var ff = get_id(name.toLowerCase()+'_fixfilter');
+	var fko = get_id(name.toLowerCase()+'_fixkeyonly');
+	mycore.extension.sendRequest({
+	        message: "clouddata",
+			name: name,
+			key:key,
+			fix:true,
+			fixfilter:ff.value,
+			fixkeyonly:fko.value
+	    }, function(a){
+			console.log('************ Fix done for ['+(a.doublons||'')+'] duplicate items!');
+	    });
+}
+
 function syncload(){
 	var r = confirm(getTextPrefs(lang, 'general', 'confirmsyncload'));
     if (r) {
@@ -166,7 +187,7 @@ function renderPrefs(){
         if (select) {
             select.value = lang;
         }
-        console.log(prefs);
+        //console.log(prefs);
         for (var o in prefs) {
             var ctrl = document.frmprefs[o];
             if (ctrl && (typeof prefs[o] !== 'undefined')) {
