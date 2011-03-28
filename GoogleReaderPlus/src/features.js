@@ -16,12 +16,12 @@ GRP.scripts = {
 			bottomup:false,
 			currdir:true,
 			icons:false,
+			hidetoolbar:true,
             /*antisocial:true,*/
 			text_pageicon:{
                 xtype: 'h'
             },
 			pageicon:true,
-			
 			text_toolbaricon: {
                 xtype: 'h'
             },
@@ -29,6 +29,7 @@ GRP.scripts = {
                 xtype: 'p',
                 label: true
             },
+			
 			counter: false,
 			counterinterval: 5,
 			opendirect: false,
@@ -843,6 +844,12 @@ identi: {
                 label: true
             },
 			cloud: true,
+			fixme: {
+				xtype: 'button',
+				name:'Fix me',
+				action: 'fixReplacer'
+			},
+			fixfilter:'gocomics',
             items: {
                 xtype: 'crud'
             }
@@ -1199,7 +1206,7 @@ GRP.skins = {
         pic: 'http://nadesign.net/safari/images/preview-reader.png',
         ref: 'http://nadesign.net/safari/',
 		desc: 'Pure Reader by Na\'Design',
-		fix:'.gbtc{padding-left:100px;}',
+		fix:'.gbtc{padding-left:200px;}',
         resize: true
     }
 };
