@@ -120,6 +120,7 @@ GRP.langs[locale].texts = {
 	    save: 'Save & apply',
 	    close: 'Close menu',
 	    searchbody: 'Search in whole body text',
+		detect_duplicates: 'Detect Duplicates',
 	    hide_duplicates: 'Hide Duplicates',
 	    hide_excludes: 'Hide Excludes',
 	    prefer_highlights: 'Prefer Highlights over excludes',
@@ -130,7 +131,8 @@ GRP.langs[locale].texts = {
 	    content: 'Content',
 	    addentry: 'Add',
 	    add_excludes: 'Add as exludes',
-	    add_highlights: 'Add as highlight'
+	    add_highlights: 'Add as highlight',
+		button:'Filter button on each entry'
     },
     fitheight: {
         text: 'Fit height',
@@ -338,7 +340,8 @@ prefssavedfailed: 'Preferences save failed!',
         text_pageicon: 'Address bar icon',
         text_export: 'Export/import',
 currdir: 'Highlight folder of current entry <span class="new">new!</span>',
-icons: 'Icons only for action buttons (except checkbox) <span class="new">new!</span>'
+icons: 'Icons only for action buttons (except checkbox) <span class="new">new!</span>',
+hidetoolbar: 'Hide user toolbar'
     },
 limit: {
 slidewindow: "Slidewindow - limit entries number",
@@ -372,11 +375,13 @@ separator: "Separator to add extra level (example: Sports:Footbal)."
         highlights: 'Highlights list (one item per line)',
         excludes: 'Excludes list (one item per line)',
 		searchbody: 'Search in whole body text',
+		detect_duplicates: 'Detect Duplicates',
 	    hide_duplicates: 'Hide Duplicates',
 	    hide_excludes: 'Hide Excludes',
 	    prefer_highlights: 'Prefer Highlights over excludes',
 		live:'Live',
-		word_mini: 'Minimum number of letters for a word'
+		word_mini: 'Minimum number of letters for a word',
+		button:'Filter button on each entry'
     },
     favicons: {
         providerpageicons: 'Use <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> provider (Recommended to load succesfully all icons)',
