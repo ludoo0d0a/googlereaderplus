@@ -300,14 +300,14 @@ GRP.scripts = {
             parsing: {
                 xtype: 'p',
                 label: true
-            },
-			fixme: {
+            }
+			/*,fixme: {
 				xtype: 'button',
 				name:'Fix me',
 				action: 'fixFavicons'
 			},
-			fixfilter:'cnbeta',
-			fixkeyonly:false
+			fixfilter:'',
+			fixkeyonly:false*/
         }
     },
     unreadcount: {
@@ -853,14 +853,14 @@ identi: {
 			cloud: true,
             items: {
                 xtype: 'crud'
-            },
-			fixme: {
+            }
+			/*,fixme: {
 				xtype: 'button',
 				name:'Fix me',
 				action: 'fixReplacer'
 			},
-			fixfilter:'gocomics',
-			fixkeyonly:false
+			fixfilter:'',
+			fixkeyonly:false*/
         }
     },
 	filter: {

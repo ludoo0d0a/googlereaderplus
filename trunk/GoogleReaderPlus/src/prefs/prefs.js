@@ -1,3 +1,4 @@
+var FIXME = false;
 function fixReplacer(){
 	fixCloud('Replacer', 'url');
 }
@@ -5,6 +6,10 @@ function fixFavicons(){
 	fixCloud('Favicons', 'title');
 }
 function fixCloud(name, key){
+	if (!FIXME) {
+		return;
+	}
+	
 	var ff = get_id(name.toLowerCase()+'_fixfilter');
 	var fko = get_id(name.toLowerCase()+'_fixkeyonly');
 	mycore.extension.sendRequest({
