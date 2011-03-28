@@ -157,7 +157,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 		
 		//var active = isActive(btn, entry, ID, locked);
         var bookmarkField = getFirstElementByClassName(entry, 'micro-form-'+ID);
-		var header, bookmarkStar = btn, parent = entry;
+		var header, bookmarkStar = btn;
 		
 		if (bookmarkField){
 			//toggle
@@ -176,7 +176,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 		if (mode === "expanded") {
             bookmarkStar.parentNode.parentNode.className = "card-actions";
         } else {
-            parent.className = "entry read expanded action-area-visible";
+            entry.className = "entry read expanded action-area-visible";
         }
         bookmarkStar.className = "btn-"+ID+" btn-sel star link";
 
@@ -185,7 +185,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 			cb = ' card-bottom';
 		}
         
-        parent.appendChild(bookmarkField);
+        entry.appendChild(bookmarkField);
         taginput = getFirstElementByClassName(bookmarkField, "inp-tag");
         notesinput = getFirstElementByClassName(bookmarkField, "inp-notes");
         urlinput = getFirstElementByClassName(bookmarkField, "inp-url");
@@ -194,7 +194,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 
 		var link = getEntryLink(entry), url = link.url, title = link.title;
 		notesinput.value = "";
-        taginput.value = getTags(parent);
+        taginput.value = getTagsText(entry, NORMALIZE, DEFAULT_LABEL)
         urlinput.value = url;
         titleinput.value = title;
 		
@@ -230,7 +230,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
             if (mode == "expanded") {
 				bookmarkStar.parentNode.parentNode.className = "card-actions" + cb;
 			}else{
-				parent.className = "entry read expanded";
+				entry.className = "entry read expanded";
 			}
             bookmarkField.className = "action-area'+cb+' hidden";
             bookmarkStar.className = BTN_CLS_ID+" link";
@@ -296,34 +296,6 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 	    }
 		
     }
-    
-    function getTags(parent){
-        var taglist = getFirstElementByClassName(parent, "user-tags-list");
-        var ins = taglist.getElementsByTagName("li");
-        var lbls = "";
-        for (var i = 0; i < ins.length; i++) {
-            var lbl = ins[i].getElementsByTagName("a")[0].text;
-            if (NORMALIZE) {
-                lbl = lbl.replace(/-/g, ' ');
-                lbl = lbl.toLowerCase().replace(/^(.)|\s(.)/g, function($1){
-                    return $1.toUpperCase();
-                });
-            }
-            if (i > 0) {
-                lbls += ", ";
-            }
-            lbls += lbl;
-        }
-        if (DEFAULT_LABEL.length > 0) {
-            if (lbls.length > 0) {
-                lbls = DEFAULT_LABEL + ", " + lbls;
-            } else {
-                lbls = DEFAULT_LABEL;
-            }
-        }
-        return lbls;
-    }
-    
         
     function countMsgWord(str){
         return (str||'').length;
