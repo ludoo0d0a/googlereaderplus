@@ -300,7 +300,14 @@ GRP.scripts = {
             parsing: {
                 xtype: 'p',
                 label: true
-            }
+            },
+			fixme: {
+				xtype: 'button',
+				name:'Fix me',
+				action: 'fixFavicons'
+			},
+			fixfilter:'cnbeta',
+			fixkeyonly:false
         }
     },
     unreadcount: {
@@ -844,29 +851,32 @@ identi: {
                 label: true
             },
 			cloud: true,
+            items: {
+                xtype: 'crud'
+            },
 			fixme: {
 				xtype: 'button',
 				name:'Fix me',
 				action: 'fixReplacer'
 			},
 			fixfilter:'gocomics',
-            items: {
-                xtype: 'crud'
-            }
+			fixkeyonly:false
         }
     },
 	filter: {
-        name: "Filter entries",
+        name: "Filter",
         category: 'content',
 		status:'updated',
         options: {
 			excludes: {xtype:'textarea',list:true,cls:'xlist'},
 			highlights: {xtype:'textarea',list:true,cls:'xlist'},
 			searchbody: false,
+			detect_duplicates: true,
 			hide_duplicates: false,
 			hide_excludes: false,
 			prefer_highlights: false,
 			live: true,
+			button:true,
 			word_mini: 4
         }
     },
