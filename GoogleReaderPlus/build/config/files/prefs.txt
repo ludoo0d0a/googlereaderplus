@@ -14,3 +14,5 @@ info.js
 lang\en\features.js
 lang\en\langs.js
 skin\mytheme.js
+lib\i18n.js
+
