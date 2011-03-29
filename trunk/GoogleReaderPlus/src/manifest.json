@@ -31,7 +31,7 @@
 		"skin/sublimelight.js","skin/sublimedark.js","skin/redesigned.js",
 		"skin/glassblackgold.js","skin/nativecompact.js","skin/darkhelvetireader.js",
 		"colorful.js","actions.js",
-		"greaderplus.js"],
+		"debug.js", "greaderplus.js"],
       "css": ["css/readerplus.css"]
     }
   ],

@@ -301,13 +301,7 @@ GRP.scripts = {
                 xtype: 'p',
                 label: true
             }
-			/*,fixme: {
-				xtype: 'button',
-				name:'Fix me',
-				action: 'fixFavicons'
-			},
-			fixfilter:'',
-			fixkeyonly:false*/
+			
         }
     },
     unreadcount: {
@@ -854,13 +848,6 @@ identi: {
             items: {
                 xtype: 'crud'
             }
-			/*,fixme: {
-				xtype: 'button',
-				name:'Fix me',
-				action: 'fixReplacer'
-			},
-			fixfilter:'',
-			fixkeyonly:false*/
         }
     },
 	filter: {
