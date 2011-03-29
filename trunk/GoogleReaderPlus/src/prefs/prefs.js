@@ -106,6 +106,8 @@ function initprefs(){
         renderPreviewTheme();
         renderThemes();
         renderDummies();
+		textareaTab();
+		renderpicker();
     });
 }
 

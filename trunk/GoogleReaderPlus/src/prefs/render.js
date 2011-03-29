@@ -142,7 +142,6 @@ function renderScripts(){
     });
     addClass(list.firstElementChild, 'first');
     addClass(list.lastElementChild, 'last');
-    extraFeatures();
     showcat(list, true);
 	
 	//expand all 
@@ -270,11 +269,11 @@ function renderOptions(body, script){
 }
 
 var EDITORS = {};
+/*
 function extraFeatures(){
     textareaTab();
-    renderpicker();
 	//renderCodes();
-}
+}*/
 function renderCodes(){
     //var CODEMIRROR_PATH = 'http://marijn.haverbeke.nl/codemirror';
     var el=get_id('relook_css'), CODEMIRROR_PATH = chrome.extension.getURL('lib/codemirror');
@@ -300,27 +299,6 @@ function renderpicker(){
     if (window.jscolor){
 		jscolor.init();
 	}
-	/*	
-	var els = document.getElementsByClassName('picker');
-	if (els){
-		foreach(els,function(el){
-			el.addEventListener('click', colorPicker, false);
-		});
-	}*/
-	/*
-	if (typeof jQuery !== "undefined") {
-        jQuery('.picker').ColorPicker({
-            onSubmit: function(hsb, hex, rgb, el){
-                $(el).val('#' + hex);
-                $(el).ColorPickerHide();
-            },
-            onBeforeShow: function(){
-                $(this).ColorPickerSetColor(this.value.replace('#', ''));
-            }
-        }).bind('keyup', function(){
-            $(this).ColorPickerSetColor(this.value);
-        });
-    }*/
 }
 
 function getSpanStatus(status){
