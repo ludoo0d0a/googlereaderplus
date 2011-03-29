@@ -24,7 +24,7 @@ GRP.general = function(prefs, langs, ID, SL, lang){
     }
 	if (prefs.general_hidetoolbar) {
 		//TODO: full screen, margin top - toolbar height
-		GM_addStyle('#gb{display:none;}','rps_hidetoolbar');
+		GM_addStyle('#gb{display:none !important;}','rps_hidetoolbar');
 	}
 	if (prefs.general_currdir) {
         var lastUrl='';
