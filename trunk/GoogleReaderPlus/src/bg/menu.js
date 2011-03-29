@@ -1,8 +1,19 @@
 function initMenu(){
-    dh('prefs', 'a', {
+    dh('readersettings', 'a', {
         href: '#',
-        text: 'Preferences',
+        text: 'Reader settings',
 		cls:'first'
+    }, {
+        click: function(){
+            var url = 'http://www.google.com/reader/settings?display=edit-extras';
+			//GM_openInTab(url,false,false,false,false,true);
+			GM_openInTab(url);
+        }
+    });
+	
+	dh('prefs', 'a', {
+        href: '#',
+        text: 'Preferences'
     }, {
         click: function(){
             GM_openInTab(mycore.getUrl('/preferences.html'));
@@ -23,14 +34,10 @@ function initMenu(){
     }, {
         click: function(){
             mycore.page.postMessage('export');
-			/*mycore.extension.sendRequest({
-				message: 'export'
-			});*/
         }
     });	
 }
 window.onload = function(){
-	console.log('document.onload');
 	initMenu();
 };
 
