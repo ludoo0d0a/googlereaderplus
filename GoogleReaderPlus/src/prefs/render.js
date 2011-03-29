@@ -273,19 +273,26 @@ var EDITORS = {};
 function extraFeatures(){
     textareaTab();
     renderpicker();
-	
-    var CODEMIRROR_PATH = 'http://marijn.haverbeke.nl/codemirror';
-    //var CODEMIRROR_PATH = chrome.extension.getURL('lib/codemirror');
+	//renderCodes();
+}
+function renderCodes(){
+    //var CODEMIRROR_PATH = 'http://marijn.haverbeke.nl/codemirror';
+    var el=get_id('relook_css'), CODEMIRROR_PATH = chrome.extension.getURL('lib/codemirror');
 	//var localcss = chrome.extension.getURL('css/editor.css');
-    if (CodeMirror && get_id('relook_css')) {
-        EDITORS.relook_css = CodeMirror.fromTextArea('relook_css', {
-		//EDITORS.relook_css = new CodeMirror(CodeMirror.replace(document.getElementById('relook_css')), {
-            parserfile: "parsecss.js",
-            stylesheet: [CODEMIRROR_PATH + "/css/csscolors.css", 'css/editor.css'],
-            path: CODEMIRROR_PATH + "/js/"
-            ,tabMode: 'shift',
-            height: '500px'
-      });
+    if (CodeMirror && el) {
+        try {
+			EDITORS.relook_css = CodeMirror.fromTextArea(el, {
+				//EDITORS.relook_css = new CodeMirror(CodeMirror.replace(document.getElementById('relook_css')), {
+				/*parserfile: "parsecss.js",
+				stylesheet: [CODEMIRROR_PATH + "/css/csscolors.css", 'css/editor.css'],
+				path: CODEMIRROR_PATH + "/js/",
+				*/
+				tabMode: 'shift',
+				height: '500px'
+			});
+		}catch(e){
+			console.error(e);
+		}
     }
 }
 
