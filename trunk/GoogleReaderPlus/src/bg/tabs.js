@@ -4,7 +4,8 @@ function open_tab(a){
     if (a.search) {
         var o = {
             search: new RegExp(a.search.replace(/^https?/, 'https?').replace(/#.*$/, '')),
-            url: a.url
+            url: a.url,
+			update:a.update
         };
         selecttab(o, a.selected, a.create || true, a.fn);
     } else {
@@ -66,13 +67,22 @@ function findtab(a, fn){
 
 function opentab(a){
     mycore.tabs.getSelected(null, function(tab){
-        var o = {
-            url: a.url,
+		var secure = (/^https/.test(tab.url));
+		var url = a.url;
+		if (secure && (/^https?:\w+\.google\.\w+\/reader\//.test(url))){
+			url=url.replace(/^http/,'https');
+		}
+		var o = {
+            url: url,
             selected: (a.selected || typeof a.selected === "undefined"),
             windowId: a.windowId,
             index: a.index || (tab.index + 1)
         };
-        mycore.tabs.create(o);
+		if (a.update) {
+			mycore.tabs.update(o);
+		} else {
+			mycore.tabs.create(o);
+		}
     });
 }
 
