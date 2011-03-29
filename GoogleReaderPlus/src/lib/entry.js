@@ -323,9 +323,9 @@ function selectCurrentEntry(el, markread){
 			cur.removeAttribute('id');
 		}
 		el.id = 'current-entry';
-    }
-	if (markread){
-		markasread(el);
+		if (markread) {
+			markasread(el);
+		}
 	}
 }
 
@@ -868,6 +868,9 @@ function removeReadItems(ent, deleteMarkAsRead){
 
 function markasread(entry){
 	//listview
+	if (hasClass(entry,'expanded')){
+		return;
+	}
 	var ce = getFirstElementByClassName(entry, 'collapsed') || entry;
 	simulateClick(ce);
 }
