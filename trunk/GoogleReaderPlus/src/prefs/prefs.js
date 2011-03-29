@@ -1,4 +1,3 @@
-var FIXME = false;
 function fixReplacer(){
 	fixCloud('Replacer', 'url');
 }
@@ -6,7 +5,7 @@ function fixFavicons(){
 	fixCloud('Favicons', 'title');
 }
 function fixCloud(name, key){
-	if (!FIXME) {
+	if (!GRP.FIXME) {
 		return;
 	}
 	
