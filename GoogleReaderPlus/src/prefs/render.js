@@ -297,7 +297,18 @@ function renderCodes(){
 }
 
 function renderpicker(){
-    if (typeof jQuery !== "undefined") {
+    if (window.jscolor){
+		jscolor.init();
+	}
+	/*	
+	var els = document.getElementsByClassName('picker');
+	if (els){
+		foreach(els,function(el){
+			el.addEventListener('click', colorPicker, false);
+		});
+	}*/
+	/*
+	if (typeof jQuery !== "undefined") {
         jQuery('.picker').ColorPicker({
             onSubmit: function(hsb, hex, rgb, el){
                 $(el).val('#' + hex);
@@ -309,7 +320,7 @@ function renderpicker(){
         }).bind('keyup', function(){
             $(this).ColorPickerSetColor(this.value);
         });
-    }
+    }*/
 }
 
 function getSpanStatus(status){
