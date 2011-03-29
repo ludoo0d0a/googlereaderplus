@@ -219,7 +219,8 @@ GRP.langs[locale].prefs = {
         imgrf: 'Pied de page répété',
         imgf: 'Pied de page',
         imgfr: 'Pied de page droit',
-        imgfl: 'Pied de page gauche'
+        imgfl: 'Pied de page gauche',
+		ncolumns: 'Nombre de colonnes'
     },
     ig: {
         warning: 'Some themes could be displayed incorrectly ; this is a Beta feature!',

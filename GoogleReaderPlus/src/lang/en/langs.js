@@ -222,7 +222,8 @@ GRP.langs[locale].prefs = {
         imgrf: 'Repeated footer',
         imgf: 'Footer',
         imgfr: 'Right footer',
-        imgfl: 'Left footer'
+        imgfl: 'Left footer',
+		ncolumns: 'Number of columns'
     },
     ig: {
         warning: 'Some themes could be displayed incorrectly ; this is a Beta feature!',
