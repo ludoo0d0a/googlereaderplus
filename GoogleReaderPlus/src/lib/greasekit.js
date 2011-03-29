@@ -257,8 +257,9 @@ if (typeof GM_registerMenuCommand === "undefined") {
         //
     }
 }
+
 if (typeof GM_openInTab === "undefined") {
-    GM_openInTab = function(url, selected, search, index, windowId){
+    GM_openInTab = function(url, selected, search, index, windowId, update){
         //send request port to bg
         if (typeof selected == "undefined") {
             selected = true;
@@ -269,7 +270,8 @@ if (typeof GM_openInTab === "undefined") {
             search: search || url,
             selected: selected,
             index: index,
-            windowId: windowId
+            windowId: windowId,
+			update:update
         };
         mycore.extension.sendRequest(data);
     };
