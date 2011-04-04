@@ -329,6 +329,21 @@ function selectCurrentEntry(el, markread){
 	}
 }
 
+function detectNavHidden(cb){
+	function isHidden(){
+		return hasClass(document.body, 'lhn-hidden');
+	}
+	var status=isHidden();
+	setInterval(function(){
+		//change?
+		var t = isHidden();
+		if (t!==status){
+			status=t;
+			cb(status);
+		}
+	},1000);
+}
+
 function getEntry(e){
     var el = (e && e.target) ? e.target : (e.localName ? e : null);
     var entry;
