@@ -1,0 +1,84 @@
+{
+  "extension_name": {
+    "message": "Reader Plus Toolbar Anzeige"
+  },
+  "extension_description": {
+    "message": "Fügen sie eine Schaltfläche für Reader Plus in Chrome ein"
+  },
+  "browser_action_tooltip_default": {
+    "message": "Reader Plus Erweiterungs Schaltfläche"
+  },
+  "starred_items":{
+  	"message": "Favorisierte Beiträge"
+  },
+  "mark_as_read":{
+  	"message": "Als gelesen markieren"
+  },
+  "lreader":{
+  	"message": "Reader"
+  },
+  "lprefs":{
+  	"message": "Optionen"
+  },
+  "lrefresh":{
+  	"message": "Neu laden"
+  },
+  "lnext":{
+  	"message": "Weiter"
+  },
+  "lprevious":{
+  	"message": "Zurück"
+  },
+  "loading":{
+  	"message": "Laden..."
+  },
+  "loadingpage":{
+  	"message": "Lade Seite $page$ ....",
+	"placeholders": {
+	    "page": {
+	      "content": "$1",
+	      "example": "1"
+	    }
+	  }
+  },
+  "page":{
+  	"message": "Page $current$/$last$",
+	"placeholders": {
+	    "current": {
+	      "content": "$1",
+	      "example": "1"
+	    },
+		"last": {
+	      "content": "$2",
+	      "example": "10"
+	    }
+	  }
+  },
+  "notlogged":{
+  	"message": "Bitte loggen sie sich in Google Reader ein..."
+  },
+  "needreaderplus":{
+  	"message": "<a href='http://goo.gl/bswm' target='_blank'>Reader Plus</a> doit être installé..."
+  },
+  "feeditems":{
+  	"message": "$title$",
+	"placeholders": {
+	    "title": {
+	      "content": "$1",
+	      "example": "My feed"
+	    }
+	  }
+  },
+  "labelitems":{
+  	"message": "Label $label$",
+	"placeholders": {
+	    "label": {
+	      "content": "$1",
+	      "example": "video"
+	    }
+	  }
+  },
+  "unreaditems":{
+  	"message": "ungelesene Artikel"
+  } 
+}
