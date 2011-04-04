@@ -316,8 +316,10 @@ function getCurrentEntry(){
     return document.getElementById('current-entry');
 }
 
-function selectCurrentEntry(el, markread){
-    if (el && el.id !== 'current-entry') {
+function selectCurrentEntry(el, markread, fixScroll){
+    var entries = get_id('entries');
+	if (el && el.id !== 'current-entry') {
+		var st = entries.scrollTop;
 		var cur = getCurrentEntry();
 		if (cur) {
 			cur.removeAttribute('id');
@@ -325,6 +327,9 @@ function selectCurrentEntry(el, markread){
 		el.id = 'current-entry';
 		if (markread) {
 			markasread(el);
+		}
+		if (fixScroll){
+			entries.scrollTop=st;
 		}
 	}
 }
