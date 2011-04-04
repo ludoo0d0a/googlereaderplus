@@ -2,53 +2,68 @@
 
 GRP.portal = function(prefs, langs, ID, SL, lang){
     var ncolumns = prefs.theme_ncolumns || 3;
-    var w = Math.max(100, Math.round((getWidthEntries() - 50) / ncolumns));
-    var css = '#entries.cards .entry{width:' + w + 'px;padding:2px!important;}.card-common{margin:0;}#entries.cards .entry .entry-title {font-size:100%!important;}';
-	css+='#entries.cards .entry.portal_actions .card-bottom,#entries.cards .entry.portal_actions .entry-author,#entries.cards .entry.portal_actions .entry-date{display:none;}';
-	css+='#entries.cards .entry:not(.portal_maxi) .card-bottom,#entries.cards .entry:not(.portal_maxi) .entry-author,#entries.cards .entry:not(.portal_maxi) .entry-date{display:none;}';
-	var asRelative = false;
-	var TIME_TRANSITION = 0.6;//s
-	var he = getHeightEntries();
-	var cols=[];
-	for (var i = 0; i <ncolumns; i++){
-		cols[i]=0;
+	var asRelative = false, TIME_TRANSITION = 0.6;//s
+    var cols=[], he=800, we=800, w=300;
+    var memos = {}, entries = get_id('entries');
+	
+	function reset(){
+		console.log('reset portal theme');
+		memos = {};
+		we = getWidthEntries();
+		w = Math.max(100, Math.round((we - 50) / ncolumns));
+		he = getHeightEntries();
+		for (var i = 0; i <ncolumns; i++){
+			cols[i]=0;
+		}
+		updateCss(w,he);
 	}
-	//relative
-	if (asRelative) {
-		css += '#entries.cards.entry{float:left;max-height:300px;}#entries.cards #scroll-filler{float:left;}';
-	}else{
-		css += '#entries.cards .entry{min-width:200px;position:absolute !important;display:none;-webkit-transition:all '+TIME_TRANSITION+'s ease-in-out;}';
-		css += '#entries.cards .entry.portal{display:block !important;}';
-		css += '#entries.cards .entry:not(.portal_maxi) .entry-main{overflow:visible;}';
-		css += '#entries.cards .entry.portal_maxi .entry-main{overflow:auto;}';
-		css += '#entries.cards .entry .entry-main{max-height:'+he+'px;}';
+	reset();
+	
+	function updateCss(w,he){
+		var css = '#entries.cards .entry{width:' + w + 'px;padding:2px!important;}.card-common{margin:0;}#entries.cards .entry .entry-title {font-size:100%!important;}';
+		css += '#entries.cards .entry.portal_actions .card-bottom,#entries.cards .entry.portal_actions .entry-author,#entries.cards .entry.portal_actions .entry-date{display:none;}';
+		css += '#entries.cards .entry:not(.portal_maxi) .card-bottom,#entries.cards .entry:not(.portal_maxi) .entry-author,#entries.cards .entry:not(.portal_maxi) .entry-date{display:none;}';
 		
-		css += '#entries.cards .entry:not(.portal_maxi) img{max-width:'+(w-50)+'px;max-height:'+(w-50)+'px;}';
-		//embed, video, iframe,video non zindexable items
-		css += '#entries.cards.portal_current .entry:not(.portal_maxi) embed{display:none;}';
-		css += '#entries.cards.portal_current .entry:not(.portal_maxi) video{display:none;}';
-		css += '#entries.cards.portal_current .entry:not(.portal_maxi) object{display:none;}';
-		css += '#entries.cards.portal_current .entry:not(.portal_maxi) iframe{display:none;}';
-		css += '#entries.cards .entry.portal_maxi{z-index:999;}';
-		css += '#entries.cards .entry .section-button{position:static !important;}';
-		
-		css += '#entries.cards .entry .entry-date{position:static !important;}';
-		css += '#entries.cards .entry .entry-title{position:static !important;}';
-		css += '#entries.cards .entry .entry-author{position:static !important;}';
-		
-		css += '.entry .entry-overflow {background-image: -webkit-gradient(linear,left top,left bottom,from(rgba(255, 255, 255, 0)),to(rgba(255, 255, 255, 1.0)));height: 20%;max-height:150px;bottom: 0;position: absolute;width:95%;margin:8px;}';
-		css += '.entry.portal_maxi .entry-overflow{display:none}';
-		
-		css += '#entries .entry .entry-body,#entries .entry .entry-title,#entries .entry .entry-likers {max-width: 100%;}';
-		css += '.portal_mouse{cursor: pointer;}';
-		css += '#scroll-filler{display:none;}';
-		
+		//relative
+		if (asRelative) {
+			css += '#entries.cards.entry{float:left;max-height:300px;}#entries.cards #scroll-filler{float:left;}';
+		} else {
+			css += '#entries.cards .entry{min-width:200px;position:absolute !important;display:none;-webkit-transition:all ' + TIME_TRANSITION + 's ease-in-out;}';
+			css += '#entries.cards .entry.portal{display:block !important;}';
+			css += '#entries.cards .entry:not(.portal_maxi) .entry-main{overflow:visible;}';
+			css += '#entries.cards .entry.portal_maxi .entry-main{overflow:auto;}';
+			css += '#entries.cards .entry .entry-main{max-height:' + he + 'px;}';
+			
+			css += '#entries.cards .entry:not(.portal_maxi) img{max-width:' + (w - 50) + 'px;max-height:' + (w - 50) + 'px;}';
+			//embed, video, iframe,video non zindexable items
+			css += '#entries .entry:not(.portal_maxi) embed{display:none;}';
+			css += '#entries .entry:not(.portal_maxi) video{display:none;}';
+			css += '#entries .entry:not(.portal_maxi) object{display:none;}';
+			css += '#entries .entry:not(.portal_maxi) iframe{display:none;}';
+			css += '#entries.cards .entry.portal_maxi{z-index:999;}';
+			css += '#entries.cards .entry .section-button{position:static !important;}';
+			
+			css += '#entries.cards .entry .entry-date{position:static !important;}';
+			css += '#entries.cards .entry .entry-title{position:static !important;}';
+			css += '#entries.cards .entry .entry-author{position:static !important;}';
+			
+			css += '.entry .entry-overflow {background-image: -webkit-gradient(linear,left top,left bottom,from(rgba(255, 255, 255, 0)),to(rgba(255, 255, 255, 1.0)));height: 20%;max-height:150px;bottom: 0;position: absolute;width:'+(w-8)+'px;margin-left:4px;margin-bottom:3px;}';
+			css += '.entry.portal_maxi .entry-overflow{display:none}';
+			
+			css += '#entries .entry .entry-body,#entries .entry .entry-title,#entries .entry .entry-likers {max-width: 100%;}';
+			css += '.portal_mouse{cursor: pointer;}';
+			css += '#scroll-filler{display:none;}';
+		}
+		GM_addStyle(css, 'rps_portal');
 	}
-    GM_addStyle(css, 'rps_portal');
-	var memos = {}, entries = get_id('entries');
+	
     
     //fireResize();
 	function clickMenu(entry, el){
+		if (hasClass(entry, 'portal_clickonce')){
+			return;
+		}
+		addClass(entry, 'portal_clickonce',true);
 		var m = /entry\-\d+/.exec(entry.className);
 		m=(m && m[0])?m[0]:'last';
 		if (memos){
@@ -61,10 +76,12 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 		}
 		if (hasClass(entry, 'portal_maxi')){
 			setMaxi(entry, m, el, false);
+			removeClass(entry, 'portal_clickonce');
 		}else{
 			setMaxi(entry, m, el, true);
 			setTimeout(function(){
-				selectCurrentEntry(entry);
+				selectCurrentEntry(entry, true);
+				removeClass(entry, 'portal_clickonce');
 			},1000);
 		}
 	}
@@ -85,7 +102,7 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 			sizeEntry(entry,{
 				top: ot.top+'px',
 				left:'50px',
-				w:getWidthEntries()-100+'px'
+				w:(we-100)+'px'
 				//h:-
 			}, true);
 			addClass(entry, 'portal_maxi');
@@ -128,7 +145,7 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 	}
 	
 	function adjustContentSize(entry, sTop){
-		var y=0, maxw = getWidthEntries();
+		var y=0, maxw = we;
 		var ot = getNowTop(entry,sTop);
 		if (ot.delta>0) {
 			entry.style.height = ot.h + 'px';
@@ -166,10 +183,13 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 			}
 		}
 		if (!asRelative){
-			addClass(entry, 'portal');
+			addClass(entry, 'portal',true);
 			
 			var m = /entry\-(\d+)/.exec(entry.className);
-			var icol = parseInt(m[1],10) % ncolumns;
+			var icol = 0;
+			if (m) {
+				icol=parseInt(m[1], 10) % ncolumns;
+			}
 			var smallest = false;
 			//get smallest column instead modulo
 			foreach(cols,function(o,i){
@@ -186,7 +206,7 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 		}else{
 			addClass(entry, 'portal');
 		}
-		addClass(entry, 'portal_actions');
+		addClass(entry, 'portal_actions',true);
 		var icon = addIcon(entry, SL.readmore, clickMenu);
 		
 		dh(entry, 'div', {cls:'entry-overflow'});
@@ -197,7 +217,7 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 	function onTextClick(entry, fn, el){
 		var eb = entry;
 		if (eb){
-			addClass(eb, 'portal_mouse');
+			addClass(eb, 'portal_mouse', true);
 			eb.addEventListener('click',function(e){
 				if (e.target.nodeName==='A'){
 					return;
@@ -232,5 +252,37 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 
     //update on entries changes
     registerFeature(gridify, 'portal_grid');
+	
+	function navHidden(hidden){
+		reset();
+		var mode = getMode();
+		forAllEntries(function(el){
+			gridify(el, el, mode);
+		});
+	}
+	detectNavHidden(navHidden);
 
+};
+GRP.portaltoggle = function(status){
+	forAllEntries(function(el){
+		if (el.style){
+			if (status){
+				if (el.style.grptop) {
+					el.style.top = el.style.grptop;
+				}
+				if (el.style.grpleft) {
+					el.style.left = el.style.grpleft;
+				}
+			}else{
+				if (el.style.top) {
+					el.style.grptop = el.style.top;
+					el.style.top=''; 
+				}
+				if (el.style.left) {
+					el.style.grpleft=el.style.left;
+					el.style.left=''; 
+				}
+			}
+		}
+	});
 };

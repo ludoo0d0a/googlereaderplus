@@ -28,23 +28,32 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
     
     var tog = {};
     function toggleTheme(){
-        var el = get_id('rps_' + skin.id);
+        var el = get_id('rps_' + skin.id), f= GRP[skin.id+'toggle'];
         if (el) {
             tog = {
                 css: el.innerHTML,
                 src: el.href
             };
             remove(el);
+			if (f){
+				f(false);
+			}
         } else if (tog.css) {
             GM_addStyle(tog.css, 'rps_' + skin.id);
             if (skin.resize) {
 	            fireResize(skin.resize);
 	        }
+			if (f){
+				f(true);
+			}
         } else if (tog.src) {
             GM_addCss(tog.src, 'rps_' + skin.id);
-           if (skin.resize) {
-            fireResize(skin.resize);
-        	}
+            if (skin.resize) {
+               fireResize(skin.resize);
+           	}
+		    if (f){
+				f(true);
+			}
         }
     }
     
