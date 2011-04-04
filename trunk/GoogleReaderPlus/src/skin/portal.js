@@ -80,7 +80,7 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 		}else{
 			setMaxi(entry, m, el, true);
 			setTimeout(function(){
-				selectCurrentEntry(entry, true);
+				selectCurrentEntry(entry, true, true);
 				removeClass(entry, 'portal_clickonce');
 			},1000);
 		}
