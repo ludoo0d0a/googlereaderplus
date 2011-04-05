@@ -111,7 +111,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
             text: SL.close,
             close: true
         }];
-        var btn = addSplitButton('filter-split-button', ref, SL.filter, SL.filter, toggleFilter, toggleFilter, 1, items);
+        var btn = addSplitButton('filter-split-button', ref, SL.filter, SL.filter, toggleFilter, false, 1, items);
         addClassIf(btn, 'goog-button-base-open', toggleStatus);
         
         function toggleFilter(){
@@ -157,21 +157,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
             }
         }, 1000);
     }
-    
-    function findPosition(element){
-        var point = {
-            x: 0,
-            y: 0
-        };
-        var parent = element;
-        while (parent) {
-            point.x += parent.offsetLeft;
-            point.y += parent.offsetTop;
-            parent = parent.offsetParent;
-        }
-        return point;
-    }
-    
+        
     function init(){
 		GM_getValues(ID+'_', KEY_OPTIONS,function(o){
 			miniWord = o.word_mini || miniWord; 
