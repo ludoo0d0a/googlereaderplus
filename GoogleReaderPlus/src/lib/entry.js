@@ -998,23 +998,32 @@ function getTagsText(entry, normalize, defaultlabel, sep){
 	return tags.join(sep);
 }
 function getTags(entry, normalize, defaultlabel){
-        var lbls = [], taglist = getFirstElementByClassName(entry, "user-tags-list");
-		if (taglist) {
-			var ins = taglist.getElementsByTagName("li");
-			
-			if (defaultlabel) {
-				lbls.push(defaultlabel);
-			}
-			foreach(ins, function(o){
-				var lbl = o.getElementsByTagName("a")[0].text;
-				if (normalize) {
-					lbl = lbl.replace(/-/g, ' ');
-					lbl = lbl.toLowerCase().replace(/^(.)|\s(.)/g, function($1){
-						return $1.toUpperCase();
-					});
-				}
-				lbls.push(lbl);
-			});
+    var lbls = [], taglist = getFirstElementByClassName(entry, "user-tags-list");
+	if (taglist) {
+		var ins = taglist.getElementsByTagName("li");
+		
+		if (defaultlabel) {
+			lbls.push(defaultlabel);
 		}
-        return lbls;
-    }
+		foreach(ins, function(o){
+			var lbl = o.getElementsByTagName("a")[0].text;
+			if (normalize) {
+				lbl = lbl.replace(/-/g, ' ');
+				lbl = lbl.toLowerCase().replace(/^(.)|\s(.)/g, function($1){
+					return $1.toUpperCase();
+				});
+			}
+			lbls.push(lbl);
+		});
+	}
+    return lbls;
+}
+
+function getEntryNumber(entry,def){
+	var v=def||0, m = /entry\-(\d+)/.exec(entry.className);
+	if (m) {
+		v=parseInt(m[1], 10);
+	}
+	return v;
+}
+	
