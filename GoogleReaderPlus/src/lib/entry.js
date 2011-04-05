@@ -313,7 +313,12 @@ function openEntryInNewTab(entry, selected){
 }
 
 function getCurrentEntry(){
-    return document.getElementById('current-entry');
+    var el = document.getElementById('current-entry');
+	if (!el){
+		var entries = get_id('entries');
+		el = entries.firstChild;
+	}
+	return el;
 }
 
 function selectCurrentEntry(el, markread, fixScroll){
@@ -333,7 +338,23 @@ function selectCurrentEntry(el, markread, fixScroll){
 		}
 	}
 }
-
+function selectNextEntry(){
+	selectSiblingEntry(true);
+}
+function selectPreviousEntry(){
+	selectSiblingEntry(false);
+}
+		
+function selectSiblingEntry(dir){
+	var next, cur = getCurrentEntry();
+	if (cur){
+		next = (dir)?cur.nextSibling:cur.previousSibling;
+		if (next) {
+			selectCurrentEntry(next, true);
+		}
+	}
+}
+	
 function detectNavHidden(cb){
 	function isHidden(){
 		return hasClass(document.body, 'lhn-hidden');
@@ -441,20 +462,21 @@ function initResize(fn){
     }, false);
 }
 var countbtn=0;
-function addSplitButton(id, reference, text, title, fn, fnmenu, position, items){
+function addSplitButton(id, reference, text, title, fn, fnmenu, position, items, cfg){
 	var menu,c=countbtn++, split = dh(reference, 'div', {
 		id:id||'split-button'+c, 
 		position:position
 	});
+	cfg=cfg||{};
 	var btn = addButton(split, text, title, fn, 0,false);
 	btn.style.marginRight = '-2px';
 	addClass(btn, 'goog-menu-button');//use it as menu to get gray on highlight
 	
 	var dwn = addButton(split, '&nbsp;', '', function(){
-		toggleMenu(menu,dwn,btn);
+		toggleMenu(menu,dwn,btn,null,false,fnmenu);
 	}, 0,true);
 	
-	menu=createMenu(':rpjm'+c, items, dwn);
+	menu=createMenu(':rpjm'+c, items, dwn, cfg.autoclose);
 	
 	return btn;
 }
@@ -466,7 +488,7 @@ function showMenu(menu,dwn,btn){
 	toggleMenu(menu,dwn,btn,true);
 }
 
-function toggleMenu(menu,dwn,btn,visible,init){
+function toggleMenu(menu,dwn,btn,visible,init,fnmenu){
 	if (menu) {
 		if ((typeof visible === 'undefined') || (visible === null)){
 			visible = !hasClass(dwn, 'goog-button-base-open');
@@ -489,6 +511,9 @@ function toggleMenu(menu,dwn,btn,visible,init){
 		}else{
 			menu.dwn = false;
 		}
+		if (fnmenu) {
+			menu.fnmenu = fnmenu;
+		}
 		
 		if (menu.autoclose){
 			if (!menu.clickElseWhere) {
@@ -502,6 +527,9 @@ function toggleMenu(menu,dwn,btn,visible,init){
 						if (menu && !fm) {
 							//console.log('clickElseWhere hideMenu');
 							hideMenu(menu, dwn);
+							if (menu.fnmenu){
+								menu.fnmenu(menu);
+							}
 							e.stopPropagation();
 						}
 					}
@@ -577,6 +605,14 @@ function addMenuItem(menu, dwn, id, item){
 				removeClass(el, 'goog-menuitem-highlight');
 				hideMenu(menu,dwn);
 			}else if (chkbox){
+				if (item.group) {
+					//Remove checkbox on all previous group items
+					foreach(menu.groups[item.group], function(m){
+						if (m !== el) {
+							removeClass(m, 'goog-option-selected');
+						}
+					});
+				}
 				addClassIf(el, 'goog-option-selected');
 			}
 			if (item.click){
@@ -584,9 +620,17 @@ function addMenuItem(menu, dwn, id, item){
 			}
 		}
 	});
+	
+	if (item.group) {
+		//Save groups
+		menu.groups = menu.groups || {};
+		menu.groups[item.group]=menu.groups[item.group]||[];
+		menu.groups[item.group].push(el);
+	}
+			
 	function fwdClick(){
 		var sel = hasClass(el, 'goog-option-selected');
-		item.click(el, menu, id, sel);
+		item.click(el, menu, id, sel, item);
 	}
 }
 
