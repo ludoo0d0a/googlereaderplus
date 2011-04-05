@@ -160,15 +160,14 @@ GRP.langs[locale].texts = {
 		overlay_loading: 'Loading in progress...'
     },
     readbymouse: {
-        middleclick: 'Middle click',
+        readbymouse: 'Read by mouse',
+		middleclick: ' On middle click: ',
         openintab: 'Opens in Tab',
         openinbacktab: 'Opens in Background Tab',
         shares: 'Shares',
         stars: 'Stars',
-        tag: 'Tag',
-        addtag: 'Add a Tag',
-        on: 'ReadByMouse On',
-        off: 'ReadByMouse Off'
+        tag: 'Separate tags by commas:',
+        addtag: 'Add a Tag'
     },
     replacer: {
         nomatch: 'No match found.',

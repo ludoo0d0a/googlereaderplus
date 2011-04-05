@@ -120,9 +120,11 @@ GRP.langs[locale].texts = {
 	    save: 'Sauver & appliquer',
 	    close: 'Fermer le menu',
 	    searchbody: 'Chercher dans tout le texte',
+	    detect_duplicates: 'Détecter les doublons',
 	    hide_duplicates: 'Cacher les doublons',
 	    hide_excludes: 'Cacher les exclusions',
 	    prefer_highlight: 'Préférer les surlignages',
+	    live:'Live',
 	    highlights: 'Surlignages',
 	    duplicates: 'Doublons',
 	    excludes: 'Exclusions',
@@ -157,15 +159,14 @@ GRP.langs[locale].texts = {
 		overlay_loading: 'Chargement en cours...'
     },
     readbymouse: {
-        middleclick: 'Clic bouton du milieu',
+        readbymouse: 'Lecture souris',
+        middleclick: ' Sur clic milieu: ',
         openintab: 'Ouvrir dans un nouvel onglet',
-        openinbacktab: 'Ouvrir dans un nouvel onglet en arriéèe plan',
+        openinbacktab: 'Ouvrir dans un nouvel onglet en arrière plan',
         shares: 'Partage',
-        stars: 'suivi',
-        tag: 'Tag',
-        addtag: 'Ajouter un tag',
-        on: 'ReadByMouse activé',
-        off: 'ReadByMouse arrêté'
+        stars: 'Suivi',
+        tag: 'Labels séparés par des virgules:',
+        addtag: 'Ajouter un tag'
     },
     replacer: {
         nomatch: 'Pas de résultat.',
@@ -338,7 +339,8 @@ prefssavedfailed: 'Echec de la sauvegarde!',
         text_pageicon: "Icône de la barre d'adresse",
         text_export: 'Export/import',
 currdir: "Surligner le répertoire de l'élément sélectionné",
-icons: 'Icône seulement pour les boutons de la barre action (sauf pour les radio boutons)'
+icons: 'Icône seulement pour les boutons de la barre action (sauf pour les radio boutons)',
+hidetoolbar: 'Cacher la barre d\'outil'
     },
 limit: {
 slidewindow: "Slidewindow - Limiter le nombre d'éléments",
