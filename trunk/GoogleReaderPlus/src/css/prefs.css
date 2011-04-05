@@ -225,8 +225,11 @@ ul.wrap{
     background-color: #444;
 }
 
-.mnu li a:hover {
+.mnu li:not(.sep):hover {
     background: #555555;
+}
+.mnu li.sep {
+	/*padding:0 !important;*/
 }
 
 .mnu li.button a {
