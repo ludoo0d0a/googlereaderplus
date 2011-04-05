@@ -8,7 +8,8 @@ if (GRP.scripts) {
 			action: 'fixFavicons'
 		},
 		fixfilter: '',
-		fixkeyonly: false
+		keycomp: false,
+		okremove:false
 	});
 	
 	
@@ -19,7 +20,8 @@ if (GRP.scripts) {
 			action: 'fixReplacer'
 		},
 		fixfilter: '',
-		fixkeyonly: false
+		keycomp: false,
+		okremove:false
 	});
 	
 }
