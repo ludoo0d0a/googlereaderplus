@@ -432,7 +432,8 @@ GRP.scripts = {
     },
     readbymouse: {
         name: "Read by mouse",
-        category: 'navigation'
+        category: 'navigation',
+		status:'updated'
     },
     facebook: {
         name: "Facebook integration",
@@ -1044,7 +1045,7 @@ GRP.skins = {
 		status:'new',
 		url: 'http://userstyles.org/styles/userjs/45455/Google%20Reader%20for%20Snow%20Leopard%202%20-%20Improved.user.js',
         pic: 'http://userstyles.org/style_screenshots/45455_after.png',
-        ref: 'http://userstyles.org/style_screenshots/45455',
+        ref: 'http://userstyles.org/style/45455',
         desc: 'userstyles.org',
         resize: 'footer'
     },
