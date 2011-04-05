@@ -414,6 +414,8 @@ GRP.black = function(){
 		sIR("TABLE#chrome-viewer-container > TBODY > TR > TD#chrome-lhn-toggle,TABLE#chrome-viewer-container > TBODY > TR > TD#chrome-viewer,DIV.setting-body,#settings #settings-navigation .selected{background-color:#555 !important;}");
 /* current selection*/
 sIR("#current-entry div.entry-container{background-color:#444 !important;}");
+/* selected button */
+sIR(".goog-button-base-open .goog-button-body{font-weight: bold;}");
 		/* dark grey */
 		sIR("TABLE#chrome-viewer-container > TBODY > TR > TD#chrome-viewer > DIV#viewer-header,TABLE#chrome-viewer-container > TBODY > TR > TD#chrome-viewer > DIV#viewer-footer,DIV.tab-group > DIV.tab-header-selected,DIV.card-actions, DIV.entry-actions {background-color:#333 !important;}");
 		/* black bg */
