@@ -1155,9 +1155,9 @@ function applyRemoteLang(lang, base, id, o, fn, scope){
 //http://snipplr.com/view/9649/escape-regular-expression-characters-in-string/
 //http://simonwillison.net/2006/Jan/20/escape/
 //var re_encodeRE = new RegExp("[-^$.*+?|()\\[\\]{}\\\\]", "g"); // .*+?|()[]{}\
-var re_encodeRE = /\/[\-\^\$\.\*\+\?\\|\(\)\[\]{}\\\\]/g;
+var re_encodeRE = /[\/\-\^\$\.\*\+\?\\|\(\)\[\]{}\\\\]/g;
 function encodeRE(s){
-    return s.replace(re_encodeRE, "\\$&").replace(' ', '\\s');
+    return s.replace(re_encodeRE, "\\$&").replace(/\s/g, '\\s');
 }
 
 function urlDecode(string){
