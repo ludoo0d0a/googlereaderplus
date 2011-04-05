@@ -734,6 +734,20 @@ function findLeft(obj, relative){
     }
 }
 
+function findPosition(element){
+    var point = {
+        x: 0,
+        y: 0
+    };
+    var parent = element;
+    while (parent) {
+        point.x += parent.offsetLeft;
+        point.y += parent.offsetTop;
+        parent = parent.offsetParent;
+    }
+    return point;
+}
+
 function getStyle(el, property){
     if (el && el.style && el.style[property]) {
         return parseInt(el.style[property].replace('px', ''), 10);
