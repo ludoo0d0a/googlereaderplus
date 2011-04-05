@@ -143,7 +143,7 @@ function getSibling(el, previous, index){
 			return o;
 		}
     }
-	if (i==0){
+	if (i===0){
 		o=false;
 	}
     return o;
@@ -665,6 +665,17 @@ function toggleClassEl(el, clazz){
 	}
 }
 	
+function onWindowResize(cb){
+	var r = {w:0,h:0};
+	window.addEventListener('resize',function(){
+		if (window.innerHeight!== r.h || window.innerWidth!== r.w){
+			r.h=window.innerHeight;
+			r.w=window.innerWidth;
+			cb(r);
+		} 
+	},true);
+}
+
 function fireResizeDefer(lhnfooter){
     window.setTimeout(function(){
 		fireResize(lhnfooter);
