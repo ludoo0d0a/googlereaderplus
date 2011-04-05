@@ -15,246 +15,230 @@
  * http://userscripts.org/scripts/show/8843
  */
 GRP.readbymouse = function(prefs, langs, ID, SL, lang){
-    var btn = document.getElementById('btn-readbymouse');
-    if (btn) {
-        return;
-    }
-    
-    var systemStatus = GM_getValue('rbmStatus', 'Off');
-    var ua = navigator.userAgent.toLowerCase();
-    var isWindows = /windows|win32/.test(ua);
-    
-    var isMClick = (!isWindows || (isWindows && isChromeVersionMini('5.0.342.1')));
-    
-    // Get the element our new button goes by
-    var nearNewButton = document.getElementById('entries-down');
-    
-    // Add the middle click settings droplist and the Mouse Control toggle
-    // button
-    if (nearNewButton) {
-        var mouseCtrlButton = document.createElement("span");
-        mouseCtrlButton.id = 'btn-readbymouse';
-        var html = '<input type="button" id="___mouseCtrl" value="ReadByMouse ' + systemStatus + '" style="margin-left: 10px;"></input>';
-        if (isMClick) {
-            html += '<span style="margin-left: 10px;">' + SL.middleclick +
-            ':</span><select id="___middleClickSettings" name="midClickSettings" style="margin-left: 5px;">' +
-            '<option id="openInTab" value="openInTab">' +
-            SL.openintab +
-            '</option><option id="openInBackTab" value="openInBackTab">' +
-            SL.openinbacktab +
-            '</option><option id="share" value="share">' +
-            SL.shares +
-            '</option><option id="star" value="star">' +
-            SL.stars +
-            '</option><option id="addTag" value="addTag">' +
-            SL.addtag +
-            '</option></select><span id="addTagSpan" style="text-align:left; visibility: collapse; margin-left: 10px;">' +
-            SL.addtag +
-            ':<input type="textbox" id="txtTag" value=""></span>';
-        }
-        
-        mouseCtrlButton.innerHTML += html;
-        insertAfter(mouseCtrlButton, nearNewButton);
-    }
-    
-    var currentSettingMidClick = 'openInTab';
-    var currentTag = '';
-    
-	GM_getValue('readbymouse_settings', {}, function(o){
-		currentSettingMidClick=o.midClick||'openInTab';
-		currentTag=o.tag||'';
-		selectvalue(currentSettingMidClick, currentTag);
-	});
+    var _options = {} , btn ;
+	var KEY_OPTIONS = ['status', 'middleclick', 'tag'];
 	
-	function saveSettings(){
-		GM_setValue('readbymouse_settings', {
-			tag:currentTag,
-			midClick:currentSettingMidClick
-		});
-	}
+	SL.readbymouse = 'Read by mouse';
+	SL.status = 'Status';
+	SL.middleclick = ' On middle click: ';
+	SL.tag = 'Separate tags by commas: ';
 	
 	/*
-    // Get the current middle click setting out of GM	
-	var currentSettingMidClick = GM_getValue('middleClickSetting', 'openInTab');
-    // Get the current tag setting out of GM
-    var currentTag = GM_getValue('mouseTag', '');
-    */
+    var ua = navigator.userAgent.toLowerCase();
+    var isWindows = /windows|win32/.test(ua);
+    var isMClick = (!isWindows || (isWindows && isChromeVersionMini('5.0.342.1')));
+	*/
 	
-    // set the selected value to the setting
-	function selectvalue(settingMidClick){
-	    var midClickOption = document.getElementById(settingMidClick);
-	    if (midClickOption) {
-	        midClickOption.selected = true;
-	        // Hide or reveal the tag textbox
-	        if (midClickOption.value == "addTag") {
-	            document.getElementById('addTagSpan').style.visibility = 'visible';
-	        } else {
-	            document.getElementById('addTagSpan').style.visibility = 'hidden';
-	        }
-	        document.getElementById('txtTag').value = currentTag;
+	function setStatus(status){
+		_options.status = status;
+		GM_setValue(ID+'_status', _options.status);
+		//update UI
+		addClassIf(btn, 'goog-button-base-open', _options.status);
+	}
+	
+	function checkOptions(o){
+        o = o || {};
+        o.status = o.status || false;
+		o.tag = o.tag || '';
+        o.middleclick = o.middleclick || o.midClick || 'openintab';
+		
+		console.log('status: '+o.status);
+		console.log('middleclick: '+o.middleclick);
+		console.log('tag: '+o.tag);
+        return o;
+    }
+	
+	function init(){
+		GM_getValues(ID+'_', KEY_OPTIONS,function(o){
+			_options = checkOptions(o);
+            initInterface();
+		});
+    }
+	
+	function isClickedOnButton(el){
+		return isAncestor(el,false,false,btn.id) || isAncestor(el,false,'goog-menu');
+	}
+	
+    function initInterface(){
+		var ref = get_id('stream-prefs-menu');
+	    var items = [{
+	        id: 'rbm_middleclick',
+	        text: '<b>'+SL.middleclick+'</b>'
+	    }, {
+	        id: 'rbm_openintab',
+	        text: SL.openintab,
+	        checkbox: true,
+			value: (_options.middleclick==='openintab'),
+	        key: 'openintab',
+			group:'mc',
+	        click: setMiddleClick
+	    }, {
+	        id: 'rbm_openinbacktab',
+	        text: SL.openinbacktab,
+	        checkbox: true,
+			value: (_options.middleclick==='openinbacktab'),
+	        key: 'openinbacktab',
+			group:'mc',
+	        click: setMiddleClick
+	    },{
+			id: 'rbm_shares',
+	        text: SL.shares,
+	        checkbox: true,
+			value: (_options.middleclick==='shares'),
+	        key: 'shares',
+			group:'mc',
+	        click: setMiddleClick
+		}, {
+	        id: 'rbm_stars',
+	        text: SL.stars,
+	        checkbox: true,
+			value: (_options.middleclick==='stars'),
+	        key: 'stars',
+			group:'mc',
+	        click: setMiddleClick
+	    }, {
+	        id: 'rbm_addtag',
+	        text: SL.addtag,
+	        checkbox: true,
+			value: (_options.middleclick==='addtag'),
+	        key: 'addtag',
+			group:'mc',
+	        click: setMiddleClick
+	    },{
+			sep:true
+		},{
+            id: 'rbm_tag',
+            text: SL.tag,
+            textarea: true,
+            value: _options.tag
+        }];
+	    btn = addSplitButton(ID+'-split-button', ref, SL.readbymouse, SL.readbymouse, toggleStatus, toggleRbm, 1, items, {autoclose:true});
+		btn.id='btn-'+ID+'-toggle';
+	    addClassIf(btn, 'goog-button-base-open', _options.status);
+		
+		function toggleRbm(menu){
+			onUpdate();
+		}
+		function toggleStatus(){
+			_options.status=!_options.status;
+			onUpdate();
+		}
+		function setMiddleClick(el, menu, id, sel, item){
+			_options.middleclick = item.key;
+			onUpdate();
+		}
+		function onUpdate(){
+			_options.tag = getValue('t_rbm_tag');
+			
+			_options = checkOptions(_options);
+			foreach(KEY_OPTIONS,function(option){
+				GM_setValue(ID+'_'+option, _options[option]);
+			});
+			addClassIf(btn, 'goog-button-base-open', _options.status);	
+	        //doStuff();
 	    }
 	}
+	
+	
     // Add listener for key press (toggles Mouse on and off)
-    document.addEventListener('keydown', function(event){
-        if (event.ctrlKey && event.which == 90) {
-            var myBtn = document.getElementById('___mouseCtrl');
-            
-            if (!myBtn) {
-                return false;
-            }
-            
-            if (systemStatus == 'On') {
-                myBtn.value = SL.off;
-                systemStatus = 'Off';
-            } else {
-                myBtn.value = SL.on;
-                systemStatus = 'On';
-            }
-            GM_setValue('rbmStatus', systemStatus);
+    document.addEventListener('keydown', function(e){
+        if (e.ctrlKey && e.which == 90) {
+            setStatus(!_options.status);
         }
     }, false);
-    
+    /*
     // Add listener for mouse clicks
-    document.addEventListener('click', function(event){
-        //console.log('event.button:' + event.button);
-        // On each left click, check to see if the middle click setting
-        // has changed. if so, then set it in GM
-        if (event.button === 0) {
-        
-            // Get the selected option
-            var myMiddleSelect = document.getElementById('___middleClickSettings');
-            if (!myMiddleSelect) {
-                return;
-            }
-            
-            var midClickSelValue = myMiddleSelect.options[myMiddleSelect.selectedIndex].value;
-            if (!midClickSelValue) {
-                return;
-            }
-            
-            // If the middle click setting has changed, then set it
-            // in GM
-            if (currentSettingMidClick != midClickSelValue) {
-                //GM_setValue('middleClickSetting', midClickSelValue);
-                currentSettingMidClick = midClickSelValue;
-				saveSettings();
-            }
-            
-            // If the tag has changed, then set it in GM
-            var strTag = document.getElementById('txtTag').value;
-            if (currentTag != strTag) {
-                //GM_setValue('mouseTag', strTag);
-                currentTag = strTag;
-				saveSettings();
-            }
-            
-            // Hide or reveal the tag textbox
-            if (currentSettingMidClick == "addTag") {
-                document.getElementById('addTagSpan').style.visibility = 'visible';
-            } else {
-                document.getElementById('addTagSpan').style.visibility = 'collapse';
-            }
-            
-        } else if (event.button == 1 && systemStatus == 'On') {
+    document.addEventListener('click', function(e){
+         var b = e.button;
+		//console.log('e.button:' + e.button);
+
+        if (b == 1 && _options.status) {
             // Middle click
-            // If they click on a link, let the link work like
-            // normal
-            if (event.target.nodeName.toLowerCase() == 'a') {
+            if (e.target.nodeName.toLowerCase() == 'a') {
                 return;
             }
             
-            // Action here depends on the selection from the
-            // droplist
-            var mySettingsDL = document.getElementById("___middleClickSettings");
-            if (mySettingsDL) {
-                switch (mySettingsDL.options[mySettingsDL.selectedIndex].value) {
-                    case "addTag":
-                        tagItem2();
-                        break;
-                }
-            }
-            
-            event.stopPropagation();
-            event.preventDefault();
+			if (_options.middleclick=='addtag'){
+				addTag();
+			}
+			
+            e.stopPropagation();
+            e.preventDefault();
         }
         
     }, true);
-    
+    */
+	
     // Add listener for mousedown
-    document.addEventListener('mousedown', function(event){
-        var myTarget = event.target;
-        if (systemStatus == 'On') {
+    document.addEventListener('mousedown', function(e){
+        var t = e.target;
+        if (_options.status) {
             // If they click on a link, let the link work like normal
-            if (myTarget.nodeName.toLowerCase() == 'a') {
+            if (t.nodeName.toLowerCase() == 'a') {
                 return;
             }
-            var clickType = event.button;
-            // Left Click
-            if (clickType === 0) {
-            
-                // turn mouse control off if clicking on the mouse
-                // control button
-                if (myTarget.id == '___mouseCtrl') {
-                    myTarget.value = SL.off;
-                    systemStatus = 'Off';
-                    GM_setValue('rbmStatus', systemStatus);
-                } else if (myTarget.id == '___middleClickSettings' || myTarget.id == 'txtTag') {
-                    // Always let clicks work here
-                } else {
-                    simulateClick(document.getElementById("entries-down"));
-                    event.stopPropagation();
-                    event.preventDefault();
+            var b = e.button;
+            if (b === 0) {
+            	// Left Click
+				if (!isClickedOnButton(t)){
+					selectNextEntry();
+                    e.stopPropagation();
+                    e.preventDefault();
                 }
+            }else if (b == 2) {
+                // Right Click
+				selectPreviousEntry();
+                e.stopPropagation();
+                e.preventDefault();
+            }else if (b == 1) {
+            	doMiddleClick();
+                e.stopPropagation();
+                e.preventDefault();
             }
             
-            // Right Click
-            if (clickType == 2) {
-                simulateClick(document.getElementById("entries-up"));
-                event.stopPropagation();
-                event.preventDefault();
-            }
-            
-            // Middle click
-            if (clickType == 1) {
-            
-                // Action here depends on the selection from the
-                // droplist
-                var mySettingsDL = document.getElementById("___middleClickSettings");
-                if (mySettingsDL) {
-                    switch (mySettingsDL.options[mySettingsDL.selectedIndex].value) {
-                        case "openInTab":
-                            openInTab(true);
-                            break;
-                        case "openInBackTab":
-                            openInTab(false);
-                            break;
-                        case "share":
-                            shareItem();
-                            break;
-                        case "star":
-                            starItem();
-                            break;
-                        case "addTag":
-                            tagItem1();
-                            break;
-                    }
-                }
-                event.stopPropagation();
-                event.preventDefault();
-            }
-            
-        } else // Mouse control is off
+        } /*else // Mouse control is off
         {
             // If they clicked on the mouse control button, then turn it
             // on.
-            if (myTarget.id == '___mouseCtrl') {
-                myTarget.value = SL.on;
-                systemStatus = 'On';
-                GM_setValue('rbmStatus', systemStatus);
+			if (isClickedOnButton(t)){
+            //if (t.id == '___mouseCtrl') {
+                t.value = SL.on;
+                setStatus(true);
+            }
+        }*/
+    }, true);
+	
+  // Disable the context menu when Mouse Mode is on.
+    document.addEventListener('contextmenu', function(e){
+        if (_options.status) {
+            // Let clicks on links open the context menu.
+            if (e.target.nodeName.toLowerCase() !== 'a') {
+                e.stopPropagation();
+                e.preventDefault();
             }
         }
     }, true);
-    
+	
+    function doMiddleClick(){
+		switch (_options.middleclick) {
+			case 'openintab':
+				openInTab(true);
+				break;
+			case 'openinbacktab':
+				openInTab(false);
+				break;
+			case 'shares':
+				shareItem();
+				break;
+			case 'stars':
+				starItem();
+				break;
+			case 'addtag':
+				addTag();
+				break;
+		}
+	}
+				
     // Go find the "Open original in tab" element and get the URL for original
     function openInTab(selected){
         openEntryInNewTab(false, selected);
@@ -264,7 +248,6 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
     function shareItem(){
         var current = getCurrentEntry();
         var currentEntry = current.getElementsByTagName("broadcast")[0];
-        // var currentEntry = $("#current-entry .entry-actions .broadcast");
         simulateClick(currentEntry);
     }
     
@@ -272,7 +255,6 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
     function starItem(){
         var current = getCurrentEntry();
         var currentEntry = current.getElementsByTagName("star")[0];
-        // var currentEntry = $("#current-entry .entry-actions .star");
         simulateClick(currentEntry);
     }
     
@@ -281,41 +263,19 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
     function tagItem1(){
         var current = getCurrentEntry();
         var currentEntry = current.getElementsByTagName("entry-tagging-action-title")[0];
-        // var currentEntry = $("#current-entry .entry-actions
-        // .entry-tagging-action-title");
         simulateClick(currentEntry);
     }
     
     // Do the second part of tagging (add the tag and click the save button)
-    function tagItem2(){
+    function addTag(){
         var tagEdit = document.getElementsByTagName("tags-edit");
         var tagEditTags = tagEdit.getElementsByTagName("tags-edit-tags");
-        
-        tagEditTags.innerHTML += txtTag.innerText;
-        /*
-         * $(".tags-edit .tags-edit-tags").val( $(".tags-edit
-         * .tags-edit-tags").val() + $("#txtTag").val()); //
-         * document.getElementById('tags-container-template');
-         *
-         * var popup = $(".tags-edit .tags-edit-buttons")
-         * .find(".goog-button-body"); //
-         * document.getElementById('tags-container-template');
-         */
+        tagEditTags.innerHTML += _options.tag;
         var tagEditButton = tagEdit.getElementsByTagName("tags-edit-buttons")[0];
         var popup = tagEditButton.getElementsByTagName("goog-button-body")[0];
-        
         simulateClick(popup);
     }
     
-    // Disable the context menu when Mouse Mode is on.
-    document.addEventListener('contextmenu', function(event){
-        if (systemStatus == 'On') {
-            // Let clicks on links open the context menu.
-            if (event.target.nodeName.toLowerCase() != 'a') {
-                event.stopPropagation();
-                event.preventDefault();
-            }
-        }
-    }, true);
+	init();
     
 };
