@@ -18,6 +18,7 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 		updateCss(w,he);
 	}
 	reset();
+	enableAnim();
 	
 	function updateCss(w,he){
 		var css = '#entries.cards .entry{width:' + w + 'px;padding:2px!important;}.card-common{margin:0;}#entries.cards .entry .entry-title {font-size:100%!important;}';
@@ -28,7 +29,8 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 		if (asRelative) {
 			css += '#entries.cards.entry{float:left;max-height:300px;}#entries.cards #scroll-filler{float:left;}';
 		} else {
-			css += '#entries.cards .entry{min-width:200px;position:absolute !important;display:none;-webkit-transition:all ' + TIME_TRANSITION + 's ease-in-out;}';
+			css += '#entries.cards .entry{min-width:200px;position:absolute !important;display:none;}';
+			css += '#entries.gridmove.cards .entry{-webkit-transition:all ' + TIME_TRANSITION + 's ease-in-out;}';
 			css += '#entries.cards .entry.portal{display:block !important;}';
 			css += '#entries.cards .entry:not(.portal_maxi) .entry-main{overflow:visible;}';
 			css += '#entries.cards .entry.portal_maxi .entry-main{overflow:auto;}';
@@ -64,10 +66,11 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 			return;
 		}
 		addClass(entry, 'portal_clickonce',true);
-		var m = /entry\-\d+/.exec(entry.className);
-		m=(m && m[0])?m[0]:'last';
+		
+		var m =getEntryNumber(entry,'last');
+		
 		if (memos){
-			//close last opened, notitself
+			//close last opened, not it self
 			iterate(memos,function(id,o){
 				if (id != m) {
 					setMaxi(o.entry, id, false, false);
@@ -185,11 +188,9 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 		if (!asRelative){
 			addClass(entry, 'portal',true);
 			
-			var m = /entry\-(\d+)/.exec(entry.className);
-			var icol = 0;
-			if (m) {
-				icol=parseInt(m[1], 10) % ncolumns;
-			}
+			var m = getEntryNumber(entry);
+			var icol = m % ncolumns;
+			
 			var smallest = false;
 			//get smallest column instead modulo
 			foreach(cols,function(o,i){
@@ -206,19 +207,19 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 		}else{
 			addClass(entry, 'portal');
 		}
-		addClass(entry, 'portal_actions',true);
-		var icon = addIcon(entry, SL.readmore, clickMenu);
-		
-		dh(entry, 'div', {cls:'entry-overflow'});
-		
-		onTextClick(entry, clickMenu, icon);
+		if (!entry.gridified) {
+			addClass(entry, 'portal_actions', true);
+			var icon = addIcon(entry, SL.readmore, clickMenu);
+			dh(entry, 'div', {cls: 'entry-overflow'});
+			onTextClick(entry, clickMenu, icon);
+			entry.gridified = true;
+		}
     }
 	
 	function onTextClick(entry, fn, el){
-		var eb = entry;
-		if (eb){
-			addClass(eb, 'portal_mouse', true);
-			eb.addEventListener('click',function(e){
+		if (entry && !hasClass(entry, 'portal_mouse')){
+			addClass(entry, 'portal_mouse', true);
+			entry.addEventListener('click',function(e){
 				if (e.target.nodeName==='A'){
 					return;
 				}
@@ -253,14 +254,28 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
     //update on entries changes
     registerFeature(gridify, 'portal_grid');
 	
-	function navHidden(hidden){
+	onWindowResize(function(r){
+		resetAll();
+	});
+	
+	function resetAll(hidden){
 		reset();
+		disableAnim();
 		var mode = getMode();
 		forAllEntries(function(el){
 			gridify(el, el, mode);
 		});
+		enableAnim();
 	}
-	detectNavHidden(navHidden);
+	detectNavHidden(resetAll);
+	
+	function disableAnim(){
+		removeClass(entries, 'gridmove');
+	}
+	function enableAnim(){
+		addClass(entries, 'gridmove', true);
+	}
+
 
 };
 GRP.portaltoggle = function(status){
