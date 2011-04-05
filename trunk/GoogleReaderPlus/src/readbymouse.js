@@ -1,7 +1,6 @@
 /**
  * Google Reader - Read by Mouse
- * @version  1.1
- * @date 2009-02-28
+ * @version  2.0
  *
  * Adds a button that toggles Google Reader in and out of a "mouse-only" mode
  * that allows for easy and customizable reading via the mouse buttons
@@ -18,17 +17,6 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
     var _options = {} , btn ;
 	var KEY_OPTIONS = ['status', 'middleclick', 'tag'];
 	
-	SL.readbymouse = 'Read by mouse';
-	SL.status = 'Status';
-	SL.middleclick = ' On middle click: ';
-	SL.tag = 'Separate tags by commas: ';
-	
-	/*
-    var ua = navigator.userAgent.toLowerCase();
-    var isWindows = /windows|win32/.test(ua);
-    var isMClick = (!isWindows || (isWindows && isChromeVersionMini('5.0.342.1')));
-	*/
-	
 	function setStatus(status){
 		_options.status = status;
 		GM_setValue(ID+'_status', _options.status);
@@ -41,10 +29,6 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
         o.status = o.status || false;
 		o.tag = o.tag || '';
         o.middleclick = o.middleclick || o.midClick || 'openintab';
-		
-		console.log('status: '+o.status);
-		console.log('middleclick: '+o.middleclick);
-		console.log('tag: '+o.tag);
         return o;
     }
 	
@@ -60,6 +44,10 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
 	}
 	
     function initInterface(){
+		var btn_id = 'btn-'+ID+'-toggle';
+		if (get_id(btn_id)){
+			return;
+		}
 		var ref = get_id('stream-prefs-menu');
 	    var items = [{
 	        id: 'rbm_middleclick',
@@ -112,8 +100,8 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
             textarea: true,
             value: _options.tag
         }];
-	    btn = addSplitButton(ID+'-split-button', ref, SL.readbymouse, SL.readbymouse, toggleStatus, toggleRbm, 1, items, {autoclose:true});
-		btn.id='btn-'+ID+'-toggle';
+	    btn = addSplitButton(ID+'-split-button', ref, SL.readbymouse, SL.readbymouse + ' [Ctrl+Z]', toggleStatus, toggleRbm, 1, items, {autoclose:true});
+		btn.id=btn_id;
 	    addClassIf(btn, 'goog-button-base-open', _options.status);
 		
 		function toggleRbm(menu){
@@ -142,36 +130,19 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
 	
     // Add listener for key press (toggles Mouse on and off)
     document.addEventListener('keydown', function(e){
-        if (e.ctrlKey && e.which == 90) {
+        //Ctrl+Z
+		if (e.ctrlKey && e.which == 90) {
             setStatus(!_options.status);
         }
     }, false);
-    /*
-    // Add listener for mouse clicks
-    document.addEventListener('click', function(e){
-         var b = e.button;
-		//console.log('e.button:' + e.button);
-
-        if (b == 1 && _options.status) {
-            // Middle click
-            if (e.target.nodeName.toLowerCase() == 'a') {
-                return;
-            }
-            
-			if (_options.middleclick=='addtag'){
-				addTag();
-			}
-			
-            e.stopPropagation();
-            e.preventDefault();
-        }
-        
-    }, true);
-    */
 	
     // Add listener for mousedown
     document.addEventListener('mousedown', function(e){
         var t = e.target;
+		if (e.altKey){
+			return ;
+		}
+		
         if (_options.status) {
             // If they click on a link, let the link work like normal
             if (t.nodeName.toLowerCase() == 'a') {
@@ -196,16 +167,7 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
                 e.preventDefault();
             }
             
-        } /*else // Mouse control is off
-        {
-            // If they clicked on the mouse control button, then turn it
-            // on.
-			if (isClickedOnButton(t)){
-            //if (t.id == '___mouseCtrl') {
-                t.value = SL.on;
-                setStatus(true);
-            }
-        }*/
+        }
     }, true);
 	
   // Disable the context menu when Mouse Mode is on.
