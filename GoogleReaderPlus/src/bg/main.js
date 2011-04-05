@@ -152,14 +152,13 @@ function fixCloudItem(item, o,r,a){
 		if (item.id) {
 			var key = item.data[a.key];
 			//url,search,replace
-			var canRemove=false, b = false;
-			if (a.fixkeyonly){
+			var canRemove=a.okremove, b = false;
+			if (a.keycomp){
 				//key compare only
 				b = (key==o.data[a.key]);
 			}else{
 				//Complete compare
 				b = (compareObject(item.data, o.data));				
-				canRemove=true;
 			}
 			
 			if (b) {
@@ -168,18 +167,16 @@ function fixCloudItem(item, o,r,a){
 				CLOUD.counts.v[key].push(item);
 				
 				if (!a.fixfilter || (a.fixfilter && new RegExp(a.fixfilter,'i').test(key))){
-					if (CLOUD.counts.doublons < 100) {
-						CLOUD.counts.doublons++;
-						console.log(CLOUD.counts.doublons+' {'+a.fixfilter+'} : remove '+item.id);
+					CLOUD.counts.doublons++;
+					if (canRemove && CLOUD.counts.doublons < 100) {
+						console.log(CLOUD.counts.doublons+' {'+a.fixfilter+'} : remove '+item.id+ ' - ' + key);
 						//console.log(item);
-						if (canRemove) {
-							r.item.remove(item, function(){
-								CLOUD.counts.done++;
-								if (CLOUD.counts.done == CLOUD.counts.doublons) {
-									console.log('************ All remove completed');
-								}
-							});
-						}
+						r.item.remove(item, function(){
+							CLOUD.counts.done++;
+							if (CLOUD.counts.done == CLOUD.counts.doublons) {
+								console.log('************ All remove completed');
+							}
+						});
 					}
 				}
 			} else {

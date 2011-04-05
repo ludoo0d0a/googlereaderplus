@@ -10,14 +10,16 @@ function fixCloud(name, key){
 	}
 	
 	var ff = get_id(name.toLowerCase()+'_fixfilter');
-	var fko = get_id(name.toLowerCase()+'_fixkeyonly');
+	var fko = get_id(name.toLowerCase()+'_keycomp');
+	var frm = get_id(name.toLowerCase()+'_okremove');
 	mycore.extension.sendRequest({
 	        message: "clouddata",
 			name: name,
 			key:key,
 			fix:true,
 			fixfilter:ff.value,
-			fixkeyonly:fko.value
+			keycomp:fko.value,
+			okremove:frm.value
 	    }, function(a){
 			console.log('************ Fix done for ['+(a.doublons||'')+'] duplicate items!');
 	    });
