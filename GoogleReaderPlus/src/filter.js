@@ -46,6 +46,11 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         var css_ui = ".menu-filter-static{position:absolute;right:30px;top:22px;z-index:9;}";
         GM_addStyle(css_ui, 'rps_filter_ui');
         
+		var btn_id = 'btn-'+ID+'-toggle';
+		if (get_id(btn_id)){
+			return;
+		}
+		
         var ref = get_id('stream-prefs-menu');
         var items = [{
             id: 'excludes',
@@ -112,6 +117,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
             close: true
         }];
         var btn = addSplitButton('filter-split-button', ref, SL.filter, SL.filter, toggleFilter, false, 1, items);
+		btn.id=btn_id;
         addClassIf(btn, 'goog-button-base-open', toggleStatus);
         
         function toggleFilter(){
@@ -443,7 +449,9 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         });
         //concat multiple spaces, then set them as OR for now (ANd in google expr)
         r = r.replace(/\s+/g, ' ');
-		//r = r.replace(/\s/g, '|');
+		//trim
+		r = r.replace(/^\s+/, '').replace(/\s+^$/, '');
+		r = r.toLowerCase();
 		
 		var terms = r.split(' ');
 		var o = {rx:[]};
@@ -473,40 +481,41 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
     }
     
     function checkEntry(content, element, rx, className, mode){
-        if (rx) {
-            /*if (typeof rx !== "object") {
-                rx = [rx];
-            }*/
+		var matched = false;
+		if (rx) {
 			for (var i = 0, len = rx.length; i < len; i++) {
-				var o=rx[i];
+				var o = rx[i];
 				if (o.rx && !o.rx.test(content.text)) {
-                    return false;
-                }
-				//Metadata?
-				if (o.date && !o.date.test(content.date)){
-					//bad data
-					return false;
+					continue; //return false;
 				}
-				if (o.feed && !o.feed.test(content.feed)){
+				//Metadata?
+				if (o.date && !o.date.test(content.date)) {
+					//bad data
+					continue; //return false;
+				}
+				if (o.feed && !o.feed.test(content.feed)) {
 					//bad feed
-					return false;
+					continue; //return false;
 				}
 				if (mode === 'expanded') {
 					//Not in listview
 					if (o.author && !o.author.test(content.author)) {
 						//bad author
-						return false;
+						continue; //return false;
 					}
 					if (o.tag && !o.tag.test(content.tag)) {
 						//bad tag
-						return false;
+						continue; //return false;
 					}
 				}
-            }
-            addClass(element, className);
-            return true;
+				matched = true;
+				break;
+			}
+			if (matched) {
+				addClass(element, className);
+			}
         }
-        return false;
+        return matched;
     }
     
 	
