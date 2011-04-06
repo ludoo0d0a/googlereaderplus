@@ -129,21 +129,18 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
                     // iframe already in document, display it
                     updateFrame(iframe, entry);
                 } else {
-					dh(ebody, 'div',{cls:'if-loader', html:'<div class="if-loader-text">'+SL.overlay_loading+'</div>'},
+					dh(ebody, 'div',{cls:'if-loader if-loader-inside', html:'<div class="if-loader-text">'+SL.overlay_loading+'</div>'},
 					{click: function(){
 						stopLoading(ebody);
 					}});
-					startLoading(ebody);
+					startLoading(ebody, true);
 					
 					// iframe not in document, create it
 					iframe = document.createElement('iframe');
                     iframe.className = 'if-preview';
-					/*setTimeout(function(){
-						stopLoading(ebody);
-					},2000);
 					iframe.addEventListener('load',function(){
 						stopLoading(ebody);
-					}, true);*/
+					}, true);
                     updateFrame(iframe, entry);
                     setIframesize(iframe);
                     ebody.appendChild(iframe);
@@ -169,9 +166,14 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
 			removeClass((overlay) ? overlay.content : el, 'pov_loading');
 		}
 	}
-	function startLoading(el){
+	function startLoading(el, useTimeout){
 		if (_loading) {
 			addClass((overlay) ? overlay.content : el, 'pov_loading');
+			if (useTimeout) {
+				setTimeout(function(){
+					stopLoading(el);
+				}, 2000);
+			}
 		}
 	}
 	
@@ -204,7 +206,7 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
         } else {
             //get url fron hidden link
 			if (url!==iframe.src){
-				startLoading();
+				startLoading(false, true);
 				iframe.src = url;
 			}
         }
@@ -281,7 +283,7 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
                 id: 'pov_content'
             });
 			overlay.loader= dh(overlay.content, 'div',{
-				cls:'if-loader',
+				cls:'if-loader if-loader-overlay',
 				html:'<div class="if-loader-text">'+SL.overlay_loading+'</div>'
 			},{
 				click: function(){
@@ -292,7 +294,7 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
                 src: ''
             });
 			overlay.iframe.addEventListener('load',function(){
-				removeClass(overlay.content,'pov_loading');
+				stopLoading();
 			}, true);
         }
 		if (entry) {
@@ -301,7 +303,9 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
         overlay.content.style.height = (window.innerHeight - 40) + 'px';
         overlay.content.style.width = (window.innerWidth - 40) + 'px';
         overlay.iframe.setAttribute('width', (window.innerWidth - 40) + 'px');
-        overlay.iframe.setAttribute('height', (window.innerHeight - 80) + 'px');
+		var wh = window.innerHeight - 80;
+        overlay.iframe.setAttribute('height', wh + 'px');
+		overlay.loader.setAttribute('height', wh + 'px');
 		showoverlay();
     }
     function hideoverlay(){
@@ -370,7 +374,9 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
 		css += "#pov_next{position:absolute;right:40px;top:45px;background:url(" + GRP.IMAGES_PATH + "/next1.png);width:24px;height:24px;z-index:15002;cursor:pointer;}";
 		css += "#pov_previous{position:absolute;right:70px;top:45px;background:url(" + GRP.IMAGES_PATH + "/prev1.png);width:24px;height:24px;z-index:15002;cursor:pointer;}";
 		css += "#pov_close{position:absolute;right:8px;top:45px;background:url(" + GRP.IMAGES_PATH + "/close2.png);width:24px;height:24px;z-index:15002;cursor:pointer;}";
-		css += '.if-loader{position:absolute;height:' + h + 'px;width:95%;font-size:20px;font-weight:bold;text-align:center;background-color:#000;opacity:0.5;z-index:999;}';
+		css += '.if-loader{position:absolute;font-size:20px;font-weight:bold;text-align:center;background-color:#000;z-index:999;}';
+		css += '.if-loader.if-loader-inside{height:' + h + 'px;width:95%;opacity:0.5;}';
+		css += '.if-loader.if-loader-overlay{margin-top:40px;height:95%;width:100%;opacity:0.3;}';
 		css += '.if-loader-text{margin-top:300px;color:white;}';
 		css += '#pov_content.pov_loading .if-preview,.entry-body.pov_loading .if-preview{opacity:0.3;-webkit-transition: all 0.2s ease-in-out;}';
 		css += '#pov_content:not(.pov_loading) .if-loader, .entry-body:not(.pov_loading) .if-loader{display:none;-webkit-transition: all 0.2s ease-in-out;}';
