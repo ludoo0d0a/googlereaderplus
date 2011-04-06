@@ -1,13 +1,13 @@
 
 function getValue(a, cb){
-	var prefs = readPrefs(a);
+	var prefs = readPrefs();
 	var value = prefs[a.name];
 	if (isFunction(cb)){
-		cb(prefs[a.name]);
+		cb(value);
 	}
 }
 function setValue(a, cb){
-	var prefs = readPrefs(a);
+	var prefs = readPrefs();
 	prefs[a.name]=a.value;
 	savePrefs(prefs);
 	if (isFunction(cb)) {
@@ -15,7 +15,7 @@ function setValue(a, cb){
 	}
 }
 function removeValue(a, cb){
-	var prefs = readPrefs(a);
+	var prefs = readPrefs();
 	delete prefs[a.name];
 	savePrefs(prefs);
 	if (isFunction(cb)) {
@@ -40,7 +40,7 @@ function setPreferences(a){
     setPrefs(a.prefs, a.cleanall);
 }
 
-function readPrefs(prefs){
+function readPrefs(){
     return mycore.storage.getItem('grp_prefs');
 }
 
