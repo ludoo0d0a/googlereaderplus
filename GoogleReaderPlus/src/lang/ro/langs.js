@@ -59,18 +59,18 @@ GRP.langs[locale].texts = {
         plslogin: 'Vă rog să vă autentificaţi în Instapaper',
         login: 'Email sau nume de utilizator:'
     },
-﻿  readitlater: {
+   readitlater: {
         text: 'Citeşte mai târziu în ReadItLater',
         keyword: 'ReadItLater',
         plslogin: 'Vă rog să vă autentificaţi în ReadItLater',
         rateexceeded: 'Limita ratei depăşită, încercaţi mai târziu vă rog',
         maintenance: 'Serverul de sincronizare Read It Later nu e disponibil din cauza lucrărilor de mentenanţă planificate.'
     },
-﻿  radbox: {
+    radbox: {
         text: 'Citeşte mai târziu în Radbox',
         keyword: 'Radbox',
         nologin: 'Această opţiune necesită un nume de utilizator, ajustaţi setările!!',
-﻿  ﻿  	novideo: 'Această pagină nu conţine nici un video'
+        novideo: 'Această pagină nu conţine nici un video'
     },
     favicons: {
         preferences: 'Setări',
@@ -94,21 +94,21 @@ GRP.langs[locale].texts = {
         close: 'Închide',
         edit: 'Modifică',
         remove: 'Şterge',
-﻿  ﻿  //v2
-﻿  ﻿  filter: 'Filtru',
-﻿      save: 'Memorizează şi aplică',
-﻿      close: 'Închide menu',
-﻿      searchbody: 'Caută în întreg conţinutul textului',
-﻿      hide_duplicates: 'Ascunde duplicatele',
-﻿      hide_excludes: 'Ascunde Excluderile',
-﻿      prefer_highlight: 'Prioritate Evidenţieri faţă de Excluderi',
-﻿      highlights: 'Evidenţieri',
-﻿      duplicates: 'Duplicate',
-﻿      excludes: 'Excluderi',
-﻿      content: 'Conţinut',
-﻿      addentry: 'Adaugă',
-﻿      add_excludes: 'Adaugă ca Excluderi',
-﻿      add_highlights: 'Adaugă ca Evidenţieri'
+		//v2
+		filter: 'Filtru',
+       save: 'Memorizează şi aplică',
+       close: 'Închide menu',
+       searchbody: 'Caută în întreg conţinutul textului',
+       hide_duplicates: 'Ascunde duplicatele',
+       hide_excludes: 'Ascunde Excluderile',
+       prefer_highlight: 'Prioritate Evidenţieri faţă de Excluderi',
+       highlights: 'Evidenţieri',
+       duplicates: 'Duplicate',
+       excludes: 'Excluderi',
+       content: 'Conţinut',
+       addentry: 'Adaugă',
+       add_excludes: 'Adaugă ca Excluderi',
+       add_highlights: 'Adaugă ca Evidenţieri'
     },
     fitheight: {
         text: 'Fit height',
@@ -116,7 +116,7 @@ GRP.langs[locale].texts = {
     },
     jump: {
         text: 'Sari',
-﻿      textbottom: 'Sari în jos',
+       textbottom: 'Sari în jos',
         texttop: 'Sari în sus',
         keywordtop: 'sus'
     },
@@ -162,9 +162,9 @@ GRP.langs[locale].texts = {
         label: 'Extra',
         showallfolders: 'Afişează toate mapele'
     },
-﻿  actions:{
-﻿  ﻿  text:'Iconiţele acţiunilor'
-﻿  }
+   actions:{
+      text:'Iconiţele acţiunilor'
+   }
 };
 GRP.langs[locale].prefs = {
     global: {
@@ -237,7 +237,7 @@ GRP.langs[locale].prefs = {
         count: "Numărul coloanelor",
         locked: "Activat permanent, cu excepţia următoarelor feed-uri:",
         pagebreak: "Sparge articolele lungi ca ele să poată fi citite pagină după pagină asemeni unui ziar.",
-﻿  ﻿  	miniparas: "Numărul minim de paragrafe înainte de a fi spart în coloane",
+      	miniparas: "Numărul minim de paragrafe înainte de a fi spart în coloane",
         entersite: "Introduceţi URL-ul site-ului"
     },
     translate: {
@@ -263,15 +263,15 @@ GRP.langs[locale].prefs = {
         username: "Nume utilizator::",
         password: "Parolă:"
     },
-﻿  radbox: {
+   radbox: {
         auth: "<a href='http://radbox.me/account/user/register' target='blank'>Autentificare</a> <a href='http://www.radbox.me' target='blank'>Radbox</a> (obligatoriu):",
         username: "Userkey:"
     },
     colorful: {
         tree: "Arată culorile etichetei în stânga arborelui de navigare",
-﻿  ﻿  usebasecolor: "Utilizează următoarele culori de bază :",
-﻿  ﻿  background: "Culoare fundal",
-﻿  ﻿  color:"Culoare text"
+      usebasecolor: "Utilizează următoarele culori de bază :",
+      background: "Culoare fundal",
+      color:"Culoare text"
     },
     general: {
         counter: "Afişează contorul de mesaje necitite in iconiţa din bara de instrumente",
