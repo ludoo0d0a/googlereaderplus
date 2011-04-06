@@ -348,7 +348,7 @@ separator: "Separatorul de extra nivele (exemplu: Sport:Fotbal)."
     },
     replacer: {
         intro: '<a href="http://code.google.com/p/googlereaderplus/wiki/ReplacerHowto" target="blank">Ajutor despre cum se utilizează replacer-ul</a>',
-        cloud: 'Utilizaţi extensii online de la <a href="http://wedata.net/databases/LDRFullFeed/items" target="blank">wedata/LDRFullFeed</a> şi baza de date cloud <a href="http://wedata.net/databases/Replacer/items" target="blank">wedata/Replacer</a>',
+        cloud: 'Utilizaţi extensii online de la baza de date cloud <a href="http://wedata.net/databases/Replacer/items" target="blank">wedata/Replacer</a>',
         link: "Link-ul Regex",
         from: "Căutare regex/xpath/css",
         to: "Înlocuire",

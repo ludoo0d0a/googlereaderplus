@@ -306,7 +306,7 @@ cloud: 'Utilizar uma base de dados em nuvem <a href="http://wedata.net/databases
     },
     replacer: {
 intro: '<a href="http://code.google.com/p/googlereaderplus/wiki/ReplacerHowto" target="blank">Ajuda de como utilizar o substituidor</a>',
-cloud: 'Utiliza expressões online expressions de <a href="http://wedata.net/databases/LDRFullFeed/items" target="blank">wedata/LDRFullFeed</a> e <a href="http://wedata.net/databases/Replacer/items" target="blank">wedata/Replacer</a> da base de dados em nuvem',
+cloud: 'Utiliza expressões online expressions de <a href="http://wedata.net/databases/Replacer/items" target="blank">wedata/Replacer</a> da base de dados em nuvem',
         link: "Link Regex",
         from: "Procura regex/xpath",
         to: "Substitui",
