@@ -397,7 +397,7 @@ separator: "Separator to add extra level (example: Sports:Footbal)."
     },
     replacer: {
         intro: '<a href="http://code.google.com/p/googlereaderplus/wiki/ReplacerHowto" target="blank">Help on how to use replacer</a>',
-        cloud: 'Use online expressions from <a href="http://wedata.net/databases/LDRFullFeed/items" target="blank">wedata/LDRFullFeed</a> and <a href="http://wedata.net/databases/Replacer/items" target="blank">wedata/Replacer</a> cloud database',
+        cloud: 'Use online expressions from <a href="http://wedata.net/databases/Replacer/items" target="blank">wedata/Replacer</a> cloud database',
         link: "Link Regex",
         from: "Search regex/xpath/css",
         to: "Replace",

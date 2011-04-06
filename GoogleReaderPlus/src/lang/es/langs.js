@@ -312,7 +312,7 @@ separator: "Separador para añadir niveles adicionales (ejemplo: Deportes:Fútbo
     },
     replacer: {
         intro: '<a href="http://code.google.com/p/googlereaderplus/wiki/ReplacerHowto" target="blank">Ayuda sobre cómo usar replacer</a>',
-        cloud: 'Usar expresiones de la base en línea <a href="http://wedata.net/databases/LDRFullFeed/items" target="blank">wedata/LDRFullFeed</a> y <a href="http://wedata.net/databases/Replacer/items" target="blank">wedata/Replacer</a>',
+        cloud: 'Usar expresiones de la base en línea <a href="http://wedata.net/databases/Replacer/items" target="blank">wedata/Replacer</a>',
         link: "Enlazar Regex",
         from: "Buscar regex/xpath/css",
         to: "Remplazar con",

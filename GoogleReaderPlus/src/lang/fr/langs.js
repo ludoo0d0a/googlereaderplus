@@ -394,7 +394,7 @@ separator: "Separateur pour des nieaux supplémentaires (exemple: Sports:Footbal
     },
     replacer: {
         intro: '<a href="http://code.google.com/p/googlereaderplus/wiki/ReplacerHowto" target="blank">Aide sur l\'utilisation de replacer</a>',
-        cloud: 'Utiliser les expressions de la base en ligne <a href="http://wedata.net/databases/LDRFullFeed/items" target="blank">wedata/LDRFullFeed</a>  et <a href="http://wedata.net/databases/Replacer/items" target="blank">wedata/Replacer</a>',
+        cloud: 'Utiliser les expressions de la base <a href="http://wedata.net/databases/Replacer/items" target="blank">wedata/Replacer</a>',
         link: "Sites",
         from: "Rechercher regex/xpath/css",
         to: "Remplacer par",
