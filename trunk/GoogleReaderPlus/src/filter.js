@@ -367,6 +367,14 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
                     onUpdate();
                 }
             }
+			function setMenuTitle(){
+				setMenuWords(true);
+			} 
+			function setMenuWords(asTitle){
+				var content = getContentEntry(entry);
+				var v = asTitle?content.text:getWords(content.text, miniWord);
+				setValue('t_e_content', v);
+			}			
             
             var items = [{
                 id: 'e_content',
@@ -376,6 +384,14 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
                 cols: 50,
                 value: ''
             }, {
+                id: 'e_gettitle',
+                text: SL.gettitle,
+                click: setMenuTitle            
+			},{
+                id: 'e_getwords',
+                text: SL.getwords,
+                click: setMenuWords
+            },{
                 sep: true
             }, {
                 id: 'e_add_excludes',
@@ -396,9 +412,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         }
         toggleMenu(entrymenu, el, null, null, function(visible){
             if (visible) {
-                var content = getContentEntry(entry);
-                var words = getWords(content.text, miniWord);
-                setValue('t_e_content', words);
+                setMenuWords();
             }
         });
     }
@@ -443,7 +457,8 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
     
     var reQuotedExpr = /"[^"]*"/g, reQuote = /^"|"$/g;
     function parseExpression(expr){
-        var r = expr.replace(reQuotedExpr, function(all){
+        //TODO: Do not escape group here->use tree
+		var r = expr.replace(reQuotedExpr, function(all){
             var group = all.replace(reQuote, '');
             return '(' + encodeRE(group) + ')';
         });
