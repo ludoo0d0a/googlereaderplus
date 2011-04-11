@@ -695,6 +695,8 @@ function addBottomLink(el, text, title, script, cls, button, callback, locked, e
     span.className = 'grp-btn btn-' + script + ' ' + cls + (button ? ' read-state-not-kept-unread read-state' : '') + ' link unselectable';
     span.innerHTML = text;
     span.title = title;
+	//+wbr
+	el.appendChild(document.createElement('wbr'));
     el.appendChild(span);
     var lcked = locked;
     function onClick(e){

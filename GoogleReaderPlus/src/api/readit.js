@@ -13,7 +13,7 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
     function addButton(el, entry, mode){
         var title = SL.text + formatShortcut(ID, 'share', prefs);
         var text = (prefs && prefs.general_icons) ? '' : (SL.keyword || ID);
-        addBottomLink(el, text, title, ID, 'item-share star', false, readitlaterClick, false, entry, mode);
+        addBottomLink(el, text, title, ID, 'item-share share-star', false, readitlaterClick, false, entry, mode);
     }
     function addKey(){
         onKey('btn-' + ID, readitlaterClick);

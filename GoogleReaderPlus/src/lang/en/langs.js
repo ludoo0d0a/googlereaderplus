@@ -191,6 +191,10 @@ GRP.langs[locale].texts = {
 	},
 	portal:{
 		readmore: 'Read more (Ctrl+click to show actions)'
+	},
+	stars:{
+		text:'Multiple stars',
+		keyword:'Stars'
 	}
 };
 GRP.langs[locale].prefs = {

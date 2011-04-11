@@ -768,7 +768,10 @@ function getStyle(el, property){
 }
 
 function simulateClick(node){
-    var event = node.ownerDocument.createEvent("MouseEvents");
+    if (!node){
+		return false;
+	}
+	var event = node.ownerDocument.createEvent("MouseEvents");
     event.initMouseEvent("click", true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
     /* ReadByMouse
  event.initMouseEvent("click", true, // can bubble

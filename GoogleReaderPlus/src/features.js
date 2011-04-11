@@ -822,7 +822,6 @@ identi: {
 	prefetch: {
         name: "Prefetch",
         category: 'layout',
-        
         options: {
             first: 25,
 			next: 15,
@@ -835,6 +834,24 @@ identi: {
         
         options: {
             separator: ":"
+        }
+    },
+	stars: {
+        name: "Multiple stars",
+        category: 'layout',
+		/*options: {
+           
+        },*/
+        shortcuts: {
+            'star': {
+                id: 'star',
+                title: 'Toggle multiple stars',
+                key: {
+                    //83 alt+S
+                    keyCode: 83,
+                    altKey: true
+                }
+            }
         }
     },
     replacer: {
