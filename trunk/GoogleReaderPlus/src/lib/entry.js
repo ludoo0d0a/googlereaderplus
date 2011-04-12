@@ -667,21 +667,20 @@ function addButton(reference, text, title, fn, position, menu){
 	return div;
 }
 
-function addIcon(entry, title, fn){
-	var div=false, elicons = getFirstElementByClassName(entry, 'entry-icons');
+function addIcon(entry, title, fn, cls){
+	var el=false, elicons = getFirstElementByClassName(entry, 'entry-icons');
 	if (elicons) {
-		div = document.createElement('div');
-		div.title = title;
-		addClass(div, 'section-button section-menubutton');
-		//addClass(div, 'item-star star link unselectable empty');
-		elicons.appendChild(div);
+		el = document.createElement('div');
+		el.title = title;
+		addClass(el, cls|| 'section-button section-menubutton');
+		elicons.appendChild(el);
 		var me =this;
-		div.addEventListener('click', function(e){
+		el.addEventListener('click', function(e){
 			e.stopPropagation();
-			fn.call(me, entry, div);
+			fn.call(me, entry, el);
 		}, false);
 	}
-	return div;
+	return el;
 }
 
 function onKey(cls, fn){
@@ -690,19 +689,21 @@ function onKey(cls, fn){
     fn.call(this, btn, entry);
 }
 
-function addBottomLink(el, text, title, script, cls, button, callback, locked, entry, mode){
+function addBottomLink(el, text, title, script, cls, button, callback, locked, entry, mode, position){
     var span = document.createElement('span');
     span.className = 'grp-btn btn-' + script + ' ' + cls + (button ? ' read-state-not-kept-unread read-state' : '') + ' link unselectable';
     span.innerHTML = text;
     span.title = title;
-	//+wbr
-	el.appendChild(document.createElement('wbr'));
-    el.appendChild(span);
-    var lcked = locked;
+	insertOn(span, el, position);
+	
+	//+wbr before span
+	insertBefore(document.createElement('wbr'), span);
+		
+    var _locked = locked, _entry = entry;
     function onClick(e){
         var btn = e.target;
-        var entry = findParentNode(el, 'div', 'entry');
-        callback(btn, entry, lcked, e);
+        //var entry = findParentNode(el, 'div', 'entry');
+        callback(btn, _entry, _locked, e);
     }
     span.addEventListener('click', onClick, false);
     if (locked) {
@@ -930,6 +931,70 @@ function removeReadItems(ent, deleteMarkAsRead){
 	setTimeout(function(){
     	jump(currentry, true);
 	},200);
+}
+
+function updateTags(entry, reTag, newTag){
+	//Set tag
+	var tags = getTags(entry);
+	for (var i = 0, len = tags.length; i < len; i++) {
+		if (reTag.test(tags[i])) {
+			tags[i] = '';
+		}
+	}
+	if (newTag) {
+		tags.push(newTag);
+	}
+	tags = tags.join(',').replace(/^,+/, '').replace(/,+$/, '');
+	setTags(entry, tags);
+}
+
+function setTags(entry, tags){
+	//tags-edit
+	addClass(entries, 'set-tag', true);
+	var tim=0, te = getFirstElementByClassName(entries, 'tags-edit');
+	if (!te){
+		var opentags = getFirstElementByClassName(entry, 'entry-tagging-action-title');
+		simulateClick(opentags);
+		tim=500;
+	}
+	setTimeout(function(){
+		te = getFirstElementByClassName(entries, 'tags-edit');
+		if (te) {
+			var txttags = getFirstElementByClassName(te, 'tags-edit-tags');
+			if (txttags) {
+				txttags.value = tags;
+				var tok = getFirstElementByClassName(entries, 'tags-edit-save');
+				simulateClick(tok);
+				removeClass(entries, 'set-tag');
+			}
+		}else{
+			removeClass(entries, 'set-tag');
+		}
+	},tim);
+}
+
+function markAsStar(entry, status){
+	var ei = getFirstElementByClassName(entry,'entry-icons');
+	var is = getFirstElementByClassName(ei,'star');
+	var isStarred = hasClass(is, 'item-star-active');
+	if ((typeof status === 'undefined' && isStarred) || (status !== isStarred)) {
+		var hidden = (is.style && is.style.display=='none');
+		if (hidden){
+			show(is);
+		}
+		simulateClick(is);
+		if (hidden){
+			hide(is);
+		}
+	}
+}
+
+function isStarred(entry){
+	var esa=false, ei = getFirstElementByClassName(entry, 'entry-icons');
+	if (ei) {
+		esa = getFirstElementByClassName(ei, 'item-star-active');
+	}
+	return !!esa;
 }
 
 function markasread(entry){
