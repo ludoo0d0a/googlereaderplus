@@ -373,10 +373,10 @@ function insertFirst(el, ref){
     }
 }
 function insertOn(el, ref, position){
-	if (position=='before' || position == 1) {
+	if (position=='after' || position == 1) {
 		//after
 		insertAfter(el, ref);
-	} else if (position=='after' || position == 2) {
+	} else if (position=='before' || position == 2) {
 		//before
 		insertBefore(el, ref);
 	}else if (position=='first' || position == 3) {
@@ -1594,4 +1594,13 @@ function getValue(id, def){
 		value=el.value;
 	}
 	return value;
+}
+
+var _ti={};
+function setOnceTimeout(cb, t, id){
+	id=id||'t';
+	if (_ti[id]){
+		clearTimeout(_ti[id]);
+	}
+	_ti[id] = setTimeout(cb, t);
 }
