@@ -216,8 +216,7 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
     // Go find the "star item" button and simulate a click on it
     function starItem(){
         var current = getCurrentEntry();
-        var currentEntry = current.getElementsByTagName("star")[0];
-        simulateClick(currentEntry);
+        markAsStar(entry, true);
     }
     
     // Do the first part of tagging (click the tag button to reveal the tag
