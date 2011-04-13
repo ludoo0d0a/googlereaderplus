@@ -125,15 +125,17 @@ function loadCruds(id){
             '<tfoot><tr><td colspan="{{colspan}}"><em>{{desc}}</em></td>' +
             '<td><a id="t_{{$name}}_add" class="add" href="javascript:add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
             '<tbody>{{#rows}} ' +
-            '<tr><td>{{.}}</td><td><span class="url_replacer">{{url}}</span><br/>{{search}}<br/>{{replace}}</td>' +
+            '<tr><td><a href="http://wedata.net/items/{{id}}" target="_blank">{{id}}</a></td><td>{{.}}</td><td><span class="url_replacer">{{url}}</span><br/>{{search}}<br/>{{replace}}</td>' +
             '<td><a class="action" id="t_{{$name}}_edit" href="javascript:add(\'{{$name}}\', \'{{.}}\');">{{txt_edit}}</a></td>' +
             '<td><a class="action" id="t_{{$name}}_remove" href="javascript:remove(\'{{$name}}\', \'{{.}}\');">{{txt_remove}}</a></td>' +
             '</tr>{{/rows}}</tbody></table>',
             data: {
                 name: 'replacer',
                 ico: false,
-                colspan: 3,
-                headers: [gp(lang, 'replacer', 'title'), gp(lang, 'replacer', 'link') + '; ' + gp(lang, 'replacer', 'from') + '; ' + gp(lang, 'replacer', 'to'), 'edit', 'remove'],
+                colspan: 4,
+				save:true,
+                //headers: [gp(lang, 'replacer', 'title'), gp(lang, 'replacer', 'link') + '; ' + gp(lang, 'replacer', 'from') + '; ' + gp(lang, 'replacer', 'to'), 'edit', 'remove'],
+				headers: [ 'id', 'title', 'link', 'edit', 'remove'],
                 summary: getText(lang, 'replacer', 'summary'),
                 desc: getText(lang, 'replacer', 'desc'),
                 txt_add: getText(lang, 'filter', 'add'),
@@ -200,6 +202,22 @@ function loadCRUD(id, o){
         //html = fillTemplate(o);
         html = Mustache.to_html(o.tpl, o.data);
         el.innerHTML = html;
+		
+		if (o.data.save) {
+			dh(el, 'button', {
+				text: 'save in the cloud'
+			}, {
+				click: function(){
+					mycore.extension.sendRequest({
+						message: "savecloud",
+						db: id
+					}, function(a){
+						info('cloud save done');
+					});
+					return false;
+				}
+			});
+		}
     }
 }
 
@@ -306,7 +324,7 @@ function addfavicon(urlin){
     icon = prompt(promptUrl, icon);
     if (icon === '') {
         //go to find
-        chrome.extension.sendRequest({
+        mycore.extension.sendRequest({
             message: "geticon",
             url: url
         }, function(a){
@@ -382,20 +400,24 @@ function addReplacerItems(id, key){
 	}
 	
 	if (replace) {
-		saveReplacerNext(title, url, search, replace);
+		var newItem = {
+			url: url,
+			search: search,
+			replace: replace
+		};
+		if (def.id) {
+			newItem.id = def.id;
+		}
+		saveReplacerNext(title, newItem);
 	}
 	
 }
 
-function saveReplacerNext(title, url, search, replace){
+function saveReplacerNext(title, newItem){
     if (!prefs.replacer_items) {
         prefs.replacer_items = {};
     }
-    prefs.replacer_items[title] = {
-        url: url,
-        search: search,
-        replace: replace
-    };
+    prefs.replacer_items[title] =newItem;
 	prefs._replacer_changed=true;
     loadCRUD('replacer_items');
 }
