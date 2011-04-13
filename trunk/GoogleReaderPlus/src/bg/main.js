@@ -36,15 +36,15 @@ function activePageAction(mprefs){
 
 function runOnSave(mprefs){
     var prefs = mprefs || getPrefs();
-    var rc = prefs._replacer_changed;
+    //var rc = prefs._replacer_changed;
     delete prefs._replacer_changed;
     monitorIcon(prefs);
     sendPrefsToIcon(prefs);
     activePageAction(prefs);
     //sure we changed replacer items and click save
-    if (mprefs && rc) {
+    /*if (mprefs && rc) {
         sendReplacerToCloud(prefs);
-    }
+    }*/
 }
 
 runOnSave();
@@ -103,6 +103,10 @@ function onMessageReceived(a, p, cb){
         postblogger(a,cb);
     }else if (a.message == "popupblogger") {
         popupBlogger(a,cb);
+    }else if (a.message == "savecloud") {
+        if (a.db === "replacer_items") {
+			sendReplacerToCloud();
+		}
     }
 }
 
@@ -190,7 +194,11 @@ function fixCloudItem(item, o,r,a){
 }
 
 function getCloudData(a, cb, mapper){
-	var mirror=!a.fix;//If fix no mirror, direct access
+	var mirror=!a.direct;
+	if (a.fix){
+		//If fix no mirror, direct access
+		mirror=true;
+	}
 	var r = new GRP.api_rest(a.name, true, mirror);
 	
 	//Load wedata cloud data
@@ -220,7 +228,6 @@ function getCloudData(a, cb, mapper){
 				console.log(CLOUD.counts.kv);		
 				sendResponse(CLOUD.counts, cb);
 			} else {
-			
 				//store it now as cache (needs timestamp)
 				mycore.storage.setItem('grp_cloud_' + a.name, selectors);
 				console.log('Store Cloud DB ' + a.name + ' : ' + i + ' items');
@@ -232,38 +239,60 @@ function getCloudData(a, cb, mapper){
 	
 }
 
-function sendReplacerToCloud(prefs){
-    if (!prefs.replacer_cloud){
+function sendReplacerToCloud(mprefs){
+    var prefs = mprefs || getPrefs();
+	if (!prefs.replacer_cloud || !prefs._replacer_changed){
 		//abort
+		alert('No changes found or cloud saving disabled');
 		return;
 	}
+		
 	console.log('sendReplacerToCloud items...');
     var r = new GRP.api_rest('Replacer', true);
-    var cloud_items = false; //mycore.storage.getItem('grp_cloud_Replacer');
-    if (!cloud_items) {
-        getCloudData({
-            name: 'Replacer'
-        }, function(items){
-            sendReplacerToCloud2(r, prefs, items);
-        });
-    } else {
-        sendReplacerToCloud2(r, prefs, cloud_items);
-    }
+    //Chek against real data before
+    /*if (allGotIds(prefs.replacer_items)) {
+		sendReplacerToCloud2(r, prefs);
+	} else {*/
+		getCloudData({
+			name: 'Replacer',
+			direct: true //no mirror
+		}, function(items){
+			sendReplacerToCloud2(r, prefs, items);
+		});
+	//}
 }
-
+function allGotIds(items){
+	var r = iterate(items, function(id, o){
+		if (!o.id){
+			return false;
+		}
+	});
+	return !r;
+}
+		
+function updateReplacerId(prefs, a, id){
+	//update id
+	if (prefs && a && a.id) {
+		//o.id = a.id;
+		prefs.replacer_items[id].id = a.id;
+		//save
+		savePrefs(prefs);
+	}
+}
 function sendReplacerToCloud2(r, prefs, cloud_items){
-    iterate(prefs.replacer_items, function(id, o){
-        var ci = false;
-        if (cloud_items) {
-            ci = cloud_items[id];
-        }
-        r.item.createOrUpdate(ci, {
-            name: id,
-            values: o
-        });
-    });
+	iterate(prefs.replacer_items, function(id, o){
+		var ci = cloud_items?cloud_items[id]:false;
+		console.log('createOrUpdate');
+		r.item.createOrUpdate(ci, {
+			name: id,
+			values: o
+		}, function(xhr, status, a){
+			//updateReplacerId(prefs, a,id);
+		} , function(xhr, a){
+			//updateReplacerId(prefs, a,id);
+		} , cloud_items);
+	});
 }
-
 
 /**
  * Icon monitor for unreead count
