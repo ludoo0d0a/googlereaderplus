@@ -1061,7 +1061,8 @@ function map2array(all, key, value, flat, eu){
 }
 
 function iterate(o, fn, scope, id){
-    if (o) {
+    var r=false;
+	if (o) {
         for (var p in o) {
             if (!hasOwnProperty.call(o, p)) {
                 continue;
@@ -1069,10 +1070,14 @@ function iterate(o, fn, scope, id){
             if (typeof id !== 'undefined') {
                 o[p][(typeof id === "string") ? id : 'id'] = p;
             }
-            fn.call(scope || this, p, o[p]);
+            r = fn.call(scope || this, p, o[p]);
+			if (r === false){
+				return p;
+				//r=o;break;
+			}
         }
     }
-    return false;
+    return r;
 }
 function count(o, fn, scope, id){
 	var s= 0;
