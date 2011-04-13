@@ -37,12 +37,30 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
         
     }
     
+	function getHash(o){
+		return o.search+';'+o.replace+';'+o.url;
+	}
+
+
     function parseItems(gp_data, items){
-        iterate(items, function(title, o){
+        var dup = {};
+		iterate(items, function(title, o){
             if (o.values) {
-                //flatten values
-                o = apply(o, o.values);
-            }
+				//flatten values
+				o = apply(o, o.values);
+				delete o.values;
+				delete o.data;
+			}
+			
+			//Filtering duplicates based on hash
+			var h = getHash(o);
+			if (dup[h]) {
+				//abort duplicate
+				console.log('abort duplicate ' + title /*+ ' : ' + h*/);
+				return;
+			}
+			dup[h]=o;
+			
             o.re_url = new RegExp(o.url, "im");
             if (/^xpath\:/.test(o.search)) {
                 o.xpath = o.search.replace(/^xpath\:/, '');
