@@ -171,10 +171,12 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
         }
         for (var key in ICONS_TITLE) {
             var f = ICONS_TITLE[key];
-            var icon = domains[f.url];
-            if (icon) {
-                f.icon = icon;
-            }
+			if (f) {
+				var icon = domains[f.url];
+				if (icon) {
+					ICONS_TITLE[key].icon = icon;
+				}
+			}
         }
     }
 	
@@ -259,6 +261,15 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
 							};
 						}
                     //}
+					function promptIcon(a){
+						var url = prompt(formatText(SL.notfoundicon, a.title),a.url||'favicon.ico');
+						if (url) {
+							a.url=url;
+							ICONS_TITLE[a.title] = a;
+							updateFavicons();
+						}
+						return url;
+					}
                     if (f) {
                         var oldimg = img.src;
 						img.src = '';
@@ -277,14 +288,15 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
                                 renderFavicons(a.url, a.title, a.icon);
                                 setValue();
                             } else {
-                                alert('Error: Cannot found favicon for "' + a.title + '"');
-								img.src=oldimg;
+                                var url = promptIcon(a);
+								if (!url) {
+									img.src = oldimg;
+								}
                             }
                         });
                         // ->iconget
                     } else {
-                        var msg = formatText(SL.notfoundicon, key);
-                        alert(msg);
+                        var url = promptIcon({title: key});
                     }
                 }
                 // hide menu
