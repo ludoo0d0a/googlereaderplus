@@ -839,6 +839,7 @@ identi: {
 	stars: {
         name: "Multiple stars",
         category: 'layout',
+		status:'new',
 		/*options: {
            
         },*/
@@ -976,6 +977,7 @@ GRP.packages = {
         fitheight: true,
         closeentry: true,
         openbackground: true,
+		stars:true,
         replacer: {
 			cloud:true
 		},
