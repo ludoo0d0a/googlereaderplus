@@ -245,9 +245,9 @@ function cloudSaveIcon(url){
 		return false;
 	}
 	//some numeric number inside urls
-	if (/\/\d{2}\d+(\/|$)/.test(url)){
+	/*if (/\/\d{2}\d+(\/|$)/.test(url)){
 		return false;
-	}
+	}*/
 	return true;
 }
 
@@ -310,15 +310,18 @@ function parseXml(xml, tplUrl){
     ICONS_TITLE = {};
     var manual = mycore.storage.getItem("favicons_manual");
     Array.forEach(xml.getElementsByTagName('outline'), function(outline){
-        if (!outline.hasAttribute('htmlUrl')) {
+        var url = outline.getAttribute('htmlUrl');
+		if (!url) {
             return;
         }
+		var xurl = outline.getAttribute('xmlUrl');
         var title = outline.getAttribute('title');
-        var url = outline.getAttribute('htmlUrl');
-        var favicon;
-        var domain = url.split(/\/|\?/)[2];
-        var icon = tplUrl + domain;
-        setFavicon({title:title, icon:icon, url:url});
+        var domain = url.split(/\/|\?/)[2] ;
+        setFavicon({
+			icon:tplUrl + domain, 
+			url:xurl,
+			title:title
+		});
     });
 }
 
