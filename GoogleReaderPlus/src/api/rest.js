@@ -197,20 +197,38 @@ GRP.api_rest = function(name, local, mirror, cached){
                 };
 				send('put', url, params, success, error);
             },
-			createOrUpdate: function(ci, o , success, error){
-                if (ci){
+			createOrUpdate: function(ci, o , success, error, all){
+				if (all) {
+					ci = isItemInList(o, all, 'data', 'values');
+				}
+				/*if (o.values && o.values.id){
+					//already own an id
+					o.id = o.values.id;
+					delete o.values.id;
+					ci = true;
+				}*/
+				if (ci){
+					var b = (ci.name !== o.name || !compareObject(ci.data, o.values));
+					o.id = getIdFromResourceUrl(ci);
 					//object already exist
-					if (ci.name !== o.name || !compareObject(ci.data, o.values)){
-						o.id = getIdFromResourceUrl(ci);
-						if (o.id) {
-							console.log('objects different-> update '+o.name + ' '+o.id);
-							this.update(o);
-						}
+					if (b && o.id){
+						console.log('objects different-> update '+o.name + ' '+o.id);
+						this.update(o, success, error);
 					}else{
-						console.log('objects equals-> NO update '+o.name + ' '+o.id);
+						console.log('objects equals-> NO update '+o.name);
+						if (error){
+							error(false, o);
+						}
 					}
 				}else{
-					this.create(o);
+					this.create(o, function(xhr){
+						if (success) {
+							//Return id
+							//ci = xhr.responseJson.id??
+							//o.id = getIdFromResourceUrl(ci);
+							success(xhr, o);
+						}
+					}, error);
 				}
             },
             remove: function(o/* api_key, id */, success, error){
@@ -264,4 +282,15 @@ function compareObject(a,b){
 		});
 	}
 	return eq;
+}
+
+function isItemInList(o,all, p1, p2){
+	p1=p1||'data';
+	p2=p2||'values';
+	var k = iterate(all,function(i,a){
+		if (compareObject(a[p1], o[p2])){
+			return false;//stop loop
+		}
+	});
+	return (k)?all[k]:false;
 }
