@@ -277,7 +277,7 @@ function compareObject(a,b){
 		iterate(a, function(i, o){
 			if (typeof o !== 'undefined' && o !== b[i]) {
 				eq = false;
-			//exit
+				return false;//exit
 			}
 		});
 	}
