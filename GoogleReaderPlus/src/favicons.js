@@ -154,12 +154,12 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
 		}, tim);
     }
     
-    function renderFavicons(url, title, icon){
-        var match = ellipsis(title);
+    function renderFavicons(o){
+        var match = ellipsis(o.title);
         //var tree = document.getElementById('sub-tree');
         //var main = document.getElementById('main');
         getElements(".//img[@title='" + match + "']").forEach(function(img){
-            img.src = icon;
+            img.src = o.icon;
         });
     }
     
@@ -271,21 +271,24 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
 						return url;
 					}
                     if (f) {
-                        var oldimg = img.src;
+                        var oldimg = img.src, _key = key;
 						img.src = '';
                         img.src = LOADING_IMAGE;
                         chrome.extension.sendRequest(
                         {
                             message: "geticon",
                             key: key,
-                            ICONS_TITLE: ICONS_TITLE
+							f: ICONS_TITLE[key]
+                            //,ICONS_TITLE: ICONS_TITLE
                         }, function(a){
-                            if (a.icon) {
-                                if (a.ICONS_TITLE) {
+                            if (a.o && a.o.icon) {
+								if (a.ICONS_TITLE) {
                                     ICONS_TITLE = a.ICONS_TITLE;
-                                    updateFavicons();
-                                }
-                                renderFavicons(a.url, a.title, a.icon);
+                                }else{
+									ICONS_TITLE[_key]=a.o;
+								}
+								updateFavicons();
+                                renderFavicons(a.o);
                                 setValue();
                             } else {
                                 var url = promptIcon(a);
