@@ -168,7 +168,7 @@ function cleanReaderUrl(url){
 
 function extractFavicon(a, cb){
     var xhr = new XMLHttpRequest();
-    var url, title, key = a.key, ICONS_TITLE = a.ICONS_TITLE;
+    var url, title, key = a.key; //, ICONS_TITLE = a.ICONS_TITLE;
     if (!key) {
         //url+title
         key = ellipsis(title);
@@ -176,7 +176,7 @@ function extractFavicon(a, cb){
         title = a.title;
     } else {
         //key only
-        var f = ICONS_TITLE[key];
+        var f = a.f; //ICONS_TITLE[key];
         url = f.url;
         title = f.title;
     }
@@ -193,15 +193,19 @@ function extractFavicon(a, cb){
             var html = xhr.responseText; //responseBody
             var icon = parseFavicon(html, url);
             if (icon) {
-                setFavicon({title:title, icon:icon, url:url});
-                saveFavicon(url, icon, title);
+               var f = {title:title, icon:icon, url:url};
+			   setFavicon(f);
+               saveFavicon(f);
             }
+			//ICONS_TITLE[key].icon=icon;
             sendResponse({
                 message: "iconget",
-                title: title,
-                icon: icon,
-                url: url,
-                ICONS_TITLE: ICONS_TITLE
+				o:{
+					title: title,
+	                icon: icon,
+	                url: url
+				}
+                //,ICONS_TITLE: ICONS_TITLE
             }, cb);
         }
     };
@@ -211,27 +215,23 @@ function extractFavicon(a, cb){
 /**
  * Save just one icon on get Favicon menu
  */
-function saveFavicon(url, icon, title){
+function saveFavicon(f){
     var prefs = getPrefs();
-    prefs.favicons_domains[url] = icon;
+    prefs.favicons_domains[f.url] = f.icon;
     setPrefs(prefs);
     
-    if (cloudSaveIcon(url)){
+    if (cloudSaveIcon(f.url)){
 		//send to remote db
 	    var r = new GRP.api_rest('Favicons', true, MIRROR);	
-	    var name = getNameFromUrl(url);
-		
+	    var name = getNameFromUrl(f.url);
 		//Check if already exist
-		var ci = ICONS_URL[url];
-		
-		r.item.createOrUpdate(ci, {
-				name: name,
-				values: {
-					url: url,
-					icon: icon,
-					title: title
-				}
+		var ci = ICONS_URL[f.url];
+		setTimeout(function(){
+			r.item.createOrUpdate(ci, {
+					name: name,
+					values: f
 			});
+		},10);
 	}
 }
 //Ignore some user custom sites
