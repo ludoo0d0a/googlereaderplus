@@ -214,7 +214,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         o.rxHighlights = getRegExp(o.highlights);
         o.rxDuplicates = getRegExp(o.duplicates);
         o.hide_excludes = o.hide_excludes || false;
-		o.detect_duplicates = o.detect_duplicates || true;
+		o.detect_duplicates = undef(o.detect_duplicates)?true:o.detect_duplicates;
         o.hide_duplicates = o.hide_duplicates || false;
         o.prefer_highlights = o.prefer_highlights || false;
         return o;
@@ -241,6 +241,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         }
         
         var content = getContentEntry(entry);
+		var _entry=entry;
         
         var escapedContent = encodeURI(content.text);
         if (!tagged && useButton) {
@@ -254,7 +255,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
                 click: function(e){
                     e.preventDefault();
                     e.stopPropagation();
-                    openEntryMenu(e.target, entry);
+                    openEntryMenu(e.target, _entry);
                 }
             });
         }
@@ -327,7 +328,8 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 			author:author,
 			feed:feedname,
 			date:dt,
-			text: text
+			text: text,
+			title:title
 		};
     }
     
@@ -371,8 +373,13 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 				setMenuWords(true);
 			} 
 			function setMenuWords(asTitle){
-				var content = getContentEntry(entry);
-				var v = asTitle?content.text:getWords(content.text, miniWord);
+				var v='', content = getContentEntry(entry);
+				if (asTitle) {
+					//TODO : inner quotes
+					v = '"' + content.title.replace(/"/g,'') + '"';
+				} else {
+					v = getWords(content.text, miniWord);
+				}
 				setValue('t_e_content', v);
 			}			
             
@@ -386,11 +393,15 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
             }, {
                 id: 'e_gettitle',
                 text: SL.gettitle,
-                click: setMenuTitle            
+                click: function(){
+					setMenuTitle();
+				}            
 			},{
                 id: 'e_getwords',
                 text: SL.getwords,
-                click: setMenuWords
+                click: function(){
+					setMenuWords();
+				}
             },{
                 sep: true
             }, {
@@ -455,84 +466,175 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 		return rx;
 	}
     
+    //Transform a google-like expression into a tree regex
+	/*var reQuote = /["]/g;
+    function parseExpr(expr){
+    	var o = {rx:[]};
+		var tree=[],p=0, inQuote=false;
+		var m = expr.replace(reQuote, function(match, pos, text){
+			add=false;
+			if (match==='"'){
+				if (inQuote){
+					//Goes out
+					add=true;
+				}
+				inQuote=true;
+			}else{
+				add=true;
+			}
+			if (add) {
+				var before = text.substr(p, pos);
+				o = txt2obj(o, before);
+				tree.push(before);
+				p = pos;
+			}
+		});
+		return tree;
+    }
+	*/
+	
+	function escapePhrase(t){
+		return '<#' + t.replace(/\s/g, '#_#') + '#>';
+	}
+	function unescapePhrase(t){
+		return t.replace(/<#/g, '(').replace(/#>/g, ')').replace(/#_#/g, '\\s');
+	}
+	
     var reQuotedExpr = /"[^"]*"/g, reQuote = /^"|"$/g;
     function parseExpression(expr){
         //TODO: Do not escape group here->use tree
 		var r = expr.replace(reQuotedExpr, function(all){
             var group = all.replace(reQuote, '');
-            return '(' + encodeRE(group) + ')';
+            //return '(' + encodeRE(group) + ')';
+			return escapePhrase(group);
         });
-        //concat multiple spaces, then set them as OR for now (ANd in google expr)
+        //concat multiple spaces, then set them as OR for now (AND in google expr)
         r = r.replace(/\s+/g, ' ');
 		//trim
 		r = r.replace(/^\s+/, '').replace(/\s+^$/, '');
 		r = r.toLowerCase();
 		
-		var terms = r.split(' ');
-		var o = {rx:[]};
+		var _rx=false, o = {rx:[]}, terms = r.split(' ');
+		//sequential
+		/*
 		foreach(terms, function(term){
-			if (/^author:/.test(term)){
-				//Author
-				o.author=encoderegex(term.replace(/^author:/,''),true);
-			}else if (/^tag:/.test(term)){
-				//Author
-				o.tag=encoderegex(term.replace(/^tag:/,''),true);
-			}else if (/^date:/.test(term)){
-				//Author
-				o.date=encoderegex(term.replace(/^date:/,''),true);
-				//o.date=new Date(o.date);
-			}else if (/^feed:/.test(term)){
-				//Feed name
-				o.feed=encoderegex(term.replace(/^feed:/,''),true);
-			}else {
-				o.rx.push(encoderegex(term));
-			}
+			o=txt2obj(o, term);
         });
+        _rx = o.rx;
+		*/
 		
-		var re=o.rx.join("|");
-		o.rx = new RegExp(re,'i');
+		//tree
+		o.tree={};
+		var _queue = o.tree, i=0;
+		foreach(terms, function(term){
+			if (i>0){
+				_queue.op='and';
+			}
+			_queue.o=txt2obj({rx:[]}, term);
+			if (i > 0) {
+				_queue.q = {};
+				_queue = _queue.q;
+			}
+			i++;
+        });
+
+		createRe(o);
+		//Use first term for a fast filter (refine later)
+		if (o.tree.o) {
+			o.re = o.tree.o.re;
+		}
+		console.log(o.tree);
 
         return o;
     }
+	
+	function createRe(o){
+		var re = unescapePhrase(o.rx.join("|"));
+		o.re = new RegExp(re, 'i');
+	}
+		
+	function txt2obj(o, term){
+		if (/^author:/.test(term)){
+			//Author
+			o.author=encoderegex(term.replace(/^author:/,''),true);
+		}else if (/^tag:/.test(term)){
+			//Author
+			o.tag=encoderegex(term.replace(/^tag:/,''),true);
+		}else if (/^date:/.test(term)){
+			//Author
+			o.date=encoderegex(term.replace(/^date:/,''),true);
+			//o.date=new Date(o.date);
+		}else if (/^feed:/.test(term)){
+			//Feed name
+			o.feed=encoderegex(term.replace(/^feed:/,''),true);
+		}else {
+			o.rx.push(encoderegex(term));
+			createRe(o);
+		}
+		return o;
+	}
     
+	function checkContent(content, o, mode){
+		if (o.re && !o.re.test(content.text)) {
+			return false;
+		}
+		//Metadata?
+		if (o.date && !o.date.test(content.date)) {
+			//bad data
+			return false;
+		}
+		if (o.feed && !o.feed.test(content.feed)) {
+			//bad feed
+			return false;
+		}
+		if (mode === 'expanded') {
+			//Not in listview
+			if (o.author && !o.author.test(content.author)) {
+				//bad author
+				return false;
+			}
+			if (o.tag && !o.tag.test(content.tag)) {
+				//bad tag
+				return false;
+			}
+		}
+		return true;
+	}
+				
     function checkEntry(content, element, rx, className, mode){
 		var matched = false;
 		if (rx) {
 			for (var i = 0, len = rx.length; i < len; i++) {
 				var o = rx[i];
-				if (o.rx && !o.rx.test(content.text)) {
-					continue; //return false;
-				}
-				//Metadata?
-				if (o.date && !o.date.test(content.date)) {
-					//bad data
-					continue; //return false;
-				}
-				if (o.feed && !o.feed.test(content.feed)) {
-					//bad feed
-					continue; //return false;
-				}
-				if (mode === 'expanded') {
-					//Not in listview
-					if (o.author && !o.author.test(content.author)) {
-						//bad author
-						continue; //return false;
-					}
-					if (o.tag && !o.tag.test(content.tag)) {
-						//bad tag
-						continue; //return false;
-					}
+				if (!checkContent(content, o, mode)){
+					continue;
 				}
 				matched = true;
 				break;
 			}
 			if (matched) {
-				addClass(element, className);
+				//TODO : check AND operand on a single line	
+				if (rx.tree){
+					matched = checkTree(content, rx.tree, mode);
+				}
+				if (matched) {
+					addClass(element, className);
+				}
 			}
         }
         return matched;
     }
     
+	function checkTree(content, node, mode){
+		var matched = false;
+		if (node) {
+			if (!checkContent(content, node.o, mode)){
+				return false;
+			}
+			return checkTree(content, node.q, mode);
+		}
+		return true;
+	}
 	
     function getRegExp(o){
         var items = o;
@@ -545,9 +647,6 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
             var rex = parseExpression(item);
             rx.push(rex);
         });
-        
-        //var rex = rx.join("|");
-        //rx = new RegExp(rex, "i");
         return rx;
     }
     
