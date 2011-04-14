@@ -197,7 +197,7 @@ function getCloudData(a, cb, mapper){
 	var mirror=!a.direct;
 	if (a.fix){
 		//If fix no mirror, direct access
-		mirror=true;
+		mirror=false;
 	}
 	var r = new GRP.api_rest(a.name, true, mirror);
 	
@@ -261,24 +261,6 @@ function sendReplacerToCloud(mprefs){
 		});
 	//}
 }
-function allGotIds(items){
-	var r = iterate(items, function(id, o){
-		if (!o.id){
-			return false;
-		}
-	});
-	return !r;
-}
-		
-function updateReplacerId(prefs, a, id){
-	//update id
-	if (prefs && a && a.id) {
-		//o.id = a.id;
-		prefs.replacer_items[id].id = a.id;
-		//save
-		savePrefs(prefs);
-	}
-}
 function sendReplacerToCloud2(r, prefs, cloud_items){
 	iterate(prefs.replacer_items, function(id, o){
 		var ci = cloud_items?cloud_items[id]:false;
@@ -292,6 +274,23 @@ function sendReplacerToCloud2(r, prefs, cloud_items){
 			//updateReplacerId(prefs, a,id);
 		} , cloud_items);
 	});
+}
+function allGotIds(items){
+	var r = iterate(items, function(id, o){
+		if (!o.id){
+			return false;
+		}
+	});
+	return !r;
+}
+function updateReplacerId(prefs, a, id){
+	//update id
+	if (prefs && a && a.id) {
+		//o.id = a.id;
+		prefs.replacer_items[id].id = a.id;
+		//save
+		savePrefs(prefs);
+	}
 }
 
 /**
