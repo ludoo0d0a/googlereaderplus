@@ -1609,3 +1609,7 @@ function setOnceTimeout(cb, t, id){
 	}
 	_ti[id] = setTimeout(cb, t);
 }
+
+function undef(o){
+	return (typeof o ==='undefined'); 
+}
