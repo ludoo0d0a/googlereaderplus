@@ -439,6 +439,7 @@ GRP.colorful = function(prefs, langs, ID, SL, lang){
     
 	GM_getValue("colorful_settings", {}, function(o){
 			var a = [];
+			o=o||{};
             a.push(o['gm-color-lv']||"gm-color-lv");
             a.push(o['gm-color-ev']||"gm-color-ev");
             a.push(o['gm-color-ef']||"");
