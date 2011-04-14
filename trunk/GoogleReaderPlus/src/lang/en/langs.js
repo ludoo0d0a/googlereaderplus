@@ -132,7 +132,9 @@ GRP.langs[locale].texts = {
 	    addentry: 'Add',
 	    add_excludes: 'Add as exludes',
 	    add_highlights: 'Add as highlight',
-		button:'Filter button on each entry'
+		button:'Filter button on each entry',
+		gettitle:'Get title',
+		getwords:'Get words'
     },
     fitheight: {
         text: 'Fit height',
