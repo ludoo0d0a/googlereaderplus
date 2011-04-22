@@ -1,10 +1,12 @@
 //
 // Global util functions
 //
+
 function hasClass(el, clazz){
     if (!el || !el.className) {
         return false;
     }
+	//TODO: use el.classList
     var reClassname = new RegExp("(^|\\s)" + clazz + "(\\s|$)");
     return (reClassname.test(el.className));
 }
@@ -14,7 +16,8 @@ function addClass(el, clazz, checked){
         return;
     }
     if (el) {
-        el.className = (el.className || '') + ' ' + clazz;
+		//TODO: use el.classList
+		el.className = (el.className || '') + ' ' + clazz;
     }
 }
 
