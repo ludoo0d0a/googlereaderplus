@@ -17,6 +17,7 @@
 	 ],
       "js": ["lib/cross.js","lib/util.js","lib/greasekit.js","lib/entry.js","lib/i18n.js",
 	    "lib/external.js","version.js","features.js",
+		"lib/sizzle.js",
 		"api/entry.js","api/readit.js","api/micro.js",
 		"general.js","fixlayout.js", "unreadcount.js", "mark.js", "removeads.js", "favicons.js", 
 		"column.js","jump.js","preview.js", "openbackground.js", "filter.js", "count.js", 
