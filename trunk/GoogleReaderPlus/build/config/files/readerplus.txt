@@ -6,6 +6,7 @@ lib\i18n.js
 lib\external.js
 version.js
 features.js
+lib\sizzle.js
 api\entry.js
 api\readit.js
 api\micro.js
