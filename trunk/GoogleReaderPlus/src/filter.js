@@ -497,7 +497,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 		return '<#' + t.replace(/\s/g, '#_#') + '#>';
 	}
 	function unescapePhrase(t){
-		return t.replace(/<#/g, '(').replace(/#>/g, ')').replace(/#_#/g, '\\s');
+		return t.replace(/<#/g, '(/b').replace(/#>/g, '/b)').replace(/#_#/g, '\\s');
 	}
 	
     var reQuotedExpr = /"[^"]*"/g, reQuote = /^"|"$/g;
