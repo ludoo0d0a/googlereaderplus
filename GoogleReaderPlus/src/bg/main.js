@@ -107,6 +107,8 @@ function onMessageReceived(a, p, cb){
         if (a.db === "replacer_items") {
 			sendReplacerToCloud();
 		}
+    }else if (a.message == "rank") {
+        getRank(a,cb);
     }
 }
 
@@ -523,4 +525,19 @@ function initVersion(){
             }
         }
     }
+}
+
+
+
+function getRank(a,cb){
+	request({
+		url:'http://api.postrank.com/v1/postrank',
+		method:'post',
+		dataType: 'json',
+		data:{url:a.urls},
+		parameters: {appkey: '7c3ab03e24e85a95c0bc3ffe7360917d'},
+		onload:function(o){
+			sendResponse(o.responseJson||{},cb);
+		}
+	},true);
 }
