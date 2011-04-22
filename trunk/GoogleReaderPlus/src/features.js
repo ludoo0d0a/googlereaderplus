@@ -855,6 +855,11 @@ identi: {
             }
         }
     },
+	rank: {
+        name: "Popularity/Rank",
+        category: 'layout',
+		status:'new'
+    },
     replacer: {
         name: "Replacer",
         category: 'content',
