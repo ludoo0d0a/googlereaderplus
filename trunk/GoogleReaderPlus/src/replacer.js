@@ -56,12 +56,13 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
 			var h = getHash(o);
 			if (dup[h]) {
 				//abort duplicate
-				console.log('abort duplicate ' + title /*+ ' : ' + h*/);
+				//console.log('abort duplicate ' + title /*+ ' : ' + h*/);
 				return;
 			}
 			dup[h]=o;
 			
             o.re_url = new RegExp(o.url, "im");
+			//o.re_url = new RegExp(encodeRE(o.url), "im");
             if (/^xpath\:/.test(o.search)) {
                 o.xpath = o.search.replace(/^xpath\:/, '');
                 //Ensure relative path
@@ -116,9 +117,9 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
                     var els;
 					if (o.xpath){
 						els = getElements(o.xpath, xml);
-					}/*else{
-						els = jQuery(o.selector, xml);
-					}*/
+					}else{
+						els = Sizzle(o.selector, xml);
+					}
 					if (els && els.length>0) {
 						foreach(els, function(el){
 							result += el.outerHTML;
