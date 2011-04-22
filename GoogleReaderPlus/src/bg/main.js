@@ -234,7 +234,7 @@ function getCloudData(a, cb, mapper){
 				sendResponse(selectors, cb);
 			}
         }
-        sendResponse(selectors, cb);
+        //sendResponse(selectors, cb);
     });
 	
 }
@@ -246,7 +246,7 @@ function sendReplacerToCloud(mprefs){
 		alert('No changes found or cloud saving disabled');
 		return;
 	}
-		
+
 	console.log('sendReplacerToCloud items...');
     var r = new GRP.api_rest('Replacer', true);
     //Chek against real data before
@@ -269,7 +269,7 @@ function sendReplacerToCloud2(r, prefs, cloud_items){
 			name: id,
 			values: o
 		}, function(xhr, status, a){
-			//updateReplacerId(prefs, a,id);
+			updateReplacerId(prefs, a,id);
 		} , function(xhr, a){
 			//updateReplacerId(prefs, a,id);
 		} , cloud_items);
