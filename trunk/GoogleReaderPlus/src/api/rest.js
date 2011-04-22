@@ -201,15 +201,15 @@ GRP.api_rest = function(name, local, mirror, cached){
 				if (all) {
 					ci = isItemInList(o, all, 'data', 'values');
 				}
-				/*if (o.values && o.values.id){
-					//already own an id
+				if (o.values && o.values.id){
+					//already own an id -> update
 					o.id = o.values.id;
 					delete o.values.id;
 					ci = true;
-				}*/
+				}
 				if (ci){
 					var b = (ci.name !== o.name || !compareObject(ci.data, o.values));
-					o.id = getIdFromResourceUrl(ci);
+					o.id = o.id || getIdFromResourceUrl(ci);
 					//object already exist
 					if (b && o.id){
 						console.log('objects different-> update '+o.name + ' '+o.id);
