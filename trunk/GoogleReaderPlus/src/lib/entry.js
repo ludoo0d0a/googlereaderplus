@@ -674,11 +674,13 @@ function addIcon(entry, title, fn, cls){
 		el.title = title;
 		addClass(el, cls|| 'section-button section-menubutton');
 		elicons.appendChild(el);
-		var me =this;
-		el.addEventListener('click', function(e){
-			e.stopPropagation();
-			fn.call(me, entry, el);
-		}, false);
+		if (fn) {
+			var me = this;
+			el.addEventListener('click', function(e){
+				e.stopPropagation();
+				fn.call(me, entry, el);
+			}, false);
+		}
 	}
 	return el;
 }
@@ -766,7 +768,9 @@ function getShortcutKey(script, shortcut, prefs){
     } else {
         try {
             var s = getScriptObject(script);
-            key = s.shortcuts[shortcut];
+			if (s && s.shortcuts) {
+				key = s.shortcuts[shortcut];
+			}
         } catch (e) {
             console.error("Failed to get default shortcut " + shortcut + " for script " + script);
         }
@@ -1094,3 +1098,37 @@ function getEntryNumber(entry,def){
 	return v;
 }
 	
+	
+function getBackColorCss(hue,sat,lt,range){
+	var color = "  color: hsl(" + hue + "," + sat + "%, ";
+	return ("" +
+            "#entries .collapsed .entry-title {" +
+            css +
+            lt +
+            "% ) !important;" + // 000000 <- default color
+            "}" +
+            "#entries.list .collapsed .entry-main .entry-source-title {" +
+            css +
+            (lt + range * 0.42) +
+            "% ) !important;" + // 555555
+            "}" +
+            ".entry .entry-author," +
+            ".entry-comments .comment-time, .entry .entry-date {" +
+            css +
+            (lt + range * 0.50) +
+            "% ) !important;" + // 666666
+            "}" +
+            "#entries.list .collapsed .entry-secondary {" +
+            css +
+            (lt + range * 0.59) +
+            "% ) !important;" + // 777777
+            "}" +
+            // "a, a:visited, .link {" + // shouldn't need to mess with link color
+            // css + lt + "% ) !important;" + // 2244BB
+            // "}" + 
+            "#entries .item-body {" +
+            css +
+            lt +
+            "% ) !important;" + // 000000
+            "}");
+}
