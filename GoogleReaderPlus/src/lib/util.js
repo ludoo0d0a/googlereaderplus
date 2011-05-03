@@ -1485,7 +1485,8 @@ function dhc(config){
         tag: 1,
         events: 1,
         el: 1,
-        position: 1
+        position: 1,
+		style: 1
     };
     var el = document.createElement(config.tag || 'div');
     iterate(config, function(k, o){
@@ -1499,6 +1500,16 @@ function dhc(config){
             }
         }
     });
+	if (config.style) {
+		if (typeof config.style === 'string') {
+			el.style = config.style;
+		} else {
+			el.style = el.style || {};
+			iterate(config.style, function(k, o){
+				el.style[k] = o;
+			});
+		}
+	}
     iterate(config.events, function(name, o){
         var fn = o, capture=false;
 		if (typeof o ==='object'){
@@ -1614,5 +1625,5 @@ function setOnceTimeout(cb, t, id){
 }
 
 function undef(o){
-	return (typeof o ==='undefined'); 
+	return ((typeof o ==='undefined')||(o===null)); 
 }
