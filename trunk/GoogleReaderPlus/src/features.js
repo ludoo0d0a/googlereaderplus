@@ -855,11 +855,6 @@ identi: {
             }
         }
     },
-	rank: {
-        name: "Popularity/Rank",
-        category: 'layout',
-		status:'new'
-    },
     replacer: {
         name: "Replacer",
         category: 'content',
@@ -890,6 +885,16 @@ identi: {
 			button:true,
 			word_mini: 4
         }
+    },
+	rank: {
+        name: "Popularity/Rank",
+        category: 'content',
+		status:'new',
+		options:{
+			ad:{
+				xtype:'p'
+			}
+		}
     },
    /* menu: {
      name: "Smart menu",
