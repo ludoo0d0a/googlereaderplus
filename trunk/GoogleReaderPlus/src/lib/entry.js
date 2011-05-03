@@ -1,7 +1,24 @@
 /*
  * Entries
  */
-var stackFeatures = [], externals = [];
+var stackFeatures = [], externals = [], events = {};
+
+function registerEvent(id, key, fn, args){
+	events[id]=events[id]||{};
+	events[id][key] = {
+		fn: fn,
+		args: args
+	};
+}
+function fireEvent(id, key){
+	if (events[id]){
+		var e=events[id][key];
+		if (e){
+			e.fn.call(this, e.args);
+		}
+	}
+}
+	
 function registerFeature(fn, bid, params){
     params = params || {};
     params.bid = 'e' + bid;
@@ -234,6 +251,20 @@ function getEntrySiteTitle(ent){
         match = point.textContent;
     }
     return match;
+}
+
+
+function insertOnTitle(entry, el, mode){
+     if (!mode){
+	 	mode=getMode(entry);
+	 }
+    if (mode === "expanded") {
+        var entryTitle = getFirstElementByClassName(entry, 'entry-title');//h2
+        insertFirst(el, entryTitle);
+    } else {
+        var entrySourceTitle = getFirstElementByClassName(entry, 'entry-source-title');//span
+        insertBefore(el, entrySourceTitle);
+    }
 }
 
 function getEntryLink(ent){
@@ -601,10 +632,7 @@ function addMenuItem(menu, dwn, id, item){
 			removeClass(el, 'goog-menuitem-highlight');
 		},
 		click:function(){
-			if (_close){
-				removeClass(el, 'goog-menuitem-highlight');
-				hideMenu(menu,dwn);
-			}else if (chkbox){
+			if (chkbox){
 				if (item.group) {
 					//Remove checkbox on all previous group items
 					foreach(menu.groups[item.group], function(m){
@@ -614,6 +642,10 @@ function addMenuItem(menu, dwn, id, item){
 					});
 				}
 				addClassIf(el, 'goog-option-selected');
+			}
+			if (_close){
+				removeClass(el, 'goog-menuitem-highlight');
+				hideMenu(menu,dwn);
 			}
 			if (item.click){
 				fwdClick();
