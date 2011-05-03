@@ -177,7 +177,7 @@ var mycore = {
                         message: 'get',
                         name: name
                     }, function(o){
-						cb((typeof o !== 'undefined')?o:def);
+						cb(undef(o)?def:o);
                     });
                 } else {
                     if (!mycore.env.background) {
@@ -196,7 +196,7 @@ var mycore = {
                     //
                 }
             }
-            v = (typeof v !== 'undefined')?v:def;
+            v = (undef(v))?def:v;
             if (cb && typeof v === 'function') {
                 cb(v);
             }
