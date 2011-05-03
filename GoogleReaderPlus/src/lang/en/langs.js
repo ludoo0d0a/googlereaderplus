@@ -136,6 +136,15 @@ GRP.langs[locale].texts = {
 		gettitle:'Get title',
 		getwords:'Get words'
     },
+	rank:{
+		filter_rank:'Ranking',
+		filter_ad:'Powered by PostRank',
+		rank_all:'All',
+		rank_good:'Good >2.7',
+		rank_great:'Great >5.5',
+		rank_best:'Best >7.6',
+		rank_famous:'Famous >9'
+	},
     fitheight: {
         text: 'Fit height',
         keyword: 'Fit height'
@@ -409,6 +418,9 @@ separator: "Separator to add extra level (example: Sports:Footbal)."
         to: "Replace",
         prompttitle: "Title for this filter"
     },
+	rank:{
+		ad:'Ranking is powered by <a href="http://www.postrank.com" target="_blank"><img src="http://www.postrank.com/images/navigation/head_logo.png"/></a> <i>Intelligence from the social web</i>'
+	},
     lightbox: {
         locked: "Always actived, except following feeds:"
     },

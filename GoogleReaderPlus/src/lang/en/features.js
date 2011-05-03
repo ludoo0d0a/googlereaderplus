@@ -87,9 +87,8 @@ GRP.langs[locale].scripts = {
     },
 	rank: {
         name: "Rank",
-        desc: 'Display popularity of items based on ranking provided by <a href="http://www.postrank.com" target="blank">PostRank</a>'
+        desc: "Display popularity of items based on ranking provided by <a href='http://www.postrank.com' target='blank'>PostRank™</a>"
     },
-	
 	limit: {
         name: "Limit entries",
         desc: "Limit entries number in one page. Read items are removed to fit in a range"
