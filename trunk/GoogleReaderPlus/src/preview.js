@@ -32,21 +32,30 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
             addClass(link, 'grp-link-url');
             addClass(link, 'grp-link-title');
             //add a button right after the title
-            plink = document.createElement('a');
+            /*plink = document.createElement('a');
             plink.title = SL.title + keytext; //[Shift+V]
             plink.href = link.href; //'javascript:void();';
             plink.innerHTML = '<div class="entry-title-preview"></div>';
             insertAfter(plink, link);
             plink.addEventListener('click', previewTitleClick, false);
+			*/
+			plink=dh(link, 'a', {
+				title: SL.title + keytext,
+	            href: link.href,
+	            html: '<div class="entry-title-preview"></div>',
+				position:'after'
+			},{click:previewTitleClick});
+			
         } else {
             //clean current a.href link to keep open link
             var txt = link.innerText;
             link.title = SL.opennewtab;
             addClass(link, 'grp-link-url');
             link.innerHTML = '<div class="entry-title-maximize"></div>';
+			
             //create a second link before the previous one to used as preview
             //var title = link.parentNode;// h2.entry-title
-            plink = document.createElement('a');
+            /*plink = document.createElement('a');
             //plink.className = 'ilink entry-title-link';
             addClass(plink, 'grp-link-title');
             plink.href = link.href; //'javascript:void();';
@@ -54,6 +63,14 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
             plink.innerText = ' ' + txt;
             link.parentNode.insertBefore(plink, link);
             plink.addEventListener('click', previewTitleClick, false);
+			*/
+			plink=dh(link, 'a', {
+				title: SL.title + keytext,
+	            href: link.href,
+	            text: ' ' + txt,
+				position:'before'
+			},{click:previewTitleClick});
+			
         }
         // Bottom button
 		var title = SL.text + keytext;
