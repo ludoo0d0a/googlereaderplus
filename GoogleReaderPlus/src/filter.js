@@ -651,6 +651,8 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
     }
     
     init();
+	
+	registerEvent(ID, 'update', updateFilterEntries);
 };
 
 
