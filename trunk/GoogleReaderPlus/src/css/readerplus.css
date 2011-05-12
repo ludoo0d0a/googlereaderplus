@@ -36,7 +36,7 @@
 	background-position: 0 -96px !important;
 }
 .entry .entry-actions .btn-readitlater.btn-active{
-	background-position: 0 -112px;
+	background-position: 0 -112px !important;
 }
 
 .entry .entry-actions .btn-clockblue{

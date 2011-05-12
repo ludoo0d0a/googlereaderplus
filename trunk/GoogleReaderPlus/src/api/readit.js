@@ -87,11 +87,11 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
     }
     function post(cred, params, btn){
 		params[pp.username || 'username'] = cred.username;
-        if (auth.password) {
+        if (cred.password) {
             params[pp.password || 'password'] = cred.password;
         }
         var p=false,d=false,m = pp.method || 'GET';
-		if (m=='POST'){
+		if (m=='GET'){
 			p=params;
 		}else{
 			d=params;
