@@ -23,6 +23,7 @@
 		"column.js","jump.js","preview.js", "openbackground.js", "filter.js", "count.js", 
 		"counticon.js", "readbymouse.js","menu.js", "stars.js","rank.js",
 		"facebook.js", "twitter.js","jaiku.js","identi.js", "addthis.js","blogger.js",
+		"pinboard.js","tumblr.js","reddit.js",
 		"readitlater.js","instapaper.js","radbox.js","closeentry.js", "fitheight.js", "limit.js",
 		"replacer.js","relook.js","translate.js","prefetch.js","nested.js",
 		"theme.js","skin/mytheme.js", "skin/ig.js", "skin/aero.js","skin/air.js", "skin/aircomic.js", 
