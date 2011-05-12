@@ -1,9 +1,11 @@
+@echo off
+
 cls
 del /Q dist
 mkdir dist\lib
 
 del /Q debug
-rem mkdir debug
+mkdir debug
 
 echo ======================================================
 echo Update version number in build/config/manifest.json
@@ -15,7 +17,10 @@ rem echo **************** codemirror
 rem call compress codemirror
 
 echo **************** colorpicker
-call compress colorpicker
+rem call compress colorpicker
+
+echo **************** jscolor
+rem call compress jscolor
 
 echo **************** readerplus
 call compress readerplus
@@ -49,6 +54,7 @@ copy ..\src\lib\codemirror\css\csscolors.css dist\css\
 xcopy /e /Y /I ..\src\skin\css\*.* dist\skin\css\
 xcopy /e /Y /I ..\src\lib\codemirror\*.* dist\lib\codemirror\
 rem xc--opy /e /Y /I ..\src\lib\colorpicker\*.* dist\lib\colorpicker\
+xcopy /e /Y /I ..\src\lib\jscolor\*.* dist\lib\jscolor\
 
 xcopy /e /Y /I ..\src\_locales\*.* dist\_locales 
 xcopy /e /Y /I ..\src\css\*.* dist\css
