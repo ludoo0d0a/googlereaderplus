@@ -52,6 +52,11 @@ function bg_request(a, local, cb){
         url += sep + params.join('&');
     }
     xhr.open(method, url, true);
+	
+	if (method !== 'get'){
+			a.headers=a.headers||{};
+			a.headers['Content-Type']='application/x-www-form-urlencoded; charset=UTF-8';
+	}
     //headers
     if (a.headers) {
         for (var kh in a.headers) {
