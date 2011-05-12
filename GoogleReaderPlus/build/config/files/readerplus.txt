@@ -30,6 +30,9 @@ facebook.js
 twitter.js
 identi.js
 blogger.js
+pinboard.js
+tumblr.js
+reddit.js
 jaiku.js
 readitlater.js
 instapaper.js
