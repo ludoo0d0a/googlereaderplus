@@ -154,7 +154,7 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
         var entryBody = getEntryBody(el.parentNode);
         if (result !== '') {
             //TODO : Fix relative url
-			//result = fixurls(result, base);
+			result = fixurls(result, base);
 			el.innerHTML = result;
             show(el);
             hide(entryBody);
@@ -166,13 +166,22 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
         }
     }
 	
-	function fixurls(html, base){
-		html=html.replace(/\shref="[^http]([^"])/g, base);
-		html=html.replace(/\shref='[^http]([^'])/g, base);
-		html=html.replace(/\ssrc="[^http]([^"])/g, base);
-		html=html.replace(/\ssrc='[^http]([^'])/g, base);
-		return html;
-	}
+  function fixurls(html, base){
+    function replaceUrl(){
+      //var args = Array.prototype.slice.call(arguments, 1);
+      var t = arguments[0];//text
+      var url = arguments[1];
+      if (!(/^http/.test(url))){
+          t=t.replace(url, base+url);
+      }
+      return t;
+    }
+    html=html.replace(/\shref="([^"]*)/g, replaceUrl);
+    html=html.replace(/\shref='([^']*)/g, replaceUrl);
+    html=html.replace(/\ssrc="([^"]*)/g, replaceUrl);
+    html=html.replace(/\ssrc='([^']*)/g, replaceUrl);
+    return html;
+  }
     
     function doreplacer(el, entry, mode, force){
         var index = -1, regex, link = getEntryLink(entry);
