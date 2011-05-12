@@ -9,70 +9,83 @@
  */
 
 GRP.removeads = function(prefs, langs, ID, SL, lang){
-	function removeAds() {
-		var i,re, link;
-
-		// DIV#tads
-		var ads = document.getElementById("tads");
-		if (ads) {
-			ads.parentNode.removeChild(ads);
-		}
-		
-		//start from entry ??
-		
-		
-		// Remove Search-Tracking
-		var links = document.getElementsByTagName("a");
-		// var links = document.querySelector("a,img");
-		if (links && prefs.removeads_links) {
-			re = new RegExp(prefs.removeads_links);
-			//var re = /da\.feedsportal\.com|res\.feedsportal\.com|doubleclick\.net|\/ads/;
-			for (i = 0; i < links.length; i++) {
-				link = links[i];
-				if (link.className == "l") {
-					link.removeAttribute("onmousedown");
-				}
-				if (re.test(link.href)) {
-					//console.log("REMOVE AD a : "+link.href);
-					link.parentNode.removeChild(link);
-				}
-			}
-		}
-
-		links = document.getElementsByTagName("img");
-		if (links && prefs.removeads_images) {
-			re = new RegExp(prefs.removeads_images);
-			//var re = /feedsportal\.com|feedburner\.com|doubleclick\.net|\/ads/;
-			for (i = 0; i < links.length; i++) {
-				link = links[i];
-				if (re.test(link.src)) {
-					//console.log("REMOVE AD img : "+link.src);
-					link.parentNode.removeChild(link);
-				}
-			}
-		}
-
-		// Remove Right-side Ads
-		var iframe = document.getElementsByTagName("iframe");
-		if (iframe && prefs.removeads_iframes) {
-			re = new RegExp(prefs.removeads_iframes);
-			//var re = /feedsportal\.com|doubleclick\.net|googlesyndication.com\/pagead\/ads/;
-			for (i = 0; i < iframe.length; i++) {
-				var s = iframe[i].src;
-				if (re.test(s)) {
-					//console.log("REMOVE AD iframe : "+s);
-					iframe[i].height = 0;
-					iframe[i].width = 0;
-					iframe[i].src = '';
-				}
-
-			}
-		}
+	var re = {iframes:false, links:false, images:false};
+	if (prefs.removeads_iframes) {
+		re.iframes = new RegExp(prefs.removeads_iframes);
 	}
-
+	if (prefs.removeads_links) {
+		re.links = new RegExp(prefs.removeads_links);
+	}
+	if (prefs.removeads_images) {
+		re.images = new RegExp(prefs.removeads_images);
+	}
+	
+	function removeAds(btn, entry, mode) {
+		setTimeout(function(){
+			var i,el;
+	
+			// DIV#tads
+			var ads = document.getElementById("tads");
+			if (ads) {
+				ads.parentNode.removeChild(ads);
+			}
+			
+			//start from entry ??
+			
+			// Remove Search-Tracking
+			if (re.links) {
+				var links = entry.getElementsByTagName("a");
+				if (links && links.length>0) {
+					for (i = 0; i < links.length; i++) {
+						el = links[i];
+						if (el.className == "l") {
+							el.removeAttribute("onmousedown");
+						}
+						if (re.links.test(el.href)) {
+							//console.log("REMOVE AD a : "+link.href);
+							el.parentNode.removeChild(el);
+						}
+					}
+				}
+			}
+	
+			if (re.images) {
+				var imgs = entry.getElementsByTagName("img");
+				if (imgs && imgs.length>0) {
+					for (i = 0; i < imgs.length; i++) {
+						el = links[i];
+						if (re.images.test(el.src)) {
+							//console.log("REMOVE AD img : "+link.src);
+							el.parentNode.removeChild(el);
+						}
+					}
+				}
+			}
+	
+			// Remove Right-side Ads
+			if (re.iframes) {
+				var iframes = entry.getElementsByTagName("iframe");
+				if (iframes && iframes.length>0){
+					for (i = 0; i < iframes.length; i++) {
+						el=iframes[i];
+						if (re.iframes.test(el.src)) {
+							el.parentNode.removeChild(el);
+						/*//console.log("REMOVE AD iframe : "+s);
+				 iframe[i].height = 0;
+				 iframe[i].width = 0;
+				 iframe[i].src = '';*/
+						}
+					}
+				}
+			}
+		},0);
+	}
+		
+	registerFeature(removeAds, ID, {onlistviewtitle:true});
+/*
 	document.body.addEventListener('DOMNodeInserted', function(e){
-		removeAds();
-	}, false);
-	removeAds();
+		removeAds(entry);
+	}, false);*/
+	//removeAds(document);
 
 };
