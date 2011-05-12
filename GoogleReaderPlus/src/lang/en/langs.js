@@ -46,6 +46,16 @@ GRP.langs[locale].texts = {
         keyword: 'Twitter',
         plslogin: 'Please login to Twitter'
     },
+	reddit: {
+        text: 'Share this news on Reddit',
+        keyword: 'Reddit',
+        plslogin: 'Please login to Reddit'
+    },
+	tumblr: {
+        text: 'Share this news on Tumblr',
+        keyword: 'Tumblr',
+        plslogin: 'Please login to Tumblr'
+    },
 	identi:{
 		text:'Share this news on Identi',
 		keyword: 'Identi',
@@ -92,6 +102,14 @@ GRP.langs[locale].texts = {
 	blogger:{
 		text:'Share with Blogger',
 		keyword: 'Blogger'
+	},
+	tumblr:{
+		text:'Share with Tumblr',
+		keyword: 'Tumblr'
+	},
+	pinboard:{
+		text:'Share with Pinboard',
+		keyword: 'Pinboard'
 	},
     favicons: {
         preferences: 'Preferences',
@@ -310,6 +328,16 @@ GRP.langs[locale].prefs = {
         auth: "<a href='http://radbox.me/support/extras' target='blank'>Radbox</a> <a href='http://radbox.me/account/user/register' target='_blank'>authentication</a> (required):",
         username: "Userkey:"
     },
+	tumblr: {
+        auth: "<a href='http://www.tumblr.com' target='blank'>Tumblr</a> authentication (required):",
+		username: "Email:",
+        password: "Password:"
+    },
+	reddit: {
+        auth: "<a href='http://www.reddit.com' target='blank'>Reddit</a> authentication (required):",
+		username: "Username:",
+        password: "Password:"
+    },
 	identi: {
         shortener: "Shortener",
         shortener_bitly: "BitLy configuration (optional):",
@@ -419,6 +447,7 @@ separator: "Separator to add extra level (example: Sports:Footbal)."
         prompttitle: "Title for this filter"
     },
 	rank:{
+		level:'Display level',
 		ad:'Ranking is powered by <a href="http://www.postrank.com" target="_blank"><img src="http://www.postrank.com/images/navigation/head_logo.png"/></a> <i>Intelligence from the social web</i>'
 	},
     lightbox: {
