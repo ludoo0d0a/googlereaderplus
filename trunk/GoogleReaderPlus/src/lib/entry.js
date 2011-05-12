@@ -171,7 +171,6 @@ function getRegex(urls){
 
 function forAllEntries(fn){
     var root = get_id('entries');
-    //var entries = getElementsByClazzName('entry', 'div', root);
     var entries = root.getElementsByClassName('entry');
     for (var i = 0; i < entries.length; i++) {
         fn.call(this, entries[i]);
