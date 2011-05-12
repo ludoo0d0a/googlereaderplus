@@ -121,6 +121,22 @@ GRP.langs[locale].scripts = {
         name: "ReadItLater",
         desc: "Add a button to read news later using ReadItLater"
     },
+	blogger: {
+        name: "Blogger",
+        desc: "Add a button to read news later using Blogger"
+    },
+	tumblr: {
+        name: "Tumblr",
+        desc: "Add a button to read news later using Tumblr"
+    },
+	pinboard: {
+        name: "Pinboard",
+        desc: "Add a button to read news later using Pinboard"
+    },
+	reddit: {
+        name: "Reddit",
+        desc: "Add a button to read news later using Reddit"
+    },
     mark: {
         name: "Mark As Read",
         desc: "Mark items before/after current as read"
