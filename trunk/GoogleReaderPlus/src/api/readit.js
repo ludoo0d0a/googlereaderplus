@@ -10,6 +10,7 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
         title: 'title',
         selection: 'selection'
     };
+	var token = false;
     function addButton(el, entry, mode){
         var title = SL.text + formatShortcut(ID, 'share', prefs);
         var text = (prefs && prefs.general_icons) ? '' : (SL.keyword || ID);
@@ -26,13 +27,13 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
 		}
     }
     function readitlater(entry, btn){
-        var auth = getAuth();
-        if (!auth) {
+        var cred = getCredentials();
+        if (!cred) {
             return;
         }
         var link = getEntryLink(entry);
         var body = getBody(entry);
-        var params = {};
+        var params = api.parameters || {};
         if (pp.url) {
             params[pp.url] = link.url;
         }
@@ -45,46 +46,64 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
         if (pp.key) {
             params[pp.key] = api.key;
         }
-        //login(auth, params, btn);
-        //direct
-        post(auth, params, btn);
+        login(cred, params, btn);
     }
-	function isOk(r, btn){
+	function isOk(r, btn, mode){
 		var res = (r.status == api.successCode);
 		if (res && typeof api.success ==='function'){
-			res = api.success(r.responseJson, btn);
+			res = api.success(r.responseJson, btn, mode);
 		}
 		return res;
 	}
-    function login(auth, params, btn){
-        GM_xmlhttpRequest({
-            method: 'GET',
-            url: api.auth,
-            parameters: auth,
-            onload: function(r){
-                if (isOk(r, btn)){
-                    //login success
-                    post(auth, params, btn);
-                } else if (api.errors[r.status]) {
-                    alert(SL[api.errors[r.status]]);
-                } else {
-                    alert(SL.error);
-                }
-            }
-        });
+    function login(cred, params, btn){
+        if (api.auth) {
+			var p = {};
+			p[pp.username || 'username'] = cred.username;
+			if (cred.password){
+	        	p[pp.password || 'password'] = cred.password;
+			}
+			var o = apply({
+				method: 'GET',
+				dataType:'json'
+			}, api.auth);
+			o.data=apply(o.data,p);
+			
+			o.onload = function(r){
+				token = isOk(r, btn, 'login');
+				if (token) {
+					//login success
+					post(cred, params, btn);
+				} else if (api.errors[r.status]) {
+					alert(SL[api.errors[r.status]]);
+				} else {
+					alert(SL.error);
+				}
+			};
+			GM_xmlhttpRequest(o);
+		}else{
+			//direct
+			post(cred, params, btn);
+		}
     }
-    function post(auth, params, btn){
-		params[pp.username || 'username'] = auth.username;
+    function post(cred, params, btn){
+		params[pp.username || 'username'] = cred.username;
         if (auth.password) {
-            params[pp.password || 'password'] = auth.password;
+            params[pp.password || 'password'] = cred.password;
         }
-        GM_xmlhttpRequest({
-            method: 'GET',
+        var p=false,d=false,m = pp.method || 'GET';
+		if (m=='POST'){
+			p=params;
+		}else{
+			d=params;
+		}
+		GM_xmlhttpRequest({
+            method: m,
             url: api.add,
 			dataType:'json',
-            parameters: params,
+            parameters: p,
+			data: d,
             onload: function(r){
-                if (isOk(r)){
+                if (isOk(r,false,'post')){
                     //set star active
                     addClass(btn, 'btn-active'); //item-star-active
                     removeClass(btn, 'item-share');
@@ -99,7 +118,7 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
             }
         });
     }
-    function getAuth(){
+    function getCredentials(){
         var username = prefs[ID + '_username'];
         var password = prefs[ID + '_password'];
         if (typeof username === "undefined" || username === '') {
@@ -111,10 +130,20 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
             password: password
         };
     }
-    function clearAuth(){
+    function clearCredentials(){
         //GM_setValue(ID+'_username', '');
         //GM_setValue(ID+'_password', '');
     }
+	function addCss(id){
+		var css = '.entry .entry-actions .btn-'+id+'{background: url(\'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/share/'+id+'.png\') no-repeat!important;padding:0px 8px 1px 16px !important;}'+
+		'.entry .entry-actions .btn-facebook{background-position: 0 0px !important;}'+
+		'.entry .entry-actions .btn-facebook.btn-active{background-position: 0 -16px !important;}';
+		GM_addStyle(css, 'btn_share_'+id);
+	}
+	if (api.icon){
+		addCss(api.icon);
+	}
+	
     registerFeature(addButton, ID);
     var keycode = getShortcutKey(ID, 'share', prefs);
     keycode.fn = addKey;
