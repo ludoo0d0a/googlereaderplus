@@ -539,7 +539,7 @@ GRP.scripts = {
             }
         }
     },
-identi: {
+	identi: {
         name: "Identi.ca",
         category: 'share',
 		status: 'new',
@@ -646,13 +646,94 @@ identi: {
                 id: 'share',
                 title: 'Share with Blogger',
                 key: {
-                    //66 b
+                    //66 c
                     keyCode: 66,
                     altKey:true
                 }
             }
         }
     },
+	/* in DEV */
+	/*pinboard: {
+        name: "Pinboard",
+        category: 'share',
+		status:'new',
+        shortcuts: {
+            'share': {
+                id: 'share',
+                title: 'Share with Pinboard',
+                key: {
+                    //67 c
+                    keyCode: 67,
+                    shiftKey:true
+                }
+            }
+        }
+    },
+	tumblr: {
+        name: "Tumblr",
+        category: 'share',
+		status:'new',
+		options: {
+            auth: {
+                xtype: 'p',
+                label: true,
+                cls: 'subtitle'
+            },
+			username: {
+                value: '',
+                size: 40
+            },
+			password: {
+                input: 'password',
+				value: '',
+                size: 40
+            }
+        },
+        shortcuts: {
+            'share': {
+                id: 'share',
+                title: 'Share with Tumblr',
+                key: {
+                    //67 b
+                    keyCode: 67,
+                    altKey:true
+                }
+            }
+        }
+    },
+	reddit: {
+        name: "Reddit",
+        category: 'share',
+		status:'new',
+		options: {
+            auth: {
+                xtype: 'p',
+                label: true,
+                cls: 'subtitle'
+            },
+			username: {
+                value: '',
+                size: 40
+            },
+			password: {
+                input: 'password',
+				value: '',
+                size: 40
+            }
+        },
+        shortcuts: {
+            'share': {
+                id: 'share',
+                title: 'Share with Reddit',
+                key: {
+                    //68 b
+                    keyCode: 68,
+                    altKey:true
+                }
+            }
+        }
+    },*/
 /*jaiku: {
         name: "Jaiku",
         category: 'share',
@@ -886,16 +967,27 @@ identi: {
 			word_mini: 4
         }
     },
-	rank: {
+	/* in DEV */
+	/*rank: {
         name: "Popularity/Rank",
         category: 'content',
 		status:'new',
 		options:{
+			level:{
+				xtype: 'select',
+                values: {
+                    all:    'All',
+					good:   'Good >2.7',
+					great:  'Great >5.4',
+					best:   'Best >7.6',
+					famous: 'Famous >9'
+                }
+			},
 			ad:{
 				xtype:'p'
 			}
 		}
-    },
+    },*/
    /* menu: {
      name: "Smart menu",
 	 category: 'navigation',
