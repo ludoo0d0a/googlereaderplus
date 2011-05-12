@@ -84,7 +84,7 @@ GRP.stars = function(prefs, langs, ID, SL, lang){
 		} else {
 			var estar = isStarred(entry);
 			if (estar) {
-				console.log('entry is native starred');
+				//console.log('entry is native starred');
 				newTag = 'white';
 			} else {
 				newTag = TAG_STAR;
@@ -92,17 +92,17 @@ GRP.stars = function(prefs, langs, ID, SL, lang){
 			notStarred = true;
 		}
 		
-		console.log('tag '+tag+' -> '+newTag);
+		//console.log('tag '+tag+' -> '+newTag);
 		
 		var tdefer = 0, rmStar = ((timeout && !notStarred) || (newTag=='white')); 
 		if (rmStar) {
-			console.log('remove star');
+			//console.log('remove star');
 			//Timeout 1s->toggle star
 			newTag=false;
 			removeClass(entry, 'grp-star', true);
 			markAsStar(entry, false);
 		} else {
-			console.log('--superstar');
+			//console.log('--superstar');
 			entry.star=newTag;
 			markAsStar(entry, true);
 			addClass(entry, 'grp-star', true);
@@ -111,7 +111,7 @@ GRP.stars = function(prefs, langs, ID, SL, lang){
 		}
 		setOnceTimeout(function(){
 			entry.star=newTag;
-			console.log('*** update tags for '+newTag);
+			//console.log('*** update tags for '+newTag);
 			tag = findTagClass(entry);
 			updateTags(entry, rePrefix, newTag?(PREFIX+newTag):false);
 			delete entry.star; 
