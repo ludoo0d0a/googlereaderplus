@@ -45,7 +45,10 @@ function addClassIf(el, cls, status, cls2){
         }
     }
 }
-
+function getAttr(el, name){
+	var attr = el.attributes.getNamedItem(attr);
+	return (attr)?attr.value:false;
+}
 function addAttr(el, name, value){
     var attr = document.createAttribute(name);
     attr.value = value;
@@ -1626,4 +1629,60 @@ function setOnceTimeout(cb, t, id){
 
 function undef(o){
 	return ((typeof o ==='undefined')||(o===null)); 
+}
+
+function bubbleSort(a, fn, swap){
+    if (typeof fn !=='function'){
+		fn=function(a,b){
+			return a>b;
+		};
+	}
+	if (typeof swap !=='function'){
+		swap=function(a,i,j){
+			var temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+		};
+	}
+	var swapped;
+    do {
+        swapped = false;
+        for (var i=0; i < a.length-1; i++) {
+            if (fn(a[i], a[i+1])) {
+                swap(a,i,i+1);
+                swapped = true;
+            }
+        }
+    } while (swapped);
+}
+
+function qsort(array, begin, end){
+	if(end-1>begin) {
+		Array.prototype.swap=function(a, b){
+			var tmp=this[a];
+			this[a]=this[b];
+			this[b]=tmp;
+		};
+		function partition(array, begin, end, pivot){
+			var piv=array[pivot];
+			array.swap(pivot, end-1);
+			var store=begin;
+			var ix;
+			for(ix=begin; ix<end-1; ++ix) {
+				if(array[ix]<=piv) {
+					array.swap(store, ix);
+					++store;
+				}
+			}
+			array.swap(end-1, store);
+			return store;
+		}
+		var pivot=begin+Math.floor(Math.random()*(end-begin));
+		pivot=partition(array, begin, end, pivot);
+		qsort(array, begin, pivot);
+		qsort(array, pivot+1, end);
+	}
+}
+function quicksort(array){
+	qsort(array, 0, array.length);
 }
