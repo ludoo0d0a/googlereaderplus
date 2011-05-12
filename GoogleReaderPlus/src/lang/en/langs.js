@@ -316,7 +316,7 @@ GRP.langs[locale].prefs = {
     },
     instapaper: {
         auth: "<a href='http://www.instapaper.com' target='blank'>Instapaper</a> authentication:",
-        username: "Username:",
+        username: "Email:",
         password: "Password (optional):"
     },
     readitlater: {
