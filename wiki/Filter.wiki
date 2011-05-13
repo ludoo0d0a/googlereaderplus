@@ -13,28 +13,24 @@ There are 2 zones :
   * Includes items
 
 Expressions are always multiline.
-Each line are considered as OR operator.
+Each line are considered as AND operator.
 
 Each words (blank separated) is considered as a term.
-A blank means OR.
+For a complete sentence, you could use quotes.
 
 {{{
-iPad iPhone iPod
+mac iphone
+windows phone
 }}}
-will filter all items with one of these words
-
-Here, it is the same as in multiline
-{{{
-iPad
-iPhone
-iPod
-}}}
+will filter all items with either 
+mac AND iphone
+or
+windows AND phone
 
 A complete phrase can be used using quotes : 
 {{{
 "Guitar Hero"
 }}}
-
 
 If you want use regular expression, start your term with a #
 {{{
@@ -42,4 +38,12 @@ If you want use regular expression, start your term with a #
 #[iI]os\s*\d+
 }}}
 
+
+You could filter using specific keywords:
+{{{
+apple author:Matt
+baseball tag:sports
+birds date:Mar
+facebook from:ZDNet
+}}}
 
