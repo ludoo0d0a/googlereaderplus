@@ -313,7 +313,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 		var feedname = getElementText(entry, 'entry-source-title');
 		var author = getElementText(entry, 'entry-author-name');
         // var snippet = getElementText(entry, 'snippet');
-        //console.log('>>>>'+active+'--'+title);
+        ////console.log('>>>>'+active+'--'+title);
         
         var text = minifyContent(title);
         if (_options.searchbody) {
@@ -461,10 +461,11 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 			rx = encodeRE(term);
 		}
 		if (re) {
-			rx=new RegExp(rx, 'i');
+			rx=new RegExp(unescapePhrase(rx), 'i');
 		}
 		return rx;
 	}
+	
     
     //Transform a google-like expression into a tree regex
 	/*var reQuote = /["]/g;
@@ -531,10 +532,10 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 				_queue.op='and';
 			}
 			_queue.o=txt2obj({rx:[]}, term);
-			if (i > 0) {
+			//if (i > 0) {
 				_queue.q = {};
 				_queue = _queue.q;
-			}
+			//}
 			i++;
         });
 
@@ -543,7 +544,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 		if (o.tree.o) {
 			o.re = o.tree.o.re;
 		}
-		console.log(o.tree);
+		//console.log(o.tree);
 
         return o;
     }
@@ -558,15 +559,15 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 			//Author
 			o.author=encoderegex(term.replace(/^author:/,''),true);
 		}else if (/^tag:/.test(term)){
-			//Author
+			//Tag
 			o.tag=encoderegex(term.replace(/^tag:/,''),true);
 		}else if (/^date:/.test(term)){
-			//Author
+			//Date
 			o.date=encoderegex(term.replace(/^date:/,''),true);
 			//o.date=new Date(o.date);
-		}else if (/^feed:/.test(term)){
+		}else if (/^from:/.test(term)){
 			//Feed name
-			o.feed=encoderegex(term.replace(/^feed:/,''),true);
+			o.feed=encoderegex(term.replace(/^from:/,''),true);
 		}else {
 			o.rx.push(encoderegex(term));
 			createRe(o);
@@ -575,6 +576,9 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 	}
     
 	function checkContent(content, o, mode){
+		if (!o){
+			return true;
+		}
 		if (o.re && !o.re.test(content.text)) {
 			return false;
 		}
@@ -602,11 +606,11 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 	}
 				
     function checkEntry(content, element, rx, className, mode){
-		var matched = false;
+		var mrx=false, matched = false;
 		if (rx) {
 			for (var i = 0, len = rx.length; i < len; i++) {
-				var o = rx[i];
-				if (!checkContent(content, o, mode)){
+				mrx = rx[i];
+				if (!checkContent(content, mrx, mode)){
 					continue;
 				}
 				matched = true;
@@ -614,8 +618,8 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 			}
 			if (matched) {
 				//TODO : check AND operand on a single line	
-				if (rx.tree){
-					matched = checkTree(content, rx.tree, mode);
+				if (mrx && mrx.tree){
+					matched = checkTree(content, mrx.tree, mode);
 				}
 				if (matched) {
 					addClass(element, className);
