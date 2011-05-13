@@ -3,13 +3,13 @@
     "message": "Reader Plus Toolbar Anzeige"
   },
   "extension_description": {
-    "message": "Fügen sie eine Schaltfläche für Reader Plus in Chrome ein"
+    "message": "Fügen Sie eine Schaltfläche für den Reader Plus in ihre Chrome-Toolbar"
   },
   "browser_action_tooltip_default": {
     "message": "Reader Plus Erweiterungs Schaltfläche"
   },
   "starred_items":{
-  	"message": "Favorisierte Beiträge"
+  	"message": "Favorisierte Objekte"
   },
   "mark_as_read":{
   	"message": "Als gelesen markieren"
@@ -58,7 +58,7 @@
   	"message": "Bitte loggen sie sich in Google Reader ein..."
   },
   "needreaderplus":{
-  	"message": "<a href='http://goo.gl/bswm' target='_blank'>Reader Plus</a> doit être installé..."
+  	"message": "<a href='http://goo.gl/bswm' target='_blank'>Reader Plus</a> wird installiert..."
   },
   "feeditems":{
   	"message": "$title$",
