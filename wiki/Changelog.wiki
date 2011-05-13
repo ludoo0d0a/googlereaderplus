@@ -4,7 +4,25 @@
 
 Here is the past of the project. See all evolutions, changes.
 
+= Version 3.6.3 - 05/13/2011 =
+  * Colorful fix
+  * Filter : term + keyword fixed
 
+= Version 3.6.2 - 05/12/2011 =
+
+  * New features
+  * - Stars : supertars like gmail labs
+  * Themes
+  * - Portal v2 supports screen resizing
+  * Enhancement
+  * - Filter : Major evolution on expression parsing
+  * - Read by mouse UI revamped, Alt=native behavior
+  * Address bar menu has new items : signin/signout (in case of hidden new UI bar)
+  * Bugfixes
+  * Filter: quoted string and multiple expressions failed
+  * Replacer : filter now duplicates
+  * Languages
+  * - German (partially, in progress), thanks to t.weissert
 
 = Version 3.6.1 - 03/29/2011 =
 
