@@ -10,82 +10,97 @@
 
 GRP.removeads = function(prefs, langs, ID, SL, lang){
 	var re = {iframes:false, links:false, images:false};
-	if (prefs.removeads_iframes) {
-		re.iframes = new RegExp(prefs.removeads_iframes);
+	var wildcard=true;
+	function getRegex(re, id){
+		var p = prefs[ID+'_'+id];
+		if (p) {
+			var all=[], terms=p.split(/\n/);
+			iterate(terms,function(i,term){
+				var t=encoderegex(term, false, wildcard); 
+				if (t){
+					//Remove empty
+					all.push(t);
+				}
+			});
+			var s = all.join('|');
+			if (s) {
+				re[id] = new RegExp(s);
+			}else{
+				re[id] = false;
+			}
+		}
 	}
-	if (prefs.removeads_links) {
-		re.links = new RegExp(prefs.removeads_links);
-	}
-	if (prefs.removeads_images) {
-		re.images = new RegExp(prefs.removeads_images);
+	getRegex(re,'iframes');
+	getRegex(re,'links');
+	getRegex(re,'images');
+	
+	var adremove=remove;
+	if (prefs.removeads_preview) {
+		adremove = function(el, color){
+			el.style.border = "2px solid "+(color||'red');
+		};
 	}
 	
 	function removeAds(btn, entry, mode) {
 		setTimeout(function(){
-			var i,el;
-	
 			// DIV#tads
-			var ads = document.getElementById("tads");
-			if (ads) {
-				ads.parentNode.removeChild(ads);
-			}
-			
-			//start from entry ??
-			
+			var i,len,ads = document.getElementById("tads");
+			remove(ads);
+
 			// Remove Search-Tracking
 			if (re.links) {
 				var links = entry.getElementsByTagName("a");
-				if (links && links.length>0) {
-					for (i = 0; i < links.length; i++) {
-						el = links[i];
-						if (el.className == "l") {
-							el.removeAttribute("onmousedown");
-						}
-						if (re.links.test(el.href)) {
-							//console.log("REMOVE AD a : "+link.href);
-							el.parentNode.removeChild(el);
-						}
-					}
-				}
-			}
-	
-			if (re.images) {
-				var imgs = entry.getElementsByTagName("img");
-				if (imgs && imgs.length>0) {
-					for (i = 0; i < imgs.length; i++) {
-						el = links[i];
-						if (re.images.test(el.src)) {
-							//console.log("REMOVE AD img : "+link.src);
-							el.parentNode.removeChild(el);
+				len = links.length;
+				if (links && len>0) {
+					for (i=len-1; i>=0; i--) {
+						var el = links[i];
+						if (el) {
+							if (re.links.test(el.href)) {
+								el.removeAttribute("onmousedown");
+								adremove(el, 'red');
+							}
 						}
 					}
 				}
 			}
-	
+		
 			// Remove Right-side Ads
 			if (re.iframes) {
 				var iframes = entry.getElementsByTagName("iframe");
-				if (iframes && iframes.length>0){
-					for (i = 0; i < iframes.length; i++) {
-						el=iframes[i];
-						if (re.iframes.test(el.src)) {
-							el.parentNode.removeChild(el);
-						/*//console.log("REMOVE AD iframe : "+s);
-				 iframe[i].height = 0;
-				 iframe[i].width = 0;
-				 iframe[i].src = '';*/
+				len = iframes.length;
+				if (iframes && len>0){
+					for (i=len-1; i>=0; i--) {
+						var el=iframes[i];
+						if (el && re.iframes.test(el.src)) {
+							//el.height = 0; el.width = 0;
+							el.src='';
+							adremove(el,'blue');
 						}
 					}
 				}
 			}
-		},0);
+			
+			if (re.images) {
+				var imgs = entry.getElementsByTagName("img");
+				len = imgs.length;
+				if (imgs && len>0) {
+					for (i=len-1; i>=0; i--) {
+						var el = imgs[i];
+						if (el) {
+							if (el.width <= 1 && el.height <= 1) {
+								el.src = '';
+								adremove(el, 'fushia');
+							} else if (re.images.test(el.src)) {
+								el.src = '';
+								adremove(el, 'green');
+							}
+						}
+					}
+				}
+			}
+		},10);
 	}
 		
 	registerFeature(removeAds, ID, {onlistviewtitle:true});
-/*
-	document.body.addEventListener('DOMNodeInserted', function(e){
-		removeAds(entry);
-	}, false);*/
-	//removeAds(document);
 
 };
