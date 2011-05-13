@@ -402,7 +402,8 @@ separator: "Separator to add extra level (example: Sports:Footbal)."
     removeads: {
         links: "Link filter:",
         images: "Image filter:",
-        iframes: "Iframe filter:"
+        iframes: "Iframe filter:",
+		preview: "Highlith preview filter"
     },
     preview: {
         onicon: "Show integrated preview when click on icon right after the title (if not checked, on title)",

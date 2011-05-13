@@ -399,6 +399,7 @@ function insertOn(el, ref, position){
 function remove(el){
     if (el && el.parentNode) {
         el.parentNode.removeChild(el);
+		el=null;
     }
 }
 
@@ -1181,10 +1182,36 @@ function applyRemoteLang(lang, base, id, o, fn, scope){
 //http://simonwillison.net/2006/Jan/20/escape/
 //var re_encodeRE = new RegExp("[-^$.*+?|()\\[\\]{}\\\\]", "g"); // .*+?|()[]{}\
 var re_encodeRE = /[\/\-\^\$\.\*\+\?\\|\(\)\[\]{}\\\\]/g;
-function encodeRE(s){
-    return s.replace(re_encodeRE, "\\$&").replace(/\s/g, '\\s');
+var re_wildcard = /[^\\]\\\\*/g;
+function encodeRE(s,wildcard){
+    var e = s.replace(re_encodeRE, "\\$&").replace(/\s/g, '\\s');
+	/*if (wildcard){
+		e = e.replace(re_wildcard, ".*");
+	}*/
+	return e;
 }
 
+function encoderegex(term, re, wildcard){
+	var rx = '';
+	if (/^#/.test(term)){
+		//RegExp
+		rx=term.replace(/^#/,'');
+	}else {
+		rx = encodeRE(term, wildcard);
+	}
+	if (re) {
+		rx=new RegExp(unescapePhrase(rx), 'i');
+	}
+	return rx;
+}
+
+function escapePhrase(t){
+	return '<#' + t.replace(/\s/g, '#_#') + '#>';
+}
+function unescapePhrase(t){
+	return t.replace(/<#/g, '(\\b').replace(/#>/g, '\\b)').replace(/#_#/g, '\\s');
+}
+	
 function urlDecode(string){
     var obj = {}, pairs = string.split('&'), d = decodeURIComponent, name, value;
     for (var i = 0, len = pairs.length; i < len; i++) {

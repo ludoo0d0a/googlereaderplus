@@ -452,19 +452,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
     
     }
 	
-	function encoderegex(term, re){
-		var rx = '';
-		if (/^#/.test(term)){
-			//RegExp
-			rx=term.replace(/^#/,'');
-		}else {
-			rx = encodeRE(term);
-		}
-		if (re) {
-			rx=new RegExp(unescapePhrase(rx), 'i');
-		}
-		return rx;
-	}
+	
 	
     
     //Transform a google-like expression into a tree regex
@@ -493,13 +481,6 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 		return tree;
     }
 	*/
-	
-	function escapePhrase(t){
-		return '<#' + t.replace(/\s/g, '#_#') + '#>';
-	}
-	function unescapePhrase(t){
-		return t.replace(/<#/g, '(\\b').replace(/#>/g, '\\b)').replace(/#_#/g, '\\s');
-	}
 	
     var reQuotedExpr = /"[^"]*"/g, reQuote = /^"|"$/g;
     function parseExpression(expr){
