@@ -1131,7 +1131,7 @@ function getEntryNumber(entry,def){
 	
 	
 function getBackColorCss(hue,sat,lt,range){
-	var color = "  color: hsl(" + hue + "," + sat + "%, ";
+	var css = "  color: hsl(" + hue + "," + sat + "%, ";
 	return ("" +
             "#entries .collapsed .entry-title {" +
             css +
