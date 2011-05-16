@@ -109,7 +109,9 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
          result = eb.innerHTML+'<br/>';
          }*/
         iterate(matches, function(title, o){
-            if (o.xpath || o.selector) {
+            //Fix relative url
+			var base = getUrlBase(o.url);
+			if (o.xpath || o.selector) {
                 if (!xml) {
                     xml = loadXml(html);
                 }
@@ -121,9 +123,11 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
 						els = Sizzle(o.selector, xml);
 					}
 					if (els && els.length>0) {
+						var res = '';
 						foreach(els, function(el){
-							result += el.outerHTML;
+							res += el.outerHTML;
 						});
+						result += fixurls(res, base);
 					}
                     //clean xml
                     remove(xml);
@@ -141,11 +145,11 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
 						if (/^\+/.test(r)){
 							var entryBody = getEntryBody(body);//item-body
 							if (entryBody) {
-								result += entryBody.innerHTML;
+								result += fixurls(entryBody.innerHTML,base);
 							}
 							r=r.replace(/^\+/,'');
 						}
-						result += m[0].replace(item.re_search, r);
+						result += fixurls(m[0].replace(item.re_search, r));
                     }
                 }
             }
@@ -153,8 +157,6 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
         
         var entryBody = getEntryBody(el.parentNode);
         if (result !== '') {
-            //TODO : Fix relative url
-			result = fixurls(result, base);
 			el.innerHTML = result;
             show(el);
             hide(entryBody);
