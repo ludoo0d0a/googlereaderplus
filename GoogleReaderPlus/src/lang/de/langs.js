@@ -8,7 +8,7 @@
  *
  * Version : 1.8
  * Date : 03-17-2011
- * @author Valente
+ * @author T Weisser
  */
 var locale = 'de';
 namespace('GRP.langs.' + locale);
@@ -24,8 +24,8 @@ GRP.langs[locale].texts = {
         summary: 'Objekt hinzufügen/bearbeiten',
         desc: 'Spalten verwalten'
     },
-	sharemsg:{
-		toolong: "Die Nachricht ist zu lang!",
+    sharemsg: {
+        toolong: "Die Nachricht ist zu lang!",
         notetoolong: "<b>Hinweis, ihre Nachricht ist zu lang:</b> (Optional, remain {0} characters)",
         notemax: "<b>Hinweis, ihre Nachricht ist zu lang:</b> (Optional, no more than 140 characters)",
         text_title: 'Titel',
@@ -36,7 +36,7 @@ GRP.langs[locale].texts = {
         text_cancel: 'Abbrechen',
         text_shortener: 'kurze URL',
         shortfailed: "Entschuldigen sie, es ist ein Fehler beim verwenden der kurzen URL aufgetreten!\n\r{0}"
-	},
+    },
     facebook: {
         text: 'Dies auf Facebook teilen',
         keyword: 'Facebook'
@@ -46,17 +46,17 @@ GRP.langs[locale].texts = {
         keyword: 'Twitter',
         plslogin: 'Bitte loggen Sie sich in Twitter ein'
     },
-	identi:{
-		text:'Dies auf Identi teilen',
-		keyword: 'Identi',
-		plslogin: 'Bitte loggen Sie sich auf Identi.ca ein',
-		nologin: 'Diese Funktion erfordert ein Benutzernamen und Passwort, verändern Sie dies in den Einstellungen!!'
-	},
-	jaiku:{
-		text:'Dies aut Jaiku teilen',
-		keyword: 'Jaiku',
-		plslogin: 'Bitte loggen sie sich auf Jaiku ein'
-	},
+    identi: {
+        text: 'Dies auf Identi teilen',
+        keyword: 'Identi',
+        plslogin: 'Bitte loggen Sie sich auf Identi.ca ein',
+        nologin: 'Diese Funktion erfordert ein Benutzernamen und Passwort, verändern Sie dies in den Einstellungen!!'
+    },
+    jaiku: {
+        text: 'Dies aut Jaiku teilen',
+        keyword: 'Jaiku',
+        plslogin: 'Bitte loggen sie sich auf Jaiku ein'
+    },
     readit: {
         password: 'Password, falls vorhanden:',
         wronglogin: 'Falscher Benutzername oder Passwort, bitte überprüfen!!',
@@ -72,27 +72,27 @@ GRP.langs[locale].texts = {
         plslogin: 'Bitte loggen Sie sich in Instapaper ein',
         login: 'E-Mail oder Benutzername:'
     },
-	readitlater: {
+    readitlater: {
         text: 'Später lesen mit ReadItLater',
         keyword: 'ReadItLater',
         plslogin: 'Bitte loggen sie sich bei ReadItLater ein',
         rateexceeded: 'Bewertungslimit überschritten, bitte warten Sie einen Moment',
         maintenance: 'Der Server von Read It Later ist down für Wartungsarbeiten'
     },
-	radbox: {
+    radbox: {
         text: 'Read Later mit Radbox',
         keyword: 'Radbox',
         nologin: 'Diese Funktion benötigt ein Passwort, verändern Sie dies in den Einstellungen!!',
-		novideo: 'Es wurde kein Video auf dieser Seite gefunden'
+        novideo: 'Es wurde kein Video auf dieser Seite gefunden'
     },
-	addthis:{
-		text:'Teilen mit AddThis',
-		keyword: 'AddThis'
-	},
-	blogger:{
-		text:'Teilen mit Blogger',
-		keyword: 'Blogger'
-	},
+    addthis: {
+        text: 'Teilen mit AddThis',
+        keyword: 'AddThis'
+    },
+    blogger: {
+        text: 'Teilen mit Blogger',
+        keyword: 'Blogger'
+    },
     favicons: {
         preferences: 'Einstellungen',
         getfavicon: 'Favicon holen',
@@ -115,24 +115,24 @@ GRP.langs[locale].texts = {
         close: 'Schliessen',
         edit: 'Bearbeiten',
         remove: 'Beenden',
-		//v2
-		filter: 'Filter',
-	    save: 'Beenden & Anwenden',
-	    close: 'Menu schliessen',
-	    searchbody: 'Im ganzen Text suchen',
-		detect_duplicates: 'Dulikate erkennen',
-	    hide_duplicates: 'verstecke Dublikate',
-	    hide_excludes: 'verstecke Ausgeschlossene',
-	    prefer_highlights: 'Beforzuge Hervorgehobene vor Ausgeschlossene',
-		live:'Live',
-	    highlights: 'Hervorgehobene',
-	    duplicates: 'Dublikate',
-	    excludes: 'Ausgeschlossene',
-	    content: 'Inhalt',
-	    addentry: 'hinzufügen',
-	    add_excludes: 'Als Ausgeschlossene hinzufügen',
-	    add_highlights: 'Als Hervorgehoben hinzufügen',
-		button:'Filter auf jeden Eintrag anwenden'
+        //v2
+        filter: 'Filter',
+        save: 'Beenden & Anwenden',
+        close: 'Menu schliessen',
+        searchbody: 'Im ganzen Text suchen',
+        detect_duplicates: 'Dulikate erkennen',
+        hide_duplicates: 'verstecke Dublikate',
+        hide_excludes: 'verstecke Ausgeschlossene',
+        prefer_highlights: 'Beforzuge Hervorgehobene vor Ausgeschlossene',
+        live: 'Live',
+        highlights: 'Hervorgehobene',
+        duplicates: 'Dublikate',
+        excludes: 'Ausgeschlossene',
+        content: 'Inhalt',
+        addentry: 'hinzufügen',
+        add_excludes: 'Als Ausgeschlossene hinzufügen',
+        add_highlights: 'Als Hervorgehoben hinzufügen',
+        button: 'Filter auf jeden Eintrag anwenden'
     },
     fitheight: {
         text: 'Höhe anpassen',
@@ -140,7 +140,7 @@ GRP.langs[locale].texts = {
     },
     jump: {
         text: 'Springe',
-	    textbottom: 'Springe zum Schluss',
+        textbottom: 'Springe zum Schluss',
         texttop: 'Springe zum Anfang',
         keywordtop: 'Anfang'
     },
@@ -157,7 +157,7 @@ GRP.langs[locale].texts = {
         overlay_previous: 'Zurück',
         overlay_close: 'Schliessen',
         overlay_category: 'Kategorie',
-		overlay_loading: 'Laden...'
+        overlay_loading: 'Laden...'
     },
     readbymouse: {
         middleclick: 'Mittelklick',
@@ -187,12 +187,12 @@ GRP.langs[locale].texts = {
         label: 'Extras',
         showallfolders: 'Alle Ordner anzeigen'
     },
-	actions:{
-		text:'Aktionssymbole'
-	},
-	portal:{
-		readmore: 'Mehr lesen (Ctrl+click um Aktion anzuzeigen)'
-	}
+    actions: {
+        text: 'Aktionssymbole'
+    },
+    portal: {
+        readmore: 'Mehr lesen (Ctrl+click um Aktion anzuzeigen)'
+    }
 };
 GRP.langs[locale].prefs = {
     global: {
@@ -223,7 +223,7 @@ GRP.langs[locale].prefs = {
         imgf: 'Fuss',
         imgfr: 'rechter Fuss',
         imgfl: 'linker Fuss',
-		ncolumns: 'Anzahl Zeilen'
+        ncolumns: 'Anzahl Zeilen'
     },
     ig: {
         warning: 'Einige Themen können nicht richtig angezeigt werden ; dies ist eine Betafunktion!',
@@ -241,192 +241,192 @@ GRP.langs[locale].prefs = {
     },
     about: {
         thanks1: '<td><span class="top_right"><img src="images/48.png"></span><h1>Thank you...</h1>' +
-        '<p>... for installing (or updating to) the latest version of <strong>Reader Plus</strong>!</p>' +
-        '<p>Make sure you check the <a href="preferences.html" title="Go to the preferences page"><strong>preferences page</strong></a> for configuration of the extension.</p>' +
-        '<p><a href="https://chrome.google.com/webstore/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong>Visit the Google Chrome Extensions gallery page!</strong></a></p>' +
-        '<p><a href="http://www.twitter.com/ludoo0d0a"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow me on Twitter"/></a></p>' +
+        '<p>... Um die neuste Version von <strong>Reader Plus</strong>zu installieren oder upzudaten!</p>' +
+        '<p>Überprüfen sie ob <a href="preferences.html" title="Zur Einstellungsseite springen"><strong>Einstellungsseite</strong></a> um die Erweiterungen zu bearbeiten.</p>' +
+        '<p><a href="https://chrome.google.com/webstore/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Besuche Erwiterungshomepage"><strong>Besuche Google Chrome Erweiterungsgalerie!</strong></a></p>' +
+        '<p><a href="http://www.twitter.com/ludoo0d0a"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Folge mir auf Twitter"/></a></p>' +
         '<p></p></td>',
-        thanks2: '<td><p>If you like this extension and want more features, feel free to make a donation.</p>' +
-        '<p>In this way, I could buy a truck of coffee so that i can stay awake to write all the code :)</p>' +
+        thanks2: '<td><p>Wenn sie diese Erweiterung mögen, spenden sie mir doch einen kleinen Beitrag.</p>' +
+        '<p>damit ich mir eine Tasse Kaffee kaufen kann, um weiterhin den Code u schreiben:)</p>' +
         '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FK9P8MNY9MGZL&lc=US&item_name=GoogleReaderPlus%20project&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></a></td>',
         //whatsnew: '<td> <h2>What\'s new!!</h2> <ul> <li>Sync settings in your Google Docs (1 profile for multiple computers)</li> <li>Try the new themes</li> <li>Toggle theme shortcut (Alt X)</li> <li>Spanish supported now</li> <li>Bugfixes</li> </ul> <p class="center"><img src="http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/screenshots/button/popup1.png"/></p><h2>And still ...</h2> <ul> <li>Cloud experience : Use shared configuration for favicons and replacer</li> <li>Toolbar button shows now a popup with last unread items and a fast tooltip preview</li> <li>or use a custom background with the new theme \'MyTheme\'</li> <li>or use a random <a href="http://www.google.com/ig/directory?type=themes" target="blank">iGoogle</a> theme</li> <li>Preview as lightbox</li> <li>Share items using <a href="http://www.readitlater.com" target="blank">ReadItLater</a></li> <li>Entry actions as floating window (general)</li> <li>Translate news</li> </ul> </td>',
-        nopopup: '<p>If you don\'t want to be alerted on new version updates, check option "No popup on updates" in <a href="preferences.html#general">General section</a>.</p>'
+        nopopup: '<p>Wenn sie nicht an neue Updates erinnert werden wollen stellen sie dies in den Einstellungen unter <a href="preferences.html#general">Allgemein</a> ein.</p>'
     },
     link: {
-        reader: "<span>Google Reader</span>Your RSS reader",
-        issues: "<span>Report issue</span>Found a bug or suggestion ?",
-        download: "<span>Google Extension</span>The place to download",
-        about: "<span>About</span>About, thanks,...",
-        site: "<span>Website</span>My personal website",
-        twitter: "<span><img width=\"160\" height=\"27\" src=\"http://twitter-badges.s3.amazonaws.com/follow_me-a.png\" alt=\"Follow ludoo0d0a on Twitter\"></span>Follow news and updates",
+        reader: "<span>Google Reader</span>Dein RSS reader",
+        issues: "<span>Report issue</span>Fehler gefunden oder eine Anregung",
+        download: "<span>Google Extension</span>Der Ort um zu downloaden",
+        about: "<span>About</span>Über, danke,...",
+        site: "<span>Website</span>Meine persönliche Webseite",
+        twitter: "<span><img width=\"160\" height=\"27\" src=\"http://twitter-badges.s3.amazonaws.com/follow_me-a.png\" alt=\"Follow ludoo0d0a on Twitter\"></span>Neuigkeiten und Updates",
         donate: '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=FK9P8MNY9MGZL&amp;lc=US&amp;item_name=googlereaderplus%20project&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><span><img alt="Donate" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" width="74" height="21"></span>Offer me a coffee!</a>',
-        translate: '<span>Translation</span>Help me to translate</a>'
+        translate: '<span>Übersetzung</span>Hilf mir zu übersetzen</a>'
     },
     column: {
-        count: "Columns number",
-        locked: "Always actived, except following feeds:",
-        pagebreak: "Break long articles so long articles can be read page by page like a newspaper.",
-		miniparas: "Number of paragraphs minimum before split into columns",
-        entersite: "Enter URL of the site"
+        count: "Spaltennummer",
+        locked: "Immer aktiv, ausser folgende Feeds:",
+        pagebreak: "Unterbreche lange Artikel, so dass man sie Seite für Seite lesen kann, wie bei einer Zeitung",
+        miniparas: "Anzahl der minimlaen Absätze, bevor aufgeteilt in Spalten",
+        entersite: "Füge URL der Seite hinzu"
     },
     translate: {
-        lang: "Translate content into ",
-        locked: "Always actived, except for:",
-        include: "Only include following feeds:",
-        entersite: "Enter URL of the site"
+        lang: "Übersetze Inhalt nach",
+        locked: "Immer aktiv, ausser für:",
+        include: "Nur folgende Feeds einfügen:",
+        entersite: "Füge URL der Seite hinzu"
     },
     twitter: {
-        shortener: "Shortener",
-        shortener_bitly: "BitLy configuration (optional):",
+        shortener: "Verkürzer",
+        shortener_bitly: "BitLy Konfiguration (optional):",
         shortener_login: "Login",
         shortener_apikey: "ApiKey",
-        shortener_pwd: "Password"
+        shortener_pwd: "Passwort"
     },
     instapaper: {
         auth: "<a href='http://www.instapaper.com' target='blank'>Instapaper</a> authentication:",
-        username: "Username:",
-        password: "Password (optional):"
+        username: "Benutzername:",
+        password: "Passwort (optional):"
     },
     readitlater: {
         auth: "<a href='http://www.readitlaterlist.com' target='blank'>ReadItLater</a> <a href='http://readitlaterlist.com/signup' target='blank'>authentication</a> (required):",
-        username: "Username:",
-        password: "Password:"
+        username: "Benutzername:",
+        password: "Passwort:"
     },
-	radbox: {
+    radbox: {
         auth: "<a href='http://radbox.me/support/extras' target='blank'>Radbox</a> <a href='http://radbox.me/account/user/register' target='_blank'>authentication</a> (required):",
         username: "Userkey:"
     },
-	identi: {
-        shortener: "Shortener",
-        shortener_bitly: "BitLy configuration (optional):",
+    identi: {
+        shortener: "Verkürzer",
+        shortener_bitly: "BitLy Konfiguration (optional):",
         shortener_login: "Login",
         shortener_apikey: "ApiKey",
-        shortener_pwd: "Password"
+        shortener_pwd: "Passwort"
     },
-	addthis:{
-		layout:'Layout',
-		layoutdesc:'Various formats are explained on <a href="http://www.addthis.com/web-button-select" target="_blank">this page</a>'
-	},
+    addthis: {
+        layout: 'Layout',
+        layoutdesc: 'Verschiedene Formate werden auf <a href="http://www.addthis.com/web-button-select" target="_blank">dieser Seite</a> erklährt'
+    },
     colorful: {
-        tree: "Show label colors in the left navigation tree",
-		usebasecolor: "Use following base colors :",
-		background: "Background color",
-		color:"Fore color"
+        tree: "Zeige Farbetikett in linkem Navigationsbereich",
+        usebasecolor: "Benutze folgende Standartfarben:",
+        background: "Hintergrundfarbe",
+        color: "Vordergrundfarbe"
     },
     general: {
-        counter: "Display unread counter in the toolbar icon",
-counterinterval: "Refresh unread counter every (min)",
-        pageicon: 'Activate icon in the address bar (click will open a menu)',
-        stats: 'Enable anonymous statistics reporting (for a better support)',
-        bottomup: 'Footer toolbar on the top',
-        opendirect: "Click on toolbar icon will open GoogleReader",
-        secure: "Always force use of secure protocol (https)",
-        topcurrent: "Current entry always on top",
-        floatactions: "Entry actions are displayed as a floating window",
-        noupdatepopup: "No popup on updates",
-        icontoolbar_add: "To add button with icon in toolbar, please <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">download and install it</a>.",
-        icontoolbar_text: "<span>To make the button optional, we put him in an another extension as standalone,</span>                                    <br>                                    <span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b></b> on the <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span><span>To remove the button, right click him and choose Disable.</span>",
-        importexport_text: "You can now save your preferences using 'export' and reload it later using 'import', but be sure data are <a href='http://jsonformatter.curiousconcept.com/' target='blank'>JSON compliant</a>:",
-        confirmimport: "Are you sure to import this configuration?\nCurrent configuration will be LOST!",
-confirmsyncload: "Are you sure to import this configuration from your Google's account?\nCurrent configuration will be LOST!",
-prefsimportedok: 'Preferences succesfully imported!',
-prefsimportfailed: 'Import failed!',
-prefsimportnull: 'No saved preferences found!',
-syncprefs_text: 'Load/save using your Google\'s account',
-prefssavedok: 'Preferences succesfully saved!',
-prefssavedfailed: 'Preferences save failed!',
-        text_layout: 'Layout options',
-        text_private: 'Private data and updates',
-        text_toolbaricon: 'Toolbar icon',
-        text_pageicon: 'Address bar icon',
+        counter: "Zeige Anzahl ungelesener Artikel in der Toolbar",
+        counterinterval: "Erneuere ungelesene Artikel alle(min)",
+        pageicon: 'Aktiviere Icon in der Adresszeile (click öffnet das Menu)',
+        stats: 'Schalte anonyme Statistik ein (für besseren Support)',
+        bottomup: 'Fusszeile ganz nach oben',
+        opendirect: "Click auf das Toolbaricon öffnet GoogleReader",
+        secure: "Benutze immer verschlüsselte Übertragung (https)",
+        topcurrent: "Aktueller Artikel immer ganz oben",
+        floatactions: "Artikelaktionen werden in schwebendem Fenster angezeigt.",
+        noupdatepopup: "Kein Popup bei Updates",
+        icontoolbar_add: "Um eine Schaltfläche in der Toolbar zu erstellen, bitte <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">laden sie diese herunter und instalieren Sie sie</a>.",
+        icontoolbar_text: "<span>Optional kann die Schaltfläche ganz alleine stehen</span>                                    <br>                                    <span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b></b> on the <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span><span>To remove the button, right click him and choose Disable.</span>",
+        importexport_text: "Mit 'export' können sie ihre Daten sichern und später mit 'import' widerherstellen, stellen sie sicher, dass sie Daten <a href='http://jsonformatter.curiousconcept.com/' target='blank'>JSON kompatibel</a> sind:",
+        confirmimport: "Sind sie sicher das Sie diese Konfiguration laden wollen?\nDie Aktuelle geht dabei verloren!",
+        confirmsyncload: "Sind sie sicher das Sie diese Konfiguration von GoogleReeder laden wollen?\nDie Aktuelle geht dabei verloren!",
+        prefsimportedok: 'Einstellungen erfolgreich importiert!',
+        prefsimportfailed: 'Import fehlgeschlagen!',
+        prefsimportnull: 'Keine gespeicherten Einstellungen gefunden!',
+        syncprefs_text: 'Lade/Speichere Mit hilfe deines Google Accounts',
+        prefssavedok: 'Einstellungen erfolgreich gespeichert!',
+        prefssavedfailed: 'Einstellungen speicher fehlgeschlagen!',
+        text_layout: 'Layout Einstellungen',
+        text_private: 'Private Daten und Updates',
+        text_toolbaricon: 'Toolbar Icon',
+        text_pageicon: 'Addresszeilen Icon',
         text_export: 'Export/import',
-currdir: 'Highlight folder of current entry <span class="new">new!</span>',
-icons: 'Icons only for action buttons (except checkbox) <span class="new">new!</span>',
-hidetoolbar: 'Hide user toolbar'
+        currdir: 'Aktuellen Ordner hervorheben<span class="new">neu!</span>',
+        icons: 'Icons nur für Aktionsschaltflächen (ausser checkbox) <span class="new">neu!</span>',
+        hidetoolbar: 'Verstecke Usertoolbar'
     },
-limit: {
-slidewindow: "Slidewindow - limit entries number",
-mini: "Minimum items",
-maxi: "Maximum items"
-},
-prefetch: {
-first: "Initial loading items number on the expanded view.",
-next: "Loading items when scrolling on the expanded view. ",
-list: "Initial fetch on the list view."
-},
-nested: {
-separator: "Separator to add extra level (example: Sports:Footbal)."
-},
+    limit: {
+        slidewindow: "Slidewindow - kürze Anzahl Einträge",
+        mini: "Minimale Einträge",
+        maxi: "Maximale Einträge"
+    },
+    prefetch: {
+        first: "Anfangs geladene Beiträge bei der erweiterten Ansicht.",
+        next: "Ladende Einträge bei der erweiterten Ansicht. ",
+        list: "Anfangs geholt bei der Listendartsellung"
+    },
+    nested: {
+        separator: "Trenner zum hinzufügen nuere Ebene(zum Beispiel: Sport:Fussball)."
+    },
     removeads: {
-        links: "Link filter:",
-        images: "Image filter:",
-        iframes: "Iframe filter:"
+        links: "Link Filter:",
+        images: "Bilder Filter:",
+        iframes: "Iframe Filter:"
     },
     preview: {
-        onicon: "Show integrated preview when click on icon right after the title (if not checked, on title)",
-        locked: "Always actived, except following feeds:",
-        overlay: 'Fullscreen preview (Lightbox)',
-		loading: 'Display "Loading in progress"'
+        onicon: "Zeige integrierte Vorschau beim click auf das rechte Icon nach dem Titel (Wenn nicht angewählt, auf dem Titel)",
+        locked: "Immer aktiv, ausser folgende Feeds:",
+        overlay: 'Fullscreen Vorschau (Lightbox)',
+        loading: 'Anzeigen "laden..."'
     },
     fitheight: {
-        locked: "Always actived, except following feeds:"
+        locked: "Immer aktiv, ausser folgende Feeds:"
     },
     filter: {
-        searchbody: "Search inside title and body text",
-        highlights: 'Highlights list (one item per line)',
-        excludes: 'Excludes list (one item per line)',
-		searchbody: 'Search in whole body text',
-		detect_duplicates: 'Detect Duplicates',
-	    hide_duplicates: 'Hide Duplicates',
-	    hide_excludes: 'Hide Excludes',
-	    prefer_highlights: 'Prefer Highlights over excludes',
-		live:'Live',
-		word_mini: 'Minimum number of letters for a word',
-		button:'Filter button on each entry'
+        searchbody: "Suche inerhalb des Titels und des Textes",
+        highlights: 'Hervorgehobene Liste (ein Element pro Zeile)',
+        excludes: 'Ausgeschlossene Liste (ein Element pro Zeile)',
+        searchbody: 'Suche im ganzen Text',
+        detect_duplicates: 'Dublikate erkennen',
+        hide_duplicates: 'verstecke Dublikate',
+        hide_excludes: 'verstecke Ausgeschlossene',
+        prefer_highlights: 'Beforzuge Herforgehobene vor Ausgeschlossenen',
+        live: 'Live',
+        word_mini: 'Minimale Anzahl Buchstaben pro Wort',
+        button: 'Filterschaltfläche auf jedem Element'
     },
     favicons: {
-        providerpageicons: 'Use <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> provider (Recommended to load succesfully all icons)',
-        sidebaronly: "Show favicons in sidebar only",
-        cloud: 'Use cloud database <a href="http://wedata.net/databases/Favicons" target="blank">wedata/Favicons</a> so that community completes favicons',
-        custom: "Enter your custom favicons :",
-        add: "Add",
-        tip: "Tip: You could add it easily using the contextual menu \"Get favicon\" of the left side bar",
-        manual: "Manual favicons for all sites (not recommended ; slower)",
-        parsing: "This will try to detect favicon by parsing each homepage",
-        entersite: "Enter URL of the site",
-        prompticon: "Enter the icon url (let empty to get it automatically):"
+        providerpageicons: 'Benutze <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> Provider (Empfohlen alle Icons zu laden)',
+        sidebaronly: "Zeige Favicons nur in der Sidebar",
+        cloud: 'Benutze online Datenbank <a href="http://wedata.net/databases/Favicons" target="blank">wedata/Favicons</a> damit die Community die Favicons laden kann',
+        custom: "Füge dein eigenes Favicon hinzu :",
+        add: "hinzufügen",
+        tip: "Tipp: You could add it easily using the contextual menu \"Get favicon\" of the left side bar",
+        manual: "Manuell Favicons für alle Seiten (nicht empfehlenswert; langsamer)",
+        parsing: "Favicon wird durch analysieren jeder Homepage erkennt",
+        entersite: "Geben Sie die URL der Website ein",
+        prompticon: "Icon URL eingeben(leer lassen für automatisch):"
     },
     replacer: {
-        intro: '<a href="http://code.google.com/p/googlereaderplus/wiki/ReplacerHowto" target="blank">Help on how to use replacer</a>',
-        cloud: 'Use online expressions from <a href="http://wedata.net/databases/Replacer/items" target="blank">wedata/Replacer</a> cloud database',
+        intro: '<a href="http://code.google.com/p/googlereaderplus/wiki/ReplacerHowto" target="blank">Hilfe zur Verwendung des Replacers</a>',
+        cloud: 'Nutzen Sie Online-Ausdrücke von <a href="http://wedata.net/databases/LDRFullFeed/items" target="blank">wedata/LDRFullFeed</a> und <a href="http://wedata.net/databases/Replacer/items" target="blank">wedata/Replacer</a> Netzdatenbank',
         link: "Link Regex",
-        from: "Search regex/xpath/css",
-        to: "Replace",
-        prompttitle: "Title for this filter"
+        from: "Suche regex/xpath/css",
+        to: "Ersetzen",
+        prompttitle: "Title für diesen Filter"
     },
     lightbox: {
-        locked: "Always actived, except following feeds:"
+        locked: "Immer aktiv, außer folgenden Feeds:"
     },
     relook: {
         css: "CSS stylesheet",
-        resize: "Fire resize event to adapt fullscreen"
+        resize: "Fire resize-Ereignis um in Fullscreen zu wechseln"
     },
     pack: {
-        mini: "<span>Package Mini</span>The minimum for best reading",
-        ludoo: "<span>Package LudoO</span>The best features in one click",
-        full: "<span>Package Full</span>All features activated",
-        reset: "<span>Package Reset</span>Reset your configuration",
-        confirmdel: "This will ERASE and reset all your preferences. Are you sure ?"
+        mini: "<span>Paket Mini</span>Das Minimum für die beste Lesung",
+        ludoo: "<span>Package LudoO</span>Die besten Funktionen in einem Klick",
+        full: "<span>Package Full</span>Alle Funktionen aktivieren",
+        reset: "<span>Package Reset</span>Konfiguration zurücksetzen",
+        confirmdel: "Dies löscht alle EInstellungen. Sind Sie sich sicher?"
     },
     extshortcuts: {
-        custom: "Your custom Shortcuts",
-        official: "Google Reader official shortcuts",
-        alreadyusedprefs: "Already used in your preferences!",
-        alreadyusedgoogle: "Already used by Google!"
+        custom: "Ihre benutzerdefinierte Shortcuts",
+        official: "Google Reader offiziellen Abkürzungen",
+        alreadyusedprefs: "Bereits in den Einstellungen verwendet!",
+        alreadyusedgoogle: "Bereits verwendet von Google!"
     },
     thanks: {
-        donators: "Thanks to donators to contribute to this project",
-        translators: "Thanks to brave translators for their wonderful work",
-        authors: "Thanks to authors of original scripts and skins (Greasemonkey and Stylish)"
+        donators: "Dank an alle Spender die zu diesem Projekt beitragen",
+        translators: "Dank an die Übersetzer für ihre wunderbare Arbeit",
+        authors: "Dank dem Autor des Originals Skripte und Skins (Greasemonkey und Stylish)"
     }
 };
