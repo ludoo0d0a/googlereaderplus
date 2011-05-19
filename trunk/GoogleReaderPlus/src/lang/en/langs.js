@@ -76,6 +76,14 @@ GRP.langs[locale].texts = {
         saving: 'Saving',
         shortcut_readitlater: 'Read Later with Instapaper'
     },
+	diigo:{
+		badrequest:'Some request parameters are invalid or the API rate limit is exceeded.',
+		notauthorized:'Authentication credentials are missing or invalid.',
+		forbidden: 'The request has been refused because of the lack of proper permission.',
+		notfound:'Either you\'re requesting an invalid URI or the resource in question doesn\'t exist (e.g. no such user).',
+		badgateway:'Diigo is down or being upgraded.',
+		unavailable:'The Diigo servers are too busy to server your request. Please try again later.'
+	},
     instapaper: {
         text: 'Read Later with Instapaper',
         keyword: 'Instapaper',
@@ -335,6 +343,11 @@ GRP.langs[locale].prefs = {
     },
 	reddit: {
         auth: "<a href='http://www.reddit.com' target='blank'>Reddit</a> authentication (required):",
+		username: "Username:",
+        password: "Password:"
+    },
+	diigo:{
+        auth: "<a href='http://www.diigo.com' target='blank'>Diigo</a> authentication (required):",
 		username: "Username:",
         password: "Password:"
     },

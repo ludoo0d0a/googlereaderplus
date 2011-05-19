@@ -745,86 +745,118 @@ GRP.scripts = {
         }
     },
     /* in DEV */
-    /*pinboard: {
-     name: "Pinboard",
-     category: 'share',
-     status:'new',
-     shortcuts: {
-     'share': {
-     id: 'share',
-     title: 'Share with Pinboard',
-     key: {
-     //67 c
-     keyCode: 67,
-     shiftKey:true
-     }
-     }
-     }
-     },
-     tumblr: {
-     name: "Tumblr",
-     category: 'share',
-     status:'new',
-     options: {
-     auth: {
-     xtype: 'p',
-     label: true,
-     cls: 'subtitle'
-     },
-     username: {
-     value: '',
-     size: 40
-     },
-     password: {
-     input: 'password',
-     value: '',
-     size: 40
-     }
-     },
-     shortcuts: {
-     'share': {
-     id: 'share',
-     title: 'Share with Tumblr',
-     key: {
-     //67 b
-     keyCode: 67,
-     altKey:true
-     }
-     }
-     }
-     },
-     reddit: {
-     name: "Reddit",
-     category: 'share',
-     status:'new',
-     options: {
-     auth: {
-     xtype: 'p',
-     label: true,
-     cls: 'subtitle'
-     },
-     username: {
-     value: '',
-     size: 40
-     },
-     password: {
-     input: 'password',
-     value: '',
-     size: 40
-     }
-     },
-     shortcuts: {
-     'share': {
-     id: 'share',
-     title: 'Share with Reddit',
-     key: {
-     //68 b
-     keyCode: 68,
-     altKey:true
-     }
-     }
-     }
-     },*/
+    pinboard: {
+        name: "Pinboard",
+        category: 'share',
+        status: 'new',
+        shortcuts: {
+            'share': {
+                id: 'share',
+                title: 'Share with Pinboard',
+                key: {
+                    //67 c
+                    keyCode: 67,
+                    shiftKey: true
+                }
+            }
+        }
+    },
+    tumblr: {
+        name: "Tumblr",
+        category: 'share',
+        status: 'new',
+        options: {
+            auth: {
+                xtype: 'p',
+                label: true,
+                cls: 'subtitle'
+            },
+            username: {
+                value: '',
+                size: 40
+            },
+            password: {
+                input: 'password',
+                value: '',
+                size: 40
+            }
+        },
+        shortcuts: {
+            'share': {
+                id: 'share',
+                title: 'Share with Tumblr',
+                key: {
+                    //67 b
+                    keyCode: 67,
+                    altKey: true
+                }
+            }
+        }
+    },
+    reddit: {
+        name: "Reddit",
+        category: 'share',
+        status: 'new',
+        options: {
+            auth: {
+                xtype: 'p',
+                label: true,
+                cls: 'subtitle'
+            },
+            username: {
+                value: '',
+                size: 40
+            },
+            password: {
+                input: 'password',
+                value: '',
+                size: 40
+            }
+        },
+        shortcuts: {
+            'share': {
+                id: 'share',
+                title: 'Share with Reddit',
+                key: {
+                    //68 b
+                    keyCode: 68,
+                    altKey: true
+                }
+            }
+        }
+    },
+	diigo: {
+        name: "Diigo",
+        category: 'share',
+        status: 'new',
+        options: {
+            auth: {
+                xtype: 'p',
+                label: true,
+                cls: 'subtitle'
+            },
+            username: {
+                value: '',
+                size: 40
+            },
+            password: {
+                input: 'password',
+                value: '',
+                size: 40
+            }
+        },
+        shortcuts: {
+            'share': {
+                id: 'share',
+                title: 'Share with Diigo',
+                key: {
+                    //68 b
+                    keyCode: 68,
+                    shiftKey: true
+                }
+            }
+        }
+    },
     /*jaiku: {
      name: "Jaiku",
      category: 'share',

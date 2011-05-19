@@ -43,6 +43,15 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
         if (pp.selection) {
             params[pp.selection] = body.innerText;
         }
+		if (pp.tags) {
+            var t = '';
+			if (typeof pp.tags === 'function'){
+				t = pp.tags(entry);
+			}else{
+				t = getTagsText(entry);
+			}
+			params[pp.tags] = t;
+        }
         if (pp.key) {
             params[pp.key] = api.key;
         }
@@ -62,34 +71,44 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
 			if (cred.password){
 	        	p[pp.password || 'password'] = cred.password;
 			}
-			var o = apply({
-				method: 'GET',
-				dataType:'json'
-			}, api.auth);
-			o.data=apply(o.data,p);
-			
-			o.onload = function(r){
-				token = isOk(r, btn, 'login');
-				if (token) {
-					//login success
-					post(cred, params, btn);
-				} else if (api.errors[r.status]) {
-					alert(SL[api.errors[r.status]]);
-				} else {
-					alert(SL.error);
-				}
-			};
-			GM_xmlhttpRequest(o);
+			if (api.auth === 'basic') {
+				//Basic authentication
+				cred.method='basic';
+				post(cred, params, btn);
+			} else {
+				var o = apply({
+					method: 'GET',
+					dataType: 'json'
+				}, api.auth);
+				o.data = apply(o.data, p);
+				o.onload = function(r){
+					token = isOk(r, btn, 'login');
+					if (token) {
+						//login success
+						post(cred, params, btn);
+					} else if (api.errors[r.status]) {
+						alert(SL[api.errors[r.status]]);
+					} else {
+						alert(SL.error);
+					}
+				};
+				GM_xmlhttpRequest(o);
+			}
 		}else{
 			//direct
 			post(cred, params, btn);
 		}
     }
     function post(cred, params, btn){
-		params[pp.username || 'username'] = cred.username;
-        if (cred.password) {
-            params[pp.password || 'password'] = cred.password;
-        }
+		var auth = false;
+		if (cred && cred.method === 'basic') {
+			auth=cred;
+		} else {
+			params[pp.username || 'username'] = cred.username;
+			if (cred.password) {
+				params[pp.password || 'password'] = cred.password;
+			}
+		}
         var p=false,d=false,m = pp.method || 'GET';
 		if (m=='GET'){
 			p=params;
@@ -98,6 +117,7 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
 		}
 		GM_xmlhttpRequest({
             method: m,
+			auth:auth,
             url: api.add,
 			dataType:'json',
             parameters: p,
@@ -136,8 +156,8 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
     }
 	function addCss(id){
 		var css = '.entry .entry-actions .btn-'+id+'{background: url(\'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/share/'+id+'.png\') no-repeat!important;padding:0px 8px 1px 16px !important;}'+
-		'.entry .entry-actions .btn-facebook{background-position: 0 0px !important;}'+
-		'.entry .entry-actions .btn-facebook.btn-active{background-position: 0 -16px !important;}';
+		'.entry .entry-actions .btn-'+id+'{background-position: 0 0px !important;}'+
+		'.entry .entry-actions .btn-'+id+'.btn-active{background-position: 0 -16px !important;}';
 		GM_addStyle(css, 'btn_share_'+id);
 	}
 	if (api.icon){
