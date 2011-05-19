@@ -57,6 +57,13 @@ function bg_request(a, local, cb){
 			a.headers=a.headers||{};
 			a.headers['Content-Type']='application/x-www-form-urlencoded; charset=UTF-8';
 	}
+	
+	if (a.auth){
+		if (a.auth.method === 'basic') {
+			a.headers = a.headers || {};
+			a.headers['Authorization'] = 'Basic ' + base64.encode(a.auth.username + ':' + a.auth.password);
+		}
+	}
     //headers
     if (a.headers) {
         for (var kh in a.headers) {
