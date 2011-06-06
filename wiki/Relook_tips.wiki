@@ -1,0 +1,14 @@
+#summary Some useful CSS tips for Reader Plus.
+#labels css,relook,stylesheet,tuning
+
+= Relook tips =
+
+Find some useful css stylesheet to custom your page.
+
+
+= CSS sandbox =
+
+===Hide toolbar===
+{{{
+#gb {display:none;}
+}}}
