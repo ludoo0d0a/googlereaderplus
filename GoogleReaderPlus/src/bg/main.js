@@ -109,6 +109,8 @@ function onMessageReceived(a, p, cb){
 		}
     }else if (a.message == "rank") {
         getRank(a,cb);
+    }else if (a.message == "setcookie") {
+        setCookies(a,cb);
     }
 }
 
@@ -540,4 +542,14 @@ function getRank(a,cb){
 			sendResponse(o.responseJson||{},cb);
 		}
 	},true);
+}
+
+function setCookies(a,cb){
+	if (a.cookies) {
+		foreach(a.cookies,function(o){
+			setCookie(o.name, o.value);
+		});
+	}else if (a.name){
+		setCookie(a.name, a.value);
+	}
 }

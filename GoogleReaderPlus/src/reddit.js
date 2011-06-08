@@ -6,6 +6,7 @@
  * see http://code.reddit.com/wiki/API
  */
 GRP.reddit = function(prefs, langs, ID, SL, lang){
+	var token=false, cookie=false;
 	var api = {
 		icon:ID,
 		auth: {
@@ -18,17 +19,31 @@ GRP.reddit = function(prefs, langs, ID, SL, lang){
 		add: 'http://www.reddit.com/api/submit',
 		successCode:200,
 		success:function(r,btn,mode){
-			var a = false;
+			var ret = false;
 			if (mode == 'login') {
 				//token
 				if (r && r.json && r.json.data  ){
-					a={uh:r.json.data.modhash||''};
+					ret={uh:r.json.data.modhash||''};
+					cookie=r.json.data.cookie;
+					mycore.extension.sendRequest({
+                        message: "setcookie",
+                        name: 'reddit_session',
+                        value:cookie
+                    });
 				}
 			} else {
-				//post successfull
-				a = (o && !o.error);
+				if(r && r.jquery){
+					var rr = parseJquery(r);
+					ret={r:rr};
+					if (rr.error && rr.captcha){
+						ret.retry=true;
+					}
+				}
 			}
-			return a;
+			return ret;
+		},
+		getToken:function(){
+			return token;
 		},
 		errors: {
 	        400: 'badrequest',
@@ -36,7 +51,21 @@ GRP.reddit = function(prefs, langs, ID, SL, lang){
 	        500: 'error',
 			503: 'unavailable'
 	    },
+	    retryparams:function(params, k){
+	    	params=params||{};
+	    	params.iden=params.uh;
+	    	var rr = k.r||{};
+	    	params.captcha=rr.captcha;
+	    	return params;
+	    },
 		params:{
+			method:'POST',
+			headers:{
+				cookie: function(){
+					//return 'reddit_session='+cookie;
+					return '.reddit.com	TRUE	/	FALSE	0	reddit_session	'+cookie;
+				}
+			},
 			url: 'url',
 			//selection:'description',
 			title:'title',
@@ -51,4 +80,28 @@ GRP.reddit = function(prefs, langs, ID, SL, lang){
 		}
 	};
     GRP.api_readit(prefs, langs, ID, SL, lang, api);
+    
+    function parseJquery(o){
+    	var r = {}, all=o.jquery;
+    	var re = /\.error\.(\w+)/;
+    	if (all){
+	    	//start after body
+	    	for(var i=1,len=all.length; i<len; i=i+2){
+	    		var a=all[i], b=all[i+1];
+	    		if (a && b){
+	    			var n=a[3], v = b[3];
+	    			if(v.length===1){
+	    				v=v[0];
+	    				if (re.test(v)){
+	    					var m = re.exec(v);
+	    					v = m[1] || v;
+	    					n = 'error'
+	    				}
+	    			}
+	    			r[n]=v;
+	    		}
+	    	};
+    	}
+    	return r;
+    }
 };

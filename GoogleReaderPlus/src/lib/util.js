@@ -403,6 +403,14 @@ function remove(el){
     }
 }
 
+function removeCascade(el){
+	if (el.parentNode && el.parentNode.childNodes.length==1){
+		removeCascade(el.parentNode);
+	}else{
+		remove(el);
+	}
+}
+
 /**
  * Strings
  */

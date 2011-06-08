@@ -10,7 +10,7 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
         title: 'title',
         selection: 'selection'
     };
-	var token = false;
+	
     function addButton(el, entry, mode){
         var title = SL.text + formatShortcut(ID, 'share', prefs);
         var text = (prefs && prefs.general_icons) ? '' : (SL.keyword || ID);
@@ -60,7 +60,7 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
 	function isOk(r, btn, mode){
 		var res = (r.status == api.successCode);
 		if (res && typeof api.success ==='function'){
-			res = api.success(r.responseJson, btn, mode);
+			res = api.success(r.responseJson, btn, mode, r.responseText);
 		}
 		return res;
 	}
@@ -73,36 +73,53 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
 			}
 			if (api.auth === 'basic') {
 				//Basic authentication
-				cred.method='basic';
+				cred.method=api.auth;
 				post(cred, params, btn);
 			} else {
-				var o = apply({
-					method: 'GET',
-					dataType: 'json'
-				}, api.auth);
-				o.data = apply(o.data, p);
-				o.onload = function(r){
-					token = isOk(r, btn, 'login');
-					if (token) {
-						//login success
-						post(cred, params, btn);
-					} else if (api.errors[r.status]) {
-						alert(SL[api.errors[r.status]]);
-					} else {
-						alert(SL.error);
-					}
-				};
-				GM_xmlhttpRequest(o);
+				token = (api.getToken)?api.getToken():false;
+				
+				function gopost(token){
+					cred.method='token';//api.auth
+					params=apply(params,token);
+					//login success
+					post(cred, params, btn);
+				}
+				
+				if (token){
+					gopost(token);
+				}else{
+					var o = apply({
+						method: 'GET',
+						dataType: 'json'
+					}, api.auth);
+					
+					o.data = apply(o.data, p);
+					o.onload = function(r){
+						var token = isOk(r, btn, 'login');
+						if (token) {
+							gopost(token);
+						} else if (api.errors[r.status]) {
+							alert(SL[api.errors[r.status]]);
+						} else {
+							alert(SL.error);
+						}
+					};
+					GM_xmlhttpRequest(o);
+				}
 			}
 		}else{
 			//direct
 			post(cred, params, btn);
 		}
     }
-    function post(cred, params, btn){
+    function post(cred, params, btn, retry){
 		var auth = false;
-		if (cred && cred.method === 'basic') {
-			auth=cred;
+		if (cred){
+			if (cred.method === 'basic') {
+				auth=cred;
+			}else if (cred.method === 'token'){
+				//Nothing
+			}
 		} else {
 			params[pp.username || 'username'] = cred.username;
 			if (cred.password) {
@@ -113,22 +130,39 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
 		if (m=='GET'){
 			p=params;
 		}else{
-			d=params;
+			if (typeof api.getData==='function'){
+				var o= api.getData(params, cred);
+				d=o.data;
+				p=o.params;
+			}else{
+				d=params;
+			}
 		}
 		GM_xmlhttpRequest({
             method: m,
+            headers:pp.headers,
+            strip:api.strip,
 			auth:auth,
             url: api.add,
 			dataType:'json',
             parameters: p,
 			data: d,
             onload: function(r){
-                if (isOk(r,false,'post')){
-                    //set star active
-                    addClass(btn, 'btn-active'); //item-star-active
-                    removeClass(btn, 'item-share');
-					if (typeof api.successTitle ==='function') {
-						btn.title=api.successTitle(r.responseJson,SL);
+                console.log(r.responseText);
+                var k = isOk(r,false,'post');
+                if (k){
+                    if (!retry && k.retry){
+                    	if (api.retryparams){
+                    		params=api.retryparams(params, k);
+                    	}
+                    	post(cred, params, btn, true);
+                    }else{
+	                    //set star active
+	                    addClass(btn, 'btn-active'); //item-star-active
+	                    removeClass(btn, 'item-share');
+						if (typeof api.successTitle ==='function') {
+							btn.title=api.successTitle(r.responseJson,SL);
+						}
 					}
                 } else if (api.errors[r.status]) {
                     alert(SL[api.errors[r.status]]);
@@ -139,16 +173,20 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
         });
     }
     function getCredentials(){
-        var username = prefs[ID + '_username'];
-        var password = prefs[ID + '_password'];
-        if (typeof username === "undefined" || username === '') {
-            alert(SL.nologin);
-            return false;
+        if (api.nousername){
+       		return {};
+        }else{
+	        var username = prefs[ID + '_username'];
+	        var password = prefs[ID + '_password'];
+	        if (typeof username === "undefined" || username === '') {
+	            alert(SL.nologin);
+	            return false;
+	        }
+	        return {
+	            username: username,
+	            password: password
+	        };
         }
-        return {
-            username: username,
-            password: password
-        };
     }
     function clearCredentials(){
         //GM_setValue(ID+'_username', '');

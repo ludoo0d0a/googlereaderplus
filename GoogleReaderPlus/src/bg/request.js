@@ -134,7 +134,12 @@ function bg_request(a, local, cb){
 function enhanceResponse(a, res){
     if (a.dataType === 'json' && res.responseText) {
         try {
-            res.responseJson = JSON.parse(res.responseText);
+            var text = res.responseText;
+            if (a.strip){
+            	var m = text.split(a.strip);
+            	text=(m && m[1])?m[1]:text;
+            }
+            res.responseJson = JSON.parse(text);
         } catch (e) {
         }
     }

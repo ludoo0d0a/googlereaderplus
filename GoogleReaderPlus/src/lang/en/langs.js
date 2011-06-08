@@ -84,6 +84,10 @@ GRP.langs[locale].texts = {
 		badgateway:'Diigo is down or being upgraded.',
 		unavailable:'The Diigo servers are too busy to server your request. Please try again later.'
 	},
+	gmarks:{
+		wronglogin: 'Something goes wrong with authentication!!',
+		nologin: 'Error with authentication!!'
+	},
     instapaper: {
         text: 'Read Later with Instapaper',
         keyword: 'Instapaper',
