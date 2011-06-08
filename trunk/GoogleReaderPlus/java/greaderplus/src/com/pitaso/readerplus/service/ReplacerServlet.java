@@ -6,7 +6,6 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.pitaso.readerplus.pojo.ItemLDRFullFeed;
 import com.pitaso.readerplus.pojo.ItemReplacer;
 
 public class ReplacerServlet extends AbstractWeDataServlet{
