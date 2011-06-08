@@ -47,7 +47,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
     
     function loadFavicons(){
         //clearCache();
-		chrome.extension.sendRequest(
+		mycore.extension.sendRequest(
         {
             message: "loadicons",
             method: 'get',
@@ -266,7 +266,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
                         var oldimg = img.src, _key = key;
 						img.src = '';
                         img.src = LOADING_IMAGE;
-                        chrome.extension.sendRequest(
+                        mycore.extension.sendRequest(
                         {
                             message: "geticon",
                             key: key,

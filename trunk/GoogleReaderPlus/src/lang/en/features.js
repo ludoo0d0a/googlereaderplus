@@ -137,6 +137,10 @@ GRP.langs[locale].scripts = {
         name: "Reddit",
         desc: "Add a button to read news later using Reddit"
     },
+    gmarks: {
+        name: "Google Bookmarks",
+        desc: "Add a button to read news later using Google Bookmarks"
+    },
     mark: {
         name: "Mark As Read",
         desc: "Mark items before/after current as read"

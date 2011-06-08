@@ -53,7 +53,7 @@ function importprefs(){
     if (r) {
 		var el = document.getElementById("ieprefs");
 		if (el && el.value) {
-			gosaveprefs(value);
+			gosaveprefs(el.value);
 		}
     }
 }

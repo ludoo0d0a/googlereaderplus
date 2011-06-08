@@ -66,7 +66,6 @@ GRP.scripts = {
     theme: {
         name: "Theme",
         category: 'theme',
-        status: 'updated',
         options: {
             skin: '',
             noborder: false,
@@ -371,7 +370,6 @@ GRP.scripts = {
     favicons: {
         name: "Favicons",
         category: 'icons',
-        status: 'updated',
         options: {
             providerpageicons: false,
             sidebaronly: false,
@@ -413,6 +411,7 @@ GRP.scripts = {
     removeads: {
         name: "Remove ads",
         category: 'content',
+        status: 'updated',
         options: {
             links: {
                 xtype: 'textarea',
@@ -456,7 +455,6 @@ GRP.scripts = {
     preview: {
         name: "Integrated preview",
         category: 'layout',
-        status: 'updated',
         options: {
             onicon: false,
             overlay: false,
@@ -523,8 +521,7 @@ GRP.scripts = {
     },
     readbymouse: {
         name: "Read by mouse",
-        category: 'navigation',
-        status: 'updated'
+        category: 'navigation'
     },
     facebook: {
         name: "Facebook integration",
@@ -633,7 +630,6 @@ GRP.scripts = {
     identi: {
         name: "Identi.ca",
         category: 'share',
-        status: 'new',
         options: {
             shortener: {
                 xtype: 'select',
@@ -672,7 +668,6 @@ GRP.scripts = {
     radbox: {
         name: "Radbox",
         category: 'share',
-        status: 'new',
         options: {
             auth: {
                 xtype: 'p',
@@ -698,7 +693,6 @@ GRP.scripts = {
     addthis: {
         name: "AddThis",
         category: 'share',
-        status: 'new',
         options: {
             layoutdesc: {
                 xtype: 'p'
@@ -731,7 +725,6 @@ GRP.scripts = {
     blogger: {
         name: "Blogger",
         category: 'share',
-        status: 'new',
         shortcuts: {
             'share': {
                 id: 'share',
@@ -821,6 +814,22 @@ GRP.scripts = {
                     //68 b
                     keyCode: 68,
                     altKey: true
+                }
+            }
+        }
+    },
+    gmarks: {
+        name: "Google Bookmarks",
+        category: 'share',
+        status: 'new',
+        shortcuts: {
+            'share': {
+                id: 'share',
+                title: 'Share with Google Bookmarks',
+                key: {
+                    //68 b
+                    keyCode: 68,
+                    shiftKey: true
                 }
             }
         }
@@ -1042,10 +1051,6 @@ GRP.scripts = {
     stars: {
         name: "Multiple stars",
         category: 'layout',
-        status: 'new',
-        /*options: {
-         
-         },*/
         shortcuts: {
             'star': {
                 id: 'star',
@@ -1075,7 +1080,6 @@ GRP.scripts = {
     filter: {
         name: "Filter",
         category: 'content',
-        status: 'updated',
         options: {
             excludes: {
                 xtype: 'textarea',
@@ -1098,7 +1102,7 @@ GRP.scripts = {
         }
     },
     /* in DEV */
-    /*rank: {
+    rank: {
      name: "Popularity/Rank",
      category: 'content',
      status:'new',
@@ -1117,7 +1121,7 @@ GRP.scripts = {
      xtype:'p'
      }
      }
-     },*/
+     },
     /* menu: {
      name: "Smart menu",
      category: 'navigation',
@@ -1129,8 +1133,7 @@ GRP.scripts = {
     },
     actions: {
         name: "Actions icons",
-        category: 'action',
-        status: 'new'
+        category: 'action'
     },
     /*antisocial: {
      name: "Antisocial",
@@ -1284,7 +1287,6 @@ GRP.skins = {
     },
     snowleopard: {
         name: "Snow Leopard Improved",
-        status: 'updated',
         url: 'http://userstyles.org/styles/userjs/41190/Google%20Reader%20for%20Snow%20Leopard%20Improved.user.js',
         pic: 'http://userstyles.org/style_screenshots/41190_after.jpeg',
         ref: 'http://userstyles.org/styles/41190',
@@ -1293,7 +1295,6 @@ GRP.skins = {
     },
     snowleopard2: {
         name: "Snow Leopard Improved v2",
-        status: 'new',
         url: 'http://userstyles.org/styles/userjs/45455/Google%20Reader%20for%20Snow%20Leopard%202%20-%20Improved.user.js',
         pic: 'http://userstyles.org/style_screenshots/45455_after.png',
         ref: 'http://userstyles.org/style/45455',
@@ -1309,15 +1310,13 @@ GRP.skins = {
         resize: 'footer'
     },
     portal: {
-        name: "Portal v2",
-        status: 'updated'
+        name: "Portal v2"
     },
     helvetireader: {
         name: "Helvetireader Skin"
     },
     darkhelvetireaderday: {
         name: "Dark Helvetireader - Day",
-        status: 'new',
         pic: 'https://chrome.google.com/extensions/img/dkcjfdlgfmefnbhkholnhliliohggmef/1296639253.46/screenshot/3001'
         /*
          url: 'http://stylebot.me/style/get_userscript/61.user.js',
@@ -1329,7 +1328,6 @@ GRP.skins = {
     },
     darkhelvetireadernight: {
         name: "Dark Helvetireader - Night",
-        status: 'new',
         pic: 'https://chrome.google.com/extensions/img/dkcjfdlgfmefnbhkholnhliliohggmef/1296639253.46/screenshot/4001'
         /*url: 'http://stylebot.me/style/get_userscript/62.user.js',
          pic: 'http://stylebot.me/uploads/62.png',
@@ -1372,7 +1370,6 @@ GRP.skins = {
     },
     redesigned: {
         name: "Redesigned",
-        status: 'updated',
         ref: 'http://www.globexdesigns.com/products/gr/'
     },
     webbizgeek: {

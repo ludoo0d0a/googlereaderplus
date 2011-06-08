@@ -34,7 +34,8 @@ GRP.removeads = function(prefs, langs, ID, SL, lang){
 	getRegex(re,'links');
 	getRegex(re,'images');
 	
-	var adremove=remove;
+	//Remove until non empty node
+	var adremove = removeCascade;
 	if (prefs.removeads_preview) {
 		adremove = function(el, color){
 			el.style.border = "2px solid "+(color||'red');
