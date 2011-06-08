@@ -19,7 +19,7 @@ public class RatedCache {
 	private Cache cache = null;
 	
 	private Cache getCache() {
-		Map props = new HashMap();
+		Map<String, String> props = new HashMap<String, String>();
 		// props.put(GCacheFactory.EXPIRATION_DELTA, 3600);// 3600s 1h
 
 		try {
@@ -32,6 +32,7 @@ public class RatedCache {
 		return cache;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void put(String name, String value){
 		if (cache==null){
 			cache = getCache();

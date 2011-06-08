@@ -29,7 +29,6 @@ import org.apache.commons.lang.StringUtils;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions.Method;
-import com.google.appengine.repackaged.com.google.common.base.StringUtil;
 
 @SuppressWarnings("serial")
 public abstract class AbstractWeDataServlet extends HttpServlet {
@@ -37,11 +36,30 @@ public abstract class AbstractWeDataServlet extends HttpServlet {
 	private static final Logger log = Logger
 			.getLogger(AbstractWeDataServlet.class.getName());
 	private static final int INFINITUM = 99000;
-	private static final int NODES = 3;
-	//set to false for main redirect servlet <application>greaderplus</application>
-	//set to true for cluster nodes where X is the node number <application>greaderplusX</application>
+	//set to true for main redirect servlet <application>greaderplus</application>
+	//set to false for cluster nodes where X is the node number <application>greaderplusX</application>
 	private static final boolean REDIRECT = true;
 
+	private static final int NODES = 13;
+	
+	public void redirect(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		//greaderplus1-4 
+		//greaderplus01-09 
+		
+		int node = (int) Math.round(Math.random() * (NODES - 1)) + 1;
+		String key = String.valueOf(node);
+		if (node>4){
+			key="0"+(node-4);
+		}
+		
+		log.info("Redirect on node " + key);
+		String url = "http://greaderplus" + key + ".appspot.com"
+				+ req.getServletPath();
+		resp.sendRedirect(url);
+	}
+
+	
 	public abstract String getDatabase();
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -74,15 +92,7 @@ public abstract class AbstractWeDataServlet extends HttpServlet {
 		}
 	}
 
-	public void redirect(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
-		int node = (int) Math.round(Math.random() * (NODES - 1)) + 1;
-		log.info("Redirect on node " + node);
-		String url = "http://greaderplus" + node + ".appspot.com"
-				+ req.getServletPath();
-		resp.sendRedirect(url);
-	}
-
+	@SuppressWarnings("unchecked")
 	protected String populate(String database) {
 		String out = null;
 		if (database != null) {
@@ -116,6 +126,7 @@ public abstract class AbstractWeDataServlet extends HttpServlet {
 		return out;
 	}
 
+	@SuppressWarnings("unused")
 	private String getDummyString() {
 		StringBuffer sb = new StringBuffer(10 * INFINITUM);
 		for (int i = 0; i < INFINITUM; i++) {
@@ -146,7 +157,7 @@ public abstract class AbstractWeDataServlet extends HttpServlet {
 	}
 
 	private Cache getCache() {
-		Map props = new HashMap();
+		Map<String, String> props = new HashMap<String, String>();
 		// props.put(GCacheFactory.EXPIRATION_DELTA, 3600);// 3600s 1h
 
 		Cache cache = null;
