@@ -77,6 +77,7 @@ GRP.langs[locale].texts = {
         shortcut_readitlater: 'Read Later with Instapaper'
     },
 	diigo:{
+		keyword: 'Diigo',
 		badrequest:'Some request parameters are invalid or the API rate limit is exceeded.',
 		notauthorized:'Authentication credentials are missing or invalid.',
 		forbidden: 'The request has been refused because of the lack of proper permission.',
@@ -85,6 +86,7 @@ GRP.langs[locale].texts = {
 		unavailable:'The Diigo servers are too busy to server your request. Please try again later.'
 	},
 	gmarks:{
+		keyword: 'Gmarks',
 		wronglogin: 'Something goes wrong with authentication!!',
 		nologin: 'Error with authentication!!'
 	},
@@ -164,7 +166,9 @@ GRP.langs[locale].texts = {
 	    add_highlights: 'Add as highlight',
 		button:'Filter button on each entry',
 		gettitle:'Get title',
-		getwords:'Get words'
+		getwords:'Get words',
+		getfrom:'Add feed',
+		getauthor:'Add author'
     },
 	rank:{
 		filter_rank:'Ranking',
@@ -467,6 +471,9 @@ separator: "Separator to add extra level (example: Sports:Footbal)."
 	rank:{
 		level:'Display level',
 		ad:'Ranking is powered by <a href="http://www.postrank.com" target="_blank"><img src="http://www.postrank.com/images/navigation/head_logo.png"/></a> <i>Intelligence from the social web</i>'
+	},
+	mark:{
+		asscroll: 'Mark as read past items on scroll'
 	},
     lightbox: {
         locked: "Always actived, except following feeds:"
