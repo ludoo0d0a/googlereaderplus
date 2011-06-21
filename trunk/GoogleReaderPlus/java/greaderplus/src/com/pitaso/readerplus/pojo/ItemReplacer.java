@@ -1,6 +1,6 @@
 package com.pitaso.readerplus.pojo;
 
-public class ItemReplacer {
+public class ItemReplacer implements Item{
 
 	private String name;
 	private DataReplacer data;

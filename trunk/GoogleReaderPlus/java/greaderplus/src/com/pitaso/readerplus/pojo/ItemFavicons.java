@@ -1,6 +1,6 @@
 package com.pitaso.readerplus.pojo;
 
-public class ItemFavicons {
+public class ItemFavicons implements Item{
 
 	private String name;
 	private DataFavicons data;
