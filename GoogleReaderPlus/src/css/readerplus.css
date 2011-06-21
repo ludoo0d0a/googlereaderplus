@@ -101,4 +101,11 @@ span.btn-sel{
 .grp-menu-checked{background-position:-80px -160px;}
 .grp-menu-unchecked{background-position:-64px -128px;}
 
-
+/* Hide marks as read scroll */
+.grp-marp .entry-container,.grp-marp .entry-comments,.grp-marp .entry-actions{
+	display:none !important;
+}
+/*
+.grp-mark-scrolled .collapsed{
+	background-color:yellow !important;
+}*/
