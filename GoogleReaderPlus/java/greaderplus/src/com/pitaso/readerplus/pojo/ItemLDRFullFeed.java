@@ -1,6 +1,6 @@
 package com.pitaso.readerplus.pojo;
 
-public class ItemLDRFullFeed {
+public class ItemLDRFullFeed implements Item{
 
 	private String name;
 	private DataLDRFullFeed data;
