@@ -40,7 +40,7 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
     }
 	
 	function isClickedOnButton(el){
-		return isAncestor(el,false,false,btn.id) || isAncestor(el,false,'goog-menu');
+		return findAncestor(el,false,false,btn.id) || findAncestor(el,false,'goog-menu');
 	}
 	
     function initInterface(){
