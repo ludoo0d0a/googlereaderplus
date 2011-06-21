@@ -5,7 +5,9 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class QueueRecacheServlet extends AbstractWeDataServlet{
+import com.pitaso.readerplus.pojo.ItemNull;
+
+public class QueueRecacheServlet extends AbstractWeDataServlet<ItemNull>{
 
 	/**
 	 * 
