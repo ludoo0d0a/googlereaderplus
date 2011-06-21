@@ -8,7 +8,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.pitaso.readerplus.pojo.ItemLDRFullFeed;
 
-public class LDRFullFeedServlet extends AbstractWeDataServlet{
+public class LDRFullFeedServlet extends AbstractWeDataServlet<ItemLDRFullFeed>{
 
 
 	/**
