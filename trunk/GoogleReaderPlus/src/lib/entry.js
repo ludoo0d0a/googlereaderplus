@@ -366,6 +366,7 @@ function selectCurrentEntry(el, markread, fixScroll){
 		if (fixScroll){
 			entries.scrollTop=st;
 		}
+		expandEntry(el);
 	}
 }
 function selectNextEntry(){
@@ -1032,13 +1033,47 @@ function isStarred(entry){
 	return !!esa;
 }
 
-function markasread(entry){
-	//listview
-	if (hasClass(entry,'expanded')){
+function markasread(entry, passive){
+	//already read
+	if (hasClass(entry,'read')){
 		return;
 	}
+
+	if (passive){
+		console.log('mark as read PASSIVE '+ entry.className);
+		if (!hasClass(entry,'grp-marp')){
+			addClass(entry,'grp-marp');
+			//click 1
+			clickEntry(entry);
+			//click 2
+			var id = entry.className;
+			setTimeout(function(){
+				//Collapse entry if not current entry
+				if (entry.id!=='current-entry'){
+					collapseEntry(entry);
+				}
+				removeClass(entry,'grp-marp');
+			},2500);
+		}
+	}else{
+		clickEntry(entry);
+	}
+}
+function clickEntry(entry){
 	var ce = getFirstElementByClassName(entry, 'collapsed') || entry;
 	simulateClick(ce);
+}
+function expandEntry(entry){
+	var ec = getFirstElementByClassName(entry, 'entry-container');
+	if (!ec){
+		clickEntry(entry);
+	}
+}
+function collapseEntry(entry){
+	var ec = getFirstElementByClassName(entry, 'entry-container');
+	if (ec){
+		clickEntry(entry);
+	}
 }
 
 //@deprecated
