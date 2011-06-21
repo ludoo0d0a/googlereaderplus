@@ -231,10 +231,10 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 						toggleClassEl(entry, 'portal_actions');
 					}
 					//console.log('ctrl');
-				}else if (	isAncestor(e.target,false, 'entry-title') || 
-							isAncestor(e.target,false, 'entry-icons') ||
-							isAncestor(e.target,false, 'card-actions') ||
-							isAncestor(e.target,false, 'entry-author')
+				}else if (	findAncestor(e.target,false, 'entry-title') || 
+							findAncestor(e.target,false, 'entry-icons') ||
+							findAncestor(e.target,false, 'card-actions') ||
+							findAncestor(e.target,false, 'entry-author')
 				){
 					//e.stopPropagation();
 					e.preventDefault();
