@@ -29,7 +29,7 @@ GRP.count = function(prefs, langs, ID, SL, lang){
         }
     }
     
-    function findItemUnread(checkDuplicated, item){
+    function findItemUnread(item, checkDuplicated){
         var hasplus = false;
         var count = 0;
         var alreadyCounted = false;
@@ -55,33 +55,57 @@ GRP.count = function(prefs, langs, ID, SL, lang){
             alreadyCounted: alreadyCounted
         };
     }
+    function calcUnreadFolder(folder, checkDuplicated){
+    	var total = 0, subtotal = 0;
+        var subtotalplus = false;
+		
+		//var name = getElementText(folder, 'name-text');
+		//console.log('calc folder : '+name);
+
+        var res2 = document.evaluate("./ul/li[contains(@class, 'unread')]/a/span/span[contains(@class, 'unread-count')]", folder, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+        for (var j = 0; j < res2.snapshotLength; j++) {
+            var result = findItemUnread(res2.snapshotItem(j), checkDuplicated);
+            if (result.hasplus) {
+                totalplus = true;
+                subtotalplus = true;
+            }
+            subtotal += result.count;
+            /*if (!result.alreadyCounted) {
+                total += result.count;
+            }*/
+        }
+        
+        //Recurse
+        var res3 = document.evaluate("./ul/div/li[contains(@class, 'folder')]", folder, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+        for (var k = 0; k < res3.snapshotLength; k++) {
+        	subtotal+=calcUnreadFolder(res3.snapshotItem(k), checkDuplicated);
+        }
+        
+        if (subtotal > 0) {
+            var resfolder = document.evaluate(".//a/span/span[contains(@class, 'unread-count')]", folder, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+            //var resfolder = unreadfolder;
+            if (resfolder) {
+                resfolder.innerHTML = '&nbsp;(' + subtotal + (subtotalplus ? '+' : '') + ')';
+            }
+        }
+        
+        //console.log('total folder : '+name + '='+total );
+        
+        return subtotal;
+    }
     
     function calcUnread(){
         var checkDuplicated = [];
         var total = 0;
         var totalplus = false;
-        var res = document.evaluate("//li[contains(@class, 'folder')]//li[contains(@class, 'folder')]", document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+        
+        //console.log('calc unread');
+        
+        var subtree = get_id('sub-tree');
+        var res = document.evaluate("./li/ul/li[contains(@class, 'folder')][contains(@class, 'unread')]", subtree, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
         for (var i = 0; i < res.snapshotLength; i++) {
-            var res2 = document.evaluate(".//li[contains(@class, 'unread')]/a/span/span[contains(@class, 'unread-count')]", res.snapshotItem(i), null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
-            var subtotal = 0;
-            var subtotalplus = false;
-            for (var j = 0; j < res2.snapshotLength; j++) {
-                var result = findItemUnread(checkDuplicated, res2.snapshotItem(j));
-                if (result.hasplus) {
-                    totalplus = true;
-                    subtotalplus = true;
-                }
-                subtotal += result.count;
-                if (!result.alreadyCounted) {
-                    total += result.count;
-                }
-            }
-            if (subtotal > 0) {
-                var resfolder = document.evaluate(".//a/span/span[contains(@class, 'unread-count')]", res.snapshotItem(i), null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-                if (resfolder) {
-                    resfolder.innerHTML = '&nbsp;(' + subtotal + (subtotalplus ? '+' : '') + ')';
-                }
-            }
+            var folder = res.snapshotItem(i);
+            total +=calcUnreadFolder(folder, checkDuplicated);
         }
         
 		//friends unread
@@ -96,7 +120,7 @@ GRP.count = function(prefs, langs, ID, SL, lang){
         // untagged items
         var res3 = document.evaluate("//ul[@id='sub-tree']/li/ul/li[not(contains(@class, 'folder')) and contains(@class, 'unread')]/a/span/span[contains(@class, 'unread-count')]", document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
         for (var k = 0; k < res3.snapshotLength; k++) {
-            var res4 = findItemUnread(checkDuplicated, res3.snapshotItem(k));
+            var res4 = findItemUnread(res3.snapshotItem(k), checkDuplicated);
             if (res4.hasplus) {
                 totalplus = true;
             }
