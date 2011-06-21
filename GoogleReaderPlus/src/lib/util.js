@@ -55,9 +55,9 @@ function addAttr(el, name, value){
     el.attributes.setNamedItem(attr);
 }
 function findParentNode(eel, etag, clazz, id){
-	return isAncestor(eel.parentNode, etag, clazz, id);
+	return findAncestor(eel.parentNode, etag, clazz, id);
 }
-function isAncestor(el, etag, clazz, id){
+function findAncestor(el, etag, clazz, id){
     var TAG_ROOT = '#document'; //'BODY'
     var tag = (etag||'').toUpperCase();
     if (clazz && etag) {
@@ -774,6 +774,18 @@ function findPosition(element){
     return point;
 }
 
+function addStyle(el, property, value){
+	if (el && el.style) {
+		el.style[property]=value;
+	}
+}
+function removeStyle(el, property){
+	if (el && el.style && el.style[property]) {
+		el.style[property]='';
+		delete el.style[property];
+	}
+}
+
 function getStyle(el, property){
     if (el && el.style && el.style[property]) {
         return parseInt(el.style[property].replace('px', ''), 10);
@@ -782,21 +794,20 @@ function getStyle(el, property){
     }
 }
 
-function simulateClick(node){
+function simulateClick(node, bubble){
     if (!node){
 		return false;
 	}
+	bubble=!!bubble;
 	var event = node.ownerDocument.createEvent("MouseEvents");
-    event.initMouseEvent("click", true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
-    /* ReadByMouse
- event.initMouseEvent("click", true, // can bubble
- true, // cancellable
- node.ownerDocument.defaultView, 1, // clicks
- 50, 50, // screen coordinates
- 50, 50, // client coordinates
+	event.initMouseEvent("click", bubble, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
+    /*
+    eventName,   bubble,   cancellable, view,  clicks
+ sx, sy, // screen coordinates
+ cx, cy, // client coordinates
  false, false, false, false, // control/alt/shift/meta
  0, // button,
- node);
+ node
  */
     node.dispatchEvent(event);
 }
@@ -1052,7 +1063,7 @@ function foreach(array, fn, scope){
         array = [array];
     }
     for (var i = 0, len = array.length; i < len; i++) {
-        if (fn.call(scope || array[i], array[i], i, array) === false) {
+        if (fn.call(scope || array[i], array[i], i, array, len) === false) {
             return i;
         }
     }
