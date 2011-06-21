@@ -394,7 +394,8 @@ GRP.scripts = {
     },
     unreadcount: {
         category: 'counter',
-        name: "Show all unread count"
+        name: "Show all unread count",
+        status:'updated'
     },
     fixlayout: {
         category: 'layout',
@@ -454,7 +455,7 @@ GRP.scripts = {
     },
     preview: {
         name: "Integrated preview",
-        category: 'layout',
+        category: 'content',
         options: {
             onicon: false,
             overlay: false,
@@ -790,7 +791,7 @@ GRP.scripts = {
         name: "Reddit",
         category: 'share',
         status: 'new',
-        options: {
+        /*options: {
             auth: {
                 xtype: 'p',
                 label: true,
@@ -805,13 +806,13 @@ GRP.scripts = {
                 value: '',
                 size: 40
             }
-        },
+        },*/
         shortcuts: {
-            'share': {
-                id: 'share',
-                title: 'Share with Reddit',
+            'goreddit': {
+                id: 'goreddit',
+                title: 'Post on Reddit',
                 key: {
-                    //68 b
+                    //68 alt+f
                     keyCode: 68,
                     altKey: true
                 }
@@ -911,6 +912,10 @@ GRP.scripts = {
     mark: {
         name: "Mark As Read",
         category: 'navigation',
+        status:'updated',
+        options: {
+            asscroll: false
+        },
         shortcuts: {
             'markprev': {
                 id: 'markprev',
