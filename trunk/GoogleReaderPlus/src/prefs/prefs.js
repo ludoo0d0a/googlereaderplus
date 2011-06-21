@@ -97,6 +97,7 @@ function initprefs(){
     lang = prefs.language_lang || 'en';
     console.log('Current lang : ' + lang);
     loadLangs(lang, function(){
+        loadingPage(true);
         renderScripts();
         translatePage(lang);
         specialTranslate(lang);
@@ -110,6 +111,7 @@ function initprefs(){
         renderDummies();
 		textareaTab();
 		renderpicker();
+		loadingPage(false);
     });
 }
 
@@ -302,4 +304,9 @@ function renderDummies(){
      }*/
     var el = get_id('fbbtn');
     el.innerHTML = '<iframe class="ifbook" src="http://www.facebook.com/plugins/like.php?href=https%253A%252F%252Fchrome.google.com%252Fextensions%252Fdetail%252Fhhcknjkmaaeinhdjgimjnophgpbdgfmg&amp;layout=button_count&amp;action=recommend&amp;font=trebuchet%2Bms&amp;colorscheme=dark" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
+}
+
+function loadingPage(loaded){
+	var el = get_id('loading');
+	addClass(el, 'hidden', loaded);
 }
