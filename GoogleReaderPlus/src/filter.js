@@ -105,7 +105,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
             checkbox: true,
             value: _options.live,
             click: onLive
-        }, {
+        },{
             sep: true
         }, {
             id: 'update',
@@ -201,8 +201,9 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
     }
     
     function updateFilterEntries(){
+        var mode = getMode();
         forAllEntries(function(entry){
-            filterEntries(false, entry, false, true);
+            filterEntries(false, entry, mode, true);
         });
     }
     
@@ -274,7 +275,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         function doExcludes(){
             var b = false;
             if (_options.excludes.length) {
-                b = checkEntry(content, entry, _options.rxExcludes, "entry-filtered", mode);
+                b = checkEntry(content, entry, _options.rxExcludes, 'entry-filtered', mode);
                 if (_options.hide_excludes && b) {
                     addClass(entry, 'entry-hidden');
                 }
@@ -284,7 +285,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         function doHighlight(){
             var b = false;
             if (_options.highlights.length) {
-                b = checkEntry(content, entry, _options.rxHighlights, "entry-highlighted", mode);
+                b = checkEntry(content, entry, _options.rxHighlights, 'entry-highlighted', mode);
             }
             return b;
         }
@@ -305,31 +306,36 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
             _alreadyPrinted[escapedContent] = true;
         }
     }
+    
+    function getEntryFrom(entry){
+    	return getElementText(entry, 'entry-source-title');
+    }
+    function getEntryAuthor(entry){
+    	return getElementText(entry, 'entry-author-name');
+    }
+        
     function getContentEntry(entry){
         var link = getEntryLink(entry);
         var title = link.title;
 		
 		var dt = getElementText(entry, 'entry-date');
-		var feedname = getElementText(entry, 'entry-source-title');
-		var author = getElementText(entry, 'entry-author-name');
         // var snippet = getElementText(entry, 'snippet');
         ////console.log('>>>>'+active+'--'+title);
         
         var text = minifyContent(title);
-        if (_options.searchbody) {
-            /*var body = getBody(entry);
-             if (body) {
-             text += ' ' + body.innerText;
-             }*/
-            text = entry.innerText;
+        var body = entry.innerText;
+        if (_options.searchbody){
+        	text=body;
         }
+        
         return {
 			tag:getTagsText(entry),
-			author:author,
-			feed:feedname,
+			author:getEntryAuthor(entry),
+			from:getEntryFrom(entry),
 			date:dt,
 			text: text,
-			title:title
+			body: body,
+			title: title
 		};
     }
     
@@ -376,12 +382,27 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 				var v='', content = getContentEntry(entry);
 				if (asTitle) {
 					//TODO : inner quotes
-					v = '"' + content.title.replace(/"/g,'') + '"';
+					v = enQuote(content.title);
 				} else {
 					v = getWords(content.text, miniWord);
 				}
-				setValue('t_e_content', v);
-			}			
+				setContentFilter(v);
+			}	
+			function enQuote(txt){
+				return '"' + txt.replace(/"/g,'') + '"';
+			}
+			function setMenuFrom(){
+				setContentFilter(' from:'+enQuote(getEntryFrom(entry)), true);
+            }
+            function setMenuAuthor(){
+				setContentFilter(' author:'+enQuote(getEntryAuthor(entry)), true);
+            }
+            function setContentFilter(txt, add){
+				if (add){
+					txt=getValue('t_e_content')+txt;
+				}
+				setValue('t_e_content', txt);
+            }
             
             var items = [{
                 id: 'e_content',
@@ -393,16 +414,20 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
             }, {
                 id: 'e_gettitle',
                 text: SL.gettitle,
-                click: function(){
-					setMenuTitle();
-				}            
+                click: setMenuTitle     
 			},{
                 id: 'e_getwords',
                 text: SL.getwords,
-                click: function(){
-					setMenuWords();
-				}
+                click: setMenuWords
             },{
+                id: 'e_getfrom',
+                text: SL.getfrom,
+                click: setMenuFrom     
+			},{
+                id: 'e_getauthor',
+                text: SL.getauthor,
+                click: setMenuAuthor    
+			},{
                 sep: true
             }, {
                 id: 'e_add_excludes',
@@ -548,7 +573,10 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 			//o.date=new Date(o.date);
 		}else if (/^from:/.test(term)){
 			//Feed name
-			o.feed=encoderegex(term.replace(/^from:/,''),true);
+			o.from=encoderegex(term.replace(/^from:/,''),true);
+		}else if (/^body:/.test(term)){
+			//Body text
+			o.body=encoderegex(term.replace(/^body:/,''),true);
 		}else {
 			o.rx.push(encoderegex(term));
 			createRe(o);
@@ -560,15 +588,21 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 		if (!o){
 			return true;
 		}
+		
 		if (o.re && !o.re.test(content.text)) {
 			return false;
 		}
+		
+		if (o.body && !o.body.test(content.body)) {
+			return false;
+		}
+		
 		//Metadata?
 		if (o.date && !o.date.test(content.date)) {
 			//bad data
 			return false;
 		}
-		if (o.feed && !o.feed.test(content.feed)) {
+		if (o.from && !o.from.test(content.from)) {
 			//bad feed
 			return false;
 		}
@@ -591,19 +625,13 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 		if (rx) {
 			for (var i = 0, len = rx.length; i < len; i++) {
 				mrx = rx[i];
-				if (!checkContent(content, mrx, mode)){
-					continue;
-				}
-				matched = true;
-				break;
-			}
-			if (matched) {
-				//TODO : check AND operand on a single line	
-				if (mrx && mrx.tree){
-					matched = checkTree(content, mrx.tree, mode);
-				}
-				if (matched) {
+				console.log(i);
+				console.log(mrx);
+				if(checkTree(content, mrx.tree, mode)){
+				//if (checkContent(content, mrx, mode)){
+					matched = true;
 					addClass(element, className);
+					break;
 				}
 			}
         }
