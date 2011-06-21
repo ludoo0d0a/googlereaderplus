@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
 
-	<application>greaderplus1</application>
-	<version>2</version>
+	<application>greaderplus</application>
+	<version>dev</version>
 	
 	<!-- Configure java.util.logging -->
 	<system-properties>
