@@ -79,7 +79,7 @@ GRP.reddit = function(prefs, langs, ID, SL, lang){
 			r:'blog'//=sr
 		}
 	};
-    GRP.api_readit(prefs, langs, ID, SL, lang, api);
+    //GRP.api_readit(prefs, langs, ID, SL, lang, api);
     
     function parseJquery(o){
     	var r = {}, all=o.jquery;
@@ -104,4 +104,49 @@ GRP.reddit = function(prefs, langs, ID, SL, lang){
     	}
     	return r;
     }
+    
+    
+    /**
+     * Version popup windows
+     */
+    
+    var BTN_CLS = 'item-share star', BTN_CLS_ID ='btn-'+ID+' '+BTN_CLS;
+    var URL='http://www.reddit.com/submit?url={url}&title={title}';
+	var OPTWIN = 'toolbar=0,status=0,resizable=1,width=626,height=436';
+	
+	function addButton(el, entry, mode) {
+		var title = SL.text + formatShortcut(ID, 'go'+ID, prefs); //[b]
+		var text = (prefs && prefs.general_icons)?'':(SL.keyword || ID);
+		addBottomLink(el,text, title, ID, BTN_CLS, false, openShareWindow, false, entry, mode);
+	}
+
+	function addKey() {
+		onKey('btn-'+ID, openShareWindow);
+	}
+
+	function openShareWindow(btn, entry, locked) {
+		var active = isActive(btn, entry, ID, locked, 'btn-active', 'btn-inactive');
+		addClassIf(btn, 'item-star-active',active);
+		if (active) {
+			var shareurl = getEntryLink(entry);
+			
+			var url = fillTpl(URL, shareurl);
+			window.open(url, ID+'sharer', OPTWIN);
+		}
+	}
+	
+	function addCss(id){
+		var css = '.entry .entry-actions .btn-'+id+'{background: url(\'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/share/'+id+'.png\') no-repeat!important;padding:0px 8px 1px 16px !important;}'+
+		'.entry .entry-actions .btn-'+id+'{background-position: 0 0px !important;}'+
+		'.entry .entry-actions .btn-'+id+'.btn-active{background-position: 0 -16px !important;}';
+		GM_addStyle(css, 'btn_share_'+id);
+	}
+	addCss(ID);
+	
+	registerFeature(addButton, ID);
+	var keycode = getShortcutKey(ID, 'go'+ID, prefs); //66 b
+	keycode.fn = addKey;
+	initKey(keycode);
+    
+    
 };
