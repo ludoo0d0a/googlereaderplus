@@ -41,9 +41,12 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         css += '.entry-filtered .card-content *, .entry-filtered .collapsed *{color:' + colors.filtered + '!important;} ';
         css += '.entry-filtered:hover .card-content *, .entry-filtered:hover .collapsed *{color:' + colors.filtered_hover + '!important;} ';
         css += '.entry-highlighted .card-content, .entry-highlighted .collapsed{background-color:' + colors.highlight + '!important;} .entry-highlighted .card-content *, .entry-highlighted .collapsed *{color:#000!important;background-color:' + colors.highlight + ';}';
+        css += '#entries.list.full-snippet .collapsed{height:auto !important;}';
+        css += '#entries.list.full-snippet .collapsed .entry-secondary{position:static !important;}';
         GM_addStyle(css, 'rps_filter');
         
-        var css_ui = ".menu-filter-static{position:absolute;right:30px;top:22px;z-index:9;}";
+        var css_ui = ".menu-filter-static{position:absolute;right:140px;top:35px;z-index:9;}";
+        css_ui += "#chrome.page-view .menu-filter-static{right:30px;top:6px;}";
         GM_addStyle(css_ui, 'rps_filter_ui');
         
 		var btn_id = 'btn-'+ID+'-toggle';
@@ -100,6 +103,12 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
             value: _options.searchbody,
             click: monitorChange
         }, {
+            id: 'togglefulltext',
+            text: SL.fulltext,
+            checkbox: true,
+            value: _options.fulltext,
+            click: toggleFullText
+        },{
             id: 'live',
             text: SL.live,
             checkbox: true,
@@ -119,6 +128,11 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         var btn = addSplitButton('filter-split-button', ref, SL.filter, SL.filter, toggleFilter, false, 1, items);
 		btn.id=btn_id;
         addClassIf(btn, 'goog-button-base-open', toggleStatus);
+        
+        function toggleFullText(btn){
+        	var entries = get_id('entries');
+        	addClassIf(entries, 'full-snippet', hasClass(btn, 'goog-option-selected'));
+        }
         
         function toggleFilter(){
             toggleStatus = !toggleStatus;
@@ -149,17 +163,19 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         checkHidden();
     }
     
+    //TODO: monitor class change on #chrome
     function checkHidden(){
+        var btn = get_id('filter-split-button');
+        var ref = get_id('stream-prefs-menu');
         //Check if hidden
         setTimeout(function(){
-            var elsplit = get_id('filter-split-button');
-            if (elsplit && elsplit.offsetTop === 0 && elsplit.offsetLeft === 0) {
+            if (btn && btn.offsetTop === 0 && btn.offsetLeft === 0) {
                 //is hidden, force to show it
                 var cv = get_id('chrome-viewer');
                 if (cv) {
-                    cv.appendChild(elsplit);
+                    cv.appendChild(btn);
                 }
-                addClass(elsplit, 'menu-filter-static');
+                addClass(btn, 'menu-filter-static');
             }
         }, 1000);
     }
@@ -472,41 +488,6 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         return value;
     }
     
-    //Transform a google-like expression into a tree regex
-    function buildTree(items){
-    
-    }
-	
-	
-	
-    
-    //Transform a google-like expression into a tree regex
-	/*var reQuote = /["]/g;
-    function parseExpr(expr){
-    	var o = {rx:[]};
-		var tree=[],p=0, inQuote=false;
-		var m = expr.replace(reQuote, function(match, pos, text){
-			add=false;
-			if (match==='"'){
-				if (inQuote){
-					//Goes out
-					add=true;
-				}
-				inQuote=true;
-			}else{
-				add=true;
-			}
-			if (add) {
-				var before = text.substr(p, pos);
-				o = txt2obj(o, before);
-				tree.push(before);
-				p = pos;
-			}
-		});
-		return tree;
-    }
-	*/
-	
     var reQuotedExpr = /"[^"]*"/g, reQuote = /^"|"$/g;
     function parseExpression(expr){
         //TODO: Do not escape group here->use tree
@@ -522,14 +503,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 		r = r.toLowerCase();
 		
 		var _rx=false, o = {rx:[]}, terms = r.split(' ');
-		//sequential
-		/*
-		foreach(terms, function(term){
-			o=txt2obj(o, term);
-        });
-        _rx = o.rx;
-		*/
-		
+
 		//tree
 		o.tree={};
 		var _queue = o.tree, i=0;
@@ -654,7 +628,6 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         if (typeof items === 'string') {
             items = formatTextAreaToList(items);
         }
-        //var rx = buildTree(items);
         var rx = [];
         foreach(items, function(item){
             var rex = parseExpression(item);
