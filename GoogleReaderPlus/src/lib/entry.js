@@ -724,22 +724,23 @@ function onKey(cls, fn){
 }
 
 function addBottomLink(el, text, title, script, cls, button, callback, locked, entry, mode, position){
-    var span = document.createElement('span');
-    span.className = 'grp-btn btn-' + script + ' ' + cls + (button ? ' read-state-not-kept-unread read-state' : '') + ' link unselectable';
-    span.innerHTML = text;
-    span.title = title;
-	insertOn(span, el, position);
-	
-	//+wbr before span
-	insertBefore(document.createElement('wbr'), span);
-		
     var _locked = locked, _entry = entry;
-    function onClick(e){
-        var btn = e.target;
-        //var entry = findParentNode(el, 'div', 'entry');
-        callback(btn, _entry, _locked, e);
+    if (el){
+	    var span = document.createElement('span');
+	    span.className = 'grp-btn btn-' + script + ' ' + cls + (button ? ' read-state-not-kept-unread read-state' : '') + ' link unselectable';
+	    span.innerHTML = text;
+	    span.title = title;
+		insertOn(span, el, position);
+		//+wbr before span
+		insertBefore(document.createElement('wbr'), span);
+			
+	    function onClick(e){
+	        var btn = e.target;
+	        //var entry = findParentNode(el, 'div', 'entry');
+	        callback(btn, _entry, _locked, e);
+	    }
+	    span.addEventListener('click', onClick, false);
     }
-    span.addEventListener('click', onClick, false);
     if (locked) {
         //activate it
         if (callback) {
