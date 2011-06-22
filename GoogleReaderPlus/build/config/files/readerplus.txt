@@ -33,6 +33,8 @@ blogger.js
 pinboard.js
 tumblr.js
 reddit.js
+diigo.js
+gmarks.js
 jaiku.js
 readitlater.js
 instapaper.js
