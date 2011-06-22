@@ -478,20 +478,26 @@ function igtheme(o, cb){
         }, true);
     }
 }
-
+var translator=false;
 function translate(o, cb){
-    function trad(){
-        google.language.translate(o.text, o.from || '', o.to, function(a){
-            cb(a);
+    var init = (!translator);
+    translator=translator||new GRP.lang.Translate();
+	
+	function gotrans(){
+        translator.translate(o.text, '', o.to, function(para, translation){
+           //
+        }, function(translation){
+        	if (translation){
+	        	cb({translation:translation});
+        	}else{
+        		cb({error:'error'});
+        	}
         });
-    }
-    if (!google.language) {
-        google.load("language", "1", {
-            "callback": trad
-        });
-    } else {
-        trad();
-    }
+	}
+	
+	translator.onReady(function(translator){
+		gotrans()
+	}, this);
 }
 
 
