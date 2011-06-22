@@ -1125,6 +1125,35 @@ function namespace(){
     return o;
 }
 
+function createDelegate(fn, obj, args, appendArgs) {
+    if (!isFunction(fn)) {
+        return fn;
+    }
+    return function() {
+        var callArgs = args || arguments;
+        if (appendArgs === true) {
+            callArgs = Array.prototype.slice.call(arguments, 0);
+            callArgs = callArgs.concat(args);
+        }
+        else if (typeof appendArgs === 'number') {
+            callArgs = Array.prototype.slice.call(arguments, 0);
+            // copy arguments first
+            var applyArgs = [appendArgs, 0].concat(args);
+            // create method call params
+            Array.prototype.splice.apply(callArgs, applyArgs);
+            // splice them in
+        }
+        return fn.apply(obj || window, callArgs);
+    };
+}
+        
+function extend(a, c){
+	var o = function(){
+		a.call(this);
+	};
+	o.prototype=apply({}, c, a.prototype)
+	return o;
+}
 function apply(o, c, defaults){
     if (defaults) {
         apply(o, defaults);
@@ -1649,7 +1678,13 @@ function trim(s){
 function trimEx(s){
 	return (s||'').replace(/^[\s\t\n\r]*/,'').replace(/[\s\t\n\r]*$/,'');
 }
-
+function substrUntilLast(txt, find){
+	var t=txt, pos = txt.lastIndexOf(find);
+	if (pos > 0) {
+	     t = txt.substr(0, pos+1);
+	}
+	return t;
+}
 function setValue(id, value){
 	var el = get_id(id);
 	if (el){
