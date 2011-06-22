@@ -2,7 +2,7 @@
  * API for entry
  *
  */
-GRP.api_entry = function(prefs, langs, ID, SL, lang, edata){
+GRP.api_entry = function(prefs, langs, ID, SL, lang, edata, params){
     var locked = getPref('locked');
 	var include = getPref('include');//CRUD for include/exclude
 	var rx = getRegex(getPref('filter'));
@@ -37,7 +37,7 @@ GRP.api_entry = function(prefs, langs, ID, SL, lang, edata){
 				}
 			}
 		}
-		var active = isActive(btn, entry, '', locked);
+		var active = isActive(btn, entry, 'rpe_'+ID, locked);
 		if (edata.cb){
 			edata.cb(entry, active, btn, e);
 		}
@@ -45,7 +45,8 @@ GRP.api_entry = function(prefs, langs, ID, SL, lang, edata){
 	
     function addKey(e){
         var entry = getEntry(e);
-        filterize('btn-' + ID, entry);
+        var btn = getFirstElementByClassName(entry,'btn-' + ID);
+        filterize(btn, entry);
     }
     if (edata.css) {
         var css;
@@ -65,7 +66,7 @@ GRP.api_entry = function(prefs, langs, ID, SL, lang, edata){
             GM_addStyle(css);
         }
     }
-    registerFeature(addButton, ID);
+    registerFeature(addButton, ID, params);
     var keycode = getShortcutKey(ID, edata.action, prefs); 
     if (keycode) {
         keycode.fn = addKey;
