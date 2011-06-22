@@ -152,6 +152,7 @@ GRP.langs[locale].texts = {
 	    save: 'Save & apply',
 	    close: 'Close menu',
 	    searchbody: 'Search in whole body text',
+	    fulltext: 'Toggle full text',
 		detect_duplicates: 'Detect Duplicates',
 	    hide_duplicates: 'Hide Duplicates',
 	    hide_excludes: 'Hide Excludes',
@@ -240,6 +241,9 @@ GRP.langs[locale].texts = {
 	stars:{
 		text:'Multiple stars',
 		keyword:'Stars'
+	},
+	translate:{
+		keyword:'Translate'
 	}
 };
 GRP.langs[locale].prefs = {
