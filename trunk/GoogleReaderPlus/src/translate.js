@@ -27,7 +27,6 @@ GRP.translate = function(prefs, langs, ID, SL, lang){
             translate(l.eltitle.title, 'direct', l.eltitle, 'title');
         }
         if (body) {
-            //var eb = getEntryBody(body);
             translate(body, 'html', body, 'body');
         }
         function setText(el, t, mode){
@@ -52,10 +51,17 @@ GRP.translate = function(prefs, langs, ID, SL, lang){
 		
         function translate(el, mode, p, id){
             mode = mode || 'html';
-            var txt;
+            var txt='';
             if (!active) {
 				setText(el, decodeu(p.getAttribute('o_'+id)), mode);
                 return;
+            }else{
+            	var t = p.getAttribute('t_'+id);
+            	if (t){
+            		//already translated
+            		setText(el, decodeu(t), mode);
+            		return;
+            	}
             }
             if (mode === 'html') {
                 txt = el.innerHTML;
@@ -64,21 +70,28 @@ GRP.translate = function(prefs, langs, ID, SL, lang){
             } else if (mode === 'text') {
                 txt = (el.innerText || el.textContent || el);
             }
-            addAttr(p, 'o_'+id,  encodeu(txt));
-            chrome.extension.sendRequest({
-                message: "translate",
-                text: cleanQuotes(txt),
-                to: langDest
-            }, function(a){
-                 if (!a.error && a.detectedSourceLanguage !== langDest) {
-                    var t = (a.translation || '').replace(/&#39;/g, "'").replace(/&quot;/g, "\"");
-                    setText(el, t, mode);
-                }
-            });
+            if (txt){
+	            addAttr(p, 'o_'+id,  encodeu(txt));
+	            chrome.extension.sendRequest({
+	                message: 'translate',
+	                text: cleanQuotes(txt),
+	                to: langDest
+	            }, function(a){
+	                 if (!a.error && a.detectedSourceLanguage!==langDest) {
+	                    var t = (a.translation || '').replace(/&#39;/g, "'").replace(/&quot;/g, "\"");
+	                    setText(el, t, mode);
+	                    setTimeout(function(){
+	                    	addAttr(p, 't_'+id,  encodeu(t));
+	                    },10);
+	                }
+	            });
+            }
         }
     }
     GRP.api_entry(prefs, langs, ID, SL, lang, {
         action: 'translate',
         cb: translateEntry
+    },{
+    	onlistviewtitle:true
     });
 };
