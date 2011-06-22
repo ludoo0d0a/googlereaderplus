@@ -38,6 +38,10 @@ If you want use regular expression, start your term with a #
 #[iI]os\s*\d+
 }}}
 
+You should use javascript regular expression.
+Some references can be found here :
+  * [http://www.w3schools.com/jsref/jsref_obj_regexp.asp w3schools regexp page]
+  * [https://developer.mozilla.org/en/JavaScript/Guide/Regular_Expressions Mozilla regular epxressions documentation]
 
 You could filter using specific keywords:
 {{{
@@ -45,5 +49,5 @@ apple author:Matt
 baseball tag:sports
 birds date:Mar
 facebook from:ZDNet
+body:subtext
 }}}
-
