@@ -1009,6 +1009,7 @@ GRP.scripts = {
     translate: {
         name: "Translate",
         category: 'content',
+        status:'updated',
         options: {
             lang: 'en',
             locked: false,
