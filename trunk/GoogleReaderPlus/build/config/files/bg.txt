@@ -1,9 +1,11 @@
 version.js
 lib\cross.js
 lib\util.js
+lib\cookie.js
 lib\external.js
 features.js
 lib\greasekit.js
+lib\base64.js
 api\rest.js
 api\favicons.js
 chrome_ex_oauthsimple.js
@@ -14,5 +16,6 @@ bg\prefs.js
 bg\request.js
 bg\tabs.js
 bg\twitter.js
+bg\translate.js
 bg\main.js
 bg\stats.js
