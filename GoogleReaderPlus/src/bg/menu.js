@@ -1,8 +1,18 @@
 function initMenu(){
+	dh('play', 'a', {
+        href: '#',
+        text: 'Reader play',
+		cls:'first'
+    }, {
+        click: function(){
+            var url = 'https://www.google.com/reader/play/';
+			GM_openInTab(url);
+        }
+    });
+	
 	dh('readersettings', 'a', {
         href: '#',
-        text: 'Reader settings',
-		cls:'first'
+        text: 'Reader settings'
     }, {
         click: function(){
             var url = 'https://www.google.com/reader/settings?display=edit-extras';
