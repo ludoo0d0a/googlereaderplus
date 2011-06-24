@@ -116,7 +116,7 @@ GRP.menu = function(prefs, langs, ID, SL, lang){
     
     var css = '.grp-item-link-menu item-link-drop-down-arrow{visibility:visible;}.grp-item-link-menu:hover item-link-drop-down-arrow{visibility:hidden !important;}';
     css += '.goog-menuitem:hover {background-color:#BECDEE;}'
-    GM_addStyle(css);
+    GM_addStyle(css, 'rpe_'+ID);
     registerFeature(addJumpButtons, ID);
     //var keycodeDown = getShortcutKey(ID, 'godown', prefs); //66 Shift+B
     //keycodeDown.fn = gotobottom;
