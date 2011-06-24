@@ -34,7 +34,7 @@ GRP.closeentry = function(prefs, langs, ID, SL, lang){
 	
 	//http://images.google.com/images/isr_c.gif
 	var css = ".btn-closeentry {margin-left: 4px;padding: 1px 8px 1px 16px;;width:14px;height:14px;background-repeat:no-repeat;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oBCAkSJ1WKaoEAAABdSURBVCjPYzx0/uN/BnIBuZoPnf/4n4mBAsBErEuwiTNhU4CuEJc4imY7Q35GfBqQ5bE6G5sB2DRi1YxNITaNODXj8jNJoY3LC3hDG1kjXgOIdSJWdQOWPBkpyVUAalJcJ5S4CXgAAAAASUVORK5CYII=);}";
-	GM_addStyle(css);
+	GM_addStyle(css, 'rpe_'+ID);
 	
 	registerFeature(addLink, ID);
 	var keycode = getShortcutKey(ID, 'close', prefs); //88//x

@@ -43,11 +43,11 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
         css += '.entry-highlighted .card-content, .entry-highlighted .collapsed{background-color:' + colors.highlight + '!important;} .entry-highlighted .card-content *, .entry-highlighted .collapsed *{color:#000!important;background-color:' + colors.highlight + ';}';
         css += '#entries.list.full-snippet .collapsed{height:auto !important;}';
         css += '#entries.list.full-snippet .collapsed .entry-secondary{position:static !important;}';
-        GM_addStyle(css, 'rps_filter');
+        GM_addStyle(css, 'rpe_'+ID);
         
         var css_ui = ".menu-filter-static{position:absolute;right:140px;top:35px;z-index:9;}";
         css_ui += "#chrome.page-view .menu-filter-static{right:30px;top:6px;}";
-        GM_addStyle(css_ui, 'rps_filter_ui');
+        GM_addStyle(css_ui, 'rpe_'+ID+'_ui');
         
 		var btn_id = 'btn-'+ID+'-toggle';
 		if (get_id(btn_id)){
@@ -138,7 +138,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
             toggleStatus = !toggleStatus;
             addClassIf(btn, 'goog-button-base-open', toggleStatus);
             var _css = (toggleStatus) ? css : '';
-            GM_addStyle(_css, 'rps_filter');
+            GM_addStyle(_css, 'rpe_'+ID);
         }
         
         

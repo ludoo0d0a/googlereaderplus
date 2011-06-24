@@ -310,7 +310,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
     var css = "img.entry-favicon{ width:16px !important; height:16px !important; border:none !important; margin-right:5px}.collapsed img.entry-favicon{position:absolute !important; top:3px !important; left:2em !important; margin-right:0px !important; vertical-align:baseline !important}#entries.list .collapsed .entry-main .entry-source-title{left:4em !important; width:7.2em !important}#sub-tree a img{ width:16px; height:16px; border:none; vertical-align:middle}.colorful-view-content{ color:#EEE !important}.colorful-view-base-top-shadow{ background-color:#999 !important; border-bottom-color:#888 !important}.colorful-view-inner-box{ background-color:#777 !important; background:#F9F9F9 none repeat scroll 0 0 !important; border-color:#888 !important}.colorful-view-base-pos{ background-color:#777 !important; border-color:#888 !important}";
 	//css += '#entries.list:not(.single-source) .collapsed .entry-secondary{ margin-left:14em !important}';
 	css += '#entries.list.single-source .collapsed .entry-secondary{ margin-left:4em !important}';
-    GM_addStyle(css);
+    GM_addStyle(css, 'rpe_'+ID);
     
     attachMenu();
     init();

@@ -256,11 +256,10 @@ GRP.column = function(prefs, langs, ID, SL, lang){
 	}
 	
     // copy of fixwidth to fit content
-    GM_addStyle(".entry .entry-body, .entry .entry-title{ display: inline !important; max-width: 100% !important; }");
-    
-    var css = ".column-wrapped{ text-align: justify; -webkit-column-count: " + cols + "; -webkit-column-gap: 1.5em; -webkit-column-rule: 1px solid #dedede;overflow:visible;padding-bottom:4px;border-bottom:1px solid #dedede;} ";
+    var css=".entry .entry-body, .entry .entry-title{ display: inline !important; max-width: 100% !important; }";
+    css += ".column-wrapped{ text-align: justify; -webkit-column-count: " + cols + "; -webkit-column-gap: 1.5em; -webkit-column-rule: 1px solid #dedede;overflow:visible;padding-bottom:4px;border-bottom:1px solid #dedede;} ";
     //css += '.column-wrapped p{page-break-after:auto;}';
-    GM_addStyle(css);
+    GM_addStyle(css, 'rpe_'+ID);
     
     
     registerFeature(addButton, ID);

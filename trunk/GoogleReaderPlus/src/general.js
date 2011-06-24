@@ -18,17 +18,17 @@ GRP.general = function(prefs, langs, ID, SL, lang) {
 		var h = el.clientHeight;
 		var css = 'div#entries-status{width:auto;top:0px;}';
 		css+= 'div#viewer-footer{border:none;padding:0;}';
-		GM_addStyle(css, 'rps_bottomup');
+		GM_addStyle(css, 'rpe_bottomup');
 		insertAfter(el, ref);
 		entries.style.height = (getStyle(entries, 'height') + h) + 'px';
 	}
 	if (prefs.general_hidetoolbar) {
 		//TODO: full screen, margin top - toolbar height
-		GM_addStyle('#gb{display:none !important;}','rps_hidetoolbar');
+		GM_addStyle('#gb{display:none !important;}','rpe_hidetoolbar');
 	}
 	if (prefs.general_currdir) {
 		var lastUrl='';
-		GM_addStyle('.tree-sel{background-color:#dedede;}', 'rps_currdir');
+		GM_addStyle('.tree-sel{background-color:#dedede;}', 'rpe_currdir');
 		var st = get_id('sub-tree');
 		setInterval( function() {
 			var e = get_id('current-entry'),st = get_id('sub-tree');
@@ -104,7 +104,7 @@ GRP.general = function(prefs, langs, ID, SL, lang) {
 		//ig    : main.top=140 top=217 (+77)
 		//normal: main.top=65  top=142 (+77)
 		var css = '.entry:not(#current-entry) .card-actions{display:none}#current-entry .card-actions,#entries.list #current-entry .entry-actions{position:fixed;right:32px!important;top:' + top + 'px!important;left:!important;width:140px;z-index:9999;-webkit-box-shadow:#E3E5EB 0 1px 1px;border-bottom-left-radius:5px 5px;border-bottom-right-radius:5px 5px;border-top-left-radius:5px 5px;border-top-right-radius:5px 5px;border:2px solid #68E;opacity:0.2}#current-entry .card-actions:hover,#entries.list #current-entry .entry-actions:hover{opacity:1}#current-entry .entry-main{margin-right:140px}#current-entry .entry-actions > span,#entries.list #current-entry .entry-actions > span{display:block}';
-		GM_addStyle(css, 'rps_floatactions');
+		GM_addStyle(css, 'rpe_floatactions');
 	}
 
 	if (prefs.general_floatactions) {
