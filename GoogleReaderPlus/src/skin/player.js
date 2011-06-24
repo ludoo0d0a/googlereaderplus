@@ -331,16 +331,6 @@ GRP.player = function(){
             eb.style.fontSize = c + "%";
         }
     }
-    function findImage(images, width, minWidth){
-        for (var i = 0, len = images.length; i < len; i++) {
-            if (images[i].width >= width) {
-                if (!minWidth || (minWidth && images[i].width >= minWidth)) {
-                    return images[i].src;
-                }
-            }
-        }
-        return images[0].src;
-    }
     
     function fillTimeline(){
         var entriesContainer = get_id('entries');

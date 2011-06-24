@@ -7,7 +7,7 @@ function hasClass(el, clazz){
         return false;
     }
 	//TODO: use el.classList
-    var reClassname = new RegExp("(^|\\s)" + clazz + "(\\s|$)");
+    var reClassname = new RegExp("(^|\\s)" + encodeRE(clazz) + "(\\s|$)");
     return (reClassname.test(el.className));
 }
 
@@ -487,6 +487,7 @@ function isArray(obj){
  * Shortcuts
  *
  */
+var _GRP={events:{}};
 /**
  *
  * @param fn
@@ -494,39 +495,53 @@ function isArray(obj){
  *  [{keycode, shift, ctrl, alt}]
  * @return
  */
-function initKey(keys, event){
-    document.addEventListener(event||'keydown', function(e){
-        var target = e.target;
-        var tag = target.tagName;
-        //console.log('keydown on '+tag+'.'+(tag.className||''));
-        if (tag !== 'INPUT' && tag !== 'SELECT' && tag !== 'TEXTAREA') {
-            if (!isArray(keys)) {
-                keys = [keys];
-            }
-            for (var i = 0, len = keys.length; i < len; i++) {
-                var k = keys[i];
-                if (k.keyCode == e.keyCode &&
-                ((k.shiftKey && e.shiftKey) || (!k.shiftKey && !e.shiftKey)) &&
-                ((k.ctrlKey && e.ctrlKey) || (!k.ctrlKey && !e.ctrlKey)) &&
-                ((k.altKey && e.altKey) || (!k.altKey && !e.altKey))) {
-                    e.preventDefault();
-                    //e.stopPropagation();
-                    //k.fn(e);
-                    if (!target.locked) {
-                        //console.log('run fn for keyCode='+k.keyCode);
-                        k.fn(e);
-                        target.locked = true;
-                        window.setTimeout(function(){
-                            target.locked = false;
-                        }, 300);
-                    } else {
-                        console.log('LOCK run fn for keyCode=' + k.keyCode);
-                    }
-                    break;
+function _handleKeyEvent(e, event){
+	var target = e.target;
+    var tag = target.tagName;
+    //console.log('keydown on '+tag+'.'+(tag.className||''));
+    if (tag !== 'INPUT' && tag !== 'SELECT' && tag !== 'TEXTAREA') {
+        var keys = _GRP.events[event]||[];
+        /*if (!isArray(keys)) {
+            keys = [keys];
+        }*/
+        for (var i = 0, len = keys.length; i < len; i++) {
+            var k = keys[i];
+            if (k.keyCode == e.keyCode &&
+            ((k.shiftKey && e.shiftKey) || (!k.shiftKey && !e.shiftKey)) &&
+            ((k.ctrlKey && e.ctrlKey) || (!k.ctrlKey && !e.ctrlKey)) &&
+            ((k.altKey && e.altKey) || (!k.altKey && !e.altKey))) {
+                e.preventDefault();
+                //e.stopPropagation();
+                //k.fn(e);
+                if (!target.locked) {
+                    //console.log('run fn for keyCode='+k.keyCode);
+                    k.fn(e);
+                    target.locked = true;
+                    window.setTimeout(function(){
+                        target.locked = false;
+                    }, 300);
+                } else {
+                    console.log('LOCK run fn for keyCode=' + k.keyCode);
                 }
+                break;
             }
         }
-    }, false);
+    }
+}
+
+function initKey(keys, event){
+	event=event||'keydown';
+    if (!_GRP.events[event]){
+    	_GRP.events[event]=[];
+    	document.addEventListener(event, function(e){
+    		_handleKeyEvent(e,event);
+    	}, false);
+    }
+    _GRP.events[event].push(keys);
+    	
+    /*document.addEventListener(event, function(e){
+        
+    }, false);*/
 }
 
 function notEmpty(o){
@@ -1766,4 +1781,41 @@ function qsort(array, begin, end){
 }
 function quicksort(array){
 	qsort(array, 0, array.length);
+}
+
+function loadImages(items, cb){
+	var imgok=[], len = items.length;
+	if (len>0){
+		for (var i = 0; i < len; i++){
+			var img = new Image();
+			img.onload = function(){
+				imgok.push(img);
+				if (--j == 0){
+					cb(imgok);
+				}
+			};
+			img.src = items[i].src;
+		}
+	}else{
+		//No image go anayway
+		cb(false);
+	}
+}
+
+function findImage(images, width, minWidth, useFirstAnyway){
+    var src = false, len = images.length;
+    for (var i = 0; i < len; i++) {
+        if (images[i].naturalWidth >= width) {
+            if (!minWidth || (minWidth && images[i].naturalWidth >= minWidth)) {
+                src = images[i].src;
+                break;
+            }
+        }
+    }
+    if (!src && useFirstAnyway && len>=0){
+    	if (images[0].naturalWidth>0){
+    		src=images[0].src;
+    	}
+    }
+    return src;
 }
