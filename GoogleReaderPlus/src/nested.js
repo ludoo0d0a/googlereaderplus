@@ -85,5 +85,5 @@ GRP.nested = function(prefs, langs, ID, SL, lang){
     
     var css = '.grp-wrapper{padding-left:16px;/*position:relative;left:16px;*/}'+
     '.link-nested{margin-left:-16px;}';
-    GM_addStyle(css, 'igrp_'+ID);
+    GM_addStyle(css, 'rpe_'+ID);
 };

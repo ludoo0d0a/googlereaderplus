@@ -141,7 +141,7 @@ GRP.colorful = function(prefs, langs, ID, SL, lang){
             
             var css = getBackColorCss(hue, sat, lt, range);
 			//this.styles.innerText+=css;
-			GM_addStyle(css, 'colorful');
+			GM_addStyle(css, 'rpe_'+ID);
         },
         
         // inject color css into the page

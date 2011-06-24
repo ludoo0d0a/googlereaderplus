@@ -152,7 +152,7 @@ GRP.rank = function(prefs, langs, ID, SL, lang){
 				css.push(c);
 			}
 		});
-		GM_addStyle(css.join(''), 'rank_levels');
+		GM_addStyle(css.join(''), 'rpe_ranklevels');
 	}
 	
 	function forceScroll(){
@@ -171,7 +171,7 @@ css += '.pr_10 .postrank,.pr_9 .postrank,.pr_8 .postrank{background-position: 0 
 		css += '.postrank{color:black;display:inline-block;line-height:16px;vertical-align:top;padding-right:6px;padding-left:20px;padding-bottom:0px;margin-left:5px;margin-right:5px;background-repeat:no-repeat;background-position:0% 0%;border-radius:3px;}';
 		css += '#entries.p_rank #scroll-filler.hidden{display:visible !important;}';
 
-		GM_addStyle(css, 'rank');
+		GM_addStyle(css, 'rpe_'+ID);
 		
 		cssRankLevels();
 		

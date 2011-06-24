@@ -13,7 +13,7 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
     function initVars(){
         gp_data = {};
 		
-		GM_addStyle('.entry.preview .p_replacer{display:none}', 'rps_replacer_preview');
+		GM_addStyle('.entry.preview .p_replacer{display:none}', 'rpe_'+ID+'_preview');
 		
         parseItems(gp_data, prefs.replacer_items);
         

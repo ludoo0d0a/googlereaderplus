@@ -66,6 +66,7 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
 			*/
 			plink=dh(link, 'a', {
 				title: SL.title + keytext,
+				cls:'grp-link-title',
 	            href: link.href,
 	            text: ' ' + txt,
 				position:'before'
@@ -399,7 +400,7 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
 		css += '#pov_content:not(.pov_loading) .if-loader, .entry-body:not(.pov_loading) .if-loader{display:none;-webkit-transition: all 0.2s ease-in-out;}';
 		css += ".grp-overlay video,.grp-overlay embed,.grp-overlay object,.grp-overlay iframe {visibility:hidden;}";
 		//css += "#pov_close{position:absolute;right:10px;top:45px;background:url("+GRP.IMAGES_PATH+"/close.png);width:22px;height:22px;z-index:15002;cursor:pointer;}";
-		GM_addStyle(css, 'grp_preview');
+		GM_addStyle(css, 'rpe_'+ID);
 	}
 	setCss();
     registerFeature(addPreviewButton, ID);

@@ -45,7 +45,7 @@ GRP.stars = function(prefs, langs, ID, SL, lang){
 	});
 	NEXTCOLOR[COLORS[COLORS.length-1].id]=COLORS[0].id;
 	css +='#entries.set-tag .tags-edit{visibility:hidden;}';
-    GM_addStyle(css, 'grp_stars');
+    GM_addStyle(css, 'rpe_'+ID);
 	
 	function star(el, entry, mode){
 		var tag = findTagClass(entry), estar = isStarred(entry);

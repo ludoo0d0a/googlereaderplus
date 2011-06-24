@@ -139,7 +139,7 @@ GRP.reddit = function(prefs, langs, ID, SL, lang){
 		var css = '.entry .entry-actions .btn-'+id+'{background: url(\'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/share/'+id+'.png\') no-repeat!important;padding:0px 8px 1px 16px !important;}'+
 		'.entry .entry-actions .btn-'+id+'{background-position: 0 0px !important;}'+
 		'.entry .entry-actions .btn-'+id+'.btn-active{background-position: 0 -16px !important;}';
-		GM_addStyle(css, 'btn_share_'+id);
+		GM_addStyle(css, 'rpe_'+id);
 	}
 	addCss(ID);
 	

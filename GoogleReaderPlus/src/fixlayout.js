@@ -53,7 +53,7 @@ GRP.fixlayout = function(prefs, langs, ID, SL, lang){
 	if (ws[lang]){
     	css+='#quickadd{width:'+ws[lang]+'px !important;}';
 	}
-	GM_addStyle(css, 'rps_fixlayout');
+	GM_addStyle(css, 'rpe_'+ID);
 	
 	var e = document.getElementById('entries');
 	if (e) {
