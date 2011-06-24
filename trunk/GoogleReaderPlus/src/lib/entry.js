@@ -3,6 +3,14 @@
  */
 var stackFeatures = [], externals = [], events = {};
 
+function getConfig(prefs, ID, params){
+	var cfg = {};
+	foreach(params,function(p){
+		cfg[p]=prefs[ID+'_'+p];
+	});
+	return cfg;
+}
+
 function registerEvent(id, key, fn, args){
 	events[id]=events[id]||{};
 	events[id][key] = {
@@ -151,6 +159,17 @@ function checkEntry(el, fn, params){
     }
 }
 
+var _currentEntry=false;
+function monitorCurrentEntry(cb, time){
+	setInterval(function(){
+		var ce = getCurrentEntry();
+		if (_currentEntry !== ce){
+			_currentEntry=ce;
+			cb(_currentEntry);
+		}
+	},time||2000);
+}
+
 function filterEntry(entry, rx){
     var o = getEntryLink(entry);
     return (rx && (rx.test(o.url) || (o.feed && rx.test(o.feed))));
@@ -252,7 +271,6 @@ function getEntrySiteTitle(ent){
     return match;
 }
 
-
 function insertOnTitle(entry, el, mode){
      if (!mode){
 	 	mode=getMode(entry);
@@ -266,7 +284,7 @@ function insertOnTitle(entry, el, mode){
     }
 }
 
-function getEntryLink(ent){
+function getEntryLink(ent, ignoreFeed){
     //<a class="ilink entry-title-link" href="#" title="Open as preview [q]"> Il écope de 5 ans pour avoir parlé de sexe à la télé</a>
     //<a class="entry-title-link iframe title-link-url" target="_blank" href="http://www.lessentiel.lu/news/monde/story/17066269" title="Open in a new window"><div class="entry-title-maximize"></div></a>	
     var o = {
@@ -313,8 +331,9 @@ function getEntryLink(ent){
         };
     }
     //
-    o.feed = getFeedEntry(entry);
-    
+    if (ignoreFeed){
+    	o.feed = getFeedEntry(entry);
+    }
     return o;
 }
 
@@ -349,6 +368,15 @@ function getCurrentEntry(){
 		el = entries.firstChild;
 	}
 	return el;
+}
+
+function getEntryPosition(ent){
+	var pos=false, entry = ent || getCurrentEntry();
+	var m = /\bentry\-(\d+)\b/.exec(entry.className);
+	if (m && m[1]){
+		pos = parseInt(m[1],10);
+	}
+	return pos;
 }
 
 function selectCurrentEntry(el, markread, fixScroll){
@@ -935,7 +963,7 @@ function sublime_update(){
 }
 
 function showallfolders(){
-    var saf = 'grp_showallfolders';
+    var saf = 'rpe_showallfolders';
     var elsaf = get_id(saf);
     if (elsaf) {
         remove(elsaf);
