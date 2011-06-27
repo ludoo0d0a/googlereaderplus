@@ -268,13 +268,27 @@ function initGRP(){
 function error(msg){
 	info(msg, 'error');
 }
+var status_init=false;
 function info(msg, cls){
     var status = document.getElementById('status');
-    status.innerHTML = msg;
-    status.className = "rounded " + (cls || '');
-    window.setTimeout(function(){
-        status.innerHTML = "";
-        status.className = "rounded hidden";
+    var content = document.getElementById('status-content');
+    var elClose = document.getElementById('status-close');
+    function hidestatus(){
+	        status.style.bottom='-200px';
+	        setTimeout(function(){
+	        	status.className = 'hidden';
+	        	content.innerHTML = "";
+	        }, 800);
+    }
+    if (!status_init){
+	    elClose.addEventListener('click',hidestatus,false);
+	    status_init=true;
+    }
+    content.innerHTML = msg;
+    status.className = (cls || '');
+    status.style.bottom='0px';
+    setTimeout(function(){
+        hidestatus();
     }, 3000);
 }
 
