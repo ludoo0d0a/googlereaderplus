@@ -7,6 +7,6 @@ GRP.sublimedark = function() {
 	css +='#gb{display:none}';
 		
 	GM_addStyle(css, 'rps_sublimedark');
-	fireResizeDefer();
+	fireResize(false, 400);
 	sublime_update();
 };

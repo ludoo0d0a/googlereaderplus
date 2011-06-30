@@ -7,6 +7,6 @@ GRP.sublimelight = function() {
 	css +='#gb{display:none}';
 		
 	GM_addStyle(css, 'rps_sublimelight');
-	fireResizeDefer();
+	fireResize(false, 400);
 	sublime_update();
 };
