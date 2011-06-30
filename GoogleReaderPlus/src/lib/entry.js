@@ -164,8 +164,8 @@ function monitorCurrentEntry(cb, time){
 	setInterval(function(){
 		var ce = getCurrentEntry();
 		if (_currentEntry !== ce){
+			cb(ce, _currentEntry);
 			_currentEntry=ce;
-			cb(_currentEntry);
 		}
 	},time||2000);
 }

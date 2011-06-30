@@ -56,8 +56,7 @@ GRP.count = function(prefs, langs, ID, SL, lang){
         };
     }
     function calcUnreadFolder(folder, checkDuplicated){
-    	var total = 0, subtotal = 0;
-        var subtotalplus = false;
+    	var total = 0, hasplus = false;
 		
 		//var name = getElementText(folder, 'name-text');
 		//console.log('calc folder : '+name);
@@ -65,11 +64,10 @@ GRP.count = function(prefs, langs, ID, SL, lang){
         var res2 = document.evaluate("./ul/li[contains(@class, 'unread')]/a/span/span[contains(@class, 'unread-count')]", folder, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
         for (var j = 0; j < res2.snapshotLength; j++) {
             var result = findItemUnread(res2.snapshotItem(j), checkDuplicated);
+            total += result.count;
             if (result.hasplus) {
-                totalplus = true;
-                subtotalplus = true;
+                hasplus = true;
             }
-            subtotal += result.count;
             /*if (!result.alreadyCounted) {
                 total += result.count;
             }*/
@@ -78,34 +76,42 @@ GRP.count = function(prefs, langs, ID, SL, lang){
         //Recurse
         var res3 = document.evaluate("./ul/div/li[contains(@class, 'folder')]", folder, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
         for (var k = 0; k < res3.snapshotLength; k++) {
-        	subtotal+=calcUnreadFolder(res3.snapshotItem(k), checkDuplicated);
+        	var ures = calcUnreadFolder(res3.snapshotItem(k), checkDuplicated);
+        	total+=ures.total;
+        	if (ures.hasplus) {
+                hasplus = true;
+            }
         }
         
-        if (subtotal > 0) {
+        if (total > 0) {
             var resfolder = document.evaluate(".//a/span/span[contains(@class, 'unread-count')]", folder, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
             //var resfolder = unreadfolder;
             if (resfolder) {
-                resfolder.innerHTML = '&nbsp;(' + subtotal + (subtotalplus ? '+' : '') + ')';
+                resfolder.innerHTML = '&nbsp;(' + total + (hasplus ? '+' : '') + ')';
             }
         }
         
         //console.log('total folder : '+name + '='+total );
         
-        return subtotal;
+        return {
+        	total:total, 
+        	hasplus:hasplus
+        };
     }
     
+    
     function calcUnread(){
-        var checkDuplicated = [];
-        var total = 0;
-        var totalplus = false;
-        
-        //console.log('calc unread');
+        var checkDuplicated = [],total = 0,hasplus=false;
         
         var subtree = get_id('sub-tree');
         var res = document.evaluate("./li/ul/li[contains(@class, 'folder')][contains(@class, 'unread')]", subtree, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
         for (var i = 0; i < res.snapshotLength; i++) {
             var folder = res.snapshotItem(i);
-            total +=calcUnreadFolder(folder, checkDuplicated);
+            var ures = calcUnreadFolder(folder, checkDuplicated);
+            total += ures.total;
+            if (ures.hasplus) {
+                hasplus = true;
+            }
         }
         
 		//friends unread
@@ -122,7 +128,7 @@ GRP.count = function(prefs, langs, ID, SL, lang){
         for (var k = 0; k < res3.snapshotLength; k++) {
             var res4 = findItemUnread(res3.snapshotItem(k), checkDuplicated);
             if (res4.hasplus) {
-                totalplus = true;
+                hasplus = true;
             }
             if (!res4.alreadyCounted) {
                 total += res4.count;
@@ -130,7 +136,7 @@ GRP.count = function(prefs, langs, ID, SL, lang){
         }
         
         if (total > 0) {
-            var totaltext = total + (totalplus ? '+' : '');
+            var totaltext = total + (hasplus ? '+' : '');
             unreadCountElement.innerHTML = ' (' + totaltext + ')';
             
             //update subtitle (1000+ new items)

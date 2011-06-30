@@ -4,6 +4,7 @@ lib\greasekit.js
 lib\entry.js
 lib\i18n.js
 lib\external.js
+lib\slideshow.js,
 version.js
 features.js
 lib\sizzle.js
@@ -47,6 +48,7 @@ relook.js
 translate.js
 prefetch.js
 nested.js
+coverflow.js
 theme.js
 skin\mytheme.js
 skin\ig.js

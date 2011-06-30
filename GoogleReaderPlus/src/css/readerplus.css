@@ -109,3 +109,11 @@ span.btn-sel{
 .grp-mark-scrolled .collapsed{
 	background-color:yellow !important;
 }*/
+.entry.split-date{
+	margin-top:100px;
+}
+.entry.split-date .entry-date{
+	position:absolute;
+	top:0;
+	right:200px;
+}

@@ -358,6 +358,7 @@ if (typeof Array.forEach === "undefined") {
         Array.prototype.forEach.call(arr, fn);
     };
 }
+
 function insertAfter(el, ref){
     var next = ref.nextSibling;
     if (next) {
@@ -706,19 +707,11 @@ function onWindowResize(cb){
 	},true);
 }
 
-function fireResizeDefer(lhnfooter){
-    window.setTimeout(function(){
-		fireResize(lhnfooter);
-	}, 400);
-}
-
-function fireResize(value){
+function fireResize(value, time){
 	var lhnfooter = (value=='footer');
-	//_fireResize(lhnfooter);
 	setTimeout(function(){
-	//setInterval(function(){
-		_fireResize(lhnfooter);
-	}, 2000);
+		_fireResize(lhnfooter, time);
+	}, time);
 }
 function _fireResize(lhnfooter){
 	var st = document.getElementById('sub-tree');
@@ -727,7 +720,6 @@ function _fireResize(lhnfooter){
 		var el = document.getElementById('lhn-subscriptions');
 		if (el) {
 			elb = getFirstElementByClassName(el, 'lhn-section-footer');
-			//isShown(elb) instead lhnfooter?
 		}
 	}
 	//fix home, without footer
@@ -752,6 +744,7 @@ function fitHeight(id, bottom){
 			h += elb.clientHeight;
         }
     }	
+    console.log(el.id+'='+(window.innerHeight - h));
     el.style.height = (window.innerHeight - h) + 'px';
 }
 
@@ -1054,6 +1047,8 @@ function adjustIframeHeight(iframe, heightMaxi){
         }
     }
 }
+
+
 function getHeight(el){
 	var h = 0;
 	if (el && el.style) {
@@ -1784,17 +1779,32 @@ function quicksort(array){
 }
 
 function loadImages(items, cb){
-	var imgok=[], len = items.length;
+	var imgs=[], imgok=[], len = items.length;
 	if (len>0){
-		for (var i = 0; i < len; i++){
-			var img = new Image();
-			img.onload = function(){
-				imgok.push(img);
-				if (--j == 0){
-					cb(imgok);
-				}
-			};
+		var j = len;
+		for (var i=0; i<len; i++){
+			var img=new Image();
+			(function(){
+				var _img=img;
+				_img.onload = function(){
+					imgok.push(_img);
+					decimg();
+				};
+			})();
+			function decimg(){
+				//Already removed?
+				//if (imgs[p]){
+				//	imgs[p]=false;
+					if (--j == 0){
+						cb(imgok);
+					}
+				//}
+			}
 			img.src = items[i].src;
+			/*setTimeout(function(){
+				//3 s max
+				decimg();
+			},3000);*/
 		}
 	}else{
 		//No image go anayway
@@ -1813,6 +1823,25 @@ function findImage(images, width, minWidth, useFirstAnyway){
         }
     }
     if (!src && useFirstAnyway && len>=0){
+    	if (images[0].naturalWidth>0){
+    		src=images[0].src;
+    	}
+    }
+    return src;
+}
+
+function findFirstImage(images, cfg){
+    var src = false, len = images.length;
+    cfg=cfg||{};
+    for (var i = 0; i < len; i++) {
+        if (images[i].naturalWidth >= cfg.width) {
+        	if (images[i].naturalHeight >= cfg.height) {
+                src = images[i].src;
+                break;
+            }
+        }
+    }
+    if (!src && cfg.useFirstAnyway && len>=0){
     	if (images[0].naturalWidth>0){
     		src=images[0].src;
     	}

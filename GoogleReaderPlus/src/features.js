@@ -1138,10 +1138,15 @@ GRP.scripts = {
 		category: 'theme'
 	},
 	coverflow:{
-		name: "Coverflow preview",
-		category: 'layout',
+		name: "Coverflow",
+		category: 'navigation',
+		status:'new',
 		options: {
-			sync:true
+			coverflow:true,
+			reflection:true,
+			caption:true,
+			sync:true,
+			footer:true,
 		}
 	},
 	actions: {

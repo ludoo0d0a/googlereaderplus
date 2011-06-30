@@ -170,6 +170,9 @@ _extend(Coverflow.prototype , {
 			}
 			return self._map[a][i];
 		};
+		//+
+		var ratio=[Math.max(this.opts.width/600,0.01), Math.max(this.opts.height/300,0.01)];
+		ratio[0]=ratio[1];
 		var translate = function(p, phi, x, y, z)
 		{
 			phi *= Math.PI/180;
@@ -183,9 +186,10 @@ _extend(Coverflow.prototype , {
 			var d = 1/Math.atan(FOV*Math.PI/180);
 			p[2] -= 2;
 			var b = [d * p[0]/p[2], d * p[1]/p[2]];
+			//+
 			return [
-				Math.floor(b[0] * block) + self.opts.width/2,
-				Math.floor(b[1] * block) + 2*self.opts.height/3,
+				Math.floor(b[0] * block)*ratio[0] + self.opts.width/2,
+				Math.floor(b[1] * block)*ratio[1] + 2*self.opts.height/3,
 				p[2]
 			];
 		};
@@ -229,7 +233,7 @@ _extend(Coverflow.prototype , {
 		for (var j = 0; j < self.store.length; j++)
 			self.render(self.store[j]);
 		//+
-		if (!silent){
+		if (!silent && self.opts.onMove){
 			self.opts.onMove(self.items[this.idx]);
 		}
 	},
@@ -279,12 +283,14 @@ _extend(Coverflow.prototype , {
 			var img = new Image();
 			img.src = opts.src;
 			var w = img.width, h = img.height;
+			//+
+			var rx = w/h;
 			var slices = Math.min(w, opts.poly[3][0] - opts.poly[0][0]);
 			var sliceW = w / slices;
-			//slices = Math.floor(w / sliceW);
+			//+
+			slices = Math.floor(w / sliceW);
 			var lh = opts.poly[1][1] - opts.poly[0][1], rh = opts.poly[2][1] - opts.poly[3][1];
-			if (lh == rh)
-			{
+			if (lh == rh){
 				self.ctx.drawImage(
 					img, opts.poly[0][0], opts.poly[0][1],
 					opts.poly[3][0] - opts.poly[0][0], lh
