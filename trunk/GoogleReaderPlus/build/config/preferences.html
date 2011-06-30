@@ -14,8 +14,6 @@
     <body>
         <form id="frmprefs" name="frmprefs">
             <div id="main">
-                <div class="rounded hidden" id="status">
-                </div>
                 <div class="container1">
                     <ul class="mnu rounded nav1">
                         <li class="first item"><a id="t_link_reader" href="#" onclick="findReader();"><span>Google Reader</span>Your RSS reader</a></li>
@@ -103,6 +101,8 @@
                                 <span id="t_thanks_donators">Thanks to donators to contribute to this project</span>:
                                 <ul class="rounded mnu donators">
                                     <li class="first"><!--4+4+4--><a href="javascript:void();"><span>Bill Moldrup</span></a></li>
+									<li><!--10--><a href="javascript:void();"><span>Borivoj Krgin</span></a></li>
+									<li><!--10--><a href="javascript:void();"><span>Tina Gunnarsson</span></a></li>
 									<li><!--10--><a href="javascript:void();"><span>Mohammed Najem</span></a></li>
 									<li><!--10--><a href="javascript:void();"><span>Massimo Carnevali</span></a></li>
 									<li><!--10--><a href="javascript:void();"><span>Ian Chipman</span></a></li>
@@ -120,6 +120,7 @@
 									<li><!--4--><a href="javascript:void();"><span>Husam Alghamdi</span></a></li>
                                     <li><!--3--><a href="javascript:void();"><span>Feng Gao</span></a></li>
                                     <li><!--3--><a href="javascript:void();"><span>Ally Akbarzadeh</span></a></li>
+                                    <li><!--2--><a href="javascript:void();"><span>Michael Schwartzentruber</span></a></li>
                                     <li><!--2--><a href="javascript:void();"><span>William Banks</span></a></li>
                                     <li><!--1.5--><a href="javascript:void();"><span>Michael Breitenfeld</span></a></li>
                                     <li><!--1--><a href="javascript:void();"><span>Shane Lange</span></a></li>
@@ -138,7 +139,7 @@
                                     <li><a href="#" target="blank"><span>Jorge Salgado - Spanish</span></a></li>
 									<li><a href="http://kulldox.info" target="blank"><span>KullDox - Romanian</span></a></li>
 									<li><a href="#" target="blank"><span>Thorsten Rost - German</span></a></li>
-									<li class="last"><a href="#" target="blank"><span>Thomas Weissert - German</span></a></li>
+									<li class="last"><a href="#" target="blank"><span>Tobias Weissert - German</span></a></li>
                                 </ul>
                                 <span id="t_thanks_authors">Thanks to authors of original scripts and skins (Greasemonkey and Stylish)</span>:
                                 <ul class="rounded mnu thanks">
@@ -185,5 +186,10 @@
                 </div>
             </div>
         </form>
+        <div id="loading" class="hidden"></div>
+        <div class="rounded hidden" id="status">
+	    	<div id="status-content"></div>
+	    	<div id="status-close"></div>
+	    </div>
     </body>
 </html>
