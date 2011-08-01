@@ -88,7 +88,9 @@ GRP.langs[locale].texts = {
 	gmarks:{
 		keyword: 'Gmarks',
 		wronglogin: 'Something goes wrong with authentication!!',
-		nologin: 'Error with authentication!!'
+		nologin: 'Error with authentication!!',
+		text:'Share with Google Bookmarks',
+		keyword: 'Google Bookmarks'
 	},
     instapaper: {
         text: 'Read Later with Instapaper',
@@ -475,6 +477,13 @@ separator: "Separator to add extra level (example: Sports:Footbal)."
 	rank:{
 		level:'Display level',
 		ad:'Ranking is powered by <a href="http://www.postrank.com" target="_blank"><img src="http://www.postrank.com/images/navigation/head_logo.png"/></a> <i>Intelligence from the social web</i>'
+	},
+	coverflow:{
+		coverflow:'Coverflow / Slideshow',
+		reflection:'Use reflection',
+		caption:'Display captions',
+		sync:'Sync items',
+		footer:'As footer'
 	},
 	mark:{
 		asscroll: 'Mark as read past items on scroll'
