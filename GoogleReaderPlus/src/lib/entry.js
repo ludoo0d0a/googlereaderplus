@@ -775,6 +775,7 @@ function addBottomLink(el, text, title, script, cls, button, callback, locked, e
             callback(span, entry, true);
         }
     }
+    return span;
 }
 
 function isActive(btn, entry, cls, locked, clsOn, clsOff){
