@@ -8,9 +8,10 @@ GRP.redesigned = function() {
 	
 	//new UI
 	//css +='#gb{display:none}';
-		
+	css +='#top-bar{height:0px}';
+	
 	var root = mycore.getUrl('');
-	console.log('root='+root);
+	//console.log('root='+root);
 	css=css.replace(/%root%/g, root);
 	GM_addStyle(css, 'rps_redesigned');
 };
