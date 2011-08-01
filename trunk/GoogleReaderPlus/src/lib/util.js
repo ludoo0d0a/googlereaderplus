@@ -708,6 +708,8 @@ function onWindowResize(cb){
 }
 
 function fireResize(value, time){
+	value=value||'';
+	time=time||0;
 	var lhnfooter = (value=='footer');
 	setTimeout(function(){
 		_fireResize(lhnfooter, time);
@@ -754,8 +756,8 @@ function findTop(obj, relative){
         do {
             curtop += obj.offsetTop - obj.scrollTop;
         } while ((obj = obj.offsetParent) && (!relative || (relative && relative!==obj)) );
-        return curtop;
     }
+    return curtop;
 }
 
 function findLeft(obj, relative){
@@ -1542,7 +1544,7 @@ var tmaps = {
     html: 'innerHTML'
 };
 function dh(root, tag, attrs, events){
-    var config = attrs;
+    var config = attrs||{};
     if (root) {
         config.root = root;
     }
