@@ -524,17 +524,32 @@ GRP.scripts = {
 		name: "Read by mouse",
 		category: 'navigation'
 	},
+	plusone: {
+		name: "Google +1",
+		category: 'share',
+		shortcuts: {
+			'goplusone': {
+				id: 'goplusone',
+				title: '+1',
+				key: {
+					//70 shift+f
+					keyCode: 70,
+					shiftKey: true
+				}
+			}
+		}
+	},
 	facebook: {
-		name: "Facebook integration",
+		name: "Facebook",
 		category: 'share',
 		shortcuts: {
 			'gofacebook': {
 				id: 'gofacebook',
 				title: 'Post on Facebook',
 				key: {
-					//70 shift+f
+					//70 alt+f
 					keyCode: 70,
-					shiftKey: true
+					altKey: true
 				}
 			}
 		}
@@ -1298,13 +1313,14 @@ GRP.skins = {
 		name: "My Theme"
 	},
 	nativecompact: {
-		name: "Native compact"
+		name: "Native compact",
+		status:'updated'
 	},
 	player: {
 		name: "Player Theme"
 	},
 	snowleopard: {
-		name: "Snow Leopard Improved",
+		name: "SnowLeopard Improved",
 		url: 'http://userstyles.org/styles/userjs/41190/Google%20Reader%20for%20Snow%20Leopard%20Improved.user.js',
 		pic: 'http://userstyles.org/style_screenshots/41190_after.jpeg',
 		ref: 'http://userstyles.org/styles/41190',
@@ -1312,52 +1328,56 @@ GRP.skins = {
 		resize: 'footer'
 	},
 	snowleopard2: {
-		name: "Snow Leopard Improved v2",
-		url: 'http://userstyles.org/styles/userjs/45455/Google%20Reader%20for%20Snow%20Leopard%202%20-%20Improved.user.js',
+		name: "SnowLeopard Improved for G+",
+		status:'updated',
+		url: 'http://userstyles.org/styles/userjs/45455/Google%20Reader%20for%20Snow%20Leopard%202%20-%20Improved%20-%20WK.user.js',
 		pic: 'http://userstyles.org/style_screenshots/45455_after.png',
-		ref: 'http://userstyles.org/style/45455',
+		ref: 'http://userstyles.org/styles/45455',
 		desc: 'userstyles.org',
 		resize: 'footer'
 	},
 	osxblue: {
-		name: "Mac OS X Snow Leopard - Blue",
+		name: "MacOSX SnowLeopard Blue",
+		status:'updated',
 		resize: 'footer'
 	},
 	osxblack: {
-		name: "Mac OS X Snow Leopard - Black",
+		name: "MacOSX SnowLeopard Black",
 		resize: 'footer'
 	},
 	portal: {
 		name: "Portal v2"
 	},
 	helvetireader: {
-		name: "Helvetireader Skin"
+		name: "Helvetireader Skin",
+		status:'updated'
 	},
 	darkhelvetireaderday: {
 		name: "Dark Helvetireader - Day",
-		pic: 'https://chrome.google.com/extensions/img/dkcjfdlgfmefnbhkholnhliliohggmef/1296639253.46/screenshot/3001'
+		pic: 'http://stylebot.me/uploads/61.png',
+		ref: 'http://stylebot.me/styles/61'
 		/*
 		 url: 'http://stylebot.me/style/get_userscript/61.user.js',
 		 pic: 'http://stylebot.me/uploads/61.png',
-		 ref: 'http://stylebot.me/styles/61',
-		 fix: '.entry-actions{height: auto!important;}',
 		 desc: 'stylebot.me',
 		 resize: 'footer'*/
 	},
 	darkhelvetireadernight: {
 		name: "Dark Helvetireader - Night",
-		pic: 'https://chrome.google.com/extensions/img/dkcjfdlgfmefnbhkholnhliliohggmef/1296639253.46/screenshot/4001'
+		pic: 'http://stylebot.me/uploads/62.png',
+		ref: 'http://stylebot.me/styles/62'
 		/*url: 'http://stylebot.me/style/get_userscript/62.user.js',
 		 pic: 'http://stylebot.me/uploads/62.png',
-		 ref: 'http://stylebot.me/styles/62',
 		 desc: 'stylebot.me',
 		 resize: 'footer'*/
 	},
 	minimal: {
-		name: "Minimalistic Skin"
+		name: "Minimalistic Skin",
+		status:'updated'
 	},
 	optimized: {
-		name: "Optimized Skin"
+		name: "Optimized Skin",
+		status:'updated'
 	},
 	air: {
 		name: "Air Skin"
@@ -1379,16 +1399,18 @@ GRP.skins = {
 	},
 	sublimelight: {
 		name: "Sublime Reader Light",
-		ref: 'https://code.google.com/p/sublimereader/'
+		ref: 'https://code.google.com/p/sublimereader/',
+		status:'updated'
 	},
 	sublimedark: {
 		name: "Sublime Reader Dark",
 		ref: 'https://code.google.com/p/sublimereader',
-		resize: true
+		status:'updated'
 	},
 	redesigned: {
 		name: "Redesigned",
-		ref: 'http://www.globexdesigns.com/products/gr/'
+		ref: 'http://www.globexdesigns.com/products/gr/',
+		status:'updated'
 	},
 	webbizgeek: {
 		name: "WebBizGeek Skin",
@@ -1396,9 +1418,6 @@ GRP.skins = {
 	},
 	glassblackgold: {
 		name: "Glass Black Gold Skin",
-		/*
-		 url: 'http://userstyles.org/styles/userjs/26569/Google%20Reader%20-%20Glass%20BlackGold%20.user.js',
-		 */
 		pic: 'http://userstyles.org/style_screenshots/26569_after.png',
 		ref: 'http://userstyles.org/styles/26569',
 		fix: '#chrome-view-links,#lhn-selectors .selected,#lhn-selectors .selected:hover{background-color: transparent !important;}',
@@ -1430,10 +1449,13 @@ GRP.skins = {
 	},
 	compactcleantweaked: {
 		name: "Compact, Clean & Tweaked",
+		status:'updated',
 		url: 'http://userstyles.org/styles/userjs/16117/Google%20Reader%20-%20Compact%2C%20Clean%20%26%20Tweaked.user.js',
 		pic: 'http://userstyles.org/style_screenshots/16117_after.png',
+		fix: '#top-bar{height: 0px;}',
 		ref: 'http://userstyles.org/styles/16117',
-		desc: 'userstyles.org'
+		desc: 'userstyles.org',
+		resize: true
 	},
 	/*'31d1remix': {
 	 name: "31d1 remix <span class='new'>New!</span>",
@@ -1470,7 +1492,8 @@ GRP.skins = {
 		pic: 'http://nadesign.net/safari/images/preview-reader.png',
 		ref: 'http://nadesign.net/safari/',
 		desc: 'Pure Reader by Na\'Design',
-		fix: '.gbtc{padding-left:200px;}',
+		fix: '.gbtc{padding-left:200px;}#top-bar{height: 0px;}div#main{top: 0px !important;}',
+		status:'updated',
 		resize: true
 	}
 };
