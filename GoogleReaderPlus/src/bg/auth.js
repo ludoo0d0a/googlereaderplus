@@ -42,9 +42,9 @@ var OAUTHS = {
             'app_name': 'Identi.ca for Readerplus'
         }
     },
-	linkedin: {
+    linkedin: {
         api: {
-			url: 'http://identi.ca/api/statuses/update.json'
+			url: 'http://linkedin.com/.../update.json'
 		},
         authcfg: {
             'request_url': 'https://api.linkedin.com/uas/oauth/requestToken',
@@ -64,12 +64,14 @@ var OAUTHS = {
 			},*/
 			params: function(a){
 				return {
-					method:'post',
-					message:'the title of your entry',
-					location:'free form location for this entry',
-					icon:'the web icon for this icon',
-					nick:a.username,
-					uuid:'a unique identifier for this entry'
+					parameters:{
+						method:'post',
+						message:'the title of your entry',
+						location:'free form location for this entry',
+						icon:'the web icon for this icon',
+						nick:a.username,
+						uuid:'a unique identifier for this entry'
+					}
 				};
 			}
 		},
@@ -82,13 +84,47 @@ var OAUTHS = {
             'scope': 'http://www.jaiku.com/',
             'app_name': 'Jaiku for Readerplus'
         }
-	}
-	
+	},
+	tumblr: {
+        api: {
+			url: 'http://api.tumblr.com/v2/blog/{blogname}.tumblr.com/post',
+			params: function(a){
+				return {
+					method:'post',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body:JSON.stringify({
+						title:a.title,
+						url:a.url,	
+						description:a.desc+'_',
+						body:a.desc+'_',
+						type:'link',
+						//state:'queue',
+						//tags:a.tags
+					})
+				};
+			}
+		},
+        authcfg: {
+            'request_url': 'http://www.tumblr.com/oauth/request_token',
+            'authorize_url': 'http://www.tumblr.com/oauth/authorize',
+            'access_url': 'http://www.tumblr.com/oauth/access_token',
+            'consumer_key': 'yGKl3JKPR43oPkvvaWOdxTvkUxkN4DgOHTJHXqdzw9puyCnvt2',
+            'consumer_secret': '2A3vEfLdYKIWj6oOpwKACoyPMolQfVbGcT1jGhPtTiIKERZPkE',
+            'scope': 'http://www.tumblr.com/',
+            'app_name': 'Tumblr for Readerplus'
+        }
+    }
 };
 
 function micro(a, cb){
 	oauth_sign(a, cb, function(o){
-		return o.api.url;
+		var url = o.api.url;
+		if (a.tpl && a.tpl.url){
+			url = fillTpl(url, a.tpl.url||{});
+		}
+		return url;
 	},  function(o){
 		var v = o.api.params;
 		var _v = (typeof v == 'function')?v(a):v;	
@@ -131,11 +167,13 @@ function oauth_sign(a, cb, url, params){
 
 			if (xhr.status >= 200 && xhr.status <= 210) {
 				r.data = r.responseJson;
-				if (r.data && r.data.error){
-					r.error=true;
-				}
 			}else{
 				r.error=true;
+			}
+			if (r.responseJson.error){
+				r.error=r.responseJson.error;
+			}else if (r.responseJson.response && r.responseJson.response.errors){
+				r.error=r.responseJson.response.errors.join(';');//tumblr
 			}
             if (cb) {
                 cb(r);

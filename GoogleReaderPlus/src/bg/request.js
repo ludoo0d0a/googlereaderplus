@@ -54,8 +54,8 @@ function bg_request(a, local, cb){
     xhr.open(method, url, true);
 	
 	if (method !== 'get'){
-			a.headers=a.headers||{};
-			a.headers['Content-Type']='application/x-www-form-urlencoded; charset=UTF-8';
+		a.headers=a.headers||{};
+		a.headers['Content-Type']=a.headers['Content-Type'] || 'application/x-www-form-urlencoded; charset=UTF-8';
 	}
 	
 	if (a.auth){
