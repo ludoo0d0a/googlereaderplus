@@ -25,17 +25,17 @@
 	background-position: 0 -48px !important;
 }
 
-.entry .entry-actions .btn-instapaper{
+.entry .entry-actions .btn-readitlater{
 	background-position: 0 -64px !important;
 }
-.entry .entry-actions .btn-instapaper.btn-active{
+.entry .entry-actions .btn-readitlater.btn-active{
 	background-position: 0 -80px !important;
 }
 
-.entry .entry-actions .btn-readitlater{
+.entry .entry-actions .btn-instapaper{
 	background-position: 0 -96px !important;
 }
-.entry .entry-actions .btn-readitlater.btn-active{
+.entry .entry-actions .btn-instapaper.btn-active{
 	background-position: 0 -112px !important;
 }
 
