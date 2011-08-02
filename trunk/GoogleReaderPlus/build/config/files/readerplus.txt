@@ -27,6 +27,7 @@ counticon.js
 readbymouse.js
 menu.js
 stars.js
+plusone.js
 facebook.js
 twitter.js
 identi.js
@@ -52,7 +53,6 @@ coverflow.js
 theme.js
 skin\mytheme.js
 skin\ig.js
-skin\aero.js
 skin\air.js
 skin\aircomic.js
 skin\black.js
