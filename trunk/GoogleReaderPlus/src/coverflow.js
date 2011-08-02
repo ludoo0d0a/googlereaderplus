@@ -16,7 +16,7 @@ GRP.coverflow = function(prefs, langs, ID, SL, lang){
     	}
     } 
     //var config = (cfg.coverflow)?configs.coverflow:configs.slideshow;
-    var config = configs.slideshow;
+    //var config = configs.slideshow;
     
     function coverEntry(el, entry, mode){
         if (hasClass(entry, 'entry-0')){
@@ -59,9 +59,9 @@ GRP.coverflow = function(prefs, langs, ID, SL, lang){
     	
     	var css = '#flow-container{ ';
     	if(cfg.footer){
-    		css+='margin-left: 250px;margin-right:150px;';
+    		css+='margin-left:250px;margin-right:150px;';
     	}else{
-    		css+='height:240px;position:fixed;bottom:40px;right:0;width:80%;margin-right:50px;';
+    		css+='/*height:240px;*/position:fixed;bottom:40px;right:0;width:80%;margin-right:50px;';
     	}
     	css+='z-index:9999;opacity:0.9;background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.07, rgb(230,233,235)), color-stop(0.54, rgb(204,217,224)),color-stop(0.77, rgb(237,245,245)));}';
 //    	css += '#flow-title{text-align:center;font-size:16px;font-weight:bold;}';

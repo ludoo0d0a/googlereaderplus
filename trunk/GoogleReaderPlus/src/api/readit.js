@@ -75,7 +75,7 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
 				//Basic authentication
 				cred.method=api.auth;
 				post(cred, params, btn);
-			} else {
+			}else {
 				token = (api.getToken)?api.getToken():false;
 				
 				function gopost(token){
@@ -93,7 +93,7 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
 						dataType: 'json'
 					}, api.auth);
 					
-					o.data = apply(o.data, p);
+					o.data = apply(o.data || {}, p);
 					o.onload = function(r){
 						var token = isOk(r, btn, 'login');
 						if (token) {

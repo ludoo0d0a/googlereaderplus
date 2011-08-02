@@ -101,7 +101,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 			GM_xmlhttpRequest({
 				method: 'POST',
 				dataType:'json',
-				url: "https://www.googleapis.com/urlshortener/v1/url",
+				url: 'https://www.googleapis.com/urlshortener/v1/url',
 				headers:{
 					'Content-Type':'application/json'
 				},
@@ -153,7 +153,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 		}
 		
 		//local
-		var taginput,notesinput,urlinput,titleinput,notesdesc,mode;
+		var taginput,notesinput,urlinput,titleinput,descinput,mode;
 		
 		//var active = isActive(btn, entry, ID, locked);
         var bookmarkField = getFirstElementByClassName(entry, 'micro-form-'+ID);
@@ -169,7 +169,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 		//create
 		bookmarkField = document.createElement("div");
         addClass(bookmarkField, 'micro-form-'+ID+' action-area');
-        var tpl = "<div class='email-this-area'><table class='email-entry-table'><tbody><tr><td class='field-name'>{text_title}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input inp-title' type='text'></td></tr><tr><td class='field-name'>{text_tag}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input inp-tag' type='text'></td></tr><tr><td class='field-name'>{text_url}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input inp-url' type='text'></td></tr><tr><td colspan='2'><div class='inp-notes'>{notemax}</div><br/><textarea class='email-this-comment inp-notes' rows='6'></textarea><div class='email-this-buttons' tabindex='-1'><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-send inp-btn-send'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_send}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel inp-btn-shorturl'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_shortener}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel inp-btn-count'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_count}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel inp-btn-cancel'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_cancel}</div></div></div></div></div></div></div></td></tr></tbody></table></div>";
+        var tpl = "<div class='email-this-area'><table class='email-entry-table'><tbody><tr><td class='field-name'>{text_title}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input inp-title' type='text'></td></tr><tr><td class='field-name'>{text_tag}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input inp-tag' type='text'></td></tr><tr><td class='field-name'>{text_url}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input inp-url' type='text'></td></tr><tr><td colspan='2'><div class='inp-notes'>{notemax}</div><br/><textarea class='email-this-comment inp-desc' rows='6'></textarea><div class='email-this-buttons' tabindex='-1'><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-send inp-btn-send'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_send}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel inp-btn-shorturl'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_shortener}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel inp-btn-count'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_count}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel inp-btn-cancel'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_cancel}</div></div></div></div></div></div></div></td></tr></tbody></table></div>";
         var html = fillTpl(tpl, SM);
         bookmarkField.innerHTML = html;
 		
@@ -190,10 +190,10 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
         notesinput = getFirstElementByClassName(bookmarkField, "inp-notes");
         urlinput = getFirstElementByClassName(bookmarkField, "inp-url");
         titleinput = getFirstElementByClassName(bookmarkField, "inp-title");
-        notesdesc = getFirstElementByClassName(bookmarkField, "inp-notes");
+        descinput = getFirstElementByClassName(bookmarkField, "inp-desc");
 
 		var link = getEntryLink(entry), url = link.url, title = link.title;
-		notesinput.value = "";
+		descinput.value = "";
         taginput.value = getTagsText(entry, NORMALIZE, DEFAULT_LABEL)
         urlinput.value = url;
         titleinput.value = title;
@@ -203,7 +203,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 				countWord();
 			}, false);
 		}
-		monitorCount(notesinput);
+		monitorCount(descinput);
 		monitorCount(urlinput);
 		monitorCount(titleinput);
 		monitorCount(taginput);
@@ -234,8 +234,8 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 			}
             bookmarkField.className = "action-area'+cb+' hidden";
             bookmarkStar.className = BTN_CLS_ID+" link";
-            notesdesc.innerHTML = SM.notemax;
-            notesinput.value = "";
+            notesinput.innerHTML = SM.notemax;
+            descinput.value = "";
         }, false);
        
 		
@@ -244,10 +244,10 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 			o.url = urlinput.value;
 			o.title = titleinput.value;
 	        o.tags = taginput.value;
-	        o.desc = notesinput.value;
+	        o.desc = descinput.value;
 	        o.msg = formatSendMsg(o.url, o.title, o.desc, o.tags);
 			var remain= MAX_TEXT - countMsgWord(o.msg);
-	        notesdesc.innerHTML = formatText(SM.notetoolong, remain);
+	        notesinput.innerHTML = formatText(SM.notetoolong, remain);
 			if (warning && remain<0){
 				alert(SM.toolong);
 				o= false;
@@ -259,7 +259,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 		countWord();
 		
         //btnSend.focus();
-        //notesinput.focus();
+        //descinput.focus();
 		
 	    function saveBookmark(event){
 	        var p = countWord(true)||{};
@@ -276,18 +276,25 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 		        }
 		        addClass(bookmarkField, 'hidden');
 				addClass(bookmarkStar, CLS_ACTIVE);
-		        notesinput.value = "";
+		        descinput.value = "";
 		    }
 		
 			p.message = api.msg || "micro";
 			p.id=ID;
+			if (api.tpl && api.tpl.url){
+				p.tpl = p.tpl || {};
+				p.tpl.url = {};
+				foreach(api.tpl.url, function(o){
+					p.tpl.url[o]=getPref(o);
+				});
+			}
 	        mycore.extension.sendRequest(p, function(o){
 				var txt = '';
 				if (o) {
 					if (!o.error) {
 						activeStar();
 					}else{
-						alert('Error from '+ID+': '+(o.responseJson.error||''));
+						alert('Error from '+ID+': '+(o.error||''));
 					}
 				}else{
 					alert('Error: Unable to share this item.');

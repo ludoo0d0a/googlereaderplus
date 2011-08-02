@@ -255,6 +255,7 @@ GRP.langs[locale].prefs = {
         alreadyexist: "Item already exists!",
         snew: 'new!',
         supdated: 'Updated!',
+        stodo: 'todo!',
         prefssaved: "Preferences saved!",
         cachecleared: "Cache cleared!",
         expandall: 'All'
@@ -352,6 +353,7 @@ GRP.langs[locale].prefs = {
     },
 	tumblr: {
         auth: "<a href='http://www.tumblr.com' target='blank'>Tumblr</a> authentication (required):",
+		blogname: "Blog:",
 		username: "Email:",
         password: "Password:"
     },
@@ -376,6 +378,14 @@ GRP.langs[locale].prefs = {
 		layout:'Layout',
 		layoutdesc:'Various formats are explained on <a href="http://www.addthis.com/web-button-select" target="_blank">this page</a>'
 	},
+	gmarks:{
+		link:'My <a href="https://www.google.com/bookmarks/l#!g=Time" target="_gmarks">Google Bookmarks</a>'
+	},
+	pinboard:{
+        auth: "<a href='http://www.pinboard.in' target='blank'>Pinboard</a> <a href='http://pinboard.in/signup/' target='blank'>authentication</a> (required):",
+        username: "Username:",
+        password: "Password:"
+    },
     colorful: {
         tree: "Show label colors in the left navigation tree",
 		usebasecolor: "Use following base colors :",

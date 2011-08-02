@@ -39,8 +39,8 @@ GRP.gmarks = function(prefs, langs, ID, SL, lang) {
 					if (result) {
 						threadId = result[1];
 					}
-					console.log(token);
-					console.log(threadId);
+					//console.log(token);
+					//console.log(threadId);
 				}
 				ret= {
 					xt:token,

@@ -57,6 +57,16 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
         }
     }
     
+    function getcss(text, re){
+		var css='', m = null;
+		while(m = re.exec(text)){
+			if (m[1]) {
+				css += m[1];
+			}
+		}
+		return css;
+    }
+                        
     function remoteSkin(skin){
         var c = GM_getValue('cache_theme_' + skin.id);
         if (c) {
@@ -74,14 +84,15 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
                     css = css.replace(/\\n/g, ' ').replace(/\\"/g, '"');
                     //Filter userscripts userjs
                     if (/^http\:\/\/userstyles\.org/.test(skin.url)) {
-                        var m = /var\s+css\s+=\s+"(.*?)";\n/.exec(css);
-                        if (m && m[1]) {
-                            css = m[1];
-                        } else {
+                        var c='', m=null;
+                        c = getcss(css, /\s*css\s*\+?=\s*"(.*?)";\n/g);
+                        if (c){
+                        	css=c;
+                        }else{
                             //not better?
-                            m = /css\s+\+=\s+"body(.*?)";\n/.exec(css);
-                            if (m && m[1]) {
-                                css = 'body' + m[1];
+                            c = getcss(css, /\s*css\s*\+?=\s*"body(.*?)";\n/g);
+                            if (c) {
+                                css = 'body' + c;
                             }
                         }
                     }

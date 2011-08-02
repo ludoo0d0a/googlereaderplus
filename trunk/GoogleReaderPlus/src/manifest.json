@@ -22,7 +22,7 @@
 		"general.js","fixlayout.js", "unreadcount.js", "mark.js", "removeads.js", "favicons.js", 
 		"column.js","jump.js","preview.js", "openbackground.js", "filter.js", "count.js", 
 		"counticon.js", "readbymouse.js","menu.js", "stars.js","rank.js",
-		"facebook.js", "twitter.js","jaiku.js","identi.js", "addthis.js","blogger.js",
+		"plusone.js", "facebook.js", "twitter.js","jaiku.js","identi.js", "addthis.js","blogger.js",
 		"pinboard.js","tumblr.js","reddit.js","diigo.js","gmarks.js",
 		"readitlater.js","instapaper.js","radbox.js","closeentry.js", "fitheight.js", "limit.js",
 		"replacer.js","relook.js","translate.js","prefetch.js","nested.js","coverflow.js",

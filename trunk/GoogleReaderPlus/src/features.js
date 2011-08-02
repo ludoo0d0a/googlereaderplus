@@ -524,21 +524,6 @@ GRP.scripts = {
 		name: "Read by mouse",
 		category: 'navigation'
 	},
-	plusone: {
-		name: "Google +1",
-		category: 'share',
-		shortcuts: {
-			'goplusone': {
-				id: 'goplusone',
-				title: '+1',
-				key: {
-					//70 shift+f
-					keyCode: 70,
-					shiftKey: true
-				}
-			}
-		}
-	},
 	facebook: {
 		name: "Facebook",
 		category: 'share',
@@ -753,11 +738,26 @@ GRP.scripts = {
 			}
 		}
 	},
-	/* in DEV */
 	pinboard: {
 		name: "Pinboard",
 		category: 'share',
 		status: 'new',
+		options: {
+			auth: {
+				xtype: 'p',
+				label: true,
+				cls: 'subtitle'
+			},
+			username: {
+				value: '',
+				size: 40
+			},
+			password: {
+				input: 'password',
+				value: '',
+				size: 40
+			}
+		},
 		shortcuts: {
 			'share': {
 				id: 'share',
@@ -770,15 +770,36 @@ GRP.scripts = {
 			}
 		}
 	},
+	/* in DEV */
+	/*plusone: {
+		name: "Google +1",
+		category: 'share',
+		status:'todo',
+		shortcuts: {
+			'goplusone': {
+				id: 'goplusone',
+				title: '+1',
+				key: {
+					//70 shift+f
+					keyCode: 70,
+					shiftKey: true
+				}
+			}
+		}
+	},*/
 	tumblr: {
 		name: "Tumblr",
 		category: 'share',
-		status: 'new',
+		status: 'todo',
 		options: {
 			auth: {
 				xtype: 'p',
 				label: true,
 				cls: 'subtitle'
+			},
+			blogname: {
+				value: '',
+				size: 40
 			},
 			username: {
 				value: '',
@@ -806,22 +827,6 @@ GRP.scripts = {
 		name: "Reddit",
 		category: 'share',
 		status: 'new',
-		/*options: {
-		 auth: {
-		 xtype: 'p',
-		 label: true,
-		 cls: 'subtitle'
-		 },
-		 username: {
-		 value: '',
-		 size: 40
-		 },
-		 password: {
-		 input: 'password',
-		 value: '',
-		 size: 40
-		 }
-		 },*/
 		shortcuts: {
 			'goreddit': {
 				id: 'goreddit',
@@ -838,6 +843,13 @@ GRP.scripts = {
 		name: "Google Bookmarks",
 		category: 'share',
 		status: 'new',
+		options: {
+			link: {
+				xtype: 'p',
+				label: true,
+				cls: 'subtitle'
+			}
+		},
 		shortcuts: {
 			'share': {
 				id: 'share',
@@ -1148,10 +1160,10 @@ GRP.scripts = {
 	 category: 'navigation',
 	 desc: "Smart menu to add extra capabilites on each entry"
 	 },*/
-	aero: {
+	/*aero: {
 		name: "Google Aero Toolbar",
 		category: 'theme'
-	},
+	},*/
 	coverflow:{
 		name: "Coverflow",
 		category: 'navigation',
@@ -1160,7 +1172,7 @@ GRP.scripts = {
 			coverflow:true,
 			reflection:true,
 			caption:true,
-			sync:true,
+			/*sync:true,*/
 			footer:true,
 		}
 	},

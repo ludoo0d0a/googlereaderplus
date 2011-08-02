@@ -107,39 +107,39 @@ GRP.langs[locale].scripts = {
     },
     facebook: {
         name: "Facebook",
-        desc: "Add a button to share news using Facebook"
+        desc: "Add a button to share news using <a href='http://www.facebook.com' target='_facebook'>Facebook</a>"
     },
     twitter: {
         name: "Twitter",
-        desc: "Add a button to share news using Twitter"
+        desc: "Add a button to share news using <a href='http://www.twitter.com' target='_twitter'>Twitter</a>"
     },
     instapaper: {
         name: "Instapaper",
-        desc: "Add a button to read news later using Instapaper"
+        desc: "Add a button to read news later using <a href='http://www.instapaper.com' target='_instapaper'>Instapaper</a>"
     },
 	readitlater: {
         name: "ReadItLater",
-        desc: "Add a button to read news later using ReadItLater"
+        desc: "Add a button to read news later using <a href='http://www.readitlater.com' target='_readitlater'>ReadItLater</a>"
     },
 	blogger: {
         name: "Blogger",
-        desc: "Add a button to read news later using Blogger"
+        desc: "Add a button to read news later using <a href='http://www.blogger.com' target='_blogger'>Blogger</a>"
     },
 	tumblr: {
         name: "Tumblr",
-        desc: "Add a button to read news later using Tumblr"
+        desc: "Add a button to read news later using <a href='http://www.tumblr.com' target='_tumblr'>Tumblr</a>"
     },
 	pinboard: {
         name: "Pinboard",
-        desc: "Add a button to read news later using Pinboard"
+        desc: "Add a button to read news later using <a href='http://www.pinboard.in' target='_pinboard'>Pinboard</a>"
     },
 	reddit: {
         name: "Reddit",
-        desc: "Add a button to read news later using Reddit"
+        desc: "Add a button to read news later using <a href='http://www.reddit.com' target='_reddit'>Reddit</a>"
     },
     gmarks: {
         name: "Google Bookmarks",
-        desc: "Add a button to read news later using Google Bookmarks"
+        desc: "Add a button to read news later using <a href='http://bookmarks.google.com' target='_gmarks'>Google Bookmarks</a>"
     },
     mark: {
         name: "Mark As Read",
