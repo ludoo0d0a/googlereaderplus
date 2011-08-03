@@ -579,3 +579,8 @@ img.favicon {
 	top:100px;
 	left:600px;
 }
+
+#beta{
+	font-weight:bold;
+	color:red;
+}
