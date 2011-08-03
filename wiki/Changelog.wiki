@@ -7,6 +7,7 @@ Here is the past of the project. See all evolutions, changes.
 = Version 3.7.0 - 08/03/2011 =
  New features:
   * Popularity filter (ranking provided by pagerank.com)
+  * New theme : Metro
   * Coverflow / Slideshow
   * Share with Google Bookmarks
   * Share with Diigo
