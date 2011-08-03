@@ -5,10 +5,16 @@ GRP.relook = function(prefs, langs, ID, SL, lang){
 	
 	if (prefs.relook_css) {
 		var css = prefs.relook_css.replace(/\n/g, '').replace(/\t/g, ' ').replace(/\/\*.*?\*\//g, '');
-		GM_addStyle(css, UID);
+		putCss(css);
 		if (prefs.relook_resize){
 			fireResize();
 		}
+	}
+	
+	function putCss(css){
+		setTimeout(function(){
+			GM_addStyle(css, UID);
+		},500);
 	}
 	
 	var tog;
@@ -17,7 +23,7 @@ GRP.relook = function(prefs, langs, ID, SL, lang){
 		if (el) {
 			remove(el);
 		} else {
-			GM_addStyle(css, UID);
+			putCss(css);
 		}
 	}
 	

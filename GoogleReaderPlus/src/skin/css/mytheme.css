@@ -5,6 +5,9 @@
 body {
 	height:100%;
 }
+body.rp-c {
+	background-color:{bg} !important;
+}
 #rp-cs {
 	position:absolute;
 	top:0px;
@@ -66,7 +69,7 @@ body {
     display: none;
 }
 
-/*body,*/#gbar, #guser, .text, .gbh, #explore-promo, #tips, #overview-footer, 
+/*body,*/#gbar,#guser, .text, .gbh, #explore-promo, #tips, #overview-footer, 
 /*.viewer-page, */
 #lhn-selectors,#quick-add-success, 
 /*#directory-box .tab-group, #directory-box .tab-contents, #directory-contents .tab-header, 
@@ -79,18 +82,24 @@ body {
     border: 0 !important;
 }
 
-a.gb1, a.gb3, a.gb4, #entries a, #entries a:visited, 
-a.entry-title-link, .entry-date, /*.link,*/
+a.entry-title-link, #entries .collapsed .entry-title {
+    color: {link} !important;
+}
+
+.entry .entry-author, .entry-date, a.entry-source-title, a.entry-source-title:visited {
+    color: {author} !important;
+}
+
+a.gb1, a.gb3, a.gb4, /*#entries a, #entries a:visited, */
 #current-entry.read .entry-container .entry-body, .read .entry-container .entry-body, 
-.entry .entry-author, .entry-comments .comment-time, .entry .entry-date,
+.entry-comments .comment-time, .entry .entry-date,
 #viewer-top-controls,#viewer-top-controls .link,#viewer-top-controls .link-selected, 
 #chrome-view-links,#chrome-view-links .link,#chrome-view-links .link-selected,
 .entry-actions,.entry-actions .link,.entry-actions .link-selected,
-#entries .collapsed .entry-title,
-#entries.list .collapsed .entry-secondary
-{
+#entries.list .collapsed .entry-secondary{
     color: {color} !important;
 }
+
 .fr-modal-dialog-content{
     color: black !important;
 }
