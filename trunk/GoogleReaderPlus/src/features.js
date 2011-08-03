@@ -15,7 +15,7 @@ GRP.scripts = {
 			bottomup: false,
 			currdir: true,
 			icons: false,
-			hidetoolbar: true,
+			hidetoolbar: false,
 			/*antisocial:true,*/
 			text_pageicon: {
 				xtype: 'h'
@@ -211,12 +211,22 @@ GRP.scripts = {
 				parent: 'mytheme'
 			},
 			color: {
-				value: '#565656',
+				value: '#67686C',
+				xtype: 'picker',
+				parent: 'mytheme'
+			},
+			link: {
+				value: '#F1EFE2',
+				xtype: 'picker',
+				parent: 'mytheme'
+			},
+			author: {
+				value: '#de6f28',
 				xtype: 'picker',
 				parent: 'mytheme'
 			},
 			bg: {
-				value: '#FFC',
+				value: '#262B31',
 				xtype: 'picker',
 				parent: 'mytheme'
 			},
@@ -1323,6 +1333,10 @@ GRP.skins = {
 	},
 	mytheme: {
 		name: "My Theme"
+	},
+	metro: {
+		name: "Metro",
+		status:'new'
 	},
 	nativecompact: {
 		name: "Native compact",

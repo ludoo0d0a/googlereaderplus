@@ -42,19 +42,12 @@ GRP.darkhelvetireader = function(theme){
             document.getElementById("main").style.top = "65px";
         }
     }
-	
-	function shake(el){
-		hide(el);
-		setTimeout(function(){
-			show(el);
-		},100);
-	}
-	
-	/*var st = get_id('sub-tree');
-	shake(st);
-	var vc = get_id('viewer-container');
-	shake(vc);
-*/
+
+	/*
+	//Reveal scrollbars
+	shake('sub-tree');
+	shake('viewer-container');
+	*/
 	//117 = u ->keypress
     initKey({keyCode:117,fn:toggleView},'keypress');
 		

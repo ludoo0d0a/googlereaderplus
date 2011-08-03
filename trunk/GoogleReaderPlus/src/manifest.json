@@ -25,14 +25,14 @@
 		"plusone.js", "facebook.js", "twitter.js","jaiku.js","identi.js", "addthis.js","blogger.js",
 		"pinboard.js","tumblr.js","reddit.js","diigo.js","gmarks.js",
 		"readitlater.js","instapaper.js","radbox.js","closeentry.js", "fitheight.js", "limit.js",
-		"replacer.js","relook.js","translate.js","prefetch.js","nested.js","coverflow.js",
-		"theme.js","skin/mytheme.js", "skin/ig.js", "skin/aero.js","skin/air.js", "skin/aircomic.js", 
+		"replacer.js","translate.js","prefetch.js","nested.js","coverflow.js",
+		"theme.js","skin/mytheme.js","skin/metro.js","skin/ig.js", "skin/aero.js","skin/air.js", "skin/aircomic.js", 
 		"skin/black.js","skin/darkgray.js", "skin/dark.js", "skin/helvetireader.js", 
 		"skin/minimal.js", "skin/optimized.js", "skin/portal.js", "skin/osxblue.js",
 		"skin/osxblack.js","skin/player.js","skin/calibri.js","skin/webbizgeek.js",
 		"skin/sublimelight.js","skin/sublimedark.js","skin/redesigned.js",
 		"skin/glassblackgold.js","skin/nativecompact.js","skin/darkhelvetireader.js",
-		"colorful.js","actions.js",
+		"colorful.js","actions.js","relook.js",
 		"debug.js", "greaderplus.js"],
       "css": ["css/readerplus.css"]
     }

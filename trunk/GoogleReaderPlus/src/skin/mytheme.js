@@ -34,18 +34,18 @@ GRP.mytheme = function(prefs){
         22: '10pm'
     };
     
-    var css = ''; //GM_getValue('theme_mytheme');
+    var css = ''; /*GM_getValue('theme_mytheme');
     if (css) {
         GM_addStyle(css, 'rps_mytheme');
     }
-    else {
+    else {*/
         loadCss('skin/css/mytheme.css', function(css){
             stylish(css);
         }, {
-            compact: true,
+            //compact: true,
             clean: false
         });
-    }
+    //}
     
     function stylish(tplCss){
         //rbg : Repeated image background
@@ -140,6 +140,8 @@ GRP.mytheme = function(prefs){
             //custom
             o = {
                 color: prefs.theme_color || '#aaa',
+                link: prefs.theme_link || '#aaa',
+                author: prefs.theme_author || '#aaa',
                 bg: prefs.theme_bg || '#ffc'
             };
 			foreach(items, function(itm){
@@ -147,6 +149,7 @@ GRP.mytheme = function(prefs){
 	                o[itm]=prefs['theme_img'+itm];
 	            }
 	        });
+	        addClass(document.body, 'rp-c');
         }
         
         var css = fillTpl(tplCss, o);

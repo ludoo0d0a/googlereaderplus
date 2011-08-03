@@ -1469,6 +1469,16 @@ function showas(el, hideme){
     }
 }
 
+function shake(el){
+	if (typeof el === 'string'){
+		el=get_id(el);
+	}
+	hide(el);
+	setTimeout(function(){
+		show(el);
+	},100);
+}
+
 //http://forums.mozillazine.org/viewtopic.php?f=19&t=1806595
 //http://forums.mozillazine.org/viewtopic.php?f=19&t=1594275
 //https://developer.mozilla.org/En/Code_snippets:HTML_to_DOM

@@ -311,18 +311,23 @@ function hashchange(){
 }
 
 function renderDummies(){
+    if (GRP.beta){
+    	var eb = get_id('beta');
+    	eb.innerHTML = 'BETA'+GRP.beta+' - only for tests';
+    }
+    
     /*var sel = get_id('language_lang');
      if (sel){
      sel.addEventListener('change', onLang);
      sel.addEventListener('keyup', onLang);
      }*/
-    var el = get_id('fbbtn');
-    el.innerHTML = '<iframe class="ifbook" src="http://www.facebook.com/plugins/like.php?href=https%253A%252F%252Fchrome.google.com%252Fextensions%252Fdetail%252Fhhcknjkmaaeinhdjgimjnophgpbdgfmg&amp;layout=button_count&amp;action=recommend&amp;font=trebuchet%2Bms&amp;colorscheme=dark" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
-    
-    if (GRP.beta){
-    	var eb = get_id('beta');
-    	eb.innerHTML = 'BETA'+GRP.beta+' - only for tests';
-    }
+    setTimeout(function(){
+	    get_id('fbbtn').innerHTML = '<iframe class="ifbook" src="http://www.facebook.com/plugins/like.php?href=https%253A%252F%252Fchrome.google.com%252Fextensions%252Fdetail%252Fhhcknjkmaaeinhdjgimjnophgpbdgfmg&amp;layout=button_count&amp;action=recommend&amp;font=trebuchet%2Bms&amp;colorscheme=dark" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
+	    get_id('badgetwitter').innerHTML = '';
+	    
+	    //get_id('badgestumbleupon').innerHTML = '<script defer async="true" src="http://www.stumbleupon.com/hostedbadge.php?s=1&r=https://chrome.google.com/webstore/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg"></script>';
+		get_id('badgestumbleupon').innerHTML = '<iframe defer src="http://www.stumbleupon.com/badge/embed/1/?url=https://chrome.google.com/webstore/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:74px; height: 18px;" allowTransparency="true"></iframe>';							
+    },300);
 }
 
 function loadingPage(loaded){
