@@ -4,6 +4,26 @@
 
 Here is the past of the project. See all evolutions, changes.
 
+= Version 3.7.0 - 08/03/2011 =
+ New features:
+  * Popularity filter (ranking provided by pagerank.com)
+  * Coverflow / Slideshow
+  * Share with Google Bookmarks
+  * Share with Diigo
+  * Share with Pinboard
+  * Share with Tumblr
+  * Share with Pinboard
+  * Share with Reddit (as popup)
+  * Mark as read as scroll
+ Updates:
+  * Filter bugfixes + minor enhancements
+  * Fix unread count supports nested folders
+  * Nested folders : contextual menu
+  * Translate : works in listview and for long body
+  * Themes compatibility with Google+ UI
+ Deprecated:
+  * Aero toolbar no more supported
+
 = Version 3.6.4 - 05/16/2011 =
   * Replacer bug fix #439
   * lang : +German (de)
