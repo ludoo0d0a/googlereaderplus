@@ -321,7 +321,7 @@ function renderDummies(){
     
     if (GRP.beta){
     	var eb = get_id('beta');
-    	eb.innerHTML = 'BETA - only for tests';
+    	eb.innerHTML = 'BETA'+GRP.beta+' - only for tests';
     }
 }
 
