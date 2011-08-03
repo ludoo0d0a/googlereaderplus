@@ -661,7 +661,7 @@ GRP.scripts = {
 				key: {
 					//87 w
 					keyCode: 87,
-					shiftKey: true
+					altKey: true
 				}
 			}
 		}
@@ -790,8 +790,8 @@ GRP.scripts = {
 	tumblr: {
 		name: "Tumblr",
 		category: 'share',
-		status: 'todo',
-		options: {
+		status: 'new',
+		/*options: {
 			auth: {
 				xtype: 'p',
 				label: true,
@@ -810,7 +810,7 @@ GRP.scripts = {
 				value: '',
 				size: 40
 			}
-		},
+		},*/
 		shortcuts: {
 			'share': {
 				id: 'share',
