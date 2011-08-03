@@ -318,6 +318,11 @@ function renderDummies(){
      }*/
     var el = get_id('fbbtn');
     el.innerHTML = '<iframe class="ifbook" src="http://www.facebook.com/plugins/like.php?href=https%253A%252F%252Fchrome.google.com%252Fextensions%252Fdetail%252Fhhcknjkmaaeinhdjgimjnophgpbdgfmg&amp;layout=button_count&amp;action=recommend&amp;font=trebuchet%2Bms&amp;colorscheme=dark" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
+    
+    if (GRP.beta){
+    	var eb = get_id('beta');
+    	eb.innerHTML = 'BETA - only for tests';
+    }
 }
 
 function loadingPage(loaded){
