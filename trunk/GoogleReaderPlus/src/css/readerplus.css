@@ -9,7 +9,7 @@
 .entry .entry-actions .btn-blogger,
 .entry .entry-actions .btn-addthis{
 	background: url('http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/share/share2.png') no-repeat!important;
-	padding:0px 8px 1px 16px !important;
+	padding:1px 8px 1px 18px !important;
 }
 .entry .entry-actions .btn-facebook{
 	background-position: 0 0px !important;

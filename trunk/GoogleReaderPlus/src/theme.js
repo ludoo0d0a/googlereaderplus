@@ -26,11 +26,18 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
         scop.run(skin.id, langs);
     }
     
-    var tog = {};
+    var togs = {};
     function toggleTheme(){
-        var el = get_id('rps_' + skin.id), f= GRP[skin.id+'toggle'];
+    	toggleSkins(skin.id);
+    	foreach(GRP.THEMES[skin.id], function(o){
+    		toggleSkins(o);
+    	});
+    }
+    function toggleSkins(skinid){
+        var el = get_id('rps_' + skinid), f= GRP[skinid+'toggle'];
+        var tog = togs[skinid];
         if (el) {
-            tog = {
+            togs[skinid] = {
                 css: el.innerHTML,
                 src: el.href
             };
@@ -38,21 +45,24 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
 			if (f){
 				f(false);
 			}
-        } else if (tog.css) {
-            GM_addStyle(tog.css, 'rps_' + skin.id);
-            if (skin.resize) {
-	            fireResize(skin.resize);
-	        }
-			if (f){
-				f(true);
-			}
-        } else if (tog.src) {
-            GM_addCss(tog.src, 'rps_' + skin.id);
-            if (skin.resize) {
-               fireResize(skin.resize);
-           	}
-		    if (f){
-				f(true);
+        } else if (tog){
+        	var _skin = GRP.skins[skinid];
+        	if (tog.css) {
+	            GM_addStyle(tog.css, 'rps_' + skinid);
+	            if (_skin && _skin.resize) {
+		            fireResize(_skin.resize);
+		        }
+				if (f){
+					f(true);
+				}
+	        } else if (tog.src) {
+	            GM_addCss(tog.src, 'rps_' + skinid);
+	            if (_skin && _skin.resize) {
+	               fireResize(_skin.resize);
+	           	}
+			    if (f){
+					f(true);
+				}
 			}
         }
     }

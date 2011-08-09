@@ -124,10 +124,7 @@ a.gb1, a.gb3, a.gb4, /*#entries a, #entries a:visited, */
 #entries.list .entry .collapsed{
 	border:0 !important;
 }
-
-/**
- * Hover
- */
-.scroll-tree li a:hover,#lhn-selectors .selector:hover{
+.scroll-tree li a:hover,#lhn-selectors .selected, #lhn-selectors .selector:hover{
 	background-color: {bg} !important;
 }
+
