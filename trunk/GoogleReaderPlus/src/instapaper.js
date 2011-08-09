@@ -13,6 +13,7 @@
  */
 GRP.instapaper = function(prefs, langs, ID, SL, lang){
     var api = {
+        icon:ID,
         add: 'https://www.instapaper.com/api/add',
         //auth: 'https://www.instapaper.com/api/authenticate',
 		successCode:201,

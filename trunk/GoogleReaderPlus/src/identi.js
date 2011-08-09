@@ -6,7 +6,8 @@
 GRP.identi = function(prefs, langs, ID, SL, lang){
     var BASE = 'http://identi.ca';
 	var api = {
-        shortcut:'identi'
+        shortcut:'identi',
+        icon:ID
 		/*,required:function(){
 			var login = prefs[ID+'_login'];
 			var key = prefs[ID+'_key'];

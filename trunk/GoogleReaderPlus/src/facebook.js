@@ -37,6 +37,7 @@ GRP.facebook = function(prefs, langs, ID, SL, lang){
 			window.open(url, ID+'sharer', OPTWIN);
 		} 
 	}
+	addCssIcon(ID);
 	registerFeature(addButton, ID);
 	var keycode = getShortcutKey(ID, 'go'+ID, prefs); //66 b
 	keycode.fn = addKey;

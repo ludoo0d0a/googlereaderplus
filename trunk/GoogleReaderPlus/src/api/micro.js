@@ -308,6 +308,10 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
         return (str||'').length;
     }
     
+    if (api.icon){
+		addCssIcon(api.icon);
+	}
+	
     registerFeature(addMicroButton, ID);
     
     var keycode = getShortcutKey(ID, api.shortcut, prefs); //68 d

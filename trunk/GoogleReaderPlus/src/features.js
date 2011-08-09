@@ -897,8 +897,8 @@ GRP.scripts = {
 				id: 'share',
 				title: 'Share with Diigo',
 				key: {
-					//68 b
-					keyCode: 68,
+					//76 l
+					keyCode: 76,
 					shiftKey: true
 				}
 			}

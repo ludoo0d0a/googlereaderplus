@@ -5,7 +5,8 @@
  */
 GRP.twitter = function(prefs, langs, ID, SL, lang){
     var api = {
-        shortcut:'tweet'
+        shortcut:'tweet',
+        icon:ID
     };
     GRP.api_micro(prefs, langs, ID, SL, lang, api);
 };
