@@ -101,9 +101,10 @@ GRP.general = function(prefs, langs, ID, SL, lang) {
 		var main = get_id('main');
 		var top = main.offsetTop; //getStyle(main, 'top');
 		top = Math.max(142, top + 77);
+		var w = (prefs.general_icons)?40:140;
 		//ig    : main.top=140 top=217 (+77)
 		//normal: main.top=65  top=142 (+77)
-		var css = '.entry:not(#current-entry) .card-actions{display:none}#current-entry .card-actions,#entries.list #current-entry .entry-actions{position:fixed;right:32px!important;top:' + top + 'px!important;left:!important;width:140px;z-index:9999;-webkit-box-shadow:#E3E5EB 0 1px 1px;border-bottom-left-radius:5px 5px;border-bottom-right-radius:5px 5px;border-top-left-radius:5px 5px;border-top-right-radius:5px 5px;border:2px solid #68E;opacity:0.2}#current-entry .card-actions:hover,#entries.list #current-entry .entry-actions:hover{opacity:1}#current-entry .entry-main{margin-right:140px}#current-entry .entry-actions > span,#entries.list #current-entry .entry-actions > span{display:block}';
+		var css = '.entry:not(#current-entry) .card-actions{display:none}#current-entry .card-actions,#entries.list #current-entry .entry-actions{position:fixed;right:32px!important;top:' + top + 'px!important;left:!important;width:'+w+'px;z-index:9999;-webkit-box-shadow:#E3E5EB 0 1px 1px;border-bottom-left-radius:5px 5px;border-bottom-right-radius:5px 5px;border-top-left-radius:5px 5px;border-top-right-radius:5px 5px;border:2px solid #68E;opacity:0.2}#current-entry .card-actions:hover,#entries.list #current-entry .entry-actions:hover{opacity:1}#current-entry .entry-main{margin-right:'+w+'px}#current-entry .entry-actions > span,#entries.list #current-entry .entry-actions > span{display:block;height:15px;margin:1px;}';
 		GM_addStyle(css, 'rpe_floatactions');
 	}
 
@@ -118,19 +119,30 @@ GRP.general = function(prefs, langs, ID, SL, lang) {
 			foreach(items, function(item) {
 				if (item && !hasClass(item, 'read-state')) {
 					item.title=item.innerText;
+					console.log(item.title);
 					var s = item.getElementsByTagName('span');
 					var b = (s && s[0])?(s[0]):item;
+					if (s && s[0] && hasClass(s[0],'entry-tagging-action-title')){
+						removeClass(item,'tag');
+						removeClass(item,'link');
+						addClass(s[0],'tag link');
+					}
 					b.innerHTML='';
+					addClass(b,'debug_clean');
 				}
 			});
 		}
+		
+		
+		//entry-tagging-action-title
 
 		//RAZ labels because google rewrite labels after selection
 		//Xp MArquer comme lu = chekbox
-		var o = ['o','p','q','r','s','t','u'];
+		var o = ['r','s','t','u','v','w','x'];
 		var js = '';
 		foreach(o, function(e) {
-			js += e+"q.Rf.Ub='';"+e+"q.Qf.Ub='';";
+			js += e+"q.Pf.Sb='';";
+			js += e+"q.Of.Sb='';";
 		});
 		GM_addjs(js, true, 'clearlabel');
 		registerFeature(changeIconsButton, ID);

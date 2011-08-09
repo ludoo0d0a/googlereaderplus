@@ -13,6 +13,7 @@
  */
 GRP.radbox = function(prefs, langs, ID, SL, lang){
     var api = {
+        icon:ID,
         key:'7c3ab03e24e85a95c0bc3ffe7360917d',
 		add: 'http://api.radbox.me/video/add',
 		successCode:200,

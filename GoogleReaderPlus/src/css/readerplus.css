@@ -1,4 +1,4 @@
-.entry .entry-actions .btn-twitter,
+/*.entry .entry-actions .btn-twitter,
 .entry .entry-actions .btn-facebook,
 .entry .entry-actions .btn-instapaper,
 .entry .entry-actions .btn-readitlater,
@@ -87,6 +87,7 @@
 .entry .entry-actions .btn-addthis.btn-active{
 	background-position: 0 -336px !important;
 }
+*/
 
 span.btn-sel{
 	font-weight:bold;

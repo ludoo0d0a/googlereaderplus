@@ -46,6 +46,7 @@ GRP.addthis = function(prefs, langs, ID, SL, lang){
 	};
 	var api = {
         shortcut:'addthis',
+        icon:ID,
 		tpl:'',
 		cfg:{
 			pubid:'ra-4d80cc1072411e4e',

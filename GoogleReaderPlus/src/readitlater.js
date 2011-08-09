@@ -8,6 +8,7 @@
 GRP.readitlater = function(prefs, langs, ID, SL, lang){
     var api = {
         key:'e6cg2d3cp4431Y55aKT0V06R29AWr21b',
+        icon:ID,
 		add: 'https://readitlaterlist.com/v2/add',
         //auth: 'https://readitlaterlist.com/v2/auth',
 		successCode:200,

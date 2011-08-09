@@ -78,6 +78,7 @@ GRP.langs[locale].texts = {
     },
 	diigo:{
 		keyword: 'Diigo',
+		text:'Share with Diigo',
 		badrequest:'Some request parameters are invalid or the API rate limit is exceeded.',
 		notauthorized:'Authentication credentials are missing or invalid.',
 		forbidden: 'The request has been refused because of the lack of proper permission.',
@@ -366,7 +367,7 @@ GRP.langs[locale].prefs = {
         auth: "<a href='http://www.diigo.com' target='blank'>Diigo</a> authentication (required):",
 		username: "Username:",
         password: "Password:"
-    },
+	},
 	identi: {
         shortener: "Shortener",
         shortener_bitly: "BitLy configuration (optional):",
