@@ -260,10 +260,12 @@ if (OAuthSimple === undefined)
             // check the parameters
             var normParams = this._normalizedParameters();
             this._parameters['oauth_signature']=this._generateSignature(normParams);
-            return {
+            
+			var sep = (this._path.indexOf('?')>0)?'&':'?';
+			return {
                 parameters: this._parameters,
                 signature: this._oauthEscape(this._parameters['oauth_signature']),
-                signed_url: this._path + '?' + this._normalizedParameters(),
+                signed_url: this._path + sep + this._normalizedParameters(),
                 header: this.getHeaderString()
             };
         };
