@@ -10,7 +10,7 @@ Date : 08/03/11
 GRP.metro = function(prefs, langs, ID, SL, lang) {
 	var css = '*{font-family:Segoe, Helvetica, sans-serif!important}';
 	css += '.scroll-tree .icon, .scroll-tree .favicon{display:none;}';
-	css += 'span.name, span.name-text, .scroll-tree li a.name-unread{color:#F1EFE2!important;}';
+	css += 'body,span.name, span.name-text, .scroll-tree li a.name-unread{color:#F1EFE2!important;}';
 	css += 'li.folder > a.link{background-color: #373E46;}';
 	css += 'li.folder > a.link .name, li.folder > a.link span.name-text{color:#de6f28 ! important;}';
 	css += '.scroll-tree li a {padding-bottom: 15px;border-bottom: solid 1px #151a20;border-top: solid 1px #44494f;}';
@@ -26,6 +26,9 @@ GRP.metro = function(prefs, langs, ID, SL, lang) {
 	css += '#chrome-lhn-toggle:hover, .fullscreen #chrome-fullscreen-top-toggle:hover {background:#67686C;border:0;}';
 	css += '#chrome-lhn-toggle #chrome-lhn-toggle-icon {border-color: #67686C #F1EFE2 #67686C #67686C;}';
 	css += '#chrome-lhn-toggle:hover #chrome-lhn-toggle-icon {border-color: #F1EFE2 #67686C #F1EFE2 #F1EFE2;}';
+	css += 'body,#chrome-title a, #chrome-title .chevron {color: #67686C;}';
+	css += '#chrome.page-view #viewer-page-container, .tab-contents, .tab-group, .bundle-container {background-color: #262B31;}';
+	css += 'a, a:visited, .link{color:#F1EFE2;}';
 
 /*
 +my theme : 
@@ -47,6 +50,7 @@ BackgroundColor: #262B31 ()
 	//Reveal scrollbars
 	shake('sub-tree');
 	shake('viewer-container');
+	
+	GRP.THEMES.metro=['mytheme'];
 };
-
 

@@ -20,6 +20,7 @@
                 //dummy
             };
             GRP.fns = [];
+            GRP.THEMES = {};
 			GRP.IMAGES_PATH = LOCALPATH + '/images';
             this.prefs = {};
             var me = this;

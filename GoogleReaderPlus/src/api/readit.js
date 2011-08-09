@@ -114,13 +114,11 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
     }
     function post(cred, params, btn, retry){
 		var auth = false;
-		if (cred){
-			if (cred.method === 'basic') {
-				auth=cred;
-			}else if (cred.method === 'token'){
-				//Nothing
-			}
-		} else {
+		if (cred && cred.method === 'basic') {
+			auth=cred;
+		}else if (cred && cred.method === 'token'){
+			//Nothing
+		} else if (cred){
 			params[pp.username || 'username'] = cred.username;
 			if (cred.password) {
 				params[pp.password || 'password'] = cred.password;
