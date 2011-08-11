@@ -497,8 +497,12 @@ var _GRP={events:{}};
  * @return
  */
 function _handleKeyEvent(e, event){
-	var target = e.target;
-    var tag = target.tagName;
+	var kc = e.keyCode;
+	if (kc<20){
+		//shift, ctrl, alt only goes out
+		return;
+	}
+    var target = e.target,tag = target.tagName;
     //console.log('keydown on '+tag+'.'+(tag.className||''));
     if (tag !== 'INPUT' && tag !== 'SELECT' && tag !== 'TEXTAREA') {
         var keys = _GRP.events[event]||[];
@@ -507,8 +511,10 @@ function _handleKeyEvent(e, event){
         }*/
         for (var i = 0, len = keys.length; i < len; i++) {
             var k = keys[i];
-            if (k.keyCode == e.keyCode &&
-            ((k.shiftKey && e.shiftKey) || (!k.shiftKey && !e.shiftKey)) &&
+            if (k.keyCode == kc){
+            //if (k.keyCode == kc &&
+            	console.log(kc);
+            if (((k.shiftKey && e.shiftKey) || (!k.shiftKey && !e.shiftKey)) &&
             ((k.ctrlKey && e.ctrlKey) || (!k.ctrlKey && !e.ctrlKey)) &&
             ((k.altKey && e.altKey) || (!k.altKey && !e.altKey))) {
                 e.preventDefault();
@@ -526,6 +532,7 @@ function _handleKeyEvent(e, event){
                 }
                 break;
             }
+            }
         }
     }
 }
@@ -538,7 +545,12 @@ function initKey(keys, event){
     		_handleKeyEvent(e,event);
     	}, false);
     }
-    _GRP.events[event].push(keys);
+    if (isArray(keys)){
+    	_GRP.events[event]=_GRP.events[event].concat(keys);
+    }else{
+    	_GRP.events[event].push(keys);
+    }
+    //_GRP.events[event].push(keys);
     	
     /*document.addEventListener(event, function(e){
         
