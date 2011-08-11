@@ -11,7 +11,7 @@ GRP.nested = function(prefs, langs, ID, SL, lang){
     var sep = prefs.nested_separator || ':';
 	setTimeout(domIsDirty, 100);
 	setInterval(domIsDirty, 5000);
-    
+    var oo = 0;
     function nestFolders(){
         var folderNodes = document.querySelectorAll('.folder, .tag'), folderMap = {};
         
@@ -36,14 +36,41 @@ GRP.nested = function(prefs, langs, ID, SL, lang){
                 	var id = root.getElementsByTagName('li').length + 1;
                 	folderMap[prefix] = dh(root, 'li', {
                 		cls:'folder unselectable expanded unread',
-                		html:'<div class="toggle folder-toggle toggle-d-1"></div>'+
-                		'<a class="link" href="/reader/view/user%2F-%2Flabel%2F'+prefix+'" id="sub-tree-item-'+id+'-link">'+
+                		html:'<div class="toggle folder-toggle toggle-d-1"></div>'
+					},{
+                		mousedown:function(e){
+                			var el = e.target.parentNode;//li
+                			addClassIf(el, 'expanded', null, 'collapsed');
+                			addClass(el, 'dbg-'+oo++);
+                			//Ensure root is not collapsed
+                			setTimeout(function(){
+                				removeClass(get_id('sub-tree-item-0-main'), 'collapsed');
+                			},100);
+                			return false;
+	                	}
+                	});
+					//'<a class="link" href="/reader/view/user%2F-%2Flabel%2F'+prefix+'" id="sub-tree-item-'+id+'-link">'+
+					var alink = dh(folderMap[prefix],'a',{
+						cls:'link',
+						//href:'/reader/view/user%2F-%2Flabel%2F'+prefix,
+						href:'#user%2F-%2Flabel%2F'+prefix,
+						id:'sub-tree-item-'+id+'-link',
+						html:
                 		'<span class="icon folder-icon icon-d-1" id="sub-tree-item-'+id+'-icon"></span>'+
                 		'<span class="name folder-name name-d-1" id="sub-tree-item-'+id+'-name" title="'+prefix+'">'+
                 		'<span class="name-text folder-name-text name-text-d-1">'+prefix+'</span>'+
                 		'<span class="unread-count folder-unread-count unread-count-d-1" id="sub-tree-item-'+id+'-unread-count"></span></span>'+
-                		'<div class="tree-item-action-container"><div id="sub-tree-item-'+id+'-action" class="action tree-item-action section-button section-menubutton goog-menu-button"></div></div></a>'
-                	});
+                		'<div class="tree-item-action-container"><div id="sub-tree-item-'+id+'-action" class="action tree-item-action section-button section-menubutton goog-menu-button"></div></div>'
+                	}/*,{
+                		mousedown:function(el){
+                			//addClassIf(folderMap[prefix], 'expanded', null, 'collapsed');
+                			return false;
+                		}
+                	}*/);
+                	//+'</a>'
+                	
+                	//var alink = getFirstElementByClassName(folderMap[prefix], 'link');
+                	//alink
                 }
                 
                 var parent = folderMap[prefix].querySelector('ul');

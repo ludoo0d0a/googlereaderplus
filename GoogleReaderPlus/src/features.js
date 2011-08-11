@@ -741,7 +741,7 @@ GRP.scripts = {
 				id: 'share',
 				title: 'Share with Blogger',
 				key: {
-					//66 c
+					//66 b
 					keyCode: 66,
 					altKey: true
 				}
@@ -826,7 +826,7 @@ GRP.scripts = {
 				id: 'share',
 				title: 'Share with Tumblr',
 				key: {
-					//67 b
+					//67 c
 					keyCode: 67,
 					altKey: true
 				}
@@ -842,7 +842,7 @@ GRP.scripts = {
 				id: 'goreddit',
 				title: 'Post on Reddit',
 				key: {
-					//68 alt+f
+					//68 alt+d
 					keyCode: 68,
 					altKey: true
 				}
@@ -865,9 +865,9 @@ GRP.scripts = {
 				id: 'share',
 				title: 'Share with Google Bookmarks',
 				key: {
-					//68 b
+					//68 ctrl+d
 					keyCode: 68,
-					shiftKey: true
+					ctrlKey: true
 				}
 			}
 		}
