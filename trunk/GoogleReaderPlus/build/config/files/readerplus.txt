@@ -27,6 +27,7 @@ counticon.js
 readbymouse.js
 menu.js
 stars.js
+rank.js
 plusone.js
 facebook.js
 twitter.js
