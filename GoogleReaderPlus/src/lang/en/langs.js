@@ -496,6 +496,9 @@ separator: "Separator to add extra level (example: Sports:Footbal)."
 		sync:'Sync items',
 		footer:'As footer'
 	},
+	jump:{
+		staticdown:'Floating icon \'go down\' for current entry'
+	},
 	mark:{
 		asscroll: 'Mark as read past items on scroll'
 	},
@@ -511,7 +514,8 @@ separator: "Separator to add extra level (example: Sports:Footbal)."
         ludoo: "<span>Package LudoO</span>The best features in one click",
         full: "<span>Package Full</span>All features activated",
         reset: "<span>Package Reset</span>Reset your configuration",
-        confirmdel: "This will ERASE and reset all your preferences. Are you sure ?"
+        confirmdel: "This will ERASE and reset all your preferences. Are you sure ?",
+        done: "The new package is selected. Save now."
     },
     extshortcuts: {
         custom: "Your custom Shortcuts",

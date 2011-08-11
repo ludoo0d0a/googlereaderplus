@@ -58,7 +58,8 @@ GRP.stars = function(prefs, langs, ID, SL, lang){
 		}
 		
 		var title = SL.text  + formatShortcut(ID, 'star', prefs); 
-		var text = (SL.keyword || ID);//checkbox
+		//var text = (SL.keyword || ID);//checkbox
+		var text = (prefs && prefs.general_icons)?'':(SL.keyword || ID);
 		
 		var ea = getFirstElementByClassName(entry, 'entry-actions');
 		var es = getFirstElementByClassName(ea, 'star');

@@ -977,6 +977,9 @@ GRP.scripts = {
 	jump: {
 		name: "Add top/bottom links",
 		category: 'navigation',
+		options: {
+			staticdown: false
+		},
 		shortcuts: {
 			'goup': {
 				id: 'goup',

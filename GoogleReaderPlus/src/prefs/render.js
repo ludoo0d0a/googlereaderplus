@@ -431,6 +431,7 @@ function setpackage(id){
                 });
             }
         });
+        info(getTextPrefs(lang, 'pack', 'done'));
     }
     renderPrefs();//update
 }
