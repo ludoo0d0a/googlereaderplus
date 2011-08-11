@@ -31,7 +31,7 @@ GRP.nested = function(prefs, langs, ID, SL, lang){
 			var prefix = nameTokens.slice(1).reverse().join(sep);
 			//console.log(name +' -- '+ prefix);
             
-            if (prefix && name!==prefix && (prefix in folderMap)) {
+            if (prefix && name!==prefix /*&& (prefix in folderMap)*/) {
                 if (!(prefix in folderMap)){
                 	var id = root.getElementsByTagName('li').length + 1;
                 	folderMap[prefix] = dh(root, 'li', {
