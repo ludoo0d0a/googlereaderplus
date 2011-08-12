@@ -77,6 +77,15 @@ GRP.nested = function(prefs, langs, ID, SL, lang){
                 
                 if (!parent) {
                     parent = folderMap[prefix].appendChild(document.createElement('ul'));
+                }else{
+                	//Fix tag folder
+                	var tt = getFirstElementByClassName(folderMap[prefix], 'tag-toggle');
+                	if (tt){
+                		removeClass(tt, 'hidden');
+                		var ti = getFirstElementByClassName(folderMap[prefix], 'tag-icon');
+                		removeClass(ti, 'tag-icon');
+                		addClass(ti, 'folder-icon');
+                	}
                 }
                 addClass(folderMap[prefix], 'unread', true);
                 var fname = getFirstElementByClassName(folderMap[prefix], 'name');
