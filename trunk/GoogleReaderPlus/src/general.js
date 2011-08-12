@@ -25,6 +25,7 @@ GRP.general = function(prefs, langs, ID, SL, lang) {
 	if (prefs.general_hidetoolbar) {
 		//TODO: full screen, margin top - toolbar height
 		GM_addStyle('#gb{display:none !important;}','rpe_hidetoolbar');
+		fireResize('',100);
 	}
 	if (prefs.general_currdir) {
 		var lastUrl='';
