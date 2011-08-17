@@ -8,7 +8,7 @@
  *
  */
 GRP.fitheight = function(prefs, langs, ID, SL, lang){
-	var locked=false;
+	var active=false, locked=false;
 	if (prefs && prefs.fitheight_locked) {
 		locked = prefs.fitheight_locked;
 	}
@@ -30,9 +30,10 @@ GRP.fitheight = function(prefs, langs, ID, SL, lang){
 		var title = SL.text + formatShortcut(ID, 'fit', prefs); //[f]
 		//var text = (prefs && prefs.general_icons)?'':(SL.keyword || ID);
 		var text = (SL.keyword || ID);//checkbox
-		addBottomLink(el,text, title, ID, '', true, fitHeight, false, entry, mode);
+		var btn = addBottomLink(el,text, title, ID, '', true, fitHeight, false, entry, mode);
 		if (locked){
-			fitHeight(el, entry, true);
+			fitHeight(btn, entry, true);
+			
 		}
 	}
 
