@@ -30,7 +30,8 @@ GRP.stars = function(prefs, langs, ID, SL, lang){
 	//https://mail.google.com/mail/u/0/pimages/2/labs/superstars_2.png
 	var url = 'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/stars/allstars.png';
 	var ptime=0, pid=false, css = '.entry.grp-star .star{background: url('+url+') no-repeat !important;padding:0px 8px 1px 16px;}';
-	css+='#entries.grp-superstar .entry-actions .star.link.unselectable:not(.superstar){display:none;}';
+	css+='#entries.grp-superstar .entry-actions .item-star{display:none;}';
+	//css+='#entries.grp-superstar .entry-actions .star.link.unselectable:not(.superstar){display:none;}';
 	var entries = get_id('entries');
 	addClass(entries, 'grp-superstar');
 	
