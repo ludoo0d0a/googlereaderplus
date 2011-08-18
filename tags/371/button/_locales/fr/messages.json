@@ -1,0 +1,84 @@
+{
+  "extension_name": {
+    "message": "Icône de barre d'outil Reader Plus"
+  },
+  "extension_description": {
+    "message": "Icône de barre d'outil pour Reader Plus"
+  },
+  "browser_action_tooltip_default": {
+    "message": "Icône de barre d'outil Reader Plus "
+  },
+  "starred_items":{
+  	"message": "Elément marqué"
+  },
+  "mark_as_read":{
+  	"message": "Marqué comme lu"
+  },
+  "lreader":{
+  	"message": "Reader"
+  },
+  "lprefs":{
+  	"message": "Options"
+  },
+  "lrefresh":{
+  	"message": "Rafraîchir" 
+  },
+  "lnext":{
+  	"message": "Suivant"
+  },
+  "lprevious":{
+  	"message": "Précédent"
+  },
+  "loading":{
+  	"message": "Chargement..."
+  },
+  "loadingpage":{
+  	"message": "Chargement de la page $page$ ....",
+	"placeholders": {
+	    "page": {
+	      "content": "$1",
+	      "example": "1"
+	    }
+	  }
+  },
+  "page":{
+  	"message": "Page $current$ sur $last$",
+	"placeholders": {
+	    "current": {
+	      "content": "$1",
+	      "example": "1"
+	    },
+		"last": {
+	      "content": "$2",
+	      "example": "10"
+	    }
+	  }
+  },
+  "notlogged":{
+  	"message": "Veuillez vous connecter à Google Reader..."
+  },
+  "needreaderplus":{
+  	"message": "<a href='http://goo.gl/bswm' target='_blank'>Reader Plus</a> doit être installé..."
+  },
+  "feeditems":{
+  	"message": "$title$",
+	"placeholders": {
+	    "title": {
+	      "content": "$1",
+	      "example": "My feed"
+	    }
+	  }
+  },
+  "labelitems":{
+  	"message": "Tag $label$",
+	"placeholders": {
+	    "label": {
+	      "content": "$1",
+	      "example": "video"
+	    }
+	  }
+  },
+  "unreaditems":{
+  	"message": "Unread items"
+  }  
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<!-- é -->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <script src="googgle_themes.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var res = {}, names = {};
+        function parsed(e, name, key, thumbsize){
+            res = {};
+            names = {};
+            $.each(e.response.docs, function(i, o){
+                var id = o.id;
+                var thumb, url = o.thumb.u;
+                /*
+                 var a = {
+                 name: o.af[0].afd.authors[0].name,
+                 url: o.thumb.u
+                 };*/
+                if (url) {
+                    //thumb = url.replace(/{size}/, thumbsize);
+					var m = /(.*){size}/.exec(url);
+                    url = m[1];
+                }
+                else {
+                    url = '??';
+                }
+                
+                var s = id.split('#');
+                if (s) {
+                    id =  s[1];
+                }
+				if (s && (key === 'public_')) {
+					id = 'public_'+id;
+					lid = 'Google, '+s[0];
+				}
+				else {
+					id = 'editor_'+id;
+					lid = 'Google, '+o.description+', '+o.name;
+				}
+				
+                res[id] = url;
+                names[id] = lid;
+            });
+            
+            var html = JSON.stringify(res);
+			html="\r\n/* " + name + " */\r\n"+html.substring(1, html.length-1)+',';
+			$('#r').html($('#r').html()+html);
+			
+			var hn = JSON.stringify(names);
+			hn="\r\n/* " + name + " */\r\n"+hn.substring(1, hn.length-1)+',';
+			$('#n').html($('#n').html()+hn);
+        }
+        
+        
+        $(document).ready(function(){
+            parsed(editors_picks, 'editors_picks', 'editor_', 's144');
+            parsed(public_gallery, 'public_gallery', 'public_', 's104');
+        });
+    </script>
+</head>
+</head>
+<body>
+    mytheme.js:<br/>
+	<textarea id="r" rows="10" cols="120"></textarea><br/>
+	features.js:<br/>
+	<textarea id="n" rows="10" cols="120"></textarea><br/>
+</body>
+</html>

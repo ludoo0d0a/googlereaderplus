@@ -1,0 +1,35 @@
+{
+  "extension_name": {
+    "message": "Ikona Czytnika Plus"
+  },
+  "extension_description": {
+    "message": "Dodaje przycisk z ikoną Czytnika Plus na pasku narzędziowym"
+  },
+  "browser_action_tooltip_default": {
+    "message": "Czytnik Plus - Ikona"
+  },
+  "starred_items":{
+  	"message": "Starred items"
+  },
+  "mark_as_read":{
+  	"message": "Marked as read"
+  },
+  "lreader":{
+  	"message": "Reader"
+  },
+  "lprefs":{
+  	"message": "Options"
+  },
+  "lrefresh":{
+  	"message": "Refresh"
+  },
+  "lnext":{
+  	"message": "Next"
+  },
+  "lprevious":{
+  	"message": "Previous"
+  },
+  "loading":{
+  	"message": "Loading..."
+  }
+}
