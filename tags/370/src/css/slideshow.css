@@ -1,0 +1,71 @@
+/*body{
+	background: #333;
+	color: #fff;
+	font: 85% Lucida Grande, Lucida Sans Unicode;
+	position: relative;
+}*/
+.ss-outer{
+	width:600px;
+	border:1px solid gray;
+	overflow:hidden;
+}
+.ss-wrapper{
+	position: relative;
+	width: 99999px;
+}
+.ss-cover .ss-wrapper{
+	-webkit-transition:all 0.3s ease-in-out;
+}
+.ss-hidden{
+	visibility: hidden;
+}
+.ss-current{
+	border-bottom:2px solid gray;
+}
+.ss-after img{
+	 /*-webkit-transform: rotateY(40deg);*/
+	/*border-bottom:2px solid red;*/
+}
+.ss-before img{
+	/*-webkit-transform: rotateY(-40deg);*/
+	/*border-bottom:2px solid green;*/
+}
+.ss-inner img{
+	-webkit-transition: all 0.5s linear;
+}
+.ss-text{
+	text-align: center;
+	color:gray;
+	min-height:10px;
+	text-shadow: 0 1px 2px black;
+}
+
+.ss-inner{
+	float:left;
+	margin:2px;
+	cursor: pointer;
+	-webkit-transition:all 0.3s ease-in-out;
+	/*border: 1px solid red;*/
+	
+}
+.ss-inner-text{
+	padding:5px;
+	background: -webkit-gradient(linear, 0% 0%, 100% 100%, from(#A5A5A5), to(#7F7F7F));
+	max-width:200px;
+	text-shadow: 0 1px 2px white;
+}
+.ss-cover .ss-inner{
+	-webkit-perspective: 500;
+	-webkit-transform-style: preserve-3d;
+}
+.ss-inner img{
+	max-width:100px;
+	max-height:100px;
+}
+.ss-clr{
+	clear:both;
+}
+
+.ss-reflect .ss-inner img{
+	-webkit-box-reflect: below -5px -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 255, 255, 0.3)));
+}

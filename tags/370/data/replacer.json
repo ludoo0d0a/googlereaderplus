@@ -1,0 +1,76 @@
+{
+    "Gocomics pictures": {
+        "title": "Gocomics pictures",
+        "url": "http://feedproxy.google.com/~r/uclick/| http://www.gocomics.com/",
+        "search": "\"(http://imgsrv.gocomics.com/dim/[^\"]*)\"",
+        "replace": "<img src='$1'><br>"
+    },
+    "Gocomics comments": {
+        "title": "Gocomics comments",
+        "url": "http://feedproxy.google.com/~r/uclick/| http://www.gocomics.com/| http://feeds.gocomics.com/",
+        "search": "<SPAN id='comment_count_display'>(d*)</SPAN>",
+        "replace": "Comments: $2\n<img src='$1'><br>"
+    },
+    "Explosm pictures": {
+        "url": "http://www.explosm.net/",
+        "search": "\"(http://www.explosm.net/db/files/[^\"]*)\"",
+        "replace": "<img src='$1'><br>"
+    },
+    "Explosm videos": {
+        "title": "Explosm videos",
+        "url": "http://www.explosm.net/",
+        "search": "(<embed[^>]+>)",
+        "replace": "$1"
+    },
+    "Explosm forums": {
+        "url": "http://forums.explosm.net",
+        "search": "xpath://div[@id='posts']",
+        "replace": "$1"
+    },
+    "Penny-arcade pictures": {
+        "url": "penny-arcade.com",
+        "search": "\"(http://art.penny-arcade.com/photos/[^\"]*)\"",
+        "replace": "<img src='$1'><br>"
+    },
+    "Cad-comic pictures": {
+        "title": "cad-comic pictures",
+        "url": "http://feedproxy.google.com/~r/cad-comic/",
+        "search": "<img src=\"(/comics/[^\"]*)\"",
+        "replace": "<img src='http://www.cad-comic.com$1'><br>"
+    },
+    "Giantitp Comics": {
+        "url": "http://www.giantitp.com/comics/",
+        "search": "(/comics/images/[^\"]*)",
+        "replace": "<img src='http://www.giantitp.com$1'></br>"
+    },
+    "Userfriendly Comics": {
+        "url": "userfriendly.org",
+        "search": "src=\"(http://www.userfriendly.org/cartoons/archives/[^\"]*)",
+        "replace": "<img src='$1'></br>"
+    },
+    "Chauffeurdebuzz items": {
+        "url": "http://www.chauffeurdebuzz.com/",
+        "search": "<table.*?<table.*?<table.*?<table.*?<table.*?<td[^>]*>(.*?)</td>",
+        "replace": "$1"
+    },
+	"Image lessentiel.lu": {
+        "url": "http://www.lessentiel.lu",
+        "search": "xpath://img[@class='leadbild']",
+        "replace": "$1</br>"
+    },
+    "Textes lessentiel.lu": {
+        "url": "http://www.lessentiel.lu",
+        "search": "story_lead\">([^<]*)</h2>",
+        "replace": "$1"
+    },
+	"Images lesfrontaliers.lu": {
+        "url": "http://www.lesfrontaliers.lu",
+        "search": "<img class=\"editos_one_big_img\" src=\"([^\"]*)\"[^>]*>",
+        "replace": "<img src='http://www.lesfrontaliers.lu/$1'></br>"
+    },
+	"Articles lesfrontaliers.lu": {
+        "url": "http://www.lesfrontaliers.lu",
+        "search": "xpath://div[@id='content_edit']",
+        "replace": "$1"
+    }
+}

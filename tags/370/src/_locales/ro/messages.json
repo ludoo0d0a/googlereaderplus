@@ -1,0 +1,17 @@
+{
+  "extension_name": {
+    "message": "Reader Plus"
+  },
+  "extension_description": {
+    "message": "Îmbunătăţiţi Google Reader™ adăugând favicon-urile lipsă şi o colecţie de alte proprietăţi"
+  },
+  "extension_summary": {
+    "message": "Îmbunătăţiţi Google Reader™ prin adăugarea favicon-urilor lipsă, fixarea imaginilor ataşate ascunse, un contor de feed-uri necitite, o vizualizare mai bună pe monitoare wide, extindere pe întreg monitorul, previzualizare, evidenţierea în listă prin culoare, filtrare, afişare în coloane multiple, butoane de trecere în sus şi în jos, închiderea mesajelor, aliniere după înălţime, deschiderea în fundal, citirea cu mouse-ul, publicarea în Facebook, Twitter, Instapaper, ReadItLater, marcarea ca citite, eliminarea publicităţii, înlocuirea mesajelor cu benzi desenate, traducere automată, şi multe altele....\nPuteţi alege tema favorită din cele disponibile, folosiţi în calitate de fundal o imagine proprie sau selectaţi una din temele iGoogle.\nShortcut-urile pot fi uşor personalizate.\nAceastă extensie are suport de traduceri (engleză, franceză, rusă, chineză, română).\nNu ezitaţi să mă ajutaţi cu traducerea în limba voastră [http://goo.gl/HjiG]\n\nPuteţi adăuga un buton opţional în bara de instrumente chrome aici :\nhttps://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo"
+  },
+  "extension_language": {
+    "message": "Română"
+  },
+  "browser_action_tooltip_default": {
+    "message": "Setări Reader Plus"
+  } 
+}

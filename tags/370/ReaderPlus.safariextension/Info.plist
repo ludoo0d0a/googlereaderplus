@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Author</key>
+	<string>Ludovic Valente</string>
+	<key>CFBundleDisplayName</key>
+	<string>ReaderPlus</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.pitaso.readerplus</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>Chrome</key>
+	<dict>
+		<key>Bars</key>
+		<array>
+			<dict>
+				<key>Filename</key>
+				<string>bar.html</string>
+				<key>Label</key>
+				<string>Bar ReaderPlus</string>
+			</dict>
+		</array>
+		<key>Global Page</key>
+		<string>src/bg.html</string>
+	</dict>
+	<key>Content</key>
+	<dict>
+		<key>Scripts</key>
+		<dict>
+			<key>Start</key>
+			<array>
+				<string>src/lib/cross.js</string>
+				<string>src/lib/util.js</string>
+				<string>src/lib/greasekit.js</string>
+				<string>src/lib/entry.js</string>
+				<string>src/lib/i18n.js</string>
+				<string>src/lib/external.js</string>
+				<string>src/version.js</string>
+				<string>src/features.js</string>
+				<string>src/api/entry.js</string>
+				<string>src/api/readit.js</string>
+				<string>src/general.js</string>
+				<string>src/fixlayout.js</string>
+				<string>src/greaderplus.js</string>
+			</array>
+		</dict>
+		<key>Whitelist</key>
+		<array>
+			<string>http://*.google.com/reader/*</string>
+			<string>http://*.google.fr/reader/*</string>
+			<string>http://*.google.lu/reader/*</string>
+			<string>https://*.google.com/reader/*</string>
+			<string>https://*.google.fr/reader/*</string>
+			<string>https://*.google.lu/reader/*</string>
+		</array>
+	</dict>
+	<key>Description</key>
+	<string>Enhance Google Reader</string>
+	<key>ExtensionInfoDictionaryVersion</key>
+	<string>1.0</string>
+	<key>Permissions</key>
+	<dict>
+		<key>Website Access</key>
+		<dict>
+			<key>Allowed Domains</key>
+			<array>
+				<string>www.google.com</string>
+			</array>
+			<key>Include Secure Pages</key>
+			<true/>
+			<key>Level</key>
+			<string>Some</string>
+		</dict>
+	</dict>
+	<key>Website</key>
+	<string>http://www.pitaso.com</string>
+</dict>
+</plist>

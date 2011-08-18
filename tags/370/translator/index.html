@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js">
+    </script>-->
+    <script src="http://code.jquery.com/jquery-1.4.2.js">
+    </script>
+    <script src="http://www.appelsiini.net/download/jquery.jeditable.mini.js">
+    </script>
+    <script src="http://jquery-translate.googlecode.com/files/jquery.translate-1.4.4-debug-all.js">
+    </script>
+    <script src="http://googlereaderplus.googlecode.com/svn-history/r627/trunk/GoogleReaderPlus/translator/json2.js">
+    </script>
+    <script src="trad.js">
+    </script>
+    <style type="text/css">    
+        #translations {
+            margin: 5px auto;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+			font-size:80%;
+        }
+        
+        th, td {
+            border: 1px solid black;
+			padding: 2px 3px 3px 4px;
+			/*width: 200px;*/
+        }
+		/*
+		.row_cat, .row_mod, .row_id, .row_lang{
+            width: 50px;
+        }
+*/
+        caption {
+            font-weight: bold
+        }
+        tr:nth-child(odd){ 
+        	background-color:#eee; 
+        }
+        tr:nth-child(even)		{ 
+        	background-color:#fff; 
+        }
+		/*thead{
+			display: block;
+			width:100%;
+		}
+		tbody {
+			display: block;
+			height: 600px;
+			overflow: auto;
+			width: 100%
+		}	*/	
+    </style>
+    </style>
+    <meta charset=utf-8 />
+</head>
+<body>
+    <div id="header">
+        <h3>Translations for <a href="https://chrome.google.com/extensions/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="blank">ReaderPlus</a></h3>
+    </div>
+    <div id="menu">
+        <a id="save" href="#">Save</a>
+        <input type="text" name="search" value=""/><input type="text" name="replace" value=""/><input type="button" id="sr" value="Replace"/>
+    </div>
+    <div id="translations">
+        <div id="filter">
+			<select id="filter_category">
+                 <option value="">All</option>
+			</select>
+			<select id="filter_module">
+                 <option value="">All</option>
+			</select>
+			<input type="button" id="gofilter" value="Filter"/>
+        </div>
+		<div id="table"></div>
+    </div>
+    <div id="footer">
+        <a id="close" href="#">Close</a>
+        <br/>
+        <textarea id="out" rows="40" cols="60">
+        </textarea>
+    </div>
+</body>
+</html>
+​
