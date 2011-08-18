@@ -62,6 +62,7 @@ skin\darkhelvetireader.js
 skin\dark.js
 skin\helvetireader.js
 skin\minimal.js
+skin\metro.js
 skin\optimized.js
 skin\portal.js
 skin\osxblue.js
