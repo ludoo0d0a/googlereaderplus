@@ -2,7 +2,7 @@
  * @author Valente
  */
 window.GRP={
-	VERSION: "3.7.0",
+	VERSION: "3.7.1",
 	//beta:5,
 	setVersion:function(text){
 		var ver = document.getElementById('version');
