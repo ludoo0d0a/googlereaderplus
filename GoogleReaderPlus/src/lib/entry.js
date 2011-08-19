@@ -379,7 +379,7 @@ function getEntryPosition(ent){
 	return pos;
 }
 
-function selectCurrentEntry(el, markread, fixScroll){
+function selectCurrentEntry(el, markread, fixScroll, force){
     var entries = get_id('entries');
 	if (el && el.id !== 'current-entry') {
 		var st = entries.scrollTop;
@@ -389,7 +389,7 @@ function selectCurrentEntry(el, markread, fixScroll){
 		}
 		el.id = 'current-entry';
 		if (markread) {
-			markasread(el);
+			markasread(el, false, force);
 		}
 		if (fixScroll){
 			entries.scrollTop=st;
@@ -397,19 +397,19 @@ function selectCurrentEntry(el, markread, fixScroll){
 		expandEntry(el);
 	}
 }
-function selectNextEntry(){
-	selectSiblingEntry(true);
+function selectNextEntry(force){
+	selectSiblingEntry(true, force);
 }
-function selectPreviousEntry(){
-	selectSiblingEntry(false);
+function selectPreviousEntry(force){
+	selectSiblingEntry(false, force);
 }
 		
-function selectSiblingEntry(dir){
+function selectSiblingEntry(dir, force){
 	var next, cur = getCurrentEntry();
 	if (cur){
 		next = (dir)?cur.nextSibling:cur.previousSibling;
 		if (next) {
-			selectCurrentEntry(next, true);
+			selectCurrentEntry(next, true, false, force);
 		}
 	}
 }
@@ -1063,9 +1063,9 @@ function isStarred(entry){
 	return !!esa;
 }
 
-function markasread(entry, passive){
+function markasread(entry, passive, force){
 	//already read
-	if (hasClass(entry,'read')){
+	if (!force && hasClass(entry,'read')){
 		return;
 	}
 
