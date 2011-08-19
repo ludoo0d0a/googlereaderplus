@@ -381,7 +381,7 @@ function getEntryPosition(ent){
 
 function selectCurrentEntry(el, markread, fixScroll, force){
     var entries = get_id('entries');
-	if (el && el.id !== 'current-entry') {
+	if (el && el.id !== 'current-entry' && hasClass(el, 'entry')) {
 		var st = entries.scrollTop;
 		var cur = getCurrentEntry();
 		if (cur) {
