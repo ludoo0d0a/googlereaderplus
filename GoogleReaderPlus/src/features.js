@@ -1378,7 +1378,7 @@ GRP.skins = {
 		name: "Portal v2"
 	},
 	helvetireader: {
-		name: "Helvetireader Skin",
+		name: "Helvetireader 2",
 		status:'updated'
 	},
 	darkhelvetireaderday: {
@@ -1394,12 +1394,49 @@ GRP.skins = {
 	darkhelvetireadernight: {
 		name: "Dark Helvetireader - Night",
 		pic: 'http://stylebot.me/uploads/62.png',
-		ref: 'http://stylebot.me/styles/62'
-		/*url: 'http://stylebot.me/style/get_userscript/62.user.js',
-		 pic: 'http://stylebot.me/uploads/62.png',
-		 desc: 'stylebot.me',
-		 resize: 'footer'*/
+		ref: 'http://stylebot.me/styles/62',
+		/*
+		url: 'http://stylebot.me/style/get_userscript/62.user.js',
+		pic: 'http://stylebot.me/uploads/62.png',
+		desc: 'stylebot.me',
+		resize: 'footer'*/
 	},
+
+	helvetireaderdark: {
+		name: "Helvetireader 2 Dark",
+		status:'new',
+		url: 'http://userstyles.org/styles/userjs/38733/Helvetireader%202%20-%20Dark.user.js',
+		pic: 'http://userstyles.org/style_screenshots/38733_after.jpeg',
+		ref: 'http://userstyles.org/styles/38733/helvetireader-2-dark',
+		desc: 'userstyles.org',
+		resize: 'footer'
+	},
+	segoe: {
+		name: "Segoe UI/Lucida Grande Reskinned",
+		status:'new',
+		url: 'http://userstyles.org/styles/userjs/19467/Google%20Reader%20-%20Segoe%20UI%2FLucida%20Grande%20Reskinned.user.js',
+		pic: 'http://static.userstyles.org/style_screenshots/19467_after.png',
+		ref: 'http://userstyles.org/styles/19467/google-reader-segoe-ui-lucida-grande-reskinned',
+		desc: 'userstyles.org'
+	},
+	/*prettywhite: {
+		//Not updated
+		name: "Pretty white",
+		status:'new',
+		url: 'http://userstyles.org/styles/userjs/16244/Google%20Reader%3A%20pretty%20white.user.js',
+		pic: 'http://static.userstyles.org/style_screenshots/16244_after.png',
+		ref: 'http://userstyles.org/styles/16244/google-reader-pretty-white',
+		desc: 'userstyles.org'
+	},*/
+	perfectdark: {
+		name: "Perfect Dark Google Reader",
+		status:'new',
+		url: 'http://userstyles.org/styles/userjs/38772/Perfect%20Dark%20Google%20Reader.user.js',
+		pic: 'http://static.userstyles.org/style_screenshots/38772_after.png',
+		ref: 'http://userstyles.org/styles/38772/perfect-dark-google-reader',
+		desc: 'userstyles.org'
+	},
+	
 	minimal: {
 		name: "Minimalistic Skin",
 		status:'updated'
