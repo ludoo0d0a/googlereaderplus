@@ -5,9 +5,9 @@
  *
  */
 GRP.rank = function(prefs, langs, ID, SL, lang){
-    var KEY_OPTIONS = ['level'];
+    var KEY_OPTIONS = ['status','level'];
 	var li={}, MAX_ENTRIES=50, BATCH_WAIT=800, collentries = {0:[]}, collectId=0;
-	var _options = {}, colors = [], toggleStatus = false, entries=get_id('entries');
+	var _options = {}, colors = [], entries=get_id('entries');
 	var LEVELS = {
 	 	all:    {id: 0, level:0},
 		good:   {id: 1, level:2.7},
@@ -24,7 +24,7 @@ GRP.rank = function(prefs, langs, ID, SL, lang){
 	}*/
 		
 	function renderRank(btn, entry, mode){
-		if(!toggleStatus){
+		if(!_options.status){
 			return;
 		}
 		var active = hasClass(entry, 'rank-on');
@@ -237,10 +237,15 @@ css += '.pr_10 .postrank,.pr_9 .postrank,.pr_8 .postrank{background-position: 0 
 		var btn = addSplitButton('rank-split-button', ref, SL.filter_rank, SL.filter_rank, toggleFilter, false, 1, items, {autoclose:true});
 		btn.id = btn_id;
 		function toggleFilter(){
-            toggleStatus = !toggleStatus;
-            addClassIf(btn, 'goog-button-base-open', toggleStatus);
-			addClassIf(entries, 'p_rank', toggleStatus);
+            _options.status = !_options.status;
+            setStatus();
     	}
+    	function setStatus(){
+            addClassIf(btn, 'goog-button-base-open', _options.status);
+			addClassIf(entries, 'p_rank', _options.status);
+			GM_setValue(ID+'_status', _options.status);
+    	}
+    	!_options.status;
 		function updateRank(el, menu, id, sel, item){
 			removeClass(entries, 'epr_'+_options.level);
 			_options.level = item.key;
@@ -249,7 +254,7 @@ css += '.pr_10 .postrank,.pr_9 .postrank,.pr_8 .postrank{background-position: 0 
 			onUpdate();
 		}
 		
-		toggleFilter();
+		setStatus();
 	}
 	
 	function onUpdate(){
@@ -269,6 +274,7 @@ css += '.pr_10 .postrank,.pr_9 .postrank,.pr_8 .postrank{background-position: 0 
 	function checkOptions(o){
         o = o || {};
         o.level = o.level || 'all';
+        o.status = o.status || false;
         return o;
     }
 	
