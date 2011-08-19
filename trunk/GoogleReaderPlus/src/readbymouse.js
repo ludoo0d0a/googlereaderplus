@@ -152,13 +152,13 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
             if (b === 0) {
             	// Left Click
 				if (!isClickedOnButton(t)){
-					selectNextEntry();
+					selectNextEntry(true);
                     e.stopPropagation();
                     e.preventDefault();
                 }
             }else if (b == 2) {
                 // Right Click
-				selectPreviousEntry();
+				selectPreviousEntry(true);
                 e.stopPropagation();
                 e.preventDefault();
             }else if (b == 1) {
