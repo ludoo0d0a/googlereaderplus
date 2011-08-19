@@ -89,12 +89,12 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
                 method: 'get',
                 url: skin.url,
                 onload: function(r){
-                    var css = r.responseText;
+                    var c='', css = r.responseText;
                     //unescape
                     css = css.replace(/\\n/g, ' ').replace(/\\"/g, '"');
                     //Filter userscripts userjs
                     if (/^http\:\/\/userstyles\.org/.test(skin.url)) {
-                        var c='', m=null;
+                        var  m=null;
                         c = getcss(css, /\s*css\s*\+?=\s*"(.*?)";\n/g);
                         if (c){
                         	css=c;
@@ -105,7 +105,13 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
                                 css = 'body' + c;
                             }
                         }
+                    }else if (/^http\:\/\/stylebot\.me/.test(skin.url)) {
+                        c = getcss(css, /styleEl\.innerHTML\s*=\s*'(.*?)';\n/g);
+                        if (c) {
+                            css=c;
+                        }
                     }
+                    
                     if (css) {
                         css = css.replace(/\n/g, ' ');
                         css = css.replace(/\-moz\-/g, '-webkit-');

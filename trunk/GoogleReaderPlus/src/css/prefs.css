@@ -213,7 +213,7 @@ ul.wrap{
 
 .mnu.navskin {
     margin-left: 10px;
-	height: 300px;
+	height: 500px;
 	overflow: auto;
 }
 
@@ -365,7 +365,7 @@ span.updated{
 #themebox {
    /* margin: 20px;*/
     width: 800px;
-	height:310px;
+	height:510px;
     text-align: center;
 }
 .navskin{
