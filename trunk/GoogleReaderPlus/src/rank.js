@@ -245,7 +245,6 @@ css += '.pr_10 .postrank,.pr_9 .postrank,.pr_8 .postrank{background-position: 0 
 			addClassIf(entries, 'p_rank', _options.status);
 			GM_setValue(ID+'_status', _options.status);
     	}
-    	!_options.status;
 		function updateRank(el, menu, id, sel, item){
 			removeClass(entries, 'epr_'+_options.level);
 			_options.level = item.key;
