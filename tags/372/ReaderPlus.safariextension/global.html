@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>global HTML page</title>
+<script type="text/javascript">
+ 
+function bigCalc(startVal, event) {
+   //imagine hundreds of lines of code here...
+   endVal = startVal + 2;
+   //return to sender
+   event.target.page.dispatchMessage("theAnswer", endVal);
+}
+ 
+function respondToMessage(theMessageEvent) {
+    if(theMessageEvent.name === "calcThis")
+    {
+       var startVal=theMessageEvent.message;
+       bigCalc(startVal, theMessageEvent);
+    }
+}
+ 
+    safari.application.addEventListener("message",respondToMessage,false);
+</script>
+</head>
+<body>
+</body>
+</html>
