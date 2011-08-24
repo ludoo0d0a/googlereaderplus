@@ -3,6 +3,10 @@
 = Introduction =
 
 Here is the past of the project. See all evolutions, changes.
+= Version 3.7.3 - 08/25/2011 =
+ Fixes:
+  * Theme minimalistic failure
+
 = Version 3.7.2 - 08/24/2011 =
  Enhancements:
   * "Add top/bottom links" has option for static 'go down' icon.
