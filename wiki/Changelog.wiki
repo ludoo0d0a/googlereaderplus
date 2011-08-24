@@ -14,8 +14,11 @@ Here is the past of the project. See all evolutions, changes.
  Fixes:
   * Default shortcut for Diigo and Google Bookmarks
   * #489: read by mouse showed last scroller
+  * Add a warning alert on Postrank feature (deprecated API because of purchase by G)
+  * DarkHelvetireader star
+  * Rank status stored
 
-= Version 3.7.1 - 08/20/2011 =
+= Version 3.7.1 - 08/18/2011 =
 Bugfixes
 
 = Version 3.7.0 - 08/03/2011 =
