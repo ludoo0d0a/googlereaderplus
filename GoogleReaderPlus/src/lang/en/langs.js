@@ -487,7 +487,7 @@ separator: "Separator to add extra level (example: Sports:Footbal)."
     },
 	rank:{
 		level:'Display level',
-		ad:'Ranking is powered by <a href="http://www.postrank.com" target="_blank"><img src="http://www.postrank.com/images/navigation/head_logo.png"/></a> <i>Intelligence from the social web</i>'
+		ad:'Ranking is powered by <a href="http://www.postrank.com" target="_blank"><img src="http://www.postrank.com/images/navigation/head_logo.png"/></a> <i>Intelligence from the social web</i><br/><br/><span class="warning center">Since Google has bought Postrank , used API is deprecated. I cannot guarantee this feature will still work.</span>',
 	},
 	coverflow:{
 		coverflow:'Coverflow / Slideshow',

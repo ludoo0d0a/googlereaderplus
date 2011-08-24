@@ -599,8 +599,8 @@ GRP.filter = function(prefs, langs, ID, SL, lang){
 		if (rx) {
 			for (var i = 0, len = rx.length; i < len; i++) {
 				mrx = rx[i];
-				console.log(i);
-				console.log(mrx);
+				//console.log(i);
+				//console.log(mrx);
 				if(checkTree(content, mrx.tree, mode)){
 				//if (checkContent(content, mrx, mode)){
 					matched = true;
