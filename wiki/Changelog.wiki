@@ -3,9 +3,10 @@
 = Introduction =
 
 Here is the past of the project. See all evolutions, changes.
-= Version 3.7.3 - 08/25/2011 =
+= Version 3.7.3 - 08/26/2011 =
  Fixes:
   * Theme minimalistic failure
+  * API access for PostRank
 
 = Version 3.7.2 - 08/24/2011 =
  Enhancements:
