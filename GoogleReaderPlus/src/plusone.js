@@ -41,6 +41,8 @@ GRP.plusone = function(prefs, langs, ID, SL, lang){
 			gapi.plusone.go("entries");
 		}	*/
 		
+		//gapi.plusone.render("render-plus",{"href":url});
+		
 		var id = counter++;
 		var o = getEntryLink(entry);
 		var html = '<button class="esw eswd" onclick="window.gbar&amp;&amp;gbar.pw&amp;&amp;gbar.pw.clk(this)" onmouseover="window.gbar&amp;&amp;gbar.pw&amp;&amp;gbar.pw.hvr(this,google.time())" g:entity="'+o.url+'" g:type="plusone" g:undo="poS'+id+'" title="Recommander cette page" id="gbpwm_'+id+'" style=""></button>';
