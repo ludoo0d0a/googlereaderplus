@@ -1417,7 +1417,8 @@ GRP.skins = {
 		url: 'http://userstyles.org/styles/userjs/19467/Google%20Reader%20-%20Segoe%20UI%2FLucida%20Grande%20Reskinned.user.js',
 		pic: 'http://static.userstyles.org/style_screenshots/19467_after.png',
 		ref: 'http://userstyles.org/styles/19467/google-reader-segoe-ui-lucida-grande-reskinned',
-		desc: 'userstyles.org'
+		desc: 'userstyles.org',
+		resize: 'footer'
 	},
 	/*prettywhite: {
 		//Not updated
