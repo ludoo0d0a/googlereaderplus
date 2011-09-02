@@ -66,6 +66,10 @@ GRP.api_entry = function(prefs, langs, ID, SL, lang, edata, params){
             GM_addStyle(css);
         }
     }
+    if (edata.icon) {
+    	addCssIcon(edata.icon.id, edata.icon.clson)
+    }
+    
     registerFeature(addButton, ID, params);
     var keycode = getShortcutKey(ID, edata.action, prefs); 
     if (keycode) {

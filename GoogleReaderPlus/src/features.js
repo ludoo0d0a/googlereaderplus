@@ -404,8 +404,7 @@ GRP.scripts = {
 	},
 	unreadcount: {
 		category: 'counter',
-		name: "Show all unread count",
-		status:'updated'
+		name: "Show all unread count"
 	},
 	fixlayout: {
 		category: 'layout',
@@ -422,7 +421,6 @@ GRP.scripts = {
 	removeads: {
 		name: "Remove ads",
 		category: 'content',
-		status: 'updated',
 		options: {
 			links: {
 				xtype: 'textarea',
@@ -751,7 +749,6 @@ GRP.scripts = {
 	pinboard: {
 		name: "Pinboard",
 		category: 'share',
-		status: 'new',
 		options: {
 			auth: {
 				xtype: 'p',
@@ -800,7 +797,6 @@ GRP.scripts = {
 	tumblr: {
 		name: "Tumblr",
 		category: 'share',
-		status: 'new',
 		/*options: {
 			auth: {
 				xtype: 'p',
@@ -836,7 +832,6 @@ GRP.scripts = {
 	reddit: {
 		name: "Reddit",
 		category: 'share',
-		status: 'new',
 		shortcuts: {
 			'goreddit': {
 				id: 'goreddit',
@@ -852,7 +847,6 @@ GRP.scripts = {
 	gmarks: {
 		name: "Google Bookmarks",
 		category: 'share',
-		status: 'new',
 		options: {
 			link: {
 				xtype: 'p',
@@ -875,7 +869,6 @@ GRP.scripts = {
 	diigo: {
 		name: "Diigo",
 		category: 'share',
-		status: 'new',
 		options: {
 			auth: {
 				xtype: 'p',
@@ -907,7 +900,7 @@ GRP.scripts = {
 	/*jaiku: {
 	 name: "Jaiku",
 	 category: 'share',
-	 status: 'new',
+	 status: 'todo',
 	 options: {
 	 username:'',
 	 location:'',
@@ -949,7 +942,6 @@ GRP.scripts = {
 	mark: {
 		name: "Mark As Read",
 		category: 'navigation',
-		status:'updated',
 		options: {
 			asscroll: false
 		},
@@ -1049,7 +1041,6 @@ GRP.scripts = {
 	translate: {
 		name: "Translate",
 		category: 'content',
-		status:'updated',
 		options: {
 			lang: 'en',
 			locked: false,
@@ -1123,6 +1114,33 @@ GRP.scripts = {
 			}
 		}
 	},
+	readability:{
+		name: "Readability",
+		status:'new',
+		category: 'content',
+		options: {
+			intro: {
+				xtype: 'p',
+				label: true
+			},
+			locked: false,
+			include: false,
+			filter: {
+				xtype: 'crud'
+			}
+		},
+		shortcuts: {
+			'readit': {
+				id: 'readit',
+				title: 'Read now!',
+				key: {
+					//82 alt+R
+					keyCode: 82,
+					altKey: true
+				}
+			}
+		}
+	},
 	filter: {
 		name: "Filter",
 		category: 'content',
@@ -1147,11 +1165,10 @@ GRP.scripts = {
 			word_mini: 4
 		}
 	},
-	/* in DEV */
+	
 	rank: {
 		name: "Popularity/Rank",
 		category: 'content',
-		status:'new',
 		options: {
 			level: {
 				xtype: 'select',
@@ -1168,6 +1185,7 @@ GRP.scripts = {
 			}
 		}
 	},
+	/* in DEV */
 	/* menu: {
 	 name: "Smart menu",
 	 category: 'navigation',
@@ -1180,7 +1198,6 @@ GRP.scripts = {
 	coverflow:{
 		name: "Coverflow",
 		category: 'navigation',
-		status:'new',
 		options: {
 			coverflow:true,
 			reflection:true,
@@ -1196,9 +1213,8 @@ GRP.scripts = {
 	/*antisocial: {
 	 name: "Antisocial",
 	 category: 'layout',
-	 status: 'new',
 	 options: {
-	 status: false
+	 	status: false
 	 }
 	 },*/
 	/*hover: {
@@ -1338,12 +1354,10 @@ GRP.skins = {
 		name: "My Theme"
 	},
 	metro: {
-		name: "Metro",
-		status:'new'
+		name: "Metro"
 	},
 	nativecompact: {
-		name: "Native compact",
-		status:'updated'
+		name: "Native compact"
 	},
 	player: {
 		name: "Player Theme"
@@ -1358,7 +1372,6 @@ GRP.skins = {
 	},
 	snowleopard2: {
 		name: "SnowLeopard Improved for G+",
-		status:'updated',
 		url: 'http://userstyles.org/styles/userjs/45455/Google%20Reader%20for%20Snow%20Leopard%202%20-%20Improved%20-%20WK.user.js',
 		pic: 'http://userstyles.org/style_screenshots/45455_after.png',
 		ref: 'http://userstyles.org/styles/45455',
@@ -1367,7 +1380,6 @@ GRP.skins = {
 	},
 	osxblue: {
 		name: "MacOSX SnowLeopard Blue",
-		status:'updated',
 		resize: 'footer'
 	},
 	osxblack: {
@@ -1378,8 +1390,7 @@ GRP.skins = {
 		name: "Portal v2"
 	},
 	helvetireader: {
-		name: "Helvetireader 2",
-		status:'updated'
+		name: "Helvetireader 2"
 	},
 	darkhelvetireaderday: {
 		name: "Dark Helvetireader - Day",
@@ -1404,7 +1415,6 @@ GRP.skins = {
 
 	helvetireaderdark: {
 		name: "Helvetireader 2 Dark",
-		status:'new',
 		url: 'http://userstyles.org/styles/userjs/38733/Helvetireader%202%20-%20Dark.user.js',
 		pic: 'http://userstyles.org/style_screenshots/38733_after.jpeg',
 		ref: 'http://userstyles.org/styles/38733/helvetireader-2-dark',
@@ -1413,7 +1423,6 @@ GRP.skins = {
 	},
 	segoe: {
 		name: "Segoe UI/Lucida Grande Reskinned",
-		status:'new',
 		url: 'http://userstyles.org/styles/userjs/19467/Google%20Reader%20-%20Segoe%20UI%2FLucida%20Grande%20Reskinned.user.js',
 		pic: 'http://static.userstyles.org/style_screenshots/19467_after.png',
 		ref: 'http://userstyles.org/styles/19467/google-reader-segoe-ui-lucida-grande-reskinned',
@@ -1431,20 +1440,16 @@ GRP.skins = {
 	},*/
 	perfectdark: {
 		name: "Perfect Dark Google Reader",
-		status:'new',
 		url: 'http://userstyles.org/styles/userjs/38772/Perfect%20Dark%20Google%20Reader.user.js',
 		pic: 'http://static.userstyles.org/style_screenshots/38772_after.png',
 		ref: 'http://userstyles.org/styles/38772/perfect-dark-google-reader',
 		desc: 'userstyles.org'
 	},
-	
 	minimal: {
-		name: "Minimalistic Skin",
-		status:'updated'
+		name: "Minimalistic Skin"
 	},
 	optimized: {
-		name: "Optimized Skin",
-		status:'updated'
+		name: "Optimized Skin"
 	},
 	air: {
 		name: "Air Skin"
@@ -1466,18 +1471,15 @@ GRP.skins = {
 	},
 	sublimelight: {
 		name: "Sublime Reader Light",
-		ref: 'https://code.google.com/p/sublimereader/',
-		status:'updated'
+		ref: 'https://code.google.com/p/sublimereader/'
 	},
 	sublimedark: {
 		name: "Sublime Reader Dark",
-		ref: 'https://code.google.com/p/sublimereader',
-		status:'updated'
+		ref: 'https://code.google.com/p/sublimereader'
 	},
 	redesigned: {
 		name: "Redesigned",
-		ref: 'http://www.globexdesigns.com/products/gr/',
-		status:'updated'
+		ref: 'http://www.globexdesigns.com/products/gr/'
 	},
 	webbizgeek: {
 		name: "WebBizGeek Skin",
@@ -1516,7 +1518,6 @@ GRP.skins = {
 	},
 	compactcleantweaked: {
 		name: "Compact, Clean & Tweaked",
-		status:'updated',
 		url: 'http://userstyles.org/styles/userjs/16117/Google%20Reader%20-%20Compact%2C%20Clean%20%26%20Tweaked.user.js',
 		pic: 'http://userstyles.org/style_screenshots/16117_after.png',
 		fix: '#top-bar{height: 0px;}',
