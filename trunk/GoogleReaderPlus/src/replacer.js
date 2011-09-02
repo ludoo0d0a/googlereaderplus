@@ -8,7 +8,7 @@
  * +css selector 
  */
 GRP.replacer = function(prefs, langs, ID, SL, lang){
-    var locked = false, partIndex = 0, gp_data = {}, TPL_NAME = "replacer_result_";
+    var locked = false, partIndex = 0, gp_data = {}, TPL_NAME = ID+"_result_";
     
     function initVars(){
         gp_data = {};

@@ -89,7 +89,7 @@ GRP.translate = function(prefs, langs, ID, SL, lang){
         }
     }
     GRP.api_entry(prefs, langs, ID, SL, lang, {
-        action: 'translate',
+        action: 'readit',
         cb: translateEntry
     },{
     	onlistviewtitle:true
