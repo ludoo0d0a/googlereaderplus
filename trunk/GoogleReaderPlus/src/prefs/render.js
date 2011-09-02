@@ -148,6 +148,7 @@ function renderScripts(){
 	var eall = get_id('expandall');
 	if (eall){
 		eall.onclick=function(e){
+			e.stopPropagation();
 			if (hasClass(eall, 'expanded')){
 				removeClass(eall, 'expanded');
 				toggleCategories(true);
@@ -162,7 +163,7 @@ function renderScripts(){
 function toggleCategories(expand){
 	var s = get_id('scriptlist');
 	var uls = s.getElementsByClassName('wrap');
-	iterate(uls, function(id, ul){
+	foreach(uls, function(ul){
 		showas(ul, expand);
 	});
 }
