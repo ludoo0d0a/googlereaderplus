@@ -1555,11 +1555,11 @@ GRP.skins = {
 	},
 	purereader: {
 		name: "Pure Reader",
-		url: 'http://idzr.org/2ioj',
+		url: 'http://idzr.org/4o94',
 		pic: 'http://nadesign.net/safari/images/preview-reader.png',
 		ref: 'http://nadesign.net/safari/',
 		desc: 'Pure Reader by Na\'Design',
-		fix: '.gbtc{padding-left:200px;}#top-bar{height: 0px;}div#main{top: 0px !important;}',
+		//fix: '.gbtc{padding-left:200px;}#top-bar{height: 0px;}div#main{top: 0px !important;}',
 		status:'updated',
 		resize: true
 	}
