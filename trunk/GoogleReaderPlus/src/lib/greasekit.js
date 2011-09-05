@@ -90,7 +90,11 @@ function clearcache(lang){
             mycore.storage.removeItem(name);
         }
     }
-    alert(getTextPrefs(lang, 'global', 'cachecleared', 'en', "Cache cleared"));
+    if (this.getTextPrefs){
+    	alert(getTextPrefs(lang, 'global', 'cachecleared', 'en', "Cache cleared"));
+    }else{
+    	alert("Cache cleared");
+    }
 }
 
 function openWindow(o, cb){
