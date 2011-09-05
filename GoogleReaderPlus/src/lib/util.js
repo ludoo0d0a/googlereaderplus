@@ -910,7 +910,7 @@ function fillTpl(tpl, o){
         if (o.hasOwnProperty(k)) {
             if (typeof o[k] !== "object") {
                 var re = new RegExp("\\{" + k + "\\}", "g");
-                txt = txt.replace(re, (o[k]) ? ('' + o[k]) : '');
+                txt = txt.replace(re, (typeof o[k] !== 'undefined') ? ('' + o[k]) : '');
             }
         }
     }

@@ -25,6 +25,7 @@ GRP.langs[locale].texts = {
         desc: 'Manage columns'
     },
 	sharemsg:{
+		sharewith:'Share with ',
 		toolong: "The message is too long!",
         notetoolong: "remains {0} characters ; maximum 140",
         text_title: 'Title',

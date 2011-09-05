@@ -35,6 +35,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 	css +="input[type='text'],textarea{width:90%;}";
 	css +="textarea{height:80px;text-align:left;}";
 	css +='.xwarning{color:red;}';
+	css +='#btn-send{font-weight:bold;}';
 	
 	//css += '#edit-micro{position:fixed;width:60%;margin:auto;height: 280px;top: 200px;z-index: 9999;}';
 	GM_addStyle(css, 'rps_'+ID);
@@ -175,9 +176,9 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 		var bookmarkStar = btn;
 		
 		function fillValues(entry){
-			labelTitle.innerHTML='Share with '+ID;
+			labelTitle.innerHTML=SM.sharewith+ID
 			var link = getEntryLink(entry), url = link.url, title = link.title;
-			descinput.value = "";
+			descinput.value = '';
 	        taginput.value = getTagsText(entry, NORMALIZE, DEFAULT_LABEL)
 	        urlinput.value = url;
 	        titleinput.value = title;
@@ -198,9 +199,6 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 			//toggle
 			fillValues(entry);
 			showBox(true);
-			/*
-			var hidden = toggleClassEl(editMicro, 'hidden');
-			addClassIf(bookmarkStar, 'btn-sel', !hidden);*/
 			return;
 		}
         
@@ -215,15 +213,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
         	cls: 'micro-form-'+ID+' action-area xpage',
         	html: "<h1 class='xtitle'></h1><div class='xcontent'></div><div class='xaction'></div>"
         });
-		
-		/*
-		if (mode === "expanded") {
-            bookmarkStar.parentNode.parentNode.className = "card-actions";
-        } else {
-            entry.className = "entry read expanded action-area-visible";
-        }
-        bookmarkStar.className = "btn-"+ID+" btn-sel star link";
-        */
+
         labelTitle= getFirstElementByClassName(editMicro, "xtitle");
         var content = getFirstElementByClassName(editMicro, "xcontent");
         function createInput(root, id, cfg){
@@ -231,7 +221,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
         	var wrap=dh(root, 'div', {cls:'xwrap-input', html:'<div class="xlabel">'+title+'</div>'});
         	var tag = 'input';
         	cfg=cfg||{};
-        	cfg.id='inp-'+id;
+        	cfg.id=id;
         	cfg.type=cfg.type||'text';
         	if (cfg.type==='textarea'){
         		tag = cfg.type;
@@ -252,7 +242,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
         var xaction = getFirstElementByClassName(editMicro, "xaction");
         function createButton(root, id, click){
         	var cfg={};
-        	cfg.id='inp-btn-'+id;
+        	cfg.id='btn-'+id;
         	cfg.type='button';
         	cfg.value=SM['text_'+id]||id;
         	cfg.events=cfg.events||{};
@@ -272,41 +262,27 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 			});
         }
         function cancelBox(){
-			/*var cb = '';
-			if (mode == "expanded") {
-				cb = ' card-bottom';
-			}
-            if (mode == "expanded") {
-				bookmarkStar.parentNode.parentNode.className = "card-actions " + cb;
-			}else{
-				entry.className = "entry read expanded";
-			}
-            editMicro.className = 'action-area'+cb+' hidden';
-            bookmarkStar.className = BTN_CLS_ID+" link";
-            labelInfo.innerHTML = SM.notemax;
-            descinput.value = "";
-            */
            showBox(false);
         }
         
 		function countWord(warning){
-	        var o= {}; 
-			o.url = urlinput.value;
-			o.title = titleinput.value;
-	        o.tags = taginput.value;
-	        o.desc = descinput.value;
-	        o.msg = formatSendMsg(o.url, o.title, o.desc, o.tags);
-			var remain= MAX_TEXT - countMsgWord(o.msg);
-	        labelInfo.innerHTML = formatText(SM.notetoolong, remain);
-			if (warning && remain<0){
-				//_alert(SM.toolong);
-				addClass(labelInfo, 'xwarning');
-				o = false;
-			}else{
-				removeClass(labelInfo, 'xwarning');
-			}
-			return o;
-			
+	        setTimeout(function(){
+		        var o= {}; 
+				o.url = urlinput.value;
+				o.title = titleinput.value;
+		        o.tags = taginput.value;
+		        o.desc = descinput.value;
+		        o.msg = formatSendMsg(o.url, o.title, o.desc, o.tags);
+				var remain= MAX_TEXT - countMsgWord(o.msg);
+		        labelInfo.innerHTML = formatText(SM.notetoolong, remain);
+				if (remain<0){
+					//_alert(SM.toolong);
+					addClass(labelInfo, 'xwarning');
+					o = false;
+				}else{
+					removeClass(labelInfo, 'xwarning');
+				}
+			},100);
 	    }
 		
 	    function saveBookmark(event){
@@ -317,14 +293,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 			}
 
 			function activeStar(){
-		        if (mode == "expanded") {
-		            getElementsByClazzName("card-actions", "div", editMicro.parentNode)[0].className = "card-actions card-bottom";
-		        } else {
-		            editMicro.parentNode.className = "entry read expanded";
-		        }
-		        addClass(editMicro, 'hidden');
-				addClass(bookmarkStar, CLS_ACTIVE);
-		        descinput.value = "";
+		        showBox(false);
 		    }
 		
 			p.message = api.msg || "micro";
