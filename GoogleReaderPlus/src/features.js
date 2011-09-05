@@ -548,7 +548,7 @@ GRP.scripts = {
 		}
 	},
 	twitter: {
-		name: "Twitter integration",
+		name: "Twitter",
 		category: 'share',
 		options: {
 			shortener: {
@@ -585,7 +585,7 @@ GRP.scripts = {
 		}
 	},
 	instapaper: {
-		name: "Instapaper integration",
+		name: "Instapaper",
 		category: 'share',
 		options: {
 			auth: {
@@ -611,7 +611,7 @@ GRP.scripts = {
 		}
 	},
 	readitlater: {
-		name: "ReadItLater integration",
+		name: "ReadItLater",
 		category: 'share',
 		options: {
 			auth: {
@@ -794,6 +794,44 @@ GRP.scripts = {
 			}
 		}
 	},*/
+	weibo: {
+		name: "Weibo",
+		category: 'share',
+		status:'new',
+		options: {
+			shortener: {
+				xtype: 'select',
+				values: {
+					tinyurl: 'TinyUrl',
+					bitly: 'BitLy',
+					googl: 'Goo.gl'
+				}
+			},
+			shortener_bitly: {
+				xtype: 'p',
+				label: true,
+				cls: 'subtitle'
+			},
+			shortener_login: {
+				value: '',
+				size: 20
+			},
+			shortener_apikey: {
+				value: '',
+				size: 30
+			}
+		},
+		shortcuts: {
+			'share': {
+				id: 'share',
+				title: 'Post on Weibo',
+				key: {
+					//87 y
+					keyCode: 89
+				}
+			}
+		}
+	},
 	tumblr: {
 		name: "Tumblr",
 		category: 'share',
@@ -1394,6 +1432,7 @@ GRP.skins = {
 	},
 	darkhelvetireaderday: {
 		name: "Dark Helvetireader - Day",
+		status:'updated',
 		pic: 'http://stylebot.me/uploads/61.png',
 		ref: 'http://stylebot.me/styles/61'
 		/*

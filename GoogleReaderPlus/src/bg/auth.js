@@ -57,15 +57,15 @@ var OAUTHS = {
 	},
 	weibo : {
 		api : {
-			url : 'http://weibo.com/.../update.json'
+			url : 'http://api.t.sina.com.cn/statuses/update.json'
 		},
 		authcfg : {
-			'request_url' : 'http://open.weibo.com/wiki/Oauth/request_token/en',
-			'authorize_url' : 'http://open.weibo.com/wiki/Oauth/authorize/en',
-			'access_url' : 'http://open.weibo.com/wiki/Oauth/access_token/en',
-			'consumer_key' : '',
-			'consumer_secret' : '',
-			'scope' : 'http://www.weibo.com/',
+			'request_url' : 'http://api.t.sina.com.cn/oauth/request_token',
+			'authorize_url' : 'http://api.t.sina.com.cn/oauth/authorize',
+			'access_url' : 'http://api.t.sina.com.cn/oauth/access_token',
+			'consumer_key' : '628632117',
+			'consumer_secret' : '2e7332e96a166ecfd4438917644634aa',
+			'scope' : 'http://api.t.sina.com.cn/',
 			'app_name' : 'Weibo for Readerplus'
 		}
 	},
@@ -133,7 +133,8 @@ var OAUTHS = {
 
 function micro(a, cb) {
 	oauth_sign(a, cb, function(o) {
-		var url = o.api.url;
+		o.api=o.api||{};
+		var url = o.api.url || '';
 		if(a.tpl && a.tpl.url) {
 			url = fillTpl(url, a.tpl.url || {});
 		}
