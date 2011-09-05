@@ -56,11 +56,19 @@ function initMenu(){
     });
 	dh('export', 'a', {
         href: '#',
-        text: 'Export',
-		cls:'last'
+        text: 'Export'
     }, {
         click: function(){
             mycore.page.postMessage('export');
+        }
+    });	
+    dh('clearcache', 'a', {
+        href: '#',
+        text: 'Clear cache',
+		cls:'last'
+    }, {
+        click: function(){
+            clearcache('en');
         }
     });	
 }
