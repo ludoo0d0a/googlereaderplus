@@ -13,6 +13,7 @@ GRP.plusone = function(prefs, langs, ID, SL, lang){
 	var BTN_CLS = 'g-plusone __item-share __star', BTN_CLS_ID ='btn-'+ID+' '+BTN_CLS;
 	var URL='https://apis.google.com/js/plusone.js';
 	var counter = 0;
+	var OPTWIN = 'toolbar=0,status=0,resizable=1,width=626,height=436';
 	/*
 	var head =document.getElementsByTagName("head")[0];
 	dh(head,'script',{
@@ -56,11 +57,15 @@ GRP.plusone = function(prefs, langs, ID, SL, lang){
 	function openShareWindow(btn, entry, locked) {
 		var active = isActive(btn, entry, ID, locked, 'btn-active', 'btn-inactive');
 		addClassIf(btn, 'item-star-active',active);
-		if (active) {
-			var shareurl = getEntryLink(entry);
-			var url = fillTpl(URL, shareurl);
-			window.open(url, ID+'sharer', OPTWIN);
-		} 
+		//if (active) {
+			//var shareurl = getEntryLink(entry);
+			//var url = fillTpl(URL, shareurl);
+			//window.open(url, ID+'sharer', OPTWIN);
+			var b = getFirstElementByClassName(entry,'esw')
+			if (b) {
+				simulateClick(b);
+			}
+		//} 
 	}
 	registerFeature(addButton, ID);
 	var keycode = getShortcutKey(ID, 'go'+ID, prefs); //66 b

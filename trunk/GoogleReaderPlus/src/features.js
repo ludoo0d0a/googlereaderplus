@@ -777,61 +777,7 @@ GRP.scripts = {
 			}
 		}
 	},
-	/* in DEV */
-	/*plusone: {
-		name: "Google +1",
-		category: 'share',
-		status:'todo',
-		shortcuts: {
-			'goplusone': {
-				id: 'goplusone',
-				title: '+1',
-				key: {
-					//70 shift+f
-					keyCode: 70,
-					shiftKey: true
-				}
-			}
-		}
-	},*/
-	weibo: {
-		name: "Weibo",
-		category: 'share',
-		status:'new',
-		options: {
-			shortener: {
-				xtype: 'select',
-				values: {
-					tinyurl: 'TinyUrl',
-					bitly: 'BitLy',
-					googl: 'Goo.gl'
-				}
-			},
-			shortener_bitly: {
-				xtype: 'p',
-				label: true,
-				cls: 'subtitle'
-			},
-			shortener_login: {
-				value: '',
-				size: 20
-			},
-			shortener_apikey: {
-				value: '',
-				size: 30
-			}
-		},
-		shortcuts: {
-			'share': {
-				id: 'share',
-				title: 'Post on Weibo',
-				key: {
-					//87 y
-					keyCode: 89
-				}
-			}
-		}
-	},
+	
 	tumblr: {
 		name: "Tumblr",
 		category: 'share',
@@ -931,6 +877,60 @@ GRP.scripts = {
 					//76 l
 					keyCode: 76,
 					shiftKey: true
+				}
+			}
+		}
+	},
+	plusone: {
+		name: "Google +1",
+		category: 'share',
+		status:'new',
+		shortcuts: {
+			'goplusone': {
+				id: 'goplusone',
+				title: '+1',
+				key: {
+					//70 shift+f
+					keyCode: 70,
+					shiftKey: true
+				}
+			}
+		}
+	},
+	weibo: {
+		name: "Weibo",
+		category: 'share',
+		status:'new',
+		options: {
+			shortener: {
+				xtype: 'select',
+				values: {
+					tinyurl: 'TinyUrl',
+					bitly: 'BitLy',
+					googl: 'Goo.gl'
+				}
+			},
+			shortener_bitly: {
+				xtype: 'p',
+				label: true,
+				cls: 'subtitle'
+			},
+			shortener_login: {
+				value: '',
+				size: 20
+			},
+			shortener_apikey: {
+				value: '',
+				size: 30
+			}
+		},
+		shortcuts: {
+			'share': {
+				id: 'share',
+				title: 'Post on Weibo',
+				key: {
+					//87 y
+					keyCode: 89
 				}
 			}
 		}
