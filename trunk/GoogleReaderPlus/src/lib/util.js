@@ -1872,3 +1872,27 @@ function findFirstImage(images, cfg){
     }
     return src;
 }
+
+function loadFiles(cfg, cb){
+	cfg.f = cfg.f || 0;
+	if (!cfg.text){
+		cfg.text='';
+	}
+	if (cfg.f>=cfg.files.length){
+		cb(cfg.text);
+	}else{
+		var url = (cfg.base||'')+cfg.files[cfg.f];
+		GM_xmlhttpRequest({
+			url:url, 
+			onload: function(res){
+				cfg.text+=res.responseText+(cfg.sep||'');
+				++cfg.f; 
+				loadFiles(cfg, cb);
+			}
+		});
+	}
+}
+
+function compressCss(text){
+	return text.replace(/[\r\n]+/g,'').replace(/\s+/g,' ');
+}

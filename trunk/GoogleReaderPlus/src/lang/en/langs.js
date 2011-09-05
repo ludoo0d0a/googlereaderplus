@@ -25,16 +25,16 @@ GRP.langs[locale].texts = {
         desc: 'Manage columns'
     },
 	sharemsg:{
-		toolong: "the message is too long!",
-        notetoolong: "<b>Note to go along with the item:</b> (Optional, remain {0} characters)",
-        notemax: "<b>Note to go along with the item:</b> (Optional, no more than 140 characters)",
+		toolong: "The message is too long!",
+        notetoolong: "remains {0} characters ; maximum 140",
         text_title: 'Title',
         text_tag: 'Tag',
         text_url: 'URL',
+        text_desc: 'Description',
         text_send: 'Send',
         text_count: 'Count',
         text_cancel: 'Cancel',
-        text_shortener: 'Short url',
+        text_shorturl: 'Short url',
         shortfailed: "Sorry, an error occured on trying to use short url!\n\r{0}"
 	},
     facebook: {
@@ -45,6 +45,11 @@ GRP.langs[locale].texts = {
         text: 'Share this news on Twitter',
         keyword: 'Twitter',
         plslogin: 'Please login to Twitter'
+    },
+    weibo: {
+        text: 'Share this news on Weibo',
+        keyword: 'Weibo',
+        plslogin: 'Please login to Weibo'
     },
 	reddit: {
         text: 'Share this news on Reddit',
@@ -337,6 +342,13 @@ GRP.langs[locale].prefs = {
         entersite: "Enter URL of the site"
     },
     twitter: {
+        shortener: "Shortener",
+        shortener_bitly: "BitLy configuration (optional):",
+        shortener_login: "Login",
+        shortener_apikey: "ApiKey",
+        shortener_pwd: "Password"
+    },
+    weibo: {
         shortener: "Shortener",
         shortener_bitly: "BitLy configuration (optional):",
         shortener_login: "Login",

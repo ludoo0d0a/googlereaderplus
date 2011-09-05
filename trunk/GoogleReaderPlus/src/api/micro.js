@@ -18,6 +18,27 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 	var tplMsg = '{desc}{tags} reading:{title} {url}';
 	var SM = langs.sharemsg;
 	
+	var overlay,editMicro,labelTitle,taginput,labelInfo,urlinput,titleinput,descinput,mode;
+		
+	var css='.xoverlay{-webkit-box-align:center;-webkit-box-pack:center;-webkit-transition:0.25s opacity;background:-webkit-radial-gradient(rgba(127,127,127,0.5),rgba(127,127,127,0.5)35%,rgba(0,0,0,0.7));bottom:0;display:-webkit-box;left:0;padding:20px;padding-bottom:130px;position:fixed;right:0;top:0;z-index:999;}';
+	css += '.xoverlay .xpage {-webkit-box-shadow: 0px 5px 80px #505050;background: white;border: 1px solid #BCC1D0;border-radius: 2px;min-width:600px;padding: 0;position: relative;}';
+	css += '.xaction {-webkit-box-align: center;-webkit-box-orient: horizontal;-webkit-box-pack: end;border-top: 1px solid rgba(188, 193, 208, .5);display: -webkit-box;padding: 12px;}';
+	css += '.xpage h1 {  -webkit-padding-end: 24px;  -webkit-user-select: none;  border-bottom: 1px solid #eeeeee;  color: #53637d;  font-size: 200%;  font-weight: normal;  margin: 0;  padding-bottom: 4px;  padding-top: 13px;  text-shadow: white 0 1px 2px;}';
+	css += '.xoverlay .xpage h1 {  background: -webkit-linear-gradient(white, #F8F8F8);  border-bottom: 1px solid rgba(188, 193, 208, .5);  font-size: 105%;  font-weight: bold;  padding: 10px 15px 8px 15px;}';
+	css += '.xcontent{padding: 10px 15px;}';
+	
+	css +="button,input[type='button'],input[type='submit']/*,textarea*/ {  -webkit-border-radius: 2px;  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);  -webkit-user-select: none;  background: -webkit-linear-gradient(#fafafa, #f4f4f4 40%, #e5e5e5);  border: 1px solid #aaa;  color: #444;  font-size: inherit;  margin-bottom: 0px;  min-width: 4em;  padding: 3px 12px 3px 12px;}";
+	css +="button:hover,input[type='button']:hover,input[type='submit']:hover/*,textarea:hover*/ {  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);  background: #ebebeb -webkit-linear-gradient(#fefefe, #f8f8f8 40%, #e9e9e9);  border-color: #999;  color: #222;}";
+	css +="button:active,input[type='button']:active,input[type='submit']:active,textarea:active {  -webkit-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.2);  background: #ebebeb -webkit-linear-gradient(#f4f4f4, #efefef 40%, #dcdcdc);  color: #333;}";
+	css +="button[disabled],input[type='button'][disabled],textarea[disabled],input[type='submit'][disabled],button[disabled]:hover,input[type='button'][disabled]:hover,input[type='submit'][disabled]:hover,textarea[disabled]:hover {  -webkit-box-shadow: none;  background: -webkit-linear-gradient(#fafafa, #f4f4f4 40%, #e5e5e5);  border-color: #aaa;  color: #888;}";
+	
+	css +="input[type='text'],textarea{width:90%;}";
+	css +="textarea{height:80px;text-align:left;}";
+	css +='.xwarning{color:red;}';
+	
+	//css += '#edit-micro{position:fixed;width:60%;margin:auto;height: 280px;top: 200px;z-index: 9999;}';
+	GM_addStyle(css, 'rps_'+ID);
+	
 	function getPref(name, def){
 		return prefs[ID+'_'+name] || def;
 	}
@@ -58,7 +79,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 				},
 				onerror: function(r){
 					var error = formatText(SM.shortfailed, r.status);
-					alert(error);
+					_alert(error);
 					if (cb){
 						cb(false);
 					}
@@ -89,7 +110,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 				},
 				onerror: function(r){
 					var error = formatText(SM.shortfailed, r.status);
-					alert(error);
+					_alert(error);
 					if (cb){
 						cb(false);
 					}
@@ -117,7 +138,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 				},
 				onerror: function(r){
 					var error = formatText(SM.shortfailed, r.status);
-					alert(error);
+					_alert(error);
 					if (cb){
 						cb(false);
 					}
@@ -147,73 +168,101 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 		
 		if (typeof api.required =='function'){
 			if (!api.required()){
-				alert(SL.nologin);
+				_alert(SL.nologin);
 				return;
 			}
 		}
+		var bookmarkStar = btn;
 		
-		//local
-		var taginput,notesinput,urlinput,titleinput,descinput,mode;
+		function fillValues(entry){
+			labelTitle.innerHTML='Share with '+ID;
+			var link = getEntryLink(entry), url = link.url, title = link.title;
+			descinput.value = "";
+	        taginput.value = getTagsText(entry, NORMALIZE, DEFAULT_LABEL)
+	        urlinput.value = url;
+	        titleinput.value = title;
+	        countWord();
+		}
 		
-		//var active = isActive(btn, entry, ID, locked);
-        var bookmarkField = getFirstElementByClassName(entry, 'micro-form-'+ID);
-		var header, bookmarkStar = btn;
+		function showBox(show){
+			if (show){
+				removeClass(editMicro, 'hidden');
+				removeClass(overlay, 'hidden');
+			}else{
+				addClass(editMicro, 'hidden');
+				addClass(overlay, 'hidden');
+			}
+		}
 		
-		if (bookmarkField){
+		if (editMicro){
 			//toggle
-			var hidden = toggleClassEl(bookmarkField, 'hidden');
-			addClassIf(btn, 'btn-sel', !hidden);
+			fillValues(entry);
+			showBox(true);
+			/*
+			var hidden = toggleClassEl(editMicro, 'hidden');
+			addClassIf(bookmarkStar, 'btn-sel', !hidden);*/
 			return;
 		}
         
 		//create
-		bookmarkField = document.createElement("div");
-        addClass(bookmarkField, 'micro-form-'+ID+' action-area');
-        var tpl = "<div class='email-this-area'><table class='email-entry-table'><tbody><tr><td class='field-name'>{text_title}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input inp-title' type='text'></td></tr><tr><td class='field-name'>{text_tag}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input inp-tag' type='text'></td></tr><tr><td class='field-name'>{text_url}:</td><td><input aria-haspopup='true' class='email-this-subject tags-edit-tags label-input inp-url' type='text'></td></tr><tr><td colspan='2'><div class='inp-notes'>{notemax}</div><br/><textarea class='email-this-comment inp-desc' rows='6'></textarea><div class='email-this-buttons' tabindex='-1'><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-send inp-btn-send'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_send}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel inp-btn-shorturl'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_shortener}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel inp-btn-count'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_count}</div></div></div></div></div></div><div role='wairole:button' tabindex='0' class='goog-button goog-button-base unselectable goog-inline-block goog-button-float-left email-this-cancel inp-btn-cancel'><div class='goog-button-base-outer-box goog-inline-block'><div class='goog-button-base-inner-box goog-inline-block'><div class='goog-button-base-pos'><div class='goog-button-base-top-shadow'> &nbsp; </div><div class='goog-button-base-content'><div class='goog-button-body'>{text_cancel}</div></div></div></div></div></div></div></td></tr></tbody></table></div>";
-        var html = fillTpl(tpl, SM);
-        bookmarkField.innerHTML = html;
+        overlay=dh(document.body,'div', {
+        	id:'overlay-micro',
+        	cls:'xoverlay'
+        })
+        
+        editMicro=dh(overlay,'div', {
+        	id:'edit-micro',
+        	cls: 'micro-form-'+ID+' action-area xpage',
+        	html: "<h1 class='xtitle'></h1><div class='xcontent'></div><div class='xaction'></div>"
+        });
 		
+		/*
 		if (mode === "expanded") {
             bookmarkStar.parentNode.parentNode.className = "card-actions";
         } else {
             entry.className = "entry read expanded action-area-visible";
         }
         bookmarkStar.className = "btn-"+ID+" btn-sel star link";
+        */
+        labelTitle= getFirstElementByClassName(editMicro, "xtitle");
+        var content = getFirstElementByClassName(editMicro, "xcontent");
+        function createInput(root, id, cfg){
+        	var title = SM['text_'+id]||id;
+        	var wrap=dh(root, 'div', {cls:'xwrap-input', html:'<div class="xlabel">'+title+'</div>'});
+        	var tag = 'input';
+        	cfg=cfg||{};
+        	cfg.id='inp-'+id;
+        	cfg.type=cfg.type||'text';
+        	if (cfg.type==='textarea'){
+        		tag = cfg.type;
+        		cfg.type='';
+        	}
+        	cfg.placeholder=title;
+        	cfg.events=cfg.events||{};
+        	//cfg.events.keypress=countWord;
+        	cfg.events.keydown=countWord;
+        	return dh(wrap, tag, cfg);
+        }
+        titleinput = createInput(content, 'title');
+        urlinput = createInput(content, 'url');
+        taginput = createInput(content, 'tag');
+        descinput = createInput(content, 'desc', {type:'textarea'});
+        labelInfo = dh(content, 'p', {id:'label-info'});
 
-		var cb = '';
-		if (mode == "expanded") {
-			cb = ' card-bottom';
-		}
+        var xaction = getFirstElementByClassName(editMicro, "xaction");
+        function createButton(root, id, click){
+        	var cfg={};
+        	cfg.id='inp-btn-'+id;
+        	cfg.type='button';
+        	cfg.value=SM['text_'+id]||id;
+        	cfg.events=cfg.events||{};
+        	if (click){
+        		cfg.events.click=click;
+        	}
+        	return dh(root, 'input', cfg);
+        }
         
-        entry.appendChild(bookmarkField);
-        taginput = getFirstElementByClassName(bookmarkField, "inp-tag");
-        notesinput = getFirstElementByClassName(bookmarkField, "inp-notes");
-        urlinput = getFirstElementByClassName(bookmarkField, "inp-url");
-        titleinput = getFirstElementByClassName(bookmarkField, "inp-title");
-        descinput = getFirstElementByClassName(bookmarkField, "inp-desc");
-
-		var link = getEntryLink(entry), url = link.url, title = link.title;
-		descinput.value = "";
-        taginput.value = getTagsText(entry, NORMALIZE, DEFAULT_LABEL)
-        urlinput.value = url;
-        titleinput.value = title;
-		
-		function monitorCount(el){
-			el.addEventListener('keypress', function(){
-				countWord();
-			}, false);
-		}
-		monitorCount(descinput);
-		monitorCount(urlinput);
-		monitorCount(titleinput);
-		monitorCount(taginput);
-        
-        btnSend = getFirstElementByClassName(bookmarkField, "inp-btn-send");
-        btnTinyURL = getFirstElementByClassName(bookmarkField, "inp-btn-shorturl");
-        btnCount = getFirstElementByClassName(bookmarkField, "inp-btn-count");
-        btnCancel = getFirstElementByClassName(bookmarkField, "inp-btn-cancel");
-        btnSend.addEventListener('click', saveBookmark, false);
-        btnTinyURL.addEventListener('click',  function(){
+        function doShortUrl(){
             url=urlinput.value;
 			getShortUrl(url, function(status, shortUrl){
 				if (status && shortUrl){
@@ -221,24 +270,25 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 					countWord();
 				}
 			});
-        }, false);
-        btnCount.addEventListener('click',  function(){
-            countWord();
-        }, false);
-        
-        btnCancel.addEventListener("click", function(){
+        }
+        function cancelBox(){
+			/*var cb = '';
+			if (mode == "expanded") {
+				cb = ' card-bottom';
+			}
             if (mode == "expanded") {
-				bookmarkStar.parentNode.parentNode.className = "card-actions" + cb;
+				bookmarkStar.parentNode.parentNode.className = "card-actions " + cb;
 			}else{
 				entry.className = "entry read expanded";
 			}
-            bookmarkField.className = "action-area'+cb+' hidden";
+            editMicro.className = 'action-area'+cb+' hidden';
             bookmarkStar.className = BTN_CLS_ID+" link";
-            notesinput.innerHTML = SM.notemax;
+            labelInfo.innerHTML = SM.notemax;
             descinput.value = "";
-        }, false);
-       
-		
+            */
+           showBox(false);
+        }
+        
 		function countWord(warning){
 	        var o= {}; 
 			o.url = urlinput.value;
@@ -247,19 +297,17 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 	        o.desc = descinput.value;
 	        o.msg = formatSendMsg(o.url, o.title, o.desc, o.tags);
 			var remain= MAX_TEXT - countMsgWord(o.msg);
-	        notesinput.innerHTML = formatText(SM.notetoolong, remain);
+	        labelInfo.innerHTML = formatText(SM.notetoolong, remain);
 			if (warning && remain<0){
-				alert(SM.toolong);
-				o= false;
+				//_alert(SM.toolong);
+				addClass(labelInfo, 'xwarning');
+				o = false;
+			}else{
+				removeClass(labelInfo, 'xwarning');
 			}
 			return o;
 			
 	    }
-		
-		countWord();
-		
-        //btnSend.focus();
-        //descinput.focus();
 		
 	    function saveBookmark(event){
 	        var p = countWord(true)||{};
@@ -270,11 +318,11 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 
 			function activeStar(){
 		        if (mode == "expanded") {
-		            getElementsByClazzName("card-actions", "div", bookmarkField.parentNode)[0].className = "card-actions card-bottom";
+		            getElementsByClazzName("card-actions", "div", editMicro.parentNode)[0].className = "card-actions card-bottom";
 		        } else {
-		            bookmarkField.parentNode.className = "entry read expanded";
+		            editMicro.parentNode.className = "entry read expanded";
 		        }
-		        addClass(bookmarkField, 'hidden');
+		        addClass(editMicro, 'hidden');
 				addClass(bookmarkStar, CLS_ACTIVE);
 		        descinput.value = "";
 		    }
@@ -294,14 +342,22 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 					if (!o.error) {
 						activeStar();
 					}else{
-						alert('Error from '+ID+': '+(o.error||''));
+						_alert('Error from '+ID+': '+(o.error||''));
 					}
 				}else{
-					alert('Error: Unable to share this item.');
+					_alert('Error: Unable to share this item.');
 				}
 	        });        
 	    }
 		
+	    
+        btnSend = createButton(xaction, 'send', saveBookmark);
+        btnShortUrl = createButton(xaction, 'shorturl', doShortUrl);
+        btnCount = createButton(xaction, 'count', countWord);
+        btnCancel = createButton(xaction, 'cancel', cancelBox);
+
+		fillValues(entry);
+		showBox(true);
     }
         
     function countMsgWord(str){
@@ -318,6 +374,10 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
     if (keycode) {
 		keycode.fn = addKey;
 		initKey(keycode);
+	}
+	function _alert(msg){
+		console.error(msg);
+		alert(msg);
 	}
 };
 
