@@ -11,7 +11,9 @@
 
 GRP.plusone = function(prefs, langs, ID, SL, lang){
 	var BTN_CLS = 'g-plusone __item-share __star', BTN_CLS_ID ='btn-'+ID+' '+BTN_CLS;
-	var URL='https://apis.google.com/js/plusone.js';
+	//var URL='https://apis.google.com/js/plusone.js';
+	//TODO: use xhr
+	var URL = 'https://plus.google.com/';//title, href
 	var counter = 0;
 	var OPTWIN = 'toolbar=0,status=0,resizable=1,width=626,height=436';
 	/*
