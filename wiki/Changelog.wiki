@@ -3,6 +3,15 @@
 = Introduction =
 
 Here is the past of the project. See all evolutions, changes.
+= Version 3.8.0 - 09/07/2011 =
+ New:
+  * Readability : Read easily full content of a news
+  * Share Weibo : post on Weibo, Chinese Twitter-like
+  * Share Google+
+ Fixes:
+  * Theme Darkhelvetireader auto-update from author site
+  * German translation
+
 = Version 3.7.3 - 08/26/2011 =
  Fixes:
   * Theme minimalistic failure
