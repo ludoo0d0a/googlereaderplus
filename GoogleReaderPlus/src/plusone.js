@@ -16,6 +16,7 @@ GRP.plusone = function(prefs, langs, ID, SL, lang){
 	var URL = 'https://plus.google.com/';//title, href
 	var counter = 0;
 	var OPTWIN = 'toolbar=0,status=0,resizable=1,width=626,height=436';
+	var sharenews = prefs.plusone_sharenews||'Share this news';
 	/*
 	var head =document.getElementsByTagName("head")[0];
 	dh(head,'script',{
@@ -48,7 +49,7 @@ GRP.plusone = function(prefs, langs, ID, SL, lang){
 		
 		var id = counter++;
 		var o = getEntryLink(entry);
-		var html = '<button class="esw eswd" onclick="window.gbar&amp;&amp;gbar.pw&amp;&amp;gbar.pw.clk(this)" onmouseover="window.gbar&amp;&amp;gbar.pw&amp;&amp;gbar.pw.hvr(this,google.time())" g:entity="'+o.url+'" g:type="plusone" g:undo="poS'+id+'" title="Recommander cette page" id="gbpwm_'+id+'" style=""></button>';
+		var html = '<button class="esw eswd" onclick="window.gbar&amp;&amp;gbar.pw&amp;&amp;gbar.pw.clk(this)" onmouseover="window.gbar&amp;&amp;gbar.pw&amp;&amp;gbar.pw.hvr(this,(window.google && google.time)?google.time():(new Date).getTime())" g:entity="'+o.url+'" g:type="plusone" g:undo="poS'+id+'" title="'+sharenews+'" id="gbpwm_'+id+'" style=""></button>';
 		var b= dh(el, 'span', {html:html});
 	}
 

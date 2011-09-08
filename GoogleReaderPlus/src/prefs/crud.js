@@ -169,8 +169,37 @@ function loadCruds(id){
                 txt_edit: getText(lang, 'filter', 'edit'),
                 txt_remove: getText(lang, 'filter', 'remove'),
                 rows: function(){
-                    //return removeNull(map2array(prefs.column_filter, 'url', 'exclude'));
+                    //return removeNull(map2array(prefs.translate_filter, 'url', 'exclude'));
                     return removeNull(prefs.translate_filter);
+                },
+                etext: function(){
+                    return ellipsis(this['.'], 60);
+                }
+            }
+        },
+        readability_filter: {
+            tpl: '{{%IMPLICIT-ITERATOR}}<table class="crud rounded" summary="{{summary}}">' +
+            '<thead><tr>{{#headers}}<th scope="col" class="crud_header_{{.}}">{{.}}</th>{{/headers}}</tr></thead>' +
+            '<tfoot><tr><td colspan="{{colspan}}"><em>{{desc}}</em></td>' +
+            '<td><a id="t_{{$name}}_add" class="add" href="javascript:add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
+            '<tbody>{{#rows}} ' +
+            '<tr><td><a href="{{.}}" target="_blank"><span>{{#ico}}<img alt="favicon" class="favicon" title="Preview" src="{{icon}}" width="16" height="16"/>{{/ico}}{{etext}}</span></a></td>' +
+            '<td><a class="action" id="t_{{$name}}_edit" href="javascript:add(\'{{$name}}\', \'{{.}}\');">{{txt_edit}}</a></td>' +
+            '<td><a class="action" id="t_{{$name}}_remove" href="javascript:remove(\'{{$name}}\', \'{{.}}\');">{{txt_remove}}</a></td>' +
+            '</tr>{{/rows}}</tbody></table>',
+            data: {
+                name: 'readability',
+                ico: false,
+                colspan: 2,
+                headers: ['url', 'edit', 'remove'],
+                summary: getText(lang, 'readability', 'summary'),
+                desc: getText(lang, 'readability', 'desc'),
+                txt_add: getText(lang, 'filter', 'add'),
+                txt_edit: getText(lang, 'filter', 'edit'),
+                txt_remove: getText(lang, 'filter', 'remove'),
+                rows: function(){
+                    //return removeNull(map2array(prefs.readability_filter, 'url', 'exclude'));
+                    return removeNull(prefs.readability_filter);
                 },
                 etext: function(){
                     return ellipsis(this['.'], 60);

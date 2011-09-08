@@ -881,22 +881,6 @@ GRP.scripts = {
 			}
 		}
 	},
-	plusone: {
-		name: "Google +1",
-		category: 'share',
-		status:'new',
-		shortcuts: {
-			'goplusone': {
-				id: 'goplusone',
-				title: '+1',
-				key: {
-					//70 shift+f
-					keyCode: 70,
-					shiftKey: true
-				}
-			}
-		}
-	},
 	weibo: {
 		name: "Weibo",
 		category: 'share',
@@ -931,6 +915,22 @@ GRP.scripts = {
 				key: {
 					//87 y
 					keyCode: 89
+				}
+			}
+		}
+	},
+	plusone: {
+		name: "Google +1",
+		category: 'share',
+		status:'new',
+		shortcuts: {
+			'goplusone': {
+				id: 'goplusone',
+				title: '+1',
+				key: {
+					//70 shift+f
+					keyCode: 70,
+					shiftKey: true
 				}
 			}
 		}
@@ -1152,33 +1152,6 @@ GRP.scripts = {
 			}
 		}
 	},
-	readability:{
-		name: "Readability",
-		status:'new',
-		category: 'content',
-		options: {
-			intro: {
-				xtype: 'p',
-				label: true
-			},
-			locked: false,
-			include: false,
-			filter: {
-				xtype: 'crud'
-			}
-		},
-		shortcuts: {
-			'readit': {
-				id: 'readit',
-				title: 'Read now!',
-				key: {
-					//82 alt+R
-					keyCode: 82,
-					altKey: true
-				}
-			}
-		}
-	},
 	filter: {
 		name: "Filter",
 		category: 'content',
@@ -1203,7 +1176,6 @@ GRP.scripts = {
 			word_mini: 4
 		}
 	},
-	
 	rank: {
 		name: "Popularity/Rank",
 		category: 'content',
@@ -1220,6 +1192,36 @@ GRP.scripts = {
 			},
 			ad: {
 				xtype:'p'
+			}
+		}
+	},
+	readability:{
+		name: "Readability",
+		status:'new',
+		category: 'content',
+		options: {
+			intro: {
+				xtype: 'p',
+				label: true
+			},
+			locked: false,
+			//include: false,
+			filter: {
+				xtype: 'crud'
+			},
+			ad: {
+				xtype:'p'
+			}
+		},
+		shortcuts: {
+			'readit': {
+				id: 'readit',
+				title: 'Read now!',
+				key: {
+					//82 alt+R
+					keyCode: 82,
+					altKey: true
+				}
 			}
 		}
 	},
