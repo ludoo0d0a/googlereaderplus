@@ -11,6 +11,10 @@
 
 GRP.readability = function(prefs, langs, ID, SL, lang) {
 	var locked = false;
+
+	var css = ".p_readability{font-family: Georgia,'Times New Roman',serif;font-size:19px;}";
+	css+= ".p_readability img{margin:1em auto;display: block;}";
+	GM_addStyle(css,'rps_rdnews');
 	
 	function readableEntry(entry, active, btn, e) {
 		var content = getFirstElementByClassName(entry, 'p_' + ID);//div

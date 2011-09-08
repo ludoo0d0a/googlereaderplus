@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Reader Plus - Preferences</title>
+        <link rel="canonical" href="https://chrome.google.com/webstore/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg"/>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
         <link href="css/prefs.css" type="text/css" rel="stylesheet">
 		<link href="css/editor.css" type="text/css" rel="stylesheet">
@@ -29,7 +30,7 @@
 		<script type="text/javascript" src="lib/jscolor/jscolor.js"></script>
         <script type="text/javascript" src="skin/mytheme.js"></script>
         <script type="application/javascript">
-            var lang = 'en', prefs = {}, gshortcuts = {}, gcomp = false;
+            var lang = 'en', prefs = {}, gshortcuts = {}, gcomp=false;
             window.onload = initGRP;
         </script>
     </head>
@@ -54,8 +55,16 @@
 							      data-text="I recommend you Google ReaderPlus chrome extension">Tweet</a>
 							</div>
 						</li>
-						<li class="last button badge">
+						<li class="button badge">
 							<div id="badgestumbleupon"></div>
+						</li>
+						<li class="last button badge">
+							<div id="gplus">
+								<div class="g-plusone"></div>
+<script type="text/javascript">
+(function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();
+</script>								
+							</div>
 						</li>
                     </ul>
                     <div class="logo">
@@ -166,6 +175,7 @@
 									<li><a href="http://kulldox.info" target="blank"><span>KullDox - Romanian</span></a></li>
 									<li><a href="#" target="blank"><span>Thorsten Rost - German</span></a></li>
 									<li class="last"><a href="#" target="blank"><span>Tobias Weissert - German</span></a></li>
+									<li class="last"><a href="#" target="blank"><span>raelianer - German</span></a></li>
                                 </ul>
                                 <span id="t_thanks_authors">Thanks to authors of original scripts and skins (Greasemonkey and Stylish)</span>:
                                 <ul class="rounded mnu thanks">

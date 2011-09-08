@@ -507,6 +507,12 @@ separator: "Separator to add extra level (example: Sports:Footbal)."
 		level:'Display level',
 		ad:'Ranking is powered by <a href="http://www.postrank.com" target="_blank"><img src="http://www.postrank.com/images/navigation/head_logo.png"/></a> <i>Intelligence from the social web</i><br/><br/><span class="warning center">Since Google has bought Postrank , used API is deprecated. I cannot guarantee this feature will still work.</span>',
 	},
+	readability:{
+		intro:'Display the whole cleaned content of the news',
+		locked: "Always actived, except for:",
+        include: "Only include following feeds:",
+        ad:'Readability is powered by <a href="http://www.readability.com?from=readerplus" target="_blank"><img src="http://www.readability.com/media/images/logo_chair.png"/></a> <br/><i>Read Comfortably—Anytime, Anywhere</i><br/>Return to distraction–free reading while supporting writers & publishers'
+	},
 	coverflow:{
 		coverflow:'Coverflow / Slideshow',
 		reflection:'Use reflection',
