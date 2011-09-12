@@ -62,6 +62,11 @@ GRP.langs[locale].texts = {
         keyword: 'Tumblr',
         plslogin: 'Please login to Tumblr'
     },
+    plusone: {
+        text: 'Share this news on Google+',
+        keyword: 'Google+',
+        plslogin: 'Please login to Google+'
+    },
 	identi:{
 		text:'Share this news on Identi',
 		keyword: 'Identi',
@@ -385,6 +390,10 @@ GRP.langs[locale].prefs = {
         auth: "<a href='http://www.diigo.com' target='blank'>Diigo</a> authentication (required):",
 		username: "Username:",
         password: "Password:"
+	},
+	plusone:{
+		text:'Share with Google+',
+		keyword: 'Google+'
 	},
 	identi: {
         shortener: "Shortener",

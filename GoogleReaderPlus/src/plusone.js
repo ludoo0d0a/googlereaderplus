@@ -16,7 +16,7 @@ GRP.plusone = function(prefs, langs, ID, SL, lang){
 	var URL = 'https://plus.google.com/';//title, href
 	var counter = 0;
 	var OPTWIN = 'toolbar=0,status=0,resizable=1,width=626,height=436';
-	var sharenews = prefs.plusone_sharenews||'Share this news';
+	var sharenews = SL.text||'Share this news';
 	/*
 	var head =document.getElementsByTagName("head")[0];
 	dh(head,'script',{
@@ -29,6 +29,7 @@ GRP.plusone = function(prefs, langs, ID, SL, lang){
 	*/
 	
 	var css = '.esw{background-repeat:no-repeat;border:0;cursor:pointer;display:inline;height:15px;margin-left:5px;overflow: hidden;width:24px;vertical-align:0;}.esc{color:#767676;font-size:small}.esc a,.esc a:link{color:#36c;text-decoration:none}.eswd{background:url(/images/nav_logo82.png);background-position:0 -243px}.eswa{background:url(/images/nav_logo82.png);background-position:-25px -243px}.eswa:active{background:url(/images/experiments/p1/p1sprite.png);background-position:-450px 0}.eswe{background:url(/images/experiments/p1/p1sprite.png);background-position:-475px 0}.esww{background:url(/images/experiments/p1/p1wkng2.gif);cursor:default}.esws{background:url(/images/experiments/p1/p1sprite.png);background-position:0 0}.eswd:hover,.eswh{background:url(/images/experiments/p1/p1sprite.png);background-position:-400px 0}.eswh:active{background:url(/images/experiments/p1/p1sprite.png);background-position:-425px 0}';
+	css += 'button.esw{min-width:1em;}';
 	GM_addStyle(css, 'rpe_'+ID);
 	
 	function addButton(el, entry, mode) {
