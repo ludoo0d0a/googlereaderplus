@@ -212,8 +212,8 @@ GRP.langs[locale].texts = {
 		overlay_loading : 'Loading in progress...'
 	},
 	readability : {
-		text : 'Read now full content of the news',
-		title : 'Read now full content',
+		text : 'Read now with Readability',
+		title : 'Read now full content with Readability',
 		keyword : 'Read now'
 	},
 	readbymouse : {
