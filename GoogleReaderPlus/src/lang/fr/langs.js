@@ -6,8 +6,8 @@
  * fr : Francais
  * **************************
  *
- * Version : 1.8
- * Date : 03-17-2011
+ * Version : 1.9
+ * Date : 09-13-2011
  * @author Valente
  */
 var locale = 'fr';
@@ -31,6 +31,7 @@ GRP.langs[locale].texts = {
         text_title: 'Titre',
         text_tag: 'Tag',
         text_url: 'Adresse',
+        text_desc: 'Description',
         text_send: 'Envoyer',
         text_count: 'Compter',
         text_cancel: 'Annuler',
@@ -38,13 +39,33 @@ GRP.langs[locale].texts = {
         shortfailed: "Désolé, une erreur est survenue pour obtenir une url courte!\n\r{0}"
 	},
     facebook: {
-        text: 'Partager cette nouvelle sur Facebook',
+        text: 'Partager sur Facebook',
         keyword: 'Facebook'
     },
     twitter: {
-        text: 'Partager cette nouvelle sur Twitter',
+        text: 'Partager sur Twitter',
         keyword: 'Twitter',
         plslogin: 'Merci de vous connecter à Twitter'
+    },
+    weibo: {
+        text: 'Partager sur Weibo',
+        keyword: 'Weibo',
+        plslogin: 'Merci de vous connecter à Weibo'
+    },
+	reddit: {
+        text: 'Partager sur Reddit',
+        keyword: 'Reddit',
+        plslogin: 'Merci de vous connecter à Reddit'
+    },
+    tumblr:{
+		text:'Partager avec Tumblr',
+		keyword: 'Tumblr',
+        plslogin: 'Merci de vous connecter à Tumblr'
+    },
+    plusone: {
+        text: 'Partager sur Google+',
+        keyword: 'Google+',
+        plslogin: 'Merci de vous connecter à Google+'
     },
     identi:{
 		text:'Partager avec Identi',
@@ -66,6 +87,22 @@ GRP.langs[locale].texts = {
         saving: 'Sauvegarde',
         shortcut_readitlater: 'Lire plus tard avec Instapaper'
     },
+    diigo:{
+		keyword: 'Diigo',
+		text:'Partager avec Diigo',
+		badrequest:'Des paramètres sont invalides ou la limite maximale a été atteinte.',
+		notauthorized:'Vous n\'êtes pas autorisé.',
+		forbidden: 'Requête refusé par manque de  droits.',
+		notfound:'Mauvaise URI ou la ressource n\'existe pas.',
+		badgateway:'Diigo est en maintenance.',
+		unavailable:'The Diigo servers are too busy to server your request. Please try again later.'
+	},
+	gmarks:{
+		keyword: 'Google Bookmarks',
+		wronglogin: 'Erreur avec l\'authentication!! mauvais login/mot de passe?',
+		nologin: 'Erreur lors de l\'authentification!! pas de login?',
+		text:'Partager avec Google Bookmarks'
+	},
     instapaper: {
         text: 'Lire plus tard avec Instapaper',
         keyword: 'Instapaper',
@@ -93,6 +130,10 @@ GRP.langs[locale].texts = {
 		text:'Partager avec Blogger',
 		keyword: 'Blogger'
 	},
+	pinboard:{
+		text:'Partager avec Pinboard',
+		keyword: 'Pinboard'
+	},
     favicons: {
         preferences: 'Préférences',
         getfavicon: 'Obtenir l\'icône de ce site',
@@ -102,8 +143,6 @@ GRP.langs[locale].texts = {
     },
     filter: {
         settings: 'Réglages du filtre',
-        excludes: 'Exclusions',
-        highlights: 'Surlignages',
         highlight: 'Surligner',
         exclude: 'Exclure',
         hideduplicates: 'Cacher les doublons',
@@ -112,7 +151,6 @@ GRP.langs[locale].texts = {
         update: 'Mise à jour',
         quickadd: 'Ajout rapide',
         add: 'Ajouter',
-        close: 'Fermer',
         edit: 'Editer',
         remove: 'Effacer',
 		//v2
@@ -131,8 +169,22 @@ GRP.langs[locale].texts = {
 	    content: 'Contenu',
 	    addentry: 'Ajouter',
 	    add_excludes: 'Exclure',
-	    add_highlights: 'Surligner'
+	    add_highlights: 'Surligner',
+	    button:'Bouton \'filtrer\' sur chaque article',
+		gettitle:'Obtenir le titre',
+		getwords:'Obtenir les mots',
+		getfrom:'Ajouter un flux',
+		getauthor:'Ajouter l\'auteur'
     },
+    rank:{
+		filter_rank:'Popularité',
+		filter_ad:'Powered by PostRank',
+		rank_all:'Tous',
+		rank_good:'Bien >2.7',
+		rank_great:'Bon >5.5',
+		rank_best:'Connu >7.6',
+		rank_famous:'Célèbre >9'
+	},
     fitheight: {
         text: 'Adapter la hauteur',
         keyword: 'Adapter la hauteur'
@@ -157,6 +209,11 @@ GRP.langs[locale].texts = {
         overlay_close: 'Fermer',
         overlay_category: 'Catégorie',
 		overlay_loading: 'Chargement en cours...'
+    },
+    readability: {
+        text: 'Lire l\'article en entier',
+        title: 'Lire tout l\'article',
+        keyword: 'Lire maintenant'
     },
     readbymouse: {
         readbymouse: 'Lecture souris',
@@ -190,6 +247,13 @@ GRP.langs[locale].texts = {
 	},
 	portal:{
 		readmore: 'En lire plus (Ctrl+click pour le menu)'
+	},
+	stars:{
+		text:'Etoiles multiples',
+		keyword:'Etoiles'
+	},
+	translate:{
+		keyword:'Traduction'
 	}
 };
 GRP.langs[locale].prefs = {
@@ -199,6 +263,7 @@ GRP.langs[locale].prefs = {
         alreadyexist: "Cet élément existe déjà!",
         snew: 'Nouveau!',
         supdated: 'Mis à jour!',
+        stodo: 'A faire!',
         prefssaved: "Préférences sauvés!",
         cachecleared: "Cache nettoyé!",
         expandall: 'Tous'
@@ -280,6 +345,13 @@ GRP.langs[locale].prefs = {
         shortener_apikey: "Clé (ApiKey)",
         shortener_pwd: "Mot de passe"
     },
+    weibo: {
+        shortener: "Urls courtes",
+        shortener_bitly: "Configuration pour BitLy (optionnel):",
+        shortener_login: "Utilisateur",
+        shortener_apikey: "Clé (ApiKey)",
+        shortener_pwd: "Mot de passe"
+    },
     instapaper: {
         auth: "Authentification de <a href='http://www.instapaper.com' target='blank'>Instapaper</a> (optionnel):",
         username: "Utilisateur:",
@@ -294,6 +366,26 @@ GRP.langs[locale].prefs = {
         auth: "<a href='http://radbox.me/support/extras' target='blank'>Radbox</a> <a href='http://radbox.me/account/user/register' target='_blank'>authentification</a> (obligatoire):",
         username: "Clé utilisateur:"
     },
+    tumblr: {
+        auth: "Authentification pour <a href='http://www.tumblr.com' target='blank'>Tumblr</a> nécessaire:",
+		blogname: "Blog:",
+		username: "Email:",
+        password: "Mot de passe:"
+    },
+	reddit: {
+        auth: "Authentification pour <a href='http://www.reddit.com' target='blank'>Reddit</a> nécessaire:",
+		username: "Utilisateur:",
+        password: "Mot de passe:"
+    },
+	diigo:{
+        auth: "Authentification pour <a href='http://www.diigo.com' target='blank'>Diigo</a> nécessaire:",
+		username: "Utilisateur:",
+        password: "Mot de passe:"
+	},
+	plusone:{
+		text:'Partager avec Google+',
+		keyword: 'Google+'
+	},
 	identi: {
         shortener: "Url courte",
         shortener_bitly: "configuration BitLy (optionnel):",
@@ -305,6 +397,14 @@ GRP.langs[locale].prefs = {
 		layout:'Layout',
 		layoutdesc:'Various formats are explained on <a href="http://www.addthis.com/web-button-select" target="_blank">this page</a>'
 	},
+	gmarks:{
+		link:'Mes <a href="https://www.google.com/bookmarks/l#!g=Time" target="_gmarks">Marque-pages Google</a>'
+	},
+	pinboard:{
+        auth: "Authentification pour <a href='http://www.pinboard.in' target='blank'>Pinboard</a> <a href='http://pinboard.in/signup/' target='blank'>authentication</a> nécessaire:",
+        username: "Utilisateur:",
+        password: "Mot de passe:"
+    },
     colorful: {
         tree: "Afficher les titres en couleurs dans l'arbre des sites à gauche",
 		usebasecolor: "Utiliser les couleurs de base suivantes :",
@@ -313,7 +413,7 @@ GRP.langs[locale].prefs = {
     },
     general: {
         counter: "Afficher le compteur dans la barre d'outil",
-counterinterval: "Refraîchir le compteur toutes les (min)",
+		counterinterval: "Refraîchir le compteur toutes les (min)",
         pageicon: "Activer l'icône dans la barre d'adresse (permet d'afficher un menu)",
         stats: 'Autoriser la collecte de données statistiques anonyme (pour un meilleur support)',
         bottomup: "Placer la barre 'Précédent/Suivant' en haut de l'écran",
@@ -326,13 +426,13 @@ counterinterval: "Refraîchir le compteur toutes les (min)",
         icontoolbar_text: "<span>Afin de le rendre optionnel, nous fournissons le bouton sous forme d'une extension indépendante,</span><br><span>à installé en plus de ReaderPlus.</span><br><span>Pour ajouter le bouton, cliquer <b>Installer</b> sur la page <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">bouton pour ReaderPlus</a>.</span><br><span>Pour retirer le bouton, un clic droit et choisissez 'Désactiver'.</span>",
         importexport_text: "Vous pouvez sauver vos préférences avec la fonction 'export' et les rechqrger plus tard avec 'import', mais assurez vous de la <a href='http://jsonformatter.curiousconcept.com/' target='blank'>validité du format JSON</a>:",
         confirmimport: "Etes-vous sur de vouloir importer cette configuration?\nLa configuration actuelle sera PERDUE",
-confirmsyncload: "Etes-vous sur de vouloir importer cette configuration depuis votre compte Google?\nLa configuration actuelle sera PERDUE!",
-prefsimportedok: 'Préférences importé avec succès!',
-prefsimportfailed: 'Echec de l\'import!',
-prefsimportnull: 'Aucune préférence enregistrée!',
-syncprefs_text: 'Charger/Sauver avec votre compte Google',
-prefssavedok: 'Préférences sauvé avec succès!',
-prefssavedfailed: 'Echec de la sauvegarde!',
+		confirmsyncload: "Etes-vous sur de vouloir importer cette configuration depuis votre compte Google?\nLa configuration actuelle sera PERDUE!",
+		prefsimportedok: 'Préférences importé avec succès!',
+		prefsimportfailed: 'Echec de l\'import!',
+		prefsimportnull: 'Aucune préférence enregistrée!',
+		syncprefs_text: 'Charger/Sauver avec votre compte Google',
+		prefssavedok: 'Préférences sauvé avec succès!',
+		prefssavedfailed: 'Echec de la sauvegarde!',
         text_layout: 'Mise en page',
         text_private: 'Données privées et mise à jour',
         text_toolbaricon: "Icône de la barre d'outil",
@@ -358,7 +458,8 @@ separator: "Separateur pour des nieaux supplémentaires (exemple: Sports:Footbal
     removeads: {
         links: "Liens:",
         images: "Images:",
-        iframes: "Iframes:"
+        iframes: "Iframes:",
+		preview: "Filter surlignage pour aperçu"
     },
     preview: {
         onicon: "Utiliser un icone apres le titre pour afficher l'apercu (si non coché, l'apercu apparait lors du clic sur le titre)",
@@ -370,15 +471,16 @@ separator: "Separateur pour des nieaux supplémentaires (exemple: Sports:Footbal
         locked: "Option 'Adapter hauteur' toujours activée"
     },
     filter: {
-        searchbody: "Recherche dans le titre et le corps du texte",
         highlights: 'Liste des exclusions (une par ligne)',
         excludes: 'Liste des  surlignages (un par ligne)',
         searchbody: 'Chercher dans tout le texte',
+        detect_duplicates: 'Détecter les doublons',
 	    hide_duplicates: 'Cacher les doublons',
 	    hide_excludes: 'Cacher les exclusions',
 	    prefer_highlights: 'Surlignage prioritaire sur exclusion',
 		live:'Live',
-		word_mini: 'Nombre minimum de lettres pour un mot'
+		word_mini: 'Nombre minimum de lettres pour un mot',
+		button:'Bouton \'filtrer\' sur chaque article'
     },
     favicons: {
         providerpageicons: 'Utiliser le fournisseur d\'icônes <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> pour afficher correctement toutes les icônes des sites (Recommandé)',
@@ -400,6 +502,29 @@ separator: "Separateur pour des nieaux supplémentaires (exemple: Sports:Footbal
         to: "Remplacer par",
         prompttitle: "Titre du filtre"
     },
+    rank:{
+		level:'Afficher les niveaux',
+		ad:'La Popularité est basé sur les services de <a href="http://www.postrank.com?from=readerplus" target="_blank"><img src="http://www.postrank.com/images/navigation/head_logo.png"/></a> <i>Intelligence from the social web</i><br/><br/><span class="warning center">Depuis Google a racheté Postrank, les services fournis vont bientôt disparaitre. Je ne peux pas garantir que cette fonctionnalité marchera toujours.</span>'
+	},
+	readability:{
+		intro:'Afficher le contenu principal uniquement d\'un article',
+		locked: "Toujours activé, sauf pour:",
+        include: "Inclure seulement ces flux : ",
+        ad:'Readability est basé sur les services de <a href="http://www.readability.com?from=readerplus" target="_blank"><img src="http://www.readability.com/media/images/logo_chair.png"/></a> <br/><i>Read Comfortably—Anytime, Anywhere</i><br/>Return to distraction–free reading while supporting writers & publishers'
+	},
+	coverflow:{
+		coverflow:'Coverflow / Slideshow',
+		reflection:'Utiliser la réflection',
+		caption:'Afficher les légendes',
+		sync:'Syncroniser les éléments',
+		footer:'En pied-de-page'
+	},
+	jump:{
+		staticdown:'Icône flottante \'Aller en bas\' pour l\'article courrant'
+	},
+	mark:{
+		asscroll: 'Marquer comme lu les éléments passés lors du scroll'
+	},
     lightbox: {
         locked: "Option 'Adapter hauteur' toujours activée, sauf pour :"
     },
@@ -412,7 +537,8 @@ separator: "Separateur pour des nieaux supplémentaires (exemple: Sports:Footbal
         ludoo: "<span>Paquetage LudoO</span>Les meilleurs options en un clic",
         full: "<span>Paquetage Complet</span>Toutes les options activées",
         reset: "<span>Paquetage Reset</span>Remise à zéro de votre configuration",
-        confirmdel: "Cette opération va EFFACER et réinitialiser vos préférences. Etes-vous sûr ?"
+        confirmdel: "Cette opération va EFFACER et réinitialiser vos préférences. Etes-vous sûr ?",
+        done: "Le nouveau paquetage est sélectionné. Vous pouvez sauver."
     },
     extshortcuts: {
         custom: "Vos propres raccourcis clavier",

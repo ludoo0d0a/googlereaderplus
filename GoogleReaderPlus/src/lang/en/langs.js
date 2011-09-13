@@ -6,8 +6,8 @@
  * en : English
  * **************************
  *
- * Version : 1.8
- * Date : 03-17-2011
+ * Version : 1.9
+ * Date : 09-13-2011
  * @author Valente
  */
 var locale = 'en';
@@ -98,11 +98,10 @@ GRP.langs[locale].texts = {
 		unavailable:'The Diigo servers are too busy to server your request. Please try again later.'
 	},
 	gmarks:{
-		keyword: 'Gmarks',
+		keyword: 'Google Bookmarks',
 		wronglogin: 'Something goes wrong with authentication!!',
 		nologin: 'Error with authentication!!',
-		text:'Share with Google Bookmarks',
-		keyword: 'Google Bookmarks'
+		text:'Share with Google Bookmarks'
 	},
     instapaper: {
         text: 'Read Later with Instapaper',
@@ -131,10 +130,6 @@ GRP.langs[locale].texts = {
 		text:'Share with Blogger',
 		keyword: 'Blogger'
 	},
-	tumblr:{
-		text:'Share with Tumblr',
-		keyword: 'Tumblr'
-	},
 	pinboard:{
 		text:'Share with Pinboard',
 		keyword: 'Pinboard'
@@ -148,8 +143,6 @@ GRP.langs[locale].texts = {
     },
     filter: {
         settings: 'Filter settings',
-        excludes: 'Excludes',
-        highlights: 'Highlights',
         highlight: 'Highlight',
         exclude: 'Exclude',
         hideduplicates: 'Hide Duplicates',
@@ -158,7 +151,6 @@ GRP.langs[locale].texts = {
         update: 'Update',
         quickadd: 'Quick Add',
         add: 'Add',
-        close: 'Close',
         edit: 'Edit',
         remove: 'Remove',
 		//v2
@@ -422,7 +414,7 @@ GRP.langs[locale].prefs = {
     },
     general: {
         counter: "Display unread counter in the toolbar icon",
-counterinterval: "Refresh unread counter every (min)",
+		counterinterval: "Refresh unread counter every (min)",
         pageicon: 'Activate icon in the address bar (click will open a menu)',
         stats: 'Enable anonymous statistics reporting (for a better support)',
         bottomup: 'Footer toolbar on the top',
@@ -435,13 +427,13 @@ counterinterval: "Refresh unread counter every (min)",
         icontoolbar_text: "<span>To make the button optional, we put him in an another extension as standalone,</span>                                    <br>                                    <span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b></b> on the <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span><span>To remove the button, right click him and choose Disable.</span>",
         importexport_text: "You can now save your preferences using 'export' and reload it later using 'import', but be sure data are <a href='http://jsonformatter.curiousconcept.com/' target='blank'>JSON compliant</a>:",
         confirmimport: "Are you sure to import this configuration?\nCurrent configuration will be LOST!",
-confirmsyncload: "Are you sure to import this configuration from your Google's account?\nCurrent configuration will be LOST!",
-prefsimportedok: 'Preferences succesfully imported!',
-prefsimportfailed: 'Import failed!',
-prefsimportnull: 'No saved preferences found!',
-syncprefs_text: 'Load/save using your Google\'s account',
-prefssavedok: 'Preferences succesfully saved!',
-prefssavedfailed: 'Preferences save failed!',
+		confirmsyncload: "Are you sure to import this configuration from your Google's account?\nCurrent configuration will be LOST!",
+		prefsimportedok: 'Preferences succesfully imported!',
+		prefsimportfailed: 'Import failed!',
+		prefsimportnull: 'No saved preferences found!',
+		syncprefs_text: 'Load/save using your Google\'s account',
+		prefssavedok: 'Preferences succesfully saved!',
+		prefssavedfailed: 'Preferences save failed!',
         text_layout: 'Layout options',
         text_private: 'Private data and updates',
         text_toolbaricon: 'Toolbar icon',
@@ -468,7 +460,7 @@ separator: "Separator to add extra level (example: Sports:Footbal)."
         links: "Link filter:",
         images: "Image filter:",
         iframes: "Iframe filter:",
-		preview: "Highlith preview filter"
+		preview: "Highlight preview filter"
     },
     preview: {
         onicon: "Show integrated preview when click on icon right after the title (if not checked, on title)",
@@ -480,7 +472,6 @@ separator: "Separator to add extra level (example: Sports:Footbal)."
         locked: "Always actived, except following feeds:"
     },
     filter: {
-        searchbody: "Search inside title and body text",
         highlights: 'Highlights list (one item per line)',
         excludes: 'Excludes list (one item per line)',
 		searchbody: 'Search in whole body text',
@@ -514,7 +505,7 @@ separator: "Separator to add extra level (example: Sports:Footbal)."
     },
 	rank:{
 		level:'Display level',
-		ad:'Ranking is powered by <a href="http://www.postrank.com" target="_blank"><img src="http://www.postrank.com/images/navigation/head_logo.png"/></a> <i>Intelligence from the social web</i><br/><br/><span class="warning center">Since Google has bought Postrank , used API is deprecated. I cannot guarantee this feature will still work.</span>',
+		ad:'Ranking is powered by <a href="http://www.postrank.com" target="_blank"><img src="http://www.postrank.com/images/navigation/head_logo.png"/></a> <i>Intelligence from the social web</i><br/><br/><span class="warning center">Since Google has bought Postrank , used API is deprecated. I cannot guarantee this feature will still work.</span>'
 	},
 	readability:{
 		intro:'Display the whole cleaned content of the news',
