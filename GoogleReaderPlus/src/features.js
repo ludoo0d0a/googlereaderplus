@@ -1204,6 +1204,7 @@ GRP.scripts = {
 				xtype: 'p',
 				label: true
 			},
+			bigger: false,
 			locked: false,
 			//include: false,
 			filter: {
