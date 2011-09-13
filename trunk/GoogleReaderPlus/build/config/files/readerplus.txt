@@ -39,6 +39,7 @@ reddit.js
 diigo.js
 gmarks.js
 jaiku.js
+weibo.js
 readitlater.js
 instapaper.js
 radbox.js
@@ -46,6 +47,7 @@ closeentry.js
 fitheight.js
 limit.js
 replacer.js
+readability.js
 relook.js
 translate.js
 prefetch.js
