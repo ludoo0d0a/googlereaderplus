@@ -139,18 +139,20 @@ GRP.general = function(prefs, langs, ID, SL, lang) {
 			});
 		}
 		
-		
 		//entry-tagging-action-title
 
 		//RAZ labels because google rewrite labels after selection
 		//Xp MArquer comme lu = chekbox
-		var o = ['r','s','t','u','v','w','x'];
+		/*var o = ['w','x','y','z', 'B', 'C'];
 		var js = '';
 		foreach(o, function(e) {
-			js += e+"q.Pf.Sb='';";
+			js += e+"q.Nf.Sb='';";
 			js += e+"q.Of.Sb='';";
 		});
 		GM_addjs(js, true, 'clearlabel');
+		*/
+		GM_addjs('http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/script/clearlabel.js', false, 'clearlabel');
+		
 		registerFeature(changeIconsButton, ID);
 	}
 };
