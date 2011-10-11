@@ -265,7 +265,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
            showBox(false);
         }
         
-		function countWord(warning){
+		function countWord(warning, cb){
 	        setTimeout(function(){
 		        var o= {}; 
 				o.url = urlinput.value;
@@ -282,11 +282,16 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 				}else{
 					removeClass(labelInfo, 'xwarning');
 				}
+				if (cb){
+					cb(o);
+				}
 			},100);
 	    }
 		
-	    function saveBookmark(event){
-	        var p = countWord(true)||{};
+		 function saveBookmark(event){
+		 	  countWord(true, sendBookmark);
+		 }
+	    function sendBookmark(p){
 			var msg = p.msg;
 			if (!msg){
 				return;
