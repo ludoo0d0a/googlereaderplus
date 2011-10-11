@@ -3,6 +3,11 @@
 = Introduction =
 
 Here is the past of the project. See all evolutions, changes.
+= Version 3.8.1 - 10/11/2011 =
+ Fixes:
+  * Twitter send nothing
+  * PureReader titles
+
 = Version 3.8.0 - 09/07/2011 =
  New:
   * Readability : Read easily full content of a news
