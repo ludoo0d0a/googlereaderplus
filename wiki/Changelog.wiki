@@ -6,7 +6,7 @@ Here is the past of the project. See all evolutions, changes.
 = Version 3.8.1 - 10/11/2011 =
  Fixes:
   * Twitter send nothing
-  * PureReader titles
+  * PureReader titles, share icons and videos visible
 
 = Version 3.8.0 - 09/07/2011 =
  New:
