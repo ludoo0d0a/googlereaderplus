@@ -173,7 +173,6 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 				return;
 			}
 		}
-		var bookmarkStar = btn;
 		
 		function fillValues(entry){
 			labelTitle.innerHTML=SM.sharewith+ID
@@ -299,6 +298,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 
 			function activeStar(){
 		        showBox(false);
+		        addClass(btn, CLS_ACTIVE);
 		    }
 		
 			p.message = api.msg || "micro";
