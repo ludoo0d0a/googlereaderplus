@@ -202,18 +202,18 @@ var mycore = {
             }
             return v;
         },
-        removeItem: function(name, cb){
+        removeItem: function(name, cb, aslocal){
             if (mycore.env.chrome) {
-                if (!mycore.env.background) {
-                    mycore.extension.sendRequest({
-                        message: 'remove',
-                        name: name
-                    }, cb||null);
-                } else {
-                    if (!mycore.env.background) {
+                if (mycore.env.background || aslocal) {
+                    if (!mycore.env.background && !aslocal) {
                         name = mycore.env.prefix + name;
                     }
                     localStorage.removeItem(name);
+                } else {
+                    mycore.extension.sendRequest({
+                        message: 'removeitem',
+                        name: name
+                    }, cb||null);
                 }
             } else if (mycore.env.safari) {
                 localStorage.removeItem(name);

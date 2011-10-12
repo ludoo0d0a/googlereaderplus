@@ -87,7 +87,7 @@ function clearcache(lang){
         name = mycore.storage.key(i);
         if ((/^readerplus\.theme_/.test(name)) || (/^readerplus\.rps_/.test(name)) 
 		|| (/^readerplus\.cache/.test(name)) || (/^cache\./.test(name))   ) {
-            mycore.storage.removeItem(name);
+            mycore.storage.removeItem(name, null, true);
         }
     }
     if (this.getTextPrefs){
