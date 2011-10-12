@@ -199,6 +199,15 @@ function getFirstElementByClassName(root, clazz){
 	}
 }
 
+function getLastElementByClassName(root, clazz){
+	var els = root.getElementsByClassName(clazz);
+	if (els && els.length>0){
+		return els[els.length-1];
+	}else{
+		return false;
+	}
+}
+
 function getElementText(root, cls, html, firstchild){
     var txt = '', el = getFirstElementByClassName(root || document, cls);
     if (el) {
