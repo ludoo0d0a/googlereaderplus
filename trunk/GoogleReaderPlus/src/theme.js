@@ -121,7 +121,7 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
                         GM_addStyle(css, 'rps_' + skin.id);
                         //cache css 
                         //param3 = false : force local storage in webpage
-                        GM_setValue('theme_' + skin.id, css, false);
+                        GM_setValue('cache_theme_' + skin.id, css, false);
                         if (skin.resize) {
                             fireResize(skin.resize);
                         }
