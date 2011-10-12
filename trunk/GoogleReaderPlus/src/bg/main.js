@@ -64,7 +64,9 @@ function onMessageReceived(a, p, cb){
         setValue(a, cb);
     } else if (a.message == "remove") {
         removeValue(a, cb);
-    } else if (a.message == "getprefs") {
+    } else if (a.message == "removeitem") {
+        removeItem(a,cb);
+    }  else if (a.message == "getprefs") {
         getPreferences(a, cb);
     } else if (a.message == "openprefs") {
         opentab({

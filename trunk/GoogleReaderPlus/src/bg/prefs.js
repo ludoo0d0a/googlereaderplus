@@ -22,7 +22,9 @@ function removeValue(a, cb){
 		cb(true);
 	}
 }
-
+function removeItem(a, cb){
+	mycore.storage.removeItem(a.name);
+}
 function savePrefs(prefs){
     mycore.storage.setItem('grp_prefs', prefs);
 }
