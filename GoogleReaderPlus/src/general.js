@@ -27,6 +27,17 @@ GRP.general = function(prefs, langs, ID, SL, lang) {
 		GM_addStyle('#gb{display:none !important;}','rpe_hidetoolbar');
 		fireResize('',100);
 	}
+	/*if (prefs.general_linkbar) {
+		var c = getFirstElementByClassName(document, 'gbtc');
+		var g = getLastElementByClassName(c, 'gbt');
+		if (g){
+			dh(g, 'li', {
+				position:'before',
+				cls:'gbt',
+				html:'<a onclick="gbar.qs(this)" class="gbzt" id="gb_99" href="/reader/view/?hl=en&tab=wy&authuser=0"><span class="gbtb2"></span><span class="gbts">Reader</span></a>'
+			});
+		}
+	}*/
 	if (prefs.general_currdir) {
 		var lastUrl='';
 		GM_addStyle('.tree-sel{background-color:#dedede;}', 'rpe_currdir');
