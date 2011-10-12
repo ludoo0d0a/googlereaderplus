@@ -16,6 +16,7 @@ GRP.scripts = {
 			currdir: true,
 			icons: false,
 			hidetoolbar: false,
+			/*linkbar: true,*/
 			/*antisocial:true,*/
 			text_pageicon: {
 				xtype: 'h'
@@ -1603,6 +1604,7 @@ GRP.skins = {
 		ref: 'http://nadesign.net/safari/',
 		desc: 'Pure Reader by Na\'Design',
 		//fix: '.gbtc{padding-left:200px;}#top-bar{height: 0px;}div#main{top: 0px !important;}',
+		fix: 'div.entry-actions span.grp-btn{display:inline !important;}div.entry-main .item-body p iframe{display: block !important;}',
 		status:'updated',
 		resize: true
 	}
