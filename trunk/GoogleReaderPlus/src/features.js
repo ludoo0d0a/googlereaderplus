@@ -552,6 +552,7 @@ GRP.scripts = {
 		name: "Twitter",
 		category: 'share',
 		options: {
+			tpl: '{desc}{tags} Reading: {title} {url}',
 			shortener: {
 				xtype: 'select',
 				values: {
@@ -641,6 +642,7 @@ GRP.scripts = {
 		name: "Identi.ca",
 		category: 'share',
 		options: {
+			tpl: '{desc}{tags} Reading: {title} {url}',
 			shortener: {
 				xtype: 'select',
 				values: {
@@ -704,6 +706,7 @@ GRP.scripts = {
 		name: "AddThis",
 		category: 'share',
 		options: {
+			tpl: '{desc}{tags} Reading: {title} {url}',
 			layoutdesc: {
 				xtype: 'p'
 			},
@@ -735,6 +738,9 @@ GRP.scripts = {
 	blogger: {
 		name: "Blogger",
 		category: 'share',
+		options:{
+			tpl: '{desc}{tags} Reading: {title} {url}'
+		},
 		shortcuts: {
 			'share': {
 				id: 'share',
@@ -783,6 +789,7 @@ GRP.scripts = {
 		name: "Tumblr",
 		category: 'share',
 		/*options: {
+			tpl: '{desc}{tags} Reading: {title} {url}',
 			auth: {
 				xtype: 'p',
 				label: true,
@@ -887,6 +894,7 @@ GRP.scripts = {
 		category: 'share',
 		status:'new',
 		options: {
+			tpl: '{desc}{tags} Reading: {title} {url}',
 			shortener: {
 				xtype: 'select',
 				values: {
@@ -941,6 +949,7 @@ GRP.scripts = {
 	 category: 'share',
 	 status: 'todo',
 	 options: {
+	 tpl: '{desc}{tags} Reading: {title} {url}',
 	 username:'',
 	 location:'',
 	 shortener: {
