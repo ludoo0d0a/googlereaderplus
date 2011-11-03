@@ -61,7 +61,7 @@ GRP.count = function(prefs, langs, ID, SL, lang){
 		//var name = getElementText(folder, 'name-text');
 		//console.log('calc folder : '+name);
 
-        var res2 = document.evaluate("./ul/li[contains(@class, 'unread')]/a/span/span[contains(@class, 'unread-count')]", folder, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+        var res2 = document.evaluate("./ul/li[contains(@class, 'unread')]/a/div[contains(@class, 'unread-count')]", folder, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
         for (var j = 0; j < res2.snapshotLength; j++) {
             var result = findItemUnread(res2.snapshotItem(j), checkDuplicated);
             total += result.count;
@@ -84,7 +84,7 @@ GRP.count = function(prefs, langs, ID, SL, lang){
         }
         
         if (total > 0) {
-            var resfolder = document.evaluate(".//a/span/span[contains(@class, 'unread-count')]", folder, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+            var resfolder = document.evaluate(".//a/div[contains(@class, 'unread-count')]", folder, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
             //var resfolder = unreadfolder;
             if (resfolder) {
                 resfolder.innerHTML = '&nbsp;(' + total + (hasplus ? '+' : '') + ')';
