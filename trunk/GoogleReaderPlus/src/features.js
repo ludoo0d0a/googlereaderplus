@@ -1133,6 +1133,7 @@ GRP.scripts = {
 	nested: {
 		name: "Nested folders",
 		category: 'layout',
+		status:'updated',
 		options: {
 			separator: ":"
 		}
