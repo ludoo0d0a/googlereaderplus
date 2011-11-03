@@ -29,6 +29,8 @@ GRP.metro = function(prefs, langs, ID, SL, lang) {
 	css += 'body,#chrome-title a, #chrome-title .chevron {color: #67686C;}';
 	css += '#chrome.page-view #viewer-page-container, .tab-contents, .tab-group, .bundle-container {background-color: #262B31;}';
 	css += 'a, a:visited, .link{color:#F1EFE2;}';
+	//new UI
+	css += '.card .card-bottom, #entries.list .entry .entry-actions{padding:0;border:0;}';
 
 /*
 +my theme : 
