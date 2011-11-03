@@ -22,7 +22,7 @@ GRP.nested = function(prefs, langs, ID, SL, lang){
         while ((folder = folderNodes[i++])) {
             var nameNode = folder.querySelector('.name');
             if (nameNode) {
-                folderMap[nameNode.title.split(' (')[0]] = folder;
+                folderMap[nameNode.textContent.split(' (')[0]] = folder;
             }
         }
         
@@ -35,7 +35,7 @@ GRP.nested = function(prefs, langs, ID, SL, lang){
                 if (!(prefix in folderMap)){
                 	var id = root.getElementsByTagName('li').length + 1;
                 	folderMap[prefix] = dh(root, 'li', {
-                		cls:'folder unselectable expanded unread',
+                		cls:'grp-folder folder unselectable expanded unread',
                 		html:'<div class="toggle folder-toggle toggle-d-1"></div>'
 					},{
                 		mousedown:function(e){
@@ -49,46 +49,44 @@ GRP.nested = function(prefs, langs, ID, SL, lang){
                 			return false;
 	                	}
                 	});
+                	var f = folderMap[prefix];
 					//'<a class="link" href="/reader/view/user%2F-%2Flabel%2F'+prefix+'" id="sub-tree-item-'+id+'-link">'+
-					var alink = dh(folderMap[prefix],'a',{
-						cls:'link',
+					var alink = dh(f,'a',{
+						cls:'grp-link link',
 						//href:'/reader/view/user%2F-%2Flabel%2F'+prefix,
 						href:'#user%2F-%2Flabel%2F'+prefix,
 						id:'sub-tree-item-'+id+'-link',
 						html:
-                		'<span class="icon folder-icon icon-d-1" id="sub-tree-item-'+id+'-icon"></span>'+
-                		'<span class="name folder-name name-d-1" id="sub-tree-item-'+id+'-name" title="'+prefix+'">'+
-                		'<span class="name-text folder-name-text name-text-d-1">'+prefix+'</span>'+
-                		'<span class="unread-count folder-unread-count unread-count-d-1" id="sub-tree-item-'+id+'-unread-count"></span></span>'+
+                		'<div class="icon folder-icon icon-d-1" id="sub-tree-item-'+id+'-icon"></div>'+
+                		'<div class="name-text folder-name-text name-text-d-1 name folder-name name-d-1">'+prefix+'</div>'+
+                		'<div class="unread-count folder-unread-count unread-count-d-1" id="sub-tree-item-'+id+'-unread-count"></div></div>'+
                 		'<div class="tree-item-action-container"><div id="sub-tree-item-'+id+'-action" class="action tree-item-action section-button section-menubutton goog-menu-button"></div></div>'
-                	}/*,{
-                		mousedown:function(el){
-                			//addClassIf(folderMap[prefix], 'expanded', null, 'collapsed');
-                			return false;
-                		}
-                	}*/);
-                	//+'</a>'
-                	
-                	//var alink = getFirstElementByClassName(folderMap[prefix], 'link');
-                	//alink
+                	});
                 }
                 
-                var parent = folderMap[prefix].querySelector('ul');
+                var parent = f.querySelector('ul');
                 
                 if (!parent) {
-                    parent = folderMap[prefix].appendChild(document.createElement('ul'));
+                    parent = dh(f, 'ul');
+                    //parent = f.appendChild(document.createElement('ul'));
                 }else{
                 	//Fix tag folder
-                	var tt = getFirstElementByClassName(folderMap[prefix], 'tag-toggle');
-                	if (tt){
-                		removeClass(tt, 'hidden');
-                		var ti = getFirstElementByClassName(folderMap[prefix], 'tag-icon');
-                		removeClass(ti, 'tag-icon');
-                		addClass(ti, 'folder-icon');
+                	if (hasClass(f, 'tag')){
+	                	removeClass(ti, 'tag');
+	                	addClass(ti, 'folder');
+	                	
+	                	var tt = getFirstElementByClassName(f, 'tag-toggle');
+	                	if (tt){
+	                		removeClass(tt, 'hidden');
+	                		//Replace tag-icon with folder-icon
+	                		var ti = getFirstElementByClassName(f, 'tag-icon');
+	                		removeClass(ti, 'tag-icon');
+	                		addClass(ti, 'folder-icon');
+	                	}
                 	}
                 }
-                addClass(folderMap[prefix], 'unread', true);
-                var fname = getFirstElementByClassName(folderMap[prefix], 'name');
+                addClass(f, 'unread', true);
+                var fname = getFirstElementByClassName(f, 'name');
                 addClass(fname, 'name-unread', true);
                 var wrapper = parseNode('<div class="grp-wrapper"/>');
                 wrapper.appendChild(folder);
@@ -119,7 +117,8 @@ GRP.nested = function(prefs, langs, ID, SL, lang){
         return parseNode.element.firstChild;
     }
     
-    var css = '.grp-wrapper{padding-left:16px;/*position:relative;left:16px;*/}'+
-    '.link-nested{margin-left:-16px;}';
+    var css = '.grp-wrapper{padding-left:16px;}'+
+    '.link-nested{margin-left:-16px;}'+
+    '.folder .folder > ul .icon {margin-left: 60px;}';
     GM_addStyle(css, 'rpe_'+ID);
 };
