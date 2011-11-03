@@ -6,8 +6,8 @@
  * fr : Francais
  * **************************
  *
- * Version : 1.9
- * Date : 09-13-2011
+ * Version : 2.0
+ * Date : 11-03-2011
  * @author Valente
  */
 var locale = 'fr';
@@ -433,7 +433,8 @@ GRP.langs[locale].prefs = {
 		text_export : 'Export/import',
 		currdir : "Surligner le répertoire de l'élément sélectionné",
 		icons : 'Icône seulement pour les boutons de la barre action (sauf pour les radio boutons)',
-		hidetoolbar : 'Cacher la barre d\'outil'
+		hidetoolbar : 'Cacher la barre d\'outil',
+		hideplus: 'Cacher le bouton GooglePlus'
 	},
 	limit : {
 		slidewindow : "Slidewindow - Limiter le nombre d'éléments",

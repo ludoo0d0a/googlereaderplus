@@ -767,7 +767,7 @@ function fitHeight(id, bottom){
 			h += elb.clientHeight;
         }
     }	
-    console.log(el.id+'='+(window.innerHeight - h));
+    //console.log(el.id+'='+(window.innerHeight - h));
     el.style.height = (window.innerHeight - h) + 'px';
 }
 

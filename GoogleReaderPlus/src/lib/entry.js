@@ -722,7 +722,7 @@ function addButton(reference, text, title, fn, position, menu){
     div.setAttribute('role', 'wairole:button');
 	
 	
-    div.innerHTML = '<div class="goog-button-base-outer-box goog-inline-block"><div class="goog-button-base-inner-box goog-inline-block"><div class="goog-button-base-pos"><div class="goog-button-base-top-shadow">&nbsp;</div><div class="goog-button-base-content" '+styleBaseContent+'><div class="goog-button-body">' + text + '</div>'+dropdown+'</div></div></div></div>';
+    div.innerHTML = '<div class="goog-button-base-outer-box goog-inline-block"><div class="goog-button-base-inner-box goog-inline-block"><div class="goog-button-base-pos"><div class="goog-button-base-content" '+styleBaseContent+'><div class="goog-button-body">' + text + '</div>'+dropdown+'</div></div></div></div>';
     insertOn(div, reference, position);
     var me = this;
     div.addEventListener('click', function(e){
@@ -849,23 +849,22 @@ function getScriptObject(id){
 }
 
 function addReaderMenuItem(text, cb, checkbox){
-    var html = text;
+    var clsOption='';
 	if (checkbox) {
-	      html = '<span class="grp-menu grp-menu-unchecked">' + text + '</span>';
+	      //html = '<span class="grp-menu grp-menu-unchecked">' + text + '</span>';
+	      clsOption=' goog-option';
 	}
+	var html = '<div class="goog-menuitem'+clsOption+'">' + text + '</div>';//+goog-option-selected
 
-	var li='gbg', cls='gb2 rpgb2', newUI = get_id('gbd5');
-	if (newUI){
+	var li='gbg', cls='gb2 rpgb2', /*newUI=get_id('gbd5'),*/ ol=get_id('gbom');
+	/*if (newUI){
 		var ol = getFirstElementByClassName(newUI, 'gbmcc');
 		li = dh(ol,'li', {cls: 'gbkc gbmtc'});
 		cls='gbmt';
-	}
-
-    /*GM_addStyle('.grp-menu{background: transparent url(/reader/ui/3607832474-entry-action-icons.png) no-repeat;padding: 1px 8px 1px 16px;}' +
-    '.grp-menu-checked{background-position:-80px -160px;}' +
-    '.grp-menu-unchecked{background-position:-64px -128px;}', 'grp_menusettings');
-    */
-    
+	}*/
+	li = dh(ol,'li');
+	cls='gbmt';
+	    
     dh(li, 'a', {
         href: '#',
         cls: cls ,
@@ -873,7 +872,7 @@ function addReaderMenuItem(text, cb, checkbox){
     }, {
         click: function(e){
             if (checkbox) {
-                addClassIf(e.target, 'grp-menu-checked', 'grp-menu-unchecked');
+                addClassIf(e.target, 'goog-option-selected', 'goog-option-unselected');
             }
             cb(e);
         }
@@ -931,6 +930,7 @@ function getSelectedDir(node){
 	if (o.url && (/\/reader\/view\/feed\//.test(o.url))) {
 		o.url = decodeURIComponent(o.url.replace(/.*\/reader\/view\/feed\//, ''));
 	}
+	o.count = o.count || 0;
     return o;
 }
 
