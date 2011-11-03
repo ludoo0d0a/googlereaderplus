@@ -24,12 +24,13 @@ GRP.colorful = function(prefs, langs, ID, SL, lang){
             //this.styles = GM_addStyle("", 'colorful');
             this.prefs = settings; //settings.getColorPrefs();
             
-            var setup = this.setup, thm = this;
+            /*var setup = this.setup, thm = this;
             var set = function(){
                 setup.call(thm);
                 chrome.removeEventListener("DOMNodeInserted", set, false);
             };
-            chrome.addEventListener("DOMNodeInserted", set, false);
+            chrome.addEventListener("DOMNodeInserted", set, false);*/
+            this.setup.call(this);
         },
         
         setup: function(){ 
@@ -52,7 +53,7 @@ GRP.colorful = function(prefs, langs, ID, SL, lang){
         // determine what color theme to use by looking at the header colors
         initConfig: function(){
             var bg, color;
-			var header = get_id("chrome-header");
+			var header = get_id("chrome");
 			if (prefs.colorful_usebasecolor) {
 				bg = (prefs.colorful_background||'').toLowerCase();
 			} else {
@@ -154,7 +155,7 @@ GRP.colorful = function(prefs, langs, ID, SL, lang){
 		processNodes: function(e){
 			this.process(this.bgColor, this.styles, 
 				"id('sub-tree')//li[contains(@class, 'sub')][contains(@class, 'unread')][not(@colored)]",
-				".//span[contains(@class,'name')]/@title",
+				".//div[contains(@class,'name-text')]",
 				 this);
 	        
         },
