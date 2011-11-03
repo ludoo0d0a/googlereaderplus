@@ -27,6 +27,18 @@ GRP.general = function(prefs, langs, ID, SL, lang) {
 		GM_addStyle('#gb{display:none !important;}','rpe_hidetoolbar');
 		fireResize('',100);
 	}
+	if (prefs.general_hideplus) {
+		GM_addStyle('div.item-plusone{display:none !important;}','rpe_hideplus');
+		fireResize('',100);
+		function removeButtonPlus(el, entry, mode){
+			var els = el.getElementsByClassName('item-plusone');
+			foreach(els, function(el){
+				remove(el);
+			});
+		}
+		registerFeature(removeButtonPlus, ID+'_hideplus');
+	}
+	
 	/*if (prefs.general_linkbar) {
 		var c = getFirstElementByClassName(document, 'gbtc');
 		var g = getLastElementByClassName(c, 'gbt');
@@ -123,6 +135,8 @@ GRP.general = function(prefs, langs, ID, SL, lang) {
 			addClass(get_id('entries'), 'rp-action-icons');
 		}
 		css += '.entry:not(#current-entry) .card-actions{display:none}#current-entry .card-actions,#entries.list #current-entry .entry-actions{position:fixed;right:32px!important;top:' + top + 'px!important;left:!important;width:'+w+'px;z-index:9999;-webkit-box-shadow:#E3E5EB 0 1px 1px;border-bottom-left-radius:5px 5px;border-bottom-right-radius:5px 5px;border-top-left-radius:5px 5px;border-top-right-radius:5px 5px;border:2px solid #68E;opacity:0.2}#current-entry .card-actions:hover,#entries.list #current-entry .entry-actions:hover{opacity:1}#current-entry .entry-actions > span,#entries.list #current-entry .entry-actions > span{display:block;height:15px;margin:1px;}';
+		//star only, strange way todo...
+		css += '#current-entry .entry-actions > span.star,#entries.list #current-entry .entry-actions > span.star{width:0px}';
 		css += '#current-entry .entry-main{margin-right:'+w+'px}';//Current reduced for current floating menu
 		GM_addStyle(css, 'rpe_floatactions');
 	}
@@ -164,6 +178,6 @@ GRP.general = function(prefs, langs, ID, SL, lang) {
 		*/
 		GM_addjs('http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/script/clearlabel.js', false, 'clearlabel');
 		
-		registerFeature(changeIconsButton, ID);
+		registerFeature(changeIconsButton, ID+'_icons');
 	}
 };
