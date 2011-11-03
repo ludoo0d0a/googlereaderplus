@@ -28,15 +28,22 @@ GRP.general = function(prefs, langs, ID, SL, lang) {
 		fireResize('',100);
 	}
 	if (prefs.general_hideplus) {
-		GM_addStyle('div.item-plusone{display:none !important;}','rpe_hideplus');
+		GM_addStyle('.item-plusone{display:none !important;}','rpe_hideplus');
 		fireResize('',100);
-		function removeButtonPlus(el, entry, mode){
-			var els = el.getElementsByClassName('item-plusone');
-			foreach(els, function(el){
-				remove(el);
-			});
+		/*function removeButtonPlus(el, entry, mode){
+			var ea = getFirstElementByClassName(el,'entry-actions');
+			if (ea){
+				delay(function(){
+					var btn = getFirstElementByClassName(ea,'item-plusone');
+					if (btn){
+						remove(btn);
+						return true;
+					}
+					return false;
+				});
+			}
 		}
-		registerFeature(removeButtonPlus, ID+'_hideplus');
+		registerFeature(removeButtonPlus, ID+'_hideplus');*/
 	}
 	
 	/*if (prefs.general_linkbar) {
