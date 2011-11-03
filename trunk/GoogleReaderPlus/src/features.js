@@ -382,6 +382,7 @@ GRP.scripts = {
 	favicons: {
 		name: "Favicons",
 		category: 'icons',
+		status:'updated',
 		options: {
 			providerpageicons: false,
 			sidebaronly: false,
@@ -414,7 +415,8 @@ GRP.scripts = {
 	},
 	count: {
 		category: 'counter',
-		name: "Fix counter (1000+)"
+		name: "Fix counter (1000+)",
+		status:'updated'
 	},
 	counticon: {
 		category: 'counter',
