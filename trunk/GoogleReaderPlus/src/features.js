@@ -11,11 +11,12 @@ GRP.scripts = {
 				xtype: 'h'
 			},
 			topcurrent: false,
-			floatactions: false,
 			bottomup: false,
 			currdir: true,
+			floatactions: false,
 			icons: false,
 			hidetoolbar: false,
+			hideplus: false,
 			/*linkbar: true,*/
 			/*antisocial:true,*/
 			text_pageicon: {
