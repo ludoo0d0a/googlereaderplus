@@ -1905,3 +1905,12 @@ function loadFiles(cfg, cb){
 function compressCss(text){
 	return text.replace(/[\r\n]+/g,'').replace(/\s+/g,' ');
 }
+
+function delay(fn, maxi, tim){
+	var i=0,maxi=maxi||6,tim=tim||500, stop=false;
+	while(!plus_removed && i++<maxi){
+		setTimeout(function(){
+			stop=fn();
+		},tim);	
+	}
+}

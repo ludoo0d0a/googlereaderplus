@@ -1047,6 +1047,7 @@ GRP.scripts = {
 	fitheight: {
 		name: "Fit height",
 		category: 'layout',
+		status:'updated',
 		options: {
 			locked: false
 		},
