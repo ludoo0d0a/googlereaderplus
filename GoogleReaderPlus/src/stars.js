@@ -25,19 +25,20 @@ GRP.stars = function(prefs, langs, ID, SL, lang){
 		{id:'question', c:'0px -165px'},
 		{id:'white', c:'0px -180px'}
 	];
-	var PREFIX='star-', rePrefix = /^star\-/, TAG_STAR = 'yellow';
+	var PREFIX='star-', rePrefix = /^star\-/, TAG_STAR = 'yellow', TAG_DEFAULT = 'white';
 
 	//https://mail.google.com/mail/u/0/pimages/2/labs/superstars_2.png
 	var url = 'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/stars/allstars.png';
-	var ptime=0, pid=false, css = '.entry.grp-star .star{background: url('+url+') no-repeat !important;padding:0px 8px 1px 16px;}';
-	css+='#entries.grp-superstar .entry-actions .item-star{display:none;}';
-	//css+='#entries.grp-superstar .entry-actions .star.link.unselectable:not(.superstar){display:none;}';
+	var ptime=0, pid=false, css = '.entry .superstar{background: url('+url+') no-repeat;background-position:0px -180px;padding:0px 8px 0px 16px;}';
+	css+='.entry-icons .superstar{width:16px;height:16px;}';
+	css+='#entries.grp-superstar .entry-actions span.star:first-child {display:none;}';
+	css+='.entry .star {background:none;}';
 	var entries = get_id('entries');
 	addClass(entries, 'grp-superstar');
 	
 	foreach(COLORS,function(o){
 		if (o.c) {
-			css += '.entry.grp-star-'+ o.id + ' .star{background-position: ' + o.c + ' !important;}';
+			css += '.entry.grp-star-'+ o.id + ' .superstar{background-position: ' + o.c + ' !important;}';
 		}
 		if (pid) {
 			NEXTCOLOR[pid] = o.id;
@@ -69,11 +70,11 @@ GRP.stars = function(prefs, langs, ID, SL, lang){
 		var eicon = getFirstElementByClassName(ei, 'star');
 		addIcon(entry, title, function(entry, el){
 			toggleStar(el, entry, false);
-		},'star link unselectable empty');
+		},'superstar link unselectable empty');
 		hide(eicon);
 		eicon.style.background='transparent';
 		
-		addBottomLink(es, text, title, ID, 'star superstar', false, toggleStar, false, entry, mode, 'after');
+		addBottomLink(es, text, title, ID, 'superstar', false, toggleStar, false, entry, mode, 'after');
 	}
 	
 	function toggleStar(btn, entry, locked){
@@ -87,7 +88,7 @@ GRP.stars = function(prefs, langs, ID, SL, lang){
 			var estar = isStarred(entry);
 			if (estar) {
 				//console.log('entry is native starred');
-				newTag = 'white';
+				newTag = TAG_DEFAULT;
 			} else {
 				newTag = TAG_STAR;
 			}
@@ -96,7 +97,7 @@ GRP.stars = function(prefs, langs, ID, SL, lang){
 		
 		//console.log('tag '+tag+' -> '+newTag);
 		
-		var tdefer = 0, rmStar = ((timeout && !notStarred) || (newTag=='white')); 
+		var tdefer = 0, rmStar = ((timeout && !notStarred) || (newTag==TAG_DEFAULT)); 
 		if (rmStar) {
 			//console.log('remove star');
 			//Timeout 1s->toggle star

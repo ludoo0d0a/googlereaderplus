@@ -1141,6 +1141,7 @@ GRP.scripts = {
 	stars: {
 		name: "Multiple stars",
 		category: 'layout',
+		status:'updated',
 		shortcuts: {
 			'star': {
 				id: 'star',
