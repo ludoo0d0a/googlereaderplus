@@ -6,8 +6,8 @@
  * en : English
  * **************************
  *
- * Version : 1.9
- * Date : 09-13-2011
+ * Version : 2.0
+ * Date : 11-03-2011
  * @author Valente
  */
 var locale = 'en';
@@ -434,7 +434,8 @@ GRP.langs[locale].prefs = {
 		text_export : 'Export/import',
 		currdir : 'Highlight folder of current entry <span class="new">new!</span>',
 		icons : 'Icons only for action buttons (except checkbox) <span class="new">new!</span>',
-		hidetoolbar : 'Hide user toolbar'
+		hidetoolbar: 'Hide user toolbar',
+		hideplus: 'Hide GooglePlus button'
 	},
 	limit : {
 		slidewindow : "Slidewindow - limit entries number",

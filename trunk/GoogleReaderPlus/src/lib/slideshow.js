@@ -139,6 +139,9 @@ _extend(Slideshow.prototype , {
 					}
 					item.el.className='ss-inner'+c;
 					if(_3d){
+						if (!item.img.style){
+							item.img.style={};
+						}
 						item.img.style.webkitTransform='';
 					}
 					var g = 1.2-(Math.abs(i-idx)*me.opacityratio)/me.range;
