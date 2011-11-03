@@ -42,7 +42,7 @@ GRP.fitheight = function(prefs, langs, ID, SL, lang){
 	}
 	
 	function updateCss(){
-		var he = getHeightEntries() - 2;
+		var he = getHeightEntries() - 10;
 		var css = " .read.fit-height-on .entry-body{ display:block !important; max-height: " + he + "px !important; overflow-y:auto;}";
 		css += ".fit-height-on .entry-likers{display:none !important;}";
 		GM_addStyle(css, 'rpe_'+ID);

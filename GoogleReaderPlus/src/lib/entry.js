@@ -466,6 +466,7 @@ function getWidthEntries(){
 function getHeightEntries(alone){
     var height = 500;
     var entries = get_id('entries');
+    //var entries = get_id('viewer-container');
     if (entries) {
         var offset = 0;
         if (!alone) {
@@ -473,17 +474,20 @@ function getHeightEntries(alone){
             if (eb) {
                 offset += eb.offsetTop;
             }
-            var ea = getFirstElementByClassName(entries, 'entry-actions');
-            if (ea) {
-                var ca = ea.parentNode;//card-actions
-				if (ca && ca.style && ca.clientHeight) {
-					offset += ea.clientHeight;
+            var et = get_id('title-and-status-holder');
+            if (et) {
+				offset += et.clientHeight;
+            }
+            var ca = getFirstElementByClassName(entries, 'card-actions');
+            if (ca) {
+				if (ca.style && ca.clientHeight) {
+					offset += ca.clientHeight;
 				}
             }
-			var vf = get_id('viewer-footer');
+			/*var vf = get_id('viewer-footer');
 			if (vf){
 				offset += vf.clientHeight;
-			}
+			}*/
         }
 		height = entries.clientHeight - offset;
     }
