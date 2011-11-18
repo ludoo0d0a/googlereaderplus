@@ -7,6 +7,7 @@ GRP.coverflow = function(prefs, langs, ID, SL, lang){
     var items=[], entries=[], flow=false, elTitle, container, initResize=false;
     var DEFAULT_THUMBNAIL = '//www.google.com/reader/ui/1605932088-explore-default-thumbnail.png';
     var cfg = getConfig(prefs, ID, ['coverflow','reflection','caption','sync','footer']);
+    cfg.footer=false;//Deprecated
     var configs = {
     	slideshow:{
     		html:''
@@ -53,6 +54,7 @@ GRP.coverflow = function(prefs, langs, ID, SL, lang){
     
     function init(){
     	var root = (cfg.footer)?'viewer-footer':'viewer-container';
+    	var root = 'viewer-container';
     	container = dh(root,'div',{
     		id:'flow-container'
     	});

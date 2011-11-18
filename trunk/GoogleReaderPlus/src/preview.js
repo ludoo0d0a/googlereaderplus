@@ -32,13 +32,6 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
             addClass(link, 'grp-link-url');
             addClass(link, 'grp-link-title');
             //add a button right after the title
-            /*plink = document.createElement('a');
-            plink.title = SL.title + keytext; //[Shift+V]
-            plink.href = link.href; //'javascript:void();';
-            plink.innerHTML = '<div class="entry-title-preview"></div>';
-            insertAfter(plink, link);
-            plink.addEventListener('click', previewTitleClick, false);
-			*/
 			plink=dh(link, 'a', {
 				title: SL.title + keytext,
 	            href: link.href,
@@ -51,19 +44,9 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
             var txt = link.innerText;
             link.title = SL.opennewtab;
             addClass(link, 'grp-link-url');
-            link.innerHTML = '<div class="entry-title-maximize"></div>';
+            //link.innerHTML = '<div class="entry-title-maximize"></div>';
+			link.innerHTML = '<div class="entry-title-go-to"></div>';
 			
-            //create a second link before the previous one to used as preview
-            //var title = link.parentNode;// h2.entry-title
-            /*plink = document.createElement('a');
-            //plink.className = 'ilink entry-title-link';
-            addClass(plink, 'grp-link-title');
-            plink.href = link.href; //'javascript:void();';
-            plink.title = SL.title + keytext; //[Shift+V]
-            plink.innerText = ' ' + txt;
-            link.parentNode.insertBefore(plink, link);
-            plink.addEventListener('click', previewTitleClick, false);
-			*/
 			plink=dh(link, 'a', {
 				title: SL.title + keytext,
 				cls:'grp-link-title',
@@ -379,7 +362,8 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
     }
 	function setCss(){
 		var h = getHeightEntries();
-		var css = ".entry-title-maximize {margin-left: 4px;padding-left:16px;width:14px;height:14px;background-repeat:no-repeat;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEAMIAzwDxOt8TMwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9kMERYGFfecphMAAAIYSURBVDjLjVK/a1NRGD3fffcleUlaSRpjiylBCTV0FTc3cXXRDkVB0bGDUnRxqCB2VKE4qCDSwcGt/4G66GBBpEOt1RolsTHBJLT58X7ez6H58fLU6lk+Lufe75zvfJewD0zbm9nYtuYsmzUiH8EACBg1hEP4B9qme3t1vTUPIBbkdEmr0rS8Ez9qzknFTK6rmIgAIijFGDugy2hELhQrZn6rZJ3b0x2AAMhPRXOxtuOeZuYBQQRB+JrLGHd2Wu7jdx9bM3+zKk1bxSZS+kouYywFFGqVhnPmw5fOeSKAAaaAAwCQABDWRZ2IXvQzYhb1pntvo9C56rNLg/j6FeJPthq77t21zfZlZoAIHOSz4+EVAC0G6LcG1Ya9uPa5fQ3ASHd1PUUAcKePGMuHD4XOHs/Hl0I6WXJY2Xn4frN9YS/Igc0ecpnI/eSofN3sqIXRmLzZtrwrwje3UarYKRBigVkZgJXPGo8mUqGnb9ebt75XbQcAomHtiRhsjjrTR6Oz6YR8TsTE3G9C+ayxfDChzwFIWDZPaVpgC0TQul0cpdR1Zqhq3Z1lwJmajDxIJ0PzXZfw5TFo4KsQQhSV517yPA6lk6HddEK/sd9XlwCgCRoKU2jSVkpdFEK0Avdd9n9ZAJIIXmHbOlat2888xV6PqNQdlH9aQ6+/lc04EY2QbzlyMh1+VShbp7ZKZg7/gbghXo6P6W9651+wUN+npzFYbAAAAABJRU5ErkJggg==);}";
+		var css = ''; 
+		//".entry-title-maximize {margin-left: 4px;padding-left:16px;width:14px;height:14px;background-repeat:no-repeat;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEAMIAzwDxOt8TMwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9kMERYGFfecphMAAAIYSURBVDjLjVK/a1NRGD3fffcleUlaSRpjiylBCTV0FTc3cXXRDkVB0bGDUnRxqCB2VKE4qCDSwcGt/4G66GBBpEOt1RolsTHBJLT58X7ez6H58fLU6lk+Lufe75zvfJewD0zbm9nYtuYsmzUiH8EACBg1hEP4B9qme3t1vTUPIBbkdEmr0rS8Ez9qzknFTK6rmIgAIijFGDugy2hELhQrZn6rZJ3b0x2AAMhPRXOxtuOeZuYBQQRB+JrLGHd2Wu7jdx9bM3+zKk1bxSZS+kouYywFFGqVhnPmw5fOeSKAAaaAAwCQABDWRZ2IXvQzYhb1pntvo9C56rNLg/j6FeJPthq77t21zfZlZoAIHOSz4+EVAC0G6LcG1Ya9uPa5fQ3ASHd1PUUAcKePGMuHD4XOHs/Hl0I6WXJY2Xn4frN9YS/Igc0ecpnI/eSofN3sqIXRmLzZtrwrwje3UarYKRBigVkZgJXPGo8mUqGnb9ebt75XbQcAomHtiRhsjjrTR6Oz6YR8TsTE3G9C+ayxfDChzwFIWDZPaVpgC0TQul0cpdR1Zqhq3Z1lwJmajDxIJ0PzXZfw5TFo4KsQQhSV517yPA6lk6HddEK/sd9XlwCgCRoKU2jSVkpdFEK0Avdd9n9ZAJIIXmHbOlat2888xV6PqNQdlH9aQ6+/lc04EY2QbzlyMh1+VShbp7ZKZg7/gbghXo6P6W9651+wUN+npzFYbAAAAABJRU5ErkJggg==);}";
 		css += ".entry-title-preview {margin-left: 4px;padding-left:16px;width:14px;height:14px;background-repeat:no-repeat;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oCAQg3C7TLiegAAAB3SURBVCjPYzx0/uN/BnIBuZoPnf/4nwXB+fCLgYHxAQMDAxMuDf8Z/v9jZGBQsDMUYGNgYGBgQUgxPrAz5FcjwsZbMDayLUxEupiJVA34TRnVTLrmf8Rp+Q9Xh5RI/itAEwBu1/z//4+BgVEBQzMsyZECGCnJVQB9eSYmMdOF/wAAAABJRU5ErkJggg==);}";
 		css += ".preview .entry-likers, .preview .entry-annotations, .preview .entry-via, .preview .card-comments{display:none;}";
 		css += " #if-preview{left:0px;}";
