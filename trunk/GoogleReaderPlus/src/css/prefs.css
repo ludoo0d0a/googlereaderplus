@@ -313,6 +313,11 @@ span.updated{
 	margin-left:5px !important;
 	color:yellow !important;
 }
+span.off{
+	font-size:9px;
+	margin-left:5px !important;
+	color:gray !important;
+}
 
 /**
  * Centering items
