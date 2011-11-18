@@ -931,7 +931,7 @@ GRP.scripts = {
 			}
 		}
 	},
-	plusone: {
+	/*plusone: {
 		name: "Google +1",
 		category: 'share',
 		status:'new',
@@ -946,7 +946,7 @@ GRP.scripts = {
 				}
 			}
 		}
-	},
+	},*/
 	/*jaiku: {
 	 name: "Jaiku",
 	 category: 'share',
@@ -1213,7 +1213,6 @@ GRP.scripts = {
 	},
 	readability:{
 		name: "Readability",
-		status:'new',
 		category: 'content',
 		options: {
 			intro: {
@@ -1255,12 +1254,13 @@ GRP.scripts = {
 	coverflow:{
 		name: "Coverflow",
 		category: 'navigation',
+		status:'updated',
 		options: {
 			coverflow:true,
 			reflection:true,
-			caption:true,
+			caption:true
 			/*sync:true,*/
-			footer:true,
+			/*footer:true,*/
 		}
 	},
 	actions: {
@@ -1447,11 +1447,11 @@ GRP.skins = {
 		name: "Portal v2"
 	},
 	helvetireader: {
-		name: "Helvetireader 2"
+		name: "Helvetireader 2",
+		ref: 'http://www.helvetireader.com'
 	},
 	darkhelvetireaderday: {
 		name: "Dark Helvetireader - Day",
-		status:'updated',
 		pic: 'http://stylebot.me/uploads/61.png',
 		ref: 'http://stylebot.me/styles/61'
 		/*
@@ -1620,7 +1620,6 @@ GRP.skins = {
 		desc: 'Pure Reader by Na\'Design',
 		//fix: '.gbtc{padding-left:200px;}#top-bar{height: 0px;}div#main{top: 0px !important;}',
 		fix: 'div.entry-actions span.grp-btn{display:inline !important;}div.entry-main .item-body p iframe{display: block !important;}div.entry h2.entry-title{display: block!important;}',
-		status:'updated',
 		resize: true
 	}
 };
