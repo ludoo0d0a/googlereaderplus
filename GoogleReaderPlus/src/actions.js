@@ -20,7 +20,7 @@ GRP.actions = function(prefs, langs, ID, SL, lang){
 	
 	var targets = [ 'star', 'like', 'entry-link-action-title','entry-tagging-action-title',
 			'broadcast-with-note link','broadcast',
-			'email link','read-state','grp-btn' ];
+			'email link','read-state','grp-btn' ,'sharebox link'];
 			
 	function changeActions(el, entry, mode){
 		var ea =getFirstElementByClassName(entry,'entry-actions');
@@ -28,7 +28,7 @@ GRP.actions = function(prefs, langs, ID, SL, lang){
 			foreach(targets,function(target){
 				var n=[ea], cls = target.split(' ');
 				foreach(cls, function(c){
-					if (n) {
+					if (n && n[0]) {
 						n = n[0].getElementsByClassName(c);
 					}
 				});
