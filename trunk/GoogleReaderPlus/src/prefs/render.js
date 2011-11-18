@@ -342,10 +342,11 @@ function renderSkins(){
                     addClassIf(mto, 'hidden', (id !== mto.getAttribute('alt')));
                 });
             }
+            var skindesc = get_id("skindesc");
             if (id === "none") {
                 input.value = "";
                 addClass(thumb, "hidden", true);
-				addClass(get_id('skindesc'), "hidden", true);
+				addClass(skindesc, "hidden", true);
             } else {
                 input.value = id;
                 thumb.className = "";
@@ -360,7 +361,6 @@ function renderSkins(){
                     athumb.target = '';
                     athumb.removeAttribute('target');
                 }
-                var skindesc = document.getElementById("skindesc");
                 if (skindesc) {
                     skindesc.innerHTML = (o.desc) ? (o.name + ' - ' + o.desc) : o.name;
                 }
