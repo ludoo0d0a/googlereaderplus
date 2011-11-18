@@ -172,12 +172,14 @@ var mycore = {
         getItem: function(name, def, cb){
             var v = null;
             if (mycore.env.chrome) {
-                if (cb && !mycore.env.background) {
+                if (/*cb && */!mycore.env.background) {
                     mycore.extension.sendRequest({
                         message: 'get',
                         name: name
                     }, function(o){
-						cb(undef(o)?def:o);
+						if (cb && typeof v === 'function') {
+							cb(undef(o)?def:o);
+						}
                     });
                 } else {
                     if (!mycore.env.background) {
