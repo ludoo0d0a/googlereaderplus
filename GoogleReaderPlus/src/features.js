@@ -1407,53 +1407,72 @@ GRP.skins = {
 	none: {
 		name: "None"
 	},
+	nativecompact: {
+		name: "Native compact",
+		status:'updated'
+	},
+	absolutelycompact: {
+		name: "Absolutely Compact",
+		url: 'http://userstyles.org/styles/userjs/12691/Google%20Reader%20Absolutely%20Compact.user.js',
+		pic: 'http://userstyles.org/style_screenshots/12691_after.png',
+		ref: 'http://userstyles.org/styles/12691',
+		desc: 'userstyles.org',
+		resize: true,
+		status:'updated'
+	},
+segoe: {
+		name: "Segoe UI/Lucida Grande Reskinned",
+		url: 'http://userstyles.org/styles/userjs/19467/Google%20Reader%20-%20Segoe%20UI%2FLucida%20Grande%20Reskinned.user.js',
+		pic: 'http://static.userstyles.org/style_screenshots/19467_after.png',
+		ref: 'http://userstyles.org/styles/19467/google-reader-segoe-ui-lucida-grande-reskinned',
+		desc: 'userstyles.org',
+		resize: 'footer',
+		status:'updated'
+	},
+	perfectdark: {
+		name: "Perfect Dark Google Reader",
+		url: 'http://userstyles.org/styles/userjs/38772/Perfect%20Dark%20Google%20Reader.user.js',
+		pic: 'http://static.userstyles.org/style_screenshots/38772_after.png',
+		ref: 'http://userstyles.org/styles/38772/perfect-dark-google-reader',
+		fix:'#entries{padding-right:0px;}',
+		desc: 'userstyles.org',
+		status:'updated'
+	},
+	minimal: {
+		name: "Minimalistic Skin",
+		ref:'http://userscripts.org/scripts/show/12197',
+		status:'updated'
+	},
+	optimized: {
+		name: "Optimized Skin",
+		ref:'http://userscripts.org/scripts/show/61552',
+		status:'updated'
+	},
+	
+	/* TODO section */
+	
 	mytheme: {
-		name: "My Theme"
+		name: "My Theme",
+		status:'todo'
 	},
 	metro: {
-		name: "Metro"
-	},
-	nativecompact: {
-		name: "Native compact"
-	},
-	player: {
-		name: "Player Theme"
-	},
-	snowleopard: {
-		name: "SnowLeopard Improved",
-		url: 'http://userstyles.org/styles/userjs/41190/Google%20Reader%20for%20Snow%20Leopard%20Improved.user.js',
-		pic: 'http://userstyles.org/style_screenshots/41190_after.jpeg',
-		ref: 'http://userstyles.org/styles/41190',
-		desc: 'userstyles.org',
-		resize: 'footer'
-	},
-	snowleopard2: {
-		name: "SnowLeopard Improved for G+",
-		url: 'http://userstyles.org/styles/userjs/45455/Google%20Reader%20for%20Snow%20Leopard%202%20-%20Improved%20-%20WK.user.js',
-		pic: 'http://userstyles.org/style_screenshots/45455_after.png',
-		ref: 'http://userstyles.org/styles/45455',
-		desc: 'userstyles.org',
-		resize: 'footer'
-	},
-	osxblue: {
-		name: "MacOSX SnowLeopard Blue",
-		resize: 'footer'
-	},
-	osxblack: {
-		name: "MacOSX SnowLeopard Black",
-		resize: 'footer'
+		name: "Metro",
+		status:'todo'
 	},
 	portal: {
-		name: "Portal v2"
+		name: "Portal v2",
+		status:'todo'
 	},
 	helvetireader: {
 		name: "Helvetireader 2",
-		ref: 'http://www.helvetireader.com'
+		ref: 'http://www.helvetireader.com',
+		status:'todo'
 	},
 	darkhelvetireaderday: {
 		name: "Dark Helvetireader - Day",
 		pic: 'http://stylebot.me/uploads/61.png',
-		ref: 'http://stylebot.me/styles/61'
+		ref: 'http://stylebot.me/styles/61',
+		status:'todo'
 		/*
 		 url: 'http://stylebot.me/style/get_userscript/61.user.js',
 		 pic: 'http://stylebot.me/uploads/61.png',
@@ -1464,28 +1483,151 @@ GRP.skins = {
 		name: "Dark Helvetireader - Night",
 		pic: 'http://stylebot.me/uploads/62.png',
 		ref: 'http://stylebot.me/styles/62',
+		status:'todo'
+		
 		/*
 		url: 'http://stylebot.me/style/get_userscript/62.user.js',
 		pic: 'http://stylebot.me/uploads/62.png',
 		desc: 'stylebot.me',
 		resize: 'footer'*/
 	},
-
 	helvetireaderdark: {
 		name: "Helvetireader 2 Dark",
 		url: 'http://userstyles.org/styles/userjs/38733/Helvetireader%202%20-%20Dark.user.js',
 		pic: 'http://userstyles.org/style_screenshots/38733_after.jpeg',
 		ref: 'http://userstyles.org/styles/38733/helvetireader-2-dark',
 		desc: 'userstyles.org',
-		resize: 'footer'
+		resize: 'footer',
+		status:'todo'
 	},
-	segoe: {
-		name: "Segoe UI/Lucida Grande Reskinned",
-		url: 'http://userstyles.org/styles/userjs/19467/Google%20Reader%20-%20Segoe%20UI%2FLucida%20Grande%20Reskinned.user.js',
-		pic: 'http://static.userstyles.org/style_screenshots/19467_after.png',
-		ref: 'http://userstyles.org/styles/19467/google-reader-segoe-ui-lucida-grande-reskinned',
+	black: {
+		name: "Google Enhanced Black",
+		ref:'http://userscripts.org/scripts/show/12917',
+		status:'todo'
+	},
+	dark: {
+		name: "Dark Skin",
+		ref:'http://userstyles.org/styles/5133',
+		status:'todo'
+	},
+	darkgray: {
+		name: "Dark Gray Skin",
+		ref:'http://userscripts.org/scripts/show/24736',
+		status:'todo'
+	},
+	calibri: {
+		name: "Calibri Skin",
+		status:'todo'
+	},
+	sublimelight: {
+		name: "Sublime Reader Light",
+		ref: 'https://code.google.com/p/sublimereader/',
+		status:'todo'
+	},
+	sublimedark: {
+		name: "Sublime Reader Dark",
+		ref: 'https://code.google.com/p/sublimereader',
+		status:'todo'
+	},
+	webbizgeek: {
+		name: "WebBizGeek Skin",
+		pic: 'http://www.webbizgeek.com/wp-content/uploads/2010/07/Google-Reader-custom-skin1.jpg',
+		status:'todo'
+	},
+	
+	/* OFF section */
+/*player: {
+		name: "Player Theme",
+		status:'off'
+	},*/
+	snowleopard: {
+		name: "SnowLeopard Improved",
+		url: 'http://userstyles.org/styles/userjs/41190/Google%20Reader%20for%20Snow%20Leopard%20Improved.user.js',
+		pic: 'http://userstyles.org/style_screenshots/41190_after.jpeg',
+		ref: 'http://userstyles.org/styles/41190',
 		desc: 'userstyles.org',
-		resize: 'footer'
+		resize: 'footer',
+		status:'off'
+	},
+	snowleopard2: {
+		name: "SnowLeopard Improved for G+",
+		url: 'http://userstyles.org/styles/userjs/45455/Google%20Reader%20for%20Snow%20Leopard%202%20-%20Improved%20-%20WK.user.js',
+		pic: 'http://userstyles.org/style_screenshots/45455_after.png',
+		ref: 'http://userstyles.org/styles/45455',
+		desc: 'userstyles.org',
+		resize: 'footer',
+		status:'off'
+	},
+	osxblue: {
+		name: "MacOSX SnowLeopard Blue",
+		resize: 'footer',
+		status:'off'
+	},
+	osxblack: {
+		name: "MacOSX SnowLeopard Black",
+		ref:'http://userstyles.org/styles/16900',
+		resize: 'footer',
+		status:'off'
+	},
+	air: {
+		name: "Air Skin",
+		ref:'http://userscripts.org/scripts/show/10573',
+		status:'off'
+	},
+	aircomic: {
+		name: "Air Skin Comic Sans",
+		ref:'http://userscripts.org/scripts/show/9692',
+		status:'off'
+	},
+	redesigned: {
+		name: "Redesigned",
+		ref: 'http://www.globexdesigns.com/products/gr/',
+		status:'off'
+	},
+	glassblackgold: {
+		name: "Glass Black Gold Skin",
+		pic: 'http://userstyles.org/style_screenshots/26569_after.png',
+		ref: 'http://userstyles.org/styles/26569',
+		fix: '#chrome-view-links,#lhn-selectors .selected,#lhn-selectors .selected:hover{background-color: transparent !important;}',
+		desc: 'userstyles.org',
+		status:'off'
+	},
+	simpleclean: {
+		name: "Simple and Clean",
+		url: 'http://userstyles.org/styles/userjs/17120/Google%20Reader%20simple%20and%20clean.user.js',
+		pic: 'http://userstyles.org/style_screenshots/17120_after.gif',
+		ref: 'http://userstyles.org/styles/17120',
+		fix: '.entry-actions{height: auto!important;}',
+		desc: 'userstyles.org',
+		status:'off'
+	},
+	peacockfeather: {
+		name: "Peacock Feather",
+		url: 'http://userstyles.org/styles/userjs/3014/Google%20Reader%20-%20peacock%20feather.user.js',
+		pic: 'http://userstyles.org/style_screenshots/3014_after.gif',
+		ref: 'http://userstyles.org/styles/3014',
+		desc: 'userstyles.org',
+		resize: true,
+		status:'off'
+	},
+	myowngooglereader: {
+		name: "My Own Google Reader",
+		url: 'http://userstyles.org/styles/userjs/13384/My%20Own%20Google%20Reader.user.js',
+		pic: 'http://userstyles.org/style_screenshots/13384_after.png',
+		ref: 'http://userstyles.org/styles/13384',
+		desc: 'userstyles.org',
+		resize: true,
+		status:'off'
+	},
+	compactcleantweaked: {
+		name: "Compact, Clean & Tweaked",
+		url: 'http://userstyles.org/styles/userjs/16117/Google%20Reader%20-%20Compact%2C%20Clean%20%26%20Tweaked.user.js',
+		pic: 'http://userstyles.org/style_screenshots/16117_after.png',
+		fix: '#top-bar{height: 0px;}',
+		ref: 'http://userstyles.org/styles/16117',
+		desc: 'userstyles.org',
+		resize: true,
+		status:'off'
 	},
 	/*prettywhite: {
 		//Not updated
@@ -1496,93 +1638,7 @@ GRP.skins = {
 		ref: 'http://userstyles.org/styles/16244/google-reader-pretty-white',
 		desc: 'userstyles.org'
 	},*/
-	perfectdark: {
-		name: "Perfect Dark Google Reader",
-		url: 'http://userstyles.org/styles/userjs/38772/Perfect%20Dark%20Google%20Reader.user.js',
-		pic: 'http://static.userstyles.org/style_screenshots/38772_after.png',
-		ref: 'http://userstyles.org/styles/38772/perfect-dark-google-reader',
-		desc: 'userstyles.org'
-	},
-	minimal: {
-		name: "Minimalistic Skin"
-	},
-	optimized: {
-		name: "Optimized Skin"
-	},
-	air: {
-		name: "Air Skin"
-	},
-	aircomic: {
-		name: "Air Skin Comic Sans"
-	},
-	black: {
-		name: "Google Enhanced Black"
-	},
-	dark: {
-		name: "Dark Skin"
-	},
-	darkgray: {
-		name: "Dark Gray Skin"
-	},
-	calibri: {
-		name: "Calibri Skin"
-	},
-	sublimelight: {
-		name: "Sublime Reader Light",
-		ref: 'https://code.google.com/p/sublimereader/'
-	},
-	sublimedark: {
-		name: "Sublime Reader Dark",
-		ref: 'https://code.google.com/p/sublimereader'
-	},
-	redesigned: {
-		name: "Redesigned",
-		ref: 'http://www.globexdesigns.com/products/gr/'
-	},
-	webbizgeek: {
-		name: "WebBizGeek Skin",
-		pic: 'http://www.webbizgeek.com/wp-content/uploads/2010/07/Google-Reader-custom-skin1.jpg'
-	},
-	glassblackgold: {
-		name: "Glass Black Gold Skin",
-		pic: 'http://userstyles.org/style_screenshots/26569_after.png',
-		ref: 'http://userstyles.org/styles/26569',
-		fix: '#chrome-view-links,#lhn-selectors .selected,#lhn-selectors .selected:hover{background-color: transparent !important;}',
-		desc: 'userstyles.org'
-	},
-	simpleclean: {
-		name: "Simple and Clean",
-		url: 'http://userstyles.org/styles/userjs/17120/Google%20Reader%20simple%20and%20clean.user.js',
-		pic: 'http://userstyles.org/style_screenshots/17120_after.gif',
-		ref: 'http://userstyles.org/styles/17120',
-		fix: '.entry-actions{height: auto!important;}',
-		desc: 'userstyles.org'
-	},
-	peacockfeather: {
-		name: "Peacock Feather",
-		url: 'http://userstyles.org/styles/userjs/3014/Google%20Reader%20-%20peacock%20feather.user.js',
-		pic: 'http://userstyles.org/style_screenshots/3014_after.gif',
-		ref: 'http://userstyles.org/styles/3014',
-		desc: 'userstyles.org',
-		resize: true
-	},
-	myowngooglereader: {
-		name: "My Own Google Reader",
-		url: 'http://userstyles.org/styles/userjs/13384/My%20Own%20Google%20Reader.user.js',
-		pic: 'http://userstyles.org/style_screenshots/13384_after.png',
-		ref: 'http://userstyles.org/styles/13384',
-		desc: 'userstyles.org',
-		resize: true
-	},
-	compactcleantweaked: {
-		name: "Compact, Clean & Tweaked",
-		url: 'http://userstyles.org/styles/userjs/16117/Google%20Reader%20-%20Compact%2C%20Clean%20%26%20Tweaked.user.js',
-		pic: 'http://userstyles.org/style_screenshots/16117_after.png',
-		fix: '#top-bar{height: 0px;}',
-		ref: 'http://userstyles.org/styles/16117',
-		desc: 'userstyles.org',
-		resize: true
-	},
+	
 	/*'31d1remix': {
 	 name: "31d1 remix <span class='new'>New!</span>",
 	 url:'http://userstyles.org/styles/userjs/3519/Google%20Reader%20-%2031d1%20remix%20.user.js',
@@ -1590,27 +1646,21 @@ GRP.skins = {
 	 ref:'http://userstyles.org/styles/3519',
 	 desc: 'userstyles.org'
 	 },*/
-	absolutelycompact: {
-		name: "Absolutely Compact",
-		url: 'http://userstyles.org/styles/userjs/12691/Google%20Reader%20Absolutely%20Compact.user.js',
-		pic: 'http://userstyles.org/style_screenshots/12691_after.png',
-		ref: 'http://userstyles.org/styles/12691',
-		desc: 'userstyles.org',
-		resize: true
-	},
 	darkshinyblue: {
 		name: "Dark Shiny Blue",
 		url: 'http://userstyles.org/styles/userjs/8935/iGoogle%2FGoogle%20Dark%20Shiny%20Blue%2C%20transparency.user.js',
 		pic: 'http://userstyles.org/style_screenshots/8935_after.png',
 		ref: 'http://userstyles.org/styles/8935',
-		desc: 'userstyles.org'
+		desc: 'userstyles.org',
+		status:'off'
 	},
 	persian: {
 		name: "Optimized Persian",
 		url: 'http://userstyles.org//styles/userjs/2375/Optimized%20Persian%20Google%20Reader%20.user.js',
 		pic: 'http://userstyles.org/style_screenshots/2375_after.png',
 		ref: 'http://userstyles.org/styles/2375',
-		desc: 'userstyles.org'
+		desc: 'userstyles.org',
+		status:'off'
 	},
 	purereader: {
 		name: "Pure Reader",
@@ -1620,7 +1670,8 @@ GRP.skins = {
 		desc: 'Pure Reader by Na\'Design',
 		//fix: '.gbtc{padding-left:200px;}#top-bar{height: 0px;}div#main{top: 0px !important;}',
 		fix: 'div.entry-actions span.grp-btn{display:inline !important;}div.entry-main .item-body p iframe{display: block !important;}div.entry h2.entry-title{display: block!important;}',
-		resize: true
+		resize: true,
+		status:'off'
 	}
 };
 GRP.googleshortcuts = {
