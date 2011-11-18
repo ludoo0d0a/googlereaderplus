@@ -25,7 +25,7 @@
 // Feel free to leave suggestions/criticism on the UserScript Page or via email; THANX! =)
 
 
-GRP.black = function(){
+GRP.black = function(prefs, langs, ID, SL, lang){
 	var BRUTEFORCE = false;
 	
 	function sI(w){switch(w){
@@ -465,7 +465,7 @@ sIR(".goog-button-base-open .goog-button-body{font-weight: bold;}");
 		}
 		
 		
-		GM_addStyle($_$, 'rps_black');
+		GM_addStyle($_$, 'rps_'+ID);
 
 	}
 	

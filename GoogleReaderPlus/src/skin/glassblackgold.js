@@ -1,7 +1,7 @@
 //Glass BlackGold
 //Author: Ghis1964
 //http://userstyles.org/styles/26569
-GRP.glassblackgold = function() {
+GRP.glassblackgold = function(prefs, langs, ID, SL, lang) {
 	//a lot of changes to work under chrome
 	//-moz ->webkit + strecteched image using css3 background-size:100%
 	//still needs a lot of clean up
@@ -13,5 +13,5 @@ GRP.glassblackgold = function() {
 	css += '.gbz0l {background-color: #999 !important;}';
 	css += '#gbx3, #gbx4{background: transparent !important;}';
 	 
- 	GM_addStyle(css, 'rps_glassblackgold');
+ 	GM_addStyle(css, 'rps_'+ID);
 };

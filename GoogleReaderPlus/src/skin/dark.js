@@ -9,7 +9,7 @@
 // ==/UserScript==
 //Another Dark Google Reader Style
 
-GRP.dark = function() {
+GRP.dark = function(prefs, langs, ID, SL, lang) {
 	/* most of the credit so far goes to 
 	 * oltra & Ka Yue (oltra homepage: http://www.myradioheart.com, Ka Yue : http://ka-yue.com) 
 	 * Tweaking done my Levi Wallach (http://twelveblackcodemonkeys.com) */
@@ -18,6 +18,6 @@ GRP.dark = function() {
 	//new UI
 	css+='#gbx3, #gbx4{background: black !important;}';
 		
-	GM_addStyle(css, 'rps_dark');
+	GM_addStyle(css, 'rps_'+ID);
 	//fireResize();
 };

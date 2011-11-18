@@ -8,7 +8,7 @@
  * Date:	03/25/2010
  */
 
-GRP.player = function(){
+GRP.player = function(prefs, langs, ID, SL, lang){
     var taskcce,lastEntry,lastThumb;
 	var playerOn = true,itl = 0,entries = get_id('entries');
 	

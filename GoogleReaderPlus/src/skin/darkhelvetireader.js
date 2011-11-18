@@ -24,7 +24,7 @@ GRP.darkhelvetireader = function(ID, theme){
 	    files: ['css/helvetireader.css', 'css/scrollbars.css', 'css/sprites.css', 'css/light-theme.css', 'css/dark-theme.css', 'css/buttons.css']
 	};
 	
-	var css = GM_getValue('cache_theme_' + ID+theme);
+	var css = GM_getValue('cache_theme_' + ID);
 	if (css){
 		applyCss(css);
 	}else{
@@ -38,14 +38,17 @@ GRP.darkhelvetireader = function(ID, theme){
 			css += '#chrome-viewer-container{width: auto !important;}';
 			//fix3 #509
 			css += '#star-selector{margin-top: 15px !important;}';
+			
+			css += '#entries{padding-right:0px;}';
+			
 			css = compressCss(css);
-			GM_setValue('cache_theme_'+ID+theme, css);
+			GM_setValue('cache_theme_'+ID, css);
 			applyCss(css);
 		});
 	}	
 	
 	function applyCss(css){
-		GM_addStyle(css, 'rps_'+ID+theme);
+		GM_addStyle(css, 'rps_'+ID);
 		fireResize('footer');   
 	}
 	

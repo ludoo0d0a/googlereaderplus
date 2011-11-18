@@ -16,7 +16,7 @@
  -.wn=fl footer let
  -.wo=fr footer right
  */
-GRP.mytheme = function(prefs){
+GRP.mytheme = function(prefs, langs, ID, SL, lang){
     var daycodes = ['mon', 'tue', 'thu', 'wed', 'fri', 'sat', 'sun'];
     var fulldaycodes = ['monday', 'tuesday', 'thursday', 'wednesday', 'friday', 'saturday', 'sunday'];
     var daytimes = {
