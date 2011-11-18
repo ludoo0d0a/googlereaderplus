@@ -264,6 +264,7 @@ GRP.langs[locale].prefs = {
 		snew : 'Nouveau!',
 		supdated : 'Mis à jour!',
 		stodo : 'A faire!',
+		soff : 'HS!',
 		prefssaved : "Préférences sauvés!",
 		cachecleared : "Cache nettoyé!",
 		expandall : 'Tous'
