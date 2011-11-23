@@ -106,7 +106,7 @@ a.gb1, a.gb3, a.gb4, /*#entries a, #entries a:visited, */
 
 .email-active, .item-link-active, .entry-likers, .tree-link-selected,.lhn-section, .scroll-tree li, 
 /*#chrome, */#chrome-header, #viewer-header, #viewer-footer, 
-.card-common, span.name-text, .name {
+.card-common, div.name-text, .name {
     background: transparent !important;
     color: {color} !important;
     border: 0 !important;
