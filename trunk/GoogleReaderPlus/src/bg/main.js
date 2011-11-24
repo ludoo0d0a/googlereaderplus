@@ -501,7 +501,12 @@ function translate(o, cb){
 		gotrans()
 	}, this);
 }
-
+function changecategory(id, from, to, prefs){
+	if (typeof prefs[id+'_'+from] !== 'undefined'){
+		prefs[id+'_'+to]=prefs[id+'_'+from];
+		delete prefs[id+'_'+from];
+	}
+}
 
 //+favicons_providerpageicons
 function upgrade(){
@@ -516,6 +521,15 @@ function upgrade(){
         if (isundef(prefs.general_pageicon)) {
             prefs.general_pageicon = true;
         }
+        //Move from general to generallayout
+        changecategory('topcurrent', 'general', 'generallayout', prefs);
+        changecategory('bottomup', 'general', 'generallayout', prefs);
+        changecategory('currdir', 'general', 'generallayout', prefs);
+        changecategory('floatactions', 'general', 'generallayout', prefs);
+        changecategory('icons', 'general', 'generallayout', prefs);
+        changecategory('hidetoolbar', 'general', 'generallayout', prefs);
+        changecategory('hideplus', 'general', 'generallayout', prefs);
+        
         setPrefs(prefs);
     }
 }
