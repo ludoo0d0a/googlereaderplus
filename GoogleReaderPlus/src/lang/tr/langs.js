@@ -232,14 +232,21 @@ readitlater: {
         counter: "Araç çubuðu ikonunda okunmadý sayýsýný göster",
         opendirect: "Ýkona týklarsanýz GoogleReader açýlýr",
         secure: "Her zaman güvenli protokol (https) kullan",
-topcurrent: "Þu anki öðe her zaman en üstte",
-floatactions: "Öðe iþlemleri ayrý bir pencere olarak görüntülenir",
-noupdatepopup: "Güncellemelerde uyarý gösterme",
+        noupdatepopup: "Güncellemelerde uyarý gösterme",
         icontoolbar_add: "Araç çubuðuna düðme ve buton eklemek için, lütfen  <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">yükleyin ve kurun</a>.",
         icontoolbar_text: "<span>Butonu opsiyonel yapmak için, ayrý bir eklenti olarak sunduk; </span>                                    <br>                                    <span>readerplus ile farklý paketlerde yer alýyor.</span>                                    <br>                                    <span>To add the button, click <b></b> on the <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span><span>To remove the button, right click him and choose Disable.</span>",
         importexport_text: "Artýk tercihlerinizi  'dýþa aktar' ile kaydedip daha sonra 'içe aktar' ile geri yükleyebilirsiniz, ancak verinizin <a href='http://jsonformatter.curiousconcept.com/' target='blank'>JSON compliant</a> olduðundan emin olun:",
         confirmimport: "Bu konfigürasyonu içe aktarmak istediðiniden emin misiniz?\nMevcut konfigürasyon SÝLÝNECEKTÝR!"
     },
+    generallayout:{
+		topcurrent: "Þu anki öðe her zaman en üstte",
+		//bottomup : 'Footer toolbar on the top',
+		//currdir : 'Highlight folder of current entry <span class="new">new!</span>',
+		floatactions: "Öðe iþlemleri ayrý bir pencere olarak görüntülenir"
+		//icons : 'Icons only for action buttons (except checkbox) <span class="new">new!</span>',
+		//hidetoolbar: 'Hide user toolbar',
+		//hideplus: 'Hide GooglePlus button'
+	},
 	limit:{
 		slidewindow: "Kayarpencere - öðe sayýsýný sýnýrla",
 		mini: "En az öðe",

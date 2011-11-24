@@ -411,11 +411,7 @@ GRP.langs[locale].prefs = {
 		counterinterval : "Refresh unread counter every (min)",
 		pageicon : 'Activate icon in the address bar (click will open a menu)',
 		stats : 'Enable anonymous statistics reporting (for a better support)',
-		bottomup : 'Footer toolbar on the top',
-		opendirect : "Click on toolbar icon will open GoogleReader",
 		secure : "Always force use of secure protocol (https)",
-		topcurrent : "Current entry always on top",
-		floatactions : "Entry actions are displayed as a floating window",
 		noupdatepopup : "No popup on updates",
 		icontoolbar_add : "To add button with icon in toolbar, please <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">download and install it</a>.",
 		icontoolbar_text : "<span>To make the button optional, we put him in an another extension as standalone,</span>                                    <br>                                    <span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b></b> on the <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span><span>To remove the button, right click him and choose Disable.</span>",
@@ -432,8 +428,13 @@ GRP.langs[locale].prefs = {
 		text_private : 'Private data and updates',
 		text_toolbaricon : 'Toolbar icon',
 		text_pageicon : 'Address bar icon',
-		text_export : 'Export/import',
+		text_export : 'Export/import'
+	},
+	generallayout:{
+		topcurrent : "Current entry always on top",
+		bottomup : 'Footer toolbar on the top',
 		currdir : 'Highlight folder of current entry <span class="new">new!</span>',
+		floatactions : "Entry actions are displayed as a floating window",
 		icons : 'Icons only for action buttons (except checkbox) <span class="new">new!</span>',
 		hidetoolbar: 'Hide user toolbar',
 		hideplus: 'Hide GooglePlus button'

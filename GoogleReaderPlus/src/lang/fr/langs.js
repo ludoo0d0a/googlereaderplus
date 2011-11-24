@@ -406,15 +406,12 @@ GRP.langs[locale].prefs = {
 		color : "Couleur des textes"
 	},
 	general : {
+		opendirect : "Cliquer sur l'icône pour ouvrir GoogleReader",
+		secure : "Forcer l'utilisation du protocole sécurisé (https)",
 		counter : "Afficher le compteur dans la barre d'outil",
 		counterinterval : "Refraîchir le compteur toutes les (min)",
 		pageicon : "Activer l'icône dans la barre d'adresse (permet d'afficher un menu)",
 		stats : 'Autoriser la collecte de données statistiques anonyme (pour un meilleur support)',
-		bottomup : "Placer la barre 'Précédent/Suivant' en haut de l'écran",
-		opendirect : "Cliquer sur l'icône pour ouvrir GoogleReader",
-		secure : "Forcer l'utilisation du protocole sécurisé (https)",
-		topcurrent : "Forcer l'affichage de l'article courant toujours en haut de l'écran",
-		floatactions : "Menu 'actions' est affiché dans une fenêtre volante",
 		noupdatepopup : "Plus de popup lors des mises à jour",
 		icontoolbar_add : "Pour ajouter un bouton avec icône dans la barre d'outil, veuillez <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">télécharger et installer le bouton</a>.",
 		icontoolbar_text : "<span>Afin de le rendre optionnel, nous fournissons le bouton sous forme d'une extension indépendante,</span><br><span>à installé en plus de ReaderPlus.</span><br><span>Pour ajouter le bouton, cliquer <b>Installer</b> sur la page <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">bouton pour ReaderPlus</a>.</span><br><span>Pour retirer le bouton, un clic droit et choisissez 'Désactiver'.</span>",
@@ -431,8 +428,14 @@ GRP.langs[locale].prefs = {
 		text_private : 'Données privées et mise à jour',
 		text_toolbaricon : "Icône de la barre d'outil",
 		text_pageicon : "Icône de la barre d'adresse",
-		text_export : 'Export/import',
+		text_export : 'Export/import'
+	},
+	generallayout:{
+		
+		topcurrent : "Forcer l'affichage de l'article courant toujours en haut de l'écran",
+		bottomup : "Placer la barre 'Précédent/Suivant' en haut de l'écran",
 		currdir : "Surligner le répertoire de l'élément sélectionné",
+		floatactions : "Menu 'actions' est affiché dans une fenêtre volante",
 		icons : 'Icône seulement pour les boutons de la barre action (sauf pour les radio boutons)',
 		hidetoolbar : 'Cacher la barre d\'outil',
 		hideplus: 'Cacher le bouton GooglePlus'

@@ -228,14 +228,21 @@ readitlater: {
         counter: "Pokaż licznik nieprzeczytanych wiadomości w ikonie na pasku narzędzi",
         opendirect: "Kliknięcie w ikonę otwiera stronę Czytnika Google",
         secure: "Zawsze wymuś bezpieczny protokół (https)",
-topcurrent: "Aktualny wpis zawsze na górze",
-floatactions: "Opcje dotyczące wpisu wyświetlone w pływającym oknie",
-noupdatepopup: "Brak powiadomień przy aktualizacji",
+		noupdatepopup: "Brak powiadomień przy aktualizacji",
         icontoolbar_add: "Aby dodać przycisk z ikoną na pasku narzędziowym, proszę <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">ściągnąć oraz zainstalować to.</a>.",
         icontoolbar_text: "<span>Aby zrobić przycisk niewymagany, stworzyliśmy go jako osobne rozszerzenie,</span>                                    <br>                                    <span>które może być zainstalowane wraz z Czytnikiem Plus.</span>                                    <br>                                    <span>Aby dodać przycisk, kliknij Zainstaluj <b></b> na stronie<a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">Ikony Czytnika Plus</a>.</span><span>Aby pozbyć się przycisku, kliknij na nim prawym przyciskiem myszki, następnie wybierz Wyłącz.</span>",
         importexport_text: "Możesz zapisać swoje ustawienia używając 'eksport' i wczytać je później, używając 'import', ale upewnij się, że dane są <a href='http://jsonformatter.curiousconcept.com/' target='blank'>zgodne z JSON</a>:",
         confirmimport: "Jesteś pewien, że chcesz zaimportować te ustawienia?\nUtracisz obecną konfigurację!"
     },
+    generallayout:{
+		topcurrent: "Aktualny wpis zawsze na górze",
+		//bottomup : 'Footer toolbar on the top',
+		//currdir : 'Highlight folder of current entry <span class="new">new!</span>',
+		floatactions: "Opcje dotyczące wpisu wyświetlone w pływającym oknie"
+		//icons : 'Icons only for action buttons (except checkbox) <span class="new">new!</span>',
+		//hidetoolbar: 'Hide user toolbar',
+		//hideplus: 'Hide GooglePlus button'
+	},
 	limit:{
 		slidewindow: "Slidewindow - ogranicz ilość wpisów",
 		mini: "Minimum elementów",
