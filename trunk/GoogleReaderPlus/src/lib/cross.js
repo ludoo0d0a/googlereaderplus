@@ -177,7 +177,7 @@ var mycore = {
                         message: 'get',
                         name: name
                     }, function(o){
-						if (cb && typeof v === 'function') {
+						if (cb) {
 							cb(undef(o)?def:o);
 						}
                     });
@@ -199,7 +199,7 @@ var mycore = {
                 }
             }
             v = (undef(v))?def:v;
-            if (cb && typeof v === 'function') {
+            if (cb /*&& typeof v === 'function'*/) {
                 cb(v);
             }
             return v;
