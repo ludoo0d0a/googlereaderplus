@@ -7,11 +7,13 @@ if (FIXING) {
 }
 
 function setFavicon(o, item){
-    var key = ellipsis(o.title);
-    ICONS_TITLE[key] = o;/* {icon, url, title}*/
-	if (item) {
-		o.id = getIdFromResourceUrl(item); 
-		ICONS_URL[item.data.url] = o;
+    if (o){
+	    var key = ellipsis(o.title);
+	    ICONS_TITLE[key] = o;/* {icon, url, title}*/
+		if (item) {
+			o.id = getIdFromResourceUrl(item); 
+			ICONS_URL[item.data.url] = o;
+		}
 	}
 }
 
