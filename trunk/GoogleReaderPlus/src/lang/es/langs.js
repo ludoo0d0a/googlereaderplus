@@ -246,14 +246,12 @@ GRP.langs[locale].prefs = {
     },
     general: {
         counter: "Mostrar el contador en la barra de herramientas",
-counterinterval: "Actualizar el contador cada (min)",
+		counterinterval: "Actualizar el contador cada (min)",
         pageicon: 'Activar ícono en la barra de direcciones (muestra un menú al pinchar)',
         stats: 'Autorizar el envío anónimo de datos estadísticos (para mejorar el soporte)',
         bottomup: "Poner la barra 'Anterior/Siguiente' en la parte superior de la pantalla",
         opendirect: "Pinchar el botón de la barra de herramientas para abrir GoogleReader",
         secure: "Usar siempre el protocolo seguro (https)",
-        topcurrent: "Abrir artículos siempre en la parte superior de la pantalla",
-        floatactions: "El panel de acciones se muestra en una ventana flotante",
         noupdatepopup: "No mostrar avisos sobre actualizaciones",
         icontoolbar_add: "Para añadir el botón a la barra de herramientras, <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">descargar e instalar</a>.",
         icontoolbar_text: "<span>Para que el uso del botón sea opcional, lo ofrecemos como una extensión independiente que debe instalarse aparte de Readerplus.</span>                                    <br>                                    <span>Para añadir el botón, clic en <b>Instalar</b> en la página <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">botón para Readerplus</a>.</span><br><span>Para desactivar el botón, dé clic derecho sobre él y elija Desactivar.</span>",
@@ -263,23 +261,30 @@ counterinterval: "Actualizar el contador cada (min)",
         text_private: 'Datos privados y actualizaciones',
         text_toolbaricon: 'Ícono de la barra de herramientas',
         text_pageicon: 'Ícono de la barra de direcciones',
-        text_export: 'Exportar/importar',
-currdir: 'Destacar la carpeta del elemento seleccionado <span class="new">¡Nuevo!</span>',
-icons: 'Íconos solamente en los botones de la barra acciones (excepto checkbox) <span class="new">¡Nuevo!</span>'
+        text_export: 'Exportar/importar'
     },
-limit: {
-slidewindow: "Slidewindow - Limitar número de entradas",
-mini: "Mínimo de elementos",
-maxi: "Máximo de elementos"
-},
-prefetch: {
-first: "Número inicial de elementos cargados en la vista Texto completo.",
-next: "Número de elementos cargados después de un scroll en la vista Texto completo. ",
-list: "Número inicial de elementos cargados en la vista Lista."
-},
-nested: {
-separator: "Separador para añadir niveles adicionales (ejemplo: Deportes:Fútbol)."
-},
+    generallayout:{
+		topcurrent: "Abrir artículos siempre en la parte superior de la pantalla",
+		//bottomup : 'Footer toolbar on the top',
+		currdir: 'Destacar la carpeta del elemento seleccionado <span class="new">¡Nuevo!</span>',
+		floatactions: "El panel de acciones se muestra en una ventana flotante",
+		icons: 'Íconos solamente en los botones de la barra acciones (excepto checkbox) <span class="new">¡Nuevo!</span>'
+		//hidetoolbar: 'Hide user toolbar',
+		//hideplus: 'Hide GooglePlus button'
+	},
+	limit: {
+		slidewindow: "Slidewindow - Limitar número de entradas",
+		mini: "Mínimo de elementos",
+		maxi: "Máximo de elementos"
+	},
+	prefetch: {
+		first: "Número inicial de elementos cargados en la vista Texto completo.",
+		next: "Número de elementos cargados después de un scroll en la vista Texto completo. ",
+		list: "Número inicial de elementos cargados en la vista Lista."
+	},
+	nested: {
+		separator: "Separador para añadir niveles adicionales (ejemplo: Deportes:Fútbol)."
+	},
     removeads: {
         links: "Filtrar enlaces:",
         images: "Filtrar imágenes:",

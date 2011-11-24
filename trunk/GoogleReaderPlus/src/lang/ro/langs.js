@@ -281,8 +281,6 @@ GRP.langs[locale].prefs = {
         bottomup: 'Bara de instrumente in susul subsolului',
         opendirect: "Click pe iconiţa din bara de instrumente va deschide GoogleReader",
         secure: "Permanent forţează utilizarea protocolului securizat (https)",
-        topcurrent: "Afişează înregistrarea curentă totdeanua deasupra",
-        floatactions: "Acţiunile înregistrării vor fi afişate întro fereastră flotantă",
         noupdatepopup: "Fără popup de actualizări",
         icontoolbar_add: "Pentru a adăuga un buton cu iconiţă în bara de instrumente, vă rog <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">să-i descărcaţi şi instalaţi</a>.",
         icontoolbar_text: "<span>Pentru a face butonul opţional, o să-l punem intr-o altă extensie ca de sinestătător,</span>                                    <br>                                    <span>a fi instalat cu readerplus.</span>                                    <br>                                    <span>Pentru a adăuga butonul, click <b></b> pe pagina <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">butonului din bara de instrumente readerplus</a>.</span><span>Pentru a şterge un buton, da-ţi click dreapta şi selectaţi Deactivare.</span>",
@@ -299,23 +297,30 @@ prefssavedfailed: 'Salvarea configuraţiei a eşuat!',
         text_private: 'Date private şi actualizări',
         text_toolbaricon: 'Iconiţa barei de instrumente',
         text_pageicon: 'Iconiţa barei de adrese',
-        text_export: 'Export/import',
-currdir: 'Evidenţiază mapa înregistrării curente <span class="new">nou!</span>',
-icons: 'Iconiţe doar pentru butoanele de acţiune (cu excepţia checkbox-urilor) <span class="new">nou!</span>'
+        text_export: 'Export/import'
     },
-limit: {
-slidewindow: "Slidewindow - limita numarului de înregistrări",
-mini: "Minimum înregistrări",
-maxi: "Maximum înregistrări"
-},
-prefetch: {
-first: "Numărul iniţial de înregistrări pe vederea extinsă.",
-next: "Numărul de înregistrări încărcate în timpul defilării pe vederea extinsă. ",
-list: "Numărul iniţial de înregistrări pe vederea listă."
-},
-nested: {
-separator: "Separatorul de extra nivele (exemplu: Sport:Fotbal)."
-},
+    generallayout:{
+		topcurrent: "Afişează înregistrarea curentă totdeanua deasupra",
+		//bottomup : 'Footer toolbar on the top',
+		currdir: 'Evidenţiază mapa înregistrării curente <span class="new">nou!</span>',
+		floatactions: "Acţiunile înregistrării vor fi afişate întro fereastră flotantă",
+		icons: 'Iconiţe doar pentru butoanele de acţiune (cu excepţia checkbox-urilor) <span class="new">nou!</span>'
+		//hidetoolbar: 'Hide user toolbar',
+		//hideplus: 'Hide GooglePlus button'
+	},
+	limit: {
+		slidewindow: "Slidewindow - limita numarului de înregistrări",
+		mini: "Minimum înregistrări",
+		maxi: "Maximum înregistrări"
+	},
+	prefetch: {
+		first: "Numărul iniţial de înregistrări pe vederea extinsă.",
+		next: "Numărul de înregistrări încărcate în timpul defilării pe vederea extinsă. ",
+		list: "Numărul iniţial de înregistrări pe vederea listă."
+	},
+	nested: {
+		separator: "Separatorul de extra nivele (exemplu: Sport:Fotbal)."
+	},
     removeads: {
         links: "Filtru de Link-uri :",
         images: "Filtru de imagini:",

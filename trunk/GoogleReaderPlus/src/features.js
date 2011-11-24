@@ -7,7 +7,7 @@ GRP.scripts = {
 		category: 'main',
 		options: {
 			secure: false,
-			text_layout: {
+			/*text_layout: {
 				xtype: 'h'
 			},
 			topcurrent: false,
@@ -16,7 +16,7 @@ GRP.scripts = {
 			floatactions: false,
 			icons: false,
 			hidetoolbar: false,
-			hideplus: false,
+			hideplus: false,*/
 			/*linkbar: true,*/
 			/*antisocial:true,*/
 			text_pageicon: {
@@ -408,6 +408,21 @@ GRP.scripts = {
 	unreadcount: {
 		category: 'counter',
 		name: "Show all unread count"
+	},
+	generallayout: {
+		category: 'layout',
+		name: "General layout",
+		options:{
+			topcurrent: false,
+			bottomup: false,
+			currdir: true,
+			floatactions: false,
+			icons: false,
+			hidetoolbar: false,
+			hideplus: false
+			/*linkbar: true,*/
+			/*antisocial:true,*/
+		}
 	},
 	fixlayout: {
 		category: 'layout',

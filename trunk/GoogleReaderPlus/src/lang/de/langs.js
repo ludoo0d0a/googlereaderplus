@@ -344,8 +344,6 @@ GRP.langs[locale].prefs = {
 		bottomup : 'Fusszeile ganz nach oben',
 		opendirect : "Click auf das Toolbaricon öffnet GoogleReader",
 		secure : "Benutze immer verschlüsselte Übertragung (https)",
-		topcurrent : "Aktueller Artikel immer ganz oben",
-		floatactions : "Artikelaktionen werden in schwebendem Fenster angezeigt.",
 		noupdatepopup : "Kein Popup bei Updates",
 		icontoolbar_add : "Um eine Schaltfläche in der Toolbar zu erstellen, bitte <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">laden sie diese herunter und instalieren Sie sie</a>.",
 		icontoolbar_text : "<span>Optional kann die Schaltfläche ganz alleine stehen</span>                                    <br>                                    <span>to be installed along with readerplus.</span>                                    <br>                                    <span>To add the button, click <b></b> on the <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus Toolbar button</a> page.</span><span>To remove the button, right click him and choose Disable.</span>",
@@ -362,10 +360,16 @@ GRP.langs[locale].prefs = {
 		text_private : 'Private Daten und Updates',
 		text_toolbaricon : 'Toolbar Icon',
 		text_pageicon : 'Addresszeilen Icon',
-		text_export : 'Export/import',
+		text_export : 'Export/import'
+	},
+	generallayout:{
+		topcurrent : "Aktueller Artikel immer ganz oben",
+		bottomup : 'Footer toolbar on the top',
 		currdir : 'Aktuellen Ordner hervorheben<span class="new">neu!</span>',
+		floatactions : "Artikelaktionen werden in schwebendem Fenster angezeigt.",
 		icons : 'Icons nur für Aktionsschaltflächen (ausser checkbox) <span class="new">neu!</span>',
 		hidetoolbar : 'Verstecke Usertoolbar'
+		//hideplus: 'Hide GooglePlus button'
 	},
 	limit : {
 		slidewindow : "Slidewindow - kürze Anzahl Einträge",

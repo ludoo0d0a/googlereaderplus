@@ -221,14 +221,21 @@ readitlater: {
         counter: "在工具栏显示未读消息的计数器图标",
         opendirect: "点击图标就会打开Google Reader",
         secure: "始终使用安全协议访问(https)",
-		topcurrent: "当前条目始终置顶",
-		floatactions: "在浮动窗口中显示项目动作",
 		noupdatepopup: "更新时不弹出对话框",
         icontoolbar_add: "要添加工具栏图标，请点击 <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">下载并安装</a>.",
         icontoolbar_text: "<span>为了使按钮自定义添加，我们也开发了另外一个独立的扩展,</span><br><span>必须安装reader plus.</span><br><span>要添加按钮，点击 <b>Install</b> 在 <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">readerplus 工具栏按钮</a> page.</span><br><span>要删除按钮，右键点击他，选择禁用.</span>",
         importexport_text: "你现在可以通过'导出'来保存你的偏好设置,以后可以通过'导入'来恢复该设置:",
         confirmimport: "确定要导入此配置？\nCurrent配置将会丢失!"
     },
+    generallayout:{
+		topcurrent: "当前条目始终置顶",
+		//bottomup : 'Footer toolbar on the top',
+		//currdir : 'Highlight folder of current entry <span class="new">new!</span>',
+		floatactions: "在浮动窗口中显示项目动作"
+		//icons : 'Icons only for action buttons (except checkbox) <span class="new">new!</span>',
+		//hidetoolbar: 'Hide user toolbar',
+		//hideplus: 'Hide GooglePlus button'
+	},
     removeads: {
         links: "过滤链接",
         images: "过滤图片",

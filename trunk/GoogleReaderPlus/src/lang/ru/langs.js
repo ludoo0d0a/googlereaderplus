@@ -221,14 +221,21 @@ GRP.langs[locale].prefs = {
         counter: "Показывать количество непрочитанных сообщений в заголовке вкладки",
         opendirect: "Открывать GoogleReader по нажатию на кнопку",
         secure: "Всгда использовать защищённое соединение (https)",
-		topcurrent: "Текущее сообщение всегда вверху страницы",
-		floatactions: "Показывать кнопки действий в плавающем окне",
 		noupdatepopup: "Не сообщать об обновлениях",
         icontoolbar_add: "Чтобы добавить кнопку на панель Google Chrome, нужно <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">скачать и установить её</a>.",
         icontoolbar_text: "<span>Кнопка сделана в виде отдельного расширения,</span><br><span>которое устанавливается независимо от Reader Plus.</span><br><span>Чтобы добавить кнопку, нажмите <b>Install</b> на странице <a href=\"https://chrome.google.com/webstore/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo\">Reader Plus Toolbar button</a>.</span><br><span>Чтобы скрыть кнопку из панели, нажмите на ней правой кнопкой мыши и выберите Отключить.</span>",
 	    importexport_text: "Вы можете сохранить ваши настроки, используя 'экспорт', и загрузить их позже, используя 'импорт':",
         confirmimport: "Вы уверены, что хотите импортировать эти настройки?\nТекущие настройки будут утеряны!!!"
     },
+    generallayout:{
+		topcurrent: "Текущее сообщение всегда вверху страницы",
+		//bottomup : 'Footer toolbar on the top',
+		//currdir : 'Highlight folder of current entry <span class="new">new!</span>',
+		floatactions: "Показывать кнопки действий в плавающем окне"
+		//icons : 'Icons only for action buttons (except checkbox) <span class="new">new!</span>',
+		//hidetoolbar: 'Hide user toolbar',
+		//hideplus: 'Hide GooglePlus button'
+	},
     removeads: {
         links: "Фильтр ссылок:",
         images: "Фильтр картинок:",
