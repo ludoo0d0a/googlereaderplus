@@ -504,6 +504,10 @@ function translate(o, cb){
 function changecategory(id, from, to, prefs){
 	if (typeof prefs[id+'_'+from] !== 'undefined'){
 		prefs[id+'_'+to]=prefs[id+'_'+from];
+		if (prefs[id+'_'+to]){
+			//Activate category if true
+			prefs[id]=true;
+		}
 		delete prefs[id+'_'+from];
 	}
 }
