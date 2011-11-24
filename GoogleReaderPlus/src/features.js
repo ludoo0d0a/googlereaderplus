@@ -7,18 +7,6 @@ GRP.scripts = {
 		category: 'main',
 		options: {
 			secure: false,
-			/*text_layout: {
-				xtype: 'h'
-			},
-			topcurrent: false,
-			bottomup: false,
-			currdir: true,
-			floatactions: false,
-			icons: false,
-			hidetoolbar: false,
-			hideplus: false,*/
-			/*linkbar: true,*/
-			/*antisocial:true,*/
 			text_pageicon: {
 				xtype: 'h'
 			},
