@@ -431,7 +431,6 @@ GRP.langs[locale].prefs = {
 		text_export : 'Export/import'
 	},
 	generallayout:{
-		
 		topcurrent : "Forcer l'affichage de l'article courant toujours en haut de l'écran",
 		bottomup : "Placer la barre 'Précédent/Suivant' en haut de l'écran",
 		currdir : "Surligner le répertoire de l'élément sélectionné",

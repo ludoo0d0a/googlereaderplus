@@ -433,9 +433,9 @@ GRP.langs[locale].prefs = {
 	generallayout:{
 		topcurrent : "Current entry always on top",
 		bottomup : 'Footer toolbar on the top',
-		currdir : 'Highlight folder of current entry <span class="new">new!</span>',
+		currdir : 'Highlight folder of current entry',
 		floatactions : "Entry actions are displayed as a floating window",
-		icons : 'Icons only for action buttons (except checkbox) <span class="new">new!</span>',
+		icons : 'Icons only for action buttons (except checkbox)',
 		hidetoolbar: 'Hide user toolbar',
 		hideplus: 'Hide GooglePlus button'
 	},
