@@ -19,7 +19,7 @@
 	    "lib/external.js","lib/slideshow.js","version.js","features.js",
 		"lib/sizzle.js",
 		"api/entry.js","api/readit.js","api/micro.js",
-		"general.js","generallayout.js","fixlayout.js", "unreadcount.js", "mark.js", "removeads.js", "favicons.js", 
+		"general.js","generallayout.js","compact.js","fixlayout.js", "unreadcount.js", "mark.js", "removeads.js", "favicons.js", 
 		"column.js","jump.js","preview.js", "openbackground.js", "filter.js", "count.js", 
 		"counticon.js", "readbymouse.js","menu.js", "stars.js","rank.js",
 		"plusone.js", "facebook.js", "twitter.js","jaiku.js","weibo.js","identi.js", "addthis.js","blogger.js",

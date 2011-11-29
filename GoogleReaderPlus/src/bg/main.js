@@ -533,6 +533,7 @@ function upgrade(){
         changecategory('icons', 'general', 'generallayout', prefs);
         changecategory('hidetoolbar', 'general', 'generallayout', prefs);
         changecategory('hideplus', 'general', 'generallayout', prefs);
+        changecategory('noborder', 'theme', 'generallayout', prefs);
         
         setPrefs(prefs);
     }
