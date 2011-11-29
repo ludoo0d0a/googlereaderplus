@@ -17,43 +17,50 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
     updateFavicons();
     var protocol = document.location.protocol;
     var ICO_TPL_URL = protocol + '//s2.googleusercontent.com/s2/favicons?alt=feed&domain=';
-	//ICO_TPL_URL = protocol + '//www.google.com/profiles/c/u/0/favicons?domain=';
 	
     var ICONS_TITLE_TPL_DEF_URL = protocol + '//s2.googleusercontent.com/s2/favicons';
     if (prefs.favicons_providerpageicons) {
         ICO_TPL_URL = 'http://pageicons.appspot.com/favicons?f=1&url=';
         ICONS_TITLE_TPL_DEF_URL = 'http://pageicons.appspot.com/favicons';
     }
-	//ICO_TPL_URL = 'http://getfavicons.appspot.com?domain=';
 	
-    //var LOADING_IMAGE = "chrome-extension://'+GUID_CORE+'/images/loading.gif";
     var LOADING_IMAGE = GRP.IMAGES_PATH+"/loading.gif";
 	
-    var RSS = getElements('id("sub-tree-item-0-main")/ul/li/ul/li').length;
-    var FOLDER = getElements('id("sub-tree-item-0-main")/ul/li').length;
-    var RSS_NUMBERS = GRP_INFO.rss || null;
-    var FOLDER_NUMBERS = GRP_INFO.dirs || null;
+    var RSS = {
+    	items: getElements('id("sub-tree-item-0-main")/ul/li/ul/li').length,
+    	folders: getElements('id("sub-tree-item-0-main")/ul/li').length,
+    	_items: GRP_INFO.rss || null,
+    	_folders: GRP_INFO.dirs || null
+    };
 	
     function init(){
-        if (true || isObjectEmpty(ICONS_TITLE) || RSS_NUMBERS === null || FOLDER_NUMBERS === null || RSS !== RSS_NUMBERS || FOLDER !== FOLDER_NUMBERS) {
+        if (isObjectEmpty(ICONS_TITLE) || RSS._items === null || RSS._folders === null) {
             loadFavicons();
+        } else if (RSS._items !== RSS.items || RSS._folders !== RSS.folders){
+            loadFavicons(true);
         } else {
             initFavicons();
         }
-        GRP_INFO.rss = RSS;
-        GRP_INFO.dirs = FOLDER;
+        GRP_INFO._folders = RSS.folders;
+        GRP_INFO._items = RSS.items;
         setValue();
     }
     
-    function loadFavicons(){
+    function loadFavicons(loadNow){
         //clearCache();
+        if (loadNow){
+        	//Load first, then update
+        	initFavicons();
+        }
+        console.log('sites list loading...');
 		mycore.extension.sendRequest(
         {
             message: "loadicons",
-            method: 'get',
+            method: 'get',            
             url: protocol + '//www.google.com/reader/subscriptions/export',
             ICO_TPL_URL: ICO_TPL_URL
         }, function(a){
+			console.log('sites list loaded');
 			if (a.ICONS_TITLE) {
                 ICONS_TITLE = a.ICONS_TITLE;
                 updateFavicons();
@@ -87,29 +94,44 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
             //stop entry was already scanned
             return;
         }
-        
-        var icon = document.createElement('img');
-        icon.className = 'entry-favicon grf-favicon grf-entry';       
+ 
+ 		//var span = document.createElement('span');
+        var icon = document.createElement('div');
+        icon.className = 'favicon gr-favicon grf-entry';    
         var siteTitle = getEntrySiteTitle(entry);
         var match = ellipsis(siteTitle);
         icon.title = match;
+        //span.appendChild(icon);
         
         var t = ICONS_TITLE[match];
         if (t) {
-            icon.src = t.icon;
-        } else { // popular items | recommended sources
+            src = t.icon;
+        } else { 
+        	// popular items | recommended sources
             var fs = entry.getElementsByClassName('entry-original')[0] ||
             entry.getElementsByClassName('entry-title-link')[0];
             if (fs) {
                 fs = ICO_TPL_URL + getDomain(fs.href);
-                icon.src = fs;
+                src = fs;
             } else {
-                icon.src = ICONS_TITLE_TPL_DEF_URL;
+                src = ICONS_TITLE_TPL_DEF_URL;
             }
         }
-        
-        var point;
-		insertOnTitle(entry, icon, mode);
+        setBgImg(icon,src);
+        addClass(entry, 'entry-favicon');
+		insertOnTitle(entry, icon /*span*/, mode);
+    }
+    
+    function setBgImg(el,src){
+    	if(el){
+    		if (!el.style){
+    			el.style={};
+    		}
+    		el.style.backgroundImage='url('+src+')';
+    	}
+    }
+    function getBgImg(el){
+		return (el && el.style && el.style.backgroundImage);    	
     }
 	
     function addFaviconSidebar(el, mode){
@@ -119,33 +141,23 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
         }
 		
 		function addIcon(el){
-			var title = getFirstElementByClassName(el, 'name-text');//div.name-text
-			var match = ellipsis(title.textContent);
-			/*var elsubicon = getFirstElementByClassName(el, 'sub-icon');//span
-			title.style.paddingLeft = '7px';
-			var icon = document.createElement('img');
-			icon.className = 'grf-favicon grf-sidebar';
-			icon.title = match;
-			var ep = elsubicon.parentNode;
-			ep.insertBefore(icon, elsubicon);
-			ep.removeChild(elsubicon);*/
-			
 			var elicon = getFirstElementByClassName(el, 'icon');//div
 			if (elicon){
-				addClass(elicon, 'gr-favicon');
-				var icon = document.createElement('img');
-				icon.className = 'grf-favicon grf-sidebar';
-				//icon.title = match;
-				elicon.appendChild(icon);
+				addClass(elicon, ['favicon','gr-favicon','grf-sidebar']);
+				
+				var title = getFirstElementByClassName(el, 'name-text');//div.name-text
+				var match = ellipsis(title.textContent);
 			
 				//console.log('setIcon:'+match);
 				//var t = findFaviconByTitle(ICONS_TITLE, match);
-				var t = ICONS_TITLE[match];
+				var src='',t = ICONS_TITLE[match];
 				if (t) {
-					icon.src = t.icon;
+					src = t.icon;
 				} else {
-					icon.src = ICONS_TITLE_TPL_DEF_URL;
+					src = ICONS_TITLE_TPL_DEF_URL;
 				}
+				elicon.title = match;
+				setBgImg(elicon,src);
 			}
 		}
 		
@@ -155,14 +167,13 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
 		}, tim);
     }
     
-    function renderFavicons(o){
+    /*function renderFavicons(o){
         var match = ellipsis(o.title);
-        //var tree = document.getElementById('sub-tree');
-        //var main = document.getElementById('main');
+
         getElements(".//img[@title='" + match + "']").forEach(function(img){
             img.src = o.icon;
         });
-    }
+    }*/
     
     //Override with manual favicons
     function updateFavicons(){
@@ -204,11 +215,11 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
         var me = this;
         document.body.addEventListener('DOMNodeInserted', function(e){
             var target = e.target;
-			if (!target.grfm && hasClass(target,"goog-menu")) {
+			if (!target.grfm && hasClass(target,'goog-menu')) {
                 target.grfm = "1";
                 target.addEventListener('DOMNodeInserted', function(e){
                     var node = e.target;
-                    if (target.id=='stream-prefs-menu-menu' && target.grfm !== "2") {
+                    if (hasClass(target,'subscription-folders-menu') && target.grfm !== "2") {
                         setTimeout(function(){
                             showMenuItem(target, me);
                         }, 500);
@@ -218,113 +229,114 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
             }
         }, false);
     }
+    
+    function onMenuItemClick(e,menu){
+        var node = getFirstElementByClassName(document, 'menu-open');//a
+        if (node) {
+            var icon = getFirstElementByClassName(node,'favicon');
+            // img not there, used 2nd div.name/@title
+            var key = icon.title || icon.nextSibling.textContent;
+            //try to get url+title, but this solution is sometimes wrong !!
+			var f = ICONS_TITLE[key];
+			var dir = getSelectedDir(node);
+			if (dir && key) {
+				//overwrite value
+				ICONS_TITLE[key] = {
+					url: dir.url,
+					title: dir.text
+				};
+			}
+			
+			function promptIcon(a){
+				var url = prompt(formatText(SL.notfoundicon, a.title),a.url||'favicon.ico');
+				if (url) {
+					a.url=url;
+					ICONS_TITLE[a.title] = a;
+					updateFavicons();
+				}
+				return url;
+			}
+            if (f) {
+                var oldicon = getBgImg(icon), _key = key;
+				setBgImg(icon,LOADING_IMAGE);
+                mycore.extension.sendRequest(
+                {
+                    message: 'geticon',
+                    key: key,
+					f: ICONS_TITLE[key]
+                }, function(a){
+                    if (a && a.o && a.o.icon) {
+						if (a.ICONS_TITLE) {
+						    ICONS_TITLE = a.ICONS_TITLE;
+						}else{
+							ICONS_TITLE[_key]=a.o;
+						}
+						setBgImg(icon, a.o.icon);
+						updateFavicons();
+						setValue();
+                    } else {
+                        var url = promptIcon(a);
+						if (!url) {
+							setBgImg(icon, oldicon);
+						}
+                    }
+                });
+                // ->iconget
+            } else {
+                var url = promptIcon({title: key});
+            }
+            node.focus();
+        }
+        // hide menu
+        menu.blur();
+    }
 	
     function showMenuItem(menu, scope){
         if (!menu) {
             return;
         }
-        // find first separator
-        var seps = menu.getElementsByClassName('goog-menuseparator');
-        if (seps && seps.length > 0) {
-            var sep = seps[0];
-            var div = document.createElement('div');
-            div.className = 'goog-menuitem goog-option grf-menuitem';
-            div.style = '-webkit-user-select: none;';
-            div.innerHTML = '<div class="goog-menuitem-content">' + SL.getfavicon + '</div>';
-            sep.parentNode.insertBefore(div, sep.nextSibling);// insert after
-            // +separator
-            var separator = document.createElement('div');
-            separator.className = 'goog-menuseparator';
-            separator.style = '-webkit-user-select: none;';
-            div.parentNode.insertBefore(separator, div.nextSibling);
-            
-            var me = this;
-            div.addEventListener('click', function(e){
-                var node = document.getElementsByClassName('menu-open')[0];
-                if (node) {
-                    var img = node.firstChild;// grf-favicon
-                    // grf-sidebar
-                    var key = '';
-                    if (img.tagName === "IMG") {
-                        key = img.title;
-                    } else {
-                        // img not there, used 2nd span.name/@title
-                        key = img.nextSibling.title;
-                    }
-                    var f = ICONS_TITLE[key];
-                    //if (!f) {
-                        //try to get url+title, but this solution is sometimes wrong !!
-						var dir = getSelectedDir(node);
-						if (dir) {
-							ICONS_TITLE[key] = {
-								url: dir.url,
-								title: dir.text
-							};
-						}
-                    //}
-					function promptIcon(a){
-						var url = prompt(formatText(SL.notfoundicon, a.title),a.url||'favicon.ico');
-						if (url) {
-							a.url=url;
-							ICONS_TITLE[a.title] = a;
-							updateFavicons();
-						}
-						return url;
-					}
-                    if (f) {
-                        var oldimg = img.src, _key = key;
-						img.src = '';
-                        img.src = LOADING_IMAGE;
-                        mycore.extension.sendRequest(
-                        {
-                            message: "geticon",
-                            key: key,
-							f: ICONS_TITLE[key]
-                            //,ICONS_TITLE: ICONS_TITLE
-                        }, function(a){
-                            if (a.o && a.o.icon) {
-								if (a.ICONS_TITLE) {
-                                    ICONS_TITLE = a.ICONS_TITLE;
-                                }else{
-									ICONS_TITLE[_key]=a.o;
-								}
-								updateFavicons();
-                                renderFavicons(a.o);
-                                setValue();
-                            } else {
-                                var url = promptIcon(a);
-								if (!url) {
-									img.src = oldimg;
-								}
-                            }
-                        });
-                        // ->iconget
-                    } else {
-                        var url = promptIcon({title: key});
-                    }
-                }
-                // hide menu
-                menu.blur();
-                node.focus();
-            }, false);
-            div.addEventListener('mouseover', function(e){
-                e.target.parentNode.className += ' goog-menuitem-highlight';
-            }, false);
-            div.addEventListener('mouseout', function(e){
-                e.target.parentNode.className = e.target.parentNode.className.replace('goog-menuitem-highlight', '');
-            }, false);
-        }
+
+        var mi = dh(menu, 'div', {
+        	cls:'goog-menuitem',
+        	role:'menuitem',
+        	position:'first'
+        	//style="-webkit-user-select: none; "
+        });
+        
+        var div = dh(mi, 'div', {
+        	cls:'goog-menuitem-content',
+        	text:SL.getfavicon
+         },{
+         	mouseover:function(e){
+         		addClass(e.target.parentNode,'goog-menuitem-highlight');
+         	},
+         	mouseout:function(e){
+         		removeClass(e.target.parentNode,'goog-menuitem-highlight');
+         	},
+         });
+        
+        var sep = dh(mi, 'div', {
+        	cls:'goog-menuseparator',
+        	position:'after'            	
+        });
+
+        div.addEventListener('click', function(e){
+        	onMenuItemClick(e,menu);
+        }, false);
     }
     
-    var css = 'img.grf-favicon{width:16px;height:16px;border:none;}';
-    //listview
-    css += '.collapsed img.entry-favicon{position:absolute !important; top:3px !important; left:2em !important; margin-right:0px !important; vertical-align:baseline !important}';
-    css += '#entries.list .collapsed .entry-main .entry-source-title{left:4em !important; width:7.2em !important}';
-    css += '#entries.list.single-source .collapsed .entry-secondary{ margin-left:4em !important}';
-    //subtree
-    css += '.scroll-tree div.gr-favicon{background:none;opacity:1;}';
-    css += '#sub-tree a img.grf-favicon{vertical-align:middle}';
+var css = '.favicon{background-repeat:no-repeat;background-position:center;}';
+css += '.grf-entry{width:16px;height:16px;display: inline-block;margin-right:4px;}';
+
+
+
+//listview
+//css += '.collapsed img.entry-favicon{position:absolute !important; top:3px !important; left:2em !important; margin-right:0px !important; vertical-align:baseline !important}';
+css += '#entries.list .collapsed .entry-main .entry-source-title{left:4em !important; width:10em !important}';
+css += '#entries.list.single-source .collapsed .entry-secondary{ margin-left:4em !important}';
+css += '.entry.entry-favicon .entry-icons .star{margin-right:4px;}';
 //    css += ".colorful-view-content{ color:#EEE !important}.colorful-view-base-top-shadow{ background-color:#999 !important; border-bottom-color:#888 !important}.colorful-view-inner-box{ background-color:#777 !important; background:#F9F9F9 none repeat scroll 0 0 !important; border-color:#888 !important}.colorful-view-base-pos{ background-color:#777 !important; border-color:#888 !important}";
+
     GM_addStyle(css, 'rpe_'+ID);
     
     attachMenu();

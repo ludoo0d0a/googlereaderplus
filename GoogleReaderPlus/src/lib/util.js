@@ -3,21 +3,40 @@
 //
 
 function hasClass(el, clazz){
-    if (!el || !el.className) {
+    if (!el || !el.classList) {
         return false;
     }
-	//TODO: use el.classList
+    //TODO: use el.classList.contains
+    return (el.classList.contains(clazz));
+    /*
     var reClassname = new RegExp("(^|\\s)" + encodeRE(clazz) + "(\\s|$)");
-    return (reClassname.test(el.className));
+    return (reClassname.test(el.className));*/
 }
-
+		
 function addClass(el, clazz, checked){
+	var classes = clazz;
+	if (typeof classes === 'string'){
+		classes=classes.split(' ');
+	}
+	if (isArray(classes) ){
+		var len = classes.length;
+		if (len==1){
+			_addClass(el, classes[0], checked);
+		}else if(len>1){
+			foreach(classes,function(c){
+				_addClass(el, c, checked);
+			});
+		}
+	}
+}
+function _addClass(el, clazz, checked){
     if (checked && hasClass(el, clazz)) {
         return;
     }
-    if (el) {
+    if (el && clazz) {
 		//TODO: use el.classList
-		el.className = (el.className || '') + ' ' + clazz;
+		//el.className = (el.className || '') + ' ' + clazz;
+		el.classList.add(clazz);
     }
 }
 
@@ -388,6 +407,12 @@ function insertFirst(el, ref){
         ref.parentNode.appendChild(el);
     }
 }
+function insertLast(el, ref){
+	if (ref) {
+			//append
+			ref.appendChild(el);
+		}
+}
 function insertOn(el, ref, position){
 	if (position=='after' || position == 1) {
 		//after
@@ -399,10 +424,7 @@ function insertOn(el, ref, position){
 		//first child
 		insertFirst(el, ref);
 	} else {
-		if (ref) {
-			//append
-			ref.appendChild(el);
-		}
+		insertLast(el,ref);
 	}
 }
 
@@ -1914,3 +1936,21 @@ function delay(fn, maxi, tim){
 		},tim);	
 	}
 }
+/*
+var _events={};
+function addEvListener(el,m,cb,p){
+	var id = el.addEventListener(m,cb,p);
+	//_events.push('#'+(el.id||'')+'.'+(el.className||''), id);
+	_events.push(el, id);
+}
+
+function tickCleanEvents(tim){
+	setInterval(function(){
+		iterate(_events,function(el,ev){
+			if(nodeRemoved(el)){
+				el.removeEvents(ev);
+			}
+		});
+	},tim||30000);
+}
+*/

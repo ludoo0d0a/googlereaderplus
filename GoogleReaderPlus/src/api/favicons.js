@@ -292,7 +292,7 @@ function checkIconDomains(prefs){
     if (!prefs.favicons_domains) {
         prefs.favicons_domains = {};
     }
-    if (typeof prefs.favicons_domains == "string") {
+    if (typeof prefs.favicons_domains === "string") {
         var favicons = {};
         var sites = prefs.favicons_domains.split(',');
         for (var j = 0, ln = sites.length; i < ln; i++) {
