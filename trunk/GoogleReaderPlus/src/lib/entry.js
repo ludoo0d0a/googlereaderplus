@@ -137,12 +137,14 @@ function loadExternal(cb){
  DIV.entry-title-maximize
  */
 function checkEntry(el, fn, params){
-    if (el.tagName == "DIV") {
+    if (el.tagName === 'DIV') {
         if (hasClass(el, 'entry')) {
-            if (hasClass(el.firstChild, 'card')) {
+            var mode = getMode(entry);
+            if (mode==='expanded'){
+            //if (hasClass(el.firstChild, 'card')) {
                 // *********** Expanded view
-                //var ea = getFirstElementByClassName(el, 'entry-actions');
-                var ea = el.firstChild.lastChild.firstChild;
+                var ea = getFirstElementByClassName(el, 'entry-actions');
+                //var ea = el.firstChild.lastChild.firstChild;
                 //console.log("Run as ExpandedView for "+el.tagName + "." + el.className);
                 catchEntry(el, ea, fn, params, false);
             } else {
@@ -245,10 +247,15 @@ function catchAllSidebars(fn, bid){
 }
 
 function getMode(entry){
-    if (entry) {
-        return hasClass(entry.firstChild, 'collapsed') ? 'list' : 'expanded';
-    } else {
-        return hasClass(get_id('view-cards'), 'link-selected') ? 'expanded' : 'list';
+    //list cards
+    var entries = get_id('entries');
+    if (entries){
+    	return hasClass(entries, 'list') ? 'list' : 'expanded';
+    //if (entry) {
+    //    return hasClass(entry.firstChild, 'collapsed') ? 'list' : 'expanded';
+    //} else {
+        var btns = getElements('#stream-view-options-container .jfk-button');
+        return hasClass(btns[1], 'jfk-button-checked') ? 'expanded' : 'list';
     }
 }
 
@@ -272,15 +279,15 @@ function getEntrySiteTitle(ent){
 }
 
 function insertOnTitle(entry, el, mode){
-     if (!mode){
-	 	mode=getMode(entry);
-	 }
-    if (mode === "expanded") {
-        var entryTitle = getFirstElementByClassName(entry, 'entry-title');//h2
-        insertFirst(el, entryTitle);
+    if (!mode){
+		mode=getMode(entry);
+	}
+    if (mode === 'expanded') {
+        var et = getFirstElementByClassName(entry, 'entry-title');//h2
+        insertFirst(el, et);
     } else {
-        var entrySourceTitle = getFirstElementByClassName(entry, 'entry-source-title');//span
-        insertBefore(el, entrySourceTitle);
+        var ei = getFirstElementByClassName(entry, 'entry-icons');
+        insertLast(el, ei);
     }
 }
 

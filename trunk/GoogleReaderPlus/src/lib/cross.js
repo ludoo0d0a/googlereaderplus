@@ -172,12 +172,13 @@ var mycore = {
         getItem: function(name, def, cb){
             var v = null;
             if (mycore.env.chrome) {
-                if (/*cb && */!mycore.env.background) {
+                //cb on get means to get into background
+                if ((typeof cb === 'function') /*|| !mycore.env.background*/) {
                     mycore.extension.sendRequest({
                         message: 'get',
                         name: name
                     }, function(o){
-						if (cb) {
+						if (typeof cb === 'function') {
 							cb(undef(o)?def:o);
 						}
                     });
@@ -199,7 +200,7 @@ var mycore = {
                 }
             }
             v = (undef(v))?def:v;
-            if (cb /*&& typeof v === 'function'*/) {
+            if (typeof cb === 'function') {
                 cb(v);
             }
             return v;
