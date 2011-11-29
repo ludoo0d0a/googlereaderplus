@@ -58,7 +58,6 @@ GRP.scripts = {
 		category: 'theme',
 		options: {
 			skin: '',
-			noborder: false,
 			mytheme: {
 				xtype: 'p',
 				label: true,
@@ -400,16 +399,35 @@ GRP.scripts = {
 	generallayout: {
 		category: 'layout',
 		name: "General layout",
+		status:'new',
 		options:{
 			topcurrent: false,
 			bottomup: false,
 			currdir: true,
 			floatactions: false,
 			icons: false,
-			hidetoolbar: false,
-			hideplus: false
-			/*linkbar: true,*/
-			/*antisocial:true,*/
+			hideplus: false,
+			noborder:false
+		}
+	},
+	compact: {
+		category: 'layout',
+		name: 'Compact layout',
+		status:'new',
+		options:{
+			hidebar:true,
+			hidesearch:true,
+			hide_subscription:false,
+			searchinbar: false
+		},
+		shortcuts: {
+			'compact': {
+				id: 'compact',
+				title: 'Compact',
+				key: {
+					keyCode: 90//z
+				}
+			}
 		}
 	},
 	fixlayout: {
@@ -1413,8 +1431,22 @@ GRP.skins = {
 	none: {
 		name: "None"
 	},
+	metro: {
+		name: "Metro",
+		status:'updated'
+	},
 	nativecompact: {
 		name: "Native compact",
+		status:'updated'
+	},
+	minimal: {
+		name: "Minimalistic Skin",
+		ref:'http://userscripts.org/scripts/show/12197',
+		status:'updated'
+	},
+	optimized: {
+		name: "Optimized Skin",
+		ref:'http://userscripts.org/scripts/show/61552',
 		status:'updated'
 	},
 	absolutelycompact: {
@@ -1426,7 +1458,7 @@ GRP.skins = {
 		resize: true,
 		status:'updated'
 	},
-segoe: {
+	segoe: {
 		name: "Segoe UI/Lucida Grande Reskinned",
 		url: 'http://userstyles.org/styles/userjs/19467/Google%20Reader%20-%20Segoe%20UI%2FLucida%20Grande%20Reskinned.user.js',
 		pic: 'http://static.userstyles.org/style_screenshots/19467_after.png',
@@ -1444,25 +1476,10 @@ segoe: {
 		desc: 'userstyles.org',
 		status:'updated'
 	},
-	minimal: {
-		name: "Minimalistic Skin",
-		ref:'http://userscripts.org/scripts/show/12197',
-		status:'updated'
-	},
-	optimized: {
-		name: "Optimized Skin",
-		ref:'http://userscripts.org/scripts/show/61552',
-		status:'updated'
-	},
 	
 	/* TODO section */
-	
 	mytheme: {
 		name: "My Theme",
-		status:'todo'
-	},
-	metro: {
-		name: "Metro",
 		status:'todo'
 	},
 	portal: {
