@@ -3,7 +3,7 @@
  */
 window.GRP={
 	VERSION: "4.0.0",
-	beta:1,
+	beta:2,
 	setVersion:function(text){
 		var ver = document.getElementById('version');
 		ver.innerHTML = (text||'') + GRP.VERSION;

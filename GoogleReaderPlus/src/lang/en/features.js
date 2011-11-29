@@ -74,7 +74,7 @@ GRP.langs[locale].scripts = {
         desc: "Display news as a newspaper in multi columns"
     },
     preview: {
-        name: "Integrated preview",
+        name: "Preview",
         desc: "Display original page content instead feed entry"
     },
     colorful: {
