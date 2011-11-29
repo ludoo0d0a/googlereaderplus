@@ -37,7 +37,6 @@ BackgroundColor: #262B31 ()
 	css += '.scroll-tree .toggle{background:'+C.orange+';}';
 	css += '.entry {padding:0 !important;}';
 	css += '#chrome {border-left: 0px;}';
-//	css += '.entry, #viewer-top-controls, #entries.list .entry {border-bottom: solid 1px #151a20 !important;border-top: solid 1px #44494f;}';
 	css += '.entry .card{margin:0;-webkit-border-radius: none;-webkit-box-shadow:none;}';
 	css += '.subscribe-button{background:none;}';
 	css += '::-webkit-scrollbar{width:12px;height:12px}::-webkit-scrollbar-track{background-color:#373e46;}::-webkit-scrollbar-thumb{background-color:;-webkit-border-radius:0px;}';
