@@ -36,6 +36,9 @@ function _addClass(el, clazz, checked){
     if (el && clazz) {
 		//TODO: use el.classList
 		//el.className = (el.className || '') + ' ' + clazz;
+		if (!el.classList){
+			el.classList={};
+		}
 		el.classList.add(clazz);
     }
 }

@@ -487,7 +487,7 @@ GRP.scripts = {
 		}
 	},
 	preview: {
-		name: "Integrated preview",
+		name: "Preview",
 		category: 'content',
 		options: {
 			onicon: false,
@@ -1038,6 +1038,20 @@ GRP.scripts = {
 			}
 		}
 	},
+	closeentry: {
+		name: "Close entry",
+		category: 'navigation',
+		shortcuts: {
+			'close': {
+				id: 'close',
+				title: 'Close entry',
+				key: {
+					//88 x
+					keyCode: 88
+				}
+			}
+		}
+	},
 	jump: {
 		name: "Add top/bottom links",
 		category: 'navigation',
@@ -1070,7 +1084,7 @@ GRP.scripts = {
 		category: 'layout',
 		status:'updated',
 		options: {
-			locked: false
+			//locked: false
 		},
 		shortcuts: {
 			'fit': {
@@ -1083,23 +1097,9 @@ GRP.scripts = {
 			}
 		}
 	},
-	closeentry: {
-		name: "Close entry",
-		category: 'action',
-		shortcuts: {
-			'close': {
-				id: 'close',
-				title: 'Close entry',
-				key: {
-					//88 x
-					keyCode: 88
-				}
-			}
-		}
-	},
 	openbackground: {
 		name: "Open in background",
-		category: 'action',
+		category: 'navigation',
 		shortcuts: {
 			'openback': {
 				id: 'openback',
@@ -1289,7 +1289,7 @@ GRP.scripts = {
 	},
 	actions: {
 		name: "Actions icons",
-		category: 'action'
+		category: 'layout'
 	},
 	/*antisocial: {
 	 name: "Antisocial",
