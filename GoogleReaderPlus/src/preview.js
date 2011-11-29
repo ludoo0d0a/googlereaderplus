@@ -343,7 +343,7 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
 			}
         } else {
             var iframes = getElementsByClazzName('if-preview', 'iframe', document);
-            var h = getHeightEntries();
+            var h = getMaxBodyHeight();
             foreach(iframes, function(iframe){
                 iframe.setAttribute('height', h + 'px');
             });
