@@ -9,7 +9,20 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
 	function getPref(id){
 		return prefs[ID+'_'+id];
 	}
-	
+    
+    if (getPref('noborder')) {
+        var css = '.card-common,.entry-main{margin:0 !important;}';
+        css += '.entry,.card-content,.entry-actions,.entry-container{padding:0 !important;}';
+        css += '.entry-title{margin-left:20px !important;font-size:120% !important;}';
+        css += '.entry .entry-body{max-width:100% !important;}';
+        css += '.entry-author{display:none;}';
+        css += '.entry,.entry .card, #no-entries-msg{border-width:0 !important;}';
+        css += '.collapsed{background-color:transparent !important;}';
+        css += '.entry:nth-child(odd) .card-common, .entry:nth-child(odd) .card-actions {background-color:#EFEFEF;}';
+        css += '.entry:nth-child(even) .card-actions {background-color:transparent;}';
+        GM_addStyle(css, 'rps_noborder');
+    }
+    
 	var entries = get_id('entries');
 	if (getPref('bottomup')) {
 		var el = get_id('viewer-footer'), ref = get_id('viewer-header'), c = get_id('chrome');
@@ -21,11 +34,7 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
 		insertAfter(el, ref);
 		entries.style.height = (getStyle(entries, 'height') + h) + 'px';
 	}
-	if (getPref('hidetoolbar')) {
-		//TODO: full screen, margin top - toolbar height
-		GM_addStyle('#gb{display:none !important;}','rpe_hidetoolbar');
-		fireResize('',100);
-	}
+
 	if (getPref('hideplus')) {
 		GM_addStyle('.item-plusone{display:none !important;}','rpe_hideplus');
 		fireResize('',100);
@@ -170,18 +179,6 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
 			});
 		}
 		
-		//entry-tagging-action-title
-
-		//RAZ labels because google rewrite labels after selection
-		//Xp MArquer comme lu = chekbox
-		/*var o = ['w','x','y','z', 'B', 'C'];
-		var js = '';
-		foreach(o, function(e) {
-			js += e+"q.Nf.Sb='';";
-			js += e+"q.Of.Sb='';";
-		});
-		GM_addjs(js, true, 'clearlabel');
-		*/
 		GM_addjs('http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/script/clearlabel.js', false, 'clearlabel');
 		
 		registerFeature(changeIconsButton, ID+'_icons');
