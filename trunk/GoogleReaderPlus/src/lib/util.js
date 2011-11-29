@@ -750,47 +750,48 @@ function onWindowResize(cb){
 	},true);
 }
 
-function fireResize(value, time){
-	value=value||'';
-	time=time||0;
-	var lhnfooter = (value=='footer');
-	setTimeout(function(){
-		_fireResize(lhnfooter, time);
-	}, time);
-}
-function _fireResize(lhnfooter){
-	var st = document.getElementById('sub-tree');
-	var elb = false;
-	if (lhnfooter) {
-		var el = document.getElementById('lhn-subscriptions');
-		if (el) {
-			elb = getFirstElementByClassName(el, 'lhn-section-footer');
-		}
-	}
-	//fix home, without footer
-	var vpc = document.getElementById('viewer-page-container');
-	if(vpc && vpc.style && vpc.style.height){
-		fitHeight(vpc);
-	}
-	
-	fitHeight(st, elb);
-	
-	var entries = document.getElementById('entries');
-	var vf = document.getElementById('viewer-footer');
-	fitHeight(entries, vf);
-}
-
-function fitHeight(id, bottom){
-    var el=getEl(id);
-    var h = findTop(el);
-    if (bottom) {
-		var elb = getEl(bottom);
-		if (elb) {
-			h += elb.clientHeight;
+/*
+function getHeightEntries(alone){
+    var height = 500;
+    var entries = get_id('entries');
+    if (entries) {
+        var offset = 0;
+        if (!alone) {
+            var eb = getFirstElementByClassName(entries, 'entry-body');
+            if (eb) {
+                offset += eb.offsetTop;
+            }
+            var et = get_id('title-and-status-holder');
+            if (et) {
+				offset += et.clientHeight;
+            }
+            var ca = getFirstElementByClassName(entries, 'card-actions');
+            if (ca) {
+				if (ca.style && ca.clientHeight) {
+					offset += ca.clientHeight;
+				}
+            }
+			//var vf = get_id('viewer-footer');
+			//if (vf){
+			//	offset += vf.clientHeight;
+			//}
         }
-    }	
-    //console.log(el.id+'='+(window.innerHeight - h));
-    el.style.height = (window.innerHeight - h) + 'px';
+		height = entries.clientHeight - offset;
+    }
+    return height;
+}
+*/
+
+function fitHeight(el,h){
+	el.style=el.style||{};
+	el.style.height = (window.innerHeight - h) + 'px';
+}
+function getVisibleHeight(el){
+	var h =0;
+	if (isShown(el)){
+		h=el.clientHeight;
+	}
+	return h;
 }
 
 function findTop(obj, relative){

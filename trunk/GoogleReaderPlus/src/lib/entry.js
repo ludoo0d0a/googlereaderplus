@@ -470,36 +470,40 @@ function getWidthEntries(){
     return entries.clientWidth;
 }
 
-function getHeightEntries(alone){
-    var height = 500;
-    var entries = get_id('entries');
-    //var entries = get_id('viewer-container');
-    if (entries) {
-        var offset = 0;
-        if (!alone) {
-            var eb = getFirstElementByClassName(entries, 'entry-body');
-            if (eb) {
-                offset += eb.offsetTop;
-            }
-            var et = get_id('title-and-status-holder');
-            if (et) {
-				offset += et.clientHeight;
-            }
-            var ca = getFirstElementByClassName(entries, 'card-actions');
-            if (ca) {
-				if (ca.style && ca.clientHeight) {
-					offset += ca.clientHeight;
-				}
-            }
-			/*var vf = get_id('viewer-footer');
-			if (vf){
-				offset += vf.clientHeight;
-			}*/
-        }
-		height = entries.clientHeight - offset;
-    }
-    return height;
+function fireResize(value, time){
+	value=value||'';
+	time=time||0;
+	var lhnfooter = (value=='footer');
+	setTimeout(function(){
+		_fireResize(lhnfooter, time);
+	}, time);
 }
+
+var entries = get_id('entries'), ss = get_id('scrollable-sections'),vec=get_id('viewer-entries-container'),tsh=get_id('title-and-status-holder');
+var tb=get_id('top-bar'), gb=get_id('gb'), las=get_id('lhn-add-subscription-section'), vhc=get_id('viewer-header-container');
+function _fireResize(lhnfooter){
+    //scrollable-sections = lhn-add-subscription-section.height + top-bar.height + gb.height
+    var hl = getVisibleHeight(las)+getVisibleHeight(tb)+getVisibleHeight(gb);
+    fitHeight(ss, hl);
+    //viewer-entries-container = viewer-header-container.height + top-bar.height + gb.height
+    var hr = getVisibleHeight(vhc)+getVisibleHeight(tb)+getVisibleHeight(gb);
+    fitHeight(vec, hr);
+}
+var headerOffset = 0;
+function getMaxBodyHeight(){
+	//vec-tsh
+	var offset=60, h = getVisibleHeight(vec);
+	if (!headerOffset){
+		var entry = getCurrentEntry();
+		var eti = getFirstElementByClassName(entry, 'entry-title'), //22px
+		eau = getFirstElementByClassName(entry, 'entry-author') //16px
+		ean = getFirstElementByClassName(entry, 'entry-annotations');
+		eca = getFirstElementByClassName(entry, 'card-actions');//30px
+		headerOffset = getVisibleHeight(eti) + getVisibleHeight(eau) + getVisibleHeight(ean)+ getVisibleHeight(eca);
+	}
+	return h - offset - headerOffset; 
+}
+var getHeightEntries=getMaxBodyHeight;
 
 function getBody(entry){
     var body = getFirstElementByClassName(entry, 'item-body');//div
