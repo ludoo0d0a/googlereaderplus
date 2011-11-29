@@ -148,7 +148,6 @@ prefssaved:"Zapisano ustawienia!",
 cachecleared:"Opróżniono cache!"
     },
     theme: {
-        noborder: "Usuń obramowania wpisów, aby wyświetlić więcej elementów na jednej stronie",
 		mytheme: 'Użyj <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">własny obrazek tła</a> oraz kolor czcionki wraz ze stylem "MyTheme"',
 		url:'Link Obrazka',
 		color:'Kolor tekstu',
@@ -235,6 +234,7 @@ readitlater: {
         confirmimport: "Jesteś pewien, że chcesz zaimportować te ustawienia?\nUtracisz obecną konfigurację!"
     },
     generallayout:{
+		noborder: "Usuń obramowania wpisów, aby wyświetlić więcej elementów na jednej stronie",
 		topcurrent: "Aktualny wpis zawsze na górze",
 		//bottomup : 'Footer toolbar on the top',
 		//currdir : 'Highlight folder of current entry <span class="new">new!</span>',

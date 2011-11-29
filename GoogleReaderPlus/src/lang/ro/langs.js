@@ -178,7 +178,6 @@ GRP.langs[locale].prefs = {
         expandall: 'Toate'
     },
     theme: {
-        noborder: "Scoate rama înregistrărilor pentru a afişa mai multe întregistrări pe pagină",
         mytheme: 'Utilizează o <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">imagine de fundal nestandartă</a> şi culoare font-ului din "TemaMea" (<a href="http://code.google.com/p/googlereaderplus/wiki/Themes" target="blank">Previzualizare</a>)',
         /*url: 'URL-ul imaginii',*/
         color: 'Culoarea textului',
@@ -300,6 +299,7 @@ prefssavedfailed: 'Salvarea configuraţiei a eşuat!',
         text_export: 'Export/import'
     },
     generallayout:{
+		noborder: "Scoate rama înregistrărilor pentru a afişa mai multe întregistrări pe pagină",
 		topcurrent: "Afişează înregistrarea curentă totdeanua deasupra",
 		//bottomup : 'Footer toolbar on the top',
 		currdir: 'Evidenţiază mapa înregistrării curente <span class="new">nou!</span>',

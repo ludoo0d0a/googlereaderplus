@@ -153,7 +153,6 @@ GRP.langs[locale].prefs = {
         expandall: 'Ver todo'
     },
     theme: {
-        noborder: "Eliminar márgenes para ganar espacio de visualización",
         mytheme: 'Usar <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">una imagen de fondo</a> y colores personalizados con el tema "MyTheme" (<a href="http://code.google.com/p/googlereaderplus/wiki/Themes" target="blank">Ver vista previa</a>)',
         /*url: 'URL de la imagen',*/
         color: 'Color del texto',
@@ -264,6 +263,7 @@ GRP.langs[locale].prefs = {
         text_export: 'Exportar/importar'
     },
     generallayout:{
+		noborder: "Eliminar márgenes para ganar espacio de visualización",
 		topcurrent: "Abrir artículos siempre en la parte superior de la pantalla",
 		//bottomup : 'Footer toolbar on the top',
 		currdir: 'Destacar la carpeta del elemento seleccionado <span class="new">¡Nuevo!</span>',

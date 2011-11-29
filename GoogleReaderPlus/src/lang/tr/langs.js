@@ -152,7 +152,6 @@ prefssaved:"Tercihler kaydedildi!",
 cachecleared:"Önbellek boþaltýldý!"
     },
     theme: {
-        noborder: "Tek bir sayfada daha fazla öðe göstermek için sýnýrlarý kaldýr",
 		mytheme: '"MyTheme" temasýya ve font rengiyle <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">özel arka plan resmi </a> kullan',
 		url:'Resim URL',
 		color:'Yazý rengi',
@@ -239,6 +238,7 @@ readitlater: {
         confirmimport: "Bu konfigürasyonu içe aktarmak istediðiniden emin misiniz?\nMevcut konfigürasyon SÝLÝNECEKTÝR!"
     },
     generallayout:{
+		noborder: "Tek bir sayfada daha fazla öðe göstermek için sýnýrlarý kaldýr",
 		topcurrent: "Þu anki öðe her zaman en üstte",
 		//bottomup : 'Footer toolbar on the top',
 		//currdir : 'Highlight folder of current entry <span class="new">new!</span>',

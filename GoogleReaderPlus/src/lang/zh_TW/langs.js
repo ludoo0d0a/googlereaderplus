@@ -272,7 +272,6 @@ GRP.langs[locale].prefs = {
 		expandall : '顯示全部'
 	},
 	theme : {
-		noborder : "移除邊界以在一頁中顯示更多項目",
 		mytheme : '使用"MyTheme"主題套用 <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">自訂背景圖片</a> 及文字顏色 (<a href="http://code.google.com/p/googlereaderplus/wiki/Themes" target="blank">預覽</a>)',
 		/*url: 'Picture URL',*/
 		color : '文字顏色',
@@ -432,6 +431,7 @@ GRP.langs[locale].prefs = {
 		text_export : '匯出/匯入'
 	},
 	generallayout:{
+		noborder : "移除邊界以在一頁中顯示更多項目",
 		topcurrent : "將目前的訂閱項目至頂",
 		bottomup : '將頁尾工具列移至頂部',
 		currdir : '反白目前訂閱項目的資料夾',

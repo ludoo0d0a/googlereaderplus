@@ -271,7 +271,6 @@ GRP.langs[locale].prefs = {
 		expandall : 'All'
 	},
 	theme : {
-		noborder : "Remove entries borders to display more items on a single page",
 		mytheme : 'Use <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">custom background picture</a> and font color with skin "MyTheme" (<a href="http://code.google.com/p/googlereaderplus/wiki/Themes" target="blank">Preview</a>)',
 		/*url: 'Picture URL',*/
 		color : 'Text color',
@@ -431,6 +430,7 @@ GRP.langs[locale].prefs = {
 		text_export : 'Export/import'
 	},
 	generallayout:{
+		noborder : "Remove entries borders to display more items on a single page",
 		topcurrent : "Current entry always on top",
 		bottomup : 'Footer toolbar on the top',
 		currdir : 'Highlight folder of current entry',

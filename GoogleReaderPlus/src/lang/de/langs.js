@@ -236,7 +236,6 @@ GRP.langs[locale].prefs = {
 		expandall : 'Alles'
 	},
 	theme : {
-		noborder : "Eintragsrand entfernen um mehr Beiträge pro Seite anzuzeigen",
 		mytheme : 'Benutze<a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">eigenes Hintergrundbild</a> und Schriftfarbe mit deinem Aussehen  "Mein Aussehen" (<a href="http://code.google.com/p/googlereaderplus/wiki/Themes" target="blank">Vorschau</a>)',
 		/*url: 'Bild URL',*/
 		color : 'Textfarbe',
@@ -363,6 +362,7 @@ GRP.langs[locale].prefs = {
 		text_export : 'Export/import'
 	},
 	generallayout:{
+		noborder : "Eintragsrand entfernen um mehr Beiträge pro Seite anzuzeigen",
 		topcurrent : "Aktueller Artikel immer ganz oben",
 		bottomup : 'Footer toolbar on the top',
 		currdir : 'Aktuellen Ordner hervorheben<span class="new">neu!</span>',
