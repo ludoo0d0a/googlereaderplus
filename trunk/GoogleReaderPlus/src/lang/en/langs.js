@@ -468,6 +468,7 @@ GRP.langs[locale].prefs = {
 		locked : "Always actived, except following feeds:"
 	},
 	filter : {
+		help:'See <a target="_blank" href="http://code.google.com/p/googlereaderplus/wiki/Filter">guide</a> for details.',
 		highlights : 'Highlights list (one item per line)',
 		excludes : 'Excludes list (one item per line)',
 		searchbody : 'Search in whole body text',
