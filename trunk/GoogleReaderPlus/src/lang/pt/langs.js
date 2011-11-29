@@ -153,7 +153,6 @@ GRP.langs[locale].prefs = {
 expandall:'Todos'
     },
     theme: {
-        noborder: "Remove as caixas das entradas para mostrar mais itens",
         mytheme: 'Utilize as <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">imagens de fundo</a> e cores de fontes de "MyTheme" (<a href="http://code.google.com/p/googlereaderplus/wiki/Themes" target="blank">Pre-visualização</a>)',
 /*url: 'Picture URL',*/
         color: 'Cores do texto',
@@ -260,6 +259,7 @@ imgfl:'Rodapé esquerdo'
 		text_export:'Exportar/importar'
     },
     generallayout:{
+		noborder: "Remove as caixas das entradas para mostrar mais itens",
 		topcurrent: "Entrada currente sempre no topo",
 		//bottomup : 'Footer toolbar on the top',
 		currdir: 'Destacar a pasta do item selecionado <span class="new">novo!</span>',

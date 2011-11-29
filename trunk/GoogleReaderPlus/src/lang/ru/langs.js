@@ -148,7 +148,6 @@ GRP.langs[locale].prefs = {
         alreadyexist: "Запись уже существует!"
     },
     theme: {
-        noborder: "Убрать рамку, чтобы отображалось больше записей на странице",
 		mytheme: 'Использовать <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">свою фоновую катинку</a> и шрифт с темой "MyTheme"',
 		url: 'URL картинки',
 		color: 'Цвет текста',
@@ -228,6 +227,7 @@ GRP.langs[locale].prefs = {
         confirmimport: "Вы уверены, что хотите импортировать эти настройки?\nТекущие настройки будут утеряны!!!"
     },
     generallayout:{
+		noborder: "Убрать рамку, чтобы отображалось больше записей на странице",
 		topcurrent: "Текущее сообщение всегда вверху страницы",
 		//bottomup : 'Footer toolbar on the top',
 		//currdir : 'Highlight folder of current entry <span class="new">new!</span>',

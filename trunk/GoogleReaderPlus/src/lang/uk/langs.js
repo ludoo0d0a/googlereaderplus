@@ -205,6 +205,16 @@ alreadyexist:"Item already exists!"
 importexport_text:"You can now save your preferences using 'export' and reload it later using 'import':",
 confirmimport:"Are you sure to import this configuration?\nCurrent configuration will be LOST!"
     },
+    generallayout:{
+		noborder : "Remove entries borders to display more items on a single page",
+		topcurrent : "Current entry always on top",
+		bottomup : 'Footer toolbar on the top',
+		currdir : 'Highlight folder of current entry',
+		floatactions : "Entry actions are displayed as a floating window",
+		icons : 'Icons only for action buttons (except checkbox)',
+		hidetoolbar: 'Hide user toolbar',
+		hideplus: 'Hide GooglePlus button'
+	},
     removeads:
     {
         links:"Link filter:",

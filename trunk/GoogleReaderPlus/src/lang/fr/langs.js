@@ -270,7 +270,6 @@ GRP.langs[locale].prefs = {
 		expandall : 'Tous'
 	},
 	theme : {
-		noborder : "Retirer les bords des articles pour en afficher un maximum sur une page",
 		mytheme : 'Utilisez <a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">une image de fond </a> et des couleurs personnaliséees avec le thème "MyTheme" (<a href="http://code.google.com/p/googlereaderplus/wiki/Themes" target="blank">Aperçu</a>)',
 		/*url: 'URL de l\'image',*/
 		color : 'Couleur du text',
@@ -431,6 +430,7 @@ GRP.langs[locale].prefs = {
 		text_export : 'Export/import'
 	},
 	generallayout:{
+		noborder : "Retirer les bords des articles pour en afficher un maximum sur une page",
 		topcurrent : "Forcer l'affichage de l'article courant toujours en haut de l'écran",
 		bottomup : "Placer la barre 'Précédent/Suivant' en haut de l'écran",
 		currdir : "Surligner le répertoire de l'élément sélectionné",

@@ -148,7 +148,6 @@ GRP.langs[locale].prefs = {
         alreadyexist: "项目已经存在！"
     },
     theme: {
-        noborder: "删除条目边界单一网页上显示多个项目",
 		mytheme: '使用<a href="http://code.google.com/p/googlereaderplus/wiki/Backgrounds" target="blank">自定义背景图片</a> 字体颜色与皮肤 "我的主题"',
 		url:'图片网址',
 		color:'文字颜色',
@@ -228,6 +227,7 @@ readitlater: {
         confirmimport: "确定要导入此配置？\nCurrent配置将会丢失!"
     },
     generallayout:{
+		noborder: "删除条目边界单一网页上显示多个项目",
 		topcurrent: "当前条目始终置顶",
 		//bottomup : 'Footer toolbar on the top',
 		//currdir : 'Highlight folder of current entry <span class="new">new!</span>',
