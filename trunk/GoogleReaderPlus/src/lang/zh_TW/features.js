@@ -3,132 +3,179 @@
  * Translation for features
  *
  * **************************
- * 翻譯 : 繁體中文 By shell9000
+ * 翻譯 : 繁體中文 By greenteaf
  * **************************
  *
- * Version : 1.0
- * Date : 03-25-2010
- * @author shell9000
+ * Version : 2.0
+ * Date : 11-28-2011
+ * @author greenteaf
+ * @author shell9000 (v1.0)
  */
 var locale = 'zh_TW';
 namespace('GRP.langs.' + locale);
+GRP.langs[locale].categories = {
+        main: '主要',
+        theme: '主題/風格',
+        icons:'圖示',
+        counter:'計數器',
+        layout: '版面配置',
+        navigation: '導航',
+        share: '分享',
+        action: '行為',
+        content: '內容'
+};
 GRP.langs[locale].scripts = {
     general: {
-        name: "General",
-        desc: "General configuration"
+        name: "一般功能",
+        desc: "一般功能配置"
     },
     theme: {
         name: "主題",
-        desc: "更改Google Reader界面皮膚"
+        desc: "更改Google Reader界面風格"
     },
-    /*
-     language_lang:{
-     name: "語言",
-     desc: "更改這個擴展的語言"
-     
-     },
-     */
+    ig: {
+        name: "iGoogle 主題",
+        desc: "在Google Reader中使用 <a href='http://www.google.com/ig/directory?type=themes' target='blank'>iGoogle 主題</a> (Beta)"
+        },
+    relook: {
+        name: "Relook",
+        desc: "使用自訂的CSS樣式"
+    },
     favicons: {
-        name: "Favicons",
-        desc: "顯示每個Feed的Favicon(網站小圖標)"
+        name: "網站圖示",
+        desc: "顯示每個訂閱的網站圖示"
     },
     unreadcount: {
-        name: "顯示所有未讀計數",
-        desc: "顯示所有未讀計數的Feeds"
+        name: "顯示所有未讀新聞數",
+        desc: "顯示所有未讀新聞數"
     },
     fixlayout: {
-        name: "固定佈局",
-        desc: "修正錯誤一樣不同的佈局入門全寬式，修復丟失的外殼圖片，使大圖像適合屏幕"
+        name: "最佳化版面配置",
+        desc: "最佳化各種不同的版面配置，例項目最寬化，修正遺失的項目圖片，讓大張圖片調整至適合螢幕大小"
     },
     count: {
         name: "修正計數(1000+)",
-        desc: "實時更新顯示準確的未讀計數"
+        desc: "顯示正確的未讀新聞計數"
     },
     counticon: {
-        name: "圖標計數器",
-        desc: "在Google Reader Favicon上顯示準確的計數"
+        name: "計數器圖示",
+        desc: "在Google Reader網頁圖示上顯示未讀新聞計數"
     },
     removeads: {
-        name: "刪除廣告",
-        desc: "簡單的廣告攔截器"
+        name: "移除廣告",
+        desc: "簡單去除多餘的廣告"
     },
     column: {
-        name: "多列文本",
-        desc: "添加一個按鈕，顯示為多列閱讀"
+        name: "多欄顯示",
+        desc: "像報紙般顯示多欄的新聞"
     },
     preview: {
-        name: "集成預覽",
-        desc: "添加一個按鈕，在Google Reader內部顯示整個閱讀頁面，而不需要打開新標籤或新窗口"
+        name: "綜合預覽",
+        desc: "以原文內容取代訂閱項目內容"
     },
     colorful: {
         name: "彩色列表",
-        desc: "使用同一Feed背景色"
+        desc: "在不同的訂閱項目中自訂背景顏色"
     },
     filter: {
         name: "過濾器",
-        desc: "通過消除或高亮用戶的條件為基礎的項目的篩選器項目"
+        desc: "以自訂條件過濾移除或反白新聞"
+    },
+    rank: {
+        name: "熱門",
+        desc: "顯示<a href='http://www.postrank.com' target='blank'>PostRank™</a>提供的熱門訂閱項目"
+    },
+    limit: {
+        name: "限制顯示數量",
+        desc: "顯示每頁的新聞顯示數量. 超過限制數量時優先顯示未讀項目."
+    },
+    prefetch: {
+        name: "預先載入",
+        desc: "預先載入其他新聞以增進瀏覽流暢度"
+    },
+    nested: {
+        name: "巢狀資料夾",
+        desc: "讓資料夾能更多層的分類"
     },
     readbymouse: {
-        name: "鼠標閱讀",
-        desc: "窗口中鍵單擊不可用",
-        desc: "下一個/上一個(Feed) 使用鼠標左/右鍵單擊"
+        name: "使用滑鼠瀏覽",
+        desc: "使用滑鼠左/右鍵切換下/前一篇新聞"
     },
     facebook: {
-        name: "發送到Facebook",
-        desc: "添加一個按鈕來分享信息到Facebook"
+        name: "Facebook",
+        desc: "添加分享新聞至 Facebook 的按鈕"
     },
     twitter: {
-        name: "發送到Twitter",
-        desc: "添加一個按鈕來分享信息到Twitter"
+        name: "Twitter",
+        desc: "添加分享新聞至 Twitter 的按鈕"
     },
     instapaper: {
-        name: "發送到Instapaper",
-        desc: "添加一個按鈕,發送到Instapaper.<br>【中文解釋:留著以後閱讀】詳情可以參考官網 http://goo.gl/yip4"
+        name: "Instapaper",
+        desc: "添加分享新聞至 <a href='http://www.instapaper.com' target='_instapaper'>Instapaper</a> 的按鈕"
+    },
+    readitlater: {
+        name: "ReadItLater",
+        desc: "添加分享新聞至 <a href='http://www.readitlater.com' target='_readitlater'>ReadItLater</a> 的按鈕"
+    },
+        blogger: {
+        name: "Blogger",
+        desc: "添加分享新聞至 <a href='http://www.blogger.com' target='_blogger'>Blogger</a> 的按鈕"
+    },
+    tumblr: {
+        name: "Tumblr",
+        desc: "添加分享新聞至 <a href='http://www.tumblr.com' target='_tumblr'>Tumblr</a> 的按鈕"
+    },
+    pinboard: {
+        name: "Pinboard",
+        desc: "添加分享新聞至 <a href='http://www.pinboard.in' target='_pinboard'>Pinboard</a> 的按鈕"
+    },
+    reddit: {
+        name: "Reddit",
+        desc: "添加分享新聞至 <a href='http://www.reddit.com' target='_reddit'>Reddit</a> 的按鈕"
+    },
+    gmarks: {
+        name: "Google Bookmarks",
+        desc: "添加分享新聞至 <a href='http://bookmarks.google.com' target='_gmarks'>Google Bookmarks</a> 的按鈕"
     },
     mark: {
         name: "標記已讀",
-        desc: "快捷鍵控制當前閱讀的前/後條目為已讀狀態"
+        desc: "快捷鍵控制當前閱讀的前/後項目為已讀狀態"
     },
     jump: {
-        name: "添加頂部/底部鏈接",
-        desc: "添加返回頂部和跳轉底部的功能按鈕(適合閱讀篇幅比較長的Feed)"
+        name: "添加頂部/底部連結",
+        desc: "添加至頂的按鈕在最下面, 添加至底的按鈕在最上面"
     },
     fitheight: {
-        name: "固定高度",
-        desc: "相對於屏幕高度的當前新聞的適合高度(長文章)"
+        name: "最佳化高度",
+        desc: "將目前的新聞調整至螢幕高度(長文章)"
     },
     closeentry: {
-        name: "關閉條目",
-        desc: "給每個條目添加一個'關閉'按鈕，將其刪除"
+        name: "關閉新聞",
+        desc: "給每個新聞添加一個'關閉'按鈕，將其刪除"
     },
     openbackground: {
-        name: "後台閱讀",
-        desc: "給每個條目添加一個'後台打開'按鈕"
+        name: "在新分頁開啟",
+        desc: "給每個新聞添加一個'在新分頁開啟'按鈕"
+    },
+    translate: {
+        name: "翻譯",
+		desc: "翻譯新聞的內容及標題"
     },
     replacer: {
         name: "替換腳本",
         desc: "替換進入原始網頁的一部分"
     },
-    /*
-     menu:{
-     name: "Intuitive menu",
-     desc: "Intuitive menu to add extra capabilites"
-     },
-     lightbox:{
-     name: "Lightbox"
-     },
-     */
-    relook: {
-        name: "Relook",
-        desc: "Relook your site using custom stylesheets"
-    },
     aero: {
-        name: "Google Aero 工具欄",
-        desc: "工具欄使用Aero主題"
+        name: "Google Aero 工具列",
+        desc: "工具列使用Aero主題"
+    },
+    actions: {
+        name: "動作按鈕圖示",
+        desc: "底部動作按鈕只顯示圖示"
     },
     info: {
-        name: "系統信息",
-        desc: "預覽當前的系統綜合信息或屬性"
+        name: "系統資訊",
+        desc: "顯示系統資訊"
     },
     extshortcuts: {
         name: "快捷鍵",
@@ -149,7 +196,7 @@ GRP.langs[locale].scripts = {
 };
 GRP.langs[locale].skins = {
     none: {
-        name: "None"
+        name: "無"
     },
     air: {
         name: "Air Skin"
@@ -186,5 +233,32 @@ GRP.langs[locale].skins = {
     },
     osxblack: {
         name: "Mac OS X Snow Leopard - Black"
+    },
+    calibri: {
+        name: "Calibri Skin"
+    },
+    glassblackgold: {
+        name: "Glass Black Gold Skin"
+    },
+    simpleclean: {
+        name: "Simple and Clean"
+    },
+    peacockfeather: {
+        name: "Peacock Feather"
+    },
+    myowngooglereader: {
+        name: "My Own Google Reader"
+    },
+    compactcleantweaked: {
+        name: "Compact, Clean & Tweaked"
+    },
+    absolutelycompact: {
+        name: "Absolutely Compact"
+    },
+    darkshinyblue: {
+        name: "Dark Shiny Blue"
+    },
+    persian: {
+        name: "Optimized Persian"
     }
 };

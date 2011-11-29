@@ -468,6 +468,7 @@ GRP.langs[locale].prefs = {
 		locked : "Option 'Adapter hauteur' toujours activée"
 	},
 	filter : {
+		help:'Voir <a target="_blank" href="http://code.google.com/p/googlereaderplus/wiki/Filter">le guide</a> pour plus de détails.',
 		highlights : 'Liste des exclusions (une par ligne)',
 		excludes : 'Liste des  surlignages (un par ligne)',
 		searchbody : 'Chercher dans tout le texte',
