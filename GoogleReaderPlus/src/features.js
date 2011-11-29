@@ -1175,6 +1175,9 @@ GRP.scripts = {
 		name: "Filter",
 		category: 'content',
 		options: {
+			help:{
+				xtype:'p'
+			},
 			excludes: {
 				xtype: 'textarea',
 				list: true,
