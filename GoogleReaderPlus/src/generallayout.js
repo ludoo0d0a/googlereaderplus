@@ -30,9 +30,9 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
      	
 		css += '#gb {height:0px;}';
 		css += '#gbx3, #gbx4 {display:none;}';
-css += '#chrome-bar-toggle {height:8px;cursor:pointer;z-index: 50;}';
-css += '#chrome-bar-toggle-icon {width: 0;height: 0;position: absolute;left: 50%;border-color: white white #2D2D2D;border-style: solid;border-width: 0 7px 7px 7px;margin-top: 1px;font-size: 1px;line-height: 1px;}';
-		
+		css += '#chrome-bar-toggle {height:8px;cursor:pointer;z-index: 50;}';
+		css += '#chrome-bar-toggle-icon {width: 0;height: 0;position: absolute;left: 50%;border-color: white white #2D2D2D;border-style: solid;border-width: 0 7px 7px 7px;margin-top: 1px;font-size: 1px;line-height: 1px;}';
+				
 		GM_addStyle(css, 'rps_floatbar');
 		
 		dh('gbz','div', {
