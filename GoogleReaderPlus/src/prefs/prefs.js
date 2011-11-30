@@ -78,7 +78,15 @@ function gosaveprefs(value){
 }
 
 function exportprefs(synced){
-    var p = {};
+    var p = {
+    	g:{
+    		version:GRP.getVersion()
+    	}
+    };
+    var o = getInfo();
+    if (o && o.info){
+    	p.g.nav=o.info;
+    }
     iterate(prefs, function(i, pref){
         if (i && pref && !(/password/.test(i))) {
             p[i] = pref;
