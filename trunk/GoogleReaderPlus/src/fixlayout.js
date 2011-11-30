@@ -48,6 +48,9 @@ GRP.fixlayout = function(prefs, langs, ID, SL, lang){
 	//fix width of entry
 	css+=".entry .entry-body, .entry .entry-title, .entry .entry-likers{ display: inline !important; max-width: 100% !important; }";
 
+	//TODO: hide iframe if share google+
+	//css += '#main~#googleShareboxIframeDiv iframe{display:none;}';
+
 	//#253 fix width of add localized subscription
 	var ws={pt:200,de:190,ru:197,nl:190};
 	if (ws[lang]){
