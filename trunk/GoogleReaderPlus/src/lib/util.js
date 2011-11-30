@@ -717,15 +717,16 @@ function randomselect(ar){
 }
 
 function removeClass(el, classname){
-    //todo: use regex word boundary
-    var s = (el.className || '').split(' ');
+    if (el && el.classList){
+    	el.classList.remove(classname)
+    }
+   /* var s = (el.className || '').split(' ');
     for (var i = 0, len = s.length; i < len; i++) {
         if (s[i] == classname) {
             s[i] = '';
         }
     }
-    el.className = s.join(' ').trim();
-//el.className = el.className.replace(classname, '').trim();
+    el.className = s.join(' ').trim();*/
 }
 
 function toggleClass(el, classDelete, classAdd){
