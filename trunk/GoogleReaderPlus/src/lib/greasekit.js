@@ -1,85 +1,96 @@
 mycore.env.prefix = "readerplus.";
 //GreaseKit
 //http://groups.google.com/group/greasekit-users/browse_thread/thread/d0ed6e8919bb6b42
-if (typeof GM_getValue === "undefined") {
-    GM_getValue = function(name, def, cb){
-        value = mycore.storage.getItem(name, def, cb);
-        return value;
-    };
+function GM_getValue(name, def, cb){
+    value = mycore.storage.getItem(name, def, cb);
+    return value;
 }
-var GM_getValues = function(prefix, _names, cb){
+function GM_getValues(id, _names, def, cb){
+	var options = [];
+	foreach(_names,function(name){
+		options.push(id+'_'+name);
+	});
+	GM_getValue(options, def, function(o){
+		//Remove id prefix
+		var all= {};
+		var re = new RegExp('^'+id+'_');
+		iterate(o,function(i,v){
+			var id = i.replace(re,'');
+			all[id]=v;
+		});
+		cb(all);
+	});
+};
+
+/*
+function GM_getValues(prefix, _names, cb){
   var res={}, names=_names;
   prefix=prefix||'';
   _getValues(0, cb);
   
   function _getValues(i, fn){
-	/*if (typeof names[i] ==='string'){
-		names[i]= {name:names[i]};
-	}*/
-	var name = names[i].name||names[i];
-	
-	GM_getValue(prefix+name, name.def, function(value){
-		if ((typeof value ==='object') && value.length==1){
-			value=value[0];
-		}
-		res[name]=value;
+		//if (typeof names[i] ==='string'){
+		//	names[i]= {name:names[i]};
+	    //}
+		var name = names[i].name||names[i];
 		
-		if (i < names.length-1) {
-			_getValues(++i, fn);
-		}else{
-			fn(res);
-		}
-	});
+		GM_getValue(prefix+name, name.def, function(value){
+			if ((typeof value ==='object') && value.length==1){
+				value=value[0];
+			}
+			res[name]=value;
+			
+			if (i < names.length-1) {
+				_getValues(++i, fn);
+			}else{
+				fn(res);
+			}
+		});
 	}
-};
+}
+*/
 
-if (typeof GM_getCookieValue === "undefined") {
-    GM_getCookieValue = function(name, def){
-        var value;
-        var nameEQ = escape(name) + "=", ca = document.cookie.split(';');
-        for (var i = 0, c; i < ca.length; i++) {
-            c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1, c.length);
-            }
-            if (c.indexOf(nameEQ) === 0) {
-                value = unescape(c.substring(nameEQ.length, c.length));
-                break;
-            }
+function GM_getCookieValue(name, def){
+    var value;
+    var nameEQ = escape(name) + "=", ca = document.cookie.split(';');
+    for (var i = 0, c; i < ca.length; i++) {
+        c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1, c.length);
         }
-        if (value === null && def !== null) {
-            value = def;
+        if (c.indexOf(nameEQ) === 0) {
+            value = unescape(c.substring(nameEQ.length, c.length));
+            break;
         }
-        return value;
-    };
+    }
+    if (value === null && def !== null) {
+        value = def;
+    }
+    return value;
 }
-if (typeof GM_setValue === "undefined") {
-    GM_setValue = function(name, value, cb){
-        try {
-            mycore.storage.setItem(name, value, cb);
-        } catch (e) {
-            console.log('error on GM_setValue[' + n + ']=' + value);
-        }
-    };
+function GM_setValue(name, value, cb){
+    try {
+        mycore.storage.setItem(name, value, cb);
+    } catch (e) {
+        console.log('error on GM_setValue[' + n + ']=' + value);
+    }
 }
-if (typeof GM_setCookieValue === "undefined") {
-    GM_setCookieValue = function(name, value, options){
-        options = (options || {});
-        if (options.expiresInOneYear) {
-            var today = new Date();
-            today.setFullYear(today.getFullYear() + 1, today.getMonth, today.getDay());
-            options.expires = today;
-        }
-        var curCookie = escape(name) +
-        "=" +
-        escape(value) +
-        ((options.expires) ? "; expires=" +
-        options.expires.toGMTString() : "") +
-        ((options.path) ? "; path=" + options.path : "") +
-        ((options.domain) ? "; domain=" + options.domain : "") +
-        ((options.secure) ? "; secure" : "");
-        document.cookie = curCookie;
-    };
+function GM_setCookieValue (name, value, options){
+    options = (options || {});
+    if (options.expiresInOneYear) {
+        var today = new Date();
+        today.setFullYear(today.getFullYear() + 1, today.getMonth, today.getDay());
+        options.expires = today;
+    }
+    var curCookie = escape(name) +
+    "=" +
+    escape(value) +
+    ((options.expires) ? "; expires=" +
+    options.expires.toGMTString() : "") +
+    ((options.path) ? "; path=" + options.path : "") +
+    ((options.domain) ? "; domain=" + options.domain : "") +
+    ((options.secure) ? "; secure" : "");
+    document.cookie = curCookie;
 }
 function clearcache(lang){
     var name, v;
@@ -96,7 +107,6 @@ function clearcache(lang){
     	alert("Cache cleared");
     }
 }
-
 function openWindow(o, cb){
     sendMessage("window", o, cb);
 }
@@ -113,172 +123,153 @@ function sendMessage(message, o, callback){
     mycore.extension.sendRequest(a, callback);
 }
 
-
-if (typeof GM_xmlhttpRequest === "undefined") {
-    GM_xmlhttpRequest = function(o){
-        o.method = (o.method) ? o.method.toUpperCase() : "GET";
-        if (!o.url) {
-            throw ("GM_xmlhttpRequest requires an URL.");
-        }
-        
-        var om = o;
-        sendMessage("request", om, function(a){
-            if (a.message === (om.callback || "requestdone")) {
-                if (a.action === "load") {
-                    if (typeof om.onload == "function") {
-                        om.onload(a, a.request);
-                    }
-                } else if (a.action === "readystatechange") {
-                    if (typeof om.onreadystatechange == "function") {
-                        om.onreadystatechange(a, a.request);
-                    }
-                } else if (a.action === "error") {
-                    GM_log('error: ' + a.responseText);
-                    if (typeof om.onerror == "function") {
-                        om.onerror(a, a.request);
-                    }
+function GM_xmlhttpRequest(o){
+    o.method = (o.method) ? o.method.toUpperCase() : "GET";
+    if (!o.url) {
+        throw ("GM_xmlhttpRequest requires an URL.");
+    }
+    
+    var om = o;
+    sendMessage("request", om, function(a){
+        if (a.message === (om.callback || "requestdone")) {
+            if (a.action === "load") {
+                if (typeof om.onload == "function") {
+                    om.onload(a, a.request);
+                }
+            } else if (a.action === "readystatechange") {
+                if (typeof om.onreadystatechange == "function") {
+                    om.onreadystatechange(a, a.request);
+                }
+            } else if (a.action === "error") {
+                GM_log('error: ' + a.responseText);
+                if (typeof om.onerror == "function") {
+                    om.onerror(a, a.request);
                 }
             }
-        });
-        
-    };
+        }
+    });
 }
-if (typeof GM_addStyle === "undefined") {
-    function GM_addStyle(/* String */styles, id){
-        var el;
-        if (id) {
-            el = document.getElementById(id);
-        }
-        if (!el) {
-            el = document.createElement("style");
-            el.setAttribute("type", "text\/css");
-            if (id) {
-                el.id = id;
-            }
-            el.appendChild(document.createTextNode(styles));
-            document.getElementsByTagName("head")[0].appendChild(el);
-        } else {
-            //update
-            el.innerText = styles;//textContent??
-        }
-        return el;
+function GM_addStyle(/* String */styles, id){
+    var el;
+    if (id) {
+        el = document.getElementById(id);
     }
-}
-if (typeof GM_addCss === "undefined") {
-    function GM_addCss(css, id){
-        var el = document.createElement("link");
-        el.setAttribute("rel", "stylesheet");
+    if (!el) {
+        el = document.createElement("style");
         el.setAttribute("type", "text\/css");
-        el.setAttribute("href", css);
         if (id) {
             el.id = id;
         }
+        el.appendChild(document.createTextNode(styles));
         document.getElementsByTagName("head")[0].appendChild(el);
+    } else {
+        //update
+        el.innerText = styles;//textContent??
     }
+    return el;
 }
-if (typeof GM_addScript === "undefined") {
-    function GM_addScript(script, remote, cb, cbonerror, scope, time){
-        //var id = script.replace(/[\.:-_\/\\]/g, '');
-        var id = script;
-        var s = document.getElementById(id);
-        if (s) {
-            if (cbonerror && cb) {
-                cb.call(this);
-            }
-        } else {
-            if (remote) {
-                GM_xmlhttpRequest({
-                    method: 'get',
-                    url: script,
-                    onload: function(r){
-                        if (remote === 'inline') {
-                            GM_addjs(script, true, id, cb, scope, time);
-                        } else {
-                            eval(r.responseText);
-                            if (cb) {
-                                cb.call(scope || this);
-                            }
-                        }
-                    },
-                    onerror: function(r){
-                        if (cbonerror && cb) {
+function GM_addCss(css, id){
+    var el = document.createElement("link");
+    el.setAttribute("rel", "stylesheet");
+    el.setAttribute("type", "text\/css");
+    el.setAttribute("href", css);
+    if (id) {
+        el.id = id;
+    }
+    document.getElementsByTagName("head")[0].appendChild(el);
+}
+function GM_addScript(script, remote, cb, cbonerror, scope, time){
+    //var id = script.replace(/[\.:-_\/\\]/g, '');
+    var id = script;
+    var s = document.getElementById(id);
+    if (s) {
+        if (cbonerror && cb) {
+            cb.call(this);
+        }
+    } else {
+        if (remote) {
+            GM_xmlhttpRequest({
+                method: 'get',
+                url: script,
+                onload: function(r){
+                    if (remote === 'inline') {
+                        GM_addjs(script, true, id, cb, scope, time);
+                    } else {
+                        eval(r.responseText);
+                        if (cb) {
                             cb.call(scope || this);
                         }
-                        console.error('Error on loading Javascript ' + script);
                     }
-                });
-            } else {
-                GM_addjs(script, false, id, cb, scope, time);
-            }
-        }
-    }
-    function GM_addjs(script, inline, id, cb, scope, time, root){
-        var el = document.createElement("script");
-        el.setAttribute("type", "text\/javascript");
-        if (inline) {
-            el.innerText = script;
+                },
+                onerror: function(r){
+                    if (cbonerror && cb) {
+                        cb.call(scope || this);
+                    }
+                    console.error('Error on loading Javascript ' + script);
+                }
+            });
         } else {
-            el.setAttribute("src", script);
+            GM_addjs(script, false, id, cb, scope, time);
         }
-        if (id) {
-            el.setAttribute("id", id);
-        }
-		root=root || (document.getElementsByTagName("head")[0]);
-		root.appendChild(el);
+    }
+}
+function GM_addjs(script, inline, id, cb, scope, time, root){
+    var el = document.createElement("script");
+    el.setAttribute("type", "text\/javascript");
+    if (inline) {
+        el.innerText = script;
+    } else {
+        el.setAttribute("src", script);
+    }
+    if (id) {
+        el.setAttribute("id", id);
+    }
+	root=root || (document.getElementsByTagName("head")[0]);
+	root.appendChild(el);
+    if (cb) {
+        window.setTimeout(function(){
+            cb.call(scope || this);
+        }, time || 500);
+    }
+}
+/**
+ * Pack for GM_addScript + check + callback
+ */
+function GM_loadScript(script, remote, check, cb, scope){
+    function cbwait(){
+        waitlib(check, cb, scope);
+    }
+    function cbonerror(){
         if (cb) {
-            window.setTimeout(function(){
-                cb.call(scope || this);
-            }, time || 500);
+            cb.call(scope || this);
         }
     }
-    /**
-     * Pack for GM_addScript + check + callback
-     * @param {Object} script
-     * @param {Object} remote
-     * @param {Object} check
-     * @param {Object} cb
-     * @param {Object} scope
-     */
-    function GM_loadScript(script, remote, check, cb, scope){
-        function cbwait(){
-            waitlib(check, cb, scope);
-        }
-        function cbonerror(){
-            if (cb) {
-                cb.call(scope || this);
-            }
-        }
-        GM_addScript(script, remote, cbwait, cbonerror, scope);
-    }
-}
-if (typeof GM_log === "undefined") {
-    function GM_log(log){
-        console.log(log);
-    }
-}
-if (typeof GM_registerMenuCommand === "undefined") {
-    function GM_registerMenuCommand(a, b){
-        //
-    }
+    GM_addScript(script, remote, cbwait, cbonerror, scope);
 }
 
-if (typeof GM_openInTab === "undefined") {
-    GM_openInTab = function(url, selected, search, index, windowId, update){
-        //send request port to bg
-        if (typeof selected == "undefined") {
-            selected = true;
-        }
-        var data = {
-            message: 'opentab',
-            url: url,
-            search: search || url,
-            selected: selected,
-            index: index,
-            windowId: windowId,
-			update:update
-        };
-        mycore.extension.sendRequest(data);
+function GM_log(log){
+    console.log(log);
+}
+
+function GM_registerMenuCommand(a, b){
+    //
+}
+
+function GM_openInTab(url, selected, search, index, windowId, update){
+    //send request port to bg
+    if (typeof selected == "undefined") {
+        selected = true;
+    }
+    var data = {
+        message: 'opentab',
+        url: url,
+        search: search || url,
+        selected: selected,
+        index: index,
+        windowId: windowId,
+		update:update
     };
+    mycore.extension.sendRequest(data);
 }
 if (typeof unsafeWindow === "undefined") {
     unsafeWindow = window;
