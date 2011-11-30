@@ -10,6 +10,46 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
 		return prefs[ID+'_'+id];
 	}
     
+    if (getPref('floatbar')) {
+     	var gbz = get_id('gbz');
+     	hide(gbz);
+     	function toggleBar(e){
+     		e.stopPropagation();
+     		toggle(gbz);
+     		return false;
+     	}
+     	//http://googleblog.blogspot.com/2011/11/next-stage-in-our-redesign.html
+     	var css = '#gbz .gbt{background-color: #2D2D2D;border-bottom: 1px solid black;}';
+     	css += '#gbz .gbt{display:block;}';
+     	css += '#gbz .gbts{margin:5px 20px;}';
+     	css += '#gbz {left:30px;top:50px;}';
+     	
+     	css += '#gbg {right:20px;top:15px;}';
+     	//from jfk-button-standard
+     	css += '#gbg .gbt{border: 1px solid rgba(0, 0, 0, 0.1);background-color: whiteSmoke;background-image: -webkit-linear-gradient(top,whiteSmoke,#F1F1F1);}';
+     	
+		css += '#gb {height:0px;}';
+		css += '#gbx3, #gbx4 {display:none;}';
+css += '#chrome-bar-toggle {height:8px;cursor:pointer;z-index: 50;}';
+css += '#chrome-bar-toggle-icon {width: 0;height: 0;position: absolute;left: 50%;border-color: white white #2D2D2D;border-style: solid;border-width: 0 7px 7px 7px;margin-top: 1px;font-size: 1px;line-height: 1px;}';
+		
+		GM_addStyle(css, 'rps_floatbar');
+		
+		dh('gbz','div', {
+			position:'first',
+			id:'chrome-bar-toggle',
+			html:'<div id="chrome-bar-toggle-icon"></div>'
+		});
+		
+     	var logo = get_id('logo-container');
+     	if (logo){
+     		logo.href='#';
+     		logo.addEventListener('click',toggleBar,true);
+     	}
+    	
+    	fireResize();
+    }
+    
     if (getPref('noborder')) {
         var css = '.card-common,.entry-main{margin:0 !important;}';
         css += '.entry,.card-content,.entry-actions,.entry-container{padding:0 !important;}';
