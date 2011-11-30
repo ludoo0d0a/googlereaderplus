@@ -33,7 +33,7 @@ GRP.readbymouse = function(prefs, langs, ID, SL, lang){
     }
 	
 	function init(){
-		GM_getValues(ID+'_', KEY_OPTIONS,function(o){
+		GM_getValues(ID,KEY_OPTIONS,'',function(o){
 			_options = checkOptions(o);
             initInterface();
 		});

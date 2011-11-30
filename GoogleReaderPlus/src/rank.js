@@ -278,7 +278,7 @@ css += '.pr_10 .postrank,.pr_9 .postrank,.pr_8 .postrank{background-position: 0 
     }
 	
 	function init(){
-		GM_getValues(ID+'_', KEY_OPTIONS,function(o){
+		GM_getValues(ID,KEY_OPTIONS,'',function(o){
 			_options = checkOptions(o);
             initInterface();
 		});
