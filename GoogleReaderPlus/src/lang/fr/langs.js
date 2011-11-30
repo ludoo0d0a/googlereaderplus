@@ -437,6 +437,7 @@ GRP.langs[locale].prefs = {
 		floatactions : "Menu 'actions' est affiché dans une fenêtre volante",
 		icons : 'Icône seulement pour les boutons de la barre action (sauf pour les radio boutons)',
 		hidetoolbar : 'Cacher la barre d\'outil',
+		floatbar: 'Aperçu de la nouvelle barre flottante',
 		hideplus: 'Cacher le bouton GooglePlus'
 	},
 	limit : {
