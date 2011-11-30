@@ -1,9 +1,17 @@
 
 function getValue(a, cb){
-	var prefs = readPrefs();
-	var value = prefs[a.name];
+	var v='', prefs = readPrefs();
+	if (typeof a.name ==='string'){
+		v = prefs[a.name];
+	}else{
+		var all={};
+		foreach(a.name,function(name){
+    		all[name]= prefs[name];
+    	});
+    	v = JSON.stringify(all);
+	}
 	if (isFunction(cb)){
-		cb(value);
+		cb(v);
 	}
 }
 function setValue(a, cb){
