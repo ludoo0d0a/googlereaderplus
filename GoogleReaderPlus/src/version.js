@@ -7,5 +7,8 @@ window.GRP={
 	setVersion:function(text){
 		var ver = document.getElementById('version');
 		ver.innerHTML = (text||'') + GRP.VERSION;
+	},
+	getVersion:function(){
+		return GRP.VERSION+((GRP.beta)?('beta'+GRP.beta):'');
 	}
 };
