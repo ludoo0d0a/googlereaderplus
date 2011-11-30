@@ -437,6 +437,7 @@ GRP.langs[locale].prefs = {
 		floatactions : "Entry actions are displayed as a floating window",
 		icons : 'Icons only for action buttons (except checkbox)',
 		hidetoolbar: 'Hide user toolbar',
+		floatbar: 'New float bar mimic',
 		hideplus: 'Hide GooglePlus button'
 	},
 	limit : {
