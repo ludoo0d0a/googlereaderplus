@@ -407,7 +407,8 @@ GRP.scripts = {
 			floatactions: false,
 			icons: false,
 			hideplus: false,
-			noborder:false
+			noborder:false,
+			floatbar:true
 		}
 	},
 	compact: {
