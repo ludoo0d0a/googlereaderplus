@@ -171,38 +171,54 @@ var mycore = {
     storage: {
         getItem: function(name, def, cb){
             var v = null;
+            function finalize(val){
+	            if (val && (typeof val === 'string') && mycore.env.autoparse) {
+	                try {
+	                    val = JSON.parse(val);
+	                } catch (e) {
+	                    //
+	                }
+	            }
+	            val = (undef(val))?def:val;
+	            return val;
+            }
+            
             if (mycore.env.chrome) {
                 //cb on get means to get into background
-                if ((typeof cb === 'function') /*|| !mycore.env.background*/) {
+                if (cb && !mycore.env.background) {
                     mycore.extension.sendRequest({
                         message: 'get',
                         name: name
                     }, function(o){
-						if (typeof cb === 'function') {
-							cb(undef(o)?def:o);
+						if (isFunction(cb)) {
+							cb(finalize(o));
 						}
                     });
                 } else {
-                    if (!mycore.env.background) {
-                        name = mycore.env.prefix + name;
+                    function _read(name){
+	                    if (!mycore.env.background) {
+	                        name = mycore.env.prefix + name;
+	                    }
+	                    v = localStorage.getItem(name);
+	                    return v;
                     }
-                    v = localStorage.getItem(name);
+                    if (typeof name ==='string'){
+                    	v= _read(name);
+                    }else{
+                    	v={};
+                    	foreach(names,function(name){
+                    		v[name]= _read(name);
+                    	});
+                    }
                 }
             } else if (mycore.env.safari) {
                 v = localStorage.getItem(name);
                 //return safari.extension.settings.getItem(name);
             }
-            if (v && typeof v === 'string' && mycore.env.autoparse) {
-                try {
-                    v = JSON.parse(v);
-                } catch (e) {
-                    //
-                }
-            }
-            v = (undef(v))?def:v;
-            if (typeof cb === 'function') {
+            v=finalize(v);
+            /*if (isFunction(cb)) {
                 cb(v);
-            }
+            }*/
             return v;
         },
         removeItem: function(name, cb, aslocal){
@@ -228,12 +244,12 @@ var mycore = {
                 s = JSON.stringify(s);
             }
             if (mycore.env.chrome) {
-                if (cb !== false && !mycore.env.background) {
+                if (cb && !mycore.env.background) {
                     mycore.extension.sendRequest({
                         message: 'set',
                         name: name,
                         value: value
-                    }, cb);
+                    }, (typeof cb === 'function')?cb:false);
                 } else {
                     if (!mycore.env.background) {
                         name = mycore.env.prefix + name;
