@@ -14,6 +14,9 @@ var locale = 'en';
 namespace('GRP.langs.' + locale);
 GRP.langs[locale].texts = {
 	version : "version",
+	splash:{
+		on: 'ReaderPlus is ON'
+	},
 	closeentry : {
 		text : 'Close this entry',
 		keyword : 'Close'
