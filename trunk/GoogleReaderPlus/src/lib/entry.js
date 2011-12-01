@@ -3,6 +3,20 @@
  */
 var stackFeatures = [], externals = [], events = {};
 
+var ELS = {};
+fillElements();
+function fillElements(){
+	ELS.entries = get_id('entries');
+	ELS.ss = get_id('scrollable-sections');
+	ELS.vec=get_id('viewer-entries-container');
+	ELS.tsh=get_id('title-and-status-holder');
+	ELS.tb=get_id('top-bar');
+	ELS.gb=get_id('gb');
+	ELS.las=get_id('lhn-add-subscription-section');
+	ELS.vhc=get_id('viewer-header-container');
+	ELS.tsh=get_id('title-and-status-holder');
+}
+
 function getConfig(prefs, ID, params){
 	var cfg = {};
 	foreach(params,function(p){
@@ -75,7 +89,7 @@ function execAllOffset(el, entry, mode, force){
 }
 
 function monitorEntries(el){
-    var root = el || get_id('entries');
+    var root = el || ELS.entries;
     root.addEventListener('DOMNodeInserted', function(e){
         checkEntry(e.target, execAll);
     }, false);
@@ -200,7 +214,7 @@ function getRegex(urls){
 }
 
 function forAllEntries(fn){
-    var root = get_id('entries');
+    var root = ELS.entries;
     var entries = root.getElementsByClassName('entry');
     for (var i = 0; i < entries.length; i++) {
         fn.call(this, entries[i]);
@@ -257,7 +271,7 @@ function catchAllSidebars(fn, bid){
 
 function getMode(entry){
     //list cards
-    var entries = get_id('entries');
+    var entries = ELS.entries;
     if (entries){
     	return hasClass(entries, 'list') ? 'list' : 'expanded';
     //if (entry) {
@@ -381,8 +395,7 @@ function openEntryInNewTab(entry, selected){
 function getCurrentEntry(){
     var el = document.getElementById('current-entry');
 	if (!el){
-		var entries = get_id('entries');
-		el = entries.firstChild;
+		el = ELS.entries.firstChild;
 	}
 	return el;
 }
@@ -397,9 +410,8 @@ function getEntryPosition(ent){
 }
 
 function selectCurrentEntry(el, markread, fixScroll, force){
-    var entries = get_id('entries'), vec = get_id('viewer-entries-container');
 	if (el && el.id !== 'current-entry' && hasClass(el, 'entry')) {
-		var st = vec.scrollTop;
+		var st = ELS.vec.scrollTop;
 		var cur = getCurrentEntry();
 		if (cur) {
 			cur.removeAttribute('id');
@@ -409,7 +421,7 @@ function selectCurrentEntry(el, markread, fixScroll, force){
 			markasread(el, false, force);
 		}
 		if (fixScroll){
-			vec.scrollTop=st;
+			ELS.vec.scrollTop=st;
 		}
 		expandEntry(el);
 	}
@@ -462,7 +474,6 @@ function jump(entry, dirtop){
     if (!entry) {
         return false;
     }
-    var vec=get_id('viewer-entries-container');
     var top = 0;
     if (dirtop) {
         top = entry.offsetTop; // - height;
@@ -470,7 +481,7 @@ function jump(entry, dirtop){
         top = entry.offsetTop + entry.offsetHeight - getHeightEntries();
     }
     if (top >= 0) {
-        vec.scrollTop = top;
+        ELS.vec.scrollTop = top;
     }
 }
 
@@ -481,20 +492,6 @@ function fireResize(value, time){
 	setTimeout(function(){
 		_fireResize(lhnfooter, time);
 	}, time);
-}
-
-var entries = get_id('entries');
-var ELS = {};
-fillElements();
-function fillElements(){
-	ELS.ss = get_id('scrollable-sections');
-	ELS.vec=get_id('viewer-entries-container');
-	ELS.tsh=get_id('title-and-status-holder');
-	ELS.tb=get_id('top-bar');
-	ELS.gb=get_id('gb');
-	ELS.las=get_id('lhn-add-subscription-section');
-	ELS.vhc=get_id('viewer-header-container');
-	ELS.tsh=get_id('title-and-status-holder');
 }
 
 function _fireResize(lhnfooter){
@@ -523,8 +520,7 @@ function getMaxBodyHeight(){
 var getHeightEntries=getMaxBodyHeight;
 
 function getWidthEntries(){
-    var entries = get_id('entries');
-    return entries.clientWidth;
+    return ELS.entries.clientWidth;
 }
 
 function getBody(entry){
@@ -1017,8 +1013,7 @@ function removeReadItems(ent, deleteMarkAsRead){
     var currentry = ent || getCurrentEntry();
 	
 	if (deleteMarkAsRead) {
-		var entries = get_id('entries');
-		var items = entries.getElementsByClassName('read');
+		var items = ELS.entries.getElementsByClassName('read');
 		foreach(items, function(item){
 			if (item && currentry !== item) {
 				console.log('remove ' + item.className);
