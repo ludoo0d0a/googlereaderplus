@@ -1479,19 +1479,34 @@ GRP.skins = {
 		desc: 'userstyles.org',
 		status:'updated'
 	},
-	
-	/* TODO section */
 	mytheme: {
 		name: "My Theme",
-		status:'todo'
+		status:'updated'
 	},
 	portal: {
 		name: "Portal v2",
-		status:'todo'
+		status:'updated'
 	},
+	webbizgeek: {
+		name: "WebBizGeek Skin",
+		//pic: 'http://www.webbizgeek.com/wp-content/uploads/2010/07/Google-Reader-custom-skin1.jpg',
+		status:'updated'
+	},
+	
+	/* TODO section */
 	helvetireader: {
 		name: "Helvetireader 2",
 		ref: 'http://www.helvetireader.com',
+		status:'todo'
+	},
+	sublimelight: {
+		name: "Sublime Reader Light",
+		ref: 'https://code.google.com/p/sublimereader/',
+		status:'todo'
+	},
+	sublimedark: {
+		name: "Sublime Reader Dark",
+		ref: 'https://code.google.com/p/sublimereader',
 		status:'todo'
 	},
 	darkhelvetireaderday: {
@@ -1545,22 +1560,7 @@ GRP.skins = {
 		name: "Calibri Skin",
 		status:'todo'
 	},
-	sublimelight: {
-		name: "Sublime Reader Light",
-		ref: 'https://code.google.com/p/sublimereader/',
-		status:'todo'
-	},
-	sublimedark: {
-		name: "Sublime Reader Dark",
-		ref: 'https://code.google.com/p/sublimereader',
-		status:'todo'
-	},
-	webbizgeek: {
-		name: "WebBizGeek Skin",
-		pic: 'http://www.webbizgeek.com/wp-content/uploads/2010/07/Google-Reader-custom-skin1.jpg',
-		status:'todo'
-	},
-	
+
 	/* OFF section */
 /*player: {
 		name: "Player Theme",
