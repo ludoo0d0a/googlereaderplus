@@ -1,0 +1,18 @@
+{
+  "extension_name": {
+    "message": "Reader Plus"
+  },
+  "extension_description": {
+    "message": "強化你的Google Reader, 補上遺失的網站圖示和其他強大功能"
+  },
+  "extension_summary": {
+    "message": "強化你的Google Reader, 補上遺失的網站圖示, 校準遺失影像附件, 更好未讀計數器, 更適合寬螢幕的顯示風格, 全螢幕閱讀, 預覽, 彩色化列表, 過濾器, 多欄顯示, 跳至頂部, 關閉, 適合高度, 在新背景分頁打開, 使用滑鼠瀏覽, 分享新聞到Facebook、Twitter、Instapaper、標記為已讀, 簡單的去除廣告, 替代品物品漫畫.\n 您可以在不同的主題中選擇自己喜歡的佈景  .\n  快捷鍵可以輕鬆的自訂 .\n 這個插件支援的語言 (英文, 繁體中文, 法文, 德文...).\n 不要猶豫，協助我們翻譯為您使用的語言 [http://goo.gl/HjiG] \n\n 您可以添加可選的按鈕在工具欄上的 :\nhttps://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo"
+  },
+  "extension_language": {
+    "message": "繁體中文"
+  },
+  "browser_action_tooltip_default": {
+    "message": "Reader Plus 偏好設定"
+  } 
+}
+

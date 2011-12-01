@@ -1,0 +1,17 @@
+{
+  "extension_name": {
+    "message": "Reader Plus"
+  },
+  "extension_description": {
+    "message": "Für Google Reader™, verbesseren Sie Ihren bevorzugten RSS Reader durch das Hinzufügen fehlender Favicons und eine Sammlung anderer Features"
+  },
+  "extension_summary": {
+    "message": "Für Google Reader™, verbesseren Sie Ihren bevorzugten RSS Reader durch das Hinzufügen fehlender Favicons, Reparatur fehlender Bilder in Anhängen, einen besseren Zähler für ungelesene Beiträge, bessere Ansicht bei breiten Bildschirmen, Vorschau, gefärbte Listenansicht, Filter, Mehrspaltenlayout, zum Ende springen, Eintrag schließen, Höhe anpassen, Tab im Hintergrund öffnen, bei der Maus lesen, Nachrichten teilen auf Facebook, Twitter, Instapaper, ReadItLater, alles als gelesen markieren, einfacher Werbeblocker, Ersatzitems für Comicstrips, automatische Übersetzung und mehr...\nDu kannst deinen bevorzugten Theme in verschiedenen Skins auswählen, benutze dein eigenes Hintergrundbild oder wähle aus iGoogle Themes.\nShortcuts können leicht angepasst werden.\nDiese Erweiterung unterstützt Übersetzungen (Englisch, Französisch, Russisch, Chinesisch).\nZögern Sie nicht mir mit der Übersetzung Ihrer Sprache zu helfen [http://goo.gl/HjiG]\n\nSie können den optionalen Button für die Chrome-Toolbar hier hinzufügen:\nhttps://chrome.google.com/extensions/detail/ecpcafinfpjgabomoamkhkgnpgpmdmeo"
+  },
+  "extension_language": {
+    "message": "Deutsch"
+  },
+  "browser_action_tooltip_default": {
+    "message": "Reader Plus Einstellungen"
+  } 
+}

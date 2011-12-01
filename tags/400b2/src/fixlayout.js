@@ -1,0 +1,68 @@
+/**
+ * FixLayout 
+ * @version  0.3
+ * @date 2010-01-22
+ * @author LudoO
+ *
+ * Fit entry height
+ *
+ */
+GRP.fixlayout = function(prefs, langs, ID, SL, lang){
+	function checkImage(root, href) {
+		var links = getElements(".//img[@src='" + href + "']", root);
+		return (links && links.length > 0);
+	}
+	function fixEnclosures() {
+		var nodes = getElements("//a[span[@class='view-enclosure']]");
+		if (!nodes || !nodes.length) {
+			return;
+		}
+
+		nodes.forEach(function(o) {
+			var entry = findParentNode(o, 'div', 'entry');
+			if (entry) {
+				var found = checkImage(entry, o.href);
+				var p = o.parentNode.parentNode;
+				if (found) {
+					if (p && p.parentNode) {
+						p.parentNode.removeChild(p);
+					}
+				} else {
+					var div = document.createElement('div');
+					div.className = "item-pict";
+					var img = document.createElement('img');
+					div.appendChild(img);
+					img.src = o.href;
+					img.align = "left";
+					if (p && p.parentNode) {
+						p.parentNode.replaceChild(div, p);
+					}
+				}
+			}
+		});
+	}
+	
+	//fix image width
+	var css = ".entry-body img {max-width:100%;}";
+	
+	//fix width of entry
+	css+=".entry .entry-body, .entry .entry-title, .entry .entry-likers{ display: inline !important; max-width: 100% !important; }";
+
+	//TODO: hide iframe if share google+
+	//css += '#main~#googleShareboxIframeDiv iframe{display:none;}';
+
+	//#253 fix width of add localized subscription
+	var ws={pt:200,de:190,ru:197,nl:190};
+	if (ws[lang]){
+    	css+='#quickadd{width:'+ws[lang]+'px !important;}';
+	}
+	GM_addStyle(css, 'rpe_'+ID);
+	
+	var e = document.getElementById('entries');
+	if (e) {
+		e.addEventListener('DOMNodeInserted', function() {
+			fixEnclosures();
+		}, false);
+	}
+	fixEnclosures();// on load
+};

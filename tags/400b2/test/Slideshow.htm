@@ -1,0 +1,105 @@
+
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<meta charset="UTF-8"> 
+	<title>Slideshow</title> 
+	<style type="text/css"> 
+ 
+	body{
+		background: #333;
+		color: #fff;
+		font: 85% Lucida Grande, Lucida Sans Unicode;
+		position: relative;
+	}
+	</style> 
+	<style type="text/css" href="../src/lib/flow/slideshow.css"/>
+	<script type="text/javascript" src="../src/lib/util.js"></script>
+	<script type="text/javascript" src="../src/lib/flow/slideshow.js"></script>
+</head> 
+<body> 
+	<div id="container"> 
+		 
+	</div> 
+	
+	<input id="addcovers" type="button" onclick="addcovers();" value="Add more covers"/>
+	<input id="gofirst" type="button" onclick="gofirst();" value="Go first"/>
+	 
+	 <hr/>
+	 
+	 <div id="container2"> 
+		 
+	</div> 
+	
+	<script type="text/javascript"> 
+	var flow  =false;
+	var path = 'C:\dev\js\coverflow\coverflow1\img';
+	var items = [
+			{src: path+'/img-0-lo.jpg', label: {album: 'All That I Am', artist: 'Santana'}},
+			{src: path+'/img-01-lo.jpg', label: {album: 'All That I Am1', artist: 'Santana'}},
+			{src: path+'/img-02-lo.jpg', label: {album: 'All That I Am2', artist: 'Santana'}},
+			{src: path+'/img-1-lo.jpg', label: {album: 'August & Everything After', artist: 'Counting Crows'}},
+			{src: path+'/img-2-lo.jpg', label: {album: 'Back to Bedlam', artist: 'James Blunt'}},
+			{src: path+'/img-3-lo.jpg', label: {album: 'Carnival of Rust', artist: 'Poets of the Fall'}},
+			{src: path+'/img-4-lo.jpg', label: {album: 'Crossfade', artist: 'Crossfade'}},
+			{src: path+'/img-5-lo.jpg', label: {album: 'Collision Course', artist: 'Linkin Park'}},
+			{src: path+'/img-6-lo.jpg', label: {album: 'Dexter', artist: 'Rolfe Kent'}},
+			{src: path+'/img-7-lo.jpg', label: {album: 'Life for Rent', artist: 'Dido'}},
+			{src: path+'/img-8-lo.jpg', label: {album: 'Say I Am You', artist: 'The Weepies'}},
+			{src: path+'/img-9-lo.jpg', label: {album: 'Signs of Life', artist: 'Poets of the Fall'}},
+			{src: path+'/img-10-lo.jpg', label: {album: 'Viva la Vida', artist: 'Coldplay'}},
+			{src: path+'/img-11-lo.jpg', label: {album: 'We Were Here', artist: 'Joshua Radin'}}
+		];
+		
+	function $(id){return document.getElementById(id)};
+	function addcovers(){
+		if (flow){
+			for (var i=0; i < 4; i++){
+				var j = Math.ceil(Math.random()*items.length);
+				flow.add(items[j]);
+				flow.last();
+			}
+		}
+	}
+	function gofirst(){
+		if (flow){
+			flow.first();
+		}
+	}
+	window.onload = function()
+	{
+		for (var i = 0, j = items.length; i < items.length; i++)
+		{
+			var img = new Image();
+			img.onload = function()
+			{
+				if (--j == 0)
+				{
+					flow = new Slideshow({
+						el:$('container'), 
+						cover:true,
+						els:items,
+						height:100,
+						width:300,
+						formatText: function(item){
+							return item.label.album +' - '+ item.label.artist;
+						}
+					});
+					flow2 = new Slideshow({
+						el:$('container2'), 
+						els:items,
+						cover:false,
+						height:100,
+						width:300,
+						formatText: function(item){
+							return item.label.album +' - '+ item.label.artist;
+						}
+					});
+				}
+			};
+			img.src = items[i].src;
+		}
+	}
+	</script> 
+</body> 
+</html> 

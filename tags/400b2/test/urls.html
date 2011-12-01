@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>JS Bin</title>
+<script>
+  function fixurls(html, base){
+    function replaceUrl(){
+      //var args = Array.prototype.slice.call(arguments, 1);
+      var t = arguments[0];//text
+      var url = arguments[1];
+      if (!(/^http/.test(url))){
+          t=t.replace(url, base+url);
+      }
+      return t;
+    }
+    html=html.replace(/\shref="([^"]*)/g, replaceUrl);
+    //html=html.replace(/\shref='([^']*)/g, replaceUrl);
+    //html=html.replace(/\ssrc="([^"]*)/g, replaceUrl);
+   // html=html.replace(/\ssrc='([^']*)/g, replaceUrl);
+    return html;
+  }
+function reloadme(){
+  var html = document.getElementById('input').innerHTML ;
+  document.getElementById('output').innerHTML=fixurls(html, 'http://www.mybase.com/');
+}
+</script>
+<style>
+  article, aside, figure, footer, header, hgroup, 
+  menu, nav, section { display: block; }
+</style>
+</head>
+<body>
+  <button id="reload" onclick="reloadme()">reload</button><br/>
+  <textarea rows=10 cols=80 id="input">
+    <a href="src/img.jpg"/>
+    <a href="./src/img.jpg"/>
+    <a href="../src/img.jpg"/>
+    <a href="http://google.com/img.jpg"/>
+  </textarea>
+  <textarea rows=10 cols=80 id="output"></textarea>
+</body>
+</html>
