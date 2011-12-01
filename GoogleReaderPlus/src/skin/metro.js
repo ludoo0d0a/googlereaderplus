@@ -32,6 +32,7 @@ BackgroundColor: #262B31 ()
 	css += 'div.name-text{margin-left: 30px;}';
 	css += 'li.folder > a.link{background-color: #373E46;}';
 	css += 'li.folder > a.link .name, li.folder > a.link div.name-text{color:'+C.orange+' ! important;}';
+	css += '.folder .folder .folder-toggle {margin-left: 5px;}';
 	css += '.scroll-tree li a {/*padding-bottom: 15px;*/border-bottom: solid 1px #151a20;border-top: solid 1px #44494f;}';
 	css += '.scroll-tree li a:hover, #lhn-selectors .selector:hover{background-color: #373E46!important;}';
 	css += '.scroll-tree .toggle{background:'+C.orange+';}';
@@ -61,6 +62,11 @@ BackgroundColor: #262B31 ()
 	css += '.goog-flat-menu-button,.goog-flat-menu-button-focused{border-color:'+C.dark_gray+' !important;}';
 	
 	css += '.goog-menu,.gbmc{background-image: -webkit-linear-gradient(top,'+C.gray+','+C.dark_gray+');}';
+	//float menu
+	css += '.gbm,.gbmc,#gbtem .gbmt, #gbtem .gbts,#gbz .gbts, #gbq1 .gbmt-hvr, #gbq1 .gbmt:focus, #gbq1 .gbmt-hvr .gbts, #gbq1 .gbmt:focus .gbts,.gbmasph{background: #2D2D2D;}';
+	css += '#gbd .gbts, #gbg6 #gbi4t, #gbg4 #gbgs4d{color: '+C.white+';}';
+	css += '#gbx2,#gbx2.gbxngh{background:-webkit-linear-gradient(top,'+C.gray+','+C.dark_gray+');}';
+	
 	css += '.goog-menuitem-highlight, .goog-menuitem-hover {background-color: '+C.light_gray+';border-color: '+C.light_gray+';}';
 	css += '.goog-menuitem, .goog-tristatemenuitem, .goog-filterobsmenuitem {color: '+C.white+';}';
 	
