@@ -27,6 +27,7 @@ GRP.menu = function(prefs, langs, ID, SL, lang){
     */
     function createButtonMenu(entry){
         var eactions = getFirstElementByClassName(entry, 'entry-actions');
+        var entries = get_id('entries'), vec = get_id('viewer-entries-container');
         var ent = entry;
         var el = dh(eactions, 'span', {
             cls: 'item-link grp-item-link-menu link unselectable',
@@ -46,9 +47,8 @@ GRP.menu = function(prefs, langs, ID, SL, lang){
                     }]);
                 }
                 var p = getPos(el);
-                var entries = get_id('entries');
                 em.style.left = p.left + 'px';
-                em.style.top = (p.top - entries.scrollTop + 15) + 'px';
+                em.style.top = (p.top - vec.scrollTop + 15) + 'px';
                 show(em);
                 window.setTimeout(function(){
                     hide(em);

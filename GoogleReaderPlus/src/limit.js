@@ -4,7 +4,7 @@
 GRP.limit = function(prefs, langs, ID, SL, lang){
     var nent = prefs.limit_mini || 30, lsup = prefs.limit_maxi || 200;
     var c, ent = 0, bor = 0, bsig = 0, nbor = 0, centi = false;
-    var entries = get_id("entries");
+    var entries = get_id('entries'), vec = get_id('viewer-entries-container')
     entries.addEventListener("DOMNodeInserted", function(e){
         if (hasClass(e.target, 'entry')) {
             try {
@@ -13,7 +13,7 @@ GRP.limit = function(prefs, langs, ID, SL, lang){
                 if ((ent > lsup) && (!centi)) {
                     centi = true;
                     //console.log(ent + '>' + lsup);
-                    nbor = entries.scrollTop;
+                    nbor = vec.scrollTop;
                     c = getCurrentEntry();
                     while (bor + bsig <= nbor) {
                         actual = entries.firstChild;
@@ -24,7 +24,7 @@ GRP.limit = function(prefs, langs, ID, SL, lang){
                     }
                     ent = nent;
                     bor = 0;
-                    entries.scrollTop = 0;
+                    vec.scrollTop = 0;
                     if (!c) {
                         c = entries.firstChild;
                     }

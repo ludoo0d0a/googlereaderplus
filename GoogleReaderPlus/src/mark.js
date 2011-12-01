@@ -11,7 +11,8 @@
  */
 
 GRP.mark = function(prefs, langs, ID, SL, lang){
-	var currentElement, CLS='grp-mark-scrolled', CLS_READ='grp-mark-scroll-read', modeList=false, entries=get_id('entries');
+	var currentElement, CLS='grp-mark-scrolled', CLS_READ='grp-mark-scroll-read', modeList=false;
+	var entries = get_id('entries'), vec = get_id('viewer-entries-container')
 	function setConfig(){
 		currentElement = getCurrentEntry();
 		modeList=(getMode(currentElement)==='list');
@@ -62,7 +63,7 @@ GRP.mark = function(prefs, langs, ID, SL, lang){
 			return;		
 		}
 		var all = entries.getElementsByClassName('entry');    
-		var els=[], st = entries.scrollTop , t=0, i=0;
+		var els=[], st = vec.scrollTop , t=0, i=0;
 		var curr = getCurrentEntry();
 		while(t<st){
 			var entry=all[i++];
@@ -84,7 +85,7 @@ GRP.mark = function(prefs, langs, ID, SL, lang){
 					markasread(el, i==0);
 				}
 			}
-			entries.scrollTop=st;
+			vec.scrollTop=st;
 			setTimeout(function(){
 				if (curr){
 					selectCurrentEntry(curr);

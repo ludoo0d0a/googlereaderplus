@@ -72,7 +72,7 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
         GM_addStyle(css, 'rps_noborder');
     }
     
-	var entries = get_id('entries');
+	var entries = get_id('entries'), vec = get_id('viewer-entries-container');
 	if (getPref('bottomup')) {
 		var el = get_id('viewer-footer'), ref = get_id('viewer-header'), c = get_id('chrome');
 		ref = get_id('stream-prefs-menu');
@@ -172,7 +172,7 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
 					removeClass(oldcur, CLS_CURRENT);
 				}
 				addClass(cur, CLS_CURRENT);
-				entries.scrollTop = cur.offsetTop;
+				vec.scrollTop = cur.offsetTop;
 			}
 		}, 500);
 	}
