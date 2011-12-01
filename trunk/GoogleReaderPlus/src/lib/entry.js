@@ -56,9 +56,9 @@ function execAllOffset(el, entry, mode, force){
     for (var i = 0, len = stackFeatures.length; i < len; i++) {
         var p = stackFeatures[i].params;
 		//console.log('p.bid='+p.bid);
-        if (el) {
-            //ListView-opened + ExpandedView
-            if (!isTagged(el, p.bid)) {
+        if (mode==='expanded' || el) {
+            //ListView-opened or ExpandedView
+            if (!isTagged(entry, p.bid)) {
                 stackFeatures[i].fn.call(this, el, entry, mode);
             }
         } else {
@@ -139,9 +139,18 @@ function loadExternal(cb){
 function checkEntry(el, fn, params){
     if (el.tagName === 'DIV') {
         if (hasClass(el, 'entry')) {
+            //TODO: lazy loading for items causes troubles 
+            /*if (entry.hasChildNodes()){
+            	//ok go
+            	catchEntry(el, ea, fn, params, false);
+            } else{
+            	//watch DOMinsertedNode inside then fires fn
+            	el.addEventListener('DOMNodeInserted', function(e){
+			        catchEntry(el, ea, fn, params, false);
+			    }, false);
+            }*/
             var mode = getMode(entry);
             if (mode==='expanded'){
-            //if (hasClass(el.firstChild, 'card')) {
                 // *********** Expanded view
                 var ea = getFirstElementByClassName(el, 'entry-actions');
                 //var ea = el.firstChild.lastChild.firstChild;
@@ -388,9 +397,9 @@ function getEntryPosition(ent){
 }
 
 function selectCurrentEntry(el, markread, fixScroll, force){
-    var entries = get_id('entries');
+    var entries = get_id('entries'), vec = get_id('viewer-entries-container');
 	if (el && el.id !== 'current-entry' && hasClass(el, 'entry')) {
-		var st = entries.scrollTop;
+		var st = vec.scrollTop;
 		var cur = getCurrentEntry();
 		if (cur) {
 			cur.removeAttribute('id');
@@ -400,7 +409,7 @@ function selectCurrentEntry(el, markread, fixScroll, force){
 			markasread(el, false, force);
 		}
 		if (fixScroll){
-			entries.scrollTop=st;
+			vec.scrollTop=st;
 		}
 		expandEntry(el);
 	}
@@ -453,22 +462,16 @@ function jump(entry, dirtop){
     if (!entry) {
         return false;
     }
-    var entries = get_id('entries');
-    var height = getHeight(entries);
+    var vec=get_id('viewer-entries-container');
     var top = 0;
     if (dirtop) {
         top = entry.offsetTop; // - height;
     } else {
-        top = entry.offsetTop + entry.offsetHeight - height;
+        top = entry.offsetTop + entry.offsetHeight - getHeightEntries();
     }
     if (top >= 0) {
-        entries.scrollTop = top;
+        vec.scrollTop = top;
     }
-}
-
-function getWidthEntries(){
-    var entries = get_id('entries');
-    return entries.clientWidth;
 }
 
 function fireResize(value, time){
@@ -505,6 +508,11 @@ function getMaxBodyHeight(){
 	return h - offset - headerOffset; 
 }
 var getHeightEntries=getMaxBodyHeight;
+
+function getWidthEntries(){
+    var entries = get_id('entries');
+    return entries.clientWidth;
+}
 
 function getBody(entry){
     var body = getFirstElementByClassName(entry, 'item-body');//div
@@ -769,6 +777,9 @@ function onKey(cls, fn){
 
 function addBottomLink(el, text, title, script, cls, button, callback, locked, entry, mode, position){
     var _locked = locked, _entry = entry;
+    if (!el){
+    	el = getFirstElementByClassName(entry, 'entry-actions');
+    }
     if (el){
 	    var span = document.createElement('span');
 	    span.className = 'grp-btn btn-' + script + ' ' + cls + (button ? ' read-state-not-kept-unread read-state' : '') + ' link unselectable';
@@ -1251,4 +1262,15 @@ function addCssIcon(id, clsOn){
 	'.entry .entry-actions .btn-'+id+'{background-position: 0 0px !important;}'+
 	'.entry .entry-actions .btn-'+id+'.'+clsOn+'{background-position: 0 -16px !important;}';
 	GM_addStyle(css, 'rpe_share_'+id);
+}
+
+function showSplash(msg, tim){
+	var lac = get_id('loading-area-container'), la = get_id('loading-area');
+	if (lac && la && msg){
+		la.innerHTML=msg;
+		removeClass(lac, 'hidden');
+		setTimeout(function(){
+			addClass(lac, 'hidden');
+		},tim||2000);
+	}
 }
