@@ -12,6 +12,8 @@ api\entry.js
 api\readit.js
 api\micro.js
 general.js
+generallayout.js
+compact.js
 fixlayout.js
 unreadcount.js
 mark.js
