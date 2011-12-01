@@ -115,11 +115,12 @@ a.gb1, a.gb3, a.gb4, /*#entries a, #entries a:visited, */
 #viewer-container,.entry,.card-actions,
  .collapsed,.entry-container,.entry-actions,.scroll-tree li a.menu-open:hover,
  a:hover .tree-item-action-container,.section-button,.section-menubutton,#message-area-inner,
- .message-area-text,#message-area-outer,#loading-area,#chrome-view-links,
+ .message-area-text,#message-area-outer,#chrome-view-links,
  #loading,#no-entries-msg,.message-area-text-container,.offscreen,.hover-form,
  .action-area,.email-this-area, .preview-interruption{
 	background-color: transparent!important;
 }
+/*#loading-area*/
 
 #entries.list .entry .collapsed{
 	border:0 !important;
