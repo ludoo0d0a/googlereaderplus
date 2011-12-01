@@ -438,7 +438,15 @@ GRP.langs[locale].prefs = {
 		icons : 'Icons only for action buttons (except checkbox)',
 		hidetoolbar: 'Hide user toolbar',
 		floatbar: 'New float bar mimic',
+		newbar: 'Activate new Google floating bar',
 		hideplus: 'Hide GooglePlus button'
+	},
+	compact:{
+		hide_bar:'Hide bar',
+		hide_search:'Hide search',
+		hide_subscription:'Hide subscription',
+		hide_nav:'Hide navigation',
+		searchinbar:'Search in bar'
 	},
 	limit : {
 		slidewindow : "Slidewindow - limit entries number",
