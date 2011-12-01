@@ -1,10 +1,11 @@
 //Portal theme v2.1
 
 GRP.portal = function(prefs, langs, ID, SL, lang){
-    var ncolumns = prefs.theme_ncolumns || 3;
+    var ncolumns = parseInt(prefs.theme_ncolumns || 3,10) ;
+    ncolumns=ncolumns||3;
 	var asRelative = false, TIME_TRANSITION = 0.6;//s
     var cols=[], he=800, we=800, w=300;
-    var memos = {}, entries = get_id('entries');
+    var memos = {}, entries = get_id('entries'), vec = get_id('viewer-entries-container');
 	
 	function reset(){
 		console.log('reset portal theme');
@@ -17,8 +18,6 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 		}
 		updateCss(w,he);
 	}
-	reset();
-	enableAnim();
 	
 	function updateCss(w,he){
 		var css = '#entries.cards .entry{width:' + w + 'px;padding:2px!important;}.card-common{margin:0;}#entries.cards .entry .entry-title {font-size:100%!important;}';
@@ -27,34 +26,50 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 		
 		//relative
 		if (asRelative) {
-			css += '#entries.cards.entry{float:left;max-height:300px;}#entries.cards #scroll-filler{float:left;}';
+			css += '#entries.cards .entry{float:left;max-height:300px;}#entries.cards #scroll-filler{float:left;}';
 		} else {
-			css += '#entries.cards .entry{min-width:200px;position:absolute !important;display:none;}';
+			css += '#entries.cards .entry{min-width:200px;position:absolute !important;}';
 			css += '#entries.gridmove.cards .entry{-webkit-transition:all ' + TIME_TRANSITION + 's ease-in-out;}';
-			css += '#entries.cards .entry.portal{display:block !important;}';
+
+//hide/show
+			css += '#entries.cards .entry{display:none;}';
+			css += '#entries.cards .entry.entry-portal{display:block !important;}';
+
+//entry-main
 			css += '#entries.cards .entry:not(.portal_maxi) .entry-main{overflow:visible;}';
 			css += '#entries.cards .entry.portal_maxi .entry-main{overflow:auto;}';
 			css += '#entries.cards .entry .entry-main{max-height:' + he + 'px;}';
 			
+//media
 			css += '#entries.cards .entry:not(.portal_maxi) img{max-width:' + (w - 50) + 'px;max-height:' + (w - 50) + 'px;}';
 			//embed, video, iframe,video non zindexable items
 			css += '#entries .entry:not(.portal_maxi) embed{display:none;}';
 			css += '#entries .entry:not(.portal_maxi) video{display:none;}';
 			css += '#entries .entry:not(.portal_maxi) object{display:none;}';
 			css += '#entries .entry:not(.portal_maxi) iframe{display:none;}';
-			css += '#entries.cards .entry.portal_maxi{z-index:999;}';
-			css += '#entries.cards .entry .section-button{position:static !important;}';
 			
+			css += '#entries.cards .entry.portal_maxi{z-index:999;}';
+//			css += '#entries.cards .entry .section-button{position:static !important;}';
+			css += '.section-minimize1,.section-minimize2{margin-left:15px;}';
+//section-minimize without left 11px
+css += '.section-minimize1 {background-position: -3px -120px;top: 6px;}';
+css += '.section-minimize2 {background-position: -23px -120px;top: 6px;}';
+
+//metadata			
 			css += '#entries.cards .entry .entry-date{position:static !important;}';
 			css += '#entries.cards .entry .entry-title{position:static !important;}';
 			css += '#entries.cards .entry .entry-author{position:static !important;}';
-			
+
+//entry-overflow			
 			css += '.entry .entry-overflow {background-image: -webkit-gradient(linear,left top,left bottom,from(rgba(255, 255, 255, 0)),to(rgba(255, 255, 255, 1.0)));height: 20%;max-height:150px;bottom: 0;position: absolute;width:'+(w-8)+'px;margin-left:4px;margin-bottom:3px;}';
 			css += '.entry.portal_maxi .entry-overflow{display:none}';
 			
 			css += '#entries .entry .entry-body,#entries .entry .entry-title,#entries .entry .entry-likers {max-width: 100%;}';
 			css += '.portal_mouse{cursor: pointer;}';
-			css += '#scroll-filler{display:none;}';
+//			css += '#scroll-filler{display:none;}';
+
+//css += 'iframe,video{display:none;}';
+
 		}
 		GM_addStyle(css, 'rps_portal');
 	}
@@ -100,7 +115,7 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 					h: entry.style.height
 				}
 			};
-			var sTop = entries.scrollTop;
+			var sTop = vec.scrollTop;
 			var ot= getNowTop(entry,sTop);
 			sizeEntry(entry,{
 				top: ot.top+'px',
@@ -116,7 +131,7 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 				adjustContentSize(entry,sTop);
 			},TIME_TRANSITION*1000+100);
 			lastMaxi=entry;
-			toggleClass(el, 'section-menubutton', 'section-minimize');
+			toggleClass(el, 'section-minimize1', 'section-minimize2');
 			removeClass(entries, 'portal_current');
 		}else{
 			if (memos[m]) {
@@ -127,7 +142,7 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 				removeClass(el, 'goog-menu-button-opened');
 			}
 			delete memos[m];
-			toggleClass(el, 'section-minimize', 'section-menubutton');
+			toggleClass(el, 'section-minimize2', 'section-minimize1');
 			addClass(entries, 'portal_current');
 		}
 	}
@@ -179,15 +194,17 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 		
 		var prev = getSibling(entry,true,ncolumns);
 		if (prev){
+			var prevHeight= prev.offsetHeight;
 			if (asRelative && prev) {
-				entry.style.top = (prev.offsetHeight + prev.offsetTop - entry.offsetTop) + 'px';
+				entry.style.top = (prevHeight + prev.offsetTop - entry.offsetTop) + 'px';
 			}else{
-				entry.style.top = (prev.offsetHeight + prev.offsetTop) + 'px';
+				entry.style.top = (prevHeight + prev.offsetTop) + 'px';
 			}
+			//fix prev height to fix lazy loading troubles
+			prev.style.height = prevHeight+'px';
 		}
+		addClass(entry, 'entry-portal');
 		if (!asRelative){
-			addClass(entry, 'portal',true);
-			
 			var m = getEntryNumber(entry);
 			var icol = m % ncolumns;
 			
@@ -204,15 +221,19 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 			
 			entry.style.left = (icol * (w+5)) + 'px';
 			cols[icol]+=entry.clientHeight;
-		}else{
-			addClass(entry, 'portal');
 		}
 		if (!entry.gridified) {
-			addClass(entry, 'portal_actions', true);
-			var icon = addIcon(entry, SL.readmore, clickMenu);
-			dh(entry, 'div', {cls: 'entry-overflow'});
-			onTextClick(entry, clickMenu, icon);
 			entry.gridified = true;
+			//Defer menu
+			setTimeout(function(){
+				//TODO: lazy loading for items causes troubles (entry.hasChildNodes temporarly fix this)
+				if (entry.hasChildNodes() && !hasClass(entry, 'portal_actions')){
+					addClass(entry, 'portal_actions', true);
+					var icon = addIcon(entry, SL.readmore, clickMenu, 'section-button section-minimize1');
+					dh(entry, 'div', {cls: 'entry-overflow'});
+					onTextClick(entry, clickMenu, icon);
+				}
+			},100);
 		}
     }
 	
@@ -251,6 +272,9 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 		}
 	}
 
+	reset();
+	enableAnim();
+	
     //update on entries changes
     registerFeature(gridify, 'portal_grid');
 	
@@ -267,7 +291,8 @@ GRP.portal = function(prefs, langs, ID, SL, lang){
 		});
 		enableAnim();
 	}
-	detectNavHidden(resetAll);
+//	detectNavHidden(resetAll);
+	
 	
 	function disableAnim(){
 		removeClass(entries, 'gridmove');
@@ -282,6 +307,7 @@ GRP.portaltoggle = function(status){
 	forAllEntries(function(el){
 		if (el.style){
 			if (status){
+				//restore
 				if (el.style.grptop) {
 					el.style.top = el.style.grptop;
 				}
@@ -289,6 +315,7 @@ GRP.portaltoggle = function(status){
 					el.style.left = el.style.grpleft;
 				}
 			}else{
+				//backup
 				if (el.style.top) {
 					el.style.grptop = el.style.top;
 					el.style.top=''; 
@@ -297,6 +324,7 @@ GRP.portaltoggle = function(status){
 					el.style.grpleft=el.style.left;
 					el.style.left=''; 
 				}
+				el.style.height='auto'; 
 			}
 		}
 	});
