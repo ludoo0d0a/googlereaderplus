@@ -5,9 +5,10 @@
 
 GRP.compact = function(prefs, langs, ID, SL, lang) {
 	var searchinbar = prefs.compact_searchinbar || false;
-	var hide_search = prefs.compact_hidesearch || false;
-	var hide_bar = prefs.compact_hidebar || false;
-	var hide_subscription = prefs.compact_hidesubscription || false;
+	var hide_search = prefs.compact_hide_search || false;
+	var hide_bar = prefs.compact_hide_bar || false;
+	var hide_nav = prefs.compact_hide_nav || false;
+	var hide_subscription = prefs.compact_hide_subscription || false;
 	var isCompact = GM_getValue('compact', false);
 
 	function toggleCompact() {
@@ -16,6 +17,9 @@ GRP.compact = function(prefs, langs, ID, SL, lang) {
 
 		showas(get_id('gb'), hide_search && isCompact);
 		showas(get_id('lhn-add-subscription-section'), hide_subscription && isCompact);
+		//nav=viewer-header-container+logo-section
+		showas(get_id('viewer-header-container'), hide_nav && isCompact);
+		showas(get_id('logo-section'), hide_nav && isCompact);
 		if(searchinbar) {
 			var css = '#search{position: absolute;top: -42px;left: 300px;z-index: 9999;}';
 			css += '#top-bar{height:0px;}';

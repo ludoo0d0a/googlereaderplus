@@ -438,7 +438,15 @@ GRP.langs[locale].prefs = {
 		icons : 'Icône seulement pour les boutons de la barre action (sauf pour les radio boutons)',
 		hidetoolbar : 'Cacher la barre d\'outil',
 		floatbar: 'Aperçu de la nouvelle barre flottante',
+		newbar: 'Activate new Google floating bar',
 		hideplus: 'Cacher le bouton GooglePlus'
+	},
+	compact:{
+		hide_bar:'Cacher le menu',
+		hide_search:'Cacher la recherche',
+		hide_subscription:'Cacher le bouton "Ajouter un flux"',
+		hide_nav:'Cacher la navigation',
+		searchinbar:'Recherche dans le menu'
 	},
 	limit : {
 		slidewindow : "Slidewindow - Limiter le nombre d'éléments",

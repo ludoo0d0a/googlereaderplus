@@ -408,7 +408,8 @@ GRP.scripts = {
 			icons: false,
 			hideplus: false,
 			noborder:false,
-			floatbar:true
+			floatbar:false,
+			newbar:false
 		}
 	},
 	compact: {
@@ -416,9 +417,10 @@ GRP.scripts = {
 		name: 'Compact layout',
 		status:'new',
 		options:{
-			hidebar:true,
-			hidesearch:true,
+			hide_bar:true,
+			hide_search:true,
 			hide_subscription:false,
+			hide_nav:false,
 			searchinbar: false
 		},
 		shortcuts: {
