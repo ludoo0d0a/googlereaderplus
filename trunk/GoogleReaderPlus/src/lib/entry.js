@@ -483,26 +483,39 @@ function fireResize(value, time){
 	}, time);
 }
 
-var entries = get_id('entries'), ss = get_id('scrollable-sections'),vec=get_id('viewer-entries-container'),tsh=get_id('title-and-status-holder');
-var tb=get_id('top-bar'), gb=get_id('gb'), las=get_id('lhn-add-subscription-section'), vhc=get_id('viewer-header-container');
+var entries = get_id('entries');
+var ELS = {};
+fillElements();
+function fillElements(){
+	ELS.ss = get_id('scrollable-sections');
+	ELS.vec=get_id('viewer-entries-container');
+	ELS.tsh=get_id('title-and-status-holder');
+	ELS.tb=get_id('top-bar');
+	ELS.gb=get_id('gb');
+	ELS.las=get_id('lhn-add-subscription-section');
+	ELS.vhc=get_id('viewer-header-container');
+	ELS.tsh=get_id('title-and-status-holder');
+}
+
 function _fireResize(lhnfooter){
     //scrollable-sections = lhn-add-subscription-section.height + top-bar.height + gb.height
-    var hl = getVisibleHeight(las)+getVisibleHeight(tb)+getVisibleHeight(gb);
-    fitHeight(ss, hl);
+    var hl = getVisibleHeight(ELS.las)+getVisibleHeight(ELS.tb)+getVisibleHeight(ELS.gb);
+    fitHeight(ELS.ss, hl);
     //viewer-entries-container = viewer-header-container.height + top-bar.height + gb.height
-    var hr = getVisibleHeight(vhc)+getVisibleHeight(tb)+getVisibleHeight(gb);
-    fitHeight(vec, hr);
+    var hr = getVisibleHeight(ELS.vhc)+getVisibleHeight(ELS.tb)+getVisibleHeight(ELS.gb);
+    fitHeight(ELS.vec, hr);
 }
 var headerOffset = 0;
 function getMaxBodyHeight(){
 	//vec-tsh
-	var offset=60, h = getVisibleHeight(vec);
+	var offset=60, h = getVisibleHeight(ELS.vec);
 	if (!headerOffset){
 		var entry = getCurrentEntry();
 		var eti = getFirstElementByClassName(entry, 'entry-title'), //22px
 		eau = getFirstElementByClassName(entry, 'entry-author') //16px
 		ean = getFirstElementByClassName(entry, 'entry-annotations');
 		eca = getFirstElementByClassName(entry, 'card-actions');//30px
+		//ELS.tsh?
 		headerOffset = getVisibleHeight(eti) + getVisibleHeight(eau) + getVisibleHeight(ean)+ getVisibleHeight(eca);
 	}
 	return h - offset - headerOffset; 
