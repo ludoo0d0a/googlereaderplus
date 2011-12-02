@@ -342,7 +342,7 @@ prefssavedfailed: 'Salvarea configuraţiei a eşuat!',
     favicons: {
         providerpageicons: 'Utilizaţi <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> (Recomandat pentru încărcarea cu succes a tuturor iconiţelor)',
         sidebaronly: "Afişează favicon-urile doar în partea din dreapta",
-        cloud: 'Utilizează baza de date cloud <a href="http://wedata.net/databases/Favicons" target="blank">wedata/Favicons</a> ca, comunitatea să completeze favicon-urile',
+        cloud: 'Utilizează baza de date cloud <a href="http://wedata.net/databases/Favicons/items" target="blank">wedata/Favicons</a> ca, comunitatea să completeze favicon-urile',
         custom: "Introduceţi favicon-urile personalizate :",
         add: "Adaugă",
         tip: "Notă: Aţi putea-o uşor adăuga utilizând meniul contextual \"Obţine favicon\" al barei din partea stângă",
