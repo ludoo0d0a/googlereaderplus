@@ -325,7 +325,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang){
         }, false);
     }
     
-var css = '.favicon{background-repeat:no-repeat;background-position:center;}';
+var css = '.favicon{background-repeat:no-repeat;background-position:center;background-size: 16px 16px;}';
 css += '.grf-entry{width:16px;height:16px;display: inline-block;margin-right:4px;}';
 
 
