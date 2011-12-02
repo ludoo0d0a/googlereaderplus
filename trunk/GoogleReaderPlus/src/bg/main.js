@@ -183,7 +183,8 @@ function fixCloudItem(item, o,r,a){
 						//console.log(item);
 						r.item.remove(item, function(){
 							CLOUD.counts.done++;
-							if (CLOUD.counts.done == CLOUD.counts.doublons) {
+							console.log('************ '+CLOUD.counts.done +'/'+ CLOUD.counts.doublons);
+							if (CLOUD.counts.done === CLOUD.counts.doublons) {
 								console.log('************ All remove completed');
 							}
 						});
