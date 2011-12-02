@@ -70,7 +70,9 @@ function bg_request(a, local, cb){
             xhr.setRequestHeader(kh, a.headers[kh]);
         }
     }
-    //a['onload']=true;//force onload
+    if (local && cb && !a.onload){
+    	a.onload=cb;
+    }
     var fns = ['readystatechange', 'error', 'load'];
     var xpath = a.xpath;
     for (var i = 0, len = fns.length; i < len; i++) {

@@ -581,3 +581,19 @@ function setCookies(a,cb){
 		setCookie(a.name, a.value);
 	}
 }
+
+function checkfile(url, cb){
+	request({
+		url: url,
+		onload: function(r){
+			if (cb){
+				cb(r, (r.status >= 200 && r.status <= 299));
+			}
+		},
+		onerror: function(r){
+			if (cb){
+				cb(r, false);
+			}
+		}
+	}, true);
+}
