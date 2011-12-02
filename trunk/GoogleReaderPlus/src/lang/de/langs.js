@@ -414,7 +414,7 @@ GRP.langs[locale].prefs = {
 	favicons : {
 		providerpageicons : 'Benutze <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> Provider (Empfohlen alle Icons zu laden)',
 		sidebaronly : "Zeige Favicons nur in der Sidebar",
-		cloud : 'Benutze online Datenbank <a href="http://wedata.net/databases/Favicons" target="blank">wedata/Favicons</a> damit die Community die Favicons laden kann',
+		cloud : 'Benutze online Datenbank <a href="http://wedata.net/databases/Favicons/items" target="blank">wedata/Favicons</a> damit die Community die Favicons laden kann',
 		custom : "Füge dein eigenes Favicon hinzu :",
 		add : "hinzufügen",
 		tip : "Tipp: You could add it easily using the contextual menu \"Get favicon\" of the left side bar",

@@ -306,7 +306,7 @@ GRP.langs[locale].prefs = {
     favicons: {
         providerpageicons: 'Usar el proveedor de íconos <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> para visualizar correctamente los íconos de página (recomendado)',
         sidebaronly: "Mostrar favicons sólo en la barra lateral",
-        cloud: 'Usar favicons de la comunidad en línea <a href="http://wedata.net/databases/Favicons" target="blank">wedata/Favicons</a>',
+        cloud: 'Usar favicons de la comunidad en línea <a href="http://wedata.net/databases/Favicons/items" target="blank">wedata/Favicons</a>',
         custom: "Use sus propios favicons:",
         add: "Añadir",
         tip: "Consejo: puede añadir fácilmente favicons usando el menú contextual \"Obtener favicon\" de cada web en la barra lateral",

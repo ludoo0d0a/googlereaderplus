@@ -300,7 +300,7 @@ imgfl:'Rodapé esquerdo'
     favicons: {
         providerpageicons: 'Utilizar o servidor do <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> (Recomendado para visualização dos icons)',
         sidebaronly: "Mostrar favicons apenas na barra do lado",
-cloud: 'Utilizar uma base de dados em nuvem <a href="http://wedata.net/databases/Favicons" target="blank">wedata/Favicons</a> para a comunidade poder utilizar/adicionar favicons',
+cloud: 'Utilizar uma base de dados em nuvem <a href="http://wedata.net/databases/Favicons/items" target="blank">wedata/Favicons</a> para a comunidade poder utilizar/adicionar favicons',
         custom: "Inserir favicons:",
         add: "Adicionar",
         tip: "Ajuda: podes facilmente adicionar o menu contextual \"Get favicon\" no menu que está situado à esquerda",

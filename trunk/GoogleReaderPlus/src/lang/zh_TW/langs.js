@@ -483,7 +483,7 @@ GRP.langs[locale].prefs = {
     favicons: {
         providerpageicons : '使用 <a href="http://pageicons.appspot.com" target="blank">PageIcons</a> 提供者 (推薦)',
         sidebaronly: "在側邊欄顯示Favicon",
-		cloud : '使用 <a href="http://wedata.net/databases/Favicons" target="blank">wedata/Favicons</a> 雲端資料庫',
+		cloud : '使用 <a href="http://wedata.net/databases/Favicons/items" target="blank">wedata/Favicons</a> 雲端資料庫',
         custom: "請輸入您的自定義Favicons :",
         add: "新增",
         tip: "Tip: 你可以很使用上下文選單 \"取得網站圖示\" 來新增",
