@@ -463,9 +463,9 @@ function cleanUrl(url){
     if (m) {
         r= m[1];
     } 
-	m = /(.*)\/.*\.\w+$/.exec(url);
+	m = /(.*)\/.*\.\w+$/.exec(r);
 	if (m) {
-        r= m[1];
+        r=m[1];
     }
 	//Remove 2 dots
 	r=r.replace(/\/[^\/]+\/\.\./g,''); 

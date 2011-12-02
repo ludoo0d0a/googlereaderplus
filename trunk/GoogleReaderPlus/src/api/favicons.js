@@ -134,7 +134,7 @@ function fixItem(item){
 	/*
 	if (counts.total < 20) {
 		//Check favicon response
-		checkfile({url: item.data.icon}, function(){
+		checkfile(item.data.icon, function(){
 			counts.icofailed++;
 			console.error('Favicon not found ['+counts.icofailed+']: ' + item.data.icon);
 		});
@@ -142,23 +142,7 @@ function fixItem(item){
 	*/
 	return item;
 }
-function checkfile(a, cb){
-	request({
-		url: a.url,
-		onload: function(xhr){
-			if (xhr.status >= 400) {
-				if (cb){
-					cb(a);
-				}
-			}
-		},
-		onerror: function(){
-			if (cb){
-				cb(a);
-			}
-		}
-	}, true);
-}
+
 
 function cleanReaderUrl(url){
 	if (reFixReader.test(url)) {
@@ -169,7 +153,6 @@ function cleanReaderUrl(url){
 }
 
 function extractFavicon(a, cb){
-    var xhr = new XMLHttpRequest();
     var url, title, key = a.key; //, ICONS_TITLE = a.ICONS_TITLE;
     if (!key) {
         //url+title
@@ -186,32 +169,60 @@ function extractFavicon(a, cb){
 	
 	//Helper for feedburner
 	page=page.replace(/\/\/feeds\./,'//www.');
+	a.url = page;
 	
+	bg_request(a, true, function(a){
+		var html = a.responseText; //responseBody
+	    var icon = parseFavicon(html, url);
+	    checkfile(icon, function(r,exists){
+	        if (icon && exists) {
+	            var f = {title:title, icon:icon, url:url};
+			    setFavicon(f);
+	            saveFavicon(f);
+	        }
+        	sendResponse({
+                message: 'iconget',
+				o:{
+					title: title,
+	                icon: icon,
+	                url: url,
+	                exists: exists
+				}
+            }, cb);
+	        
+	     });
+	 });
+	         
+    /*
+    var xhr = new XMLHttpRequest();
     //xhr.open(a.method || 'get', normalizeUrl(url), true);
 	xhr.open(a.method || 'get', page, true);
     xhr.onload = function(o){
         var xhr = o.target;
         if (xhr) {
             var html = xhr.responseText; //responseBody
-            var icon = parseFavicon(html, url);
-            if (icon) {
-               var f = {title:title, icon:icon, url:url};
-			   setFavicon(f);
-               saveFavicon(f);
-            }
-			//ICONS_TITLE[key].icon=icon;
-            sendResponse({
-                message: "iconget",
-				o:{
-					title: title,
-	                icon: icon,
-	                url: url
-				}
-                //,ICONS_TITLE: ICONS_TITLE
-            }, cb);
+            var ico = parseFavicon(html, url);
+            checkfile(ico, function(icon){
+	            if (icon) {
+	                var f = {title:title, icon:icon, url:url};
+				    setFavicon(f);
+	                saveFavicon(f);
+					//ICONS_TITLE[key].icon=icon;
+		            sendResponse({
+		                message: "iconget",
+						o:{
+							title: title,
+			                icon: icon,
+			                url: url
+						}
+		                //,ICONS_TITLE: ICONS_TITLE
+		            }, cb);
+	            }
+	         });
         }
     };
     xhr.send({});
+    */
 }
 
 /**
