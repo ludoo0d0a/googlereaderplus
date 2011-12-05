@@ -1,4 +1,4 @@
-var ICONS_TITLE, ICONS_URL={};
+var ICONS_TITLE={}, ICONS_URL={};
 var counts = {total:0},reFixReader = /^.*\/feed%2F/;
 //debug
 var FIXING = false, MIRROR = true, r2=false;
