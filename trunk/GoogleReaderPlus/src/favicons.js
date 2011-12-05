@@ -96,8 +96,8 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 		//var span = document.createElement('span');
 		var icon = document.createElement('div');
 		icon.className = 'favicon gr-favicon grf-entry';
-		var siteTitle = getEntrySiteTitle(entry);
-		var match = ellipsis(siteTitle);
+		var match = getEntrySiteTitle(entry);
+		//var match = ellipsis(siteTitle);
 		icon.title = match;
 		//span.appendChild(icon);
 
@@ -146,7 +146,8 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 
 				var title = getFirstElementByClassName(el, 'name-text');
 				//div.name-text
-				var match = ellipsis(title.textContent);
+				//var match = ellipsis(title.textContent);
+				var match = title.textContent;
 
 				//console.log('setIcon:'+match);
 				//var t = findFaviconByTitle(ICONS_TITLE, match);
@@ -167,13 +168,15 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 		}, tim);
 	}
 
-	/*function renderFavicons(o){
-	var match = ellipsis(o.title);
-
-	getElements(".//img[@title='" + match + "']").forEach(function(img){
-	img.src = o.icon;
-	});
-	}*/
+	function renderFavicons(o){
+		//var match = ellipsis(o.title);
+		var match = o.title;
+		getElements(".//div[contains(@class,'favicon')][@title='" + match + "']").forEach(function(el){
+			//if (hasClass(el,'favicon')){
+				setBgImg(el, o.icon);
+			//}
+		});
+	}
 
 	//Override with manual favicons
 	function updateFavicons() {
@@ -270,6 +273,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 					if(o && o.icon && o.exists) {
 						ICONS_TITLE[_key] = o;
 						setBgImg(icon, o.icon);
+						renderFavicons(o);
 						updateFavicons();
 						setValue();
 					} else {
@@ -281,8 +285,10 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 				});
 				// ->iconget
 			} else {
+				var o = ICONS_TITLE[key]||{};
 				var url = promptIcon({
-					title : key
+					title : key,
+					url:((o.url||'')+'/favicon.ico')
 				});
 			}
 			node.focus();
