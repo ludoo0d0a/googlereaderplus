@@ -1,5 +1,9 @@
 // Theme
 GRP.theme = function(prefs, langs, ID, SL, lang, scop){    
+    if (!prefs.theme_skin) {
+        return;
+    }
+   
     var skin = GRP.skins[prefs.theme_skin];
     if (!skin) {
         console.log('Error with skin ' + prefs.theme_skin);
