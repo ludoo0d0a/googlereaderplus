@@ -20,7 +20,7 @@ GRP.scripts = {
 			},
 			counter: false,
 			counterinterval: 5,
-			opendirect: false,
+			//opendirect: false,
 			icontoolbar_text: {
 				xtype: 'p',
 				label: true
