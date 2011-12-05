@@ -162,31 +162,21 @@ function loadExternal(cb){
 function checkEntry(el, fn, params){
     if (el.tagName === 'DIV') {
         if (hasClass(el, 'entry')) {
-            //TODO: lazy loading for items causes troubles 
-            /*if (entry.hasChildNodes()){
-            	//ok go
-            	catchEntry(el, ea, fn, params, false);
-            } else{
-            	//watch DOMinsertedNode inside then fires fn
-            	el.addEventListener('DOMNodeInserted', function(e){
-			        catchEntry(el, ea, fn, params, false);
-			    }, false);
-            }*/
             var mode = getMode(entry);
             if (mode==='expanded'){
                 // *********** Expanded view
                 var ea = getFirstElementByClassName(el, 'entry-actions');
                 //var ea = el.firstChild.lastChild.firstChild;
-                console.log("Run as ExpandedView for "+el.tagName + "." + el.className);
+//                console.log("Run as ExpandedView for "+el.tagName + "." + el.className);
                 catchEntry(el, ea, fn, params, false);
             } else {
                 // *********** Closed article in List view
-                console.log("Run as ListView-closed for "+el.tagName + "." + el.className);
+//                console.log("Run as ListView-closed for "+el.tagName + "." + el.className);
                 catchEntry(el, false, fn, params, true);
             }
         } else if (hasClass(el, 'entry-actions')) {
             // *********** Expand article in List view
-            console.log("Run as ListView-opened for "+el.tagName + "." + el.className);
+//            console.log("Run as ListView-opened for "+el.tagName + "." + el.className);
             var entry = findParentNode(el, 'div', 'entry');
             catchEntry(entry, el, fn, params, true, true);
         }
