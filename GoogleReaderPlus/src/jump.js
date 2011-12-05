@@ -9,29 +9,24 @@
  */
 GRP.jump = function(prefs, langs, ID, SL, lang){
     var staticdown = prefs.jump_staticdown || false;
-    function addJumpButtons(el, entry, mode){
-        if (isTagged(entry, 'tjump')) {
-            //stop entry was already scanned
-            return;
-        }
-		
-		//var title = getFirstElementByClassName(entry,  'entry-title');//h2
+    function addJumpButtons(el, entry, mode){		
 		var link = getOriginalEntryLink(entry);
         if (link) {
-            var div = document.createElement('div');
-            div.className = 'entry-title-go-to-bottom';
-            
-            var a = document.createElement('a');
-            a.href = "#";
-            if (staticdown){
-            	a.className = 'rp-icon-go-down';
-            }
-            a.title = SL.textbottom + formatShortcut(ID, 'godown', prefs);// [Shift+B] 
-            a.appendChild(div);
-            
-            //title.appendChild(a);
-			insertAfter(a, link);
-            div.addEventListener('click', gotobottom, false);
+           var div = getFirstElementByClassName(entry,  'entry-title-go-to-bottom');
+           if (!div){
+	            var abottom = dh(link,'a',{
+	            	position:'after',
+	            	href:'#',
+	            	cls:((staticdown)?'rp-icon-go-down':''),
+	            	title: SL.textbottom + formatShortcut(ID, 'godown', prefs)// [Shift+B]
+	            });
+	            
+				div = dh(abottom, 'div', {
+					cls : 'entry-title-go-to-bottom'
+				}, {
+					click : gotobottom
+				});
+           }
         }
         
         var title =  SL.texttop + formatShortcut(ID, 'goup', prefs); //[Shift+T]

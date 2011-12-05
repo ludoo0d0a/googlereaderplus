@@ -70,11 +70,20 @@ function execAllOffset(el, entry, mode, force){
     for (var i = 0, len = stackFeatures.length; i < len; i++) {
         var p = stackFeatures[i].params;
 		//console.log('p.bid='+p.bid);
-        if (mode==='expanded' || el) {
-            //ListView-opened or ExpandedView
+        if (mode==='expanded') {
+            //ExpandedView
             if (!isTagged(entry, p.bid)) {
                 stackFeatures[i].fn.call(this, el, entry, mode);
             }
+        }else if (el) {
+        	//ListView-opened
+        	if (!(p && p.onlistviewtitle)) {
+	    		//isTagged on entry-container because always recreated
+	    		var ec = getFirstElementByClassName(entry, 'entry-container');
+	    		if (!isTagged(ec, p.bid)) {
+	    			stackFeatures[i].fn.call(this, el, entry, mode);
+	    		}
+    		}
         } else {
             //ListView-closed
             if (p && p.onlistviewtitle) {
@@ -168,16 +177,16 @@ function checkEntry(el, fn, params){
                 // *********** Expanded view
                 var ea = getFirstElementByClassName(el, 'entry-actions');
                 //var ea = el.firstChild.lastChild.firstChild;
-                //console.log("Run as ExpandedView for "+el.tagName + "." + el.className);
+                console.log("Run as ExpandedView for "+el.tagName + "." + el.className);
                 catchEntry(el, ea, fn, params, false);
             } else {
                 // *********** Closed article in List view
-                //console.log("Run as ListView-closed for "+el.tagName + "." + el.className);
+                console.log("Run as ListView-closed for "+el.tagName + "." + el.className);
                 catchEntry(el, false, fn, params, true);
             }
         } else if (hasClass(el, 'entry-actions')) {
             // *********** Expand article in List view
-            //console.log("Run as ListView-opened for "+el.tagName + "." + el.className);
+            console.log("Run as ListView-opened for "+el.tagName + "." + el.className);
             var entry = findParentNode(el, 'div', 'entry');
             catchEntry(entry, el, fn, params, true, true);
         }
@@ -834,10 +843,17 @@ function isActive(btn, entry, cls, locked, clsOn, clsOff){
     return active;
 }
 
-function isTagged(entry, cls){
-    var tagged = entry.getAttribute(cls);
-    if (!tagged) {
-        entry.setAttribute(cls, '1');
+function isTagged(el, id){
+    //Tag on entry-container
+    var tagged = false;
+   if (el){
+    	var cls='grp-'+id;
+    	//tagged=ec.getAttribute(cls);
+    	tagged=hasClass(el,cls);
+	    if (!tagged) {
+	        //ec.setAttribute(cls, '1');
+	        addClass(el,cls);
+	    }
     }
     return tagged;
 }
