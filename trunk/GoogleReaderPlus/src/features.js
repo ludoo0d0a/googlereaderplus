@@ -1500,6 +1500,57 @@ GRP.skins = {
 		resize: 'footer',
 		status:'new'
 	},
+	rereader:{
+		name:'Re-reader',
+		ref:'http://userstyles.org/styles/52834/re-reader-theme-for-google-reader',
+		pic: 'http://cdn.userstyles.org/style_screenshot_thumbnails/52834_after.jpeg',
+		url: 'http://userstyles.org/styles/userjs/52834/Re-reader%20%E2%80%94%20theme%20for%20Google%20Reader.user.js',
+		resize: 'footer',
+		status:'new'
+	},
+	symphonia:{
+		name:'Symphonia',
+		ref:'http://userstyles.org/styles/56339/google-reader-symphonia-final',
+		pic: 'http://cdn.userstyles.org/style_screenshot_thumbnails/56339_after.png',
+		url: 'http://userstyles.org/styles/userjs/56339/Google%20Reader%20Symphonia%20Final.user.js',
+		resize: 'footer',
+		status:'new'
+	},
+	
+	/* Tests */
+	gooder:{
+		name:'Gooder',
+		ref:'http://userstyles.org/styles/55583/gooder-plus-old-google-reader-style',
+		pic: 'http://cdn.userstyles.org/style_screenshot_thumbnails/55583_after.png',
+		url: 'http://userstyles.org/styles/userjs/55583/Gooder%20Plus-Old%20Google%20Reader%20Style.user.js',
+		resize: 'footer',
+		status:'new'
+	},
+	nostalgia:{
+		name:'Nostalgia',
+		ref:'http://userstyles.org/styles/55658/google-reader-nostalgia',
+		pic: 'http://cdn.userstyles.org/style_screenshot_thumbnails/55658_after.jpeg',
+		url: 'http://userstyles.org/styles/userjs/55658/Google%20Reader%20Nostalgia.user.js',
+		resize: 'footer',
+		status:'new'
+	},
+	maddercarmine:{
+		name:'maddercarmine tweaks',
+		ref:'http://userstyles.org/styles/55556/google-reader-new-interface-tweaks',
+		pic: 'http://cdn.userstyles.org/style_screenshot_thumbnails/55556_after.jpeg',
+		url: 'http://userstyles.org/styles/userjs/55556/Google%20reader%20-%20new%20interface%20tweaks.user.js',
+		resize: 'footer',
+		status:'new'
+	},
+	
+	threecolumns:{
+		name:'3 Column Reader',
+		ref:'http://userstyles.org/styles/50474/google-reader-3-column-reader',
+		pic: 'http://cdn.userstyles.org/style_screenshot_thumbnails/50474_after.jpeg',
+		url: 'http://userstyles.org/styles/userjs/50474/Google%20Reader%20-%203%20Column%20Reader.user.js',
+		resize: 'footer',
+		status:'new'
+	},
 	
 	/* TODO section */
 	helvetireader: {
