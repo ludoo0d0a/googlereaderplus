@@ -546,8 +546,7 @@ function _handleKeyEvent(e, event){
         for (var i = 0, len = keys.length; i < len; i++) {
             var k = keys[i];
             if (k.keyCode == kc){
-            //if (k.keyCode == kc &&
-            	console.log(kc);
+            	//console.log(kc);
             if (((k.shiftKey && e.shiftKey) || (!k.shiftKey && !e.shiftKey)) &&
             ((k.ctrlKey && e.ctrlKey) || (!k.ctrlKey && !e.ctrlKey)) &&
             ((k.altKey && e.altKey) || (!k.altKey && !e.altKey))) {
