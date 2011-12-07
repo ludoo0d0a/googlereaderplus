@@ -1492,6 +1492,14 @@ GRP.skins = {
 		//pic: 'http://www.webbizgeek.com/wp-content/uploads/2010/07/Google-Reader-custom-skin1.jpg',
 		status:'updated'
 	},
+	lion:{
+		name:'Mac OS Lion UI',
+		ref:'http://userstyles.org/styles/55956/google-reader-mac-os-lion-ui',
+		pic: 'http://cdn.userstyles.org/style_screenshot_thumbnails/55956_after.jpeg',
+		url: 'http://userstyles.org/styles/userjs/55956/Google%20Reader%20%E2%80%94%20Mac%20OS%20Lion%20UI.user.js',
+		resize: 'footer',
+		status:'new'
+	},
 	
 	/* TODO section */
 	helvetireader: {
