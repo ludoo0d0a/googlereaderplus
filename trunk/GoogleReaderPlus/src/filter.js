@@ -545,6 +545,9 @@ GRP.filter = function(prefs, langs, ID, SL, lang) {
 			//Date
 			o.date = encoderegex(term.replace(/^date:/, ''), true);
 			//o.date=new Date(o.date);
+		} else if(/^days:/.test(term)) {
+			//days
+			o.days = encoderegex(term.replace(/^days:/, ''), true);
 		} else if(/^from:/.test(term)) {
 			//Feed name
 			o.from = encoderegex(term.replace(/^from:/, ''), true);
@@ -576,6 +579,11 @@ GRP.filter = function(prefs, langs, ID, SL, lang) {
 			//bad data
 			return false;
 		}
+		if(o.days && dDate.daysBeforeToday(content.date)>o.days) {
+			//last x days only
+			return false;
+		}
+		
 		if(o.from && !o.from.test(content.from)) {
 			//bad feed
 			return false;
@@ -586,6 +594,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang) {
 				//bad author
 				return false;
 			}
+			
 			if(o.tag && !o.tag.test(content.tag)) {
 				//bad tag
 				return false;
