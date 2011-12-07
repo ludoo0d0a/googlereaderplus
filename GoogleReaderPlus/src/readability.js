@@ -54,9 +54,16 @@ GRP.readability = function(prefs, langs, ID, SL, lang) {
 			el.innerHTML = SL.loading;
 			hide(el);
 			el.innerHTML = text;
+			fixLinkTarget(el);
 			body.appendChild(el);
 			showContent(entry,el,active);
 		} 
+	}
+	
+	function fixLinkTarget(el){
+		getElements(".//a[not(@target)]",el).forEach(function(link){
+			addAttr(link,'target','_blank');
+		});
 	}
 	
 	//Reset to original
