@@ -51,3 +51,9 @@ birds date:Mar
 facebook from:ZDNet
 body:subtext
 }}}
+
+To filter on last days, you could use the following tag:
+{{{
+days:4
+}}}
+This will filter items on last 4 days.
