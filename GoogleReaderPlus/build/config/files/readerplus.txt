@@ -4,7 +4,8 @@ lib\greasekit.js
 lib\entry.js
 lib\i18n.js
 lib\external.js
-lib\slideshow.js,
+lib\slideshow.js
+lib\date.js
 version.js
 features.js
 lib\sizzle.js
