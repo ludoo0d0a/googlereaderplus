@@ -3,6 +3,8 @@
 var dDate = function() {
 	var langs = {
 		en : {
+			months:{Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11},
+			//ago : /\d+ hours? ago/,
 			//5:31 AM
 			h : {
 				re : /(\d+):(\d+)\s([AP]M)\s+\([^\)]\)/,
@@ -17,8 +19,15 @@ var dDate = function() {
 				//Nov 16, 2011 6:10 PM
 				re : /((\w+)\s(\d+),\s(\d+))?\s?((\d+):(\d+)\s([AP]M))?(\s+\([^\)]\))?/,
 				p : ['_all', '_day', 'M', 'd', 'y', '_hour', 'h', 'm', 't', '_ago', 'ago']
-			},
-			ago : /\d+ hours ago/
+			}
+		},
+		fr:{
+			_months:"janv.,f\u00e9vr.,mars,avr.,mai,juin,juil.,ao\u00fbt,sept.,oct.,nov.,d\u00e9c.",
+			full : {
+				//7 déc. 2011 02:23
+				re : /((\w+)\s([^\s]+)\s(\d+))?\s?((\d+):(\d+))?(\s+\([^\)]\))?/,
+				p : ['_all', '_day', 'd', 'M', 'y', '_hour', 'h', 'm', '_ago', 'ago']
+			}
 		}
 	};
 
@@ -35,7 +44,20 @@ var dDate = function() {
 		parse : function(text, lang) {
 			var d = false;
 			lang = lang || 'en';
-			var l = langs[lang], m = l.full.re.exec(text), p = l.full.p;
+			var l = langs[lang];
+			if (!l.full){
+				l.full=langs.en.full;
+				l.h=langs.en.h;
+				l.d=langs.en.d;
+			}
+			if (!l.months){
+				l.months={};
+				var m =l._months.split(',');
+				for(var i = 0, len = m.length; i < len; i++) {
+					l.months[m[i]] = i || 0;
+				}
+			}
+			var m = l.full.re.exec(text), p = l.full.p;
 			if(m) {
 				var n = {
 					y : 0,
@@ -51,7 +73,7 @@ var dDate = function() {
 				}
 				var today = new Date();
 				n.y = getInt(n.y, today.getFullYear());
-				n.M = getInt(n.M, today.getMonth());
+				n.M = getInt(l.months[n.M]||n.M, today.getMonth());
 				n.d = getInt(n.d, today.getDate());
 				d = new Date(n.y, n.M, n.d, n.h, n.m, n.s, 0);
 			}
@@ -67,14 +89,17 @@ var dDate = function() {
 			}
 		},
 		daysBetween : function(d1, d2) {
-			var ms = d1.getTime() - d2.getTime();
+			var ms = d2.getTime() - d1.getTime();
 			return Math.floor(ms / 864E5);
 		},
-		daysBeforeToday : function(d) {
+		daysBeforeToday : function(d,lang) {
+			var t=d;
 			if (typeof d ==='string'){
-				d = this.parse(d);
+				d = this.parse(d,lang);
 			}
-			return this.daysBetween(d, new Date());
+			var db =  this.daysBetween(d, new Date());
+			console.log(t+' - '+db);
+			return db;
 		}
 	};
 	//};
