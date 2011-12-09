@@ -151,7 +151,7 @@ function clone(a){
 function loadPrefetch(){
     var first = (GRP_prefetch.first || 25), next = (GRP_prefetch.next || 15), list = (GRP_prefetch.list || 60);
     var version = '0.2.4', id = 'GoogleReaderPrefetchMore';
-    var config = GM_getValue(id, {
+    var config = (/*GM_getValue(id,*/ {
         version: '',
         src: '',
         targetFunction: '',
@@ -171,20 +171,32 @@ function loadPrefetch(){
                 onload: function(res){
                     var s = res.responseText;
                     var a, r;
+                    // o.Sl=function(){return St(this.tb())?this.Xa?1:5:20};
                     s = s.split(/;[^;]+\.([^.]+)=[^=]+\{[^{]+1:5:20/)[0];
                     if (!RegExp.$1) 
                         throw new Error('Prefetch failed. Something wrong with the js.');
                     a = RegExp.$1;
-                    r = new RegExp('new ([a-zA-Z]+)\\([^;]+this\.' + a + '[^a-zA-Z]');
+//console.log('a1='+a);
+//console.log('s1='+s);
+					//new Ut(this.ba,q(this.Cg,this),q(this.Jo,this),q(this.Lu,this),q(this.ys,this),q(this.Sl,this));
+					r = new RegExp('new ([a-zA-Z]+)\\([^;]+this\.' + a + '[^a-zA-Z]');
                     s = s.split(r)[0];
                     a = RegExp.$1;
-                    r = new RegExp('function ' + a + '\\([a-zA-Z]+,[a-zA-Z]+,[a-zA-Z]+,[a-zA-Z]+,[a-zA-Z]+,([a-zA-Z]+)\\)');
+//console.log('a2='+a);
+//console.log('s2='+s);
+					//function Ut(a,b,c,d,e,g){this.ba=a;this.AE=b;this.PE=c;this.CA=d;this.dy=e;this.QE=g;this.fl={kH:0,Dl:0}}
+					r = new RegExp('function ' + a + '\\([a-zA-Z]+,[a-zA-Z]+,[a-zA-Z]+,[a-zA-Z]+,[a-zA-Z]+,([a-zA-Z]+)\\)');
                     s = s.split(r)[2];
                     a = RegExp.$1;
+//console.log('a3='+a);
+//console.log('s3='+s);
                     r = new RegExp('\\{[^}]+this.([a-zA-Z]+)=' + a);
                     s = s.split(r)[2];
                     a = RegExp.$1;
-                    r = new RegExp('function ([a-zA-Z]+)\\([^\\)]*\\)\\{[^}]+=([a-zA-Z]+\\.' + a + '\\(\\))[^}]+\\}');
+//console.log('a4='+a);
+//console.log('s4='+s);
+                    // function Vt(a){var b=a.fl.Dl;a.fl.Dl+=a.QE();var c=a.fl.Dl;a.dy(a.ba.nj(),a.ba.Oh());for(b=b;b<c;b++)a.ba.Eh(b,q(a.Cg,a,b))}
+					r = new RegExp('function ([a-zA-Z]+)\\([^\\)]*\\)\\{[^}]+=([a-zA-Z]+\\.' + a + '\\(\\))[^}]+\\}');
                     r.test(s);
                     if (a == RegExp.$1) 
                         throw new Error('Prefetch failed. Something wrong with the js!!');
@@ -207,7 +219,7 @@ function loadPrefetch(){
         var r = uneval(p).replace(v, ['(', v, ' == 5)? ', first, ' : (', v, ' == 1)? ', next, ' : (', v, ' == 20)? ', list, ' : ', v].join('')
 		).replace(/{/, '{with(window){').replace(/}$/, '}}');
 		
-		console.log(r);
+		//console.log(r);
         e(n + '=' + r);
     }
 }
