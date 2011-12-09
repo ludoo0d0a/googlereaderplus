@@ -43,6 +43,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang) {
 		css += '.entry-highlighted .card-content, .entry-highlighted .collapsed{background-color:' + colors.highlight + '!important;} .entry-highlighted .card-content *, .entry-highlighted .collapsed *{color:#000!important;background-color:' + colors.highlight + ';}';
 		css += '#entries.list.full-snippet .collapsed{height:auto !important;}';
 		css += '#entries.list.full-snippet .collapsed .entry-secondary{position:static !important;}';
+		css += '.hit{background-color:yellow !important;}';
 		GM_addStyle(css, 'rpe_' + ID);
 
 		var css_ui = ".menu-filter-static{position:absolute;right:140px;top:35px;z-index:9;}";
@@ -250,6 +251,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang) {
 		var _entry = entry;
 
 		var escapedContent = encodeURI(content.text);
+		
 		if(!tagged && useButton) {
 			var et = getFirstElementByClassName(entry, 'entry-title');
 			dh(et, 'a', {
@@ -530,7 +532,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang) {
 	}
 
 	function createRe(o) {
-		var re = unescapePhrase(o.rx.join("|"));
+		var re = '('+unescapePhrase(o.rx.join("|"))+')';
 		o.re = new RegExp(re, 'i');
 	}
 
@@ -606,23 +608,73 @@ GRP.filter = function(prefs, langs, ID, SL, lang) {
 	}
 
 	function checkEntry(content, element, rx, className, mode) {
-		var mrx = false, matched = false;
+		var mrx = false, match = false, matched = false;
 		if(rx) {
 			for(var i = 0, len = rx.length; i < len; i++) {
 				mrx = rx[i];
 				//console.log(i);
 				//console.log(mrx);
-				if(checkTree(content, mrx.tree, mode)) {
+				if(match = checkTree(content, mrx.tree, mode)) {
 					//if (checkContent(content, mrx, mode)){
 					matched = true;
 					addClass(element, className);
+					/*if (className==='entry-highlighted'){
+						highlightTerms(element, content, mrx, match, mode);
+					}*/
 					break;
 				}
 			}
 		}
 		return matched;
 	}
+		
+	function highlightTerms(entry, content, mrx, match, mode){
+		var o = mrx;
+		if (o.re || o.body){
+			setTimeout(function(){
+				if(o.re && o.re.test(content.text)) {
+					//highlight terms in title
+					//var link = getEntryLink(entry);
+					var et = getFirstElementByClassName(entry, 'entry-title');
+					replaceHighlightTerm(et, o.re, content.text);
+				}
+		
+				if(o.body && o.body.test(content.body)) {
+					//highlight terms in body
+					var cls = '';
+					if (mode==='list'){
+						cls = 'entry-secondary-snippet';
+					}else{
+						cls = 'entry-body';
+					}
+					var el = getFirstElementByClassName(entry, cls);
+					replaceHighlightTerm(el, o.body, content.body);					
+				}
+			},100);
+		}
+	}
 
+	
+	function replaceHighlightTerm(el, re, text){
+		var nodes = el.childNodes;
+		if (nodes.length==0){
+			var text = el.textContent;
+			if (text){
+				el.textContent='';
+				dh(el, 'span', {
+					position:'first',
+					html:text.replace(re, '<span class="hit hit-title">$1</span>')
+				});
+			}
+		}else{
+			//Recurse until
+			for(var i=0, len=nodes.length; i<len; i++) {
+				replaceHighlightTerm(nodes[i], re, text);
+			}
+		}
+	}
+	
+	
 	function checkTree(content, node, mode) {
 		if(node) {
 			if(!checkContent(content, node.o, mode)) {
