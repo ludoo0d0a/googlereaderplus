@@ -314,7 +314,7 @@ function insertOnTitle(entry, el, mode){
 }
 
 function getEntryLink(ent, useFeed){
-    //<a class="ilink entry-title-link" href="#" title="Open as preview [q]"> Il écope de 5 ans pour avoir parlé de sexe à la télé</a>
+    //<a class="ilink entry-title-link" href="#" title="Open as preview [q]"> Il écope de 5 ans</a>
     //<a class="entry-title-link iframe title-link-url" target="_blank" href="http://www.lessentiel.lu/news/monde/story/17066269" title="Open in a new window"><div class="entry-title-maximize"></div></a>	
     var o = {
         feed: '',
