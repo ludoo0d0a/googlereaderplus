@@ -10,7 +10,10 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
         return;
     }
     skin.id = prefs.theme_skin;
-    if (skin.url) {
+    if (skin.css) {
+        //Custom stylesheet
+        GM_addCss(skin.css, 'rpcss_' + skin.id);
+    }else if (skin.url) {
         //Run remote skin
         remoteSkin(skin);
     } else {
