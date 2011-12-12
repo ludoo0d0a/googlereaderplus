@@ -8,7 +8,7 @@ prefs\crud.js
 prefs\render.js
 prefs\prefs.js
 prefs\shortcuts.js
-prefs\itheme.js
+lib\itheme.js
 lib\mustacheg.js
 info.js
 lang\en\features.js

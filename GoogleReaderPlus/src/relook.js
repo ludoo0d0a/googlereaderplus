@@ -3,11 +3,28 @@
 GRP.relook = function(prefs, langs, ID, SL, lang){
 	var css, UID='rpe_'+ID;
 	
+	function setCss(css){
+		if (css){
+			putCss(css);
+			if (prefs.relook_resize){
+				fireResize();
+			}
+		}
+	}
+	
 	if (prefs.relook_css) {
 		var css = prefs.relook_css.replace(/\n/g, '').replace(/\t/g, ' ').replace(/\/\*.*?\*\//g, '');
-		putCss(css);
-		if (prefs.relook_resize){
-			fireResize();
+		if (prefs.relook_less){
+			parseLessTpl(css,false, function(a) {
+					if (a.css){
+						setCss(a.css);
+					}else{
+						console.error('Failed to compile LESS stylesheet');
+						console.error(a.err);
+					}
+			});
+		}else{
+			setCss(css);
 		}
 	}
 	

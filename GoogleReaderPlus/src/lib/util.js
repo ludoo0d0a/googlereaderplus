@@ -48,10 +48,10 @@ function addClassChecked(el, clazz){
 }
 
 function addClassIf(el, cls, status, cls2){
-    if (typeof status === 'string') {
+    /*if (typeof status === 'string') {
         cls2 = status;
         status = null;
-    }
+    }*/
     if (typeof status === 'undefined' || status === null) {
         status = !hasClass(el, cls);
     }
@@ -717,15 +717,10 @@ function randomselect(ar){
 
 function removeClass(el, classname){
     if (el && el.classList){
-    	el.classList.remove(classname)
+    	try{
+    		el.classList.remove(classname)
+    	}catch(e){}
     }
-   /* var s = (el.className || '').split(' ');
-    for (var i = 0, len = s.length; i < len; i++) {
-        if (s[i] == classname) {
-            s[i] = '';
-        }
-    }
-    el.className = s.join(' ').trim();*/
 }
 
 function toggleClass(el, classDelete, classAdd){
@@ -1958,3 +1953,13 @@ function tickCleanEvents(tim){
 	},tim||30000);
 }
 */
+
+function parseLessTpl(input,vars,cb, options){
+	options=options||{};
+	mycore.extension.sendRequest({
+		message: 'parseless',
+		input: input,
+		vars:vars,
+		compress:options.compress||true
+	},cb);
+}

@@ -113,6 +113,8 @@ function onMessageReceived(a, p, cb){
         getRank(a,cb);
     }else if (a.message == "setcookie") {
         setCookies(a,cb);
+    }else if (a.message == "parseless") {
+        parseLess(a,cb);
     }
 }
 
@@ -596,4 +598,47 @@ function checkfile(url, cb){
 			}
 		}
 	}, true);
+}
+
+function parseLess(a,cb){
+	function varsToText(vars){
+		if (!vars){
+			return '';
+		}
+		var css = [];
+		iterate(vars, function(i,v){
+			if (!/\./.test(i)){
+				css.push('@'+i+':'+v+';\n');
+			}
+		});
+		return css.join('');
+	}
+	function filterVars(vars){
+		var o = {};
+		iterate(vars, function(i,v){
+			if (!/\./.test(i)){
+				o[i]=v;
+			}
+		});
+		return o;
+	}
+	var vars = false; //filterVars(a.vars);
+	console.log(vars);
+	var intro = /*'' */ varsToText(a.vars);
+	console.log(intro);
+	var input = intro + (a.input||'');
+	var parser = new(less.Parser);
+	parser.parse(input, function (err, tree) {
+	    var o = {};
+	    if (err) { 
+	    	console.error(err);
+	    	o.err=err;
+	    }else{
+	    	o.css=tree.toCSS(
+	    		{ compress: a.compress||false },
+	    		vars
+	    	);
+	    }
+	    cb(o);
+	});
 }

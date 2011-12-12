@@ -347,6 +347,7 @@ GRP.scripts = {
 		desc: "Relook yourself GoogleReader using custom stylesheets",
 		options: {
 			resize: false,
+			less: false,
 			css: {
 				xtype: 'textarea',
 				cls: 'code',

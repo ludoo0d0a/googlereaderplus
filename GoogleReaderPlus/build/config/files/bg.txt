@@ -18,4 +18,5 @@ bg\tabs.js
 bg\twitter.js
 bg\translate.js
 bg\main.js
+lib\itheme.js
 bg\stats.js
