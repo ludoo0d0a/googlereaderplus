@@ -38,6 +38,8 @@
 						entries: me.getExportedEntries(),
 						dir: getSelectedDir()
 					});
+				}else if (a.message === 'clearcache') {
+					clearCacheData();
 				}
 			});
         },
@@ -153,3 +155,5 @@ function track(name, value){
 				value: value
     });
 }
+
+

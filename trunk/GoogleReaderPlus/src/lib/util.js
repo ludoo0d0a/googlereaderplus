@@ -1963,3 +1963,37 @@ function parseLessTpl(input,vars,cb, options){
 		compress:options.compress||true
 	},cb);
 }
+
+function clearcache(lang){
+	mycore.extension.sendRequest({
+		message:'clearcache',
+		lang: lang || window.lang || 'en'
+	}, cacheClearedAlert);
+}
+
+function clearCacheData(a){
+	var name, v;
+    a=a||{};
+    lang=a.lang||'en';
+
+    for (var i = 0; i <= mycore.storage.getLength() - 1; i++) {
+        name = mycore.storage.key(i);
+        if ((/^readerplus\.theme_/.test(name)) || (/^readerplus\.rps_/.test(name)) 
+		|| (/^readerplus\.cache/.test(name)) || (/^cache\./.test(name))   ) {
+            mycore.storage.removeItem(name, null, true);
+        }
+    }
+}
+	
+	
+function cacheClearedAlert(o){
+		if (o.success){
+			if (this.getTextPrefs){
+		    	alert(getTextPrefs(lang, 'global', 'cachecleared', 'en', "Cache cleared"));
+		    }else{
+		    	alert("Cache cleared");
+		    }
+		}else{
+			alert("Clear cache failed");
+		}
+	}
