@@ -9,7 +9,8 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
     var skin_name = prefs.ig_skin_name||'';
     var ig_debug = prefs.ig_debug;
     var menu_item;
-    var css = GM_getValue('cache_ig_'+skin_name);
+    //TODO
+    var css = ''; //GM_getValue('cache_ig_'+skin_name);
     fixMenu();
     if (prefs.ig_userandomthemes) {
         var t = parseInt(prefs.ig_randomthemes, 10) || 5;
@@ -21,16 +22,8 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
         setcss(css, skin_url);
     }
     function fixMenu(){
-        menu_item = dh('gbg', 'a', {
-            href: '#',
-            id: 'grp_ch_theme',
-            cls: 'gb2',
-            html: (getText(lang, 'ig', 'menu_randomtheme') || 'Change theme :') + ' <span id="th_cur">' + skin_name + '</span>'
-        }, {
-            click: function(){
-                rndskin();
-            }
-        });
+        var txt = (getText(lang, 'ig', 'menu_randomtheme') || 'Change theme :') + ' <span id="th_cur">' + skin_name + '</span>';
+        addReaderMenuItem(txt, rndskin);
     }
     function rndskin(){
         var data = {
@@ -73,14 +66,16 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
         if (css) {
             GM_addStyle(css, 'theme_ig');
         } else {
-            loadCss('skin/css/ig.css', function(css){
-                var tplCss = css.replace(/_a_/g, '{').replace(/_z_/g, '}');
-                stylish(tplCss, xml, entry);
-            });
+            //loadCss
+            loadText('skin/css/ig.css', function(css){
+                stylish(css, xml, entry);
+            },{});
         }
     }
     function igurl(url){
-        return 'http://skins.gmodules.com/ig/skin_fetch?fp=&type=2&sfkey=' + encodeURIComponent(url.replace(/&amp;/g, '&'));
+        //var uri = 'http://skins.gmodules.com/ig/skin_fetch?fp=&type=2&sfkey=' + encodeURIComponent(url.replace(/&amp;/g, '&'));
+        var uri=url;
+        return '~"'+uri+'"'; 
     }
     function convertHours(h){
         var t = 0;
@@ -173,11 +168,16 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
                 }
                 //tiled
                 var header_tile = colors['header.tile_image.url'] || '';
-                addClassIf(document.body.parentNode, 'ig_tiled', header_tile);//html
+                header_tile=header_tile.trim();
+                addClassIf(document.documentElement, 'ig_tiled', !!header_tile);//html
+                console.log('header_tile='+header_tile);
                 
                 //fixed
                 var header_fixe = colors['header.center_image.url'] || '';
-                addClassIf(document.body, 'ig_fixed', header_fixe);
+                header_fixe=header_fixe.trim();
+                addClassIf(document.body, 'ig_fixed', !!header_fixe);
+                console.log('header_fixe='+header_fixe);
+                
                 apply(colors, {
                     header_tile: igurl(header_tile),
                     header_fixe: igurl(header_fixe),
@@ -192,21 +192,31 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
 
 					nav_bg_color: colors['navbar.background_color'],
 					nav_text_color:colors['navbar.tab.unselected.link_color']||colors['navbar.tab.selected.link_color'],
-					
-					nav_bg_color_hover: colors['gadget_area.tab.selected.background_color']||colors['gadget_area.tab.unselected.background_color'],
-					nav_text_color_hover: colors['gadget_area.tab.selected.text_color']||colors['gadget_area.tab.unselected.text_color'],
-					nav_border_color_hover: colors['gadget_area.gadget.hover.border_color'],
-					
+
 					border_color: colors['gadget_area.border_color']||colors['gadget_area.gadget.border_color'],
 					bg_action: colors['gadget_area.gadget.header.background_color'],
                     txt_action: colors['gadget_area.gadget.header.text_color'],
 					
-                    entry_color: '#fff'
+                    entry_color: '#fff',
+                    skin_name: skin_name
                 });
-                css = '/* '+skin_name+' */'+fillTpl(tplCss, colors);
-                GM_addStyle(css, 'rps_ig');
-                //cache css
-                GM_setValue('cache_ig_'+skin_name, css, false);
+                apply(colors, {
+                	nav_bg_color_hover: colors['gadget_area.tab.selected.background_color']||colors['gadget_area.tab.unselected.background_color']||colors.nav_bg_color,
+					nav_text_color_hover: colors['gadget_area.tab.selected.text_color']||colors['gadget_area.tab.unselected.text_color']||colors.nav_text_color,
+					nav_border_color_hover: colors['gadget_area.gadget.hover.border_color']||colors.nav_border_color
+				});
+
+                function displayCss(a){
+                	if (a.css){
+						GM_addStyle(a.css, 'rps_ig');
+						//cache css
+	                	GM_setValue('cache_ig_'+skin_name, a.css, false);
+					}else{
+						console.error('Failed to compile LESS stylesheet');
+						console.error(a.err);
+					}	               
+                }
+                parseLessTpl(tplCss, colors, displayCss);
             }
         });
     }

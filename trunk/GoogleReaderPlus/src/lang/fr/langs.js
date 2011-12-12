@@ -541,6 +541,7 @@ GRP.langs[locale].prefs = {
 	},
 	relook : {
 		css : "Feuille de style CSS",
+		less: 'Utiliser le langage dynamique <a href="http://lesscss.org">LESS</a>',
 		resize : "Utiliser l'évènement 'resize' pour adapter le plein écran"
 	},
 	pack : {
