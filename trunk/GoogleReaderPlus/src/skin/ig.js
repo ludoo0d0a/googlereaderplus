@@ -9,9 +9,8 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
     var skin_name = prefs.ig_skin_name||'';
     var ig_debug = prefs.ig_debug;
     var menu_item;
-    //TODO
-    var css = ''; //GM_getValue('cache_ig_'+skin_name);
-    fixMenu();
+    var css = GM_getValue('cache_ig_'+skin_name);
+    var props = GM_getValue('cache_ig_props_'+skin_name);
     if (prefs.ig_userandomthemes) {
         var t = parseInt(prefs.ig_randomthemes, 10) || 5;
         window.setInterval(function(){
@@ -21,6 +20,8 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
     } else {
         setcss(css, skin_url);
     }
+    fixMenu();
+    
     function fixMenu(){
         var txt = (getText(lang, 'ig', 'menu_randomtheme') || 'Change theme :') + ' <span id="th_cur">' + skin_name + '</span>';
         addReaderMenuItem(txt, rndskin);
@@ -65,6 +66,7 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
     function setcss(css, xml, entry){
         if (css) {
             GM_addStyle(css, 'theme_ig');
+            setProperty(props);
         } else {
             //loadCss
             loadText('skin/css/ig.css', function(css){
@@ -72,10 +74,12 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
             },{});
         }
     }
+    function less_escape(v){
+    	return '~"'+v+'"';
+    }
     function igurl(url){
         //var uri = 'http://skins.gmodules.com/ig/skin_fetch?fp=&type=2&sfkey=' + encodeURIComponent(url.replace(/&amp;/g, '&'));
-        var uri=url;
-        return '~"'+uri+'"'; 
+        return url; 
     }
     function convertHours(h){
         var t = 0;
@@ -89,6 +93,12 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
         t += parseInt(h.replace('/[apm]/g', ''), 10);
         return t;
     }
+    function setProperty(props){
+    	props=props||{};
+    	addClassIf(document.documentElement, 'ig_tiled', !!props.header_tile);//html
+        addClassIf(document.body, 'ig_fixed', !!props.header_fixe);
+    }
+    
     function stylish(tplCss, xml, entry){
         GM_xmlhttpRequest({
             method: 'GET',
@@ -169,16 +179,14 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
                 //tiled
                 var header_tile = colors['header.tile_image.url'] || '';
                 header_tile=header_tile.trim();
-                addClassIf(document.documentElement, 'ig_tiled', !!header_tile);//html
                 
                 //fixed
                 var header_fixe = colors['header.center_image.url'] || '';
                 header_fixe=header_fixe.trim();
-                addClassIf(document.body, 'ig_fixed', !!header_fixe);
-                
+
                 apply(colors, {
-                    header_tile: igurl(header_tile),
-                    header_fixe: igurl(header_fixe),
+                    header_tile: less_escape(igurl(header_tile)),
+                    header_fixe: less_escape(igurl(header_fixe)),
 					header_link_color: colors['header.link_color'],
 					body_bg_color: (header_tile && header_fixe)?'transparent':colors['header.background_color'],
 					header_bg_color: colors['header.background_color'],
@@ -196,7 +204,7 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
                     txt_action: colors['gadget_area.gadget.header.text_color'],
 					
                     entry_color: '#fff',
-                    skin_name: skin_name
+                    skin_name: less_escape(skin_name)
                 });
                 apply(colors, {
                 	nav_bg_color_hover: colors['gadget_area.tab.selected.background_color']||colors['gadget_area.tab.unselected.background_color']||colors.nav_bg_color,
@@ -206,9 +214,13 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
 
                 function displayCss(a){
                 	if (a.css){
+						props = {header_tile:header_tile,header_fixe:header_fixe};
+						setProperty(props);
+                
 						GM_addStyle(a.css, 'rps_ig');
 						//cache css
 	                	GM_setValue('cache_ig_'+skin_name, a.css, false);
+	                	GM_setValue('cache_ig_props_'+skin_name, props, false);
 					}else{
 						console.error('Failed to compile LESS stylesheet');
 						console.error(a.err);
