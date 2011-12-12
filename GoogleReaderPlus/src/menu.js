@@ -9,22 +9,7 @@
  */
 GRP.menu = function(prefs, langs, ID, SL, lang){
     var menu;
-	/*
-    function jq_xmlhttpRequest(o){
-        jQuery.ajax({
-            type: o.method || 'GET',
-            url: o.url,
-            data: o.parameters,
-            success: function(m){
-				alert(m);
-				o.onload();
-			},error:function(m){
-				alert('error xhr');
-			}
-        });
-    }
-    loadjQuery();
-    */
+	
     function createButtonMenu(entry){
         var eactions = getFirstElementByClassName(entry, 'entry-actions');
         var entries = get_id('entries'), vec = get_id('viewer-entries-container');

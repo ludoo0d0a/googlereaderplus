@@ -115,6 +115,8 @@ function onMessageReceived(a, p, cb){
         setCookies(a,cb);
     }else if (a.message == "parseless") {
         parseLess(a,cb);
+    }else if (a.message == "clearcache") {
+        clearBgCache(a,cb);
     }
 }
 
@@ -622,10 +624,16 @@ function parseLess(a,cb){
 		});
 		return o;
 	}
-	var vars = false; //filterVars(a.vars);
-	console.log(vars);
-	var intro = /*'' */ varsToText(a.vars);
-	console.log(intro);
+	//Method1: As array variables (buggy ?)
+	//var vars = filterVars(a.vars);
+	//var intro = '';
+	
+	//Method2: As prefixed CSS variables
+	var vars = false;
+	var intro = varsToText(a.vars);
+	//console.log(vars);
+	//console.log(intro);
+	
 	var input = intro + (a.input||'');
 	var parser = new(less.Parser);
 	parser.parse(input, function (err, tree) {
@@ -641,4 +649,13 @@ function parseLess(a,cb){
 	    }
 	    cb(o);
 	});
+}
+
+function clearBgCache(a,cb){
+    clearCacheData(a);
+    if (mycore.env.background){
+		//go clear cache for page
+    	mycore.page.postMessage('clearcache');
+    }
+    sendResponse({success:true},cb);
 }

@@ -92,21 +92,7 @@ function GM_setCookieValue (name, value, options){
     ((options.secure) ? "; secure" : "");
     document.cookie = curCookie;
 }
-function clearcache(lang){
-    var name, v;
-    for (var i = 0; i <= mycore.storage.getLength() - 1; i++) {
-        name = mycore.storage.key(i);
-        if ((/^readerplus\.theme_/.test(name)) || (/^readerplus\.rps_/.test(name)) 
-		|| (/^readerplus\.cache/.test(name)) || (/^cache\./.test(name))   ) {
-            mycore.storage.removeItem(name, null, true);
-        }
-    }
-    if (this.getTextPrefs){
-    	alert(getTextPrefs(lang, 'global', 'cachecleared', 'en', "Cache cleared"));
-    }else{
-    	alert("Cache cleared");
-    }
-}
+
 function openWindow(o, cb){
     sendMessage("window", o, cb);
 }

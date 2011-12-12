@@ -170,13 +170,11 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
                 var header_tile = colors['header.tile_image.url'] || '';
                 header_tile=header_tile.trim();
                 addClassIf(document.documentElement, 'ig_tiled', !!header_tile);//html
-                console.log('header_tile='+header_tile);
                 
                 //fixed
                 var header_fixe = colors['header.center_image.url'] || '';
                 header_fixe=header_fixe.trim();
                 addClassIf(document.body, 'ig_fixed', !!header_fixe);
-                console.log('header_fixe='+header_fixe);
                 
                 apply(colors, {
                     header_tile: igurl(header_tile),
