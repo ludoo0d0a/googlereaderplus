@@ -120,27 +120,44 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
 	if (getPref('currdir')) {
 		var lastUrl='';
 		GM_addStyle('.tree-sel{background-color:#dedede;}', 'rpe_currdir');
-		var st = get_id('sub-tree');
+		//var st = get_id('sub-tree');
+		var st = get_id('scrollable-sections');
 		setInterval( function() {
-			var e = get_id('current-entry'),st = get_id('sub-tree');
-			var sth = getHeight(st);
+			var e = get_id('current-entry');
 			if (e) {
-				var el = getFirstElementByClassName(e, 'entry-source-title');
-				if (el) {
-					var url = el.getAttribute('href');
-					if (url && url !== lastUrl) {
-						var l = getFirstElementByClassName(st, 'tree-sel');
-						if (l) {
-							removeClass(l, 'tree-sel');
-						}
-						//var a = Sizzle('#sub-tree a.link[href="' + url + '"]');
-						var a = getElements(".//a[@class='link'][@href='" + url + "']", st);
-						if (a && a.length > 0) {
-							addClass(a[0], 'tree-sel');
+				if (hasClass(e,'entry-seld')){
+					return;
+				}
+				//clean all other entry-seld
+				var els = st.getElementsByClassName('entry-seld');
+				if (els){
+					foreach(els,function(el){
+						removeClass(el, 'entry-seld');
+					})
+				}
+				var sth = st.clientHeight;
+				var url = getEntrySiteTitle(e, 'entry-source-title');
+				if (url && url !== lastUrl) {
+					var l = getFirstElementByClassName(st, 'tree-sel');
+					if (l) {
+						removeClass(l, 'tree-sel');
+					}
+					var a = getElements(".//div[contains(@class,'name-text')][text()='" + url + "']", st);
+					if (a && a.length > 0) {
+						var node = findParentNode(a[0],'a','link');
+						if (node){
+							//force show
+							var p = findParentNode(node,'li','folder');//expanded/collapsed
+							if (p){
+								removeClass(p,'collapsed');
+								addClass(p,'expanded');
+							}
+							addClass(node, 'tree-sel');
+							addClass(e,'entry-seld');
 							lastUrl = url;
 							//ensure visible
 							//TODO : Better
-							var h = findTop(a[0], st);
+							var h = findTop(node, st);
 							if (h<st.scrollTop || h>st.scrollTop+sth) {
 								st.scrollTop = h;
 							}
