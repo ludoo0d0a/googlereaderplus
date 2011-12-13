@@ -345,6 +345,7 @@ GRP.scripts = {
 		name: "Relook",
 		category: 'theme',
 		desc: "Relook yourself GoogleReader using custom stylesheets",
+		status:'updated',
 		options: {
 			resize: false,
 			less: false,
