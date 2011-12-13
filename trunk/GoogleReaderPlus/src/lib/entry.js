@@ -288,12 +288,7 @@ function getOriginalEntryLink(entry){
 function getEntrySiteTitle(ent){
     var entry = ent || getCurrentEntry();
     var point, match;
-    //var mode = getMode(entry);
-    //if (mode === 'collapsed') {
     point = getFirstElementByClassName(entry, 'entry-source-title');//'span'
-    if (!point) {
-        point = getFirstElementByClassName(entry, 'entry-source-title');//'a'
-    }
     if (point) {
         match = point.textContent;
     }
