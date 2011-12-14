@@ -9,6 +9,10 @@
                 GRP.setVersion();
                 autoTranslate('about');
             };
+            function fp(){
+            	mycore.extension.sendRequest({message:'firstpack'});
+            	mycore.extension.sendRequest({message:'findreader',reload:true});
+            }
         </script>
     </head>
     <body>
