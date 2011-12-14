@@ -47,7 +47,7 @@ function getTextPrefs(lang, script, option, deflang, deftext){
 
 function autoTranslate(name){
     var params = urlDecode(window.location.search.substring(1));
-    var lang = params.lang || 'en';
+    var lang = params.lang || navigator.language || 'en';
     loadLangs(lang, function(){
         translatePage(lang, name);
     });

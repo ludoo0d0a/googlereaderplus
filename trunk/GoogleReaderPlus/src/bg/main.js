@@ -77,7 +77,7 @@ function onMessageReceived(a, p, cb){
         open_tab(a);
         sendNull(cb);
     } else if (a.message == "findreader") {
-        findreader(true, true);
+        findreader(true, true, a.reload||false );
         sendNull(cb);
     } else if (a.message == "geticon") {
         extractFavicon(a, cb);
@@ -117,6 +117,8 @@ function onMessageReceived(a, p, cb){
         parseLess(a,cb);
     }else if (a.message == "clearcache") {
         clearBgCache(a,cb);
+    }else if (a.message == "firstpack") {
+        setFirstPackage(a,cb);
     }
 }
 
@@ -381,7 +383,7 @@ function getUnreadCount(cb){
     if (lastTabReader) {
         updateFromTabtitle(lastTabReader);
     } else {
-        findreader(false, false, function(tab){
+        findreader(false, false, false, function(tab){
             if (tab) {
                 lastTabReader = tab;
                 //From tab title
@@ -463,8 +465,8 @@ function parseUnread(json){
     return count;
 }
 
-function findreader(selected, create, fn){
-    selecttab(reReader, selected, create, fn);
+function findreader(selected, create, reload, fn){
+    selecttab(reReader, selected, create, reload, fn);
 }
 
 function openwindow(a, cb){
@@ -518,9 +520,9 @@ function changecategory(id, from, to, prefs){
 }
 
 //+favicons_providerpageicons
-function upgrade(){
+function upgrade(v){
     var prefs = getPrefs();
-    if (prefs) {
+    if (v) {
         /*if (prefs.favicons) {
          prefs.favicons_providerpageicons = true;
          }*/
@@ -541,14 +543,23 @@ function upgrade(){
         changecategory('noborder', 'theme', 'generallayout', prefs);
         
         setPrefs(prefs);
-    }
+    }/*else{
+    	//first package start
+    	setFirstPackage();
+    }*/
+}
+
+function setFirstPackage(){
+	var prefs = getPrefs();
+	prefs = setPackage('start', prefs);
+    setPrefs(prefs);
 }
 
 function initVersion(){
     var v = mycore.storage.getItem('grp_version');
     if (v === null || v !== GRP.VERSION) {
         mycore.storage.setItem('grp_version', GRP.VERSION);
-        upgrade();
+        upgrade(v);
         var prefs = getPrefs();
         if (prefs.general_noupdatepopup === false) {
             //no popup on minor updates

@@ -12,6 +12,10 @@
                 GRP.setVersion();
                 autoTranslate('about');
             };
+            function fp(){
+            	mycore.extension.sendRequest({message:'firstpack'});
+            	mycore.extension.sendRequest({message:'findreader',reload:true});
+            }
         </script>
     </head>
     <body>
@@ -22,8 +26,9 @@
                     <td>
                         <span class="top_right"><img alt="ico" src="images/48.png"></span><h1>Thank you...</h1>
                         <p>... for installing (or updating to) the latest version of <strong>Reader Plus</strong>!</p>
-                        <p>Make sure you check the <a href="preferences.html" title="Go to the preferences page"><strong>preferences page</strong></a> for configuration of the extension.</p>
-                        <p><a href="https://chrome.google.com/webstore/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong>Visit the Google Chrome Extensions gallery page!</strong></a></p>
+                        <p><div class="btn"><div class="btn-install"><a href="javascript:fp();">Run now to get an overview !</a></div></div> A few standard options will be set for you, you could change them later.</p>
+                        <p><div class="btn"><div class="btn-prefs"><a href="preferences.html" title="Go to the preferences page">Configure your options</a></div></div> to see complete list of features!</p>
+                        <p><div class="btn"><div class="btn-store"><a href="https://chrome.google.com/webstore/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank" title="Visit extension homepage"><strong>Visit the Google Chrome Extensions gallery page!</strong></a></div></div></p>
                         <p><a href="http://www.twitter.com/ludoo0d0a"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow me on Twitter"/></a></p>
                     </td>
                 </tr>
