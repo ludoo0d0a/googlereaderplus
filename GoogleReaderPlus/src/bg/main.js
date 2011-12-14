@@ -519,61 +519,6 @@ function changecategory(id, from, to, prefs){
 	}
 }
 
-//+favicons_providerpageicons
-function upgrade(v){
-    var prefs = getPrefs();
-    if (v) {
-        /*if (prefs.favicons) {
-         prefs.favicons_providerpageicons = true;
-         }*/
-        if (isundef(prefs.general_stats)) {
-            prefs.general_stats = true;
-        }
-        if (isundef(prefs.general_pageicon)) {
-            prefs.general_pageicon = true;
-        }
-        //Move from general to generallayout
-        changecategory('topcurrent', 'general', 'generallayout', prefs);
-        changecategory('bottomup', 'general', 'generallayout', prefs);
-        changecategory('currdir', 'general', 'generallayout', prefs);
-        changecategory('floatactions', 'general', 'generallayout', prefs);
-        changecategory('icons', 'general', 'generallayout', prefs);
-        changecategory('hidetoolbar', 'general', 'generallayout', prefs);
-        changecategory('hideplus', 'general', 'generallayout', prefs);
-        changecategory('noborder', 'theme', 'generallayout', prefs);
-        
-        setPrefs(prefs);
-    }/*else{
-    	//first package start
-    	setFirstPackage();
-    }*/
-}
-
-function setFirstPackage(){
-	var prefs = getPrefs();
-	prefs = setPackage('start', prefs);
-    setPrefs(prefs);
-}
-
-function initVersion(){
-    var v = mycore.storage.getItem('grp_version');
-    if (v === null || v !== GRP.VERSION) {
-        mycore.storage.setItem('grp_version', GRP.VERSION);
-        upgrade(v);
-        var prefs = getPrefs();
-        if (prefs.general_noupdatepopup === false) {
-            //no popup on minor updates
-            if (isVersionMajorUpdated(v, GRP.VERSION)) {
-                opentab({
-                    url: "about.html"
-                });
-            }
-        }
-    }
-}
-
-
-
 function getRank(a,cb){
 	request({
 		url:'http://api.postrank.com/v1/postrank',
@@ -670,3 +615,66 @@ function clearBgCache(a,cb){
     }
     sendResponse({success:true},cb);
 }
+
+
+
+//+favicons_providerpageicons
+function upgrade(v){
+    var prefs = getPrefs();
+    if (v) {
+        /*if (prefs.favicons) {
+         prefs.favicons_providerpageicons = true;
+         }*/
+        if (isundef(prefs.general_stats)) {
+            prefs.general_stats = true;
+        }
+        if (isundef(prefs.general_pageicon)) {
+            prefs.general_pageicon = true;
+        }
+        //Move from general to generallayout
+        changecategory('topcurrent', 'general', 'generallayout', prefs);
+        changecategory('bottomup', 'general', 'generallayout', prefs);
+        changecategory('currdir', 'general', 'generallayout', prefs);
+        changecategory('floatactions', 'general', 'generallayout', prefs);
+        changecategory('icons', 'general', 'generallayout', prefs);
+        changecategory('hidetoolbar', 'general', 'generallayout', prefs);
+        changecategory('hideplus', 'general', 'generallayout', prefs);
+        changecategory('noborder', 'theme', 'generallayout', prefs);
+        
+        setPrefs(prefs);
+    }/*else{
+    	//first package start
+    	setFirstPackage();
+    }*/
+}
+
+function setFirstPackage(){
+	var prefs = getPrefs();
+	prefs = setPackage('start', prefs);
+    setPrefs(prefs);
+}
+
+function initVersion(){
+    var v = mycore.storage.getItem('grp_version');
+    if (!v || v !== GRP.VERSION) {
+        mycore.storage.setItem('grp_version', GRP.VERSION);
+        upgrade(v);
+        var prefs = getPrefs();
+        if (prefs.general_noupdatepopup === false) {
+            //no popup on minor updates
+            if (isVersionMajorUpdated(v, GRP.VERSION)) {
+                var status = (!v)?'new':'update';
+                opentab({url: 'about.html?status='+status});
+            }
+        }
+    }
+}
+
+function checkFirstTry(){
+	var v = mycore.storage.getItem('grp_version');
+    if (!v){
+    	mycore.storage.setItem('grp_version', GRP.VERSION);
+    	opentab({url: 'about.html?status=new'});
+    }
+}
+setTimeout(checkFirstTry,10);
