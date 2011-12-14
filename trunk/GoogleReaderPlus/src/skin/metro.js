@@ -73,8 +73,8 @@ BackgroundColor: #262B31 ()
 	css += '.goog-button-base:hover .goog-button-base-content, .goog-button-base:focus .goog-button-base-content {	color: '+C.white+'}';
 	css += '.goog-button-base-outer-box {border-top: 1px solid '+C.dark_gray+' !important;border-bottom: 1px solid '+C.dark_gray+' !important;}';
 
-	css += '.jfk-button-action {background-color: '+C.orange+';background-image: -webkit-linear-gradient(top,'+C.orange+','+C.dark_orange+');border: 1px solid '+C.dark_orange+';}';
-	css += '.jfk-button-action.jfk-button-hover {background-color: #357AE8;background-image: -webkit-linear-gradient(top,'+C.orange+',#984A17);border: 1px solid #984A17;}';
+	css += '#gbqfb,.jfk-button-action {background-color: '+C.orange+';background-image: -webkit-linear-gradient(top,'+C.orange+','+C.dark_orange+');border: 1px solid '+C.dark_orange+';}';
+	css += '#gbqfb:hover, .jfk-button-action.jfk-button-hover {background-color: #357AE8;background-image: -webkit-linear-gradient(top,'+C.orange+',#984A17);border: 1px solid #984A17;}';
 	
 	css += '.gbmt, .gbml1, .gbmt:visited, .gbml1:visited {color: '+C.white+' !important;}';
 	css += '.gbmt-hvr, .gbmt:focus {background: '+C.light_gray+'; color: '+C.white+' !important;}';
