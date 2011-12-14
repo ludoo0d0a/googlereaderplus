@@ -38,31 +38,31 @@ echo **************** menu
 call compress menu
 
 echo **************** finalize
-copy ..\src\lib\jquery.min.js dist\lib\
-copy config\manifest.json dist\
-copy config\*.html dist\
-copy ..\src\blank.html dist\
+copy ..\src\lib\jquery.min.js dist\lib\ >nul
+copy config\manifest.json dist\ >nul
+copy config\*.html dist\ >nul
+copy ..\src\blank.html dist\ >nul
 
-rem copy debug\*.* dist\
+rem copy debug\*.* dist\ >nul
 
 move dist\colorpicker*.js dist\lib
 move dist\codemirror*.js dist\lib
 
 rem mo--ve dist\codemirror.min.js dist\lib
-copy ..\src\lib\codemirror\css\csscolors.css dist\css\
+copy ..\src\lib\codemirror\css\csscolors.css dist\css\ >nul
 
 xcopy /e /Y /I ..\src\skin\css\*.* dist\skin\css\
 xcopy /e /Y /I ..\src\lib\codemirror\*.* dist\lib\codemirror\
 rem xc--opy /e /Y /I ..\src\lib\colorpicker\*.* dist\lib\colorpicker\
 xcopy /e /Y /I ..\src\lib\jscolor\*.* dist\lib\jscolor\
 
-xcopy /e /Y /I ..\src\_locales\*.* dist\_locales 
-xcopy /e /Y /I ..\src\css\*.* dist\css
-xcopy /e /Y /I ..\src\images\*.* dist\images
-xcopy /e /Y /I ..\src\lang\*.* dist\lang
-xcopy /e /Y /I ..\src\res\*.* dist\res
+xcopy /q /e /Y /I ..\src\_locales\*.* dist\_locales 
+xcopy /q /e /Y /I ..\src\css\*.* dist\css
+xcopy /q /e /Y /I ..\src\images\*.* dist\images
+xcopy /q /e /Y /I ..\src\lang\*.* dist\lang
+xcopy /q /e /Y /I ..\src\res\*.* dist\res
 
-xcopy /e /Y /I ..\src\chrome_ex_*.* dist
+xcopy /q /e /Y /I ..\src\chrome_ex_*.* dist
 
 rem del debug\*.tmp
 del dist\*.tmp
