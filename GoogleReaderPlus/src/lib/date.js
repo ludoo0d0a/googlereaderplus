@@ -126,4 +126,4 @@ function tests() {
 	test('Nov 22, 2011 10:09 AM');
 }
 
-//tests();
+/*tests();*/
