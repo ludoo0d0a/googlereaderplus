@@ -124,3 +124,24 @@ form {
 .whatsnew h2,.thanks1,.thanks2,.nopopup,.center{
 	text-align:center;
 }
+
+.btn{
+	background-image: -webkit-linear-gradient(top, rgb(245, 245, 245), rgb(241, 241, 241));
+	border:1px solid #C6C6C6;
+	border-radius: 2px;
+	padding:5px;
+	text-align:center;
+	display: inline-block;
+}
+.btn .btn-prefs{
+	background: url(images/prefs16.png) no-repeat;
+	padding-left:20px;
+}
+.btn .btn-install{
+	background: url(images/install16.png) no-repeat;
+	padding-left:20px;
+}
+.btn .btn-store{
+	background: url(https://www.google.com/images/icons/product/chrome_web_store-16.png) no-repeat;
+	padding-left:20px;
+}

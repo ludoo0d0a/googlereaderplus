@@ -7,14 +7,14 @@ function open_tab(a){
             url: a.url,
 			update:a.update
         };
-        selecttab(o, a.selected, a.create || true, a.fn);
+        selecttab(o, a.selected, a.create||true, a.reload||false, a.fn);
     } else {
         opentab(a);
     }
 }
 
 
-function selecttab(a, selected, create, fn){
+function selecttab(a, selected, create, reload, fn){
     findtab(a, function(tab){
         if (tab) {
             if (selected) {
@@ -25,6 +25,9 @@ function selecttab(a, selected, create, fn){
                     mycore.tabs.executeScript(tab.id, 'hashchange();');
                 });
             }
+            if (reload){
+	        	reloadTab(tab);
+	        }
         } else {
             if (create) {
                 a.selected = selected;
@@ -116,4 +119,8 @@ function monitorCloseTab(){
             lastTabReader = false;
         }
     });
+}
+
+function reloadTab(tabId){
+	mycore.tabs.reload(tabId)
 }

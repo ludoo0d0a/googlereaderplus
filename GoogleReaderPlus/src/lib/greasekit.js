@@ -352,3 +352,16 @@ if (typeof(this['uneval']) !== 'function') {
         return func(o, np);
     };
 }
+
+function setPackage(name, prefs){
+	prefs=prefs||{};
+	iterate(GRP.packages[name], function(i, data){
+        prefs[i] = true;
+        if (data && (typeof data === 'object')) {
+            iterate(data, function(k, o){
+                prefs[i + '_' + k] = o;
+            });
+        }
+    });
+    return prefs;
+}

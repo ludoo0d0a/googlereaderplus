@@ -424,14 +424,7 @@ function setpackage(id){
         }
         return;
     } else {
-        iterate(GRP.packages[id], function(i, data){
-            prefs[i] = true;
-            if (data && (typeof data === 'object')) {
-                iterate(data, function(k, o){
-                    prefs[i + '_' + k] = o;
-                });
-            }
-        });
+        prefs = setPackage(id, prefs);
         info(getTextPrefs(lang, 'pack', 'done'));
     }
     renderPrefs();//update

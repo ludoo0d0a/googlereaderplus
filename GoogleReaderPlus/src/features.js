@@ -1350,7 +1350,37 @@ GRP.packages = {
 		fixlayout: true,
 		count: true,
 		counticon: true,
-		removeads: true
+		removeads: true,
+		generallayout:true,
+		compact:true
+	},
+	'start':{
+		general: {
+			secure: true,
+			stats: true
+		},
+		favicons: {
+			cloud: true
+		},
+		unreadcount: true,
+		fixlayout: true,
+		count: true,
+		counticon: true,
+		removeads: true,
+		generallayout:true,
+		compact:true,
+		fitheight:true,
+		stars:true,
+		preview:true,
+		readability:true,
+		openbackground:true,
+		mark: true,
+		jump: true,
+		facebook:true,
+		twitter:true,
+		theme: {
+			skin: 'metro'
+		}
 	},
 	'ludoo': {
 		general: {
