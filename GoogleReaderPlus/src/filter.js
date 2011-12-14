@@ -570,7 +570,8 @@ GRP.filter = function(prefs, langs, ID, SL, lang) {
 			return true;
 		}
 
-		if(o.re && !o.re.test(content.text)) {
+		//Check minified and not minified
+		if(o.re && !o.re.test(content.text) && !o.re.test(content.title)) {
 			return false;
 		}
 
