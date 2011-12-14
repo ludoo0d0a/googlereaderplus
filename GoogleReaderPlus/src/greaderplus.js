@@ -130,9 +130,10 @@
                     GM_openInTab(mycore.getUrl('/preferences.html#theme'));
                 }
             );
-			addReaderMenuItem(getText(this.lang, 'menu', 'showallfolders', 'en', 'Show all folders'), 
+            //Now native
+			/*addReaderMenuItem(getText(this.lang, 'menu', 'showallfolders', 'en', 'Show all folders'), 
                 showallfolders, true
-            );
+            );*/
 			addReaderMenuItem(getText(this.lang, 'general', 'menu_clearcache', 'en', 'Clear cache'), 
                 function(){
                     clearcache(this.lang);
