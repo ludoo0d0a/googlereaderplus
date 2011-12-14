@@ -1089,7 +1089,7 @@ GRP.scripts = {
 		category: 'layout',
 		status:'updated',
 		options: {
-			//locked: false
+			locked: false
 		},
 		shortcuts: {
 			'fit': {
@@ -1197,6 +1197,7 @@ GRP.scripts = {
 	filter: {
 		name: "Filter",
 		category: 'content',
+		status:'updated',
 		options: {
 			help:{
 				xtype:'p'
@@ -1576,6 +1577,7 @@ GRP.skins = {
 		name: "Dark Helvetireader - Day",
 		pic: 'http://stylebot.me/uploads/61.png',
 		ref: 'http://stylebot.me/styles/61',
+		resize: 'footer',
 		status:'todo'
 		/*
 		 url: 'http://stylebot.me/style/get_userscript/61.user.js',
@@ -1587,6 +1589,7 @@ GRP.skins = {
 		name: "Dark Helvetireader - Night",
 		pic: 'http://stylebot.me/uploads/62.png',
 		ref: 'http://stylebot.me/styles/62',
+		resize: 'footer',
 		status:'todo'
 		
 		/*
