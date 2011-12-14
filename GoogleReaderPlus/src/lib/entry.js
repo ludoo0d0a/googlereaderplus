@@ -59,52 +59,62 @@ function registerFeature(fn, bid, params){
         params.globalFn.call(this);
     }
 }
-
-function execAll(el, entry, mode, force){
-    window.setTimeout(function(){
-        execAllOffset(el, entry, mode, force);
-    }, 400);
+var lockTimeout=false;
+function execAll(ea, entry, mode, oforce){
+    //if (!lockTimeout){
+	    lockTimeout = window.setTimeout(function(){
+	        //lockTimeout=false;
+	        execAllOffset(ea, entry, mode, oforce);
+	    }, 400);
+    //}
 }
 
-function execAllOffset(el, entry, mode, force){
+function execAllOffset(ea, entry, mode, force){
     for (var i = 0, len = stackFeatures.length; i < len; i++) {
         var p = stackFeatures[i].params;
+        var owner  = ea || entry;
 		//console.log('p.bid='+p.bid);
         if (mode==='expanded') {
             //ExpandedView
-            if (!isTagged(entry, p.bid)) {
-                stackFeatures[i].fn.call(this, el, entry, mode);
+            if (!isTagged(owner, p.bid)) {
+                console.log('call '+p.bid+' for entry '+entry.className+' as ExpandedView');
+                stackFeatures[i].fn.call(this, ea, entry, mode);
             }
-        }else if (el) {
-        	//ListView-opened
-        	if (!(p && p.onlistviewtitle)) {
-	    		//isTagged on entry-container because always recreated
-	    		var ec = getFirstElementByClassName(entry, 'entry-container');
-	    		if (!isTagged(ec, p.bid)) {
-	    			stackFeatures[i].fn.call(this, el, entry, mode);
+        }else{
+        	//ListView
+        	if (ea) {
+	        	//ListView-opened
+	        	if (!(p && p.onlistviewtitle)) {
+		    		//isTagged on entry-container because always recreated
+		    		//var ec = getFirstElementByClassName(entry, 'entry-container');
+		    		if (!isTagged(owner, p.bid)) {
+		    			console.log('call '+p.bid+' for entry '+entry.className+' as ListView-opened');
+		    			stackFeatures[i].fn.call(this, ea, entry, mode);
+		    		}
 	    		}
-    		}
-        } else {
-            //ListView-closed
-            if (p && p.onlistviewtitle) {
-                //only for favicons (onlistviewtitle=true)
-                //if (force || !isTagged(entry.firstChild, p.bid)) {
-				if (force || !isTagged(entry, p.bid)) {
-                    stackFeatures[i].fn.call(this, el, entry, mode);
-                }
-            }
-        }
+	        } else {
+	            //ListView-closed
+	            if (p && p.onlistviewtitle) {
+	                //only for favicons (onlistviewtitle=true)
+	                //if (force || !isTagged(entry.firstChild, p.bid)) {
+					if (!isTagged(owner, p.bid)) {
+	                    console.log('call '+p.bid+' for entry '+entry.className+' as ListView-closed');
+	                    stackFeatures[i].fn.call(this, ea, entry, mode);
+	                }
+	            }
+	        }
+        } 
     }
 }
 
 function monitorEntries(el){
     var root = el || ELS.entries;
     root.addEventListener('DOMNodeInserted', function(e){
-        checkEntry(e.target, execAll);
+        checkEntry(e.target);
     }, false);
-    catchAllEntries(execAll);
+    catchAllEntries();
     loadExternal(function(){
-        catchAllEntries(execAll);
+        catchAllEntries();
     });
 }
 
@@ -130,57 +140,30 @@ function loadExternal(cb){
     }
 }
 
-/*
- //ListView
- entry
- -collapsed
- if open{
- -entry-container
- -entry-comments
- -entry-actions
- }
- //ExpandedView
- entry
- -card card-common
- --card-content
- --card-comments
- --card-actions card-bottom
- ---entry-actions
- //ListView -closed
- DIV.hidden
- DIV.
- DIV.entry entry-0(*)
- //ListView -opened
- DIV.entry-container
- DIV.entry-comments
- DIV.entry-actions(*)
- DIV.entry-title-maximize
- //ExpandedView
- DIV.entry entry-0(*)
- DIV.entry-title-maximize
- */
-function checkEntry(el, fn, params){
+function checkEntry(el, params){
+    var entry,ea;
     if (el.tagName === 'DIV') {
+//        console.log('-- div.' + el.className);
         if (hasClass(el, 'entry')) {
-            var mode = getMode(entry);
-            if (mode==='expanded'){
-                // *********** Expanded view
-                var ea = getFirstElementByClassName(el, 'entry-actions');
-                //var ea = el.firstChild.lastChild.firstChild;
-//                console.log("Run as ExpandedView for "+el.tagName + "." + el.className);
-                catchEntry(el, ea, fn, params, false);
-            } else {
-                // *********** Closed article in List view
-//                console.log("Run as ListView-closed for "+el.tagName + "." + el.className);
-                catchEntry(el, false, fn, params, true);
+            entry=el;
+            ea = getFirstElementByClassName(entry, 'entry-actions');
+            if (ea){
+            	//console.log("Run as ExpandedView for "+el.tagName + "." + el.className);
+            	catchEntry(entry, ea, ea, params);
             }
         } else if (hasClass(el, 'entry-actions')) {
             // *********** Expand article in List view
-//            console.log("Run as ListView-opened for "+el.tagName + "." + el.className);
-            var entry = findParentNode(el, 'div', 'entry');
-            catchEntry(entry, el, fn, params, true, true);
+            ea = el;
+            entry = findParentNode(ea, 'div', 'entry');
+            //console.log("+entry-actions on " + entry.className);
+            catchEntry(entry, ea, ea, params);
         }
     }
+}
+
+function catchEntry(entry, ea, owner, params, mode, force){
+    mode = mode || getMode(entry);
+    execAll(ea, entry, mode, force);
 }
 
 var _currentEntry=false;
@@ -220,16 +203,10 @@ function forAllEntries(fn){
     }
 }
 
-function catchAllEntries(fn, params){
+function catchAllEntries(params){
     forAllEntries(function(entry){
-        checkEntry(entry, fn, params);
+        checkEntry(entry, params);
     });
-}
-
-function catchEntry(entry, el, fn, params, listview, force){
-    //var mode = getMode(entry);
-    var mode = (listview) ? 'list' : 'expanded';
-    fn.call(this, el, entry, mode, force);
 }
 
 /*
@@ -829,10 +806,10 @@ function isActive(btn, entry, cls, locked, clsOn, clsOff){
 }
 
 function isTagged(el, id){
-    //Tag on entry-container
-    var tagged = false;
+   //Tag on entry-container
+   var tagged = false;
    if (el){
-    	var cls='grp-'+id;
+    	var cls='grpt-'+id;
     	//tagged=ec.getAttribute(cls);
     	tagged=hasClass(el,cls);
 	    if (!tagged) {
@@ -1274,11 +1251,16 @@ function addCssIcon(id, clsOn){
 }
 
 function showSplash(msg, tim){
-	var lac = get_id('loading-area-container'), la = get_id('loading-area');
+	var prevText='', lac = get_id('loading-area-container'), la = get_id('loading-area');
 	if (lac && la && msg){
+		prevText=la.innerHTML;
 		la.innerHTML=msg;
 		removeClass(lac, 'hidden');
 		setTimeout(function(){
+			if (la.innerHTML==msg){
+				//Restore if still my text
+				la.innerHTML=prevText;
+			}
 			addClass(lac, 'hidden');
 		},tim||2000);
 	}

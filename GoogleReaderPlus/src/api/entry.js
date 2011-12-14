@@ -37,7 +37,7 @@ GRP.api_entry = function(prefs, langs, ID, SL, lang, edata, params){
 				}
 			}
 		}
-		var active = isActive(btn, entry, 'rpe_'+ID, locked);
+		var active = isActive(btn, entry, ID+'-on', locked);
 		if (edata.cb){
 			edata.cb(entry, active, btn, e, locked);
 		}
