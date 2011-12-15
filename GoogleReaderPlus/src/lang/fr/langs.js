@@ -441,7 +441,8 @@ GRP.langs[locale].prefs = {
 		icons : 'Icône seulement pour les boutons de la barre action (sauf pour les radio boutons)',
 		hidetoolbar : 'Cacher la barre d\'outil',
 		floatbar: 'Aperçu de la nouvelle barre flottante',
-		newbar: 'Activate new Google floating bar',
+		newbar: 'Activer la nouvelle interface Google (menu sur le logo)',
+		oldbar: 'Restaurer l\'ancien menu Google',
 		hideplus: 'Cacher le bouton GooglePlus'
 	},
 	compact:{

@@ -77,7 +77,7 @@ function execAllOffset(ea, entry, mode, force){
         if (mode==='expanded') {
             //ExpandedView
             if (!isTagged(owner, p.bid)) {
-                console.log('call '+p.bid+' for entry '+entry.className+' as ExpandedView');
+                //console.log('call '+p.bid+' for entry '+entry.className+' as ExpandedView');
                 stackFeatures[i].fn.call(this, ea, entry, mode);
             }
         }else{
@@ -88,7 +88,7 @@ function execAllOffset(ea, entry, mode, force){
 		    		//isTagged on entry-container because always recreated
 		    		//var ec = getFirstElementByClassName(entry, 'entry-container');
 		    		if (!isTagged(owner, p.bid)) {
-		    			console.log('call '+p.bid+' for entry '+entry.className+' as ListView-opened');
+		    			//console.log('call '+p.bid+' for entry '+entry.className+' as ListView-opened');
 		    			stackFeatures[i].fn.call(this, ea, entry, mode);
 		    		}
 	    		}
@@ -98,7 +98,7 @@ function execAllOffset(ea, entry, mode, force){
 	                //only for favicons (onlistviewtitle=true)
 	                //if (force || !isTagged(entry.firstChild, p.bid)) {
 					if (!isTagged(owner, p.bid)) {
-	                    console.log('call '+p.bid+' for entry '+entry.className+' as ListView-closed');
+	                    //console.log('call '+p.bid+' for entry '+entry.className+' as ListView-closed');
 	                    stackFeatures[i].fn.call(this, ea, entry, mode);
 	                }
 	            }
@@ -1250,18 +1250,20 @@ function addCssIcon(id, clsOn){
 	GM_addStyle(css, 'rpe_share_'+id);
 }
 
-function showSplash(msg, tim){
-	var prevText='', lac = get_id('loading-area-container'), la = get_id('loading-area');
-	if (lac && la && msg){
-		prevText=la.innerHTML;
-		la.innerHTML=msg;
-		removeClass(lac, 'hidden');
-		setTimeout(function(){
-			if (la.innerHTML==msg){
-				//Restore if still my text
-				la.innerHTML=prevText;
-			}
-			addClass(lac, 'hidden');
-		},tim||2000);
-	}
+function showSplash(msg, tim, defer){
+	setTimeout(function(){
+		var prevText='', lac = get_id('loading-area-container'), la = get_id('loading-area');
+		if (lac && la && msg){
+			prevText=la.innerHTML;
+			la.innerHTML=msg;
+			removeClass(lac, 'hidden');
+			setTimeout(function(){
+				if (la.innerHTML==msg){
+					//Restore and hide, if still my text
+					la.innerHTML=prevText;
+				}
+				addClass(lac, 'hidden');
+			},tim||2000);
+		}
+	},defer||5000);
 }

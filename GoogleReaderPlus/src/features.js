@@ -404,14 +404,15 @@ GRP.scripts = {
 		status:'new',
 		options:{
 			topcurrent: false,
-			bottomup: false,
+			//bottomup: false,
 			currdir: true,
 			floatactions: false,
 			icons: false,
 			hideplus: false,
 			noborder:false,
 			floatbar:false,
-			newbar:false
+			newbar:false,
+			oldbar:false
 		}
 	},
 	compact: {
