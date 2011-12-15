@@ -15,7 +15,8 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 	var CLS_ACTIVE='btn-active', MAX_TEXT=api.max_text||140;
     var BTN_CLS = 'item-share star',BTN_CLS_ID ='btn-'+ID+' '+BTN_CLS;
     var entries = get_id('entries');
-	var tplMsg = getPref('tpl') || '{desc}{tags} Reading: {title} {url}';
+	var tplMsg = getPref('tpl', '{desc}{tags} Reading: {title} {url}');
+	var autoshort = getPref('autoshort', false);
 	var SM = langs.sharemsg;
 	
 	var overlay,editMicro,labelTitle,taginput,labelInfo,urlinput,titleinput,descinput,mode;
@@ -332,6 +333,9 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 
 		fillValues(entry);
 		showBox(true);
+		if (autoshort){
+			doShortUrl();
+		}
     }
         
     function countMsgWord(str){

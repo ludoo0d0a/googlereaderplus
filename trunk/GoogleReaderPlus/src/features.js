@@ -583,6 +583,7 @@ GRP.scripts = {
 		category: 'share',
 		options: {
 			tpl: '{desc}{tags} Reading: {title} {url}',
+			autoshort:true,
 			shortener: {
 				xtype: 'select',
 				values: {

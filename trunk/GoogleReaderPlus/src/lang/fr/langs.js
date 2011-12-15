@@ -339,7 +339,8 @@ GRP.langs[locale].prefs = {
 		shortener_bitly : "Configuration pour BitLy (optionnel):",
 		shortener_login : "Utilisateur",
 		shortener_apikey : "Clé (ApiKey)",
-		shortener_pwd : "Mot de passe"
+		shortener_pwd : "Mot de passe",
+		autoshort:'Toujours utiliser une url courte'
 	},
 	weibo : {
 		shortener : "Urls courtes",
