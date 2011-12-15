@@ -21,12 +21,17 @@ GRP.compact = function(prefs, langs, ID, SL, lang) {
 		showas(get_id('viewer-header-container'), hide_nav && isCompact);
 		showas(get_id('logo-section'), hide_nav && isCompact);
 		if(searchinbar) {
-			var css = '#search{position: absolute;top: -42px;left: 300px;z-index: 9999;}';
+			var css = '#search{position: absolute;top:-6px;left:330px;z-index:9999;}';
 			css += '#top-bar{height:0px;}';
 			css += '#logo-container{display:none;}';
+css += '#search-input{width:150px}';
+css += '#search .goog-flat-menu-button{width:60px}';
 			css += '#search .jfk-textinput{height:22px;}';
 			css += '#search .jfk-button{height:22px;}';
 			css += '#search .goog-flat-menu-button{line-height: 22px;}';
+css += '#viewer-header {margin-left: -120px;}';
+css += '#viewer-header div.jfk-button, #viewer-view-options, #mark-all-as-read-split-button, #viewer-top-controls .goog-button  {margin: 0 2px 0 0;}';
+css += 'div#gbg {top: 45px;}';
 			GM_addStyle(css, 'rps_searchinbar');
 		} else {
 			showas(get_id('top-bar'), hide_search && isCompact);

@@ -12,16 +12,22 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
     
 	function setnewbar(status){
     	setTimeout(function(){
-	    	if (!get_id('gbq1')){
-	    		var js = '';
-	    		if (!status){
+	    		var domain = window.location.host.replace('www','');
+	    		var js = 'document.cookie="PREF=ID=0:U=0:FF=0:LD=en:CR=0:TM=0:LM=0:S=A; path=/; domain='+domain+'";';
+	    		if (status){
+	    			if (get_id('gbq1')){
+	    				return;
+	    			}
 	    			//http://googlesystem.blogspot.com/2011/11/how-to-try-googles-new-navigation-menu.html
-	    			var domain = window.location.host.replace('www','');
 	    			js = 'document.cookie="PREF=ID=03fd476a699d6487:U=88e8716486ff1e5d:FF=0:LD=en:CR=2:TM=1322688084:LM=1322688085:S=McEsyvcXKMiVfGds; path=/; domain='+domain+'";';
+	    		}else{
+	    			if (!get_id('gbq1')){
+	    				return;
+	    			}
 	    		}
 	    		GM_addjs(js, true, 'newbar');
 	    		showSplash("<a href='#' onclick='window.location.reload();'>Reload</a> now to activate new layout",8000);
-	    	}
+	    	
     	},3000);
 	}
     if (getPref('newbar')) {
@@ -29,7 +35,6 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
     }else if (getPref('oldbar')) {
     	setnewbar(false);
     }
-    
     
     if (getPref('floatbar')) {
     	function mimicFloatbar(){
