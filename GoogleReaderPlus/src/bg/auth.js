@@ -1,15 +1,15 @@
 var OAUTHS = {
 	twitter : {
 		api : {
-			url : 'http://api.twitter.com/1/statuses/update.json'
+			url : 'https://api.twitter.com/1/statuses/update.json'
 		},
 		authcfg : {
-			'request_url' : 'http://twitter.com/oauth/request_token',
-			'authorize_url' : 'http://twitter.com/oauth/authorize',
-			'access_url' : 'http://twitter.com/oauth/access_token',
+			'request_url' : 'https://api.twitter.com/oauth/request_token',
+			'authorize_url' : 'https://api.twitter.com/oauth/authorize',
+			'access_url' : 'https://api.twitter.com/oauth/access_token',
 			'consumer_key' : '94neY4Tz43sAOVGMnFwUg',
 			'consumer_secret' : 'dTVZ44vhbh3wXJlG2zRpk6W1DI6sFmQcKyA2h64UE',
-			'scope' : 'http://twitter.com/',
+			'scope' : 'https://api.twitter.com/',
 			'app_name' : 'Twitter for Readerplus'
 		}
 	},
