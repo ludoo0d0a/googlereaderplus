@@ -303,12 +303,15 @@ function getEl(el){
 	return el;
 }
 
-function getElements(xpath, context){
+function getElements(xpath, context, text){
     var res = false, doc = (context) ? context.ownerDocument : document;
     try {
         var r = doc.evaluate(xpath, (context || doc), null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-        for (var i = 0, l = r.snapshotLength, res = new Array(l); i < l; i++) {
-            res[i] = r.snapshotItem(i);
+        for (var i = 0, l = r.snapshotLength, res=[]; i < l; i++) {
+            var s = r.snapshotItem(i);
+            if (!text || (text && s.textContent===text)){
+            	res.push(s);
+            }
         }
     } catch (e) {
         console.error('xpath error : ' + xpath);
@@ -1703,6 +1706,14 @@ function runfn(fn, id, priority, delay){
     });
 }
 
+function escapeXpath(text){
+    return text.replace(/'/g,'&quot;');
+    //.replace(/&/g,'&quot;')
+    //.replace(/</g,'&lt;')
+    //.replace(/>/g,'&gt;')
+    //.replace(/"/g,'&apos;')
+}
+			
 function escapeJson(text){
     return text.replace(/'/g,"\\'");
 }

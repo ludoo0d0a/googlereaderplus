@@ -10,60 +10,76 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
 		return prefs[ID+'_'+id];
 	}
     
-    if (getPref('newbar')) {
+	function setnewbar(status){
     	setTimeout(function(){
 	    	if (!get_id('gbq1')){
-	    		//http://googlesystem.blogspot.com/2011/11/how-to-try-googles-new-navigation-menu.html
-	    		var domain = window.location.host.replace('www','');
-	    		var js = 'document.cookie="PREF=ID=03fd476a699d6487:U=88e8716486ff1e5d:FF=0:LD=en:CR=2:TM=1322688084:LM=1322688085:S=McEsyvcXKMiVfGds; path=/; domain='+domain+'";';
+	    		var js = '';
+	    		if (!status){
+	    			//http://googlesystem.blogspot.com/2011/11/how-to-try-googles-new-navigation-menu.html
+	    			var domain = window.location.host.replace('www','');
+	    			js = 'document.cookie="PREF=ID=03fd476a699d6487:U=88e8716486ff1e5d:FF=0:LD=en:CR=2:TM=1322688084:LM=1322688085:S=McEsyvcXKMiVfGds; path=/; domain='+domain+'";';
+	    		}
 	    		GM_addjs(js, true, 'newbar');
 	    		showSplash("<a href='#' onclick='window.location.reload();'>Reload</a> now to activate new layout",8000);
 	    	}
     	},3000);
+	}
+    if (getPref('newbar')) {
+    	setnewbar(true);
+    }else if (getPref('oldbar')) {
+    	setnewbar(false);
     }
     
+    
     if (getPref('floatbar')) {
-     	var gbz = get_id('gbz');
-     	hide(gbz);
-     	function toggleBar(e){
-     		e.stopPropagation();
-     		toggle(gbz);
-     		return false;
-     	}
-     	//http://googleblog.blogspot.com/2011/11/next-stage-in-our-redesign.html
-     	var css = '#gbz .gbt{background-color: #2D2D2D;border-bottom: 1px solid black;}';
-     	css += '#gbz .gbt{display:block;}';
-     	css += '#gbz .gbts{margin:5px 20px;}';
-     	css += '#gbz {left:30px;top:50px;}';
-     	
-     	css += '#gbg {right:20px;top:15px;}';
-     	//from jfk-button-standard
-     	css += '#gbg .gbt{border: 1px solid rgba(0, 0, 0, 0.1);background-color: whiteSmoke;background-image: -webkit-linear-gradient(top,whiteSmoke,#F1F1F1);}';
-     	
-		css += '#gb {height:0px;}';
-		css += '#gbx3, #gbx4 {display:none;}';
-		css += '#chrome-bar-toggle {height:8px;cursor:pointer;z-index: 50;}';
-		css += '#chrome-bar-toggle-icon {width: 0;height: 0;position: absolute;left: 50%;border-color: white white #2D2D2D;border-style: solid;border-width: 0 7px 7px 7px;margin-top: 1px;font-size: 1px;line-height: 1px;}';
-				
-		GM_addStyle(css, 'rps_floatbar');
-		
-		dh('gbz','div', {
-			position:'first',
-			id:'chrome-bar-toggle',
-			html:'<div id="chrome-bar-toggle-icon"></div>'
-		});
-		
-     	var logo = get_id('logo-container');
-     	if (logo){
-     		logo.href='#';
-     		logo.addEventListener('click',toggleBar,true);
-     	}
-    	
-    	fireResize();
+    	function mimicFloatbar(){
+	    	if (get_id('gbq1')){
+	    		showSplash('New native layout is already ON!<br/>No mimic',3000);
+	    		return;
+	    	}
+	     	var gbz = get_id('gbz');
+	     	hide(gbz);
+	     	function toggleBar(e){
+	     		e.stopPropagation();
+	     		toggle(gbz);
+	     		return false;
+	     	}
+	     	//http://googleblog.blogspot.com/2011/11/next-stage-in-our-redesign.html
+	     	var css = '#gbz .gbt{background-color: #2D2D2D;border-bottom: 1px solid black;}';
+	     	css += '#gbz .gbt{display:block;}';
+	     	css += '#gbz .gbts{margin:5px 20px;}';
+	     	css += '#gbz {left:30px;top:50px;}';
+	     	
+	     	css += '#gbg {right:20px;top:15px;}';
+	     	//from jfk-button-standard
+	     	css += '#gbg .gbt{border: 1px solid rgba(0, 0, 0, 0.1);background-color: whiteSmoke;background-image: -webkit-linear-gradient(top,whiteSmoke,#F1F1F1);}';
+	     	
+			css += '#gb {height:0px;}';
+			css += '#gbx3, #gbx4 {display:none;}';
+			css += '#chrome-bar-toggle {height:8px;cursor:pointer;z-index: 50;}';
+			css += '#chrome-bar-toggle-icon {width: 0;height: 0;position: absolute;left: 50%;border-color: white white #2D2D2D;border-style: solid;border-width: 0 7px 7px 7px;margin-top: 1px;font-size: 1px;line-height: 1px;}';
+					
+			GM_addStyle(css, 'rps_floatbar');
+			
+			dh('gbz','div', {
+				position:'first',
+				id:'chrome-bar-toggle',
+				html:'<div id="chrome-bar-toggle-icon"></div>'
+			});
+			
+	     	var logo = get_id('logo-container');
+	     	if (logo){
+	     		logo.href='#';
+	     		logo.addEventListener('click',toggleBar,true);
+	     	}
+	    	
+	    	fireResize();
+    	}
+    	mimicFloatbar();
     }
     
     if (getPref('noborder')) {
-        var css = '.card-common,.entry-main{margin:0 !important;}';
+        var css = '.entry,.card-common,.entry-main{margin:0 !important;}';
         css += '.entry,.card-content,.entry-actions,.entry-container{padding:0 !important;}';
         css += '.entry-title{margin-left:20px !important;font-size:120% !important;}';
         css += '.entry .entry-body{max-width:100% !important;}';
@@ -118,7 +134,7 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
 		}
 	}*/
 	if (getPref('currdir')) {
-		var lastUrl='';
+		var lastTitle='';
 		GM_addStyle('.tree-sel{background-color:#dedede;}', 'rpe_currdir');
 		//var st = get_id('sub-tree');
 		var st = get_id('scrollable-sections');
@@ -136,13 +152,18 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
 					})
 				}
 				var sth = st.clientHeight;
-				var url = getEntrySiteTitle(e, 'entry-source-title');
-				if (url && url !== lastUrl) {
+				var title = getEntrySiteTitle(e, 'entry-source-title');
+				if (title && title !== lastTitle) {
 					var l = getFirstElementByClassName(st, 'tree-sel');
 					if (l) {
 						removeClass(l, 'tree-sel');
 					}
-					var a = getElements(".//div[contains(@class,'name-text')][text()='" + url + "']", st);
+					//Xpath 1.0 don't support quote escaping...
+					var a = getElements(".//div[contains(@class,'name-text')][text()='" + escapeXpath(title) + "']", st);
+					if (!a || (a && a.length===0) ) {
+						//Try slower with real text compare
+						a = getElements(".//div[contains(@class,'name-text')]", st, title);
+					}
 					if (a && a.length > 0) {
 						var node = findParentNode(a[0],'a','link');
 						if (node){
@@ -154,7 +175,7 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
 							}
 							addClass(node, 'tree-sel');
 							addClass(e,'entry-seld');
-							lastUrl = url;
+							lastTitle = title;
 							//ensure visible
 							//TODO : Better
 							var h = findTop(node, st);
@@ -218,10 +239,16 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
 			css += '.rp-action-icons .user-tags-list{display:none;}';//hide tags
 			addClass(get_id('entries'), 'rp-action-icons');
 		}
-		css += '.entry:not(#current-entry) .card-actions{display:none}#current-entry .card-actions,#entries.list #current-entry .entry-actions{position:fixed;right:32px!important;top:' + top + 'px!important;left:!important;width:'+w+'px;z-index:9999;-webkit-box-shadow:#E3E5EB 0 1px 1px;border-bottom-left-radius:5px 5px;border-bottom-right-radius:5px 5px;border-top-left-radius:5px 5px;border-top-right-radius:5px 5px;border:2px solid #68E;opacity:0.2}#current-entry .card-actions:hover,#entries.list #current-entry .entry-actions:hover{opacity:1}#current-entry .entry-actions > span,#entries.list #current-entry .entry-actions > span{display:block;height:15px;margin:1px;}';
+		css += '.entry:not(#current-entry) .card-actions{display:none}';
+		css += '#current-entry .card-actions,#entries.list #current-entry .entry-actions{position:fixed;right:32px!important;top:' + top + 'px!important;left:!important;width:'+w+'px;z-index:9999;-webkit-box-shadow:#E3E5EB 0 1px 1px;border-bottom-left-radius:5px 5px;border-bottom-right-radius:5px 5px;border-top-left-radius:5px 5px;border-top-right-radius:5px 5px;border:2px solid #68E;opacity:0.2}';
+		css += '#current-entry .card-actions:hover,#entries.list #current-entry .entry-actions:hover{opacity:1}';
+		css += '#current-entry .entry-actions > span,#entries.list #current-entry .entry-actions > span{display:block;height:15px;margin:1px;}';
 		//star only, strange way todo...
 		css += '#current-entry .entry-actions > span.star,#entries.list #current-entry .entry-actions > span.star{width:0px}';
 		css += '#current-entry .entry-main{margin-right:'+w+'px}';//Current reduced for current floating menu
+css += '.card-common .card-actions{height:auto !important}';
+css += '#entries .entry:not(#current-entry){opacity:0.6 !important}';
+
 		GM_addStyle(css, 'rpe_floatactions');
 	}
 

@@ -119,3 +119,7 @@ span.btn-sel{
 	top:0;
 	right:200px;
 }
+
+div#loading-area{
+	height:auto;
+}

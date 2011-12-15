@@ -72,7 +72,7 @@
                 }, this, true);
                 console.log("ReaderPlus is running with " + count + "/" + getCount(GRP.scripts) + " features");
                 langs.splash=langs.splash||{};
-                showSplash(langs.splash.on);
+                showSplash(langs.splash.on, 2000, 100);
                 //Start entries monitoring 
                 monitorEntries();
                 if (GRP.fns && GRP.fns.length > 0) {
