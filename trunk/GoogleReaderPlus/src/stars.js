@@ -64,13 +64,16 @@ GRP.stars = function(prefs, langs, ID, SL, lang){
 		var text = (prefs && prefs.general_icons)?'':(SL.keyword || ID);
 		
 		var ea = getFirstElementByClassName(entry, 'entry-actions');
-		var es = getFirstElementByClassName(ea, 'star');
+		var es = false;
+		if (ea){
+			es = getFirstElementByClassName(ea, 'star');
+		}
 		
 		var ei = getFirstElementByClassName(entry, 'entry-icons');
 		var eicon = getFirstElementByClassName(ei, 'star');
 		addIcon(entry, title, function(entry, el){
 			toggleStar(el, entry, false);
-		},'superstar link unselectable empty');
+		},'superstar', 'link unselectable empty');
 		hide(eicon);
 		eicon.style.background='transparent';
 		
