@@ -439,6 +439,7 @@ GRP.langs[locale].prefs = {
 		bottomup : "Placer la barre 'Précédent/Suivant' en haut de l'écran",
 		currdir : "Surligner le répertoire de l'élément sélectionné",
 		floatactions : "Menu 'actions' est affiché dans une fenêtre volante",
+		currentactions: 'Afficher les actions pour seulement l\'article en cours',
 		icons : 'Icône seulement pour les boutons de la barre action (sauf pour les radio boutons)',
 		hidetoolbar : 'Cacher la barre d\'outil',
 		floatbar: 'Aperçu de la nouvelle barre flottante (sur ancien menu)',
