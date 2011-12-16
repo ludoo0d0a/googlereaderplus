@@ -71,34 +71,38 @@ function execAll(ea, entry, mode, oforce){
 
 function execAllOffset(ea, entry, mode, force){
     for (var i = 0, len = stackFeatures.length; i < len; i++) {
-        var p = stackFeatures[i].params;
+        var p = stackFeatures[i].params || {};
         var owner  = ea || entry;
 		//console.log('p.bid='+p.bid);
         if (mode==='expanded') {
             //ExpandedView
-            if (!isTagged(owner, p.bid)) {
-                //console.log('call '+p.bid+' for entry '+entry.className+' as ExpandedView');
-                stackFeatures[i].fn.call(this, ea, entry, mode);
+            if (entry.hasChildNodes()){
+            	if (!isTagged(entry, p.bid)) {
+console.log('call '+p.bid+' for entry '+entry.className+' as ExpandedView');
+                	stackFeatures[i].fn.call(this, ea, entry, mode);
+            	}
+            }else{
+            	//cleared-out = defer loading
             }
         }else{
         	//ListView
         	if (ea) {
 	        	//ListView-opened
-	        	if (!(p && p.onlistviewtitle)) {
+	        	if (!p.onlistviewtitle) {
 		    		//isTagged on entry-container because always recreated
 		    		//var ec = getFirstElementByClassName(entry, 'entry-container');
-		    		if (!isTagged(owner, p.bid)) {
-		    			//console.log('call '+p.bid+' for entry '+entry.className+' as ListView-opened');
+		    		if (!isTagged(ea, p.bid)) {
+console.log('call '+p.bid+' for entry '+entry.className+' as ListView-opened');
 		    			stackFeatures[i].fn.call(this, ea, entry, mode);
 		    		}
 	    		}
 	        } else {
 	            //ListView-closed
-	            if (p && p.onlistviewtitle) {
+	            if (p.onlistviewtitle) {
 	                //only for favicons (onlistviewtitle=true)
 	                //if (force || !isTagged(entry.firstChild, p.bid)) {
-					if (!isTagged(owner, p.bid)) {
-	                    //console.log('call '+p.bid+' for entry '+entry.className+' as ListView-closed');
+					if (!isTagged(entry, p.bid)) {
+console.log('call '+p.bid+' for entry '+entry.className+' as ListView-closed');
 	                    stackFeatures[i].fn.call(this, ea, entry, mode);
 	                }
 	            }
@@ -148,8 +152,11 @@ function checkEntry(el, params){
             entry=el;
             ea = getFirstElementByClassName(entry, 'entry-actions');
             if (ea){
-            	//console.log("Run as ExpandedView for "+el.tagName + "." + el.className);
+            	//console.log("Run as ExpandedView for "+entry.tagName + "." + entry.className);
             	catchEntry(entry, ea, ea, params);
+            }else{
+            	//console.log("Run as ListView-closed for "+entry.tagName + "." + entry.className);
+            	catchEntry(entry, false, entry, params);
             }
         } else if (hasClass(el, 'entry-actions')) {
             // *********** Expand article in List view
@@ -731,19 +738,27 @@ function addButton(reference, text, title, fn, position, menu){
 	return div;
 }
 
-function addIcon(entry, title, fn, cls){
+function addIcon(entry, title, fn, cls, clsExtra){
 	var el=false, elicons = getFirstElementByClassName(entry, 'entry-icons');
 	if (elicons) {
-		el = document.createElement('div');
-		el.title = title;
-		addClass(el, cls|| 'section-button section-menubutton');
-		elicons.appendChild(el);
-		if (fn) {
-			var me = this;
-			el.addEventListener('click', function(e){
-				e.stopPropagation();
-				fn.call(me, entry, el);
-			}, false);
+		el = getFirstElementByClassName(entry, cls);
+		if (!el){
+			el = document.createElement('div');
+			el.title = title;
+			var acls = [cls];
+			if (clsExtra){
+				acls.push(clsExtra);
+			}
+			var wcls = acls.join(' ');
+			addClass(el, wcls|| 'section-button section-menubutton');
+			elicons.appendChild(el);
+			if (fn) {
+				var me = this;
+				el.addEventListener('click', function(e){
+					e.stopPropagation();
+					fn.call(me, entry, el);
+				}, false);
+			}
 		}
 	}
 	return el;
