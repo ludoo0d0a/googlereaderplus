@@ -738,27 +738,29 @@ function addButton(reference, text, title, fn, position, menu){
 	return div;
 }
 
-function addIcon(entry, title, fn, cls, clsExtra){
+function addIcon(entry, title, fn, cls, clsExtra, position){
 	var el=false, elicons = getFirstElementByClassName(entry, 'entry-icons');
 	if (elicons) {
 		el = getFirstElementByClassName(entry, cls);
 		if (!el){
-			el = document.createElement('div');
-			el.title = title;
 			var acls = [cls];
 			if (clsExtra){
 				acls.push(clsExtra);
 			}
-			var wcls = acls.join(' ');
-			addClass(el, wcls|| 'section-button section-menubutton');
-			elicons.appendChild(el);
+			var events=false, me=this, wcls = acls.join(' ')|| 'section-button section-menubutton';
 			if (fn) {
-				var me = this;
-				el.addEventListener('click', function(e){
-					e.stopPropagation();
-					fn.call(me, entry, el);
-				}, false);
+				events = {
+					click:function(e){
+						e.stopPropagation();
+						fn.call(me, entry, el);
+					}
+				};
 			}
+			el = dh(elicons, 'div', {
+				cls:wcls,
+				title:title,
+				position:position||'last'
+			}, events);
 		}
 	}
 	return el;

@@ -29,8 +29,9 @@ GRP.stars = function(prefs, langs, ID, SL, lang){
 
 	//https://mail.google.com/mail/u/0/pimages/2/labs/superstars_2.png
 	var url = 'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/stars/allstars.png';
-	var ptime=0, pid=false, css = '.entry .superstar{background: url('+url+') no-repeat;background-position:0px -180px;padding:0px 8px 0px 16px;}';
-	css+='.entry-icons .superstar{width:16px;height:16px;}';
+	var ptime=0, pid=false, css = '.entry .superstar{background: url('+url+') no-repeat;background-position:0px -180px;}';
+	css+='.entry-actions .superstar{padding:0px 8px 0px 16px;}';
+	css+='.entry-icons .superstar{width:16px;height:16px;display:inline-block;}';
 	css+='#entries.grp-superstar .entry-actions span.star:first-child {display:none;}';
 	css+='.entry .star {background:none;}';
 	var entries = get_id('entries');
@@ -49,7 +50,7 @@ GRP.stars = function(prefs, langs, ID, SL, lang){
 	css +='#entries.set-tag .tags-edit{visibility:hidden;}';
     GM_addStyle(css, 'rpe_'+ID);
 	
-	function star(el, entry, mode){
+	function star(ea, entry, mode){
 		var tag = findTagClass(entry), estar = isStarred(entry);
 		if (estar && !tag){
 			tag = TAG_STAR;
@@ -63,7 +64,7 @@ GRP.stars = function(prefs, langs, ID, SL, lang){
 		//var text = (SL.keyword || ID);//checkbox
 		var text = (prefs && prefs.general_icons)?'':(SL.keyword || ID);
 		
-		var ea = getFirstElementByClassName(entry, 'entry-actions');
+		//var ea = getFirstElementByClassName(entry, 'entry-actions');
 		var es = false;
 		if (ea){
 			es = getFirstElementByClassName(ea, 'star');
@@ -73,7 +74,7 @@ GRP.stars = function(prefs, langs, ID, SL, lang){
 		var eicon = getFirstElementByClassName(ei, 'star');
 		addIcon(entry, title, function(entry, el){
 			toggleStar(el, entry, false);
-		},'superstar', 'link unselectable empty');
+		},'superstar', 'link unselectable empty', 'first');
 		hide(eicon);
 		eicon.style.background='transparent';
 		
