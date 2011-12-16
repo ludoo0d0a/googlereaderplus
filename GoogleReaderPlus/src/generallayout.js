@@ -260,6 +260,9 @@ css += '#entries .entry:not(#current-entry){opacity:0.6 !important}';
 	if (getPref('floatactions')) {
 		runfn(floatactions, 'floatactions', 99, 2000);
 		//defer to get right #main.top
+	}else if (getPref('currentactions')) {
+		var  css = '.entry:not(#current-entry) .card-actions{display:none}';
+		GM_addStyle(css, 'rpe_currentactions');
 	}
 
 	if (getPref('icons')) {
