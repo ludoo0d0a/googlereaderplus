@@ -229,7 +229,7 @@ css += '.section-minimize2 {background-position: -23px -120px;top: 6px;}';
 				//TODO: lazy loading for items causes troubles (entry.hasChildNodes temporarly fix this)
 				if (entry.hasChildNodes() && !hasClass(entry, 'portal_actions')){
 					addClass(entry, 'portal_actions', true);
-					var icon = addIcon(entry, SL.readmore, clickMenu, 'section-button section-minimize1');
+					var icon = addIcon(entry, SL.readmore, clickMenu, 'icon-portal', 'section-button section-minimize1');
 					dh(entry, 'div', {cls: 'entry-overflow'});
 					onTextClick(entry, clickMenu, icon);
 				}
