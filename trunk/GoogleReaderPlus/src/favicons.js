@@ -87,26 +87,27 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 		initCatchSidebars(addFaviconSidebar, 'sidebar-favicons');
 	}
 
-	function addFaviconEntry(el, entry, mode) {
-		if(isTagged(entry, 'tfavicon')) {
+	function addFaviconEntry(ea, entry, mode, body) {
+		/*if(isTagged(entry, 'tfavicon')) {
 			//stop entry was already scanned
 			return;
+		}*/
+		if (body && mode==='list'){
+			//already done if body reloaded in ListView
+			return;
 		}
-
-		//var span = document.createElement('span');
+		
 		var icon = document.createElement('div');
 		icon.className = 'favicon gr-favicon grf-entry';
 		var match = getEntrySiteTitle(entry);
-		//var match = ellipsis(siteTitle);
 		icon.title = match;
-		//span.appendChild(icon);
 
 		var t = ICONS_TITLE[match];
 		if(t) {
 			src = t.icon;
 		} else {
 			// popular items | recommended sources
-			var fs = entry.getElementsByClassName('entry-original')[0] || entry.getElementsByClassName('entry-title-link')[0];
+			var fs = getFirstElementByClassName(entry,'entry-original') || getFirstElementByClassName(entry,'entry-title-link');
 			if(fs) {
 				fs = ICO_TPL_URL + getDomain(fs.href);
 				src = fs;
@@ -116,7 +117,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 		}
 		setBgImg(icon, src);
 		addClass(entry, 'entry-favicon');
-		insertOnTitle(entry, icon/*span*/, mode);
+		insertOnTitleStart(entry, icon, mode);
 	}
 
 	function setBgImg(el, src) {
@@ -133,10 +134,10 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 	}
 
 	function addFaviconSidebar(el, mode) {
-		if(isTagged(el, 'tfavicon')) {
+		/*if(isTagged(el, 'tfavicon')) {
 			//stop entry was already scanned
 			return;
-		}
+		}*/
 
 		function addIcon(el) {
 			var elicon = getFirstElementByClassName(el, 'icon');
