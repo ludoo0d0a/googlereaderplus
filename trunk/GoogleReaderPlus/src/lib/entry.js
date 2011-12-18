@@ -59,21 +59,67 @@ function registerFeature(fn, bid, params){
         params.globalFn.call(this);
     }
 }
+
+
+function monitorEntries(el){
+    var root = el || ELS.entries;
+    root.addEventListener('DOMNodeInserted', function(e){
+        checkEntry(e.target);
+    }, false);
+    catchAllEntries();
+    loadExternal(function(){
+        catchAllEntries();
+    });
+}
+
+function checkEntry(el, params, mode){
+    var entry,ea=false;
+    if (el.tagName === 'DIV') {
+//        console.log('-- div.' + el.className);
+        if (hasClass(el, 'entry')) {
+            entry=el;
+            var entryBodyContent = (entry.hasChildNodes());
+            if (entryBodyContent){
+            	ea = getFirstElementByClassName(entry, 'entry-actions');
+	            //ExpandedView
+	            catchEntry(entry, ea, params, mode);
+            }
+        } else if (hasClass(el, 'entry-actions')) {
+            // *********** Expand article in ExpandedView in ListView
+            ea = el;
+            entry = findParentNode(ea, 'div', 'entry');
+            //console.log("+entry-actions on " + entry.className);
+            catchEntry(entry, ea, params, mode, true);
+        }
+    }
+}
+
+function catchEntry(entry, ea, params, mode, body){
+    mode = mode || getMode();
+    execAll(ea, entry, mode, body);
+}
+
 var lockTimeout=false;
-function execAll(ea, entry, mode, oforce){
+function execAll(ea, entry, mode, body){
     //if (!lockTimeout){
 	    lockTimeout = window.setTimeout(function(){
 	        //lockTimeout=false;
-	        execAllOffset(ea, entry, mode, oforce);
-	    }, 400);
+	        execAllOffset(ea, entry, mode, body);
+	    }, 100);
     //}
 }
 
-function execAllOffset(ea, entry, mode, force){
+function execAllOffset(ea, entry, mode, body){
     for (var i = 0, len = stackFeatures.length; i < len; i++) {
         var p = stackFeatures[i].params || {};
-        var owner  = ea || entry;
+        //var owner  = ea || entry;
 		//console.log('p.bid='+p.bid);
+		if(!isTagged(entry.firstChild, p.bid)) {
+			stackFeatures[i].fn.call(this, ea, entry, mode, body);
+		}
+		//if (p.onlistviewtitle)??
+		
+		/*
         if (mode==='expanded') {
             //ExpandedView
             if (entry.hasChildNodes()){
@@ -107,71 +153,10 @@ console.log('call '+p.bid+' for entry '+entry.className+' as ListView-closed');
 	                }
 	            }
 	        }
-        } 
+        } */
     }
 }
 
-function monitorEntries(el){
-    var root = el || ELS.entries;
-    root.addEventListener('DOMNodeInserted', function(e){
-        checkEntry(e.target);
-    }, false);
-    catchAllEntries();
-    loadExternal(function(){
-        catchAllEntries();
-    });
-}
-
-function loadExternal(cb){
-    var ext = {};
-    if (externals && externals.length > 0) {
-        for (var i = 0, len = externals.length; i < len; i++) {
-            var o = externals[i];
-            ext[i] = o;
-            if (typeof o === "function") {
-                o.call(this, function(){
-                    delete ext[i];
-                    if (ext.length === 0) {
-                        cb();
-                    }
-                });
-            } else if (typeof o === "string") {
-                GM_addScript(o, true);
-            }
-        }
-    } else {
-        cb();
-    }
-}
-
-function checkEntry(el, params){
-    var entry,ea;
-    if (el.tagName === 'DIV') {
-//        console.log('-- div.' + el.className);
-        if (hasClass(el, 'entry')) {
-            entry=el;
-            ea = getFirstElementByClassName(entry, 'entry-actions');
-            if (ea){
-            	//console.log("Run as ExpandedView for "+entry.tagName + "." + entry.className);
-            	catchEntry(entry, ea, ea, params);
-            }else{
-            	//console.log("Run as ListView-closed for "+entry.tagName + "." + entry.className);
-            	catchEntry(entry, false, entry, params);
-            }
-        } else if (hasClass(el, 'entry-actions')) {
-            // *********** Expand article in List view
-            ea = el;
-            entry = findParentNode(ea, 'div', 'entry');
-            //console.log("+entry-actions on " + entry.className);
-            catchEntry(entry, ea, ea, params);
-        }
-    }
-}
-
-function catchEntry(entry, ea, owner, params, mode, force){
-    mode = mode || getMode(entry);
-    execAll(ea, entry, mode, force);
-}
 
 var _currentEntry=false;
 function monitorCurrentEntry(cb, time){
@@ -211,11 +196,33 @@ function forAllEntries(fn){
 }
 
 function catchAllEntries(params){
+    var mode = getMode();
     forAllEntries(function(entry){
-        checkEntry(entry, params);
+        checkEntry(entry, params, mode);
     });
 }
 
+function loadExternal(cb){
+    var ext = {};
+    if (externals && externals.length > 0) {
+        for (var i = 0, len = externals.length; i < len; i++) {
+            var o = externals[i];
+            ext[i] = o;
+            if (typeof o === "function") {
+                o.call(this, function(){
+                    delete ext[i];
+                    if (ext.length === 0) {
+                        cb();
+                    }
+                });
+            } else if (typeof o === "string") {
+                GM_addScript(o, true);
+            }
+        }
+    } else {
+        cb();
+    }
+}
 /*
  * Side bar
  */
@@ -252,17 +259,15 @@ function catchAllSidebars(fn, bid){
     });
 }
 
-function getMode(entry){
+function getMode(){
     //list cards
     var entries = ELS.entries;
     if (entries){
     	return hasClass(entries, 'list') ? 'list' : 'expanded';
-    //if (entry) {
-    //    return hasClass(entry.firstChild, 'collapsed') ? 'list' : 'expanded';
-    //} else {
+	}else{
         var btns = getElements('#stream-view-options-container .jfk-button');
         return hasClass(btns[1], 'jfk-button-checked') ? 'expanded' : 'list';
-    }
+   }
 }
 
 function getOriginalEntryLink(entry){
@@ -281,15 +286,20 @@ function getEntrySiteTitle(ent){
 
 function insertOnTitle(entry, el, mode){
     if (!mode){
-		mode=getMode(entry);
+		mode=getMode();
 	}
     if (mode === 'expanded') {
-        var et = getFirstElementByClassName(entry, 'entry-title');//h2
+        var et = getFirstElementByClassName(entry, 'entry-title');
         insertFirst(el, et);
     } else {
         var ei = getFirstElementByClassName(entry, 'entry-icons');
         insertLast(el, ei);
     }
+}
+
+function insertOnTitleStart(entry, el){
+   var et = getFirstElementByClassName(entry, 'entry-title');
+   insertFirst(el, et); 
 }
 
 function getEntryLink(ent, useFeed){
@@ -827,10 +837,8 @@ function isTagged(el, id){
    var tagged = false;
    if (el){
     	var cls='grpt-'+id;
-    	//tagged=ec.getAttribute(cls);
     	tagged=hasClass(el,cls);
 	    if (!tagged) {
-	        //ec.setAttribute(cls, '1');
 	        addClass(el,cls);
 	    }
     }
