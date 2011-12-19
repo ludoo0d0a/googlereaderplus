@@ -452,7 +452,10 @@ GRP.langs[locale].prefs = {
 		hide_search:'Hide search',
 		hide_subscription:'Hide subscription',
 		hide_nav:'Hide navigation',
-		searchinbar:'Search in bar'
+		searchinbar:'Search in bar',
+		hide_home:'Home link in sidebar',
+		hide_selectors:'"All items" in sidebar',
+		hide_recommendations:'Recommendations in sidebar'
 	},
 	limit : {
 		slidewindow : "Slidewindow - limit entries number",
