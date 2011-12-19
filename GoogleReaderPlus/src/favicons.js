@@ -34,9 +34,9 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 	};
 
 	function init() {
-		if(isObjectEmpty(ICONS_TITLE) || RSS._items === null || RSS._folders === null) {
+		if(isObjectEmpty(ICONS_TITLE)) {
 			loadFavicons();
-		} else if(RSS._items !== RSS.items || RSS._folders !== RSS.folders) {
+		} else if(RSS._items === null || RSS._folders === null || RSS._items !== RSS.items || RSS._folders !== RSS.folders) {
 			loadFavicons(true);
 		} else {
 			initFavicons();
@@ -100,7 +100,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 		var icon = document.createElement('div');
 		icon.className = 'favicon gr-favicon grf-entry';
 		var match = getEntrySiteTitle(entry);
-		icon.title = match;
+		icon.title = escapeHTML(match);
 
 		var t = ICONS_TITLE[match];
 		if(t) {
@@ -117,7 +117,8 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 		}
 		setBgImg(icon, src);
 		addClass(entry, 'entry-favicon');
-		insertOnTitleStart(entry, icon, mode);
+		//insertOnTitleStart(entry, icon, mode);
+		insertOnTitle(entry, icon, mode);
 	}
 
 	function setBgImg(el, src) {
@@ -158,7 +159,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 				} else {
 					src = ICONS_TITLE_TPL_DEF_URL;
 				}
-				elicon.title = match;
+				elicon.title = escapeHTML(match);
 				setBgImg(elicon, src);
 			}
 		}
@@ -240,7 +241,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 		if(node) {
 			var icon = getFirstElementByClassName(node, 'favicon');
 			// img not there, used 2nd div.name/@title
-			var key = icon.title || icon.nextSibling.textContent;
+			var key = unescapeHTML(icon.title||'') || icon.nextSibling.textContent;
 			//try to get url+title, but this solution is sometimes wrong !!
 			var f = ICONS_TITLE[key];
 			var dir = getSelectedDir(node);
