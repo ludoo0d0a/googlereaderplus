@@ -13,7 +13,7 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
 	function setnewbar(status){
     	setTimeout(function(){
 	    		var domain = window.location.host.replace('www','');
-	    		var js = 'document.cookie="PREF=ID=0:U=0:FF=0:LD=en:CR=0:TM=0:LM=0:S=A; path=/; domain='+domain+'";';
+	    		var js = '';
 	    		if (status){
 	    			if (get_id('gbq1')){
 	    				return;
@@ -24,9 +24,12 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
 	    			if (!get_id('gbq1')){
 	    				return;
 	    			}
+	    			js = 'document.cookie="PREF=ID=0:U=0:FF=0:LD=en:CR=0:TM=0:LM=0:S=A; path=/; domain='+domain+'";';
 	    		}
-	    		GM_addjs(js, true, 'newbar');
-	    		showSplash("<a href='#' onclick='window.location.reload();'>Reload</a> now to activate new layout",8000);
+	    		if (js){
+	    			GM_addjs(js, true, 'newbar');
+	    			showSplash("<a href='#' onclick='window.location.reload();'>Reload</a> now to activate new layout",8000);
+	    		}
 	    	
     	},3000);
 	}
