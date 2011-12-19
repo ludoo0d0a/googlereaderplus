@@ -22,7 +22,8 @@ css+='.scroll-tree li {margin: 0px;}';
 css+='.scroll-tree li.folder .link, .scroll-tree li.sub {padding-bottom: 6px;}';
  
 	css+='html,.scroll-tree li a,#sub-tree-container,#gbx2,#viewer-header,#lhn-add-subscription-section{background:-webkit-linear-gradient(top,#B2B2B2,#F2F2F2);}';
-	css+='#gbx2.gbxngh{background:-webkit-linear-gradient(top,#B9B9B9,#F9F9F9);}';
+	css+='#gbx2.gbxngh,#top-bar{background:-webkit-linear-gradient(top,#B9B9B9,#F9F9F9);}';
+	css+='#top-bar #logo{display:none;}';
 	css+='div#entries.list .read .collapsed, div#entries.list #current-entry .collapsed, div#entries .entry .entry-actions{background:-webkit-linear-gradient(top,#D7D7D7,#F6F6F6);}';
 	
 	css+='.scroll-tree .icon{background:none}';
