@@ -850,34 +850,40 @@ function getScriptObject(id){
     return GRP.scripts[id];
 }
 
+
+function addReaderMenuSeparator(){
+	var menu=get_id('settings-button-menu');
+	dh(menu, 'div', {
+		cls:'goog-menuseparator',
+		role:'spearaotr'
+	});
+}
 function addReaderMenuItem(text, cb, checkbox){
     var clsOption='';
 	if (checkbox) {
-	      //html = '<span class="grp-menu grp-menu-unchecked">' + text + '</span>';
 	      clsOption=' goog-option';
 	}
-	var html = '<div class="goog-menuitem'+clsOption+'">' + text + '</div>';//+goog-option-selected
+	var html = '<div class="goog-menuitem-content">' + text + '</div>';
 
-	var li='gbg', cls='gb2 rpgb2', /*newUI=get_id('gbd5'),*/ ol=get_id('gbom');
-	/*if (newUI){
-		var ol = getFirstElementByClassName(newUI, 'gbmcc');
-		li = dh(ol,'li', {cls: 'gbkc gbmtc'});
-		cls='gbmt';
-	}*/
-	li = dh(ol,'li');
-	cls='gbmt';
-	    
-    dh(li, 'a', {
+	var menu=get_id('settings-button-menu');
+    var el = dh(menu, 'div', {
         href: '#',
-        cls: cls ,
+        cls: 'goog-menuitem'+clsOption,
+        role:'menuitem',
         html: html
     }, {
         click: function(e){
             if (checkbox) {
-                addClassIf(e.target, 'goog-option-selected', 'goog-option-unselected');
+                addClassIf(el, 'goog-option-selected', 'goog-option-unselected');
             }
             cb(e);
-        }
+        },
+        mouseover:function(e){
+			addClass(el, 'goog-menuitem-highlight');
+		},
+		mouseout:function(){
+			removeClass(el, 'goog-menuitem-highlight');
+		},
     });
 }
 
