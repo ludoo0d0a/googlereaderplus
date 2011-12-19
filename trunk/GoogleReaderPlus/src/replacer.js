@@ -40,6 +40,24 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
 	function getHash(o){
 		return o.search+';'+o.replace+';'+o.url;
 	}
+	
+	function getRegex(text){
+		var re= false;
+		try {
+			re = new RegExp(text, "im");
+		}catch(e){
+			//Retry with escaped
+			try {
+				var s = encodeRE(s);
+				re = new RegExp(s, "im");
+			} catch (e) {
+				console.error(e);
+				console.error(o);
+				re = false;
+			}
+		}
+		return re;
+	}
 
 
     function parseItems(gp_data, items){
@@ -61,42 +79,38 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
 			}
 			dup[h]=o;
 			
-            o.re_url = new RegExp(o.url, "im");
-			//o.re_url = new RegExp(encodeRE(o.url), "im");
-            if (/^xpath\:/.test(o.search)) {
-                o.xpath = o.search.replace(/^xpath\:/, '');
-                //Ensure relative path
-                if (!(/^\./.test(o.xpath))) {
-                    if (/^\//.test(o.xpath)) {
-                        o.xpath = '.' + o.xpath;
-                    } else {
-                        o.xpath = './' + o.xpath;
-                    }
-                }
-            }else if (/^css\:/.test(o.search)) {
-				o.selector = o.search.replace(/^css\:/, '');
-			} else {
-                var s = o.search;
-				if (/^link\:/.test(s)) {
-					s = s.replace(/^link\:/, '');
-					o.link = true;
-				}
-				try {
-					o.re_search = new RegExp(s, "im");
-				}catch(e){
-					//Retry with escaped
-					try {
-						s = encodeRE(s);
-						o.re_search = new RegExp(s, "im");
-					} catch (e) {
-						console.error(e);
-						console.error(o);
+            o.re_url = getRegex(o.url);
+            if (o.re_url){
+	            if (/^xpath\:/.test(o.search)) {
+	                o.xpath = o.search.replace(/^xpath\:/, '');
+	                //Ensure relative path
+	                if (!(/^\./.test(o.xpath))) {
+	                    if (/^\//.test(o.xpath)) {
+	                        o.xpath = '.' + o.xpath;
+	                    } else {
+	                        o.xpath = './' + o.xpath;
+	                    }
+	                }
+	            }else if (/^css\:/.test(o.search)) {
+					o.selector = o.search.replace(/^css\:/, '');
+				} else {
+	                var s = o.search;
+					if (/^link\:/.test(s)) {
+						s = s.replace(/^link\:/, '');
+						o.link = true;
+					}
+					
+					var re_search = getRegex(s, "im");
+					if (re_search){
+						o.re_search=re_search;
+					}else{
 						o = false;
 					}
+					
+	            }
+				if (o){
+	            	gp_data[title] = o;
 				}
-            }
-			if (o){
-            	gp_data[title] = o;
 			}
         });
     }
@@ -204,16 +218,12 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
             return false;
         }
         
-        var body = getFirstElementByClassName(entry, 'entry-body');//div
-        //var entryBody = getEntryBody(body);
+        var body = getFirstElementByClassName(entry, 'entry-body');
+		if (!body){
+			return;
+		}
         
-        //hide(entryBody);
         var el = document.createElement('div');
-        /*if (matches[0].keeptext) {
-         hide(el);
-         }else{
-         hide(entryBody);
-         }*/
         partIndex++;
 		el.className = 'p_replacer';
         el.id = TPL_NAME + partIndex;
