@@ -78,8 +78,8 @@ function checkEntry(el, params, mode){
 //        console.log('-- div.' + el.className);
         if (hasClass(el, 'entry')) {
             entry=el;
-            var entryBodyContent = (entry.hasChildNodes());
-            if (entryBodyContent){
+            var entryContent = (entry.hasChildNodes());
+            if (entryContent){
             	ea = getFirstElementByClassName(entry, 'entry-actions');
 	            //ExpandedView
 	            catchEntry(entry, ea, params, mode);
@@ -112,48 +112,15 @@ function execAll(ea, entry, mode, body){
 function execAllOffset(ea, entry, mode, body){
     for (var i = 0, len = stackFeatures.length; i < len; i++) {
         var p = stackFeatures[i].params || {};
-        //var owner  = ea || entry;
 		//console.log('p.bid='+p.bid);
-		if(!isTagged(entry.firstChild, p.bid)) {
+		if (p.onlistviewtitle){
+			w = entry.firstChild;
+		}else{
+			w = getFirstElementByClassName(entry,'entry-container');
+		}
+		if(!isTagged(w, p.bid)) {
 			stackFeatures[i].fn.call(this, ea, entry, mode, body);
 		}
-		//if (p.onlistviewtitle)??
-		
-		/*
-        if (mode==='expanded') {
-            //ExpandedView
-            if (entry.hasChildNodes()){
-            	if (!isTagged(entry, p.bid)) {
-console.log('call '+p.bid+' for entry '+entry.className+' as ExpandedView');
-                	stackFeatures[i].fn.call(this, ea, entry, mode);
-            	}
-            }else{
-            	//cleared-out = defer loading
-            }
-        }else{
-        	//ListView
-        	if (ea) {
-	        	//ListView-opened
-	        	if (!p.onlistviewtitle) {
-		    		//isTagged on entry-container because always recreated
-		    		//var ec = getFirstElementByClassName(entry, 'entry-container');
-		    		if (!isTagged(ea, p.bid)) {
-console.log('call '+p.bid+' for entry '+entry.className+' as ListView-opened');
-		    			stackFeatures[i].fn.call(this, ea, entry, mode);
-		    		}
-	    		}
-	        } else {
-	            //ListView-closed
-	            if (p.onlistviewtitle) {
-	                //only for favicons (onlistviewtitle=true)
-	                //if (force || !isTagged(entry.firstChild, p.bid)) {
-					if (!isTagged(entry, p.bid)) {
-console.log('call '+p.bid+' for entry '+entry.className+' as ListView-closed');
-	                    stackFeatures[i].fn.call(this, ea, entry, mode);
-	                }
-	            }
-	        }
-        } */
     }
 }
 
@@ -1269,7 +1236,7 @@ function getBackColorCss(hue,sat,lt,range){
 
 function addCssIcon(id, clsOn){
 	clsOn=clsOn || 'btn-active';
-	var css = '.entry .entry-actions .btn-'+id+'{background: url(\'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/share/'+id+'.png\') no-repeat!important;padding:0px 8px 1px 16px !important;}'+
+	var css = '.entry .entry-actions .btn-'+id+'{background: url(\'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/share/'+id+'.png\') no-repeat!important;padding:0px 8px 0px 20px !important;}'+
 	'.entry .entry-actions .btn-'+id+'{background-position: 0 0px !important;}'+
 	'.entry .entry-actions .btn-'+id+'.'+clsOn+'{background-position: 0 -16px !important;}';
 	GM_addStyle(css, 'rpe_share_'+id);
