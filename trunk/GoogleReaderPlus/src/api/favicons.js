@@ -8,7 +8,7 @@ if (FIXING) {
 
 function setFavicon(o, item){
     if (o){
-	    var key = ellipsis(o.title);
+	    var key = o.title;
 	    ICONS_TITLE[key] = o;/* {icon, url, title}*/
 		if (item) {
 			o.id = getIdFromResourceUrl(item); 
@@ -156,7 +156,7 @@ function extractFavicon(a, cb){
     var url, title, key = a.key; //, ICONS_TITLE = a.ICONS_TITLE;
     if (!key) {
         //url+title
-        key = ellipsis(title);
+        key = title;
         url = a.url;
         title = a.title;
     } else {
