@@ -452,7 +452,10 @@ GRP.langs[locale].prefs = {
 		hide_search:'Cacher la recherche',
 		hide_subscription:'Cacher le bouton "Ajouter un flux"',
 		hide_nav:'Cacher la navigation',
-		searchinbar:'Recherche dans le menu'
+		searchinbar:'Recherche dans le menu',
+		hide_home:'"Accueil" dans le menu gauche',
+		hide_selectors:'"Tous les éléments" dans le menu gauche',
+		hide_recommendations:'"Explorer" dans le menu gauche'
 	},
 	limit : {
 		slidewindow : "Slidewindow - Limiter le nombre d'éléments",
