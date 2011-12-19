@@ -425,7 +425,10 @@ GRP.scripts = {
 			hide_search:true,
 			hide_subscription:false,
 			hide_nav:false,
-			searchinbar: false
+			searchinbar: false,
+			hide_home:true,
+			hide_selectors:true,
+			hide_recommendations:true
 		},
 		shortcuts: {
 			'compact': {
