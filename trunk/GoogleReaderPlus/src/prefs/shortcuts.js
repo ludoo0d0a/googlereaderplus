@@ -115,25 +115,41 @@ function isShortcutFree(e){
 }
 
 function setShortcut(key, ctrl, save){
-	//remove old
-	clearShortcut(key, ctrl);
+	if (save) {
+		//remove old
+		clearShortcut(key, ctrl);
+	}
 	
 	if (!key.keyCode) {
         //error
         return;
     }
     ctrl.value = formatKey(key);
-    ctrl.key = marshallKey(key);
+    var ckey = marshallKey(key);
+    ctrl.key=ckey;
+    
     //add new
 	if (save) {
 		gshortcuts[ctrl.key] = key;
-		prefs[ctrl.id] = ctrl.key;
+		prefs[ctrl.id] = ckey;
+	}else{
+		gshortcuts[ckey] = key;
 	}
 }
 function clearShortcut(key, ctrl){
-	delete gshortcuts[ctrl.key];
+	if (ctrl.key){
+		delete gshortcuts[ctrl.key];
+	}
 }
+function isValidKey(e){
+	return (/U\+/.test(e.keyIdentifier));
+}
+	
 function fixShortcut(e, input){
+    if (!isValidKey(e)){
+    	//shift,alt,ctrl only not permitted
+    	return;
+    }
     var newKey = marshallKey(e);
     var free = isShortcutFree(e);
     var warn = getFirstElementMatchingClassName(input.parentNode, 'div', 'warning');//div.warning
