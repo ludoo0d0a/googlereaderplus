@@ -334,14 +334,15 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 			onMenuItemClick(e, menu);
 		}, false);
 	}
-
-	var css = '.favicon{background-repeat:no-repeat;background-position:center;background-size: 16px 16px;}';
+	
+	var css = '.favicon{background-repeat:no-repeat !important;background-position:center !important;background-size: 16px 16px !important;}';
 	css += '.grf-entry{width:16px;height:16px;display: inline-block;margin-right:4px;}';
 
 	//listview
 	//css += '.collapsed img.entry-favicon{position:absolute !important; top:3px !important; left:2em !important; margin-right:0px !important; vertical-align:baseline !important}';
 	css += '#entries.list .collapsed .entry-main .entry-source-title{left:4em !important; width:10em !important}';
 	css += '#entries.list.single-source .collapsed .entry-secondary{ margin-left:4em !important}';
+css += '.samedir #entries.list .entry-favicon .collapsed .entry-secondary {margin-left: 14em; !important}';	
 	css += '.entry.entry-favicon .entry-icons .star{margin-right:4px;}';
 	//    css += ".colorful-view-content{ color:#EEE !important}.colorful-view-base-top-shadow{ background-color:#999 !important; border-bottom-color:#888 !important}.colorful-view-inner-box{ background-color:#777 !important; background:#F9F9F9 none repeat scroll 0 0 !important; border-color:#888 !important}.colorful-view-base-pos{ background-color:#777 !important; border-color:#888 !important}";
 
