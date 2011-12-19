@@ -1713,6 +1713,20 @@ function escapeXpath(text){
     //.replace(/>/g,'&gt;')
     //.replace(/"/g,'&apos;')
 }
+function escapeHTML(text) {                                        
+        return( text.replace(/&/g,'&amp;').                                         
+                replace(/>/g,'&gt;').                                           
+                replace(/</g,'&lt;').                                           
+                replace(/"/g,'&quot;').
+                replace(/"/g,'&apos;'));                                                                      
+}
+function unescapeHTML(text) {                                        
+        return( text.replace(/&amp;/g, '&').                                         
+                replace(/&gt;/g,'>').                                         
+                replace(/&lt;/g,'<').                                           
+                replace(/&quot;/g,'"').
+                replace(/&apos;/g, '\''));                                                                      
+}
 			
 function escapeJson(text){
     return text.replace(/'/g,"\\'");
