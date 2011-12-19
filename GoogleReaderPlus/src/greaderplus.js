@@ -119,6 +119,7 @@
             }
         },
         fixMenu: function(langs){
+			addReaderMenuSeparator();
 			//dh('gbg', 'br', {cls: 'brmenu'});
 			addReaderMenuItem(getText(this.lang, 'ig', 'menu_prefs', 'en', 'Reader+ preferences'), 
                 function(){
