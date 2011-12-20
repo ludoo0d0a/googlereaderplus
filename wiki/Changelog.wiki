@@ -3,6 +3,18 @@
 = Introduction =
 
 Here is the past of the project. See all evolutions, changes.
+
+= Version 4.0.0 - 12/20/2011 =
+ New:
+  * New themes : Mac OS Lion UI ; Nostalgia and Gooder to go back to old theme, ...
+  * New compact option (shortcut z)
+  * Activate new Google's menu or use a mimic preview
+ Fixes:
+  * Fixes due to Google's layout changes
+  * Themes updates
+ Improvements:
+  * Filter improvement : days tag
+
 = Version 3.8.1 - 10/13/2011 =
  Fixes:
   * Twitter send nothing
