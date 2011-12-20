@@ -1329,11 +1329,20 @@ function urlDecode(string){
     return obj;
 }
 
-function getDomain(url, withProtocol){
+function getDomain(url, withProtocol, nosubdomain){
     var m = url.split(/\/|\?/);
     if (withProtocol) {
         return m[0] + '/' + m[1] + '/' + m[2];
-    } else {
+    } else if (nosubdomain){
+        var r = m[2].split('.');
+        var len = r.length;
+        if (len>2){
+        //Keep two last items
+        	return r[len-2]+'.'+r[len-1];
+        }else{
+        	return m[2];
+        }
+    }else {
         return m[2];
     }
 }
@@ -1788,6 +1797,18 @@ function getValue(id, def){
 	return value;
 }
 
+function setBgImg(el, src) {
+	if(el) {
+		if(!el.style) {
+			el.style = {};
+		}
+		el.style.backgroundImage = 'url(' + src + ')';
+	}
+}
+function getBgImg(el) {
+	return (el && el.style && el.style.backgroundImage);
+}
+	
 var _ti={};
 function setOnceTimeout(cb, t, id){
 	id=id||'t';
@@ -2012,13 +2033,13 @@ function clearCacheData(a){
 	
 	
 function cacheClearedAlert(o){
-		if (o.success){
-			if (this.getTextPrefs){
-		    	alert(getTextPrefs(lang, 'global', 'cachecleared', 'en', "Cache cleared"));
-		    }else{
-		    	alert("Cache cleared");
-		    }
-		}else{
-			alert("Clear cache failed");
-		}
+	if (o.success){
+		if (this.getTextPrefs){
+	    	alert(getTextPrefs(lang, 'global', 'cachecleared', 'en', "Cache cleared"));
+	    }else{
+	    	alert("Cache cleared");
+	    }
+	}else{
+		alert("Clear cache failed");
 	}
+}

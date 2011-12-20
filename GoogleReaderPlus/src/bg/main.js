@@ -543,6 +543,10 @@ function setCookies(a,cb){
 }
 
 function checkfile(url, cb){
+	if (!url){
+		cb(false, false);
+		return;
+	}
 	request({
 		url: url,
 		onload: function(r){

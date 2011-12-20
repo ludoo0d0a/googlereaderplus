@@ -153,76 +153,59 @@ function cleanReaderUrl(url){
 }
 
 function extractFavicon(a, cb){
-    var url, title, key = a.key; //, ICONS_TITLE = a.ICONS_TITLE;
+    var f = {
+    	url:'',
+    	title:'',
+    	key:a.key
+    };
     if (!key) {
         //url+title
-        key = title;
-        url = a.url;
-        title = a.title;
+        f.key = title;
+        f.url = a.url;
+        f.title = a.title;
     } else {
         //key only
-        var f = a.f; //ICONS_TITLE[key];
-        url = f.url;
-        title = f.title;
+        f.url = a.f.url;
+        f.title = a.f.title;
     }
-	var page = getUrlBase(url);
-	
+    
+	var page = getUrlBase(f.url);
 	//Helper for feedburner
 	page=page.replace(/\/\/feeds\./,'//www.');
 	a.url = page;
 	
-	bg_request(a, true, function(a){
-		var html = a.responseText; //responseBody
-	    var icon = parseFavicon(html, url);
-	    checkfile(icon, function(r,exists){
+	detectFavicon(f,a,cb);
+}
+
+function detectFavicon(f,a,cb){
+	bg_request(a, true, function(rb){
+	    var icon = parseFavicon(rb.responseText, a.url);
+	    checkfile(icon, function(ri,exists){
 	        if (icon && exists) {
-	            var f = {title:title, icon:icon, url:url};
+	            f.icon=icon;
+	            //var f = {title:title, icon:icon, url:url};
 			    setFavicon(f);
 	            saveFavicon(f);
+	        }else if (!a.last){
+	        	//Get url with domain only (wwww.)
+	        	var url= 'http://www.'+getDomain(a.url, false, true);
+	        	if (url!=a.url){
+	        		a.url=url;
+	        		a.last=true;
+	        		//Try again with domain only
+	        		detectFavicon(f, a, cb);
+	        		return;
+	        	}
 	        }
+	        f.icon=icon;
+	        f.exists=exists;
+	        /*f={title: title, icon: icon, url: url, exists: exists}*/
         	sendResponse({
                 message: 'iconget',
-				o:{
-					title: title,
-	                icon: icon,
-	                url: url,
-	                exists: exists
-				}
+				o:f
             }, cb);
-	        
 	     });
 	 });
-	         
-    /*
-    var xhr = new XMLHttpRequest();
-    //xhr.open(a.method || 'get', normalizeUrl(url), true);
-	xhr.open(a.method || 'get', page, true);
-    xhr.onload = function(o){
-        var xhr = o.target;
-        if (xhr) {
-            var html = xhr.responseText; //responseBody
-            var ico = parseFavicon(html, url);
-            checkfile(ico, function(icon){
-	            if (icon) {
-	                var f = {title:title, icon:icon, url:url};
-				    setFavicon(f);
-	                saveFavicon(f);
-					//ICONS_TITLE[key].icon=icon;
-		            sendResponse({
-		                message: "iconget",
-						o:{
-							title: title,
-			                icon: icon,
-			                url: url
-						}
-		                //,ICONS_TITLE: ICONS_TITLE
-		            }, cb);
-	            }
-	         });
-        }
-    };
-    xhr.send({});
-    */
 }
 
 /**
@@ -240,6 +223,8 @@ function saveFavicon(f){
 		//Check if already exist
 		var ci = ICONS_URL[f.url];
 		setTimeout(function(){
+			//Restrict persistent fields only
+    		f={icon:f.icon,title:f.title,url:f.url};
 			r.item.createOrUpdate(ci, {
 					name: name,
 					values: f
@@ -280,18 +265,21 @@ function parseFavicon(html, url){
             icon = m[1];
         }
     }
-    if (!icon) {
-        icon = getUrlBase(url) + "/favicon.ico";
-    } else {
-        //Add domain if relative url
-        var re = new RegExp("^http:", "i");
-        if (!re.test(icon)) {
-            if (/^\//.test(icon)){
-				icon = getUrlBase(url) + icon;
-			}else{
-				icon = cleanUrl(url) + '/' + icon;
-			}
-        }
+    if (url){
+    	//Use default one
+	    if (!icon) {
+	        icon = getUrlBase(url) + "/favicon.ico";
+	    } else {
+	        //Add domain if relative url
+	        var re = new RegExp("^http:", "i");
+	        if (!re.test(icon)) {
+	            if (/^\//.test(icon)){
+					icon = getUrlBase(url) + icon;
+				}else{
+					icon = cleanUrl(url) + '/' + icon;
+				}
+	        }
+	    }
     }
     icon = normalizeUrl(icon);
     return icon;
