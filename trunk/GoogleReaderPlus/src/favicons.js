@@ -59,13 +59,13 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 			url : protocol + '//www.google.com/reader/subscriptions/export',
 			ICO_TPL_URL : ICO_TPL_URL
 		}, function(a) {
-			console.log('sites list loaded');
 			if(a.ICONS_TITLE) {
+				console.log('sites list loaded');
 				ICONS_TITLE = a.ICONS_TITLE;
 				updateFavicons();
+				initFavicons();
+				setValue();
 			}
-			initFavicons();
-			setValue();
 		});
 		if(!prefs.favicons_sidebaronly) {
 			//Moved on creation
@@ -115,23 +115,18 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 				src = ICONS_TITLE_TPL_DEF_URL;
 			}
 		}
-		setBgImg(icon, src);
+		setBgImg(icon, fixUrl(src));
 		addClass(entry, 'entry-favicon');
 		//insertOnTitleStart(entry, icon, mode);
 		insertOnTitle(entry, icon, mode);
 	}
-
-	function setBgImg(el, src) {
-		if(el) {
-			if(!el.style) {
-				el.style = {};
-			}
-			el.style.backgroundImage = 'url(' + src + ')';
+	
+	function fixUrl(src){
+		var url = src;
+		if (!/^http:/.test(url)){
+			url='http://'+url;
 		}
-	}
-
-	function getBgImg(el) {
-		return (el && el.style && el.style.backgroundImage);
+		return url; 
 	}
 
 	function addFaviconSidebar(el, mode) {
@@ -174,9 +169,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 		//var match = ellipsis(o.title);
 		var match = o.title;
 		getElements(".//div[contains(@class,'favicon')][@title='" + match + "']").forEach(function(el){
-			//if (hasClass(el,'favicon')){
-				setBgImg(el, o.icon);
-			//}
+			setBgImg(el, o.icon);
 		});
 	}
 
@@ -254,7 +247,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 			}
 
 			function promptIcon(a) {
-				var url = prompt(formatText(SL.notfoundicon, a.title), a.url || 'favicon.ico');
+				var url = prompt(formatText(SL.notfoundicon, a.title), a.url||'');
 				if(url) {
 					a.url = url;
 					ICONS_TITLE[a.title] = a;
@@ -279,6 +272,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 						updateFavicons();
 						setValue();
 					} else {
+						o.url=(o.url||'')+'/favicon.ico';
 						var url = promptIcon(o);
 						if(!url) {
 							setBgImg(icon, oldicon);
