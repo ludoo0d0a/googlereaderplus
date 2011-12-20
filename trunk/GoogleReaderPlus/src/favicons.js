@@ -334,7 +334,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 
 	//listview
 	//css += '.collapsed img.entry-favicon{position:absolute !important; top:3px !important; left:2em !important; margin-right:0px !important; vertical-align:baseline !important}';
-	css += '#entries.list .collapsed .entry-main .entry-source-title{left:4em !important; width:10em !important}';
+	css += '#entries.list .collapsed .entry-main .entry-source-title{left:4em !important; width:10em !important;padding:0px !important}';
 	css += '#entries.list.single-source .collapsed .entry-secondary{ margin-left:4em !important}';
 css += '.samedir #entries.list .entry-favicon .collapsed .entry-secondary {margin-left: 14em; !important}';	
 	css += '.entry.entry-favicon .entry-icons .star{margin-right:4px;}';
