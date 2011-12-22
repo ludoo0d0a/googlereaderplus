@@ -67,8 +67,8 @@ GRP.colorful = function(prefs, langs, ID, SL, lang){
             this.bgColor = 
             {
                 hue: bg[0],
-                sat: Math.max(bg[1], 35),
-                lt: Math.max(bg[2], 32)
+                sat: Math.max( Math.min( bg[ 1 ], 73 ), 50 ),
+                lt: Math.max( Math.min( bg[ 2 ], 85 ), 10 ) 
             };
             
 			if (prefs.colorful_usebasecolor) {
