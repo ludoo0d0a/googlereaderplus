@@ -255,7 +255,7 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
 		css += '#current-entry .entry-actions > span.star,#entries.list #current-entry .entry-actions > span.star{width:0px}';
 		css += '#current-entry .entry-main{margin-right:'+w+'px}';//Current reduced for current floating menu
 css += '.card-common .card-actions{height:auto !important}';
-css += '#entries .entry:not(#current-entry){opacity:0.9 !important}';
+//css += '#entries .entry:not(#current-entry){opacity:0.9 !important}';
 
 		GM_addStyle(css, 'rpe_floatactions');
 	}
