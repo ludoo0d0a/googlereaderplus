@@ -130,7 +130,8 @@ GRP.nested = function(prefs, langs, ID, SL, lang){
         return parseNode.element.firstChild;
     }
     
-    var css = '.grp-wrapper{padding-left:16px;}/*.link-nested{margin-left:-16px;}*/'+
-    '.folder .folder > ul .icon {margin-left: 60px;}';
+    var css = '.grp-wrapper{padding-left:16px;}';
+    //.link-nested{margin-left:-16px;}
+    //'.folder .folder > ul .icon {margin-left: 60px;}';
     GM_addStyle(css, 'rpe_'+ID);
 };
