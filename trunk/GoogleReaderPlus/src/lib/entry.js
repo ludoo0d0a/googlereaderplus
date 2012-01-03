@@ -1205,41 +1205,6 @@ function getEntryNumber(entry,def){
 	return v;
 }
 	
-	
-function getBackColorCss(hue,sat,lt,range){
-	var css = "  color: hsl(" + hue + "," + sat + "%, ";
-	return ("" +
-            "#entries .collapsed .entry-title {" +
-            css +
-            lt +
-            "% ) !important;" + // 000000 <- default color
-            "}" +
-            "#entries.list .collapsed .entry-main .entry-source-title {" +
-            css +
-            (lt + range * 0.42) +
-            "% ) !important;" + // 555555
-            "}" +
-            ".entry .entry-author," +
-            ".entry-comments .comment-time, .entry .entry-date {" +
-            css +
-            (lt + range * 0.50) +
-            "% ) !important;" + // 666666
-            "}" +
-            "#entries.list .collapsed .entry-secondary {" +
-            css +
-            (lt + range * 0.59) +
-            "% ) !important;" + // 777777
-            "}" +
-            // "a, a:visited, .link {" + // shouldn't need to mess with link color
-            // css + lt + "% ) !important;" + // 2244BB
-            // "}" + 
-            "#entries .item-body {" +
-            css +
-            lt +
-            "% ) !important;" + // 000000
-            "}");
-}
-
 function addCssIcon(id, clsOn){
 	clsOn=clsOn || 'btn-active';
 	var css = '.entry .entry-actions .btn-'+id+'{background: url(\'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/share/'+id+'.png\') no-repeat!important;padding:0px 8px 0px 20px !important;}'+
