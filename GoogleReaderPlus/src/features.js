@@ -407,6 +407,7 @@ GRP.scripts = {
 			//bottomup: false,
 			currdir: true,
 			floatactions: false,
+			focuscurrent: false,
 			currentactions: true,
 			icons: false,
 			hideplus: false,
