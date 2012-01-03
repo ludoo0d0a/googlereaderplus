@@ -439,6 +439,7 @@ GRP.langs[locale].prefs = {
 		bottomup : 'Footer toolbar on the top',
 		currdir : 'Highlight folder of current entry',
 		floatactions : 'Entry actions are displayed as a floating window',
+		focuscurrent: "Current entry highlighted",
 		currentactions: 'Show actions for current entry only',
 		icons : 'Icons only for action buttons (except checkbox)',
 		hidetoolbar: 'Hide user toolbar',
