@@ -1,7 +1,7 @@
 /**
  * Google Reader - Colorful List View
- * @version  1.6
- * @date 2010-02-27 
+ * @version  20110216
+ * @date Wed, 16 Feb 2011 19:07:18 GMT 
  *
  * Colorizes the item headers in Google Reader list view and the entries in expanded view.
  *
@@ -20,6 +20,15 @@ GRP.colorful = function(prefs, langs, ID, SL, lang){
         bgColor: null, 
         textColor: null,
         styles: null, 
+        entries: null, 
+	    baseCss: "#entries .entry-likers,#entries.list .collapsed .entry-source-title,#entries.list .collapsed .entry-secondary," +
+	      "#entries.list .collapsed .entry-title {background-color: transparent !important;}" +
+	      "#entries.cards.gm-color-ev .card-actions {background-color: rgba( 0, 0, 0, 0.05 ) !important;}" +
+	      "#entries.cards.gm-color-ev .card-bottom {border-color: rgba( 0, 0, 0, 0.1 ) !important;}" +
+	      "#entries.cards.gm-color-ev .card {padding-right: 1em;}" +
+	      "#entries.cards.gm-color-ev .card-bottom {margin-bottom: 1ex !important;}" +
+	      "#current-entry {box-shadow: 0 0 1px 2px rgb(22, 88, 120); z-index: 99999999;}",
+        
         init: function(chrome, settings){
             //this.styles = GM_addStyle("", 'colorful');
             this.prefs = settings; //settings.getColorPrefs();
@@ -30,6 +39,9 @@ GRP.colorful = function(prefs, langs, ID, SL, lang){
                 chrome.removeEventListener("DOMNodeInserted", set, false);
             };
             chrome.addEventListener("DOMNodeInserted", set, false);*/
+           
+            GM_addStyle(this.baseCss);
+           
             this.setup.call(this);
         },
         
@@ -44,7 +56,7 @@ GRP.colorful = function(prefs, langs, ID, SL, lang){
             }
 			
 			if (prefs.colorful_tree){
-				var root = get_id("sub-tree");
+				var root = get_id('sub-tree');
 				addClass(root, this.prefs);
 				initCatchSidebars(bind(this.processNodes, this), 'sidebar-colorful');
 			}
@@ -53,7 +65,7 @@ GRP.colorful = function(prefs, langs, ID, SL, lang){
         // determine what color theme to use by looking at the header colors
         initConfig: function(){
             var bg, color;
-			var header = get_id("chrome");
+			var header = get_id('viewer-container');
 			if (prefs.colorful_usebasecolor) {
 				bg = (prefs.colorful_background||'').toLowerCase();
 			} else {
@@ -64,12 +76,14 @@ GRP.colorful = function(prefs, langs, ID, SL, lang){
             
             // a min saturation & lightness is needed to distinguish colors
             // note: value is further subtracted from this for read items
-            this.bgColor = 
-            {
+            /*this.bgColor =  {
                 hue: bg[0],
-                sat: Math.max( Math.min( bg[ 1 ], 73 ), 50 ),
-                lt: Math.max( Math.min( bg[ 2 ], 85 ), 10 ) 
-            };
+                sat: Math.max(bg[1], 35),
+                lt: Math.max(bg[2], 32)
+            };*/
+            this.bgColor = { hue: bg[ 0 ],
+                       sat: Math.max( Math.min( bg[ 1 ], 73 ), 50 ),
+                       lt: Math.max( Math.min( bg[ 2 ], 85 ), 10 ) };
             
 			if (prefs.colorful_usebasecolor) {
 				color = (prefs.colorful_color||'').toLowerCase();
@@ -128,21 +142,20 @@ GRP.colorful = function(prefs, langs, ID, SL, lang){
         },
         
         setTextColor: function(){
-            var hue = this.textColor.hue;
-            var sat = this.textColor.sat;
-            var lt = this.textColor.lt;
+            var hue = this.textColor.hue,
+             sat = this.textColor.sat,
+             lt = this.textColor.lt,
+             range = this.bgColor.lt - lt,
+             css = "  color: hsl(" + hue + "," + sat + "%, ";
+            //var theCss = getBackColorCss(hue, sat, lt, range);
             
-            // default color lightnesses:
-            // bg lt: 85.3
-            // color lt: 0
-            
-            // text lightnesses are set to values in the range between title text and
-            // background color lightnesses
-            var range = this.bgColor.lt - lt;
-            
-            var css = getBackColorCss(hue, sat, lt, range);
-			//this.styles.innerText+=css;
-			GM_addStyle(css, 'rpe_'+ID);
+            var theCss = "#entries .collapsed .entry-title {" +  css + lt + "% ) !important;}" +
+        "#entries.list .collapsed .entry-main .entry-source-title {" +        css + ( lt + range*0.42 ) + "% ) !important;}" +
+        ".entry .entry-author, .entry .entry-date {" +        css + ( lt + range*0.50 ) + "% ) !important;}" +
+        "#entries.list .collapsed .entry-secondary {" +        css + ( lt + range*0.59 ) + "% ) !important;}" +
+        "#entries .item-body {" +  css + lt + "% ) !important;}";
+        
+			GM_addStyle(theCss, 'rpe_'+ID);
         },
         
         // inject color css into the page
@@ -228,166 +241,75 @@ GRP.colorful = function(prefs, langs, ID, SL, lang){
                 "% ) !important;"
             };
         
-	        var css = this.getLvCss(title, hsl) + this.getEvCss(title, hsl) + this.getEfCss(title, hsl) + this.getCvCss(title, hsl);
+	        var css = this.getLvCss(title, hsl) + this.getEvCss(title, hsl) ; //+ this.getEfCss(title, hsl) + this.getCvCss(title, hsl);
 	        if (prefs.colorful_tree) {
 	            css += this.getTreeCss(title, hsl);
 	        }
 	        return css;
         },
         
-        getLvCss: function(ttl, hsl){ // css for coloring items in list view
-            // this selector should be take priority over any other selector
-            var us = "#entries.gm-color-lv.gm-color-ui div[ colored='" + ttl + "' ]";
-            var rs = "#entries.gm-color-lv.gm-color-ri div[ colored='" + ttl + "' ]";
-            
-            return "" +
-            us +
-            " .collapsed {" +
-            hsl.norm +
-            "}" +
-            us +
-            ":hover .collapsed {" +
-            hsl.hover +
-            "}" +
-            us +
-            ".read .collapsed," +
-            us +
-            ".read:hover .collapsed {background-color: white !important; }" +
-            rs +
-            ".read .collapsed {" +
-            hsl.read +
-            "}" +
-            rs +
-            ".read:hover .collapsed { " +
-            hsl.readhvr +
-            "}";
-        },
-        
-        // css for coloring expanded view item bodies
-        getEvCss: function(ttl, hsl){
-            var us = "#entries.gm-color-ev.gm-color-ui div[ colored='" + ttl + "' ]";
-            var rs = "#entries.gm-color-ev.gm-color-ri div[ colored='" + ttl + "' ]";
-            
-            return "" +
-            us +
-            " .card," +
-            /* .ccard, .t2, .t3 used for Opera expanded view 
-            us +
-            " .ccard," +
-            us +
-            " .t2," +
-            us +
-            " .t3 {" +
-            hsl.norm +
-            "}" +
-            */
-            us +
-            ":hover .card," +
-            us +
-            ":hover .ccard," +
-            us +
-            ":hover .t2," +
-            us +
-            ":hover .t3 {" +
-            hsl.hover +
-            "}" +
-            
-            us +
-            ".read .card," +
-            us +
-            ".read .ccard," +
-            us +
-            ".read .t2," +
-            us +
-            ".read .t3," +
-            us +
-            ".read:hover .card," +
-            us +
-            ".read:hover .ccard," +
-            us +
-            ".read:hover .t2," +
-            us +
-            ".read:hover .t3 { background-color: white !important; }" +
-            rs +
-            ".read .card," +
-            rs +
-            ".read .ccard," +
-            rs +
-            ".read .t2," +
-            rs +
-            ".read .t3 { " +
-            hsl.read +
-            "}" +
-            rs +
-            ".read:hover .card," +
-            rs +
-            ".read:hover .ccard," +
-            rs +
-            ".read:hover .t2," +
-            rs +
-            ".read:hover .t3 {" +
-            hsl.readhvr +
-            "}";
-        },
-        
-        // css for coloring expanded view item frames
-        getEfCss: function(ttl, hsl){
-            var us = "#entries.gm-color-ef.gm-color-ui div[ colored='" + ttl + "' ]";
-            var rs = "#entries.gm-color-ef.gm-color-ri div[ colored='" + ttl + "' ]";
-            
-            return "" +
-            us +
-            " {" +
-            hsl.norm +
-            "}" +
-            us +
-            ":hover {" +
-            hsl.hover +
-            "}" +
-            us +
-            ".read," +
-            us +
-            ".read:hover { " +
-            "background-color: #F3F5FC !important; }" +
-            rs +
-            ".read {  " +
-            hsl.read +
-            "}" +
-            rs +
-            ".read:hover { " +
-            hsl.readhvr +
-            "}";
-        },
-        
-        getCvCss: function(ttl, hsl){
-            var us = "#entries.gm-color-cv.gm-color-ui div[ colored='" + ttl + "' ]";
-            var rs = "#entries.gm-color-cv.gm-color-ri div[ colored='" + ttl + "' ]";
-            
-            // comment view doesn't have read/unread
-            return "" +
-            us +
-            " .comment-entry {" +
-            hsl.norm +
-            "}" +
-            us +
-            ":hover .comment-entry {" +
-            hsl.hover +
-            "}" +
-            us +
-            ".read .comment-entry," +
-            us +
-            ".read:hover .comment-entry {" +
-            "background-color: white !important; }" +
-            rs +
-            ".read .comment-entry {" +
-            hsl.read +
-            "}" +
-            rs +
-            ".read:hover .comment-entry {" +
-            hsl.readhvr +
-            "}";
-        },
+        getLvCss: function( ttl, hsl ) { // css for coloring items in list view
+      // this selector should be take priority over any other selector
+      var us = "#entries.gm-color-lv.gm-color-ui div[ colored='" + ttl + "' ]",
+          rs = "#entries.gm-color-lv.gm-color-ri div[ colored='" + ttl + "' ]";
 
+      return "" +
+        us + ":not( .read ) .collapsed {" + hsl.norm + "}" +
+        us + ":not( .read ):hover .collapsed {" + hsl.hover + "}" +
+
+        rs + ".read .collapsed { /* override unread item colors */" +
+             hsl.read + "}" +
+        rs + ".read:hover .collapsed { /* override unread item colors */ " +
+             hsl.readhvr + "}" +
+
+        "#entries.gm-color-lv.gm-color-ui:not( .gm-color-ri ) .read .collapsed," +
+        "#entries.gm-color-lv.gm-color-ri:not( .gm-color-ui ) :not( .read ) .collapsed {" +
+        "  /* override current entry colors */" +
+        "  background-color: white !important;" +
+        "}";
+    },
+
+    // css for coloring expanded view item bodies
+    getEvCss: function( ttl, hsl ) {
+      var us = "#entries.gm-color-ev.gm-color-ui div[ colored='" + ttl + "' ]",
+          rs = "#entries.gm-color-ev.gm-color-ri div[ colored='" + ttl + "' ]";
+
+      return "" +
+        us + " .card," +
+        /* .ccard, .t2, .t3 used for Opera expanded view */
+        us + " .ccard," +
+        us + " .t2," +
+        us + " .t3 {" + hsl.norm + "}" +
+
+        us + ":hover .card," +
+        us + ":hover .ccard," +
+        us + ":hover .t2," +
+        us + ":hover .t3 {" + hsl.hover + "}" +
+
+        us + ".read .card," +
+        us + ".read .ccard," +
+        us + ".read .t2," +
+        us + ".read .t3," +
+        us + ".read:hover .card," +
+        us + ".read:hover .ccard," +
+        us + ".read:hover .t2," +
+        us + ".read:hover .t3 { /* force no color for read items */ " +
+             "background-color: white !important; }" +
+
+        rs + ".read .card," +
+        rs + ".read .ccard," +
+        rs + ".read .t2," +
+        rs + ".read .t3 { /* override unread item colors */ " +
+             hsl.read + "}" +
+
+        rs + ".read:hover .card," +
+        rs + ".read:hover .ccard," +
+        rs + ".read:hover .t2," +
+        rs + ".read:hover .t3 { /* override unread item colors */ " +
+             hsl.readhvr + "}";
+    },
+        
+       
 		getTreeCss: function(ttl, hsl){
             var us = "#sub-tree li[ colored='" + ttl + "' ]";
 	        return us + " {" + hsl.norm +"}" +
@@ -412,8 +334,8 @@ GRP.colorful = function(prefs, langs, ID, SL, lang){
 			o=o||{};
             a.push(o['gm-color-lv']||"gm-color-lv");
             a.push(o['gm-color-ev']||"gm-color-ev");
-            a.push(o['gm-color-ef']||"");
-            a.push(o['gm-color-cv']||"");
+            //a.push(o['gm-color-ef']||"");
+            //a.push(o['gm-color-cv']||"");
             a.push(o['gm-color-ui']||"gm-color-ui");
             a.push(o['gm-color-ri']||"gm-color-ri");
 			var settings=a.join(" ");
@@ -422,5 +344,5 @@ GRP.colorful = function(prefs, langs, ID, SL, lang){
 	    theme.init(chrome, settings);	
 	});
 
-    GM_addStyle(BASE_CSS);
+    
 };
