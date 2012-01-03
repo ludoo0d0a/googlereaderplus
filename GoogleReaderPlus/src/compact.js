@@ -19,11 +19,8 @@ GRP.compact = function(prefs, langs, ID, SL, lang) {
 	function toggleCompact() {
 		isCompact = !isCompact;
 		GM_setValue('compact', isCompact);
-		showCompact();
-	};
-	
-	function showCompact() {
-		showas(get_id('gb'), H.bar && isCompact);
+
+		showas(get_id('gb'), H.search && isCompact);
 		showas(get_id('lhn-add-subscription-section'), H.subscription && isCompact);
 		showas(get_id('home-section'),  H.home && isCompact);
 		showas(get_id('lhn-selectors'),  H.selectors && isCompact);
@@ -51,7 +48,7 @@ GRP.compact = function(prefs, langs, ID, SL, lang) {
 		fireResize();
 	}
 
-	showCompact();
+	toggleCompact();
 
 	var keycode = getShortcutKey(ID, 'compact', prefs);
 	//66 z
