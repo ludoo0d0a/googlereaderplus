@@ -70,6 +70,16 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
 		}
 		return css;
     }
+    function cleanCss(css){
+    	var c = compact(css);
+    	c=c.replace(/@namespace[^;]+;/g,'');
+    	if (/@\-\d+\-document/.test(c)){
+    		//c=c.replace(/url\-prefix\([^\)]+\)\s*,?/g,'');
+    		c=c.replace(/@\-\d+\-document[^\{]+\{/g,'');
+    		c=c.replace(/\}\s*$/g,'');
+    	}
+    	return c;
+    }
                         
     function remoteSkin(skin){
         var c = GM_getValue('cache_theme_' + skin.id);
@@ -106,11 +116,17 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
                         }
                     }
                     
+                    if (skin.clean){
+                    	css=cleanCss(css);
+                    }
+                    
                     if (css) {
-                        css = css.replace(/\n/g, ' ');
-                        css = css.replace(/\-moz\-/g, '-webkit-');
-                        if (skin.fix) {
-                            css += skin.fix;
+                        if (skin.compact || (typeof skin.compact ==='undefined')){
+	                        css = css.replace(/\n/g, ' ');
+	                        css = css.replace(/\-moz\-/g, '-webkit-');
+	                        if (skin.fix) {
+	                            css += skin.fix;
+	                        }
                         }
                         GM_addStyle(css, 'rps_' + skin.id);
                         //cache css 
