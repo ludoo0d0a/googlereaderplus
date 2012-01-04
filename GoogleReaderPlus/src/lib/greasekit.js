@@ -72,7 +72,7 @@ function GM_setValue(name, value, cb){
     try {
         mycore.storage.setItem(name, value, cb);
     } catch (e) {
-        console.log('error on GM_setValue[' + n + ']=' + value);
+        //console.log('error on GM_setValue[' + n + ']=' + value);
     }
 }
 function GM_setCookieValue (name, value, options){
