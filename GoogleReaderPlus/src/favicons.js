@@ -12,7 +12,8 @@
  * +Google Reader Favicon ++ v1.5.0 (LudoO)
  */
 GRP.favicons = function(prefs, langs, ID, SL, lang) {
-	var GRP_INFO = GM_getValue('grp_favicons', {});
+	mycore.storage.removeItem('grp_favicons',false,true);
+	var GRP_INFO = GM_getValue('cache_favicons', {});
 	var ICONS_TITLE = GRP_INFO.icon || (GRP_INFO.icon = {});
 	updateFavicons();
 	var protocol = document.location.protocol;
@@ -202,11 +203,11 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 	function setValue() {
 		GRP_INFO.icon = ICONS_TITLE;
 		//cache only in webpage storage
-		GM_setValue('grp_favicons', GRP_INFO, false);
+		GM_setValue('cache_favicons', GRP_INFO, false);
 	}
 
 	function clearCache() {
-		GM_setValue('grp_favicons', '');
+		GM_setValue('cache_favicons', '');
 	}
 
 	function attachMenu() {
