@@ -82,7 +82,10 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
     }
                         
     function remoteSkin(skin){
-        var c = GM_getValue('cache_theme_' + skin.id);
+        var c = '';
+        if (skin.cache || (typeof skin.cache ==='undefined')){
+        	 c = GM_getValue('cache_theme_' + skin.id);
+        }
         if (c) {
             GM_addStyle(c, 'rps_' + skin.id);
             if (skin.resize) {
