@@ -1,3 +1,8 @@
+/*
+ * Changes by LudoO to make it working!
+ *  
+ */
+
 /*Pure Reader*/
 body{
 	font-family: "Helvetica Neue", "Helvetica", sans-serif !important;
@@ -102,7 +107,7 @@ div.goog-menu .goog-menuitem{
 	padding: 0 18px 0 20px !important;
 }
 
-div.goog-menuitem-content span.goog-submenu-arrow{
+div.goog-menuitem-content .goog-submenu-arrow{
 	margin-right: 6px !important;
 	font-size: 10px !important;
 }
@@ -131,7 +136,7 @@ div.goog-menu .goog-menuitem:hover{
 
 div#explore-promo a,
 div.small-interruption a,
-div.small-interruption span.link{
+div.small-interruption .link{
 	text-decoration: none !important;
 	color: rgb(60,60,60) !important;
 }
@@ -166,8 +171,8 @@ div#explore-promo{
 	width: 96% !important;
 }
 div.small-interruption a,
-div.small-interruption span.link,
-div#no-entries-msg span.link{
+div.small-interruption .link,
+div#no-entries-msg .link{
 	padding: 4px 16px !important;
 	background: -webkit-linear-gradient(
 	    top,
@@ -183,14 +188,14 @@ div#no-entries-msg span.link{
 	text-shadow: rgb(255,255,255) 0 1px 0 !important;
 }
 div#quick-add-input-div div.goog-button-body:hover,
-span.dismiss-link.link:hover,
+.dismiss-link.link:hover,
 div.interruption.self-interruption div.goog-button-body:hover,
 div.fr-modal-dialog-buttons button:hover,
-div.goog-button-body span.subscribe-button:hover,
+div.goog-button-body .subscribe-button:hover,
 div.entry-conversation div.goog-button-base-outer-box div div.goog-button-body:hover,
 div.small-interruption a:hover,
-div.small-interruption span.link:hover,
-div#no-entries-msg span.link:hover{
+div.small-interruption .link:hover,
+div#no-entries-msg .link:hover{
 	background: -webkit-linear-gradient(
 	    top,
 	    rgb(246,244,242) 0%,
@@ -201,14 +206,14 @@ div#no-entries-msg span.link:hover{
 	border: 1px solid rgb(183,181,179) !important;
 }
 div#quick-add-input-div div.goog-button-body:active,
-span.dismiss-link.link:active,
+.dismiss-link.link:active,
 div.interruption.self-interruption div.goog-button-body:active,
 div.fr-modal-dialog-buttons button:active,
-div.goog-button-body span.subscribe-button:active,
+div.goog-button-body .subscribe-button:active,
 div.entry-conversation div.goog-button-base-outer-box div div.goog-button-body:active,
 div.small-interruption a:active,
-div.small-interruption span.link:active,
-div#no-entries-msg span.link:active{
+div.small-interruption .link:active,
+div#no-entries-msg .link:active{
 	box-shadow:rgb(255,255,255) 0 1px 0, inset rgba(0,0,0,.7) 0 2px 5px !important;
 	background: -webkit-linear-gradient(
 	    top,
@@ -239,12 +244,12 @@ div.preview-interruption div div span{
 	margin-bottom: 0.5em;
 	display: block;
 }
-div#no-entries-msg span.link,
+div#no-entries-msg .link,
 div.preview-interruption div.related-streams a span{
 	color:rgb(70,80,90) !important;
 	text-decoration: none !important;
 }
-div#no-entries-msg span.link:hover,
+div#no-entries-msg .link:hover,
 div.preview-interruption div.related-streams a:hover span{
 	color:rgb(20,30,40) !important;
 	text-decoration: none !important;
@@ -298,18 +303,18 @@ div.entry-conversation{
 	border-top: 1px solid rgb(230,230,230) !important;
 	border-bottom: 1px solid rgb(230,230,230) !important;
 }
-div.entry-conversation span.generic-comments-header{
+div.entry-conversation .generic-comments-header{
 	color: rgb(171,170,170) !important;
 	font-weight: 400 !important;
 	font-size: 14px !important;
 }
-div.entry-conversation span.add-comment-link{
+div.entry-conversation .add-comment-link{
 	float: right !important;
 	text-decoration: none !important;
 	color: rgb(120,120,120) !important;
 	font-size: 12px !important;
 }
-div.comment-add span.add-comment-warning{
+div.comment-add .add-comment-warning{
 	margin-left: 2px !important;
 	font-size: 11px !important;
 }
@@ -317,7 +322,7 @@ div.entry-conversation div.goog-button-base-outer-box div{
 	padding: 0 !important;
 	margin: 0 !important;
 }
-div.goog-button-body span.subscribe-button{
+div.goog-button-body .subscribe-button{
 	margin-left:-6px !important;
 }
 div.fr-modal-dialog-buttons button{
@@ -325,10 +330,10 @@ div.fr-modal-dialog-buttons button{
 	margin: 0 2px !important;
 }
 div#quick-add-input-div div.goog-button-body,
-span.dismiss-link.link,
+.dismiss-link.link,
 div.interruption.self-interruption div.goog-button-body,
 div.fr-modal-dialog-buttons button,
-div.goog-button-body span.subscribe-button,
+div.goog-button-body .subscribe-button,
 div.entry-conversation div.goog-button-base-outer-box div div.goog-button-body{
 	color: rgb(100,100,100) !important;
 	padding: 1px 12px !important;
@@ -346,7 +351,7 @@ div.entry-conversation div.goog-button-base-outer-box div div.goog-button-body{
 	text-shadow: rgb(255,255,255) 0 1px 0 !important;
 	text-decoration: none !important;
 }
-span.item-link-menuitem img.item-link-menuitem-image{
+.item-link-menuitem img.item-link-menuitem-image{
 	position: relative !important;
 	top: -2px !important;
 	left: -4px !important;
@@ -496,7 +501,7 @@ div.feed-result-stats{
 	color: rgb(120,120,120) !important;
 	font-size: 11px;
 }
-div.feed-result-stats span.number{
+div.feed-result-stats .number{
 	color: rgb(80,80,80) !important;
 	font-size: 18px !important;	
 	font-weight: 500 !important;
@@ -541,33 +546,34 @@ div#guser:hover nobr{
 div#guser nobr a{
 	margin: 0 2px !important;
 }
-div#nav > div:nth-child(2){
+
+div#lhn-selectors{
+	background: transparent !important;
+}
+
+/*div#sub-tree-container{
 	position: fixed !important;
 	z-index: 1001;
 	top: 2px !important;
 	left: 4px !important;
 	border-top: 0 !important;
 }
-/*div#nav > div:nth-child(2) div{
+div#sub-tree-container div{
 	float: left !important;
-}*/
-div#nav > div:nth-child(2) div a{
+}
+div#sub-tree-container div a{
 	background: transparent !important;
 }
-div#nav > div:nth-child(2) div:nth-child(5) div:nth-child(2) a{
+div#sub-tree-container  div:nth-child(5) div:nth-child(2) a{
 	padding: 0px 0px 2px 24px !important;
 }
-
-div#nav > div:nth-child(2) div.selector{
+div#sub-tree-container div.selector{
 	padding: 2px 4px !important;
 	margin: 0 !important;
 }
+*/
 
-div#lhn-selectors{
-	background: transparent !important;
-}
-
-div#nav > div:nth-child(2) a.link span{
+div#sub-tree-container a.link span{
 	color: rgb(158, 156, 154) !important;
 	text-shadow: rgb(16, 16, 16) 0 -1px 0;
 	font-weight: 400 !important;
@@ -575,67 +581,67 @@ div#nav > div:nth-child(2) a.link span{
 	padding-left: 0 !important;
 }
 
-div#nav > div:nth-child(2) div.selected{
+div#sub-tree-container div.selected{
 	background: transparent !important;
 }
-div#nav > div:nth-child(2) li.tree-selected span,
-div#nav > div:nth-child(2) div.selected a.link span{
+div#sub-tree-container li.tree-selected span,
+div#sub-tree-container div.selected a.link span{
 	color: rgb(255, 255, 255) !important;	
 }
-div#nav > div:nth-child(2){
+div#sub-tree-container{
 	z-index: 1004 !important;
 }
-div#nav > div:nth-child(2) ul#your-items-tree{
+div#sub-tree-container ul#your-items-tree{
 	width: 300px !important;
 }
 
 
-div#nav > div:nth-child(2) ul#your-items-tree > li ul{
+div#sub-tree-container ul#your-items-tree > li ul{
 	display: block !important;
 	float: left !important;
 	width: 400px !important;
 }
-div#nav > div:nth-child(2) ul#your-items-tree > li ul li{
+div#sub-tree-container ul#your-items-tree > li ul li{
 	float: left;
 	background: transparent !important;
 }
-div#nav > div:nth-child(2) ul#your-items-tree > li ul li a{
+div#sub-tree-container ul#your-items-tree > li ul li a{
 	padding: 2px 8px !important;
 }
-div#nav > div:nth-child(2) ul#your-items-tree > li ul li a span.icon{
+div#sub-tree-container ul#your-items-tree > li ul li a .icon{
 	top: 4px !important;
 	left: 7px !important;
 }
-div#nav > div:nth-child(2) ul#your-items-tree li#your-items-tree-item-1-main,
-div#nav > div:nth-child(2) ul#your-items-tree li#your-items-tree-item-2-main,
+div#sub-tree-container ul#your-items-tree li#your-items-tree-item-1-main,
+div#sub-tree-container ul#your-items-tree li#your-items-tree-item-2-main,
 #lhn-selectors .selector{
 	opacity: .5 !important;
 	-webkit-transition-duration:400ms;
 }
 
-div#nav > div:nth-child(2) ul#your-items-tree li#your-items-tree-item-1-main.tree-selected,
-div#nav > div:nth-child(2) ul#your-items-tree li#your-items-tree-item-2-main.tree-selected,
-div#nav > div:nth-child(2) div.selected,
+div#sub-tree-container ul#your-items-tree li#your-items-tree-item-1-main.tree-selected,
+div#sub-tree-container ul#your-items-tree li#your-items-tree-item-2-main.tree-selected,
+div#sub-tree-container div.selected,
 #lhn-selectors .selector.selected{
 	background: rgba(0,0,0,.2) !important;
 	border-radius:4px;
 	box-shadow: inset rgba(0,0,0,.5) 0 1px 3px;
 	opacity: 1 !important;
 }
-div#nav > div:nth-child(2) ul#your-items-tree > li ul li:hover,
+div#sub-tree-container ul#your-items-tree > li ul li:hover,
 #lhn-selectors .selector:hover{
 	background: transparent !important;
 	opacity: 1 !important;
 }
 
-div#nav > div:nth-child(2) ul#your-items-tree li#your-items-tree-item-1-main:hover,
-div#nav > div:nth-child(2) ul#your-items-tree li#your-items-tree-item-2-main:hover{
+div#sub-tree-container ul#your-items-tree li#your-items-tree-item-1-main:hover,
+div#sub-tree-container ul#your-items-tree li#your-items-tree-item-2-main:hover{
 	opacity: 1 !important;
 }
 
 
-div#nav > div:nth-child(2) ul#your-items-tree > li ul li:hover span.name-text,
-#lhn-selectors .selector:hover span.text{
+div#sub-tree-container ul#your-items-tree > li ul li:hover .name-text,
+#lhn-selectors .selector:hover .text{
 	color: rgb(255,255,255) !important;
 }
 #mark-all-as-read-options{
@@ -643,7 +649,7 @@ div#nav > div:nth-child(2) ul#your-items-tree > li ul li:hover span.name-text,
 	width: 8px !important;
 	margin-right: 3px !important;
 }
-body div#nav > div:nth-child(2){
+body div#sub-tree-container{
 	margin-left: 6px !important;
 }
 /* @group Full Column View */
@@ -667,7 +673,7 @@ body.lhn-hidden.lhn-menu div#nav{
 	box-shadow:rgba(0,0,0,.6) 0 1px 5px;
 	border-radius:4px;
 }
-body.lhn-hidden div#nav > div:nth-child(2){
+body.lhn-hidden div#sub-tree-container{
 	margin-left: 88px !important;	
 }
 body.lhn-hidden div#viewer-header{
@@ -695,10 +701,10 @@ div#nav{
 	position: absolute !important;
 	top: 0px !important;
 }
-div#nav > div:nth-child(5){
+/*div#nav > div:nth-child(5){
 	border-top: 0 !important;
-}
-div#nav > div:nth-child(5) div.lhn-section-primary{
+}*/
+/*div#nav > div:nth-child(5)*/ div.lhn-section-primary{
 	display: block !important;
 	background: -webkit-linear-gradient(
 	    top,
@@ -725,38 +731,38 @@ div#nav ul#sub-tree{
 	/*margin-bottom: 40px !important;*/
 	background: rgb(250,248,245) !important;
 }
-div#nav > div:nth-child(5) li{
+div#nav /*div#nav > div:nth-child(5)*/ li{
 	background: transparent !important;
 	line-height: 28px !important;
 }
 
-div#nav > div:nth-child(5) ul#sub-tree li.folder ul li.expanded a.link{
+/*div#nav > div:nth-child(5)*/ ul#sub-tree li.folder ul li.expanded a.link{
 	margin-left: 0 !important;
 	padding-left: 22px !important;
 }
 
-div#nav > div:nth-child(5) ul#sub-tree li.folder ul li.expanded .favicon,
-div#nav > div:nth-child(5) ul#sub-tree li.folder ul li.expanded .sub-icon,
-div#nav > div:nth-child(5) ul#sub-tree li.folder ul li.expanded a.link .favicon{
+/*div#nav > div:nth-child(5)*/ ul#sub-tree li.folder ul li.expanded .favicon,
+/*div#nav > div:nth-child(5)*/ ul#sub-tree li.folder ul li.expanded .sub-icon,
+/*div#nav > div:nth-child(5)*/ ul#sub-tree li.folder ul li.expanded a.link .favicon{
 	top: 6px !important;
 	background-color: transparent !important;
 }
-span.sub-name span.name-text,
-div#nav > div:nth-child(5) ul#sub-tree li.folder ul li.expanded span.name-text-d-2{
+.sub-name .name-text,
+/*div#nav > div:nth-child(5)*/ ul#sub-tree li.folder ul li.expanded .name-text-d-2{
 	padding-left: 4px !important;
 	font-weight: 400 !important;
 	font-size: 12px;
 	color: rgb(90,95,100) !important;
 }
-div#nav > div:nth-child(5) ul#sub-tree li.folder > ul li.sub > a{
+/*div#nav > div:nth-child(5)*/ ul#sub-tree li.folder > ul li.sub > a{
 	border-top: 1px solid rgb(255, 255, 255) !important;	
 	border-bottom: 1px solid rgb(240, 238, 236) !important;
 }
-div#nav > div:nth-child(5) ul#sub-tree li.folder > ul li.sub > a:hover{
+/*div#nav > div:nth-child(5)*/ ul#sub-tree li.folder > ul li.sub > a:hover{
 	background: rgb(255,255,255) !important;
 	border-top: 1px solid rgb(255, 255, 255) !important;	
 }
-div#nav > div:nth-child(5) ul#sub-tree li.folder > a{
+/*div#nav > div:nth-child(5)*/ ul#sub-tree li.folder > a{
 	background: -webkit-linear-gradient(
 	    top,
 	    rgb(255,254,252) 0%,
@@ -766,15 +772,15 @@ div#nav > div:nth-child(5) ul#sub-tree li.folder > a{
 	border-bottom: 1px solid rgb(181, 180, 178) !important;
 	padding-left: 22px !important;
 }
-div#nav > div:nth-child(5) ul#sub-tree li.folder > a span{
+/*div#nav > div:nth-child(5)*/ ul#sub-tree li.folder > a span{
 	padding-left: 1px !important;
 }
-div#nav > div:nth-child(5) ul#sub-tree > li.expanded > ul > li.expanded{
+/*div#nav > div:nth-child(5)*/ ul#sub-tree > li.expanded > ul > li.expanded{
 	border-bottom: 1px solid rgb(190, 188, 187) !important;
 }
 .scroll-tree li.tag.tree-selected a:hover,
 .scroll-tree li.tag a.tree-link-selected,
-div#nav > div:nth-child(5) ul#sub-tree li.folder > ul li.sub > a.tree-link-selected{
+/*div#nav > div:nth-child(5)*/ ul#sub-tree li.folder > ul li.sub > a.tree-link-selected{
 	background: -webkit-linear-gradient(
 	    top,
 	    rgb(103,102,101) 0%,
@@ -787,27 +793,27 @@ div#nav > div:nth-child(5) ul#sub-tree li.folder > ul li.sub > a.tree-link-selec
 	box-shadow: inset 0 1px 20px rgba(0,0,0,.25);
 } 
 div#nav li.tag.tree-selected span:nth-child(1),
-div#nav > div:nth-child(5) ul#sub-tree li.folder > ul li.sub > a.tree-link-selected span{
+/*div#nav > div:nth-child(5)*/ ul#sub-tree li.folder > ul li.sub > a.tree-link-selected span{
 	color: rgb(255,255,255) !important;
 	text-shadow: rgb(95,94,93) 0 1px 2px;
 	font-weight: 500 !important;
 }
-div span.name-text.folder-name-text.name-text-d-1{
+div .name-text.folder-name-text.name-text-d-1{
 	float: left;
 }
-div li.sub span.sub-unread-count,
-div span.unread-count-d-1,
-div span.unread-count-d-2{
+div li.sub .sub-unread-count,
+div .unread-count-d-1,
+div .unread-count-d-2{
 	font-weight: 400 !important;
 	float: right;
 	margin-right: 10px;
 }
-div span.unread-count-d-2{
+div .unread-count-d-2{
 	font-size: 12px !important;
 }
 
-div span.unread-count-d-1,
-span.folder-name-text.name-text-d-1{
+div .unread-count-d-1,
+.folder-name-text.name-text-d-1{
 	color: rgb(71, 70, 69)!important;
 	font-weight: 500 !important;
 	font-size: 13px !important;
@@ -837,7 +843,7 @@ div.tree-item-action-container{
 	position: relative !important;
 	top: 4px !important;
 }
-div#nav > div:nth-child(5) ul#sub-tree li.folder > a.tree-link-selected{
+/*div#nav > div:nth-child(5)*/ ul#sub-tree li.folder > a.tree-link-selected{
 	background: -webkit-linear-gradient(
 	    top,
 	    rgb(246,244,242) 0%,
@@ -846,11 +852,11 @@ div#nav > div:nth-child(5) ul#sub-tree li.folder > a.tree-link-selected{
 	    rgb(213,211,209) 100%
 	) !important;
 }
-div#nav > div:nth-child(5) ul#sub-tree li.tree-selected li.sub a.link{
+/*div#nav > div:nth-child(5)*/ ul#sub-tree li.tree-selected li.sub a.link{
 	background: rgba(102,101,100,.1) !important;
 	border-top: 1px solid rgba(0,0,0,.05) !important;
 }
-a.link.tree-link-selected span.name-text-d-1{
+a.link.tree-link-selected .name-text-d-1{
 	color: rgb(0,0,0) !important;
 }
 div#nav li.tag{
@@ -899,9 +905,10 @@ div#lhn-friends .folder a{
 	top: 30px !important;
 }*/
 div#lhn-add-subscription-section{
-	position: absolute;
-	top: -23px;
+	/*position: absolute;
+	top: 0px;*/
 	z-index: 1001;
+	height:20px;
 }
 div#lhn-add-subscription-section > div{
 	margin: 0;
@@ -938,12 +945,12 @@ div#home div.overview-header span a{
 div#home div.overview-header span a:hover{
 	background: rgba(240, 238, 236, .5);
 }
-div#home div.overview-header span.unread span{
+div#home div.overview-header .unread span{
 	color: rgba(0,0,0,0) !important;
 	float: right;
 	font-size: 1px !important;
 }
-div#home div.overview-header span.unread span b{
+div#home div.overview-header .unread span b{
 	color: rgb(106, 106, 105) !important;
 	font-weight: normal;
 	font-size: 14px;
@@ -951,7 +958,7 @@ div#home div.overview-header span.unread span b{
 	right: 3px;
 	position: relative;
 }
-div#home div#overview span.item-title{
+div#home div#overview .item-title{
 	display: block !important;
 }
 div.overview-metadata{
@@ -1163,7 +1170,7 @@ div.entry-author{
 div.single-source.cards div.entry-author{
 	display: none !important;
 }
-span.entry-author-parent{
+.entry-author-parent{
 	/*display: none !important;*/
 	font-style: italic !important;
 }
@@ -1185,9 +1192,10 @@ div.entry:hover div.card-actions span,
 div#current-entry div.card-actions span{
 	opacity: 1;
 }
-div.entry-body span.link.popout{
+div.entry-body .link.popout{
 	display: none;
 }
+/*
 span#chrome-view-links{
 	float: right !important;
 	position: relative !important;
@@ -1199,8 +1207,8 @@ span#chrome-view-links{
 	width: 52px;
 	height: 21px;
 	right: -16px !important;
-}
-span#chrome-view-links span.link{
+}*/
+span#chrome-view-links .link{
 	/*font-size: 12px !important;*/
 	letter-spacing: 0px !important;
 }
@@ -1220,7 +1228,7 @@ div#viewer-all-new-links{
 	letter-spacing: -2px;
 	top: -3px !important;
 }
-div#viewer-all-new-links span.link{
+div#viewer-all-new-links .link{
 	font-size: 12px !important;
 	font-weight: normal !important;
 	padding: 2px 8px !important;
@@ -1228,7 +1236,7 @@ div#viewer-all-new-links span.link{
 	color: rgb(136, 134, 133) !important;
 	letter-spacing: 0px !important;
 }
-div#viewer-all-new-links span.link-selected{
+div#viewer-all-new-links .link-selected{
 	background: rgb(136, 134, 133) !important;
 	color: rgb(251, 248, 246) !important;
 	text-shadow: rgba(0,0,0,.7) 0 1px 0;
@@ -1315,7 +1323,7 @@ div.single-source div#current-entry.expanded div.collapsed div.entry-icons{
 	padding-top: 5px !important;
 }
 
-div.collapsed span.entry-source-title{
+div.collapsed .entry-source-title{
 	display: block !important;
 	clear: both !important;
 	position: relative !important;
@@ -1356,7 +1364,7 @@ div.single-source div.collapsed .entry-title{
 }
 div.result-snippet,
 div#entries.search div.search-result,
-div.collapsed span.snippet{
+div.collapsed .snippet{
 	font-size: 12px !important;
 	line-height: 18px !important;
 	color: rgb(148,150,152) !important;
@@ -1382,7 +1390,7 @@ div#entries.list div.entry-container div.entry-actions{
 	/*width: 92% !important;
 	margin-left: 4% !important;*/
 }
-div.samedir span.entry-source-title{
+div.samedir .entry-source-title{
 	padding-top: 2px !important;
 }
 /*div.samedir div#current-entry div.collapsed{
@@ -1438,16 +1446,16 @@ div.interruption.self-interruption div.self-interruption-info,
 div.interruption.self-interruption div.self-interruption-header{
 	margin-bottom: 0.5em !important;
 }
-span.self-interruption-name{
+.self-interruption-name{
 	font-weight: 500 !important;
 	text-shadow: rgb(255,255,255) 0 1px 0;
 	color: rgb(80,80,80);
 }
-span.self-interruption-favicons{
+.self-interruption-favicons{
 	float: right;
 	margin-right: -16px;
 }
-span.self-interruption-favicons a{
+.self-interruption-favicons a{
 	margin-left: 6px !important;
 }
 td.self-interuption-description{
@@ -1527,34 +1535,34 @@ div#quick-add-btn > div{
 
 /* @group Hide*/
 div#entries.cards div.entry-likers,
-span.bookmarklet-callout,
+.bookmarklet-callout,
 div.search-result a.entry-original,
 div.item-link-drop-down-arrow,
 div.gbd,
 div#nav div.selector-icon,
-div#nav > div:nth-child(5) div#lhn-subscriptions-minimize,
-div#nav > div:nth-child(2) div#lhn-selectors-minimize,
-div#nav > div:nth-child(2) div:nth-child(5) div:nth-child(4),
-div#nav > div:nth-child(2) div:nth-child(5) div:nth-child(3),
-div#nav > div:nth-child(2) ul#your-items-tree div.toggle,
-div#nav > div:nth-child(2) ul#your-items-tree a#your-items-tree-item-0-link,
-div#entries.single-source span.entry-source-title,
-a#your-items-tree-item-2-link span.icon,
-a#your-items-tree-item-1-link span.icon,
+/*div#nav > div:nth-child(5)*/ div#lhn-subscriptions-minimize,
+div#sub-tree-container div#lhn-selectors-minimize,
+div#sub-tree-container div:nth-child(5) div:nth-child(4),
+div#sub-tree-container div:nth-child(5) div:nth-child(3),
+div#sub-tree-container ul#your-items-tree div.toggle,
+div#sub-tree-container ul#your-items-tree a#your-items-tree-item-0-link,
+div#entries.single-source .entry-source-title,
+a#your-items-tree-item-2-link .icon,
+a#your-items-tree-item-1-link .icon,
 div.tree-item-action-container,
 div#team-messages,
 div#tips,
 div#lhn-selectors-menubutton,
 div#guser nobr:nth-child(1) :nth-child(6),
 div.collapsed a.entry-original,
-span.like.link,
-span.star.link,
-span.tag.link,
+.like.link,
+.star.link,
+.tag.link,
 div#top-bar span#chrome-title a span,
 div#viewer-details-toggle,
 div.entry-title-go-to,
-span.subscribe-button,
-span.folder-icon,
+.subscribe-button,
+.folder-icon,
 div#viewer-footer,
 xxxxdiv#lhn-friends,
 div#lhn-recommendations,
@@ -1565,7 +1573,7 @@ a#logo-container,
 div#gbar{
 	display: none !important;
 }
-div#entries span.subscribe-button{
+div#entries .subscribe-button{
 	display: block !important;
 }
 /* @end */
@@ -1587,9 +1595,9 @@ div#top-bar span#chrome-title a{
 .entry .item-body,
 div.collapsed .entry-title,
 div.single-source div.collapsed .entry-title,
-div#home div#overview span.item-title,
+div#home div#overview .item-title,
 .entry .entry-body blockquote,
-div#home div#overview span.overview-item-link,
+div#home div#overview .overview-item-link,
 .entry .entry-body{
 	/*font-family: "Georgia","Palatino",serif !important;*/
 	font-family:"Helvetica Neue", "Helvetica", "Arial" !important;
@@ -1609,17 +1617,17 @@ div#top-bar span#chrome-title a{
 	font-weight: 400 !important;
 	text-shadow: rgb(255,255,255) 0 1px 0;
 }
-div#home div#overview span.overview-item-link{
+div#home div#overview .overview-item-link{
 	font-size: 13px !important;	
 	line-height: 20px !important;
 }
-div#entries.search div.search-result span.entry-date,
-div.collapsed span.entry-source-title,
+div#entries.search div.search-result .entry-date,
+div.collapsed .entry-source-title,
 .collapsed div.entry-date,
 div.entry-container div.entry-date{
 	color: rgb(180,180,180) !important;
 }
-div#entries.search div.search-result span.entry-date,
+div#entries.search div.search-result .entry-date,
 .collapsed div.entry-date,
 div.entry-container div.entry-date{
 	font-size: 11px !important;
@@ -1629,7 +1637,7 @@ div.entry-container div.entry-date{
 .entry .entry-body blockquote{
 	font-style: italic !important;
 }
-div#home div#overview span.item-title{
+div#home div#overview .item-title{
 	font-size: 18px !important;
 	line-height: 22px !important;
 	color: rgb(50,50,50) !important;
@@ -1693,15 +1701,15 @@ div.entry-author a{
 div#entries.search a.entry-source-title{
 	font-style: italic !important;
 }
-div#home span.link{
+div#home .link{
 	color: rgb(80,80,90) !important;
 	-webkit-transition-duration:400ms;
 }
-div#home span.link:hover{
+div#home .link:hover{
 	color: rgb(0,0,10) !important;	
 }
-span.directory-return-link,
-div.search div.preview-interruption span.try-search-on-feeds-link,
+.directory-return-link,
+div.search div.preview-interruption .try-search-on-feeds-link,
 div.interruption.self-interruption a,
 div.interruption.self-interruption .link,
 div.friends-bubble-contents a,
@@ -1713,8 +1721,8 @@ div#scroll-filler a,
 	-webkit-transition-duration:400ms;
 }
 div.entry-author a:hover,
-span.directory-return-link:hover,
-div.search div.preview-interruption span.try-search-on-feeds-link:hover,
+.directory-return-link:hover,
+div.search div.preview-interruption .try-search-on-feeds-link:hover,
 div#entries.search a.entry-source-title:hover,
 div.interruption.self-interruption a:hover,
 div.interruption.self-interruption .link:hover,
@@ -1725,18 +1733,18 @@ div#scroll-filler a:hover,
 .entry .entry-body a:hover{
 	color: rgb(42, 162, 185) !important;
 }
-div.entry-actions span.link{
+div.entry-actions .link{
 	-webkit-transition-duration: 0s !important;
 }
 span#sub-tree-header,
 .lhn-section-footer a,
-div#no-entries-msg span.link{
+div#no-entries-msg .link{
 	color: rgb(103,101,99) !important;
 }
-div#no-entries-msg span.link:hover{
+div#no-entries-msg .link:hover{
 	color: rgb(93,91,89) !important;	
 }
-div#no-entries-msg span.link:active{
+div#no-entries-msg .link:active{
 	color: rgb(0,0,0) !important;	
 }
 span#sub-tree-header:hover,
@@ -1818,8 +1826,8 @@ div#lhn-subscriptions-menubutton{
 div#lhn-subscriptions-menubutton:active{
 	background-position:0px -15px !important;
 }
-div#nav > div:nth-child(2) a#your-items-tree-item-1-link,
-div#nav > div:nth-child(2) a#your-items-tree-item-2-link,
+div#sub-tree-container a#your-items-tree-item-1-link,
+div#sub-tree-container a#your-items-tree-item-2-link,
 div#lhn-selectors div.selector a.link{
 	display: block !important;
 	width: 28px !important;
@@ -1848,19 +1856,20 @@ div#lhn-selectors div#star-selector a.link{
 div#lhn-selectors div#star-selector.selected a.link{
 	background-position: -60px -22px !important;
 }
-div#nav > div:nth-child(2) a#your-items-tree-item-1-link{
+div#sub-tree-container a#your-items-tree-item-1-link{
 	background-position: -87px 2px !important;
 	width: 25px !important;
 }
-div#nav > div:nth-child(2) a#your-items-tree-item-1-link.tree-link-selected{
+div#sub-tree-container a#your-items-tree-item-1-link.tree-link-selected{
 	background-position: -87px -20px !important;	
 }
-div#nav > div:nth-child(2) a#your-items-tree-item-2-link{
+div#sub-tree-container a#your-items-tree-item-2-link{
 	background-position: -119px 2px !important;
 }
-div#nav > div:nth-child(2) a#your-items-tree-item-2-link.tree-link-selected{
+div#sub-tree-container a#your-items-tree-item-2-link.tree-link-selected{
 	background-position: -119px -20px !important;
 }
+*/
 div#your-items-tree-container{
 	width: 72px;
 }
@@ -1902,15 +1911,15 @@ div#mark-all-as-read:active{
 	background-position: 5px -12px !important;	
 }
 div.arr,
-span.item-link,
+.item-link,
 #mark-all-as-read-options,
 div#chrome-lhn-toggle-icon,
 div.star,
-span.read-state,
-span.email,
-span.broadcast-with-note,
-span.broadcast-active,
-span.broadcast-inactive,
+.read-state,
+.email,
+.broadcast-with-note,
+.broadcast-active,
+.broadcast-inactive,
 .goog-option-selected div.goog-menuitem-checkbox{
 background-image: url(data:image/png;base64,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) !important;	background-repeat:no-repeat;
 	text-indent: -623em !important;
@@ -1924,39 +1933,39 @@ background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAADwCAYA
 .goog-option-selected:hover div.goog-menuitem-checkbox{
 	background-position: -14px -143px !important;	
 }
-span.item-link,
-span.broadcast-inactive,
-span.broadcast-active,
-span.broadcast-with-note,
-span.email,
-span.read-state{
+.item-link,
+.broadcast-inactive,
+.broadcast-active,
+.broadcast-with-note,
+.email,
+.read-state{
 	width: 14px !important;
 	padding-left: 18px !important;
 }
-span.broadcast-inactive{
+.broadcast-inactive{
 	background-position: 0px -7px !important;
 }
-span.broadcast-active{
+.broadcast-active{
 	background-position: 0px -29px !important;
 }
-span.broadcast-with-note{
+.broadcast-with-note{
 	margin-left: 8px;
 	background-position: 0px -51px !important;
 }
-span.email{
+.email{
 	margin-left: 8px;
 	background-position: 0px -72px !important;
 }
-span.item-link-active,
-span.email.email-active{
+.item-link-active,
+.email.email-active{
 	background-color: transparent !important;
 	border-bottom: 0 !important;
 }
-span.read-state-not-kept-unread{
+.read-state-not-kept-unread{
 	margin-left: 8px;
 	background-position: 0px -95px !important;
 }
-span.read-state-kept-unread{
+.read-state-kept-unread{
 	margin-left: 8px;
 	background-position: 0px -117px !important;
 }
@@ -1978,7 +1987,7 @@ div#chrome-lhn-toggle-icon{
 .lhn-hidden div#chrome-lhn-toggle-icon{
 	background-position: -20px -187px !important;
 }
-span.item-link.link{
+.item-link.link{
 	margin-left: 8px;
 	background-position: 0px -205px !important;	
 }
@@ -2147,13 +2156,13 @@ li.tag a span{
 	margin-left: 11px !important;
 }
 .entry.expanded .entry-container{
-	position: absolute !important;
+	position: fixed !important;
 	overflow: scroll !important;
 	top: 0px;
-	left: 0px;
+	right: 0px;
 	height: 100% !important;
 	z-index: -999;
-	width: 99% !important;
+	width: 80% !important;
 }
 .entry.expanded .entry-container .entry-main {
 	position: relative !important;
