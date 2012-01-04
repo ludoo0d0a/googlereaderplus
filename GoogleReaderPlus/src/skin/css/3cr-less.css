@@ -1,0 +1,50 @@
+@colwidth: 300px;
+.entry {
+	width:@colwidth;
+	height: 116px;
+}
+.entry:not(#current-entry) {
+	.entry-body,.item-body, .card-actions{
+	 	display:none;
+	}
+}
+
+#current-entry .card-actions,
+#current-entry .entry-actions{
+    position: absolute;
+    top: 300px;
+    left: @colwidth+50px;
+}
+#current-entry .entry-container{
+    position: absolute;
+    top: 10px;
+    left: @colwidth+50px;
+    width: 600px;
+    height: 600px;
+   overflow:auto;
+}
+#entries.list {
+	 #current-entry{
+		overflow:visible !important;
+	}
+	.collapsed {
+		height: 100px !important;
+	}
+	.collapsed h2.entry-title {
+	    clear: both !important;
+	    display: block !important;
+	    line-height: 18px !important;
+	    margin-bottom: 6px !important;
+	    margin-top: 22px !important;
+	}
+	.collapsed .entry-secondary {
+	    display: block !important;
+	    margin: 0 48px 0 24px !important;
+	    padding-top: 5px !important;
+	    width: 88% !important;
+	}
+	.entry-title{
+		line-height: inherit;
+	}
+}
+
