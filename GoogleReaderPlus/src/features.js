@@ -1589,10 +1589,12 @@ GRP.skins = {
 		name:'3 Column Reader',
 		ref:'http://userstyles.org/styles/50474/google-reader-3-column-reader',
 		pic: 'http://cdn.userstyles.org/style_screenshot_thumbnails/50474_after.jpeg',
-		//css: 'http://kamilb.info/s/googlereader-3cr.css',
-		url: 'http://userstyles.org/styles/userjs/50474/Google%20Reader%20-%203%20Column%20Reader.user.js',
+		//url:'skin/css/3cr.css',
+		//compact:false,
+	    url: 'http://kamilb.info/s/googlereader-3cr.css',
+		//url: 'http://userstyles.org/styles/userjs/50474/Google%20Reader%20-%203%20Column%20Reader.user.js',
 		resize: 'footer',
-		status:'new'
+		status:'todo'
 	},
 	
 	helvetireader: {
