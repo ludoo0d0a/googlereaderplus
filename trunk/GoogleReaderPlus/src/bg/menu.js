@@ -68,7 +68,7 @@ function initMenu(){
 		cls:'last'
     }, {
         click: function(){
-            clearcache('en');
+            clearCache();
         }
     });	
 }

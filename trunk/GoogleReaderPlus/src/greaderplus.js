@@ -38,7 +38,7 @@
 						entries: me.getExportedEntries(),
 						dir: getSelectedDir()
 					});
-				}else if (a.message === 'clearcache') {
+				}else if (a.message === 'clearpagecache') {
 					clearCacheData();
 				}
 			});
@@ -137,7 +137,7 @@
             );*/
 			addReaderMenuItem(getText(this.lang, 'general', 'menu_clearcache', 'en', 'Clear cache'), 
                 function(){
-                    clearcache(this.lang);
+                    clearCache(this.lang);
                 }
             );
 			addReaderMenuItem(getText(this.lang, 'general', 'menu_removeread', 'en', 'Remove read items'), 

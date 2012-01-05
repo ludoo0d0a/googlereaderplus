@@ -2010,10 +2010,21 @@ function parseLessTpl(input,vars,cb, options){
 	},cb);
 }
 
-function clearcache(lang){
+var lang = window.lang || 'en';
+function clearBgCache(a,cb){
+    clearCacheData(a);
+    if (mycore.env.background){
+		//go clear cache for page
+    	mycore.page.postMessage('clearpagecache');
+    }
+    sendResponse({success:true},cb);
+}
+
+function clearCache(ilang){
+	lang= ilang || window.lang || 'en';
 	mycore.extension.sendRequest({
 		message:'clearcache',
-		lang: lang || window.lang || 'en'
+		lang: lang
 	}, cacheClearedAlert);
 }
 
