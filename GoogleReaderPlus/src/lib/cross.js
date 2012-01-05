@@ -224,9 +224,9 @@ var mycore = {
         removeItem: function(name, cb, aslocal){
             if (mycore.env.chrome) {
                 if (mycore.env.background || aslocal) {
-                    if (!mycore.env.background) {
+                    /*if (!mycore.env.background && !aslocal) {
                         name = mycore.env.prefix + name;
-                    }
+                    }*/
                     localStorage.removeItem(name);
                 } else {
                     mycore.extension.sendRequest({

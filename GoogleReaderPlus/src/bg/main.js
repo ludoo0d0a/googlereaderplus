@@ -611,17 +611,6 @@ function parseLess(a,cb){
 	});
 }
 
-function clearBgCache(a,cb){
-    clearCacheData(a);
-    if (mycore.env.background){
-		//go clear cache for page
-    	mycore.page.postMessage('clearcache');
-    }
-    sendResponse({success:true},cb);
-}
-
-
-
 //+favicons_providerpageicons
 function upgrade(v){
     var prefs = getPrefs();
