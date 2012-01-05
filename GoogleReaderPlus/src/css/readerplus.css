@@ -33,3 +33,7 @@ span.btn-sel{
 div#loading-area{
 	height:auto;
 }
+
+div.goog-menuitem.goog-textarea{
+	height:auto !important;
+}
