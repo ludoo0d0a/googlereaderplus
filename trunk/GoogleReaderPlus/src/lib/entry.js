@@ -626,16 +626,20 @@ function addMenuSeparator(menu, dwn, id, text){
 
 function addMenuItem(menu, dwn, id, item){
 	var html=item.text, chkbox = item.checkbox, _close = item.close;
-	
+	var cls = '';
 	if (item.textarea){
+		cls += ' goog-textarea';
 		if (typeof item.value ==='object'){
 			item.value=item.value.join('\n');
 		}
 		html+='<br/><textarea id="t_'+(item.id||id)+'" rows="'+(item.rows||5)+'" cols="'+(item.cols||25)+'">'+(item.value||'')+'</textarea>';
 	}
+	if (chkbox && item.value){
+		cls += ' goog-option-selected';
+	}
 	var el = dh(menu, 'div', {
 		id:item.id||(menu.id+'_'+id),
-		cls:'goog-menuitem goog-option'+(chkbox && item.value?' goog-option-selected':''),
+		cls:'goog-menuitem goog-option'+cls,
 		style:"-webkit-user-select: none;",
 		role:"menuitem",
 		tabindex:-1, 
