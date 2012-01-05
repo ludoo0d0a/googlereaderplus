@@ -130,6 +130,11 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
 	                        if (skin.fix) {
 	                            css += skin.fix;
 	                        }
+	                        if (skin.patch){
+                            	foreach(skin.patch,function(o){
+                            		css = css.replace(new RegExp(o.from,'g'),o.to);
+                            	});
+	                        }
                         }
                         GM_addStyle(css, 'rps_' + skin.id);
                         //cache css 
