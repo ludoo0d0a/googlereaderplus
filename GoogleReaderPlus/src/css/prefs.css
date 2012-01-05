@@ -381,6 +381,9 @@ span.off{
 	width:430px;
 	float:left;
 }
+#thumb{
+	display:block;
+}
 
 /*#themebox li {
     width: 230px;
@@ -589,3 +592,4 @@ img.favicon {
 	font-weight:bold;
 	color:red;
 }
+
