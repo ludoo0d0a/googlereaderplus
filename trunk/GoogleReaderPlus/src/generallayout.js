@@ -115,10 +115,10 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
 		GM_addStyle('.item-plusone{display:none !important;}','rpe_hideplus');
 		fireResize('',100);
 		/*function removeButtonPlus(el, entry, mode){
-			var ea = getFirstElementByClassName(el,'entry-actions');
+			var ea = gfe(el,'entry-actions');
 			if (ea){
 				delay(function(){
-					var btn = getFirstElementByClassName(ea,'item-plusone');
+					var btn = gfe(ea,'item-plusone');
 					if (btn){
 						remove(btn);
 						return true;
@@ -131,7 +131,7 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
 	}
 	
 	/*if (getPref('linkbar')) {
-		var c = getFirstElementByClassName(document, 'gbtc');
+		var c = gfe(document, 'gbtc');
 		var g = getLastElementByClassName(c, 'gbt');
 		if (g){
 			dh(g, 'li', {
@@ -162,7 +162,7 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
 				var sth = st.clientHeight;
 				var title = getEntrySiteTitle(e, 'entry-source-title');
 				if (title && title !== lastTitle) {
-					var l = getFirstElementByClassName(st, 'tree-sel');
+					var l = gfe(st, 'tree-sel');
 					if (l) {
 						removeClass(l, 'tree-sel');
 					}
@@ -216,7 +216,7 @@ GRP.generallayout = function(prefs, langs, ID, SL, lang) {
 			//check if current entry hans changed!
 			if (cur && !hasClass(cur, CLS_CURRENT)) {
 				updateSpacer();
-				oldcur = getFirstElementByClassName(entries, CLS_CURRENT);
+				oldcur = gfe(entries, CLS_CURRENT);
 				if (oldcur) {
 					removeClass(oldcur, CLS_CURRENT);
 				}

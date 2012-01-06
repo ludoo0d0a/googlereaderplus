@@ -218,7 +218,7 @@ GRP.replacer = function(prefs, langs, ID, SL, lang){
             return false;
         }
         
-        var body = getFirstElementByClassName(entry, 'entry-body');
+        var body = gfe(entry, 'entry-body');
 		if (!body){
 			return;
 		}

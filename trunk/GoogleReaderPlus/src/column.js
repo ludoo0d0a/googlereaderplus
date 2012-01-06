@@ -38,7 +38,7 @@ GRP.column = function(prefs, langs, ID, SL, lang){
         var body = getBody(entry);
         
         var divoriginal = body.firstChild;
-        var divwrap = getFirstElementByClassName(entry, 'wrap-container');//div
+        var divwrap = gfe(entry, 'wrap-container');//div
         
 		if (divwrap && hasClass(divwrap, 'canceled')){
 			//abort
@@ -197,7 +197,7 @@ GRP.column = function(prefs, langs, ID, SL, lang){
     
     function getContainer(entry){
         var cwh = 300;
-        var cw = getFirstElementByClassName(entry, 'entry-main');//div
+        var cw = gfe(entry, 'entry-main');//div
         if (!cw) {
             cw = entries; //get_id('entries');
         }

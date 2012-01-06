@@ -19,7 +19,7 @@ GRP.readability = function(prefs, langs, ID, SL, lang) {
 	}
 	
 	function readableEntry(entry, active, btn, e) {
-		var content = getFirstElementByClassName(entry, 'p_' + ID);//div
+		var content = gfe(entry, 'p_' + ID);//div
 		if (content){
 			showContent(entry,content,active);
 		}else{
@@ -48,7 +48,7 @@ GRP.readability = function(prefs, langs, ID, SL, lang) {
 
 	function replaceBody(text, entry,active) {
 		if(text !== '') {
-			var body = getFirstElementByClassName(entry, 'entry-body');//div
+			var body = gfe(entry, 'entry-body');//div
 			var el = document.createElement('div');
 			el.className = 'p_' + ID;
 			el.innerHTML = SL.loading;
@@ -68,7 +68,7 @@ GRP.readability = function(prefs, langs, ID, SL, lang) {
 	
 	//Reset to original
 	function showContent(entry,content,active){
-		var body = getFirstElementByClassName(entry, 'entry-body');//div
+		var body = gfe(entry, 'entry-body');//div
 		var entryBody = getEntryBody(body);
 		if (active){
 			hide(entryBody);

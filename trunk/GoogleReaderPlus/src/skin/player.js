@@ -93,11 +93,11 @@ GRP.player = function(prefs, langs, ID, SL, lang){
     
 /*    var body, gup = document.getElementById('entries-up'), gdown = document.getElementById('entries-down');
     if (gup) {
-        body = getFirstElementByClassName(gup, 'goog-button-body');
+        body = gfe(gup, 'goog-button-body');
         body.innerText = '◀';
     }
     if (gdown) {
-        body = getFirstElementByClassName(gdown, 'goog-button-body');
+        body = gfe(gdown, 'goog-button-body');
         body.innerText = '▶';
     }
   */
@@ -157,7 +157,7 @@ GRP.player = function(prefs, langs, ID, SL, lang){
         }
 		var current = getCurrentEntry();
         if (!current) {
-            current = getFirstElementByClassName(document, 'entry');
+            current = gfe(document, 'entry');
         }
         if (current) {
             if (!lastEntry || lastEntry !== current) {
@@ -295,7 +295,7 @@ GRP.player = function(prefs, langs, ID, SL, lang){
     function forceSelectEntry(){
         var current = getCurrentEntry();
         if (!current) {
-            var entry = getFirstElementByClassName(document, 'entry');
+            var entry = gfe(document, 'entry');
             selectEntry(entry, true);
         }
     }
@@ -350,7 +350,7 @@ GRP.player = function(prefs, langs, ID, SL, lang){
             }
             var link = getEntryLink(entry);
             var title = link.title || '';
-            var eb = getFirstElementByClassName(entry, 'entry-body');
+            var eb = gfe(entry, 'entry-body');
             var img = '', images;
 			if (eb) {
 				images = eb.getElementsByTagName('img');

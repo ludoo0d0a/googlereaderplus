@@ -98,8 +98,8 @@ GRP.rank = function(prefs, langs, ID, SL, lang){
 		if (mode === 'expanded') {
 			link = getOriginalEntryLink(entry);
 		} else {
-			//link = getFirstElementByClassName(entry, 'entry-source-title');//span
-			link = getFirstElementByClassName(entry, 'entry-secondary');//span
+			//link = gfe(entry, 'entry-source-title');//span
+			link = gfe(entry, 'entry-secondary');//span
 			position = 'first';
 		}
 		if (link) {

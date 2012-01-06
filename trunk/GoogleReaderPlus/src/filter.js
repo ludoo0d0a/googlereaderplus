@@ -253,7 +253,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang) {
 		var escapedContent = encodeURI(content.text);
 		
 		if(!tagged && useButton) {
-			var et = getFirstElementByClassName(entry, 'entry-title');
+			var et = gfe(entry, 'entry-title');
 			dh(et, 'a', {
 				href : '#',
 				cls : 'entry-title-link-filter', //'filter-configure-entry',
@@ -636,7 +636,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang) {
 				if(o.re && o.re.test(content.text)) {
 					//highlight terms in title
 					//var link = getEntryLink(entry);
-					var et = getFirstElementByClassName(entry, 'entry-title');
+					var et = gfe(entry, 'entry-title');
 					replaceHighlightTerm(et, o.re, content.text);
 				}
 		
@@ -648,7 +648,7 @@ GRP.filter = function(prefs, langs, ID, SL, lang) {
 					}else{
 						cls = 'entry-body';
 					}
-					var el = getFirstElementByClassName(entry, cls);
+					var el = gfe(entry, cls);
 					replaceHighlightTerm(el, o.body, content.body);					
 				}
 			},100);

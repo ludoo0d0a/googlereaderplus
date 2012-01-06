@@ -147,7 +147,7 @@ css += '.section-minimize2 {background-position: -23px -120px;top: 6px;}';
 		}
 	}
 	function getNowTop(entry,sTop){
-		var eb = getFirstElementByClassName(entry, 'entry-body');//div
+		var eb = gfe(entry, 'entry-body');//div
 		var maxh = getHeightEntries();
 		var delta = 0;
 		if (eb.scrollHeight > 0) {

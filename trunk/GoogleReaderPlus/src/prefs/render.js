@@ -50,7 +50,7 @@ function showPanel(hash){
 function showcat(el, fromoutside){
     var wrap;
 	if (fromoutside){
-		wrap = getFirstElementByClassName(el, 'wrap');
+		wrap = gfe(el, 'wrap');
 	}else{
 		wrap=findParentNode(el, 'ul', 'wrap');
 	}
@@ -129,7 +129,7 @@ function renderScripts(){
                 header.className = 'header';
                 header.innerHTML = fillTpl(tplPanelTitle, script);
                 insertFirst(header, panel);
-                body = getFirstElementByClassName(panel, 'body');
+                body = gfe(panel, 'body');
             }
             renderOptions(body, script);
             renderShortcuts(panel, script);
