@@ -82,7 +82,7 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
             //Ctrl+click : open in a new tab
             openEntryInNewTab(entry);
         } else {
-            var btn = getFirstElementByClassName(entry, 'btn-preview');//span
+            var btn = gfe(entry, 'btn-preview');//span
             previewize(btn, entry, locked, e);
         }
     }
@@ -107,10 +107,10 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
         if (!locked) {
             jump(entry, true);
         }
-        var ebody = getFirstElementByClassName(entry, 'entry-body');//div
-        var entryBody = getFirstElementByClassName(ebody, 'entry-enclosure');//div
+        var ebody = gfe(entry, 'entry-body');//div
+        var entryBody = gfe(ebody, 'entry-enclosure');//div
         if (!entryBody) {
-            entryBody = getFirstElementByClassName(ebody, 'item-body');//div
+            entryBody = gfe(ebody, 'item-body');//div
         }
         var iframe, active;
         if (prefs.preview_overlay) {
@@ -123,7 +123,7 @@ GRP.preview = function(prefs, langs, ID, SL, lang, scop){
         } else {
             //toggle button only when not overlay
             active = isActive(btn, entry, 'preview', locked);
-            iframe = getFirstElementByClassName(entry, 'if-preview');//'iframe'
+            iframe = gfe(entry, 'if-preview');//'iframe'
             if (active) {
                 // classic mode-> preview mode
                 if (iframe) {

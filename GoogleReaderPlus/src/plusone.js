@@ -65,7 +65,7 @@ GRP.plusone = function(prefs, langs, ID, SL, lang){
 			//var shareurl = getEntryLink(entry);
 			//var url = fillTpl(URL, shareurl);
 			//window.open(url, ID+'sharer', OPTWIN);
-			var b = getFirstElementByClassName(entry,'esw')
+			var b = gfe(entry,'esw')
 			if (b) {
 				simulateClick(b);
 			}

@@ -220,6 +220,7 @@ function getFirstElementByClassName(root, clazz){
 		return false;
 	}
 }
+var gfe = getFirstElementByClassName;
 
 function getLastElementByClassName(root, clazz){
 	var els = root.getElementsByClassName(clazz);
@@ -231,7 +232,7 @@ function getLastElementByClassName(root, clazz){
 }
 
 function getElementText(root, cls, html, firstchild){
-    var txt = '', el = getFirstElementByClassName(root || document, cls);
+    var txt = '', el = gfe(root || document, cls);
     if (el) {
         if (firstchild) {
             el = el.firstChild;
@@ -260,7 +261,7 @@ function copyAttributes(src, dest){
  * @param {Object} root
  * @param {Object} tag
  * @param {Object} clazz
- * @deprecated use getFirstElementByClassName
+ * @deprecated use gfe
  */
 function getFirstElementMatchingClassName(root, tag, clazz){
     var elements = root.getElementsByTagName(tag);
@@ -758,7 +759,7 @@ function getHeightEntries(alone){
     if (entries) {
         var offset = 0;
         if (!alone) {
-            var eb = getFirstElementByClassName(entries, 'entry-body');
+            var eb = gfe(entries, 'entry-body');
             if (eb) {
                 offset += eb.offsetTop;
             }
@@ -766,7 +767,7 @@ function getHeightEntries(alone){
             if (et) {
 				offset += et.clientHeight;
             }
-            var ca = getFirstElementByClassName(entries, 'card-actions');
+            var ca = gfe(entries, 'card-actions');
             if (ca) {
 				if (ca.style && ca.clientHeight) {
 					offset += ca.clientHeight;

@@ -7,7 +7,7 @@ GRP.nativecompact = function(prefs, langs, ID, SL, lang) {
 	css+='#top-bar{height:0;position:static !important;}';
 	//hide menu g+
 	css+='#gb,#lhn-add-subscription-section,#viewer-header,#logo-section,#title-and-status-holder{display:none;}';
-	var el = getFirstElementByClassName(get_id('lhn-add-subscription-section'), 'subscribe-button');
+	var el = gfe(get_id('lhn-add-subscription-section'), 'subscribe-button');
 	if (el){
 		el.innerText='';
 	}

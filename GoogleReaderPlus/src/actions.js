@@ -23,7 +23,7 @@ GRP.actions = function(prefs, langs, ID, SL, lang){
 			'email link','read-state','grp-btn' ,'sharebox link'];
 			
 	function changeActions(el, entry, mode){
-		var ea =getFirstElementByClassName(entry,'entry-actions');
+		var ea =gfe(entry,'entry-actions');
 		if (ea){
 			foreach(targets,function(target){
 				var n=[ea], cls = target.split(' ');

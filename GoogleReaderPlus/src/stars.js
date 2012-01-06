@@ -64,14 +64,14 @@ GRP.stars = function(prefs, langs, ID, SL, lang){
 		//var text = (SL.keyword || ID);//checkbox
 		var text = (prefs && prefs.general_icons)?'':(SL.keyword || ID);
 		
-		//var ea = getFirstElementByClassName(entry, 'entry-actions');
+		//var ea = gfe(entry, 'entry-actions');
 		var es = false;
 		if (ea){
-			es = getFirstElementByClassName(ea, 'star');
+			es = gfe(ea, 'star');
 		}
 		
-		var ei = getFirstElementByClassName(entry, 'entry-icons');
-		var eicon = getFirstElementByClassName(ei, 'star');
+		var ei = gfe(entry, 'entry-icons');
+		var eicon = gfe(ei, 'star');
 		addIcon(entry, title, function(entry, el){
 			toggleStar(el, entry, false);
 		},'superstar', 'link unselectable empty', 'first');

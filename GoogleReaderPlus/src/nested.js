@@ -30,14 +30,14 @@ GRP.nested = function(prefs, langs, ID, SL, lang){
         	if (hasClass(f, 'tag')){
             	removeClass(f, 'tag');
             	addClass(f, 'folder');           	
-            	var tt = getFirstElementByClassName(f, 'tag-toggle');
+            	var tt = gfe(f, 'tag-toggle');
             	if (tt){
             		removeClass(tt, 'hidden');
             		removeClass(tt, 'tag-toggle');
             		addClass(tt, 'folder-toggle');
             		
             		//Replace tag-icon with folder-icon
-            		var ti = getFirstElementByClassName(f, 'tag-icon');
+            		var ti = gfe(f, 'tag-icon');
             		removeClass(ti, 'tag-icon');
             		addClass(ti, 'folder-icon');
             	}
@@ -97,12 +97,12 @@ GRP.nested = function(prefs, langs, ID, SL, lang){
 	                	fixTag(f);
 	                }
 	                addClass(f, 'unread', true);
-	                var fname = getFirstElementByClassName(f, 'name');
+	                var fname = gfe(f, 'name');
 	                addClass(fname, 'name-unread', true);
 	                var wrapper = parseNode('<div class="grp-wrapper"/>');
 	                wrapper.appendChild(folder);
 	                wrapper.querySelector('.name-text').innerHTML = nameTokens[0];
-	                var l = getFirstElementByClassName(wrapper, 'link');
+	                var l = gfe(wrapper, 'link');
 	                addClass(l, 'link-nested', true);
 	                //wrapper.querySelector('.link').style.cssText = 'margin-left:-16px';
 	                //parent.insertBefore(wrapper, parent.firstChild);

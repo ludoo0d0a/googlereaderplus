@@ -214,8 +214,8 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
         	html: "<h1 class='xtitle'></h1><div class='xcontent'></div><div class='xaction'></div>"
         });
 
-        labelTitle= getFirstElementByClassName(editMicro, "xtitle");
-        var content = getFirstElementByClassName(editMicro, "xcontent");
+        labelTitle= gfe(editMicro, "xtitle");
+        var content = gfe(editMicro, "xcontent");
         function createInput(root, id, cfg){
         	var title = SM['text_'+id]||id;
         	var wrap=dh(root, 'div', {cls:'xwrap-input', html:'<div class="xlabel">'+title+'</div>'});
@@ -239,7 +239,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
         descinput = createInput(content, 'desc', {type:'textarea'});
         labelInfo = dh(content, 'p', {id:'label-info'});
 
-        var xaction = getFirstElementByClassName(editMicro, "xaction");
+        var xaction = gfe(editMicro, "xaction");
         function createButton(root, id, click){
         	var cfg={};
         	cfg.id='btn-'+id;

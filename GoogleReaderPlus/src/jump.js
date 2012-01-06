@@ -12,7 +12,7 @@ GRP.jump = function(prefs, langs, ID, SL, lang){
     function addJumpButtons(el, entry, mode){		
 		var link = getOriginalEntryLink(entry);
         if (link) {
-           var div = getFirstElementByClassName(entry,  'entry-title-go-to-bottom');
+           var div = gfe(entry,  'entry-title-go-to-bottom');
            if (!div){
 	            var abottom = dh(link,'a',{
 	            	position:'after',

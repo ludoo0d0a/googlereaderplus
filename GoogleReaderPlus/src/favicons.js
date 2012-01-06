@@ -108,7 +108,7 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 			src = t.icon;
 		} else {
 			// popular items | recommended sources
-			var fs = getFirstElementByClassName(entry,'entry-original') || getFirstElementByClassName(entry,'entry-title-link');
+			var fs = gfe(entry,'entry-original') || gfe(entry,'entry-title-link');
 			if(fs) {
 				fs = ICO_TPL_URL + getDomain(fs.href);
 				src = fs;
@@ -137,12 +137,12 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 		}*/
 
 		function addIcon(el) {
-			var elicon = getFirstElementByClassName(el, 'icon');
+			var elicon = gfe(el, 'icon');
 			//div
 			if(elicon) {
 				addClass(elicon, ['favicon', 'gr-favicon', 'grf-sidebar']);
 
-				var title = getFirstElementByClassName(el, 'name-text');
+				var title = gfe(el, 'name-text');
 				//div.name-text
 				//var match = ellipsis(title.textContent);
 				var match = title.textContent;
@@ -230,10 +230,10 @@ GRP.favicons = function(prefs, langs, ID, SL, lang) {
 	}
 
 	function onMenuItemClick(e, menu) {
-		var node = getFirstElementByClassName(document, 'menu-open');
+		var node = gfe(document, 'menu-open');
 		//a
 		if(node) {
-			var icon = getFirstElementByClassName(node, 'favicon');
+			var icon = gfe(node, 'favicon');
 			// img not there, used 2nd div.name/@title
 			var key = unescapeHTML(icon.title||'') || icon.nextSibling.textContent;
 			//try to get url+title, but this solution is sometimes wrong !!

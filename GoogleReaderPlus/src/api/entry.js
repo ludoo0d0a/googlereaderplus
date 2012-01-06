@@ -45,7 +45,7 @@ GRP.api_entry = function(prefs, langs, ID, SL, lang, edata, params){
 	
     function addKey(e){
         var entry = getEntry(e);
-        var btn = getFirstElementByClassName(entry,'btn-' + ID);
+        var btn = gfe(entry,'btn-' + ID);
         filterize(btn, entry);
     }
     if (edata.css) {

@@ -80,7 +80,7 @@ function checkEntry(el, params, mode){
             entry=el;
             var entryContent = (entry.hasChildNodes());
             if (entryContent){
-            	ea = getFirstElementByClassName(entry, 'entry-actions');
+            	ea = gfe(entry, 'entry-actions');
 	            //ExpandedView
 	            catchEntry(entry, ea, params, mode);
             }
@@ -116,7 +116,7 @@ function execAllOffset(ea, entry, mode, body){
 		if (p.onlistviewtitle){
 			w = entry.firstChild;
 		}else{
-			w = getFirstElementByClassName(entry,'entry-container');
+			w = gfe(entry,'entry-container');
 		}
 		if(!isTagged(w, p.bid)) {
 			stackFeatures[i].fn.call(this, ea, entry, mode, body);
@@ -238,13 +238,13 @@ function getMode(){
 }
 
 function getOriginalEntryLink(entry){
-    return getFirstElementByClassName(entry, 'entry-title-link');
+    return gfe(entry, 'entry-title-link');
 }
 
 function getEntrySiteTitle(ent){
     var entry = ent || getCurrentEntry();
     var point, match;
-    point = getFirstElementByClassName(entry, 'entry-source-title');//'span'
+    point = gfe(entry, 'entry-source-title');//'span'
     if (point) {
         match = point.textContent;
     }
@@ -256,16 +256,16 @@ function insertOnTitle(entry, el, mode){
 		mode=getMode();
 	}
     if (mode === 'expanded') {
-        var et = getFirstElementByClassName(entry, 'entry-title');
+        var et = gfe(entry, 'entry-title');
         insertFirst(el, et);
     } else {
-        var ei = getFirstElementByClassName(entry, 'entry-icons');
+        var ei = gfe(entry, 'entry-icons');
         insertLast(el, ei);
     }
 }
 
 function insertOnTitleStart(entry, el){
-   var et = getFirstElementByClassName(entry, 'entry-title');
+   var et = gfe(entry, 'entry-title');
    insertFirst(el, et); 
 }
 
@@ -276,10 +276,10 @@ function getEntryLink(ent, useFeed){
         feed: '',
         title:''
     }, entry = ent || getCurrentEntry();
-    var link = getFirstElementByClassName(entry, 'grp-link-url');//'a'
+    var link = gfe(entry, 'grp-link-url');//'a'
     if (!link) {
         //Normal way
-        link = getFirstElementByClassName(entry, 'entry-title-link');//'a'
+        link = gfe(entry, 'entry-title-link');//'a'
         if (link) {
             o.url = link.href;
             o.link = link;
@@ -287,8 +287,8 @@ function getEntryLink(ent, useFeed){
             o.eltitle = link;
         } else {
 			//Feed from html (non RSS page)
-			var etitle = getFirstElementByClassName(entry, 'entry-title');//'h2'
-			link = getFirstElementByClassName(entry, 'entry-original');//'a'
+			var etitle = gfe(entry, 'entry-title');//'h2'
+			link = gfe(entry, 'entry-original');//'a'
 			if (etitle) {
 				o.url = '';
 				o.title = etitle.textContent;
@@ -308,7 +308,7 @@ function getEntryLink(ent, useFeed){
         }
     } else {
         //preview on 
-        var link2 = getFirstElementByClassName(entry, 'grp-link-title');//'a'
+        var link2 = gfe(entry, 'grp-link-title');//'a'
         o = {
             title: link2.textContent,
             eltitle: link2,
@@ -325,13 +325,13 @@ function getEntryLink(ent, useFeed){
 
 function getFeedEntry(entry){
     var url;
-    var est = getFirstElementByClassName(entry, 'entry-source-title');//'a'
+    var est = gfe(entry, 'entry-source-title');//'a'
     //TODO/ listview=span but no href (could we use text label to match in nav tree?)
     if (est && est.href) {
         url = decodeURIComponent(est.href.replace(/^.*?view\/feed\//, ''));
         if (!url) {
             //Find using current selected nav item 
-            var nav = get_id('nav'), tls = getFirstElementByClassName(nav, 'tree-link-selected');//'a'
+            var nav = get_id('nav'), tls = gfe(nav, 'tree-link-selected');//'a'
             if (tls) {
                 url = decodeURIComponent(tls.href.replace(/^.*?view\/feed\//, ''));
             }
@@ -463,10 +463,10 @@ function getMaxBodyHeight(){
 	var offset=60, h = getVisibleHeight(ELS.vec);
 	if (!headerOffset){
 		var entry = getCurrentEntry();
-		var eti = getFirstElementByClassName(entry, 'entry-title'), //22px
-		eau = getFirstElementByClassName(entry, 'entry-author') //16px
-		ean = getFirstElementByClassName(entry, 'entry-annotations');
-		eca = getFirstElementByClassName(entry, 'card-actions');//30px
+		var eti = gfe(entry, 'entry-title'), //22px
+		eau = gfe(entry, 'entry-author') //16px
+		ean = gfe(entry, 'entry-annotations');
+		eca = gfe(entry, 'card-actions');//30px
 		//ELS.tsh?
 		headerOffset = getVisibleHeight(eti) + getVisibleHeight(eau) + getVisibleHeight(ean)+ getVisibleHeight(eca);
 	}
@@ -479,24 +479,24 @@ function getWidthEntries(){
 }
 
 function getBody(entry){
-    var body = getFirstElementByClassName(entry, 'item-body');//div
+    var body = gfe(entry, 'item-body');//div
     // why a sub body sometimes ??
     if (body) {
-        var subbody = getFirstElementByClassName(body, 'item-body');//div
+        var subbody = gfe(body, 'item-body');//div
         if (subbody) {
             body = subbody;
         }
     } else {
         //get Snippet in list view
-        body = getFirstElementByClassName(entry, 'snippet');
+        body = gfe(entry, 'snippet');
     }
     return body;
 }
 
 function getEntryBody(body){
-    var entryBody = getFirstElementByClassName(body, 'entry-enclosure');//div
+    var entryBody = gfe(body, 'entry-enclosure');//div
     if (!entryBody) {
-        entryBody = getFirstElementByClassName(body, 'item-body');//div
+        entryBody = gfe(body, 'item-body');//div
     }
     return entryBody;
 }
@@ -548,6 +548,7 @@ function toggleMenu(menu,dwn,btn,visible,init,fnmenu){
 		if (menu.dwn) {
 			removeClass(menu.dwn,'goog-button-base-open');
 		}
+		removeClass(dwn,'goog-flat-menu-button-open');
 		addClassIf(dwn, 'goog-button-base-open', visible);
 		if (visible) {
 			//set pos
@@ -665,6 +666,7 @@ function addMenuItem(menu, dwn, id, item){
 			}
 			if (_close){
 				removeClass(el, 'goog-menuitem-highlight');
+				removeClass(dwn, 'goog-menuitem-highlight');
 				hideMenu(menu,dwn);
 			}
 			if (item.click){
@@ -720,9 +722,9 @@ function addButton(reference, text, title, fn, position, menu){
 }
 
 function addIcon(entry, title, fn, cls, clsExtra, position){
-	var el=false, elicons = getFirstElementByClassName(entry, 'entry-icons');
+	var el=false, elicons = gfe(entry, 'entry-icons');
 	if (elicons) {
-		el = getFirstElementByClassName(entry, cls);
+		el = gfe(entry, cls);
 		if (!el){
 			var acls = [cls];
 			if (clsExtra){
@@ -749,14 +751,14 @@ function addIcon(entry, title, fn, cls, clsExtra, position){
 
 function onKey(cls, fn){
     var entry = getCurrentEntry();
-    var btn = getFirstElementByClassName(entry, cls);//'span'
+    var btn = gfe(entry, cls);//'span'
     fn.call(this, btn, entry);
 }
 
 function addBottomLink(el, text, title, script, cls, button, callback, locked, entry, mode, position){
     var _locked = locked, _entry = entry;
     if (!el){
-    	el = getFirstElementByClassName(entry, 'entry-actions');
+    	el = gfe(entry, 'entry-actions');
     }
     if (el){
 	    var span = document.createElement('span');
@@ -921,7 +923,7 @@ function getSelectedDir(node){
         url: ''
     };
     //a.tree-link-selected
-    var el = node || getFirstElementByClassName(document, 'tree-link-selected');
+    var el = node || gfe(document, 'tree-link-selected');
     if (el) {
         o = {
             text: getElementText(el, 'name-text'),
@@ -930,7 +932,7 @@ function getSelectedDir(node){
         };
     } else {
         //div.selector.selected
-        el = getFirstElementByClassName(document, 'selected');
+        el = gfe(document, 'selected');
         if (el) {
             o = {
                 text: getElementText(el, 'text', false, true),
@@ -1032,19 +1034,19 @@ function updateTags(entry, reTag, newTag){
 function setTags(entry, tags){
 	//tags-edit
 	addClass(entries, 'set-tag', true);
-	var tim=0, te = getFirstElementByClassName(entries, 'tags-edit');
+	var tim=0, te = gfe(entries, 'tags-edit');
 	if (!te){
-		var opentags = getFirstElementByClassName(entry, 'entry-tagging-action-title');
+		var opentags = gfe(entry, 'entry-tagging-action-title');
 		simulateClick(opentags);
 		tim=500;
 	}
 	setTimeout(function(){
-		te = getFirstElementByClassName(entries, 'tags-edit');
+		te = gfe(entries, 'tags-edit');
 		if (te) {
-			var txttags = getFirstElementByClassName(te, 'tags-edit-tags');
+			var txttags = gfe(te, 'tags-edit-tags');
 			if (txttags) {
 				txttags.value = tags;
-				var tok = getFirstElementByClassName(entries, 'tags-edit-save');
+				var tok = gfe(entries, 'tags-edit-save');
 				simulateClick(tok);
 				removeClass(entries, 'set-tag');
 			}
@@ -1055,8 +1057,8 @@ function setTags(entry, tags){
 }
 
 function markAsStar(entry, status){
-	var ei = getFirstElementByClassName(entry,'entry-icons');
-	var is = getFirstElementByClassName(ei,'star');
+	var ei = gfe(entry,'entry-icons');
+	var is = gfe(ei,'star');
 	var isStarred = hasClass(is, 'item-star-active');
 	if ((typeof status === 'undefined' && isStarred) || (status !== isStarred)) {
 		var hidden = (is.style && is.style.display=='none');
@@ -1071,9 +1073,9 @@ function markAsStar(entry, status){
 }
 
 function isStarred(entry){
-	var esa=false, ei = getFirstElementByClassName(entry, 'entry-icons');
+	var esa=false, ei = gfe(entry, 'entry-icons');
 	if (ei) {
-		esa = getFirstElementByClassName(ei, 'item-star-active');
+		esa = gfe(ei, 'item-star-active');
 	}
 	return !!esa;
 }
@@ -1105,17 +1107,17 @@ function markasread(entry, passive, force){
 	}
 }
 function clickEntry(entry){
-	var ce = getFirstElementByClassName(entry, 'collapsed') || entry;
+	var ce = gfe(entry, 'collapsed') || entry;
 	simulateClick(ce);
 }
 function expandEntry(entry){
-	var ec = getFirstElementByClassName(entry, 'entry-container');
+	var ec = gfe(entry, 'entry-container');
 	if (!ec){
 		clickEntry(entry);
 	}
 }
 function collapseEntry(entry){
-	var ec = getFirstElementByClassName(entry, 'entry-container');
+	var ec = gfe(entry, 'entry-container');
 	if (ec){
 		clickEntry(entry);
 	}
@@ -1125,7 +1127,7 @@ function collapseEntry(entry){
 function markallasread(entry, since){
         console.log('entry: ' + entry.className);
         var url, text;
-        var a = getFirstElementByClassName(entry, 'entry-source-title');//a
+        var a = gfe(entry, 'entry-source-title');//a
         if (a) {
             console.log('entry-source-title: ' + a.href);
             url = 'feed/' + (decodeURIComponent(a.href).replace(/.*?\/feed\//, ''));
@@ -1180,7 +1182,7 @@ function getTagsText(entry, normalize, defaultlabel, sep){
 	return tags.join(sep);
 }
 function getTags(entry, normalize, defaultlabel){
-    var lbls = [], taglist = getFirstElementByClassName(entry, "user-tags-list");
+    var lbls = [], taglist = gfe(entry, "user-tags-list");
 	if (taglist) {
 		var ins = taglist.getElementsByTagName("li");
 		
