@@ -257,6 +257,10 @@ GRP.langs[locale].texts = {
 	},
 	translate : {
 		keyword : 'Traduction'
+	},
+	mark:{
+		before:'Éléments avant l\'élément courant',
+		after:'Éléments après l\'élément courant'
 	}
 };
 GRP.langs[locale].prefs = {

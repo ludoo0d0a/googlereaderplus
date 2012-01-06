@@ -1026,6 +1026,7 @@ GRP.scripts = {
 	mark: {
 		name: "Mark As Read",
 		category: 'navigation',
+		status:'updated',
 		options: {
 			asscroll: false
 		},
@@ -1536,8 +1537,12 @@ GRP.skins = {
 		name:'Mac OS Lion UI',
 		ref:'http://userstyles.org/styles/55956/google-reader-mac-os-lion-ui',
 		pic: 'http://cdn.userstyles.org/style_screenshot_thumbnails/55956_after.jpeg',
-		url: 'http://userstyles.org/styles/userjs/55956/Google%20Reader%20%E2%80%94%20Mac%20OS%20Lion%20UI.user.js',
+		//url: 'http://userstyles.org/styles/userjs/55956/Google%20Reader%20%E2%80%94%20Mac%20OS%20Lion%20UI.user.js',
+		url:'https://github.com/aziz/Google-Reader-Lion-UI/raw/master/greader.css',
 		resize: 'footer',
+		patch:[
+			{from:'#stream-prefs-menu', to:'#stream-prefs-menu,#filter-split-button>div'}
+		],
 		status:'new'
 	},
 	rereader:{
@@ -1589,9 +1594,10 @@ GRP.skins = {
 		name:'3 Column Reader',
 		ref:'http://userstyles.org/styles/50474/google-reader-3-column-reader',
 		pic: 'http://cdn.userstyles.org/style_screenshot_thumbnails/50474_after.jpeg',
-		//url:'skin/css/3cr.css',
-		//compact:false,
-	    url: 'http://kamilb.info/s/googlereader-3cr.css',
+		url:'skin/css/3cr.css',
+		compact:false,
+		//cache:false,
+	    //url: 'http://kamilb.info/s/googlereader-3cr.css',
 		//url: 'http://userstyles.org/styles/userjs/50474/Google%20Reader%20-%203%20Column%20Reader.user.js',
 		resize: 'footer',
 		status:'todo'
