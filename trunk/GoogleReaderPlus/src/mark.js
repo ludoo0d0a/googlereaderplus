@@ -12,7 +12,7 @@
 
 GRP.mark = function(prefs, langs, ID, SL, lang){
 	var currentElement, CLS='grp-mark-scrolled', CLS_READ='grp-mark-scroll-read', modeList=false;
-	var entries = get_id('entries'), vec = get_id('viewer-entries-container')
+	var entries = get_id('entries'), vec = get_id('viewer-entries-container');
 	function setConfig(){
 		currentElement = getCurrentEntry();
 		modeList=(getMode(currentElement)==='list');
@@ -25,6 +25,9 @@ GRP.mark = function(prefs, langs, ID, SL, lang){
 	}
 	function markUntilCurrentAsRead() {
 		setConfig();
+		if (!currentElement){
+			return;
+		}
 		var nextElement=currentElement.previousSibling;
 		while(nextElement){
 			clickEntry(nextElement, modeList);
@@ -36,6 +39,9 @@ GRP.mark = function(prefs, langs, ID, SL, lang){
 
 	function markAfterCurrentAsRead() {
 		setConfig();
+		if (!currentElement){
+			return;
+		}
 		var nextElement=currentElement.nextSibling;
 		while(nextElement){
 			clickEntry(nextElement, modeList);
@@ -49,6 +55,35 @@ GRP.mark = function(prefs, langs, ID, SL, lang){
     var keycodeDown = getShortcutKey('mark', 'marknext', prefs); //75;//k
     keycodeDown.fn = markAfterCurrentAsRead;
     initKey([keycodeUp, keycodeDown]);
+    
+    //Add menu into 
+    var menuMark=false;
+    function getMenuMark(){
+	    var el = get_id(':9');
+	    if (el){
+	    	el = el.parentNode;
+	    	if (hasClass(el,'goog-menu')){
+	    		menuMark = el;
+	    		decorateMenuMark();
+	    	}
+	    }
+    }
+    function catchMenuMark(){
+    	getMenuMark();
+    	if (!menuMark){
+    		setTimeout(catchMenuMark,2000);
+    	}
+    }
+    setTimeout(catchMenuMark,5000);
+    
+    function decorateMenuMark(){
+    	var maars = get_id('mark-all-as-read-split-button');
+    	var dwn = gfe(maars, 'goog-flat-menu-button');
+    	var ii=90;
+    	addMenuSeparator(menuMark, dwn, ii++);
+    	addMenuItem(menuMark, dwn, ii++, {text:SL.before, click:markUntilCurrentAsRead,close:true});
+    	addMenuItem(menuMark, dwn, ii++, {text:SL.after, click:markAfterCurrentAsRead,close:true});
+    }
     
     //Mark as reas as scroll
     if (prefs[ID+'_asscroll']){

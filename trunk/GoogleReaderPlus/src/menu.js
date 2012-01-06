@@ -11,7 +11,7 @@ GRP.menu = function(prefs, langs, ID, SL, lang){
     var menu;
 	
     function createButtonMenu(entry){
-        var eactions = getFirstElementByClassName(entry, 'entry-actions');
+        var eactions = gfe(entry, 'entry-actions');
         var entries = get_id('entries'), vec = get_id('viewer-entries-container');
         var ent = entry;
         var el = dh(eactions, 'span', {
@@ -78,8 +78,8 @@ GRP.menu = function(prefs, langs, ID, SL, lang){
     function addJumpButtons(el, entry, mode){
         createButtonMenu(entry);
         /*
-         var favicon = getFirstElementByClassName(entry, 'entry-favicon');//div
-         var title = getFirstElementByClassName(entry, 'entry-source-title');//a
+         var favicon = gfe(entry, 'entry-favicon');//div
+         var title = gfe(entry, 'entry-source-title');//a
          if (title) {
          var e = document.createElement('span');
          e.className = 'section-menubutton section-button';
