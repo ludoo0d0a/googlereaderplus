@@ -32,6 +32,7 @@
 		"skin/osxblack.js","skin/player.js","skin/calibri.js","skin/webbizgeek.js",
 		"skin/sublimelight.js","skin/sublimedark.js","skin/redesigned.js",
 		"skin/glassblackgold.js","skin/nativecompact.js","skin/darkhelvetireader.js",
+		"hybrid.js",
 		"colorful.js","actions.js","relook.js",
 		"debug.js", "greaderplus.js"],
       "css": ["css/readerplus.css"]
