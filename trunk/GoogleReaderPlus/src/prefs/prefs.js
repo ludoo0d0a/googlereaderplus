@@ -341,3 +341,16 @@ function loadingPage(loaded){
 	var el = get_id('loading');
 	addClass(el, 'hidden', loaded);
 }
+
+function setnewbar(status){
+	chrome.extension.sendRequest({
+		message: "setnewbar",
+		status:status
+	}, function(data){
+		if (status){
+			info(getTextPrefs(lang, 'global', 'newbarok', 'en', "New bar set!"));
+		}else{
+			info(getTextPrefs(lang, 'global', 'oldbarok', 'en', "Old bar restored!"));
+		}
+	});
+}

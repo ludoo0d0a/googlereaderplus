@@ -67,12 +67,18 @@ function findtab(a, fn){
         }
     });
 }
+var reReaderTab = /^https?:\/\/\w+\.google\.\w+\/reader\//;
+function findtabreader(cb){
+	findtab({
+		search:reReaderTab
+	},cb);
+}
 
 function opentab(a){
     mycore.tabs.getSelected(null, function(tab){
 		var secure = (/^https/.test(tab.url));
 		var url = a.url;
-		if (secure && (/^https?:\w+\.google\.\w+\/reader\//.test(url))){
+		if (secure && (reReaderTab.test(url))){
 			url=url.replace(/^http/,'https');
 		}
 		var o = {

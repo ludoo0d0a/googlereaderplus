@@ -401,7 +401,7 @@ GRP.scripts = {
 	generallayout: {
 		category: 'layout',
 		name: "General layout",
-		status:'new',
+		status:'updated',
 		options:{
 			topcurrent: false,
 			//bottomup: false,
@@ -413,8 +413,16 @@ GRP.scripts = {
 			hideplus: false,
 			noborder:false,
 			floatbar:false,
-			newbar:false,
-			oldbar:false
+			newbar: {
+				xtype: 'html',
+				label: true,
+				value: '<input type="button" id="setnewbar_on" value="Set new bar" onclick="setnewbar(true);"/>'
+			},
+			oldbar: {
+				xtype: 'html',
+				label: true,
+				value: '<input type="button" id="setnewbar_off" value="Restore old bar" onclick="setnewbar(false);"/>'
+			}
 		}
 	},
 	compact: {

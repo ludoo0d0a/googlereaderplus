@@ -321,6 +321,36 @@ var mycore = {
         } else if (mycore.env.safari) {
             return 'safari-extension://';
         }
-    }
+    },
+    cookies:{
+    	get: function(o,cb){
+    		chrome.cookies.get(o,cb);
+    	},
+		getAll: function(o,cb){
+			chrome.cookies.getAll(o,cb);
+		},
+		//getAllCookieStores: function(){},
+		remove: function(o,cb){
+			chrome.cookies.remove(o,cb);
+		},
+		set: function(o,cb){
+			chrome.cookies.set(o,cb);
+		},
+		setCookie: function(name, value ,cb){
+			var o = {
+				url:window.location.origin,
+				name: name,
+				value: value
+			};
+			chrome.cookies.set(o,cb);
+		},
+		getCookie: function(name, cb){
+			var o = {
+				url:window.location.origin,
+				name: name
+			};
+			chrome.cookies.get(o,cb);
+		}
+	 }
 };
 
