@@ -1298,7 +1298,7 @@ GRP.scripts = {
 		category: 'theme'
 	},*/
 	coverflow:{
-		name: "Coverflow",
+		name: 'Coverflow',
 		category: 'navigation',
 		status:'updated',
 		options: {
@@ -1308,6 +1308,11 @@ GRP.scripts = {
 			/*sync:true,*/
 			/*footer:true,*/
 		}
+	},
+	hybrid:{
+		name: 'Hybrid mode',
+		category: 'layout',
+		status:'dev'
 	},
 	actions: {
 		name: "Actions icons",
