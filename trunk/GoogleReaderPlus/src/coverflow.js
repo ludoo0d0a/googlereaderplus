@@ -36,19 +36,26 @@ GRP.coverflow = function(prefs, langs, ID, SL, lang){
     	var imgs = entry.getElementsByTagName('img');
     	loadImages(imgs, function(imgok){
     		//All images are loaded
-    		var r={}, src=false;
     		if (imgok){
-    			src= findFirstImage(imgok, {width:80, height:50});
-    		}
-    		if (!src && !cfg.caption){
-    			src = DEFAULT_THUMBNAIL;
-    		}
-    		if (src){
-    			r.src = src;
+    			findImage({images:imgok, width:80, height:50}, function(img){
+    				doStuff(img && img.src);	
+    			});
     		}else{
-    			r.text = getEntryTitle(entry);
+    			doStuff(false);
     		}
-    		cb(entry, r);
+    		
+    		function doStuff(src){
+	    		var r={};
+	    		if (!src && !cfg.caption){
+	    			src = DEFAULT_THUMBNAIL;
+	    		}
+	    		if (src){
+	    			r.src = src;
+	    		}else{
+	    			r.text = getEntryTitle(entry);
+	    		}
+	    		cb(entry, r);
+    		}
     	});
     }
     

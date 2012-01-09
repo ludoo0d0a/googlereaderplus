@@ -11,6 +11,7 @@
 GRP.player = function(prefs, langs, ID, SL, lang){
     var taskcce,lastEntry,lastThumb;
 	var playerOn = true,itl = 0,entries = get_id('entries');
+	var DEFAULT_PIC = '/reader/ui/1327928375-explore-default-thumbnail.png';
 	
 	//Expanded mode ONLY
 	var mode = getMode();
@@ -350,31 +351,22 @@ GRP.player = function(prefs, langs, ID, SL, lang){
             }
             var link = getEntryLink(entry);
             var title = link.title || '';
-            var eb = gfe(entry, 'entry-body');
-            var img = '', images;
-			if (eb) {
-				images = eb.getElementsByTagName('img');
-				if (images && images[0]) {
-					img = findImage(images, 80, 30);
-				}
-			}
-            if (!img) {
-                img = '/reader/ui/1327928375-explore-default-thumbnail.png';
-            }
             var domain = getDomain(link.url);
-            var el = document.createElement('div');
-            el.className = 'tl-item';
-            el.id = 'tl-item-' + itl;
-            addClass(entry, 'tl-entry-' + itl);
-            ++itl;
-            var html = '<img class="tl-img" title="' + title + '" src="' + img + '" width="78" height="78"/><img src="http://s2.googleusercontent.com/s2/favicons?domain=' + domain + '" class="tl-ico" width="16" height="16"/>';
-            el.innerHTML = html;
-            el.addEventListener('click', function(e){
-                scrollNext();
-				selectThumb(entry, el);
+            findImage({el:entry}, function(img){
+            	var el = dh(timelineItems, 'div', {
+	            	id:'tl-item-' + itl,
+	            	cls:'tl-item',
+	            	html: ('<img class="tl-img" title="' + title + '" src="' + ((img && img.src) || DEFAULT_PIC) + '" width="78" height="78"/><img src="http://s2.googleusercontent.com/s2/favicons?domain=' + domain + '" class="tl-ico" width="16" height="16"/>')
+	            }, {
+	            	click:function(e){
+		                scrollNext();
+						selectThumb(entry, el);
+		        	}
+		        });
+	            addClass(entry, 'tl-entry-' + itl);
+	            ++itl;
+	            addClass(entry, 'tl-marked');
             });
-            timelineItems.appendChild(el);
-            addClass(entry, 'tl-marked');
         }, this);
     }
     

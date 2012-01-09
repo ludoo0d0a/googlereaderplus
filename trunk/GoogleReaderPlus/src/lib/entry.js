@@ -1236,3 +1236,11 @@ function showSplash(msg, tim, defer){
 		}
 	},defer||5000);
 }
+
+function getEntryPosition(entry){
+	var index=false, m = /entry-(\d+)/.exec(entry.className || '');
+    if (m && m[1]) {
+		index = parseInt(m[1], 10);
+	}
+	return index;
+}

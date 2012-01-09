@@ -36,10 +36,11 @@ function _addClass(el, clazz, checked){
     if (el && clazz) {
 		//TODO: use el.classList
 		//el.className = (el.className || '') + ' ' + clazz;
-		if (!el.classList){
-			el.classList={};
+		if (el.classList){
+			el.classList.add(clazz);
+		}else{
+			el.className=clazz;
 		}
-		el.classList.add(clazz);
     }
 }
 
@@ -1913,27 +1914,37 @@ function loadImages(items, cb){
 	}
 }
 
-function findImage(images, width, minWidth, useFirstAnyway){
-    var src = false, len = images.length;
-    for (var i = 0; i < len; i++) {
-        if (images[i].naturalWidth >= width) {
-            if (!minWidth || (minWidth && images[i].naturalWidth >= minWidth)) {
-                src = images[i].src;
-                break;
-            }
-        }
+function findImage(o, cb){
+    o = o||{};
+    images=o.images;
+    //width, minWidth, useFirstAnyway
+    if (o.el && !o.images){
+    	var eb = gfe(o.el, 'entry-body') || o.el;
+    	images = eb.getElementsByTagName('img');
     }
-    if (!src && useFirstAnyway && len>=0){
-    	if (images[0].naturalWidth>0){
-    		src=images[0].src;
-    	}
+    var img=false, len=(images && images.length);
+    if (len>0) {
+	    o.width=o.width||30;
+	    for (var i = 0; i < len; i++) {
+	            if (!o.width || ((images[i].naturalWidth >= o.width) || (images[i].width >= o.width))) {
+	                if (!o.height || (images[i].naturalHeight >= o.height || images[i].height >= o.height)) {
+		                img=images[i];
+		                break;
+	                }
+	            }
+	    }
+	    if (!img && o.useFirstAnyway && len>=0){
+	    	if (images[0].naturalWidth>0){
+	    		img=images[0];
+	    	}
+	    }
     }
-    return src;
+    cb(img);
 }
 
-function findFirstImage(images, cfg){
+function findFirstImage(images, o){
     var src = false, len = images.length;
-    cfg=cfg||{};
+    o=o||{};
     for (var i = 0; i < len; i++) {
         if (images[i].naturalWidth >= cfg.width) {
         	if (images[i].naturalHeight >= cfg.height) {
@@ -1942,7 +1953,7 @@ function findFirstImage(images, cfg){
             }
         }
     }
-    if (!src && cfg.useFirstAnyway && len>=0){
+    if (!src && o.useFirstAnyway && len>=0){
     	if (images[0].naturalWidth>0){
     		src=images[0].src;
     	}
