@@ -1,196 +1,202 @@
 //var READING_LIST_RE_ = new RegExp('user/[\\d]+/state/com\\.google/reading-list');
 var reReader = {
-    reading: /user\/[\d]+\/state\/com\.google\/reading\-list/,
-    search: /https?\:\/\/www.google.com\/reader\/view\//,
-    url: 'http://www.google.com/reader/view/'
+	reading : /user\/[\d]+\/state\/com\.google\/reading\-list/,
+	search : /https?\:\/\/www.google.com\/reader\/view\//,
+	url : 'http://www.google.com/reader/view/'
 };
 mycore.env.background = true;
 mycore.extension.onRequest.addListener(onMessageReceived);
-mycore.extension.onRequestExternal.addListener(function(request, sender, sendResponse){
-    if (request.keypass === "##ReaderPlusIcon") {
-        console.log('CORE onRequestExternal id=' + sender.id + ' ' + request.message);
-        onMessageReceived(request, false, sendResponse);
-        //GUID_ICON = sender.id;
-    }
+mycore.extension.onRequestExternal.addListener(function(request, sender, sendResponse) {
+	if(request.keypass === "##ReaderPlusIcon") {
+		console.log('CORE onRequestExternal id=' + sender.id + ' ' + request.message);
+		onMessageReceived(request, false, sendResponse);
+		//GUID_ICON = sender.id;
+	}
 });
-
-function activePageAction(mprefs){
-    //Selective tab for page icon
-    chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
-        if (reReader.search.test(tab.url)) {
-            var prefs = mprefs || getPrefs();
-            var active = (prefs && prefs.general_pageicon);
-            if (active) {
-                chrome.pageAction.show(tabId);
-                chrome.pageAction.setPopup({
-                    tabId: tabId,
-                    popup: 'menu.html'
-                });
-                /*chrome.pageAction.onClicked.addListener(function(tab){ });*/
-            } else {
-                chrome.pageAction.hide(tabId);
-            }
-        }
-    });
+function activePageAction(mprefs) {
+	//Selective tab for page icon
+	chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+		if(reReader.search.test(tab.url)) {
+			var prefs = mprefs || getPrefs();
+			var active = (prefs && prefs.general_pageicon);
+			if(active) {
+				chrome.pageAction.show(tabId);
+				chrome.pageAction.setPopup({
+					tabId : tabId,
+					popup : 'menu.html'
+				});
+				/*chrome.pageAction.onClicked.addListener(function(tab){ });*/
+			} else {
+				chrome.pageAction.hide(tabId);
+			}
+		}
+	});
 }
 
-function runOnSave(mprefs){
-    var prefs = mprefs || getPrefs();
-    //var rc = prefs._replacer_changed;
-    delete prefs._replacer_changed;
-    monitorIcon(prefs);
-    sendPrefsToIcon(prefs);
-    activePageAction(prefs);
-    //sure we changed replacer items and click save
-    /*if (mprefs && rc) {
-        sendReplacerToCloud(prefs);
-    }*/
+function runOnSave(mprefs) {
+	var prefs = mprefs || getPrefs();
+	//var rc = prefs._replacer_changed;
+	delete prefs._replacer_changed;
+	monitorIcon(prefs);
+	sendPrefsToIcon(prefs);
+	activePageAction(prefs);
+	//sure we changed replacer items and click save
+	/*if (mprefs && rc) {
+	 sendReplacerToCloud(prefs);
+	 }*/
 }
 
 runOnSave();
 
 //request, sender, callback
-function onMessageReceived(a, p, cb){
-    if (a.message == "track") {
-        track(a);
-    } else if (a.message == "loadicons") {
-        loadIcons(a, cb);
-    } else if (a.message == "setprefs") {
-        setPreferences(a);
-        sendNull(cb);
-    } else if (a.message == "get") {
-        getValue(a, cb);
-    } else if (a.message == "set") {
-        setValue(a, cb);
-    } else if (a.message == "remove") {
-        removeValue(a, cb);
-    } else if (a.message == "removeitem") {
-        removeItem(a,cb);
-    }  else if (a.message == "getprefs") {
-        getPreferences(a, cb);
-    } else if (a.message == "openprefs") {
-        opentab({
-            url: "preferences.html"
-        });
-        sendNull(cb);
-    } else if (a.message == "opentab") {
-        open_tab(a);
-        sendNull(cb);
-    } else if (a.message == "findreader") {
-        findreader(true, true, a.reload||false );
-        sendNull(cb);
-    } else if (a.message == "geticon") {
-        extractFavicon(a, cb);
-    } else if (a.message == "iconcounter") {
-        monitorIcon();
-    } else if (a.message == "request") {
-        request(a, false, cb);
-    } else if (a.message == "window") {
-        openwindow(a, cb);
-    } else if (a.message == "igtheme") {
-        igtheme(a, cb);
-    } else if (a.message == "translate") {
-        translate(a, cb);
-    } else if (a.message == "clouddata") {
-        getCloudData(a, cb);
-    } else if (a.message == "exported") {
-        exportitems(a);
-    }else if (a.message == "micro") {
-        micro(a,cb);
-    }else if (a.message == "syncload") {
-        syncload(a,cb);
-    }else if (a.message == "syncsave") {
-        syncsave(a,cb);
-    }else if (a.message == "blogger") {
-        postblogger(a,cb);
-    }else if (a.message == "popupblogger") {
-        popupBlogger(a,cb);
-    }else if (a.message == "savecloud") {
-        if (a.db === "replacer_items") {
+function onMessageReceived(a, p, cb) {
+	if(a.message == "track") {
+		track(a);
+	} else if(a.message == "loadicons") {
+		loadIcons(a, cb);
+	} else if(a.message == "setprefs") {
+		setPreferences(a);
+		sendNull(cb);
+	} else if(a.message == "get") {
+		getValue(a, cb);
+	} else if(a.message == "set") {
+		setValue(a, cb);
+	} else if(a.message == "remove") {
+		removeValue(a, cb);
+	} else if(a.message == "removeitem") {
+		removeItem(a, cb);
+	} else if(a.message == "getprefs") {
+		getPreferences(a, cb);
+	} else if(a.message == "openprefs") {
+		opentab({
+			url : "preferences.html"
+		});
+		sendNull(cb);
+	} else if(a.message == "opentab") {
+		open_tab(a);
+		sendNull(cb);
+	} else if(a.message == "findreader") {
+		findreader(true, true, a.reload || false);
+		sendNull(cb);
+	} else if(a.message == "geticon") {
+		extractFavicon(a, cb);
+	} else if(a.message == "iconcounter") {
+		monitorIcon();
+	} else if(a.message == "request") {
+		request(a, false, cb);
+	} else if(a.message == "window") {
+		openwindow(a, cb);
+	} else if(a.message == "igtheme") {
+		igtheme(a, cb);
+	} else if(a.message == "translate") {
+		translate(a, cb);
+	} else if(a.message == "clouddata") {
+		getCloudData(a, cb);
+	} else if(a.message == "exported") {
+		exportitems(a);
+	} else if(a.message == "micro") {
+		micro(a, cb);
+	} else if(a.message == "syncload") {
+		syncload(a, cb);
+	} else if(a.message == "syncsave") {
+		syncsave(a, cb);
+	} else if(a.message == "blogger") {
+		postblogger(a, cb);
+	} else if(a.message == "popupblogger") {
+		popupBlogger(a, cb);
+	} else if(a.message == "savecloud") {
+		if(a.db === "replacer_items") {
 			sendReplacerToCloud();
 		}
-    }else if (a.message == "rank") {
-        getRank(a,cb);
-    }else if (a.message == "setcookie") {
-        setCookies(a,cb);
-    }else if (a.message == "parseless") {
-        parseLess(a,cb);
-    }else if (a.message == "clearcache") {
-        clearBgCache(a,cb);
-    }else if (a.message == "firstpack") {
-        setFirstPackage(a,cb);
-    }
+	} else if(a.message == "rank") {
+		getRank(a, cb);
+	} else if(a.message == "setcookie") {
+		setCookies(a, cb);
+	} else if(a.message == "parseless") {
+		parseLess(a, cb);
+	} else if(a.message == "clearcache") {
+		clearBgCache(a, cb);
+	} else if(a.message == "firstpack") {
+		setFirstPackage(a, cb);
+	} else if(a.message == "setcookie") {
+		delete a.message;
+		mycore.cookies.set(a, cb);
+	} else if(a.message == "getcookie") {
+		delete a.message;
+		mycore.cookies.get(a, cb);
+	} else if(a.message == "setnewbar") {
+		setnewbar(a, cb);
+	}
 }
 
-	
-function exportitems(a){
-    openNewPage(a, 'export');
+function exportitems(a) {
+	openNewPage(a, 'export');
 }
 
 var mappers = {
-    def: function(item){
-        return {
-            name: item.name,
-            resource_url: item.resource_url,
-            values: item.data,//to remove ?
-			data: item.data
-        };
-    }
-    /*Replacer: function(item){
-     return {
-     name: item.name,
-     resource_url: item.resource_url,
-     title: item.name,
-     url: item.data.url,
-     search: item.data.xpath,
-     replace: item.data.replace
-     };
-     },
-     LDRFullFeed: function(item){
-     return {
-     name: item.name,
-     resource_url: item.resource_url,
-     values: {
-     title: item.name,
-     url: item.data.url,
-     search: 'xpath:' + item.data.xpath,
-     replace: "$1"
-     }
-     };
-     }*/
+	def : function(item) {
+		return {
+			name : item.name,
+			resource_url : item.resource_url,
+			values : item.data, //to remove ?
+			data : item.data
+		};
+	}
+	/*Replacer: function(item){
+	 return {
+	 name: item.name,
+	 resource_url: item.resource_url,
+	 title: item.name,
+	 url: item.data.url,
+	 search: item.data.xpath,
+	 replace: item.data.replace
+	 };
+	 },
+	 LDRFullFeed: function(item){
+	 return {
+	 name: item.name,
+	 resource_url: item.resource_url,
+	 values: {
+	 title: item.name,
+	 url: item.data.url,
+	 search: 'xpath:' + item.data.xpath,
+	 replace: "$1"
+	 }
+	 };
+	 }*/
 };
 
-var CLOUD = {}; 
-function fixCloudItem(item, o,r,a){
-	if (o){
+var CLOUD = {};
+function fixCloudItem(item, o, r, a) {
+	if(o) {
 		//remove doublon
 		item.id = getIdFromResourceUrl(item);
-		if (item.id) {
+		if(item.id) {
 			var key = item.data[a.key];
 			//url,search,replace
-			var canRemove=a.okremove, b = false;
-			if (a.keycomp){
+			var canRemove = a.okremove, b = false;
+			if(a.keycomp) {
 				//key compare only
-				b = (key==o.data[a.key]);
-			}else{
+				b = (key == o.data[a.key]);
+			} else {
 				//Complete compare
-				b = (compareObject(item.data, o.data));				
+				b = (compareObject(item.data, o.data));
 			}
-			
-			if (b) {
+
+			if(b) {
 				//CLOUD.counts.d[key] = (CLOUD.counts.d[key] || 0) + 1;
 				CLOUD.counts.v[key] = CLOUD.counts.v[key] || [o];
 				CLOUD.counts.v[key].push(item);
-				
-				if (!a.fixfilter || (a.fixfilter && new RegExp(a.fixfilter,'i').test(key))){
+
+				if(!a.fixfilter || (a.fixfilter && new RegExp(a.fixfilter, 'i').test(key))) {
 					CLOUD.counts.doublons++;
-					if (canRemove && CLOUD.counts.doublons < 100) {
-						console.log(CLOUD.counts.doublons+' {'+a.fixfilter+'} : remove '+item.id+ ' - ' + key);
+					if(canRemove && CLOUD.counts.doublons < 100) {
+						console.log(CLOUD.counts.doublons + ' {' + a.fixfilter + '} : remove ' + item.id + ' - ' + key);
 						//console.log(item);
-						r.item.remove(item, function(){
+						r.item.remove(item, function() {
 							CLOUD.counts.done++;
-							console.log('************ '+CLOUD.counts.done +'/'+ CLOUD.counts.doublons);
-							if (CLOUD.counts.done === CLOUD.counts.doublons) {
+							console.log('************ ' + CLOUD.counts.done + '/' + CLOUD.counts.doublons);
+							if(CLOUD.counts.done === CLOUD.counts.doublons) {
 								console.log('************ All remove completed');
 							}
 						});
@@ -198,7 +204,7 @@ function fixCloudItem(item, o,r,a){
 				}
 			} else {
 				CLOUD.counts.keydoublons++;
-				
+
 				CLOUD.counts.kv[key] = CLOUD.counts.kv[key] || [o];
 				CLOUD.counts.kv[key].push(item);
 			}
@@ -206,39 +212,45 @@ function fixCloudItem(item, o,r,a){
 	}
 }
 
-function getCloudData(a, cb, mapper){
-	var mirror=!a.direct;
-	if (a.fix){
+function getCloudData(a, cb, mapper) {
+	var mirror = !a.direct;
+	if(a.fix) {
 		//If fix no mirror, direct access
-		mirror=false;
+		mirror = false;
 	}
 	var r = new GRP.api_rest(a.name, true, mirror);
-	
+
 	//Load wedata cloud data
-	r.item.getAll({}, function(items, success){
+	r.item.getAll({}, function(items, success) {
 		var selectors = {};
-		if (success) {
-			if (a.fix){
-				CLOUD.counts={doublons:0,keydoublons:0,done:0,d:{},v:{},kv:{}};
+		if(success) {
+			if(a.fix) {
+				CLOUD.counts = {
+					doublons : 0,
+					keydoublons : 0,
+					done : 0,
+					d : {},
+					v : {},
+					kv : {}
+				};
 			}
 			//cache value
-            var i = 0,f = mappers[a.name] || mappers.def;
-            foreach(items, function(item){
-                if (a.fix && selectors[item.name]){
+			var i = 0, f = mappers[a.name] || mappers.def;
+			foreach(items, function(item) {
+				if(a.fix && selectors[item.name]) {
 					//Remove this one
-					fixCloudItem(item, selectors[item.name],r,a);
+					fixCloudItem(item, selectors[item.name], r, a);
 				}
 				selectors[item.name] = f(item);
-                i++;
-            });
-			
-			if (a.fix) {
+				i++;
+			});
+			if(a.fix) {
 				console.log('total=' + items.length);
 				console.log('doublons=' + CLOUD.counts.doublons);
 				//console.log(CLOUD.counts.d);
 				console.log(CLOUD.counts.v);
-				console.log('keydoublons[/'+a.key+']=' + CLOUD.counts.keydoublons);
-				console.log(CLOUD.counts.kv);		
+				console.log('keydoublons[/' + a.key + ']=' + CLOUD.counts.keydoublons);
+				console.log(CLOUD.counts.kv);
 				sendResponse(CLOUD.counts, cb);
 			} else {
 				//store it now as cache (needs timestamp)
@@ -246,59 +258,61 @@ function getCloudData(a, cb, mapper){
 				console.log('Store Cloud DB ' + a.name + ' : ' + i + ' items');
 				sendResponse(selectors, cb);
 			}
-        }
-        //sendResponse(selectors, cb);
-    });
-	
+		}
+		//sendResponse(selectors, cb);
+	});
 }
 
-function sendReplacerToCloud(mprefs){
-    var prefs = mprefs || getPrefs();
-	if (!prefs.replacer_cloud || !prefs._replacer_changed){
+function sendReplacerToCloud(mprefs) {
+	var prefs = mprefs || getPrefs();
+	if(!prefs.replacer_cloud || !prefs._replacer_changed) {
 		//abort
 		alert('No changes found or cloud saving disabled');
 		return;
 	}
 
 	console.log('sendReplacerToCloud items...');
-    var r = new GRP.api_rest('Replacer', true);
-    //Chek against real data before
-    /*if (allGotIds(prefs.replacer_items)) {
-		sendReplacerToCloud2(r, prefs);
-	} else {*/
-		getCloudData({
-			name: 'Replacer',
-			direct: true //no mirror
-		}, function(items){
-			sendReplacerToCloud2(r, prefs, items);
-		});
+	var r = new GRP.api_rest('Replacer', true);
+	//Chek against real data before
+	/*if (allGotIds(prefs.replacer_items)) {
+	 sendReplacerToCloud2(r, prefs);
+	 } else {*/
+	getCloudData({
+		name : 'Replacer',
+		direct : true //no mirror
+	}, function(items) {
+		sendReplacerToCloud2(r, prefs, items);
+	});
 	//}
 }
-function sendReplacerToCloud2(r, prefs, cloud_items){
-	iterate(prefs.replacer_items, function(id, o){
-		var ci = cloud_items?cloud_items[id]:false;
+
+function sendReplacerToCloud2(r, prefs, cloud_items) {
+	iterate(prefs.replacer_items, function(id, o) {
+		var ci = cloud_items ? cloud_items[id] : false;
 		console.log('createOrUpdate');
 		r.item.createOrUpdate(ci, {
-			name: id,
-			values: o
-		}, function(xhr, status, a){
-			updateReplacerId(prefs, a,id);
-		} , function(xhr, a){
+			name : id,
+			values : o
+		}, function(xhr, status, a) {
+			updateReplacerId(prefs, a, id);
+		}, function(xhr, a) {
 			//updateReplacerId(prefs, a,id);
-		} , cloud_items);
+		}, cloud_items);
 	});
 }
-function allGotIds(items){
-	var r = iterate(items, function(id, o){
-		if (!o.id){
+
+function allGotIds(items) {
+	var r = iterate(items, function(id, o) {
+		if(!o.id) {
 			return false;
 		}
 	});
 	return !r;
 }
-function updateReplacerId(prefs, a, id){
+
+function updateReplacerId(prefs, a, id) {
 	//update id
-	if (prefs && a && a.id) {
+	if(prefs && a && a.id) {
 		//o.id = a.id;
 		prefs.replacer_items[id].id = a.id;
 		//save
@@ -310,364 +324,417 @@ function updateReplacerId(prefs, a, id){
  * Icon monitor for unreead count
  */
 var monitorId;
-function monitorIcon(mprefs){
-    if (monitorId) {
-        window.clearInterval(monitorId);
-    }
+function monitorIcon(mprefs) {
+	if(monitorId) {
+		window.clearInterval(monitorId);
+	}
 	//Check if button is installed
-	call_icon('version', {}, function(o){
-        //
-		if (o){
+	call_icon('version', {}, function(o) {
+		//
+		if(o) {
 			//OK
 			_monitorIcon(mprefs);
 		}
-    });
+	});
 }
 
-function _monitorIcon(mprefs){
-    var prefs = mprefs || getPrefs();
-	
-	var t = 5*60000;//5 min
-	if (prefs && prefs.general_counterinterval) {
+function _monitorIcon(mprefs) {
+	var prefs = mprefs || getPrefs();
+
+	var t = 5 * 60000;
+	//5 min
+	if(prefs && prefs.general_counterinterval) {
 		t = prefs.general_counterinterval * 60000;
 	}
-	t=Math.max(60000, t);
-    if (prefs && prefs.general_counter) {
+	t = Math.max(60000, t);
+	if(prefs && prefs.general_counter) {
 		getUnreadCount();
-        monitorId = window.setInterval(function(){
-            getUnreadCount();
-        }, t);
+		monitorId = window.setInterval(function() {
+			getUnreadCount();
+		}, t);
 		//TODO : change setInterval with a conditional(using lastTabReader) setTimeout
 		/*if (lastTabReader){
-			//Tab is open, fast refresh
-			t = 5000; //5s
-		}
-		window.setTimeout(function(){
-            getUnreadCount();
-			_monitorIcon(mprefs);
-        }, t);*/
-    }
+		 //Tab is open, fast refresh
+		 t = 5000; //5s
+		 }
+		 window.setTimeout(function(){
+		 getUnreadCount();
+		 _monitorIcon(mprefs);
+		 }, t);*/
+	}
 }
 
-function sendPrefsToIcon(mprefs){
-    var prefs = mprefs || getPrefs();
-    var iconprefs = {
-        opendirect: prefs.general_opendirect || false
-    };
-    call_icon('prefs', {
-        prefs: iconprefs
-    }, function(){
-        //
-    });
+function sendPrefsToIcon(mprefs) {
+	var prefs = mprefs || getPrefs();
+	var iconprefs = {
+		opendirect : prefs.general_opendirect || false
+	};
+	call_icon('prefs', {
+		prefs : iconprefs
+	}, function() {
+		//
+	});
 }
 
 var lastText, lastLogged;
-function updateIcon(logged, text){
-    var refresh = ((!lastLogged || logged !== lastLogged) && (!lastText || text !== lastText));
-    refresh = true;
-    if (refresh) {
-        var a = {
-            logged: logged,
-            text: text
-        };
-        call_icon('updateicon', a);
-        lastLogged = logged;
-        lastText = text;
-    }
+function updateIcon(logged, text) {
+	var refresh = ((!lastLogged || logged !== lastLogged) && (!lastText || text !== lastText));
+	refresh = true;
+	if(refresh) {
+		var a = {
+			logged : logged,
+			text : text
+		};
+		call_icon('updateicon', a);
+		lastLogged = logged;
+		lastText = text;
+	}
 }
-
 
 monitorCloseTab();
 
-function getUnreadCount(cb){
-    if (lastTabReader) {
-        updateFromTabtitle(lastTabReader);
-    } else {
-        findreader(false, false, false, function(tab){
-            if (tab) {
-                lastTabReader = tab;
-                //From tab title
-                updateFromTabtitle(tab);
-            } else {
-                //from xhr (1000+ limitations)
-                request({
-                    url: 'http://www.google.com/reader/api/0/unread-count?output=json&client=readerplus&refresh=true',
-                    onload: function(xhr){
-                        if (xhr.status == 200) {
-                            var count = parseUnread(xhr.responseText);
-                            var text;
-                            if (lastText && count == 1000) {
-                                //Let the last text since tab wereclosed and xhr cannot tell us more info on count
-                                text = lastText;
-                            } else {
-                                text = formatUnread(count);
-                            }
-                            updateIcon(true, text);
-                        } else {
-                            updateIcon(false, '');
-                        }
-                    },
-                    onerror: function(o){
-                        updateIcon(false, '');
-                        if (cb) {
-                            cb(false);
-                        }
-                    }
-                }, true);
-            }
-        });
-    }
-}
-
-function formatUnread(count){
-    if (!count) {
-        return '';
-    }
-    var text = '' + count;
-    if (text.length > 4 && text.lenth < 6) {
-        text = text.substring(0, text.length - 3) + "k";
-    } else if (count.lenth >= 6) {
-        text = ">1M";
-    }
-    return text;
-}
-
-function updateFromTabtitle(tab, cb){
-    var count = parseTabtitle(tab, function(count){
-        var text = formatUnread(count);
-        updateIcon(true, text);
-    });
-}
-
-function parseTabtitle(tb, cb){
-    //Needs update data 
-    mycore.tabs.get(tb.id, function(tab){
-        var checkurl = /^https?:\/\/www\.google\.com\/reader\/view/.test(tab.url);
-        if (checkurl) {
-            var m = /\((\d+)\+?\)/.exec(tab.title);
-            var text = (m) ? m[1] : '0';
-            cb.call(this, text);
-        } else {
-            tb = false;
-        }
-    });
-}
-
-function parseUnread(json){
-    var o = JSON.parse(json);
-    for (var i = 0, len = o.unreadcounts.length; i < len; i++) {
-        var f = o.unreadcounts[i];
-        if (reReader.reading.test(f.id)) {
-            count = f.count;
-            continue;
-        }
-    }
-    return count;
-}
-
-function findreader(selected, create, reload, fn){
-    selecttab(reReader, selected, create, reload, fn);
-}
-
-function openwindow(a, cb){
-    delete a.message;
-    chrome.windows.create(a, cb);
-}
-
-function igtheme(o, cb){
-    if (o.type === 'random') {
-        //random theme
-        getRandomTheme(o.current, function(entry){
-            prefs = getPrefs();
-            prefs.ig_skin_name = entry.title;
-            prefs.ig_skin_id = entry.skin_id;
-            prefs.ig_skin_url = entry.link;
-            setPrefs(prefs);
-            cb(entry);
-        }, true);
-    }
-}
-var translator=false;
-function translate(o, cb){
-    var init = (!translator);
-    translator=translator||new GRP.lang.Translate();
-	
-	function gotrans(){
-        translator.translate(o.text, '', o.to, function(para, translation){
-           //
-        }, function(translation){
-        	if (translation){
-	        	cb({translation:translation});
-        	}else{
-        		cb({error:'error'});
-        	}
-        });
+function getUnreadCount(cb) {
+	if(lastTabReader) {
+		updateFromTabtitle(lastTabReader);
+	} else {
+		findreader(false, false, false, function(tab) {
+			if(tab) {
+				lastTabReader = tab;
+				//From tab title
+				updateFromTabtitle(tab);
+			} else {
+				//from xhr (1000+ limitations)
+				request({
+					url : 'http://www.google.com/reader/api/0/unread-count?output=json&client=readerplus&refresh=true',
+					onload : function(xhr) {
+						if(xhr.status == 200) {
+							var count = parseUnread(xhr.responseText);
+							var text;
+							if(lastText && count == 1000) {
+								//Let the last text since tab wereclosed and xhr cannot tell us more info on count
+								text = lastText;
+							} else {
+								text = formatUnread(count);
+							}
+							updateIcon(true, text);
+						} else {
+							updateIcon(false, '');
+						}
+					},
+					onerror : function(o) {
+						updateIcon(false, '');
+						if(cb) {
+							cb(false);
+						}
+					}
+				}, true);
+			}
+		});
 	}
-	
-	translator.onReady(function(translator){
+}
+
+function formatUnread(count) {
+	if(!count) {
+		return '';
+	}
+	var text = '' + count;
+	if(text.length > 4 && text.lenth < 6) {
+		text = text.substring(0, text.length - 3) + "k";
+	} else if(count.lenth >= 6) {
+		text = ">1M";
+	}
+	return text;
+}
+
+function updateFromTabtitle(tab, cb) {
+	var count = parseTabtitle(tab, function(count) {
+		var text = formatUnread(count);
+		updateIcon(true, text);
+	});
+}
+
+function parseTabtitle(tb, cb) {
+	//Needs update data
+	mycore.tabs.get(tb.id, function(tab) {
+		var checkurl = /^https?:\/\/www\.google\.com\/reader\/view/.test(tab.url);
+		if(checkurl) {
+			var m = /\((\d+)\+?\)/.exec(tab.title);
+			var text = (m) ? m[1] : '0';
+			cb.call(this, text);
+		} else {
+			tb = false;
+		}
+	});
+}
+
+function parseUnread(json) {
+	var o = JSON.parse(json);
+	for(var i = 0, len = o.unreadcounts.length; i < len; i++) {
+		var f = o.unreadcounts[i];
+		if(reReader.reading.test(f.id)) {
+			count = f.count;
+			continue;
+		}
+	}
+	return count;
+}
+
+function findreader(selected, create, reload, fn) {
+	selecttab(reReader, selected, create, reload, fn);
+}
+
+function openwindow(a, cb) {
+	delete a.message;
+	chrome.windows.create(a, cb);
+}
+
+function igtheme(o, cb) {
+	if(o.type === 'random') {
+		//random theme
+		getRandomTheme(o.current, function(entry) {
+			prefs = getPrefs();
+			prefs.ig_skin_name = entry.title;
+			prefs.ig_skin_id = entry.skin_id;
+			prefs.ig_skin_url = entry.link;
+			setPrefs(prefs);
+			cb(entry);
+		}, true);
+	}
+}
+
+var translator = false;
+function translate(o, cb) {
+	var init = (!translator);
+	translator = translator || new GRP.lang.Translate();
+
+	function gotrans() {
+		translator.translate(o.text, '', o.to, function(para, translation) {
+			//
+		}, function(translation) {
+			if(translation) {
+				cb({
+					translation : translation
+				});
+			} else {
+				cb({
+					error : 'error'
+				});
+			}
+		});
+	}
+
+
+	translator.onReady(function(translator) {
 		gotrans()
 	}, this);
 }
-function changecategory(id, from, to, prefs){
-	if (typeof prefs[id+'_'+from] !== 'undefined'){
-		prefs[id+'_'+to]=prefs[id+'_'+from];
-		if (prefs[id+'_'+to]){
+
+function changecategory(id, from, to, prefs) {
+	if( typeof prefs[id + '_' + from] !== 'undefined') {
+		prefs[id + '_' + to] = prefs[id + '_' + from];
+		if(prefs[id + '_' + to]) {
 			//Activate category if true
-			prefs[id]=true;
+			prefs[id] = true;
 		}
-		delete prefs[id+'_'+from];
+		delete prefs[id + '_' + from];
 	}
 }
 
-function getRank(a,cb){
+function getRank(a, cb) {
 	request({
-		url:'http://api.postrank.com/v1/postrank',
-		method:'post',
-		dataType: 'json',
-		data:{url:a.urls},
-		parameters: {appkey: 'b'+(58*7+3)+'bd44ae20129dac245'+(2056*8)+'fecb6d'},
-		onload:function(o){
-			sendResponse(o.responseJson||{},cb);
+		url : 'http://api.postrank.com/v1/postrank',
+		method : 'post',
+		dataType : 'json',
+		data : {
+			url : a.urls
+		},
+		parameters : {
+			appkey : 'b' + (58 * 7 + 3) + 'bd44ae20129dac245' + (2056 * 8) + 'fecb6d'
+		},
+		onload : function(o) {
+			sendResponse(o.responseJson || {}, cb);
 		}
-	},true);
+	}, true);
 }
 
-function setCookies(a,cb){
-	if (a.cookies) {
-		foreach(a.cookies,function(o){
+function setCookies(a, cb) {
+	if(a.cookies) {
+		foreach(a.cookies, function(o) {
 			setCookie(o.name, o.value);
 		});
-	}else if (a.name){
+	} else if(a.name) {
 		setCookie(a.name, a.value);
 	}
 }
 
-function checkfile(url, cb){
-	if (!url){
+function checkfile(url, cb) {
+	if(!url) {
 		cb(false, false);
 		return;
 	}
 	request({
-		url: url,
-		onload: function(r){
-			if (cb){
+		url : url,
+		onload : function(r) {
+			if(cb) {
 				cb(r, (r.status >= 200 && r.status <= 299));
 			}
 		},
-		onerror: function(r){
-			if (cb){
+		onerror : function(r) {
+			if(cb) {
 				cb(r, false);
 			}
 		}
 	}, true);
 }
 
-function parseLess(a,cb){
-	function varsToText(vars){
-		if (!vars){
+function parseLess(a, cb) {
+	function varsToText(vars) {
+		if(!vars) {
 			return '';
 		}
 		var css = [];
-		iterate(vars, function(i,v){
-			if (!/\./.test(i)){
-				css.push('@'+i+':'+v+';\n');
+		iterate(vars, function(i, v) {
+			if(!/\./.test(i)) {
+				css.push('@' + i + ':' + v + ';\n');
 			}
 		});
 		return css.join('');
 	}
-	function filterVars(vars){
+
+	function filterVars(vars) {
 		var o = {};
-		iterate(vars, function(i,v){
-			if (!/\./.test(i)){
-				o[i]=v;
+		iterate(vars, function(i, v) {
+			if(!/\./.test(i)) {
+				o[i] = v;
 			}
 		});
 		return o;
 	}
+
 	//Method1: As array variables (buggy ?)
 	//var vars = filterVars(a.vars);
 	//var intro = '';
-	
+
 	//Method2: As prefixed CSS variables
 	var vars = false;
 	var intro = varsToText(a.vars);
 	//console.log(vars);
 	//console.log(intro);
-	
-	var input = intro + (a.input||'');
-	var parser = new(less.Parser);
-	parser.parse(input, function (err, tree) {
-	    var o = {};
-	    if (err) { 
-	    	console.error(err);
-	    	o.err=err;
-	    }else{
-	    	o.css=tree.toCSS(
-	    		{ compress: a.compress||false },
-	    		vars
-	    	);
-	    }
-	    cb(o);
+
+	var input = intro + (a.input || '');
+	var parser = new (less.Parser);
+	parser.parse(input, function(err, tree) {
+		var o = {};
+		if(err) {
+			console.error(err);
+			o.err = err;
+		} else {
+			o.css = tree.toCSS({
+				compress : a.compress || false
+			}, vars);
+		}
+		cb(o);
 	});
 }
 
 //+favicons_providerpageicons
-function upgrade(v){
-    var prefs = getPrefs();
-    if (v) {
-        /*if (prefs.favicons) {
-         prefs.favicons_providerpageicons = true;
-         }*/
-        if (isundef(prefs.general_stats)) {
-            prefs.general_stats = true;
-        }
-        if (isundef(prefs.general_pageicon)) {
-            prefs.general_pageicon = true;
-        }
-        //Move from general to generallayout
-        changecategory('topcurrent', 'general', 'generallayout', prefs);
-        changecategory('bottomup', 'general', 'generallayout', prefs);
-        changecategory('currdir', 'general', 'generallayout', prefs);
-        changecategory('floatactions', 'general', 'generallayout', prefs);
-        changecategory('icons', 'general', 'generallayout', prefs);
-        changecategory('hidetoolbar', 'general', 'generallayout', prefs);
-        changecategory('hideplus', 'general', 'generallayout', prefs);
-        changecategory('noborder', 'theme', 'generallayout', prefs);
-        
-        setPrefs(prefs);
-    }/*else{
-    	//first package start
-    	setFirstPackage();
-    }*/
+function upgrade(v) {
+	var prefs = getPrefs();
+	if(v) {
+		/*if (prefs.favicons) {
+		 prefs.favicons_providerpageicons = true;
+		 }*/
+		if(isundef(prefs.general_stats)) {
+			prefs.general_stats = true;
+		}
+		if(isundef(prefs.general_pageicon)) {
+			prefs.general_pageicon = true;
+		}
+		//Move from general to generallayout
+		changecategory('topcurrent', 'general', 'generallayout', prefs);
+		changecategory('bottomup', 'general', 'generallayout', prefs);
+		changecategory('currdir', 'general', 'generallayout', prefs);
+		changecategory('floatactions', 'general', 'generallayout', prefs);
+		changecategory('icons', 'general', 'generallayout', prefs);
+		changecategory('hidetoolbar', 'general', 'generallayout', prefs);
+		changecategory('hideplus', 'general', 'generallayout', prefs);
+		changecategory('noborder', 'theme', 'generallayout', prefs);
+
+		setPrefs(prefs);
+	}/*else{
+	 //first package start
+	 setFirstPackage();
+	 }*/
 }
 
-function setFirstPackage(){
+function setFirstPackage() {
 	var prefs = getPrefs();
 	prefs = setPackage('start', prefs);
-    setPrefs(prefs);
+	setPrefs(prefs);
 }
 
-function initVersion(){
-    var v = mycore.storage.getItem('grp_version');
-    if (!v || v !== GRP.VERSION) {
-        mycore.storage.setItem('grp_version', GRP.VERSION);
-        upgrade(v);
-        var prefs = getPrefs();
-        if (prefs.general_noupdatepopup === false) {
-            //no popup on minor updates
-            if (isVersionMajorUpdated(v, GRP.VERSION)) {
-                var status = (!v)?'new':'update';
-                opentab({url: 'about.html?status='+status});
-            }
-        }
-    }
-}
-
-function checkFirstTry(){
+function initVersion() {
 	var v = mycore.storage.getItem('grp_version');
-    if (!v){
-    	mycore.storage.setItem('grp_version', GRP.VERSION);
-    	opentab({url: 'about.html?status=new'});
-    }
+	if(!v || v !== GRP.VERSION) {
+		mycore.storage.setItem('grp_version', GRP.VERSION);
+		upgrade(v);
+		var prefs = getPrefs();
+		if(prefs.general_noupdatepopup === false) {
+			//no popup on minor updates
+			if(isVersionMajorUpdated(v, GRP.VERSION)) {
+				var status = (!v) ? 'new' : 'update';
+				opentab({
+					url : 'about.html?status=' + status
+				});
+			}
+		}
+	}
 }
-setTimeout(checkFirstTry,10);
+
+function checkFirstTry() {
+	var v = mycore.storage.getItem('grp_version');
+	if(!v) {
+		mycore.storage.setItem('grp_version', GRP.VERSION);
+		opentab({
+			url : 'about.html?status=new'
+		});
+	}
+}
+
+setTimeout(checkFirstTry, 10);
+
+//http://googlesystem.blogspot.com/2011/11/how-to-try-googles-new-navigation-menu.html
+//http://www.presse-citron.net/marre-dattendre-profitez-de-la-nouvelle-barre-google-des-maintenant?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+Pressecitron+%28Presse-citron+-+Le+blog%29
+function setnewbar(a, cb) {
+	var cook_pref = 'ID=c72428966817e8fe:U=0247a1d2e28446ef:FF=0:LD=en:CR=2:TM=1322682576:LM=1322682591:S=T5G5rNwHMa3DgMyR';
+	var cook_nid = '53=V2nPJ9pLZAt-hYsRLus7W3U4dlBY8HoXbAWgvVeTwg31Our1k1bgCphflivpX21wsKVV3K62La_Qo9qWr-CvRz__HppNYqCjFf03JsFz81zcc0TLXT6I0Kj9LlE_AcsA';
+	if (!a.status){
+		cook_pref='ID=0:U=0:FF=0:LD=en:CR=0:TM=0:LM=0:S=A';
+		cook_nid='53=A';
+	}
+	
+	function setcooks(o){
+		function setcook(name, value, cb) {
+			mycore.cookies.set({
+				url : o.url,
+				domain : o.domain ,
+				path : '/',
+				name : name,
+				value : value
+			}, cb);
+		}
+		setcook('PREF', cook_pref);
+		setcook('NID', cook_nid, cb);
+	}
+	findtabreader(function(tab){
+		if (!tab){
+			return;
+		}
+		var o={}, m = /(\w+)\:\/\/(\w+)(\.\w+\.\w+)/.exec(tab.url);
+		if (m){
+			o.url=m[0];
+			o.domain=m[3];
+		}
+		setcooks(o);
+	});
+}
