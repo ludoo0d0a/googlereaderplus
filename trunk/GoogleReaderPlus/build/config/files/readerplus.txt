@@ -80,6 +80,7 @@ skin\sublimedark.js
 skin\redesigned.js
 skin\glassblackgold.js
 skin\nativecompact.js
+diaporama.js
 colorful.js
 actions.js
 greaderplus.js
