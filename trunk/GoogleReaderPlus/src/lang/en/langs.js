@@ -544,6 +544,11 @@ GRP.langs[locale].prefs = {
 	jump:{
 		staticdown:'Floating icon \'go down\' for current entry'
 	},
+	diaporama:{
+		duration:'Speed: time between two consecutive loops',
+		steps:'Offset to scroll on each loop',
+		nextentry:'Jump to next entry instead to move using an offset'
+	},
 	mark:{
 		asscroll:'Mark as read past items on scroll'
 	},

@@ -1100,6 +1100,16 @@ GRP.scripts = {
 			}
 		}
 	},
+	diaporama:{
+		name: 'Diaporama',
+		category: 'navigation',
+		status:'new',
+		options:{
+			speed:50,
+			duration:1000,
+			nextentry:false
+		}
+	},
 	fitheight: {
 		name: "Fit height",
 		category: 'layout',
