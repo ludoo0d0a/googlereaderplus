@@ -378,14 +378,14 @@ function selectCurrentEntry(el, markread, fixScroll, force){
 		if (fixScroll){
 			ELS.vec.scrollTop=st;
 		}
-		expandEntry(el);
+		return expandEntry(el);
 	}
 }
 function selectNextEntry(force){
-	selectSiblingEntry(true, force);
+	return selectSiblingEntry(true, force);
 }
 function selectPreviousEntry(force){
-	selectSiblingEntry(false, force);
+	return selectSiblingEntry(false, force);
 }
 		
 function selectSiblingEntry(dir, force){
@@ -393,9 +393,10 @@ function selectSiblingEntry(dir, force){
 	if (cur){
 		next = (dir)?cur.nextSibling:cur.previousSibling;
 		if (next) {
-			selectCurrentEntry(next, true, false, force);
+			return selectCurrentEntry(next, true, false, force);
 		}
 	}
+	return false;
 }
 	
 function detectNavHidden(cb){
@@ -1114,7 +1115,9 @@ function expandEntry(entry){
 	var ec = gfe(entry, 'entry-container');
 	if (!ec){
 		clickEntry(entry);
+		return true;
 	}
+	return false;
 }
 function collapseEntry(entry){
 	var ec = gfe(entry, 'entry-container');
