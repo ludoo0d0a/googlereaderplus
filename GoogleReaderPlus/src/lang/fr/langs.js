@@ -544,6 +544,11 @@ GRP.langs[locale].prefs = {
 	jump : {
 		staticdown : 'Icône flottante \'Aller en bas\' pour l\'article courrant'
 	},
+	diaporama:{
+		duration:'Vitesse: temps entre deux boucles consécutives',
+		steps:'Décalage à chaque boucle',
+		nextentry:'Aller à l\'article suivant au lieu de se déplacer avec le décalage.'
+	},
 	mark : {
 		asscroll : 'Marquer comme lu les éléments passés lors du scroll'
 	},
