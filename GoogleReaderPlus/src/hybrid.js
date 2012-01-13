@@ -4,7 +4,13 @@
  */
 GRP.hybrid = function(prefs, langs, ID, SL, lang){
 	var btnMode, mycss='';
-    
+	var css = '.entry:not(#current-entry) .card{max-height:120px;}';
+    css += '.entry-main{padding-left:140px;min-height:60px;}';
+    css += '.entry-body img.entry-icon-preview{position:absolute;top:0;left:0px;max-width:130px;max-height:130px}';
+    css += '.card-actions{display:none;}';
+    css += '.grp-diaporama > .jfk-button-img{-webkit-transform:rotate(180deg);}';
+    css += '#current-entry .card-actions{display:block;}';
+	    
 	function hybridEntry(el, entry, mode){
 		var img = findImage({el:entry}, function(img){
 			if (img){
@@ -14,13 +20,6 @@ GRP.hybrid = function(prefs, langs, ID, SL, lang){
 	}
 	
 	function render(){
-		var css = '.entry:not(#current-entry) .card{max-height:120px;}';
-	    css += '.entry-main{padding-left:140px;min-height:60px;}';
-	    css += '.entry-body img.entry-icon-preview{position:absolute;top:0;left:0px;max-width:130px;max-height:130px}';
-	    css += '.card-actions{display:none;}';
-	    css += '.grp-diaporama > .jfk-button-img{-webkit-transform:rotate(180deg);}';
-	    css += '#current-entry .card-actions{display:block;}';
-	    
 		btnMode = dh('stream-view-options-container', 'div', {
 			position:'first',
 			role:'button', 
