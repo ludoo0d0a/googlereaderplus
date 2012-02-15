@@ -87,8 +87,8 @@ GRP.mark = function(prefs, langs, ID, SL, lang){
     
     //Mark as reas as scroll
     if (prefs[ID+'_asscroll']){
-		if(entries){
-			entries.addEventListener('scroll',checkScroll,false);
+		if(vec){
+			vec.addEventListener('scroll',checkScroll,false);
 		}
 	}
 	
@@ -98,7 +98,7 @@ GRP.mark = function(prefs, langs, ID, SL, lang){
 			return;		
 		}
 		var all = entries.getElementsByClassName('entry');    
-		var els=[], st = vec.scrollTop , t=0, i=0;
+		var els=[], st = vec.scrollTop , t=0, i=0, dbl=true;
 		var curr = getCurrentEntry();
 		while(t<st){
 			var entry=all[i++];
@@ -117,15 +117,18 @@ GRP.mark = function(prefs, langs, ID, SL, lang){
 				var el = els[i];
 				if (!hasClass(el,CLS)){
 					addClass(el,CLS);
-					markasread(el, i==0);
+					markasread(el, i==0, false, dbl);
 				}
 			}
 			vec.scrollTop=st;
-			setTimeout(function(){
+			/*setTimeout(function(){
 				if (curr){
 					selectCurrentEntry(curr);
+					setTimeout(function(){
+						vec.scrollTop=st;
+					},200);
 				}
-			},400);
+			},400);*/
 		}
 		
 	}
