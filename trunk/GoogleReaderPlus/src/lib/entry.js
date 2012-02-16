@@ -1081,7 +1081,7 @@ function isStarred(entry){
 	return !!esa;
 }
 
-function markasread(entry, passive, force){
+function markasread(entry, passive, force, dbl){
 	//already read
 	if (!force && hasClass(entry,'read')){
 		return;
@@ -1104,12 +1104,12 @@ function markasread(entry, passive, force){
 			},2500);
 		}
 	}else{
-		clickEntry(entry);
+		clickEntry(entry, dbl);
 	}
 }
-function clickEntry(entry){
+function clickEntry(entry, dbl){
 	var ce = gfe(entry, 'collapsed') || entry;
-	simulateClick(ce);
+	simulateClick(ce, false, true);
 }
 function expandEntry(entry){
 	var ec = gfe(entry, 'entry-container');
