@@ -88,7 +88,7 @@ function setIcon(root, img, i){
 	if (el && typeof el === 'string'){
 		el = get_id(el);
 	}
-	if (el && (typeof i !== 'undefined')){
+	if (el && (typeof i !== 'undefined') && i>=0){
 		el=el.children[i];
 	}
 	if (el && el.firstChild){
@@ -96,15 +96,22 @@ function setIcon(root, img, i){
 	}
 }
 
-setIcon('viewer-refresh', '681661618-refresh');
-var svoc = get_id('stream-view-options-container');
-setIcon(svoc, '138769644-magnifying_glass', 0);
-setIcon(svoc, '3538434020-view_options_details', 1);
-setIcon(svoc, '3369744051-view_options_list', 2);
-
-setIcon('entries-up', '3172090053-down_arrow');
-setIcon('entries-down', '3978377008-up_arrow');
-setIcon('settings-button', '345992534-settings',0);
+function setIcons(){
+	setIcon('viewer-refresh', '681661618-refresh');
+	
+	var svoc = get_id('stream-view-options-container');
+	var pos = (svoc && svoc.children.length)||0;
+	setIcon(svoc, 'hybrid', pos-4);
+	setIcon(svoc, '138769644-magnifying_glass', pos-3);
+	setIcon(svoc, '3538434020-view_options_details', pos-2);
+	setIcon(svoc, '3369744051-view_options_list', pos-1);
+	
+	setIcon('entries-down', '3172090053-down_arrow');
+	setIcon('entries-up', '3978377008-up_arrow');
+	setIcon('settings-button', '345992534-settings',0);
+}
+//Wait hybrid rendering
+setTimeout(setIcons,1000);
 
 	GRP.mytheme({
         theme_color: C.gray ,
