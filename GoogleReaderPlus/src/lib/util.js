@@ -851,7 +851,7 @@ function getStyle(el, property){
     }
 }
 
-function simulateClick(node, bubble){
+function simulateClick(node, bubble, dbl){
     if (!node){
 		return false;
 	}
@@ -867,6 +867,10 @@ function simulateClick(node, bubble){
  node
  */
     node.dispatchEvent(event);
+    if (dbl){
+    	//dbl click
+    	node.dispatchEvent(event);
+    }
 }
 
 function simulateKeypress(node, keycode){
