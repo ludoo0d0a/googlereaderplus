@@ -16,8 +16,8 @@ GRP.compact = function(prefs, langs, ID, SL, lang) {
 		recommendations: prefs.compact_hide_recommendations || false
 	};
 
-	function toggleCompact() {
-		isCompact = !isCompact;
+	function toggleCompact(compact) {
+		isCompact = ((compact===true) || !isCompact);
 		GM_setValue('compact', isCompact);
 
 		showas(get_id('gb'), H.search && isCompact);
@@ -45,10 +45,10 @@ GRP.compact = function(prefs, langs, ID, SL, lang) {
 		} else {
 			showas(get_id('top-bar'), H.search && isCompact);
 		}
-		fireResize();
+		fireResize('', 100);
 	}
 
-	toggleCompact();
+	toggleCompact(true);
 
 	var keycode = getShortcutKey(ID, 'compact', prefs);
 	//66 z
