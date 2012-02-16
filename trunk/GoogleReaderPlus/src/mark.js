@@ -98,7 +98,7 @@ GRP.mark = function(prefs, langs, ID, SL, lang){
 			return;		
 		}
 		var all = entries.getElementsByClassName('entry');    
-		var els=[], st = vec.scrollTop , t=0, i=0, dbl=true;
+		var els=[], st = vec.scrollTop , t=0, i=0, dbl=false;
 		var curr = getCurrentEntry();
 		while(t<st){
 			var entry=all[i++];
