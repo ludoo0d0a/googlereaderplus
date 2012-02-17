@@ -4,6 +4,17 @@
 
 Here is the past of the project. See all evolutions, changes.
 
+= Version 4.1.0 - /2011 =
+ New:
+  * Diaporama: Auto scroll your entries
+ Fixes:
+  * Colorful listview lighter colors
+  * Mark as read as past acroll
+ Enhancements:
+  * Marks as read: Added 2 items after/before current in Marks as read menu
+  * Compact: +fullscreen + hide left panel
+
+
 = Version 4.0.0 - 12/20/2011 =
  New:
   * New themes : Mac OS Lion UI ; Nostalgia and Gooder to go back to old theme, ...
