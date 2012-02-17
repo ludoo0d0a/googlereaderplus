@@ -7,9 +7,11 @@ Here is the past of the project. See all evolutions, changes.
 = Version 4.1.0 - /2011 =
  New:
   * Diaporama: Auto scroll your entries
+  * Hybrid mode (view between list and card)
  Fixes:
   * Colorful listview lighter colors
-  * Mark as read as past acroll
+  * Mark as read as past scroll
+  * Theme metro arrows toggled
  Enhancements:
   * Marks as read: Added 2 items after/before current in Marks as read menu
   * Compact: +fullscreen + hide left panel
