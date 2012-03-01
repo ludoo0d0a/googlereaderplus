@@ -13,7 +13,7 @@ How to export my configuration ?
   * Report issue with detailed description, version,used options and screenshot if possible
 
 ==How to export my configuration ?==
-  * Go to *preferences page*
+  * Go to *preferences page* of ReaderPlus
   * Jump to the section *Export/import* at the bottom of the page
   * Press *Export* button
   * In text field appears your configuration, copy/paste in your email or paste it into your <a href="http://code.google.com/p/googlereaderplus/issues/list">issue</a> (passwords are removed before export)
