@@ -1,0 +1,20 @@
+#summary Frequently Asked Questions
+#labels faq,Featured
+
+= Introduction =
+
+What could I check if I found something wrong ?
+I should send my configuration. How to do?
+
+
+= Details =
+
+*What could I check if I found something wrong ?*
+  * Search in <a href="http://code.google.com/p/googlereaderplus/issues/list">open issues</a> if someone already reported this issue.
+  * Report issue with detailed description, version,used options and screenshot if possible
+
+*I should send my configuration. How to do?*
+  * Go to *preferences page*
+  * Jump to the section *Export/import* at the bottom of the page
+  * Press *Export* button
+  * In text field appears your configuration, copy/paste in your email or paste it into your <a href="http://code.google.com/p/googlereaderplus/issues/list">issue</a> (passwords are removed before export)
