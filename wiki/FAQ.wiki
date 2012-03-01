@@ -1,19 +1,18 @@
 #summary Frequently Asked Questions
 #labels faq,Featured
 
-= Introduction =
+= Questions =
 
 What could I check if I found something wrong ?
-I should send my configuration. How to do?
+How to export my configuration ?
 
+= Answers=
 
-= Details =
-
-*What could I check if I found something wrong ?*
+==What could I check if I found something wrong ?==
   * Search in <a href="http://code.google.com/p/googlereaderplus/issues/list">open issues</a> if someone already reported this issue.
   * Report issue with detailed description, version,used options and screenshot if possible
 
-*I should send my configuration. How to do?*
+==How to export my configuration ?==
   * Go to *preferences page*
   * Jump to the section *Export/import* at the bottom of the page
   * Press *Export* button
