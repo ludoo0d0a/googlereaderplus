@@ -345,7 +345,6 @@ GRP.scripts = {
 		name: "Relook",
 		category: 'theme',
 		desc: "Relook yourself GoogleReader using custom stylesheets",
-		status:'updated',
 		options: {
 			resize: false,
 			less: false,
@@ -371,7 +370,6 @@ GRP.scripts = {
 	favicons: {
 		name: "Favicons",
 		category: 'icons',
-		status:'updated',
 		options: {
 			providerpageicons: false,
 			sidebaronly: false,
@@ -401,7 +399,6 @@ GRP.scripts = {
 	generallayout: {
 		category: 'layout',
 		name: "General layout",
-		status:'updated',
 		options:{
 			topcurrent: false,
 			//bottomup: false,
@@ -428,12 +425,14 @@ GRP.scripts = {
 	compact: {
 		category: 'layout',
 		name: 'Compact layout',
-		status:'new',
+		status:'updated',
 		options:{
 			hide_bar:true,
 			hide_search:true,
 			hide_subscription:false,
 			hide_nav:false,
+			hide_tags:false,
+			fullscreen:false,
 			searchinbar: false,
 			hide_home:true,
 			hide_selectors:true,
@@ -455,8 +454,7 @@ GRP.scripts = {
 	},
 	count: {
 		category: 'counter',
-		name: "Fix counter (1000+)",
-		status:'updated'
+		name: "Fix counter (1000+)"
 	},
 	counticon: {
 		category: 'counter',
@@ -936,7 +934,6 @@ GRP.scripts = {
 	weibo: {
 		name: "Weibo",
 		category: 'share',
-		status:'new',
 		options: {
 			tpl: '{desc}{tags} Reading: {title} {url}',
 			shortener: {
@@ -1113,7 +1110,6 @@ GRP.scripts = {
 	fitheight: {
 		name: "Fit height",
 		category: 'layout',
-		status:'updated',
 		options: {
 			locked: false
 		},
@@ -1185,7 +1181,6 @@ GRP.scripts = {
 	nested: {
 		name: "Nested folders",
 		category: 'layout',
-		status:'updated',
 		options: {
 			separator: ":"
 		}
@@ -1193,7 +1188,6 @@ GRP.scripts = {
 	stars: {
 		name: "Multiple stars",
 		category: 'layout',
-		status:'updated',
 		shortcuts: {
 			'star': {
 				id: 'star',
@@ -1223,7 +1217,6 @@ GRP.scripts = {
 	filter: {
 		name: "Filter",
 		category: 'content',
-		status:'updated',
 		options: {
 			help:{
 				xtype:'p'
@@ -1297,20 +1290,20 @@ GRP.scripts = {
 			}
 		}
 	},
+	hybrid:{
+		name: 'Hybrid mode',
+		category: 'layout',
+		status:'new'
+	},
 	/* in DEV */
 	/* menu: {
 	 name: "Smart menu",
 	 category: 'navigation',
 	 desc: "Smart menu to add extra capabilites on each entry"
 	 },*/
-	/*aero: {
-		name: "Google Aero Toolbar",
-		category: 'theme'
-	},*/
 	coverflow:{
 		name: 'Coverflow',
 		category: 'navigation',
-		status:'updated',
 		options: {
 			coverflow:true,
 			reflection:true,
@@ -1319,22 +1312,10 @@ GRP.scripts = {
 			/*footer:true,*/
 		}
 	},
-	hybrid:{
-		name: 'Hybrid mode',
-		category: 'layout',
-		status:'dev'
-	},
 	actions: {
 		name: "Actions icons",
 		category: 'layout'
 	},
-	/*antisocial: {
-	 name: "Antisocial",
-	 category: 'layout',
-	 options: {
-	 	status: false
-	 }
-	 },*/
 	/*hover: {
 	 name: "Hover selection"
 	 },*/
@@ -1503,18 +1484,15 @@ GRP.skins = {
 		status:'updated'
 	},
 	nativecompact: {
-		name: "Native compact",
-		status:'updated'
+		name: "Native compact"
 	},
 	minimal: {
 		name: "Minimalistic Skin",
-		ref:'http://userscripts.org/scripts/show/12197',
-		status:'updated'
+		ref:'http://userscripts.org/scripts/show/12197'
 	},
 	optimized: {
 		name: "Optimized Skin",
-		ref:'http://userscripts.org/scripts/show/61552',
-		status:'updated'
+		ref:'http://userscripts.org/scripts/show/61552'
 	},
 	absolutelycompact: {
 		name: "Absolutely Compact",
@@ -1522,8 +1500,7 @@ GRP.skins = {
 		pic: 'http://userstyles.org/style_screenshots/12691_after.png',
 		ref: 'http://userstyles.org/styles/12691',
 		desc: 'userstyles.org',
-		resize: true,
-		status:'updated'
+		resize: true
 	},
 	segoe: {
 		name: "Segoe UI/Lucida Grande Reskinned",
@@ -1531,8 +1508,7 @@ GRP.skins = {
 		pic: 'http://static.userstyles.org/style_screenshots/19467_after.png',
 		ref: 'http://userstyles.org/styles/19467/google-reader-segoe-ui-lucida-grande-reskinned',
 		desc: 'userstyles.org',
-		resize: 'footer',
-		status:'updated'
+		resize: 'footer'
 	},
 	perfectdark: {
 		name: "Perfect Dark Google Reader",
@@ -1540,21 +1516,17 @@ GRP.skins = {
 		pic: 'http://static.userstyles.org/style_screenshots/38772_after.png',
 		ref: 'http://userstyles.org/styles/38772/perfect-dark-google-reader',
 		fix:'#entries{padding-right:0px;}',
-		desc: 'userstyles.org',
-		status:'updated'
+		desc: 'userstyles.org'
 	},
 	mytheme: {
-		name: "My Theme",
-		status:'updated'
+		name: "My Theme"
 	},
 	portal: {
-		name: "Portal v2",
-		status:'updated'
+		name: "Portal v2"
 	},
 	webbizgeek: {
-		name: "WebBizGeek Skin",
+		name: "WebBizGeek Skin"
 		//pic: 'http://www.webbizgeek.com/wp-content/uploads/2010/07/Google-Reader-custom-skin1.jpg',
-		status:'updated'
 	},
 	lion:{
 		name:'Mac OS Lion UI',
@@ -1565,8 +1537,7 @@ GRP.skins = {
 		resize: 'footer',
 		patch:[
 			{from:'#stream-prefs-menu', to:'#stream-prefs-menu,#filter-split-button>div'}
-		],
-		status:'new'
+		]
 	},
 	rereader:{
 		name:'Re-reader',

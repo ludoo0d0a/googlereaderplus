@@ -10,6 +10,8 @@ GRP.compact = function(prefs, langs, ID, SL, lang) {
 		search: prefs.compact_hide_search || false,
 		bar: prefs.compact_hide_bar || false,
 		nav: prefs.compact_hide_nav || false,
+		tags:prefs.compact_hide_tags || false,
+		fullscreen:prefs.compact_fullscreen || false,
 		subscription: prefs.compact_hide_subscription || false,
 		home: prefs.compact_hide_home || false,
 		selectors: prefs.compact_hide_selectors || false,
@@ -25,6 +27,11 @@ GRP.compact = function(prefs, langs, ID, SL, lang) {
 		showas(get_id('home-section'),  H.home && isCompact);
 		showas(get_id('lhn-selectors'),  H.selectors && isCompact);
 		showas(get_id('lhn-recommendations'),  H.recommendations && isCompact);
+		
+		addClassIf(document.body,'lhn-hidden', (H.tags || H.fullscreen) && isCompact); 
+		addClassIf(document.body,'fullscreen', H.fullscreen && isCompact);
+		addClassIf(get_id('viewer-header'), 'hidden', H.fullscreen && isCompact);
+		addClassIf(get_id('chrome-fullscreen-top-toggle'), 'hidden', !(H.fullscreen && !H.nav && isCompact));
 		
 		//nav=viewer-header-container+logo-section
 		showas(get_id('viewer-header-container'), H.nav && isCompact);

@@ -455,8 +455,10 @@ GRP.langs[locale].prefs = {
 	compact:{
 		hide_bar:'Cacher le menu',
 		hide_search:'Cacher la recherche',
-		hide_subscription:'Cacher le bouton "Ajouter un flux"',
-		hide_nav:'Cacher la navigation',
+		hide_subscription:'Cacher le bouton "S\'abonner"',
+		hide_nav:'Cacher la barre de navigation supérieure',
+		hide_tags:'Cacher le panneau de gauche',
+		fullscreen:'Plein écran',
 		searchinbar:'Recherche dans le menu',
 		hide_home:'"Accueil" dans le menu gauche',
 		hide_selectors:'"Tous les éléments" dans le menu gauche',
