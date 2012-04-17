@@ -17,6 +17,7 @@ Find some useful css stylesheet to custom your page.
 ===Change font===
 {{{
 html,body{
-	font-family:"Segoe UI"
+	font-family:"Segoe UI";
+	font-size:16px;
 }
 }}}
