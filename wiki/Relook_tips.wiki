@@ -12,3 +12,11 @@ Find some useful css stylesheet to custom your page.
 {{{
 #gb {display:none;}
 }}}
+
+
+===Change font===
+{{{
+html,body{
+	font-family:"Segoe UI"
+}
+}}}
