@@ -121,6 +121,10 @@ GRP.langs[locale].scripts = {
         name: "ReadItLater",
         desc: "Add a button to read news later using <a href='http://www.readitlater.com' target='_readitlater'>ReadItLater</a>"
     },
+    readabilitylater: {
+        name: "Readability",
+        desc: "Add a button to read news later using <a href='http://www.Readability.com' target='_readabilitylater'>Readability</a>"
+    },
 	blogger: {
         name: "Blogger",
         desc: "Add a button to read news later using <a href='http://www.blogger.com' target='_blogger'>Blogger</a>"

@@ -75,6 +75,16 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
 				//Basic authentication
 				cred.method=api.auth;
 				post(cred, params, btn);
+			}else if (api.auth === 'oauth') {
+				//OAuth authentication
+				cred.method=api.auth;
+				var p = apply({
+					message:'oauth',
+					id:ID
+				},params);
+				mycore.extension.sendRequest(p, function(r){
+					readsuccess(r,btn);
+				});
 			}else {
 				token = (api.getToken)?api.getToken():false;
 				
@@ -118,6 +128,8 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
 			auth=cred;
 		}else if (cred && cred.method === 'token'){
 			//Nothing
+		}else if (cred && cred.method === 'oauth'){
+			//Nothing
 		} else if (cred){
 			params[pp.username || 'username'] = cred.username;
 			if (cred.password) {
@@ -155,12 +167,7 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
                     	}
                     	post(cred, params, btn, true);
                     }else{
-	                    //set star active
-	                    addClass(btn, 'btn-active'); //item-star-active
-	                    removeClass(btn, 'item-share');
-						if (typeof api.successTitle ==='function') {
-							btn.title=api.successTitle(r.responseJson,SL);
-						}
+	                    readsuccess(r,btn);
 					}
                 } else if (api.errors[r.status]) {
                     alert(SL[api.errors[r.status]]);
@@ -170,6 +177,14 @@ GRP.api_readit = function(prefs, langs, ID, scriptlangs, lang, api){
             }
         });
     }
+    function readsuccess(r, btn){
+    	//set star active
+        addClass(btn, 'btn-active'); //item-star-active
+        removeClass(btn, 'item-share');
+		if (typeof api.successTitle ==='function') {
+			btn.title=api.successTitle(r.responseJson,SL);
+		}
+	}	
     function getCredentials(){
         if (api.nousername){
        		return {};

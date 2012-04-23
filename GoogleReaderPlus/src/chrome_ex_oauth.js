@@ -26,12 +26,15 @@ function ChromeExOAuth(url_request_token, url_auth_token, url_access_token,
   this.consumer_key = consumer_key;
   this.consumer_secret = consumer_secret;
   this.oauth_scope = oauth_scope;
+  
   this.app_name = opt_args && opt_args['app_name'] ||
       "ChromeExOAuth Library";
   this.key_token = "oauth_token";
   this.key_token_secret = "oauth_token_secret";
   this.callback_page = opt_args && opt_args['callback_page'] ||
       "chrome_ex_oauth.html";
+  
+  
 };
 
 /*******************************************************************************
@@ -68,7 +71,11 @@ ChromeExOAuth.initBackgroundPage = function(oauth_config) {
         window.chromeExOAuthRequestingAccess == false) {
       chrome.tabs.create({ 'url' : changeInfo.url }, function(tab) {
         tabs[tab.id] = tab.url;
+        try{
         chrome.tabs.remove(tabId);
+        }catch(e){
+        	console.error(e);
+        }
       });
     }
   });
@@ -234,6 +241,7 @@ ChromeExOAuth.fromConfig = function(oauth_config) {
     oauth_config['access_url'],
     oauth_config['consumer_key'],
     oauth_config['consumer_secret'],
+    //oauth_config['method'],
     oauth_config['scope'],
     {
       'app_name' : oauth_config['app_name']
@@ -255,7 +263,12 @@ ChromeExOAuth.initCallbackPage = function() {
     background_page.chromeExOAuthOnAuthorize(token, secret);
     background_page.chromeExOAuthRedirectStarted = false;
     chrome.tabs.getSelected(null, function (tab) {
-      chrome.tabs.remove(tab.id);
+      try{
+        chrome.tabs.remove(tab.id);
+        }catch(e){
+        	console.error(e);
+        }
+      
     });
   });
 };
