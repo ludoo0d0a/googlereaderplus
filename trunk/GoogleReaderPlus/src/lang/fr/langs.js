@@ -87,6 +87,9 @@ GRP.langs[locale].texts = {
 		nologin : 'Cette fonctionnalité a besoin d\'un nom d\'utilisateur, merci de le renseigner dans la page des préférences!!',
 		error : 'Ce service a rencontré une erreur. merci de réessayer plus tard.',
 		badrequest : 'Mauvaise requête. Il manque surement un paramètre comme l\'url.',
+		forbidden : 'Vous n\'êtes pas autorisé à effectuer cette action.',
+	    notfound : 'La ressource demandée n\'existe pas.', 
+	    conflict : 'La resource que vous essayé de créer existe déjà.',
 		saving : 'Sauvegarde',
 		shortcut_readitlater : 'Lire plus tard avec Instapaper'
 	},
@@ -117,7 +120,12 @@ GRP.langs[locale].texts = {
 		keyword : 'ReadItLater',
 		plslogin : 'Merci de vous connecter à ReadItLater',
 		rateexceeded : 'Trafic dépassé, merci d\'attendre avant de recommencer',
-		maintenance : 'Maintenance en cours, revenz plus tard !'
+		maintenance : 'Maintenance en cours, revenez plus tard !'
+	},
+	readabilitylater : {
+		text : 'Lire plus tard avec Readability',
+		keyword : 'ReadabilityLater',
+		plslogin : 'Merci de vous connecter à Readability'
 	},
 	radbox : {
 		text : 'Lire plus tard avec Radbox',
@@ -344,7 +352,8 @@ GRP.langs[locale].prefs = {
 		shortener_login : "Utilisateur",
 		shortener_apikey : "Clé (ApiKey)",
 		shortener_pwd : "Mot de passe",
-		autoshort:'Toujours utiliser une url courte'
+		autoshort:'Toujours utiliser une url courte',
+		tpl:'Modèle'
 	},
 	weibo : {
 		shortener : "Urls courtes",
@@ -360,6 +369,11 @@ GRP.langs[locale].prefs = {
 	},
 	readitlater : {
 		auth : "<a href='http://readitlaterlist.com/signup' target='blank'>Authentification</a> pour <a href='http://readitlaterlist.com' target='blank'>ReadItLater</a> (obligatoire):",
+		username : "Utilisateur:",
+		password : "Mot de passe:"
+	},
+	readabilitylater : {
+		auth : "<a href='https://www.readability.com/readers/register' target='blank'>Authentification</a> pour <a href='https://www.readability.com' target='blank'>ReadItLater</a> (obligatoire):",
 		username : "Utilisateur:",
 		password : "Mot de passe:"
 	},

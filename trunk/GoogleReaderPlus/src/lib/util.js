@@ -1334,6 +1334,13 @@ function urlDecode(string){
     }
     return obj;
 }
+function urlEncode(p){
+	var t = [], u = encodeURIComponent;
+	iterate(p, function(i, o){
+        t.push(u(i)+'='+u(o));
+  	});
+    return t.join('&');
+}
 
 function getDomain(url, withProtocol, nosubdomain){
     var m = url.split(/\/|\?/);

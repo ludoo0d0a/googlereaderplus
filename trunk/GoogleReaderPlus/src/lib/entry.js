@@ -1216,7 +1216,7 @@ function getEntryNumber(entry,def){
 	
 function addCssIcon(id, clsOn){
 	clsOn=clsOn || 'btn-active';
-	var css = '.entry .entry-actions .btn-'+id+'{background: url(\'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/share/'+id+'.png\') no-repeat!important;padding:0px 8px 0px 20px !important;}'+
+	var css = '.entry .entry-actions .btn-'+id+'{background: url(\'http://googlereaderplus.googlecode.com/svn/trunk/GoogleReaderPlus/images/share/'+id+'.png\') no-repeat !important;padding:0px 8px 0px 20px !important;margin-right: 4px;}'+
 	'.entry .entry-actions .btn-'+id+'{background-position: 0 0px !important;}'+
 	'.entry .entry-actions .btn-'+id+'.'+clsOn+'{background-position: 0 -16px !important;}';
 	GM_addStyle(css, 'rpe_share_'+id);

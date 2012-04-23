@@ -65,7 +65,7 @@ var lastCat;
 function renderScripts(){
     var list = document.getElementById('scriptlist');//ul#scriptlist
     var panels = document.getElementById('panels');
-    var tplCheckbox = '<li id="l_{id}"><a href="javascript:showPanel(\'{id}\')"><input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{desc}">{name}{status}</label><span class="open">{dlink}</span></a></li>';
+    var tplCheckbox = '<li id="l_{id}"><a href="javascript:showPanel(\'{id}\')"><input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{tdesc}">{name}{status}</label><span class="open">{dlink}</span></a></li>';
     var tplLink = '<li id="l_{id}"><a class="link" href="javascript:showPanel(\'{id}\')"><span class="linkblock">{name}</span><span class="open olink">{dlink}</span></a></li>';
     var tplPanelTitle = '<div class="title"><h2>{name}</h2><div id="paneldesc_{id}" class="desc">{desc}</div></div>';
     var tplPanelIframe = '<div class="title"><h2>{name}</h2><iframe src="{url}" width="700" height="620"></iframe></div>';
@@ -106,6 +106,7 @@ function renderScripts(){
 			script.dlink = '>';
 			script.status=getSpanStatus(script.status);
 			script.desc = script.desc||'';
+			script.tdesc = script.desc.replace(/<[^>]*>/g,'');
 			
             var t = (script.link) ? tplLink : tplCheckbox;
             html += fillTpl(t, script);

@@ -43,7 +43,7 @@ var OAUTHS = {
 	},
 	linkedin : {
 		api : {
-			url : 'http://linkedin.com/.../update.json'
+			url : 'https://linkedin.com/.../update.json'
 		},
 		authcfg : {
 			'request_url' : 'https://api.linkedin.com/uas/oauth/requestToken',
@@ -128,10 +128,61 @@ var OAUTHS = {
 			'scope' : 'http://www.tumblr.com/',
 			'app_name' : 'Tumblr for Readerplus'
 		}
-	}
+	},
+	readabilitylater : {
+		api : {
+			url : 'https://www.readability.com/api/rest/v1/bookmarks',
+			params : function(a) {
+				return {
+					method : 'post',
+
+					headers : {
+						'Content-Type' : 'application/x-www-form-urlencoded'
+					},
+
+					/*
+					headers : {
+						'Content-Type' : 'application/x-www-form-urlencoded'
+					},
+					body : urlEncode({
+						url : a.url
+					})*/
+					/*
+					headers : {
+						'Content-Type' : 'application/json'
+					},
+					body : JSON.stringify({
+						url : a.url
+						//,favorite: 1
+						//,archive: 1
+					}),*/
+					
+					parameters : {
+						url : a.url,
+						'oauth_method': 'PLAINTEXT',
+						'oauth_signature_method': 'PLAINTEXT'
+					}
+				};
+			}
+		},
+		authcfg : {
+			'request_url' : 'https://www.readability.com/api/rest/v1/oauth/request_token',
+			'authorize_url' : 'https://www.readability.com/api/rest/v1/oauth/authorize',
+			'access_url' : 'https://www.readability.com/api/rest/v1/oauth/access_token',
+			'consumer_key' : 'LudoO',
+			'consumer_secret' : 'GaAzxmuqvmvMUJk7ASwb39bWwjqdK6x6',
+			'scope' : 'https://www.readability.com/',
+			'app_name' : 'Readability for Readerplus'
+		}
+	},
 };
 
+//Backward compatibility
 function micro(a, cb) {
+	return postoauth(a,cb);
+}
+
+function postoauth(a, cb) {
 	oauth_sign(a, cb, function(o) {
 		o.api=o.api||{};
 		var url = o.api.url || '';
@@ -166,8 +217,8 @@ function oauth_sign(a, cb, url, params) {
 
 	o.oauth.authorize(function(token, secret) {
 		console.log("on authorize for " + id);
-		var _url = ( typeof url == 'function') ? url(o) : url;
-		var _params = ( typeof params == 'function') ? params(o) : params;
+		var _url = ( typeof url === 'function') ? url(o) : url;
+		var _params = ( typeof params === 'function') ? params(o) : params;
 		o.oauth.sendSignedRequest(_url, function(text, xhr) {
 			var data = false, r = {
 				responseText : xhr.responseText,

@@ -87,6 +87,9 @@ GRP.langs[locale].texts = {
 		nologin:'This feature requires a username, please set preferences!!',
 		error:'The service encountered an error. Please try again later.',
 		badrequest:'Bad request. Probably missing a required parameter, such as url.',
+		forbidden : 'The server understood your request and verified your credentials, but you are not allowed to perform the requested action.',
+	    notfound : 'The resource that you requested does not exist.', 
+	    conflict : 'The resource that you are trying to create already exists. This should also provide a Location header to the resource in question.',
 		saving:'Saving',
 		shortcut_readitlater:'Read Later with Instapaper'
 	},
@@ -219,6 +222,11 @@ GRP.langs[locale].texts = {
 		title:'Read now full content with Readability',
 		keyword:'Read now'
 	},
+	readabilitylater:{
+		text:'Read later with Readability',
+		title:'Read later with Readability',
+		keyword:'Read later'
+	},
 	readbymouse:{
 		readbymouse:'Read by mouse',
 		middleclick:' On middle click: ',
@@ -345,7 +353,8 @@ GRP.langs[locale].prefs = {
 		shortener_login:"Login",
 		shortener_apikey:"ApiKey",
 		shortener_pwd:"Password",
-		autoshort:'Always use short url'
+		autoshort:'Always use short url',
+		tpl:'Template'
 	},
 	weibo:{
 		shortener:"Shortener",
@@ -361,6 +370,11 @@ GRP.langs[locale].prefs = {
 	},
 	readitlater:{
 		auth:"<a href='http://www.readitlaterlist.com' target='blank'>ReadItLater</a> <a href='http://readitlaterlist.com/signup' target='blank'>authentication</a> (required):",
+		username:"Username:",
+		password:"Password:"
+	},
+	readabilitylater:{
+		auth:"<a href='http://www.readability.com/readers/register' target='blank'>ReadItLater</a> <a href='http://www.readability.com' target='blank'>authentication</a> (required):",
 		username:"Username:",
 		password:"Password:"
 	},

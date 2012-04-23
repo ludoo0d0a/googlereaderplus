@@ -249,13 +249,13 @@ if (OAuthSimple === undefined)
                 }
             if (args['path'] !== undefined) {
                 this.setPath(args['path']);
-                }
+            }
             if (args['method'] !== undefined) {
                 this.setSignatureMethod(args['method']);
-                }
+            }
             this.setTokensAndSecrets(args['signatures']);
             if (args['parameters'] !== undefined){
-            this.setParameters(args['parameters']);
+                this.setParameters(args['parameters']);
             }
             // check the parameters
             var normParams = this._normalizedParameters();

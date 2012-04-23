@@ -96,6 +96,8 @@ function onMessageReceived(a, p, cb) {
 		exportitems(a);
 	} else if(a.message == "micro") {
 		micro(a, cb);
+	} else if(a.message == "oauth") {
+		postoauth(a, cb);
 	} else if(a.message == "syncload") {
 		syncload(a, cb);
 	} else if(a.message == "syncsave") {
