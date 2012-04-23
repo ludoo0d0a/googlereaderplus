@@ -654,6 +654,34 @@ GRP.scripts = {
 			}
 		}
 	},
+	readabilitylater: {
+		name: "Readability",
+		category: 'share',
+		status:'new',
+		/*options: {
+			auth: {
+				xtype: 'p',
+				label: true,
+				cls: 'subtitle'
+			},
+			username: '',
+			password: {
+				input: 'password',
+				value: ''
+			}
+		},*/
+		shortcuts: {
+			'share': {
+				id: 'share',
+				title: 'Read Later with Readability',
+				key: {
+					//76 l
+					keyCode: 76,
+					altKey:true
+				}
+			}
+		}
+	},
 	readitlater: {
 		name: "ReadItLater",
 		category: 'share',
@@ -1515,7 +1543,7 @@ GRP.skins = {
 		url: 'http://userstyles.org/styles/userjs/38772/Perfect%20Dark%20Google%20Reader.user.js',
 		pic: 'http://static.userstyles.org/style_screenshots/38772_after.png',
 		ref: 'http://userstyles.org/styles/38772/perfect-dark-google-reader',
-		fix:'#entries{padding-right:0px;}',
+		fix:'#entries{padding-right:0px;} .entry .entry-actions .item-star, .entry .entry-icons .item-star {background-position: -1px -1px !important;}',
 		desc: 'userstyles.org'
 	},
 	mytheme: {
