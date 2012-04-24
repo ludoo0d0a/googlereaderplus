@@ -18,13 +18,17 @@ GRP.tumblr = function(prefs, langs, ID, SL, lang){
     */
    
     //popup version based on facebook
-    var BTN_CLS = 'item-share star', BTN_CLS_ID ='btn-'+ID+' '+BTN_CLS;
+    //var BTN_CLS = 'item-share star', BTN_CLS_ID ='btn-'+ID+' '+BTN_CLS;
+    var BTN_CLS = 'item-share ', BTN_CLS_ID ='btn-'+ID+' '+BTN_CLS;
 	var URL='http://www.tumblr.com/share/link?url={url}&name={title}&description={description}';
 	var OPTWIN = 'toolbar=0,status=0,resizable=1,width=450,height=480';
+	
+	addCssIcon(ID);
 	
 	function addButton(el, entry, mode) {
 		var title = SL.text + formatShortcut(ID, 'go'+ID, prefs); //[b]
 		var text = (prefs && prefs.general_icons)?'':(SL.keyword || ID);
+		
 		addBottomLink(el,text, title, ID, BTN_CLS, false, openShareWindow, false, entry, mode);
 	}
 
