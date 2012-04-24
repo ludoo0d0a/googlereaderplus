@@ -135,30 +135,13 @@ var OAUTHS = {
 			params : function(a) {
 				return {
 					method : 'post',
-
-					headers : {
-						'Content-Type' : 'application/x-www-form-urlencoded'
-					},
-
-					/*
 					headers : {
 						'Content-Type' : 'application/x-www-form-urlencoded'
 					},
 					body : urlEncode({
 						url : a.url
-					})*/
-					/*
-					headers : {
-						'Content-Type' : 'application/json'
-					},
-					body : JSON.stringify({
-						url : a.url
-						//,favorite: 1
-						//,archive: 1
-					}),*/
-					
+					}),
 					parameters : {
-						url : a.url,
 						'oauth_method': 'PLAINTEXT',
 						'oauth_signature_method': 'PLAINTEXT'
 					}
