@@ -267,12 +267,14 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
         
 		function countWord(warning, cb){
 	        setTimeout(function(){
-		        var o= {}; 
-				o.url = urlinput.value;
-				o.title = titleinput.value;
-		        o.tags = taginput.value;
-		        o.desc = descinput.value;
-		        o.msg = formatSendMsg(o.url, o.title, o.desc, o.tags);
+		        var o= { 
+					url: urlinput.value,
+					title: titleinput.value,
+			        tags: taginput.value,
+			        desc: descinput.value
+		        };
+		        o.msg= formatSendMsg(o.url, o.title, o.desc, o.tags);
+		        
 				var remain= MAX_TEXT - countMsgWord(o.msg);
 		        labelInfo.innerHTML = formatText(SM.notetoolong, remain);
 				if (remain<0){
@@ -302,7 +304,7 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 		        addClass(btn, CLS_ACTIVE);
 		    }
 		
-			p.message = api.msg || "micro";
+			p.message = api.msg || 'micro';
 			p.id=ID;
 			if (api.tpl && api.tpl.url){
 				p.tpl = p.tpl || {};
