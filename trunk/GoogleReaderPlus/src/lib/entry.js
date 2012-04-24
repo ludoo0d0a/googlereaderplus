@@ -857,12 +857,20 @@ function getScriptObject(id){
     return GRP.scripts[id];
 }
 
+function getReaderMenu(){
+	var menu=get_id('settings-button-menu');
+	if (!menu){
+		//Reader Play
+		menu=getFirstElementByClassName(document.body, 'goog-menu');
+	}
+	return menu;
+}
 
 function addReaderMenuSeparator(){
-	var menu=get_id('settings-button-menu');
+	var menu=getReaderMenu();
 	dh(menu, 'div', {
 		cls:'goog-menuseparator',
-		role:'spearaotr'
+		role:'separator'
 	});
 }
 function addReaderMenuItem(text, cb, checkbox){
@@ -872,7 +880,7 @@ function addReaderMenuItem(text, cb, checkbox){
 	}
 	var html = '<div class="goog-menuitem-content">' + text + '</div>';
 
-	var menu=get_id('settings-button-menu');
+	var menu=getReaderMenu();
     var el = dh(menu, 'div', {
         href: '#',
         cls: 'goog-menuitem'+clsOption,
