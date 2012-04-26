@@ -136,10 +136,10 @@ div.goog-menuitem-highlight,
 div.goog-menu .goog-menuitem:hover{
 	background: -webkit-linear-gradient(
 	    top,
-	   	rgb(74,73,72) 0%,
-	   	rgb(64,63,62) 30%,
-	   	rgb(54,53,52) 70%,
-	    rgb(34,33,32) 100%
+	   	rgb(174,173,172) 0%,
+	   	rgb(164,163,162) 30%,
+	   	rgb(154,153,152) 70%,
+	    rgb(134,133,132) 100%
 	) !important;
 	color: rgb(255,255,255) !important;
 }
@@ -806,6 +806,7 @@ div#nav /*div#nav > div:nth-child(5)*/ li{
 	) !important;
 	border-bottom: 1px solid rgb(133, 131, 130) !important;	
 	border-top: 1px solid rgb(95, 94, 93) !important;
+	border-left: 3px solid rgb(10, 10, 10) !important;
 	box-shadow: inset 0 1px 20px rgba(0,0,0,.25);
 } 
 div#nav li.tag.tree-selected span:nth-child(1),
@@ -1439,7 +1440,7 @@ div.single-source div#current-entry div.collapsed{
 	margin-top: -4px !important;
 }
 div.samedir div#entries.list.single-source div#current-entry.expanded div.collapsed{
-	height: 25px !important;
+	height: 100px !important;
 	margin-top: 0px !important;
 }
 div.single-source.list div#current-entry div.entry-icons{
@@ -2247,11 +2248,11 @@ li.tag a span{
 	background-color: #FAF9F8;
 	z-index: 2;
 }
-/*
+
 .samedir {
-	width: 400px !important;
+	/*width: 400px !important;*/
 	margin-top: 20px;
-}*/
+}
 #entries.list .entry{
 	width: 400px !important;
 	clear: both;
@@ -2408,4 +2409,3 @@ span#view-cards.link-selected + span#view-list {
 #item-up-down-buttons .jfk-button-narrow{
 	min-width: 16px;
 }
-
