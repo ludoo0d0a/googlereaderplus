@@ -157,6 +157,10 @@ GRP.langs[locale].scripts = {
         name: "Fit height",
         desc: "Fit height of the current news to the screen height (for long articles)"
     },
+    diaporama: {
+        name: "Diaporama",
+        desc: "Scroll your news at your desired speed"
+    },
     closeentry: {
         name: "Close entry",
         desc: "Add a 'close' button on each entry to remove it"
