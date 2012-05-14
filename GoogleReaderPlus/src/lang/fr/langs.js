@@ -495,7 +495,8 @@ GRP.langs[locale].prefs = {
 		links : "Liens:",
 		images : "Images:",
 		iframes : "Iframes:",
-		preview : "Filter surlignage pour aperçu"
+		preview : "Filter surlignage pour aperçu",
+		videopreview:"Remplacer les vidéos par un simple aperçu"
 	},
 	preview : {
 		onicon : "Utiliser un icone apres le titre pour afficher l'apercu (si non coché, l'apercu apparait lors du clic sur le titre)",
@@ -561,7 +562,8 @@ GRP.langs[locale].prefs = {
 		staticdown : 'Icône flottante \'Aller en bas\' pour l\'article courrant'
 	},
 	diaporama:{
-		duration:'Vitesse: temps entre deux boucles consécutives',
+		desc:'Appuyer sur le bouton \'Lecture\' (en haut à droite) pour lancer le diaporama de vos articles',
+		duration:'Temps entre deux boucles consécutives',
 		steps:'Décalage à chaque boucle',
 		nextentry:'Aller à l\'article suivant au lieu de se déplacer avec le décalage.'
 	},

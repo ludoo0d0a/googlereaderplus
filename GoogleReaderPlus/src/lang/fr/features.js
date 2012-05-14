@@ -124,6 +124,10 @@ GRP.langs[locale].scripts = {
         name: "Adapteur hauteur",
         desc: "Adapteur la hauteur de l'élément à la hauteur de l'écran (pour les articles longs)"
     },
+    diaporama: {
+        name: "Diaporama",
+        desc: "Défile automatiquement vos articles"
+    },
     closeentry: {
         name: "Fermer élément",
         desc: "Fermer complétement un élément"

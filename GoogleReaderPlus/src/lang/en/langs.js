@@ -495,7 +495,8 @@ GRP.langs[locale].prefs = {
 		links:"Link filter:",
 		images:"Image filter:",
 		iframes:"Iframe filter:",
-		preview:"Highlight preview filter"
+		preview:"Highlight preview filter",
+		videopreview:"Replace video with a simple preview"
 	},
 	preview:{
 		onicon:"Show integrated preview when click on icon right after the title (if not checked, on title)",
@@ -561,7 +562,8 @@ GRP.langs[locale].prefs = {
 		staticdown:'Floating icon \'go down\' for current entry'
 	},
 	diaporama:{
-		duration:'Speed: time between two consecutive loops',
+		desc:'Press \'Play\' button (top right) to run diaporama of yours news',
+		duration:'Time between two consecutive loops',
 		steps:'Offset to scroll on each loop',
 		nextentry:'Jump to next entry instead to move using an offset'
 	},
