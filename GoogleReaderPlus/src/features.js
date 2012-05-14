@@ -476,6 +476,7 @@ GRP.scripts = {
 				xtype: 'textarea',
 				value: "feedsportal.com\ndoubleclick.net\n/ads"
 			},
+			videopreview:false,
 			preview: false
 		}
 	},
@@ -880,8 +881,8 @@ GRP.scripts = {
 			}
 		},*/
 		shortcuts: {
-			'share': {
-				id: 'share',
+			'gotumblr': {
+				id: 'gotumblr',
 				title: 'Share with Tumblr',
 				key: {
 					//67 c
@@ -1130,7 +1131,9 @@ GRP.scripts = {
 		category: 'navigation',
 		status:'new',
 		options:{
-			speed:50,
+			desc: {
+				xtype: 'p'
+			},
 			duration:1000,
 			nextentry:false
 		}
@@ -1269,9 +1272,10 @@ GRP.scripts = {
 			word_mini: 4
 		}
 	},
-	rank: {
+	/*rank: {
 		name: "Popularity/Rank",
 		category: 'content',
+		status:'disabled',
 		options: {
 			level: {
 				xtype: 'select',
@@ -1287,7 +1291,7 @@ GRP.scripts = {
 				xtype:'p'
 			}
 		}
-	},
+	},*/
 	readability:{
 		name: "Readability",
 		category: 'content',
@@ -1609,61 +1613,53 @@ GRP.skins = {
 		resize: 'footer',
 		status:'new'
 	},
-	
-	/* TODO section */
-	
 	threecolumns:{
 		name:'3 Column Reader',
 		//ref:'http://userstyles.org/styles/50474/google-reader-3-column-reader',
 		pic: 'http://cdn.userstyles.org/style_screenshot_thumbnails/50474_after.jpeg',
 		url:'skin/css/3cr.css',
 		compact:false,
-		//cache:false,
+		cache:false,
 	    //url: 'http://kamilb.info/s/googlereader-3cr.css',
 		//url: 'http://userstyles.org/styles/userjs/50474/Google%20Reader%20-%203%20Column%20Reader.user.js',
 		resize: 'footer',
-		status:'update'
-	},
-	
-	helvetireader: {
-		name: "Helvetireader 2",
-		ref: 'http://www.helvetireader.com',
-		status:'todo'
+		status:'updated'
 	},
 	sublimelight: {
 		name: "Sublime Reader Light",
 		ref: 'https://code.google.com/p/sublimereader/',
-		status:'todo'
+		status:'updated'
 	},
 	sublimedark: {
 		name: "Sublime Reader Dark",
 		ref: 'https://code.google.com/p/sublimereader',
-		status:'todo'
+		status:'updated'
 	},
 	darkhelvetireaderday: {
 		name: "Dark Helvetireader - Day",
 		pic: 'http://stylebot.me/uploads/61.png',
 		ref: 'http://stylebot.me/styles/61',
 		resize: 'footer',
-		status:'todo'
-		/*
-		 url: 'http://stylebot.me/style/get_userscript/61.user.js',
-		 pic: 'http://stylebot.me/uploads/61.png',
-		 desc: 'stylebot.me',
-		 resize: 'footer'*/
+		status:'updated'
 	},
 	darkhelvetireadernight: {
 		name: "Dark Helvetireader - Night",
 		pic: 'http://stylebot.me/uploads/62.png',
 		ref: 'http://stylebot.me/styles/62',
 		resize: 'footer',
+		status:'updated'
+	},
+	black: {
+		name: "Google Enhanced Black",
+		ref:'http://userscripts.org/scripts/show/12917',
+		status:'updated'
+	},
+	
+	/* TODO section */
+	helvetireader: {
+		name: "Helvetireader 2",
+		ref: 'http://www.helvetireader.com',
 		status:'todo'
-		
-		/*
-		url: 'http://stylebot.me/style/get_userscript/62.user.js',
-		pic: 'http://stylebot.me/uploads/62.png',
-		desc: 'stylebot.me',
-		resize: 'footer'*/
 	},
 	helvetireaderdark: {
 		name: "Helvetireader 2 Dark",
@@ -1674,27 +1670,22 @@ GRP.skins = {
 		resize: 'footer',
 		status:'todo'
 	},
-	black: {
-		name: "Google Enhanced Black",
-		ref:'http://userscripts.org/scripts/show/12917',
-		status:'todo'
-	},
+
+	/* OFF section */
 	dark: {
 		name: "Dark Skin",
 		ref:'http://userstyles.org/styles/5133',
-		status:'todo'
+		status:'off'
 	},
 	darkgray: {
 		name: "Dark Gray Skin",
 		ref:'http://userscripts.org/scripts/show/24736',
-		status:'todo'
+		status:'off'
 	},
 	calibri: {
 		name: "Calibri Skin",
-		status:'todo'
+		status:'off'
 	},
-
-	/* OFF section */
 /*player: {
 		name: "Player Theme",
 		status:'off'

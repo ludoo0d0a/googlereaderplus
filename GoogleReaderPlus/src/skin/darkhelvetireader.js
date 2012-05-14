@@ -38,9 +38,16 @@ GRP.darkhelvetireader = function(ID, theme){
 			css += '#chrome-viewer-container{width: auto !important;}';
 			//fix3 #509
 			css += '#star-selector{margin-top: 15px !important;}';
-			
 			css += '#entries{padding-right:0px;}';
+			css += '#gb{display:none;}';
+			css += '#chrome{margin:0 !important;}';
 			
+			css += '#logo-section + #lhn-add-subscription-section {height: 25px;}';
+			css += '#logo-section + #lhn-add-subscription-section #lhn-add-subscription {top: auto !important;}';
+			
+			css += 'span#lhn-add-subscription {cursor: pointer;margin: 0px;background: transparent;color: #818181 !important;font-weight: bold;width: 100%;text-align: left;margin-left:2px;}';
+			css += 'span#lhn-add-subscription:hover, span#lhn-add-subscription.jfk-button-hover{border:none;-webkit-box-shadow:none;margin-left:0px;}'; 
+
 			css = compressCss(css);
 			GM_setValue('cache_theme_'+ID, css);
 			applyCss(css);

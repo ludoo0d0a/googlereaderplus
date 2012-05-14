@@ -968,28 +968,6 @@ function getMetadata(){
     return metadata;
 }
 
-
-/*
- * Various useful methods
- */
-function sublime_update(){
-    //hide searh
-    var s = get_id('search');
-    hide(s);
-    s.addEventListener('click', function(e){
-        e.stopPropagation();
-    }, false);
-    //new search
-    dh(false, 'searchicon', {
-        id: 'searchicon',
-        html: 'SEARCH'
-    }, {
-        click: function(){
-            toggle(s);
-        }
-    });
-}
-
 function showallfolders(){
     var saf = 'rpe_showallfolders';
     var elsaf = get_id(saf);
