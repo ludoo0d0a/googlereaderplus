@@ -124,12 +124,11 @@ GRP.theme = function(prefs, langs, ID, SL, lang, scop){
                     }
                     
                     if (css) {
+                        if (skin.fix) {
+	                        css += skin.fix;
+	                    }
                         if (skin.compact || (typeof skin.compact ==='undefined')){
-	                        css = css.replace(/\n/g, ' ');
-	                        css = css.replace(/\-moz\-/g, '-webkit-');
-	                        if (skin.fix) {
-	                            css += skin.fix;
-	                        }
+	                        css = css.replace(/\n/g, ' ').replace(/\-moz\-/g, '-webkit-');
 	                        if (skin.patch){
                             	foreach(skin.patch,function(o){
                             		css = css.replace(new RegExp(o.from,'g'),o.to);

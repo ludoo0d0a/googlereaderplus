@@ -146,17 +146,19 @@ function renderScripts(){
     showcat(list, true);
 	
 	//expand all 
-	var eall = get_id('expandall');
+	var togall=false, eall = get_id('expandall');
 	if (eall){
 		eall.onclick=function(e){
 			e.stopPropagation();
-			if (hasClass(eall, 'expanded')){
+			if (togall){
+			//if (hasClass(eall, 'expanded')){
 				removeClass(eall, 'expanded');
 				toggleCategories(true);
 			}else{
 				addClass(eall, 'expanded');
 				toggleCategories(false);
 			}
+			togall=!togall;
 		};
 	}
 }

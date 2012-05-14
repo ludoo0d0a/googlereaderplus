@@ -10,6 +10,7 @@
 
 GRP.removeads = function(prefs, langs, ID, SL, lang){
 	var re = {iframes:false, links:false, images:false};
+	var reYoutube = /www\.youtube\.com\/embed\/([^\?]+)/, prefVideoPreview=prefs[ID+'_videopreview'];
 	var wildcard=true;
 	function getRegex(re, id){
 		var p = prefs[ID+'_'+id];
@@ -65,22 +66,6 @@ GRP.removeads = function(prefs, langs, ID, SL, lang){
 				}
 			}
 		
-			// Remove Right-side Ads
-			if (re.iframes) {
-				var iframes = entry.getElementsByTagName("iframe");
-				len = iframes.length;
-				if (iframes && len>0){
-					for (i=len-1; i>=0; i--) {
-						var el=iframes[i];
-						if (el && re.iframes.test(el.src)) {
-							//el.height = 0; el.width = 0;
-							el.src='';
-							adremove(el,'blue');
-						}
-					}
-				}
-			}
-			
 			if (re.images) {
 				var imgs = entry.getElementsByTagName("img");
 				len = imgs.length;
@@ -99,6 +84,39 @@ GRP.removeads = function(prefs, langs, ID, SL, lang){
 					}
 				}
 			}
+			
+			// Remove Right-side Ads
+			//if (re.iframes) {
+				var iframes = entry.getElementsByTagName("iframe");
+				len = iframes.length;
+				if (iframes && len>0){
+					for (i=len-1; i>=0; i--) {
+						var el=iframes[i],u=el.src;
+						if (el && re.iframes && re.iframes.test(u)) {
+							//el.height = 0; el.width = 0;
+							el.src='';
+							adremove(el,'blue');
+						}else{
+//check preview
+//Replace Youtube video with preview
+//http://www.youtube.com/embed/XwpKjEa4LYY
+if (prefVideoPreview){
+	var m = reYoutube.exec(u);
+	if (m && m[1]){
+		el.src='';
+		var vid=m[1],r='//i.ytimg.com/vi/'+vid+'/default.jpg';
+		var u2 = '//www.youtube.com/watch?v='+vid;
+		var link = dh(el, 'a', {href:u2,target:'_blank',cls:'videopreview', html:'<img alt="" src="'+r+'"/>',position:'before'});
+		adremove(el,'blue');
+	}
+}
+						}
+					}
+				}
+			//}
+			
+			
+
 		},10);
 	}
 		
