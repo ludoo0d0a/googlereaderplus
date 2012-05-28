@@ -12,7 +12,7 @@ GRP.linkedin = function(prefs, langs, ID, SL, lang){
     };
 	
 	function openPopup(o){
-		var tplUrl = 'http://www.linkedin.com/shareArticle?summary={desc}&url={url}&source=9+to+5+Mac+Apple+Intelligence&title={title}&mini=true';
+		var tplUrl = 'http://www.linkedin.com/shareArticle?summary={desc}&url={url}&source=ReaderPlus&title={title}&mini=true';
 		var WINDOW_STYLE = 'scrollbars=yes,width=475,height=300,top=175,left=75,' +
 		'status=yes,resizable=yes';
 		var FORM_NAME = 'bloggerForm';

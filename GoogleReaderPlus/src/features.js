@@ -709,6 +709,34 @@ GRP.scripts = {
 			}
 		}
 	},
+	linkedin: {
+		name: "LinkedIn",
+		category: 'share',
+		status:'new',
+		/*options: {
+			auth: {
+				xtype: 'p',
+				label: true,
+				cls: 'subtitle'
+			},
+			username: '',
+			password: {
+				input: 'password',
+				value: ''
+			}
+		},*/
+		shortcuts: {
+			'share': {
+				id: 'share',
+				title: 'Share with LinkedIn',
+				key: {
+					//75 k
+					keyCode: 75,
+					shiftKey: true
+				}
+			}
+		}
+	},
 	identi: {
 		name: "Identi.ca",
 		category: 'share',
