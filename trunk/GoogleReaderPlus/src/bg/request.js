@@ -141,8 +141,22 @@ function enhanceResponse(a, res){
             	var m = text.split(a.strip);
             	text=(m && m[1])?m[1]:text;
             }
+            if (a.unescaped){
+				text=text.replace(/\n/g,'');
+				text=text.replace(/"/g,'##"##');
+				text=text.replace(/'/g,'"');
+				text=text.replace(/##"##/g,"'");
+				text=text.replace(/\\x27/g,"'");
+				text=text.replace(/\\x3d/g,unescape('\x3d'));
+				text=text.replace(/\\x26/g,unescape('\x26'));
+				/*text=text.replace(/\\x\w\w/g,function(m){
+					return decodeURIComponent(m);
+				});*/
+            }
+            
             res.responseJson = JSON.parse(text);
         } catch (e) {
+        	console.error('JSON parsing error in enhanceResponse',e);
         }
     }
     if (a.xpath && xhr.responseXML) {

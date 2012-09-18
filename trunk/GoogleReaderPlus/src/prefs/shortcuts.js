@@ -46,7 +46,7 @@ function run_extshortcuts(){
         return 0;
     });
 	var tplShorcutGoogle = '<li class="shortcut_google"><span>{keytext}</span>{title}</li>';
-	var tplShorcut = '<li><a href="javascript:showPanel(\'{script}\');"><span>{keytext}</span>{title}</a></li>';
+	var tplShorcut = '<li><a href="#" class="gra" gr-action="click:showPanel(\'{script}\');"><span>{keytext}</span>{title}</a></li>';
     foreach(shortcuts, function(o){
         o.shortcut.script=o.script;
 		var tpl = (o.script==='google')?tplShorcutGoogle:tplShorcut;

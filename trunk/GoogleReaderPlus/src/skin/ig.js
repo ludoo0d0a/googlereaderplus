@@ -196,12 +196,12 @@ GRP.ig = function(prefs, langs, ID, SL, lang){
 					text_color: colors['gadget_area.gadget.body.link_color'],
 					link_color: colors['gadget_area.gadget.body.link_color'],
 
-					nav_bg_color: colors['navbar.background_color'],
-					nav_text_color:colors['navbar.tab.unselected.link_color']||colors['navbar.tab.selected.link_color'],
+					nav_bg_color: colors['navbar.background_color']||'white',
+					nav_text_color:colors['navbar.tab.unselected.link_color']||colors['navbar.tab.selected.link_color']||'black',
 
-					border_color: colors['gadget_area.border_color']||colors['gadget_area.gadget.border_color'],
-					bg_action: colors['gadget_area.gadget.header.background_color'],
-                    txt_action: colors['gadget_area.gadget.header.text_color'],
+					border_color: colors['gadget_area.border_color']||colors['gadget_area.gadget.border_color']||'transparent',
+					bg_action: colors['gadget_area.gadget.header.background_color']||'transparent',
+                    txt_action: colors['gadget_area.gadget.header.text_color']||'transparent',
 					
                     entry_color: '#fff',
                     skin_name: less_escape(skin_name)

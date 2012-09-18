@@ -30,17 +30,14 @@
 		<script type="text/javascript" src="lib/jscolor/jscolor.js"></script>
         <script type="text/javascript" src="skin/mytheme.js"></script>
         <link href="https://plus.google.com/u/0/b/100677027745213382643" rel="publisher" />
-        <script type="application/javascript">
-            var lang = 'en', prefs = {}, gshortcuts = {}, gcomp=false;
-            window.onload = initGRP;
-        </script>
+        <script type="text/javascript" src="prefs/main.js"></script>
     </head>
     <body>
         <form id="frmprefs" name="frmprefs">
             <div id="main">
                 <div class="container1">
                     <ul class="mnu rounded nav1">
-                        <li class="first item"><a id="t_link_reader" href="#" onclick="findReader();"><span>Google Reader</span>Your RSS reader</a></li>
+                        <li class="first item"><a id="t_link_reader" class="gra" href="#" gr-action="click:findReader()"><span>Google Reader</span>Your RSS reader</a></li>
                         <li class="item"><a id="t_link_issues" href="http://code.google.com/p/googlereaderplus/issues/entry"><span>Report issue</span>Found a bug or suggestion ?</a></li>
                         <li class="item"><a id="t_link_download" href="https://chrome.google.com/webstore/detail/hhcknjkmaaeinhdjgimjnophgpbdgfmg" target="_blank"><span>Google Extension</span>The place to download</a></li>
                         <li class="item"><a id="t_link_about" href="about.html" target="_blank"><span>About</span>About, thanks,...</a></li>
@@ -57,9 +54,9 @@
 						<li class="last button badge">
 							<div id="gplus">
 								<div class="g-plusone"></div>
-<script type="text/javascript">
+<!--script type="text/javascript">
 (function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();
-</script>								
+</script-->								
 							</div>
 						</li>
                     </ul>
@@ -94,7 +91,7 @@
                             <option value="uk">Ukrainan - Українська</option>
                             <option value="tr">Turkish - Türkçe</option>
                         </select>
-                        <input id="t_val-save" type="button" class="ignore" name="saveform" value="Save" onClick="saveprefs();"/>
+                        <input id="t_val-save" gr-action="click:saveprefs()" type="button" class="ignore gra" name="saveform" value="Save" />
                     </div>
                     <div id="panels">
                         <div id="panel_theme" style="display:none;">
@@ -110,12 +107,12 @@
                         <div id="panel_pack" style="display:none;">
                             <div class="body">
                                 <ul class="rounded mnu pack">
-                                    <li class="first"><a id="t_pack_mini" href="javascript:setpackage('mini');"><span>Package Mini</span>The minimum for best reading</a></li>
-                                    <li><a id="t_pack_start" href="javascript:setpackage('start');"><span>Package Start</span>An overview of best features</a></li>
-                                    <li><a id="t_pack_ludoo" href="javascript:setpackage('ludoo');"><span>Package LudoO</span>The best features in one click</a></li>
-                                    <li><a id="t_pack_full" href="javascript:setpackage('full');"><span>Package Full</span>All features activated</a></li>
-                                    <li><a id="t_pack_mini" href="javascript:setpackage('none');"><span>Package None</span>Https only</a></li>
-                                    <li class="last"><a id="t_pack_reset" href="javascript:setpackage('reset');"><span>Package Reset</span>Reset your configuration</a></li>
+                                    <li class="first"><a id="t_pack_mini" href="#" gr-action="click:setpackage('mini');"><span>Package Mini</span>The minimum for best reading</a></li>
+                                    <li><a id="t_pack_start" href="#" gr-action="click:setpackage('start');"><span>Package Start</span>An overview of best features</a></li>
+                                    <li><a id="t_pack_ludoo" href="#" gr-action="click:setpackage('ludoo');"><span>Package LudoO</span>The best features in one click</a></li>
+                                    <li><a id="t_pack_full" href="#" gr-action="click:setpackage('full');"><span>Package Full</span>All features activated</a></li>
+                                    <li><a id="t_pack_none" href="#" gr-action="click:setpackage('none');"><span>Package None</span>Https only</a></li>
+                                    <li class="last"><a id="t_pack_reset" href="#" gr-action="click:setpackage('reset');"><span>Package Reset</span>Reset your configuration</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -130,40 +127,40 @@
                             <div class="body">
                                 <span id="t_thanks_donators">Thanks to donators to contribute to this project</span>:
                                 <ul class="rounded mnu donators">
-                                    <li class="first"><!--4+4+4--><a href="javascript:void();"><span>Bill Moldrup</span></a></li>
-									<li><!--10--><a href="javascript:void();"><span>Daniel Garber</span></a></li>
-									<li><!--10--><a href="javascript:void();"><span>Joar Øyen</span></a></li>
-									<li><!--10--><a href="javascript:void();"><span>Borivoj Krgin</span></a></li>
-									<li><!--10--><a href="javascript:void();"><span>Tina Gunnarsson</span></a></li>
-									<li><!--10--><a href="javascript:void();"><span>Mohammed Najem</span></a></li>
-									<li><!--10--><a href="javascript:void();"><span>Massimo Carnevali</span></a></li>
-									<li><!--10--><a href="javascript:void();"><span>Ian Chipman</span></a></li>
+                                    <li class="first"><!--4+4+4--><a href="#"><span>Bill Moldrup</span></a></li>
+									<li><!--10--><a href="#"><span>Daniel Garber</span></a></li>
+									<li><!--10--><a href="#"><span>Joar Øyen</span></a></li>
+									<li><!--10--><a href="#"><span>Borivoj Krgin</span></a></li>
+									<li><!--10--><a href="#"><span>Tina Gunnarsson</span></a></li>
+									<li><!--10--><a href="#"><span>Mohammed Najem</span></a></li>
+									<li><!--10--><a href="#"><span>Massimo Carnevali</span></a></li>
+									<li><!--10--><a href="#"><span>Ian Chipman</span></a></li>
                                     <li><!--10--><a href="http://www.webslinky.com/" target="blank"><span>Lee Murawski</span></a></li>
-                                    <li><!--10--><a href="javascript:void();"><span>Gautham Shankar</span></a></li>
-									<li><!--10--><a href="javascript:void();"><span>Ivan Trofimov</span></a></li>
-									<li><!--10--><a href="javascript:void();"><span>WK Hon</span></a></li>
-									<li><!--10--><a href="javascript:void();"><span>Ivan Trofimov</span></a></li>
-                                    <li><!--2+5--><a href="javascript:void();"><span>Timo Ruppell</span></a></li>
-                                    <li><!--5--><a href="javascript:void();"><span>Donavon Davis</span></a></li>
-                                    <li><!--5--><a href="javascript:void();"><span>Paul Burford</span></a></li>
-                                    <li><!--5--><a href="javascript:void();"><span>Johannes Möckel</span></a></li>
-                                    <li><!--5--><a href="javascript:void();"><span>Malcolm E Cook</span></a></li>
-									<li><!--5--><a href="javascript:void();"><span>Gregory Heller-LaBelle</span></a></li>
-									<li><!--5--><a href="javascript:void();"><span>Parker Harrington</span></a></li>
-                                    <li><!--5--><a href="javascript:void();"><span>Darren Lynn</span></a></li>
-                                    <li><!--4--><a href="javascript:void();"><span>Moira Steinberg</span></a></li>
-									<li><!--4--><a href="javascript:void();"><span>Husam Alghamdi</span></a></li>
-                                    <li><!--3--><a href="javascript:void();"><span>Feng Gao</span></a></li>
-                                    <li><!--3--><a href="javascript:void();"><span>Ally Akbarzadeh</span></a></li>
-                                    <li><!--2--><a href="javascript:void();"><span>Ana Guadalupe Bojado Hernández</span></a></li>
-                                    <li><!--2--><a href="javascript:void();"><span>Michael Schwartzentruber</span></a></li>
-                                    <li><!--2--><a href="javascript:void();"><span>William Banks</span></a></li>
-                                    <li><!--1.5--><a href="javascript:void();"><span>Michael Breitenfeld</span></a></li>
-                                    <li><!--1+1--><a href="javascript:void();"><span>Herwig Hofmeister</span></a></li>
-                                    <li><!--1--><a href="javascript:void();"><span>Scott Parente</span></a></li>
-                                    <li><!--1--><a href="javascript:void();"><span>Brie Koyanagi</span></a></li>
-                                    <li><!--1--><a href="javascript:void();"><span>Shane Lange</span></a></li>
-									<li class="last"><!--0.5--><a href="javascript:void();"><span>Kenzo Kobayashi</span></a></li>
+                                    <li><!--10--><a href="#"><span>Gautham Shankar</span></a></li>
+									<li><!--10--><a href="#"><span>Ivan Trofimov</span></a></li>
+									<li><!--10--><a href="#"><span>WK Hon</span></a></li>
+									<li><!--10--><a href="#"><span>Ivan Trofimov</span></a></li>
+                                    <li><!--2+5--><a href="#"><span>Timo Ruppell</span></a></li>
+                                    <li><!--5--><a href="#"><span>Donavon Davis</span></a></li>
+                                    <li><!--5--><a href="#"><span>Paul Burford</span></a></li>
+                                    <li><!--5--><a href="#"><span>Johannes Möckel</span></a></li>
+                                    <li><!--5--><a href="#"><span>Malcolm E Cook</span></a></li>
+									<li><!--5--><a href="#"><span>Gregory Heller-LaBelle</span></a></li>
+									<li><!--5--><a href="#"><span>Parker Harrington</span></a></li>
+                                    <li><!--5--><a href="#"><span>Darren Lynn</span></a></li>
+                                    <li><!--4--><a href="#"><span>Moira Steinberg</span></a></li>
+									<li><!--4--><a href="#"><span>Husam Alghamdi</span></a></li>
+                                    <li><!--3--><a href="#"><span>Feng Gao</span></a></li>
+                                    <li><!--3--><a href="#"><span>Ally Akbarzadeh</span></a></li>
+                                    <li><!--2--><a href="#"><span>Ana Guadalupe Bojado Hernández</span></a></li>
+                                    <li><!--2--><a href="#"><span>Michael Schwartzentruber</span></a></li>
+                                    <li><!--2--><a href="#"><span>William Banks</span></a></li>
+                                    <li><!--1.5--><a href="#"><span>Michael Breitenfeld</span></a></li>
+                                    <li><!--1+1--><a href="#"><span>Herwig Hofmeister</span></a></li>
+                                    <li><!--1--><a href="#"><span>Scott Parente</span></a></li>
+                                    <li><!--1--><a href="#"><span>Brie Koyanagi</span></a></li>
+                                    <li><!--1--><a href="#"><span>Shane Lange</span></a></li>
+									<li class="last"><!--0.5--><a href="#"><span>Kenzo Kobayashi</span></a></li>
 									
                                 </ul>
                                 <span id="t_thanks_translators">Thanks to translators</span>:
