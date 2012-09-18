@@ -40,7 +40,7 @@ GRP.scripts = {
 			preferences: {
 				xtype: 'html',
 				label: true,
-				value: '<input id="ieprefs" class="ignore" type="text" size="30"/><input type="button" id="bimport" value="import" onclick="importprefs();"/><input type="button" id="bexport" value="export" onclick="exportprefs();"/>'
+				value: '<input id="ieprefs" class="ignore" type="text" size="30"/><input type="button" id="bimport" value="import" class="gra" gr-action="click:importprefs();"/><input type="button" id="bexport" value="export" class="gra" gr-action="click:exportprefs();"/>'
 			},
 			syncprefs_text: {
 				xtype: 'p',
@@ -49,7 +49,7 @@ GRP.scripts = {
 			syncprefs: {
 				xtype: 'html',
 				label: true,
-				value: '<input type="button" id="bsync_load" value="Load from your Google\'s account" onclick="syncload();"/><input type="button" id="bsync_save" value="Save into your Google\'s account"  onclick="syncsave();"/>'
+				value: '<input type="button" id="bsync_load" value="Load from your Google\'s account" class="gra" gr-action="click:syncload();"/><input type="button" id="bsync_save" value="Save into your Google\'s account"  class="gra" gr-action="click:syncsave();"/>'
 			}
 		}
 	},
@@ -413,12 +413,12 @@ GRP.scripts = {
 			newbar: {
 				xtype: 'html',
 				label: true,
-				value: '<input type="button" id="setnewbar_on" value="Set new bar" onclick="setnewbar(true);"/>'
+				value: '<input type="button" id="setnewbar_on" value="Set new bar" class="gra" gr-action="click:setnewbar(true);"/>'
 			},
 			oldbar: {
 				xtype: 'html',
 				label: true,
-				value: '<input type="button" id="setnewbar_off" value="Restore old bar" onclick="setnewbar(false);"/>'
+				value: '<input type="button" id="setnewbar_off" value="Restore old bar" class="gra" gr-action="click:setnewbar(false);"/>'
 			}
 		}
 	},

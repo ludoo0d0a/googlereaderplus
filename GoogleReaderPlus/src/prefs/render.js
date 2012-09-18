@@ -38,10 +38,12 @@ function showPanel(hash){
     }
     var panel = document.getElementById('panel_' + id);
     if (lastPanel) {
-        lastPanel.style.display = "none";
+        hide(lastPanel);
     }
     if (panel) {
-        panel.style.display = "inline";
+        setTimeout(function(){
+        	show(panel);
+        },0);
         lastPanel = panel;
         window.location.hash = '#' + id;
     }
@@ -65,8 +67,8 @@ var lastCat;
 function renderScripts(){
     var list = document.getElementById('scriptlist');//ul#scriptlist
     var panels = document.getElementById('panels');
-    var tplCheckbox = '<li id="l_{id}"><a href="javascript:showPanel(\'{id}\')"><input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{tdesc}">{name}{status}</label><span class="open">{dlink}</span></a></li>';
-    var tplLink = '<li id="l_{id}"><a class="link" href="javascript:showPanel(\'{id}\')"><span class="linkblock">{name}</span><span class="open olink">{dlink}</span></a></li>';
+    var tplCheckbox = '<li id="l_{id}"><a href="#" class="gra" gr-action="click:showPanel(\'{id}\')"><input id="{id}" name="{id}" type="checkbox" /><label for="{id}" id="l{id}" title="{tdesc}">{name}{status}</label><span class="open">{dlink}</span></a></li>';
+    var tplLink = '<li id="l_{id}"><a class="link gra" href="#" gr-action="click:showPanel(\'{id}\')"><span class="linkblock">{name}</span><span class="open olink">{dlink}</span></a></li>';
     var tplPanelTitle = '<div class="title"><h2>{name}</h2><div id="paneldesc_{id}" class="desc">{desc}</div></div>';
     var tplPanelIframe = '<div class="title"><h2>{name}</h2><iframe src="{url}" width="700" height="620"></iframe></div>';
     var categories = group(GRP.scripts, 'category');
@@ -176,7 +178,8 @@ var tplTextarea = '<label class="lbl lbltxtarea {lcls}" id="t_{id}" for="{id}">{
 var tplCheckbox = '<input id="{id}" name="{id}" type="checkbox"/><label class="lbl_checkbox" id="t_{id}" for="{id}">{text}</label><br/>';
 var tplSelect = '<label class="lbl {lcls}" id="t_{id}">{text}</label><select name="{id}" id="{id}">{options}</select><br/><br/>';
 var tplSelectOption = '<option value="{id}"{checked}>{value}</option>';
-var tplButton = '<button value="{value}" name="{name}" id="{id}" onclick="javascript:{action}();return false;">{text}</button>';
+//var tplButton = '<button value="{value}" name="{name}" id="{id}" class="gra" gr-action="click:{action}();">{text}</button>';
+var tplButton = '<button value="{value}" name="{name}" id="{id}">{text}</button>';
 var tplPara = '<p class="{cls}" id="t_{id}">{text}</p>';
 var tplHeader = '<h{level}>{text}</h{level}>';
 var tplDiv = '<div class="{cls}" id="{id}"></div>';
@@ -472,3 +475,40 @@ function previewtheme(){
 		imgprview.src = "";
 	}
 }
+function parseAction(action){
+	var o=false, r = /([^\.]+):([^\(]+)\((.*)\);?/.exec(action);
+	if (r && r[2]){
+		o= {
+			event:r[1],
+			fn:r[2],
+			args:[]
+		};
+		if (r[3]){
+			var args=r[3].split(',');
+			for (var i=0,len=args.length; i <len; i++){
+			  args[i]=args[i].replace(/^'/,'').replace(/'$/,'');
+			  if (args[i].toLowerCase()==='false'){
+			  	args[i]=false;
+			  }else if (args[i].toLowerCase()==='true'){
+			  	args[i]=true;
+			  }else if (/\d+/.test(args[i])){
+			  	args[i]=parseInt(args[i],10);
+			  }
+			}
+			o.args=args;
+		}
+	}
+	return o;
+}
+function renderLinks(root){
+	foreach(getElementsByClazzName('gra','',root), function(el){
+		var action = getAttr(el, 'gr-action');
+		var o = parseAction(action);
+		if (o){
+			el.addEventListener(o.event, function(){
+				return window[o.fn].apply(this, o.args) || false;
+			}, false);
+		}
+	});
+}
+

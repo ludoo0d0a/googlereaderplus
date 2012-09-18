@@ -91,9 +91,11 @@ GRP.api_micro = function(prefs, langs, ID, SL, lang, api){
 		bitly: function(url, cb){
 			var thelongurl = encodeURIComponent(url);
 			// urlinput.value = "making url tiny...";
+			//bitlykey->shortener_apikey
+			//bitlylogin->shortener_login
 			var o = {
-				login: getPref('bitlylogin', 'twitthis'),
-				apiKey: getPref('bitlykey', 'R_f0b6b5e3a4c028b3ec97119e4f3ce16c'),
+				login: getPref('shortener_login', 'twitthis'),
+				apiKey: getPref('shortener_apikey', 'R_f0b6b5e3a4c028b3ec97119e4f3ce16c'),
 				url: thelongurl
 			};
 			var tpl = "http://api.bit.ly/shorten?version=2.0.1&login={login}&apiKey={apiKey}&format=xml&longUrl={url}";

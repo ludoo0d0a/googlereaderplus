@@ -4,20 +4,20 @@
 // 
 var tpl_ig_skin_block = '{{%IMPLICIT-ITERATOR}}' +
 '<div class="indi_cats">{{#cats}}' +
-'<span class="indi_link" onclick="javascript:igcat(\'{{id}}\')">{{name}}</span> ' +
+'<span class="indi_link gra" gr-action="click:igcat(\'{{id}}\')">{{name}}</span> ' +
 '{{/cats}}</div>' +
 '<div class="indi_sort">{{#sorts}}' +
-'<span class="indi_link" onclick="javascript:igsort(\'{{id}}\')">{{name}}</span> - ' +
+'<span class="indi_link gra" gr-action="click:igsort(\'{{id}}\')">{{name}}</span> - ' +
 '{{/sorts}}</div>' +
-'<form onsubmit="javascript:igsearch();return false;"><input type="text" value="{{q}}" size="20" id="igq"><input type="submit" value="{{txt_search}}">' +
-'&nbsp;<span class="indi_link" onclick="javascript:igprevious()">{{txt_previous}}</span> - ' +
-'<span class="indi_link" onclick="javascript:ignext()">{{txt_next}}</span> - ' +
-'<span class="indi_link" onclick="javascript:igrnd()">{{txt_random}}</span>' +
+'<form class="gra" gr-action="submit:igsearch()"><input type="text" value="{{q}}" size="20" id="igq"><input type="submit" value="{{txt_search}}">' +
+'&nbsp;<span class="indi_link gra" gr-action="click:igprevious()">{{txt_previous}}</span> - ' +
+'<span class="indi_link gra" gr-action="click:ignext()">{{txt_next}}</span> - ' +
+'<span class="indi_link gra" gr-action="click:igrnd()">{{txt_random}}</span>' +
 '</form>' +
 '<div class="indi_entries">' +
 '{{#entry}}<div class="indi_entry">' +
 '<div class="indi_entry_title_wrap"><div class="indi_entry_title">{{title}}</div></div>' +
-'<div class="indi_thumbnail"><img class="indi_img" src="http://skins.gmodules.com/ig/skin_fetch?type=4&sfkey={{dthumbnail}}" onclick="javascript:setTheme(\'{{skin_id}}\')"/></div>' +
+'<div class="indi_thumbnail"><img class="indi_img gra" src="{{dthumbnail}}" gr-action="click:setTheme(\'{{skin_id}}\')"/></div>' +
 '</div>{{/entry}}</div>';
 var entries = {}, ig_cat, ig_q = '', ig_pos = 0, ig_page = 4 * 12, ig_sort = 'popular';
 window.lang = window.lang || 'en';
@@ -109,9 +109,9 @@ function getRandomTheme(current, cb, inBg){
     lastSkin = current;
     randomCallback = cb;//global way
     if (inBg) {
-        callApi('randomThemeBg', o, inBg);
+        callApi(randomThemeBg, o, inBg);
     } else {
-        callApi('randomTheme', o, inBg);
+        callApi(randomTheme, o, inBg);
     }
 }
 
@@ -153,7 +153,7 @@ function igsort(sort){
 }
 
 function setTheme(id){
-    var entry = find(entries.entry, 'skin_id', id);
+    var entry = find(entries.entry, 'skin_id', ''+id);
     if (!entry) {
         return;
     }
@@ -174,30 +174,38 @@ function setTheme(id){
     }
 }
 
-function callApi(callback, o, inBg){
+function callApi(cb, o, inBg){
     lang = o.lang || lang || 'en';
     ig_cat = o.cat || '';
     ig_pos = o.pos || 0;
     ig_sort = o.sort || ig_sort;
     ig_q = (typeof o.q === 'undefined') ? ig_q : o.q;
-    var api = 'http://www.google.com/ig/directory?type=themes&output=json&callback=' + callback + '&sort=' + ig_sort + '&cat=' + ig_cat + '&gl=us&hl=en&start=' + ig_pos + '&num=' + ig_page;
+    //&callback=' + callback + '
+    var api = 'https://www.google.com/ig/directory?type=themes&output=json&sort=' + ig_sort + '&cat=' + ig_cat + '&gl=us&hl=en&start=' + ig_pos + '&num=' + ig_page;
     if (ig_q) {
         api += '&q=' + ig_q;
     }
     var a = {
         url: api,
-        onload: function(xhr){
-            var txt = xhr.responseText;
-            var re = new RegExp("^" + callback);
-            if (txt && (re.test(txt))) {
-                eval(txt);
-            }
+        dataType: 'json',
+        unescaped:true,
+        onload: function(res){
+            cb(res.responseJson);
         }
     };
     if (inBg) {
         request(a, true);
     } else {
         GM_xmlhttpRequest(a);
+    }
+}
+
+function run_ig(){
+	//fire on show panel ig theme
+	//render
+	var el = get_id('ig_themes');
+    if (!hasClass(el, 'rendered')){
+    	renderThemes();
     }
 }
 
@@ -208,7 +216,7 @@ function renderThemes(cat, pos, sort, q){
         sort: sort || '',
         q: q || ''
     };
-    callApi('setThemes', o);
+    callApi(setThemes, o);
 }
 
 function checkSkin(entry, lastSkin){
@@ -235,7 +243,9 @@ function setThemes(data){
         txt_random: getTextPrefs(lang, 'ig', 'random') || 'Randm',
         txt_search: getTextPrefs(lang, 'ig', 'search') || 'Search themes',
         dthumbnail: function(){
-            return encodeURIComponent(decodeURIComponent(this.thumbnail));
+            //http://skins.gmodules.com/ig/skin_fetch?type=4&sfkey={{dthumbnail}}
+            //return encodeURIComponent(decodeURIComponent(this.thumbnail));
+            return fixUrlThumb(this.thumbnail);
         }
     });
     var el = get_id('ig_themes');
@@ -243,9 +253,21 @@ function setThemes(data){
         var html = Mustache.to_html(tpl_ig_skin_block, entries);
         //console.log(html);
         el.innerHTML = html;
+        addClass(el, 'rendered');
         checkImages(el);
+        renderLinks(el);
     }
 }
+function fixUrlThumb(src){
+		var url = src;
+		if (/^\/\//.test(url)){
+			url='https:'+url;
+		}
+		if (/^https?\/\//.test(url)){
+			url=url.replace(/\/\//, '://');
+		}
+		return url; 
+	}
 
 function checkImages(el){
     window.setTimeout(function(){

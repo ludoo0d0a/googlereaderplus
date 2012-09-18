@@ -1,3 +1,27 @@
+
+function initprefs(){
+    lang = prefs.language_lang || 'en';
+    console.log('Current lang : ' + lang);
+    loadLangs(lang, function(){
+        loadingPage(true);
+        renderScripts();
+        translatePage(lang);
+        specialTranslate(lang);
+        renderSkins();
+        renderPrefs();
+        var hash = window.location.hash.substring(1) || 'general';
+        showPanel(hash);
+        reportNavigator();
+        renderPreviewTheme();
+        //renderThemes();
+        renderDummies();
+		textareaTab();
+		renderpicker();
+		renderLinks();
+		loadingPage(false);
+    });
+}
+
 function fixReplacer(){
 	fixCloud('Replacer', 'url');
 }
@@ -99,28 +123,6 @@ function exportprefs(synced){
 		var el = document.getElementById("ieprefs");
 		el.value = value;
 	}
-}
-
-function initprefs(){
-    lang = prefs.language_lang || 'en';
-    console.log('Current lang : ' + lang);
-    loadLangs(lang, function(){
-        loadingPage(true);
-        renderScripts();
-        translatePage(lang);
-        specialTranslate(lang);
-        renderSkins();
-        renderPrefs();
-        var hash = window.location.hash.substring(1) || 'general';
-        showPanel(hash);
-        reportNavigator();
-        renderPreviewTheme();
-        renderThemes();
-        renderDummies();
-		textareaTab();
-		renderpicker();
-		loadingPage(false);
-    });
 }
 
 function isChecked(form, name){

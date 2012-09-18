@@ -69,7 +69,7 @@ function addClassIf(el, cls, status, cls2){
     }
 }
 function getAttr(el, name){
-	var attr = el.attributes.getNamedItem(attr);
+	var attr = el.attributes.getNamedItem(name);
 	return (attr)?attr.value:false;
 }
 function addAttr(el, name, value){
@@ -1272,9 +1272,10 @@ function group(a, name){
 function applyRemoteLang(lang, base, id, o, fn, scope){
     GM_xmlhttpRequest({
         method: 'GET',
+        dataType: 'json',
         url: base + '_locales/' + lang + '/' + id + '.json',
         onload: function(res){
-            var data = eval(xhr.responseText);
+            var data = res.responseJson;
             if (data) {
                 //merge data into o
                 applyLast(o[id], data);
@@ -1507,7 +1508,7 @@ function show(el, value){
         if (!el.style) {
             el.style = {};
         }
-        el.style.display = value || '';
+        el.style.display = value || 'block';
     }
 }
 
