@@ -7,11 +7,11 @@ function loadCruds(id){
             tpl: '{{%IMPLICIT-ITERATOR}}<table class="crud rounded" summary="{{summary}}">' +
             '<thead><tr>{{#headers}}<th scope="col" class="crud_header_{{.}}">{{.}}</th>{{/headers}}</tr></thead>' +
             '<tfoot><tr><td colspan="{{colspan}}"><em>{{desc}}</em></td>' +
-            '<td><a id="t_{{$name}}_add" class="add" href="javascript:add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
+            '<td><a href="#" id="t_{{$name}}_add" class="add gra" gr-action="add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
             '<tbody>{{#rows}} ' +
-            '<tr><td><a href="{{url}}" target="_blank"><span>{{#ico}}<img alt="favicon" class="favicon" title="Preview" src="{{icon}}" width="16" height="16"/>{{/ico}}{{etext}}</span></a></td>' +
-            '<td><a class="action" id="t_{{$name}}_edit" href="javascript:add(\'{{$name}}\', \'{{url}}\');">{{txt_edit}}</a></td>' +
-            '<td><a class="action" id="t_{{$name}}_remove" href="javascript:remove(\'{{$name}}\', \'{{url}}\');">{{txt_remove}}</a></td>' +
+            '<tr><td><a href="#" href="{{url}}" target="_blank"><span>{{#ico}}<img alt="favicon" class="favicon" title="Preview" src="{{icon}}" width="16" height="16"/>{{/ico}}{{etext}}</span></a></td>' +
+            '<td><a href="#" id="t_{{$name}}_edit" class="action gra" gr-action="add(\'{{$name}}\', \'{{url}}\');">{{txt_edit}}</a></td>' +
+            '<td><a href="#" id="t_{{$name}}_remove" class="action gra" gr-action="remove(\'{{$name}}\', \'{{url}}\');">{{txt_remove}}</a></td>' +
             '</tr>{{/rows}}</tbody></table>',
             data: {
                 name: 'favicons',
@@ -38,11 +38,11 @@ function loadCruds(id){
             tpl: '{{%IMPLICIT-ITERATOR}}<table class="crud rounded" summary="{{summary}}">' +
             '<thead><tr>{{#headers}}<th scope="col" class="crud_header_{{.}}">{{.}}</th>{{/headers}}</tr></thead>' +
             '<tfoot><tr><td colspan="{{colspan}}"><em>{{desc}}</em></td>' +
-            '<td><a id="t_{{$name}}_add" class="add" href="javascript:add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
+            '<td><a href="#" id="t_{{$name}}_add" class="add gra" gr-action="add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
             '<tbody>{{#rows}} ' +
             '<tr><td><a href="{{.}}" target="_blank"><span>{{#ico}}<img alt="favicon" class="favicon" title="Preview" src="{{icon}}" width="16" height="16"/>{{/ico}}{{etext}}</span></a></td>' +
-            '<td><a class="action" id="t_{{$name}}_edit" href="javascript:add(\'{{$name}}\', \'{{.}}\');">{{txt_edit}}</a></td>' +
-            '<td><a class="action" id="t_{{$name}}_remove" href="javascript:remove(\'{{$name}}\', \'{{.}}\');">{{txt_remove}}</a></td>' +
+            '<td><a href="#" id="t_{{$name}}_edit" class="action gra" gr-action="add(\'{{$name}}\', \'{{.}}\');">{{txt_edit}}</a></td>' +
+            '<td><a href="#" id="t_{{$name}}_remove" class="action gra" gr-action="remove(\'{{$name}}\', \'{{.}}\');">{{txt_remove}}</a></td>' +
             '</tr>{{/rows}}</tbody></table>',
             data: {
                 name: 'column',
@@ -67,11 +67,11 @@ function loadCruds(id){
             tpl: '{{%IMPLICIT-ITERATOR}}<table class="crud rounded" summary="{{summary}}">' +
             '<thead><tr>{{#headers}}<th scope="col" class="crud_header_{{.}}">{{.}}</th>{{/headers}}</tr></thead>' +
             '<tfoot><tr><td colspan="{{colspan}}"><em>{{desc}}</em></td>' +
-            '<td><a id="t_{{$name}}_add" class="add" href="javascript:add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
+            '<td><a href="#" id="t_{{$name}}_add" class="add gra" gr-action="add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
             '<tbody>{{#rows}} ' +
             '<tr><td><a href="{{.}}" target="_blank"><span>{{#ico}}<img alt="favicon" class="favicon" title="Preview" src="{{icon}}" width="16" height="16"/>{{/ico}}{{etext}}</span></a></td>' +
-            '<td><a class="action" id="t_{{$name}}_edit" href="javascript:add(\'{{$name}}\', \'{{.}}\');">{{txt_edit}}</a></td>' +
-            '<td><a class="action" id="t_{{$name}}_remove" href="javascript:remove(\'{{$name}}\', \'{{.}}\');">{{txt_remove}}</a></td>' +
+            '<td><a href="#" id="t_{{$name}}_edit" class="action gra" gr-action="add(\'{{$name}}\', \'{{.}}\');">{{txt_edit}}</a></td>' +
+            '<td><a href="#" id="t_{{$name}}_remove" class="action gra" gr-action="remove(\'{{$name}}\', \'{{.}}\');">{{txt_remove}}</a></td>' +
             '</tr>{{/rows}}</tbody></table>',
             data: {
                 name: 'preview',
@@ -95,11 +95,11 @@ function loadCruds(id){
             tpl: '{{%IMPLICIT-ITERATOR}}<table class="crud rounded" summary="{{summary}}">' +
             '<thead><tr>{{#headers}}<th scope="col" class="crud_header_{{.}}">{{.}}</th>{{/headers}}</tr></thead>' +
             '<tfoot><tr><td colspan="{{colspan}}"><em>{{desc}}</em></td>' +
-            '<td><a id="t_{{$name}}_add" class="add" href="javascript:add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
+            '<td><a href="#" id="t_{{$name}}_add" class="add gra" gr-action="add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
             '<tbody>{{#rows}} ' +
             '<tr><td><a href="{{.}}" target="_blank"><span>{{#ico}}<img alt="favicon" class="favicon" title="Preview" src="{{icon}}" width="16" height="16"/>{{/ico}}{{etext}}</span></a></td>' +
-            '<td><a class="action" id="t_{{$name}}_edit" href="javascript:add(\'{{$name}}\', \'{{.}}\');">{{txt_edit}}</a></td>' +
-            '<td><a class="action" id="t_{{$name}}_remove" href="javascript:remove(\'{{$name}}\', \'{{.}}\');">{{txt_remove}}</a></td>' +
+            '<td><a href="#" id="t_{{$name}}_edit" class="action gra" gr-action="add(\'{{$name}}\', \'{{.}}\');">{{txt_edit}}</a></td>' +
+            '<td><a href="#" id="t_{{$name}}_remove" class="action gra" gr-action="remove(\'{{$name}}\', \'{{.}}\');">{{txt_remove}}</a></td>' +
             '</tr>{{/rows}}</tbody></table>',
             data: {
                 name: 'lightbox',
@@ -123,11 +123,11 @@ function loadCruds(id){
             tpl: '{{%IMPLICIT-ITERATOR}}<table class="crud rounded" summary="{{summary}}">' +
             '<thead><tr>{{#headers}}<th scope="col" class="crud_header_{{.}}">{{.}}</th>{{/headers}}</tr></thead>' +
             '<tfoot><tr><td colspan="{{colspan}}"><em>{{desc}}</em></td>' +
-            '<td><a id="t_{{$name}}_add" class="add" href="javascript:add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
+            '<td><a href="#" id="t_{{$name}}_add" class="add gra" gr-action="add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
             '<tbody>{{#rows}} ' +
-            '<tr><td><a href="http://wedata.net/items/{{id}}" target="_blank">{{id}}</a></td><td>{{.}}</td><td><span class="url_replacer">{{url}}</span><br/>{{search}}<br/>{{replace}}</td>' +
-            '<td><a class="action" id="t_{{$name}}_edit" href="javascript:add(\'{{$name}}\', \'{{.}}\');">{{txt_edit}}</a></td>' +
-            '<td><a class="action" id="t_{{$name}}_remove" href="javascript:remove(\'{{$name}}\', \'{{.}}\');">{{txt_remove}}</a></td>' +
+            '<tr><td><a href="#" href="http://wedata.net/items/{{id}}" target="_blank">{{id}}</a></td><td>{{.}}</td><td><span class="url_replacer">{{url}}</span><br/>{{search}}<br/>{{replace}}</td>' +
+            '<td><a href="#" id="t_{{$name}}_edit" class="action gra" gr-action="add(\'{{$name}}\', \'{{.}}\');">{{txt_edit}}</a></td>' +
+            '<td><a href="#" id="t_{{$name}}_remove" class="action gra" gr-action="remove(\'{{$name}}\', \'{{.}}\');">{{txt_remove}}</a></td>' +
             '</tr>{{/rows}}</tbody></table>',
             data: {
                 name: 'replacer',
@@ -152,11 +152,11 @@ function loadCruds(id){
             tpl: '{{%IMPLICIT-ITERATOR}}<table class="crud rounded" summary="{{summary}}">' +
             '<thead><tr>{{#headers}}<th scope="col" class="crud_header_{{.}}">{{.}}</th>{{/headers}}</tr></thead>' +
             '<tfoot><tr><td colspan="{{colspan}}"><em>{{desc}}</em></td>' +
-            '<td><a id="t_{{$name}}_add" class="add" href="javascript:add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
+            '<td><a href="#" id="t_{{$name}}_add" class="add gra" gr-action="add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
             '<tbody>{{#rows}} ' +
             '<tr><td><a href="{{.}}" target="_blank"><span>{{#ico}}<img alt="favicon" class="favicon" title="Preview" src="{{icon}}" width="16" height="16"/>{{/ico}}{{etext}}</span></a></td>' +
-            '<td><a class="action" id="t_{{$name}}_edit" href="javascript:add(\'{{$name}}\', \'{{.}}\');">{{txt_edit}}</a></td>' +
-            '<td><a class="action" id="t_{{$name}}_remove" href="javascript:remove(\'{{$name}}\', \'{{.}}\');">{{txt_remove}}</a></td>' +
+            '<td><a href="#" id="t_{{$name}}_edit gra" class="action gra" gr-action="add(\'{{$name}}\', \'{{.}}\');">{{txt_edit}}</a></td>' +
+            '<td><a href="#" id="t_{{$name}}_remove " class="action gra" gr-action="remove(\'{{$name}}\', \'{{.}}\');">{{txt_remove}}</a></td>' +
             '</tr>{{/rows}}</tbody></table>',
             data: {
                 name: 'translate',
@@ -181,11 +181,11 @@ function loadCruds(id){
             tpl: '{{%IMPLICIT-ITERATOR}}<table class="crud rounded" summary="{{summary}}">' +
             '<thead><tr>{{#headers}}<th scope="col" class="crud_header_{{.}}">{{.}}</th>{{/headers}}</tr></thead>' +
             '<tfoot><tr><td colspan="{{colspan}}"><em>{{desc}}</em></td>' +
-            '<td><a id="t_{{$name}}_add" class="add" href="javascript:add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
+            '<td><a href="#" id="t_{{$name}}_add" class="add gra" gr-action="add(\'{{$name}}\');">{{txt_add}}</a></td></tr></tfoot>' +
             '<tbody>{{#rows}} ' +
             '<tr><td><a href="{{.}}" target="_blank"><span>{{#ico}}<img alt="favicon" class="favicon" title="Preview" src="{{icon}}" width="16" height="16"/>{{/ico}}{{etext}}</span></a></td>' +
-            '<td><a class="action" id="t_{{$name}}_edit" href="javascript:add(\'{{$name}}\', \'{{.}}\');">{{txt_edit}}</a></td>' +
-            '<td><a class="action" id="t_{{$name}}_remove" href="javascript:remove(\'{{$name}}\', \'{{.}}\');">{{txt_remove}}</a></td>' +
+            '<td><a href="#" id="t_{{$name}}_edit" class="action gra" gr-action="add(\'{{$name}}\', \'{{.}}\');">{{txt_edit}}</a></td>' +
+            '<td><a href="#" id="t_{{$name}}_remove" class="action gra" gr-action="remove(\'{{$name}}\', \'{{.}}\');">{{txt_remove}}</a></td>' +
             '</tr>{{/rows}}</tbody></table>',
             data: {
                 name: 'readability',
@@ -231,6 +231,9 @@ function loadCRUD(id, o){
         //html = fillTemplate(o);
         html = Mustache.to_html(o.tpl, o.data);
         el.innerHTML = html;
+		
+		//+id=='readability'
+		renderLinks(el);
 		
 		if (o.data.save) {
 			dh(el, 'button', {
@@ -301,6 +304,7 @@ function add(id, key){
         //if (id === 'column' || id === 'preview' || id === 'lightbox')
         return addfiltersites(id, key);
     }
+    return false;
 }
 
 /**
@@ -313,7 +317,7 @@ function addfiltersites(id, urlin){
     var url = urlin || DEFAULT_SITE;
     url = prompt(getTextPrefs(lang, id, 'entersite'), url);
     if (!url) {
-        return;
+        return false;
     }
     if (!prefs[id + '_filter']) {
         prefs[id + '_filter'] = [];
@@ -323,6 +327,7 @@ function addfiltersites(id, urlin){
         //Refresh
         loadCRUD(id + '_filter');
     }
+    return true;
 }
 
 function removefiltersites(id, url){

@@ -476,17 +476,17 @@ function previewtheme(){
 	}
 }
 function parseAction(action){
-	var o=false, r = /([^\.]+):([^\(]+)\((.*)\);?/.exec(action);
-	if (r && r[2]){
+	var o=false, r = /(([^\.]+):)?([^\(]+)\((.*)\);?/.exec(action);
+	if (r && r[3]){
 		o= {
-			event:r[1],
-			fn:r[2],
+			event:r[2] || 'click',
+			fn:r[3],
 			args:[]
 		};
-		if (r[3]){
-			var args=r[3].split(',');
+		if (r[4]){
+			var args=r[4].split(',');
 			for (var i=0,len=args.length; i <len; i++){
-			  args[i]=args[i].replace(/^'/,'').replace(/'$/,'');
+			  args[i]=args[i].trim().replace(/^'/,'').replace(/'$/,'');
 			  if (args[i].toLowerCase()==='false'){
 			  	args[i]=false;
 			  }else if (args[i].toLowerCase()==='true'){
@@ -500,14 +500,20 @@ function parseAction(action){
 	}
 	return o;
 }
+//Replace javascript: with addEventListener due to new CSP constraints 
+//format: add class 'gra' then add 'gr-action' attribute for parameters
 function renderLinks(root){
 	foreach(getElementsByClazzName('gra','',root), function(el){
-		var action = getAttr(el, 'gr-action');
-		var o = parseAction(action);
-		if (o){
-			el.addEventListener(o.event, function(){
-				return window[o.fn].apply(this, o.args) || false;
-			}, false);
+		if (!hasClass(el, 'grd')){
+			var action = getAttr(el, 'gr-action');
+			var o = parseAction(action);
+			if (o){
+				el.addEventListener(o.event, function(){
+					window[o.fn].apply(this, o.args);
+					return false;
+				}, false);
+				addClass(el, 'grd');
+			}
 		}
 	});
 }
