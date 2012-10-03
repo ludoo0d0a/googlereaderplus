@@ -49,14 +49,18 @@ GRP.readability = function(prefs, langs, ID, SL, lang) {
 	function replaceBody(text, entry,active) {
 		if(text !== '') {
 			var body = gfe(entry, 'entry-body');//div
-			var el = document.createElement('div');
-			el.className = 'p_' + ID;
-			el.innerHTML = SL.loading;
-			hide(el);
-			el.innerHTML = text;
-			fixLinkTarget(el);
-			body.appendChild(el);
-			showContent(entry,el,active);
+			if (body){
+				var el = document.createElement('div');
+				el.className = 'p_' + ID;
+				el.innerHTML = SL.loading;
+				hide(el);
+				el.innerHTML = text;
+				fixLinkTarget(el);
+				body.appendChild(el);
+				showContent(entry,el,active);
+			}else{
+				console.warn('No body for item '+entry.className);
+			}
 		} 
 	}
 	

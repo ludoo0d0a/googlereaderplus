@@ -45,6 +45,9 @@
     "default_title": "Reader plus enhanced"  
   },
   "content_security_policy": "script-src 'self' https://www.google.com https://ssl.google-analytics.com; object-src 'self'",
+  "web_accessible_resources":[
+  	"res/prefetch.js"
+  ],
   "permissions": [
     "tabs",
 	"http://*/*",
