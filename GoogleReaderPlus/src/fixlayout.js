@@ -12,6 +12,11 @@ GRP.fixlayout = function(prefs, langs, ID, SL, lang){
 		var links = getElements(".//img[@src='" + href + "']", root);
 		return (links && links.length > 0);
 	}
+	function isEntryPlayer(el){
+		//.audio-player-container audio or video player ?
+		var nodes = el.getElementsByClassName('player');
+		return(nodes && nodes.length>0);
+	}
 	function fixEnclosures() {
 		var nodes = getElements("//a[span[@class='view-enclosure']]");
 		if (!nodes || !nodes.length) {
@@ -21,21 +26,23 @@ GRP.fixlayout = function(prefs, langs, ID, SL, lang){
 		nodes.forEach(function(o) {
 			var entry = findParentNode(o, 'div', 'entry');
 			if (entry) {
-				var found = checkImage(entry, o.href);
-				var p = o.parentNode.parentNode;
-				if (found) {
-					if (p && p.parentNode) {
-						p.parentNode.removeChild(p);
-					}
-				} else {
-					var div = document.createElement('div');
-					div.className = "item-pict";
-					var img = document.createElement('img');
-					div.appendChild(img);
-					img.src = o.href;
-					img.align = "left";
-					if (p && p.parentNode) {
-						p.parentNode.replaceChild(div, p);
+				if (!isEntryPlayer(entry)){
+					var found = checkImage(entry, o.href);
+					var p = o.parentNode.parentNode;
+					if (found) {
+						if (p && p.parentNode) {
+							p.parentNode.removeChild(p);
+						}
+					} else {
+						var div = document.createElement('div');
+						div.className = "item-pict";
+						var img = document.createElement('img');
+						div.appendChild(img);
+						img.src = o.href;
+						img.align = "left";
+						if (p && p.parentNode) {
+							p.parentNode.replaceChild(div, p);
+						}
 					}
 				}
 			}
