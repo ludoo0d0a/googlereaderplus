@@ -1,0 +1,490 @@
+# Introduction #
+
+Here is the past of the project. See all evolutions, changes.
+
+# Version 4.1.0 - /2011 #
+> New:
+    * Diaporama: Auto scroll your entries
+    * Hybrid mode (view between list and card)
+> Fixes:
+    * Colorful listview lighter colors
+    * Mark as read as past scroll
+    * Theme metro arrows toggled
+> Enhancements:
+    * Marks as read: Added 2 items after/before current in Marks as read menu
+    * Compact: +fullscreen + hide left panel
+
+
+# Version 4.0.0 - 12/20/2011 #
+> New:
+    * New themes : Mac OS Lion UI ; Nostalgia and Gooder to go back to old theme, ...
+    * New compact option (shortcut z)
+    * Activate new Google's menu or use a mimic preview
+> Fixes:
+    * Fixes due to Google's layout changes
+    * Themes updates
+> Improvements:
+    * Filter improvement : days tag
+
+# Version 3.8.1 - 10/13/2011 #
+> Fixes:
+    * Twitter send nothing
+    * PureReader titles, share icons and videos visible
+
+# Version 3.8.0 - 09/07/2011 #
+> New:
+    * Readability : Read easily full content of a news
+    * Share Weibo : post on Weibo, Chinese Twitter-like
+    * Share Google+
+> Fixes:
+    * Theme Darkhelvetireader auto-update from author site
+    * German translation
+
+# Version 3.7.3 - 08/26/2011 #
+> Fixes:
+    * Theme minimalistic failure
+    * API access for PostRank
+
+# Version 3.7.2 - 08/24/2011 #
+> Enhancements:
+    * "Add top/bottom links" has option for static 'go down' icon.
+    * 'hide toolbar' false as default
+> New themes from userstyles:
+    * Helvetireader 2 Dark
+    * Segoe UI/Lucida Grande Reskinned
+    * Perfect Dark
+> Fixes:
+    * Default shortcut for Diigo and Google Bookmarks
+    * #489: read by mouse showed last scroller
+    * Add a warning alert on Postrank feature (deprecated API because of purchase by G)
+    * DarkHelvetireader star
+    * Rank status stored
+
+# Version 3.7.1 - 08/18/2011 #
+Bugfixes
+
+# Version 3.7.0 - 08/03/2011 #
+> New features:
+    * Popularity filter (ranking provided by pagerank.com)
+    * New theme : Metro
+    * Coverflow / Slideshow
+    * Share with Google Bookmarks
+    * Share with Diigo
+    * Share with Pinboard
+    * Share with Tumblr
+    * Share with Pinboard
+    * Share with Reddit (as popup)
+    * Mark as read as scroll
+> Updates:
+    * Filter bugfixes + minor enhancements
+    * Fix unread count supports nested folders
+    * Nested folders : contextual menu
+    * Translate : works in listview and for long body
+    * Themes compatibility with Google+ UI
+> Deprecated:
+    * Aero toolbar no more supported
+
+# Version 3.6.4 - 05/16/2011 #
+  * Replacer bug fix #439
+  * lang : +German (de)
+
+# Version 3.6.3 - 05/13/2011 #
+  * Colorful fix
+  * Filter : term + keyword fixed
+
+# Version 3.6.2 - 05/12/2011 #
+
+  * New features
+  * - Stars : supertars like gmail labs
+  * Themes
+  * - Portal v2 supports screen resizing
+  * Enhancement
+  * - Filter : Major evolution on expression parsing
+  * - Read by mouse UI revamped, Alt=native behavior
+  * Address bar menu has new items : signin/signout (in case of hidden new UI bar)
+  * Bugfixes
+  * Filter: quoted string and multiple expressions failed
+  * Replacer : filter now duplicates
+  * Languages
+  * - German (partially, in progress), thanks to t.weissert
+
+# Version 3.6.1 - 03/29/2011 #
+
+  * Themes
+  * - Portal v2, enhanced for links click and adjust content size
+  * - PureReader toolbar offset
+  * Enhancement
+  * - Toolbar can be hide in general option
+  * Bugfixes
+
+# Version 3.6.0 - 03/21/2011 #
+
+  * New features
+  * - Filter : totally redesigned
+  * - Actions : use icons only for actions button
+  * - Share items with Identi.ca
+  * - Goo.gl shortener in sharing system
+  * Themes
+  * - GReader Redesigned 1.1.1->2.0.2
+  * - Portal v2, completely rewritten and now fully supports newspaper layout
+  * - Dark Helvetireader (Night / Day)
+  * - Snow Leopard Improved v2 (new Google UI support)
+  * Enhancement
+  * - Favicons : entry title hidden if list and single source
+  * - Favicons : a cluster for the cache improves performance and supports full bandwidth charge
+  * Preview: minor UI enhancements : fade, loading msg
+  * Bugfixes
+  * - #359 multi columns page break
+  * new Google UI support
+  * Custom background picture
+  * Languages
+  * - Romanian, thanks to Kulldox
+
+
+
+# Version 3.5.2 - 02/10/2011 #
+
+  * Bugfixes
+  * - google.com. no more blocked
+  * Enhancement
+  * - New icons for sharing system (twitter,facebook...) - Thanks Ilidio ;)
+
+
+
+# Version 3.5.1 - 02/03/2011 #
+
+  * Enhancement
+  * - Faster favicons/replacer : Cache cloud service from wedata on GAE (Japan is far away)
+  * - Check uri by itself (manifest can fail)
+
+
+
+# Version 3.5.0 - 01/27/2011 #
+
+  * Features
+  * - Sync settings on GoogleDocs
+
+
+
+# Version 3.4.3 - 01/25/2011 #
+
+  * Bugfixes
+  * - Twitter missing lib
+  * - SnowLeopard home height fixed
+
+
+
+# Version 3.4.2 - 12/16/2010 #
+
+  * - Minified version
+  * Languages
+  * - Spanish version ; Thanks to Jorge Salgado
+  * Features
+  * - Theme toggle shortcut (Alt+x)
+  * Bugfixes
+  * - Facebook back to popup #262
+  * - Some shortcut keys changed, because of conflicts
+  * - Chinese words works in filter
+  * - Preview always on + lightbox conflicts
+  * - Monitor poll set to 5 minutes (Google said 1 million requests/day is too large :)
+  * - Twitter uses new oauth core
+  * Themes
+  * - Pure Reader by by Na'Design
+  * - Snow Leopard Improved by by Ilidio Martins
+
+
+
+# Version 3.4.1 - 09/03/2010 #
+
+  * - Deploy problem ; rollback to 3.4.0beta3
+
+
+
+# Version 3.4.0 - 08/25/2010 #
+
+  * Features
+  * - Export entries (in address menu)
+  * - Prefetch more (more entries are loading at the same time) - from userscript <a href='http://userscripts.org/scripts/show/26383'>Google Reader Prefetch More</a>
+  * - Nested folders: add extra level in your folders using a single separator such : for Sports:Footbal- from userscript <a href='http://userscripts.org/scripts/show/64659'>Google Reader: Nested Folders</a>
+  * - Highlight folder of selected item (in General)
+  * - Icons only for actions button (in General)
+  * - CSS selector in Replacer expression (already regex / xpath)
+  * Themes
+  * - WebBizGeek Skin
+  * Experimental:
+  * - Replacer now supports css selector using Sizzle css:#mycontent
+  * Bugfixes
+  * - Replacer expressions from cloud fixed
+  * - Multicolumns munium paragraphs configurable
+  * - Polling time interval (2s) configurable
+
+
+
+# Version 3.3.3 - 07/19/2010 #
+
+  * Bugfixes
+  * - #260 : Linux and macosx crashes : stats in cause ?
+
+
+
+# Version 3.3.2 - 07/16/2010 #
+
+  * Bugfixes
+  * - #260 : webworkers crash chrome5 and 6, not chromium on linux and macosx
+
+
+
+# Version 3.3.1 - 07/16/2010 #
+
+  * Bugfixes
+  * -Uncheck option impossible
+
+
+
+# Version 3.3.0 - 07/15/2010 #
+
+  * Langs:
+  * - Portuguese (Thanks to Ilídio)
+  * Features:
+  * - Favicons in the cloud (community completes missing favicons)
+  * - Replacer expressions from the cloud
+  * - Show all folders (in menu settings)
+  * - Toolbar button shows last unread items with starred/read status (readonly for the moment)
+  * - Filter settings(highlights + excludes ) could be edit in preferences page
+  * Bugfixes
+  * - Toolbar button bugfixes
+
+
+
+# Version 3.2.0 - 07/01/2010 #
+
+  * Features:
+  * - Google themes from homepage (public gallery and editor picks)
+  * - Gmail themes (mytheme has gmail and google theme ; some are dynamics, others are time-based)
+  * - Google analytics added to better know used features and offer a better support (could be set off)
+  * - Page action menu (could be set off)
+  * - 'Bottom up' option in general (put footer next/previous items on the top)
+  * - Replacer now supports remote expressions from <a href='http://wedata.net/databases/LDRFullFeed/items'>wedata/LDRFullFeed</a>
+  * - Preview now opens popup if item is in filter list
+  * - Image resources get from local again (was remote on google code)
+  * Bugfixes
+
+
+# Version 3.1.5 - 04/29/2010 #
+
+  * Bugfixes:
+  * - Clear cache moved in reader page menu
+  * - mytheme bugfixes
+  * - Glassblackgold theme transparency added
+  * - Change lang failed because of missing categories
+
+# Version 3.1.3/3.1.4 - 04/27/2010 #
+
+  * Bugfixes:
+  * button isactive general error openbackground preview failed
+
+# Version 3.1.2 - 04/26/2010 #
+
+  * Features:
+  * - Translate : Translate entries using Google translate
+  * Improvements:
+  * - Categories in preferences
+  * - Replacer config update
+  * - Packages with features+options
+  * - Clear cache button for themes
+  * - CSS fix for remote skin
+  * - Helvetireader2
+  * Bugfixes:
+  * - Instapaper big error
+  * - Locale code fix #192
+  * Themes:
+  * - Optimized Persian (Right to left)
+
+# Version 3.1.1 - 04/16/2010 #
+
+  * Bugfixes:
+  * - open in background failed #191
+  * - column failed
+
+# Version 3.1.0 - 04/01/2010 #
+
+  * Features:
+  * - MyTheme : custom theme with your own background
+  * - iGoogle Theme : Search a iGoogle them and use it in your Google Reader (Beta, still some color bugs)
+  * - General option : Actions as floating window
+  * - General option : force current entry on top
+  * - ReadItLater : Integration of ReadItLater
+  * - Preview in overlay (like Lightbox)
+  * Improvements:
+  * - Replacer now supports Xpath (start expression with xpath:) or Regex selector
+  * - Replacer default config enhanced for all known comics feeds (gocomics.com, explosm.net, penny-arcade.com, cad-comic.com, giantitp.com, userfriendly.org) ; Use 'reset package' to get new defaut config
+  * Bugfixes:
+  * - Replacer old config ->new config
+  * Themes:
+  * - MyTheme : custom theme with your own background
+  * - More themes based on userstyles.org
+
+# Version 3.0.1 - 03/26/2010 #
+
+  * Improvements:
+  * - Array->object structure with key for languages files : enables to set only english
+  * Bugfixes:
+  * - Player theme navigation works + mousewheel
+  * - Colorful listview + theme color conflicts
+  * - Unread count failed on a regex
+  * - Russian translations
+  * Themes:
+  * - Calibri
+
+# Version 3.0.0 - 03/24/2010 #
+
+  * Features:
+  * - New theme 'Player', mimic <a href='https://www.google.com/reader/play/'>Google's Player</a>
+  * - Relook = Add your custom CSS
+  * - Option no border : New option working on all theme
+  * - Filter by site done for column, preview
+  * - Readbymouse middle click on windows for Chrome 5.0.342.1 <a href='http://code.google.com/p/chromium/issues/detail?id=17234'>minimun</a>
+  * Improvements:
+  * - i18n implemented (en,fr,ru,zn\_CH,zn\_TW done)
+  * - Colorlistview script update
+  * - Replacer works with crud list + config for multiple comics/buzz sites
+  * - Better CSS for preferences (rounded+shadow)
+  * - Message passing refactored using chrome.API.sendRequest
+  * - Generic CRUD List control with templates in preferences
+  * Bugfixes:
+  * - #148 : readbymouse button repeated
+
+# Version 2.9.0 - 02/25/2010 #
+
+  * Prefs page html/css improved
+  * Bugfixes:
+  * - #120 : theme minimal no more change on feed select (+specific w toggle shortcut key removed)
+  * - #130 : theme portal getWidthEntries missing
+  * - #132 : cannot save preferences
+  * - #135 : clear Instapaper credentials (now set it in prefs page)
+  * - #137 : improved translations
+  * - #138 : Change name and icon
+  * - #140 : Preview: Not previewing second time round
+  * - Jump top in listview replaced right after title
+  * Features:
+  * - #133 : replacer - replace entry with part of original page
+  * Improvements:
+  * - Speed improvements for features execution on entry changes detection
+
+# Version 2.8.10 - 02/17/2010 #
+
+  * Bugfixes:
+  * - #114 : shortcut for twitter error
+  * - #115 : shortcutkey k conflict
+  * - favicons : wrong guid for loading picture on manual favicon
+
+# Version 2.8.8 - 02/12/2010 #
+
+  * Bugfixes:
+  * - Favicons text overlaps #105
+  * - Favicons completely rewritten to use core
+  * Enhancements:
+  * - Column page break
+  * - Column supports video
+  * - Column reisze video/image on resize
+  * - grp core enhanced
+
+# Version 2.8.7 - 02/08/2010 #
+
+  * Bugfixes:
+  * - Filter duplicate / gray text on all entries
+  * - Bit.ly config possible
+  * - Show unread count 0 if empty
+
+# Version 2.8.6 - 02/06/2010 #
+
+  * Bugfixes:
+  * - french in prefs
+
+# Version 2.8.5 - 05/02/2010 #
+
+  * Bugfixes:
+  * - communication failed with button / GUID pb
+
+# Version 2.8.4 - 02/05/2010 #
+
+  * Bugfixes:
+  * - Features conflicts using title entry (preview, jump, fit height, ...)
+  * - open in background opens in bqckground
+
+# Version 2.8.3 - 02/03/2010 #
+
+  * Bugfixes:
+  * - Wrong entry link / title depending on selected features (conflicts between features)
+  * - Twitter works
+  * - Twitter URL shortener configurable
+
+# Version 2.8.2 - 02/03/2010 #
+
+  * Removed icon in toolbar
+  * Bugfixes:
+  * - Open in background wrong link (regression)
+
+# Version 2.8.1 - 02/02/2010 #
+
+  * New Features:
+  * - Counter in toolbar icon (wait the chromium <a href='http://code.google.com/p/chromium/issues/detail?id=32058'>hide icon</a> feature)
+
+# Version 2.8.0 - 02/02/2010 #
+
+  * New Features:
+  * - Translations (preferences/about pages still to do)
+  * - Intuitive menu
+  * Enhancements:
+  * - Preview title can be toggle between preview/new window
+  * - Icon in toolbar (1st step)
+  * - GoogleReader link finds first an already opened reader
+  * Skins:
+  * - Portal
+  * Bugfixes:
+  * - Jump on activated by default
+  * - Open about page after update only after open google reader page
+
+# Version 2.7.2 - 01/28/2010 #
+
+  * open in background tab url wrong if preview on
+
+# Version 2.7.1 - 01/27/2010 #
+
+  * close entry shortcut bugfix
+
+# Version 2.7.0 - 01/22/2010 #
+
+  * new feature : fit height, open in background, packages
+  * updates : colorful listview now colors tree
+  * Preferences page theme
+  * Custom shortcuts
+  * Favicons improvement
+  * Lock option (some features can now be activated by default)
+  * resize image on multi colum
+  * theme unchecked = no theme
+  * fixenclosures and fixwidth merged into fixlayout
+  * large refactoring of the code
+
+# Version 2.6.0 - 01/08/2010 #
+
+  * new feature : close entry
+  * add system information
+
+# Version 2.5.4 - 01/07/2010 #
+
+  * bugfix on regex for removeads
+
+# Version 2.5.3 - 01/07/2010 #
+
+  * debugging log removed on saved alert
+
+# 2.5.2 - 01/07/2010 #
+
+  * Preferences page rewritten to add options panel by feature
+  * Add an about page (loaded on update/install)
+  * Remove ads filters are configurable (as regular expressions)
+
+# Version 2.5.1 - 01/05/2010 #
+
+  * bugfix for preview height

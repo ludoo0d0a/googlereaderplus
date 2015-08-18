@@ -1,0 +1,53 @@
+# HowTo use replacer #
+
+Here are the things to know to use 'replacer' feature.
+
+
+# Details #
+To create an entry, just add the 4 informations :
+  * title : {a definition of the replacement}
+  * url regex: {a regular expression or url base of the catched urls}
+  * link regex/xpath/css: {a regular expression or an xpath expression to locate data to retrieve ; if xpath it should be prefixed by **xpath:** ; if CSS seletor it should start with **css:**}
+  * replace expression: {the new replaced expression, $n are the captured group of the regex ; not used if xpath}
+
+# Useful links #
+  * [Regular expression guides](http://www.google.com/search?q=regular+expression+javascript)
+  * [Xpath tutorials](http://www.google.com/search?q=xpath+tutorial)
+  * Chrome Console (right clikc "inspect element")
+  * [Firebug](http://www.getfirebug.com)
+  * [Aardvark bookmarklet](http://karmatics.com/aardvark/bookmarklet.html)
+
+# Samples #
+## Sample1 ##
+You want to display comments on posts from a blog.
+Look in the page and find the node containing both post and comments.
+On blogspot you could find, a div[@class='post-outer']
+so config will be
+
+  * Comments blogspot.com
+  * http://[^\\.]+\\.blogspot\\.com
+  * xpath://div[@class='post-outer']
+  * $1
+
+## Sample2 ##
+You want to display image of comic strip instead current link.
+Url of the site is "feedproxied", so we can use regular expression power to add multiple possibilities.
+in the replaed item, $0 is the whole found expression
+$1 is the first group inside whole result (a group is defined by parenthesis.)
+
+  * Gocomics pictures
+  * http://feedproxy.google.com/~r/uclick/| http://www.gocomics.com/
+  * "(http://imgsrv.gocomics.com/dim/[^"]**)"
+  ***<img src='$1'><br /></li></ul>
+
+<h2>Sample3 ##
+Easier syntax using CSS selector)
+
+  * Comments on blogspot.com
+  * blogspot.com
+  * css://div.post-outer
+  * $1
+
+# Contributions #
+
+Each time you add in your config a new expression, it will be saved in the cloud, so that it becomes available to all community.
